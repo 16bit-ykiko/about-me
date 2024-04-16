@@ -2,10 +2,6 @@
     <h1 style="font-size:36px;"><strong>Implement a pybind11-compatible bindings for pocketpy</strong></h1>
 </div>
 
-<div style="text-align: center">
-    <img src="./logo-pocketpy.png" alt="logo">
-</div>
-
 <h1>Content</h1>
 
 - [Personal Information](#personal-information)
