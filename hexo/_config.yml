@@ -3,17 +3,16 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: BLOGS
 subtitle: ''
 description: ''
 keywords:
 author: ykiko
-language: en
-timezone: 'Asia/Shanghai'
+language: zh-CN
+timezone: "Asia/Shanghai"
+email: ykikoykikoykiko@gmail.com
 
-# URL
-## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://16bit-ykiko.github.io/about-me/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -89,16 +88,16 @@ pagination_dir: page
 
 # Include / Exclude file(s)
 ## include:/exclude: options only apply to the 'source/' folder
-#include:
-#exclude:
-#ignore:
+# include:
+# exclude:
+# ignore:
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme:  butterfly
+theme: butterfly
 
-# Deployment
-## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: git
+  repo: https://github.com/16bit-ykiko/about-me.git
+  branch: gh-pages
