@@ -13,7 +13,7 @@ timezone: "Asia/Shanghai"
 email: ykikoykikoykiko@gmail.com
 
 url: https://16bit-ykiko.github.io/about-me/
-permalink: :year/:month/:day/:title/
+permalink: :title/
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
