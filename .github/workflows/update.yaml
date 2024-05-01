@@ -29,6 +29,11 @@ jobs:
       - name: Update pages
         run: python script/update.py
 
+      - name: Commit changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "
+
       - name: Add changes
         run: git add .
 
