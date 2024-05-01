@@ -51,16 +51,28 @@ jobs:
     needs: update
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v2
+      - name: Use Node.js 20
+        uses: actions/setup-node@v1
         with:
           node-version: "20"
 
-      - name: Install dependencies
-        run: cd hexo && npm install
+      - name: Cache NPM dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache
 
-      - name: Generate static files
-        run: hexo clean && hexo generate && hexo deploy
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
