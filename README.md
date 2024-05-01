@@ -1,2 +1,2 @@
 # blog
-about me
+https://16bit-ykiko.github.io/about-me/
