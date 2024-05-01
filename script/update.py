@@ -165,6 +165,8 @@ def main():
         with open(dest, 'w', encoding="utf-8") as f:
             f.write(markdown)
 
+        print(f"Done: {name}")
+
 
 if __name__ == '__main__':
     main()

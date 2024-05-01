@@ -29,10 +29,10 @@ jobs:
       - name: Update pages
         run: python script/update.py
 
-      - name: Commit changes
+      - name: Setup Git
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "
+          git config --global user.name "ykiko"
+          git config --global user.email "ykikoykikoykiko@gmail.com"
 
       - name: Add changes
         run: git add .
