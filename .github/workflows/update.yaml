@@ -69,7 +69,7 @@ jobs:
         run: cd hexo && npm install
 
       - name: Build
-        run: cd hexo && npm run build
+        run: cd hexo && npm run clean && npm run build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
