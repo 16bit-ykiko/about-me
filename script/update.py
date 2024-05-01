@@ -70,7 +70,7 @@ def code_block(element: PageElement) -> str:
     if lang == 'nasm':
         lang = 'x86asm'
     text: str = code.get_text()
-    return f'```{lang}\n{text}{"" if text.endswith("\n") else "\n"}```'
+    return f'```{lang}\\n{text}{"" if text.endswith("\\n") else "\\n"}```'
 
 
 def toMarkdown(result: list, elements: Iterable[PageElement]):
