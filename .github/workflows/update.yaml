@@ -66,10 +66,10 @@ jobs:
             ${{ runner.OS }}-npm-cache
 
       - name: Install Dependencies
-        run: cd hexo && npm install
+        run: cd hexo && npm install && git clone -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly
 
       - name: Build
-        run: cd hexo && npm run clean && npm run build
+        run: cd hexo && npm run clean && npm run build 
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
