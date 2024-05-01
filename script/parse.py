@@ -2,7 +2,9 @@ import os
 import json
 import datetime
 import requests
+
 from typing import Iterable
+from urllib.parse import unquote
 from bs4 import BeautifulSoup, PageElement
 
 urls_map = {}
@@ -11,18 +13,21 @@ urls_map = {}
 def image(element: PageElement) -> str:
     noscript = element.find('noscript')
     img = noscript.find('img')
-    return f'![img]({img.attrs.get("data-original")})'
+    src = img.attrs.get("data-original")
+    if src == None:
+        src = img.attrs.get("data-default-watermark-src")
+    if src == None:
+        src = img.attrs.get("src")
+    return f'![img]({src})'
 
 
 def link(element: PageElement) -> str:
     url: str = element['href']
+    url = unquote(url.replace('//link.zhihu.com/?target=https%3A', ""))
 
-    url = url.replace('//link.zhihu.com/?target=https%3A', "")
-    print(url)
     if url in urls_map:
-
         url = urls_map[url]
-    print(url)
+
     if element.attrs.get('target') == '_blank' and element.attrs.get("data-text") != None:
         return f'[{element.attrs.get("data-text")}]({url})'
     else:
@@ -62,6 +67,8 @@ def code_block(element: PageElement) -> str:
     code = pre.find('code')
     lang: str = code['class'][0]
     lang = lang.replace('language-', '')
+    if lang == 'nasm':
+        lang = 'x86asm'
     text: str = code.get_text()
     return f'```{lang}\n{text}{"" if text.endswith("\n") else "\n"}```'
 
@@ -125,7 +132,7 @@ def request(url: str):
     cover = soup.select("meta[property='og:image']")[0]['content']
 
     created, updated = article(soup)
-    result = [f"# {title}\n\n", f"![cover]({cover})\n\n"]
+    result = [f"# {title}\n\n"]
     body = soup.select('div[class^="RichText"]')[0].children
 
     toMarkdown(result, body)
