@@ -10,6 +10,16 @@ from bs4 import BeautifulSoup, PageElement
 urls_map = {}
 
 
+def get(url: str):
+    n = 0
+    headers = {"Content-Type": "text/html; charset=utf-8"}
+    while n < 5:
+        try:
+            return requests.get(url, headers=headers, timeout=10)
+        except Exception as e:
+            n += 1
+
+
 def image(element: PageElement) -> str:
     noscript = element.find('noscript')
     img = noscript.find('img')
@@ -21,17 +31,28 @@ def image(element: PageElement) -> str:
     return f'![img]({src})'
 
 
-def link(element: PageElement) -> str:
-    url: str = element['href']
+def normalize(url: str) -> str:
     url = unquote(url.replace('//link.zhihu.com/?target=https%3A', ""))
-
     if url in urls_map:
         url = urls_map[url]
+    return url
 
-    if element.attrs.get('target') == '_blank' and element.attrs.get("data-text") != None:
-        return f'[{element.attrs.get("data-text")}]({url})'
-    else:
-        return f'[{element.text}]({url})'
+
+def link(element: PageElement) -> str:
+    url = normalize(element['href'])
+    return f'[{element.text}]({url})'
+
+
+def link_card(element: PageElement) -> str:
+    url = normalize(element['href'])
+    title = element.attrs.get("data-text")
+    if title == None:
+        soup = BeautifulSoup(get(url).text, 'html.parser')
+        title = soup.title.string
+        if title.endswith("| BLOGS"):
+            title = title[:-7]
+
+    return "---\n\n" + title + "\n" + url + "\n\n---"
 
 
 def paragraph(element: PageElement) -> str:
@@ -80,12 +101,11 @@ def toMarkdown(result: list, elements: Iterable[PageElement]):
                 result.append("\n\n")
                 result.append(paragraph(element))
             case 'a':
-                if element.attrs["target"] == "_blank":
-                    result.append("\n\n - " + link(element))
+                result.append("\n\n" + link_card(element))
             case 'h2':
-                result.append(f'\n\n## {paragraph(element)}')
+                result.append(f'\n\n# {paragraph(element)}')
             case 'h3':
-                result.append(f'\n\n### {paragraph(element)}')
+                result.append(f'\n\n## {paragraph(element)}')
             case 'blockquote':
                 result.append("\n\n" + f'> {paragraph(element)}')
             case 'ul':
@@ -124,15 +144,14 @@ def column(soup: BeautifulSoup) -> str:
 
 
 def request(url: str):
-    headers = {"Content-Type": "text/html; charset=utf-8"}
-    response = requests.get(url, headers=headers)
+    response = get(url)
 
     soup = BeautifulSoup(response.text, 'html.parser')
     title = soup.select('h1[class^="Post-Title"]')[0].text
     cover = soup.select("meta[property='og:image']")[0]['content']
 
     created, updated = article(soup)
-    result = [f"# {title}\n\n"]
+    result = []
     body = soup.select('div[class^="RichText"]')[0].children
 
     toMarkdown(result, body)

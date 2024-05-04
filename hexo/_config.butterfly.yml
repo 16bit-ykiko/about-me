@@ -150,8 +150,8 @@ copy:
 toc:
   post: true
   page: false
-  number: true
-  expand: false
+  number: false
+  expand: true
   style_simple: false # for post
   scroll_percent: true
 
