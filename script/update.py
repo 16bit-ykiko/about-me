@@ -103,9 +103,9 @@ def toMarkdown(result: list, elements: Iterable[PageElement]):
             case 'a':
                 result.append("\n\n" + link_card(element))
             case 'h2':
-                result.append(f'\n\n# {paragraph(element)}')
-            case 'h3':
                 result.append(f'\n\n## {paragraph(element)}')
+            case 'h3':
+                result.append(f'\n\n#### {paragraph(element)}')
             case 'blockquote':
                 result.append("\n\n" + f'> {paragraph(element)}')
             case 'ul':
