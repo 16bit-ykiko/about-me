@@ -90,6 +90,8 @@ def code_block(element: PageElement) -> str:
     lang = lang.replace('language-', '')
     if lang == 'nasm':
         lang = 'x86asm'
+    if lang == 'text':
+        lang = 'bash'
     text: str = code.get_text()
     return "```" + lang + "\n" + text + ("" if text.endswith("\n") else "\n") + "```"
 
