@@ -10,12 +10,25 @@ from bs4 import BeautifulSoup, PageElement
 urls_map = {}
 
 
+cookies = {}
+if 'COOKIE_TEXT' in os.environ:
+    cookie_text = os.environ['COOKIE_TEXT']
+    if cookie_text == None:
+        raise Exception("Cookie text is empty")
+
+    for item in cookie_text.split('; '):
+        key, value = item.split('=', 1)
+        cookies[key] = value
+
+    print("Cookies loaded successfully")
+
+
 def get(url: str):
     n = 0
     headers = {"Content-Type": "text/html; charset=utf-8"}
     while n < 5:
         try:
-            return requests.get(url, headers=headers, timeout=10)
+            return requests.get(url, headers=headers, timeout=10, cookies=cookies)
         except Exception as e:
             n += 1
 
@@ -149,6 +162,7 @@ def request(url: str):
     response = get(url)
 
     soup = BeautifulSoup(response.text, 'html.parser')
+
     title = soup.select('h1[class^="Post-Title"]')[0].text
     cover = soup.select("meta[property='og:image']")[0]['content']
 
