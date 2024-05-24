@@ -8,19 +8,7 @@ from urllib.parse import unquote
 from bs4 import BeautifulSoup, PageElement
 
 urls_map = {}
-
-
 cookies = {}
-if 'COOKIE_TEXT' in os.environ:
-    cookie_text = os.environ['COOKIE_TEXT']
-    if cookie_text == None:
-        raise Exception("Cookie text is empty")
-
-    for item in cookie_text.split('; '):
-        key, value = item.split('=', 1)
-        cookies[key] = value
-
-    print("Cookies loaded successfully")
 
 
 def get(url: str):
@@ -176,6 +164,17 @@ def request(url: str):
 
 
 def main():
+    if 'COOKIE_TEXT' in os.environ:
+        cookie_text = os.environ['COOKIE_TEXT']
+    if cookie_text == None:
+        raise Exception("Cookie text is empty")
+
+    for item in cookie_text.split('; '):
+        key, value = item.split('=', 1)
+        cookies[key] = value
+
+    print("Cookies loaded successfully")
+
     current_dir = os.path.dirname(__file__)
     json_path = os.path.join(current_dir, 'map.json')
     map_json = json.loads(open(json_path, 'r').read())
