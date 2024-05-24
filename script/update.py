@@ -164,11 +164,12 @@ def request(url: str):
 
 
 def main():
+    cookie_text = None
     if 'COOKIE_TEXT' in os.environ:
         cookie_text = os.environ['COOKIE_TEXT']
 
-        if cookie_text == None:
-            raise Exception("Cookie text is empty")
+    if cookie_text == None:
+        raise Exception("Cookie text is empty")
 
     for item in cookie_text.split('; '):
         key, value = item.split('=', 1)
