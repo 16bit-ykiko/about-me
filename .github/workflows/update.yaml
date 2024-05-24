@@ -27,6 +27,8 @@ jobs:
           pip install beautifulsoup4 requests
 
       - name: Update pages
+        env:
+          COOKIE_TEXT: ${{ secrets.COOKIE_TEXT }}
         run: python script/update.py
 
       - name: Commit changes
