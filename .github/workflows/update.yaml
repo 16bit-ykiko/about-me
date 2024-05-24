@@ -29,7 +29,9 @@ jobs:
       - name: Update pages
         env:
           COOKIE_TEXT: ${{ secrets.COOKIE_TEXT }}
-        run: python script/update.py
+        run: |
+          echo $COOKIE_TEXT 
+          python script/update.py
 
       - name: Commit changes
         run: |
