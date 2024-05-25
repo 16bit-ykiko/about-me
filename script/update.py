@@ -153,7 +153,6 @@ def column(soup: BeautifulSoup) -> str:
 
 def request(url: str):
     response = get(url)
-    print(response.text)
     soup = BeautifulSoup(response.text, 'html.parser')
 
     title = soup.select('h1[class^="Post-Title"]')[0].text
