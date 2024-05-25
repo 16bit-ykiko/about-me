@@ -23,7 +23,7 @@ def toMarkdown(page: Tag):
                 result.append(f'\n\n## {paragraph(element)}')
             case 'ul':
                 result.append(unordered_list(element))
-            case 'pre':
+            case 'div':
                 result.append(code_block(element))
     return "".join(result)
 
