@@ -21,9 +21,9 @@ def toMarkdown(page: Tag):
             case 'h2':
                 result.append(f'\n\n## {paragraph(element)}')
             case 'ul':
-                result.append("\n" + unordered_list(element))
+                result.append("\n\n" + unordered_list(element))
             case 'div':
-                result.append("\n" + code_block(element))
+                result.append("\n\n" + code_block(element))
     return "".join(result)
 
 
