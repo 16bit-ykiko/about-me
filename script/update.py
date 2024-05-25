@@ -1,27 +1,11 @@
 import os
 import json
-import datetime
-import requests
 
-from parse import toMarkdown, urls_map
+from .request import get
+from .parse import toMarkdown, urls_map
+
 from bs4 import BeautifulSoup
-
-
-cookies = {}
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-}
-
-
-def get(url: str):
-    n = 0
-    while n < 5:
-        try:
-            return requests.get(
-                url, timeout=10, headers=headers, cookies=cookies)
-        except Exception as e:
-            print(e)
-            n += 1
+from datetime import datetime
 
 
 def article(soup: BeautifulSoup) -> str:
@@ -58,22 +42,7 @@ def request(url: str):
     body = soup.select('div[class^="RichText"]')[0]
     result = toMarkdown(body)
 
-    return "".join(result), cover, title, datetime.datetime.fromtimestamp(created), datetime.datetime.fromtimestamp(updated)
-
-
-def load_cookies():
-    cookie_text = None
-
-    if 'COOKIE_TEXT' in os.environ:
-        cookie_text = os.environ['COOKIE_TEXT']
-    else:
-        raise Exception("COOKIE_TEXT not found")
-
-    for item in cookie_text.split('; '):
-        key, value = item.split('=', 1)
-        cookies[key] = value
-
-    print("Cookies loaded successfully")
+    return "".join(result), cover, title, datetime.fromtimestamp(created), datetime.fromtimestamp(updated)
 
 
 def load_urls_map():
@@ -89,7 +58,6 @@ def load_urls_map():
 
 def main():
     current_dir = os.path.dirname(__file__)
-    load_cookies()
     load_urls_map()
 
     for url in urls_map.keys():
