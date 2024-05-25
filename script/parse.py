@@ -15,16 +15,15 @@ def toMarkdown(page: Tag):
     for element in page.children:
         match element.name:
             case 'p':
-                result.append("\n\n")
-                result.append(paragraph(element))
+                result.append("\n\n" + paragraph(element))
             case 'a':
                 result.append("\n\n" + link_card(element))
             case 'h2':
                 result.append(f'\n\n## {paragraph(element)}')
             case 'ul':
-                result.append(unordered_list(element))
+                result.append("\n" + unordered_list(element))
             case 'div':
-                result.append(code_block(element))
+                result.append("\n" + code_block(element))
     return "".join(result)
 
 
