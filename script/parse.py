@@ -1,4 +1,5 @@
 
+from requests import get
 from urllib.parse import unquote
 from bs4 import BeautifulSoup, PageElement, Tag
 
