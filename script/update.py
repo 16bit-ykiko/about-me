@@ -1,6 +1,5 @@
 import os
 import json
-import brotli
 import datetime
 import requests
 
