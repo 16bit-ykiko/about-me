@@ -30,7 +30,6 @@ jobs:
         env:
           COOKIE_TEXT: ${{ secrets.COOKIE_TEXT }}
         run: |
-          echo $COOKIE_TEXT 
           python script/update.py
 
       - name: Commit changes
