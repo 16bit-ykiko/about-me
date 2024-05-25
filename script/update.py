@@ -13,10 +13,12 @@ cookies = {}
 
 def get(url: str):
     n = 0
-    headers = {"Content-Type": "text/html; charset=utf-8"}
+    headers = {
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8"
+    }
     while n < 5:
         try:
-            return requests.get(url, headers=headers, timeout=10, cookies=cookies)
+            return requests.get(url, timeout=10, cookies=cookies, headers=headers)
         except Exception as e:
             n += 1
 
@@ -164,12 +166,7 @@ def request(url: str):
 
 
 def main():
-    cookie_text = None
-    if 'COOKIE_TEXT' in os.environ:
-        cookie_text = os.environ['COOKIE_TEXT']
-
-    if cookie_text == None:
-        raise Exception("Cookie text is empty")
+    cookie_text = '__snaker__id=5wtwqmPSk6Ny2utq; SESSIONID=iz59eiq3vrckOUMMIQwdOtprVYJVnHPWjNuaV5GLIA3; JOID=Vl4RAEqac2-8v_P6BJ1Eda1Ysa0coDxa3P2Tt2vwKRj_iYSgNAIfO9248_8BE88Nngi7pInOw_HY0H0Bvg50J8w=; osd=WlocA0iWd2K_vf_-CZ5GealVsq8QpDFZ3vGXumjyJRzyioasMA8cOdG8_vwDH8sAnQq3oITNwf3c3X4Dsgp5JM4=; _zap=23837413-994c-4340-95b4-2af240db134d; d_c0=AMCWuOFFUBiPTpy5Y4GgwgnPtHykVe5EWOQ=|1710483888; dream_token=ZWU3YjBhMDNkNmRkNGIwOTE3NGFmY2Y2ZWQ0MjQ2ZDUwNzkwOTcwNjdjODdjZjI4NjgxYTYzNmE2ZWIxYTFmNA==; _xsrf=ZR2fkCsyacR1j5pwcaRW761gCSyImHJs; __zse_ck=001_MO+AcSONgw5YH0=BcWBJabz8xAlKfXpXJQw8sRXLBvMIzfUfTWMxtwE9piYHKXBx=RjDrxWuW=RLMMjcNVWrviaEv4vmY+PMb+p+kJ9=gibj58ySDUCOHEuH53t/zM0S; ariawapChangeViewPort=false; ariaFixed=true; l_cap_id="OTM1NTYzMzllNTM3NGIyM2JlMmRmYTFjNmQ2MWEyOTY=|1716557820|a8fb7b7cdda4b191614481b9d40621acb6317e08"; r_cap_id="ZmZjZjFjYzE5ODYwNDkyMWI3ZDUxZThlZmJjMjBkNjI=|1716557820|3d651a6ec1dfb2a5e4265a62d28b37bbbb65ca0a"; cap_id="OGNiMWJkNTkzZjMxNDc1NTgyNmNmNjJmZWQ2ODM1NjM=|1716557820|aec9a50209e5ee2eed67d9f37d2cf066e5ddd07b"; ariaReadtype=1; ariaoldFixedStatus=false; ariaStatus=false; gdxidpyhxdE=X%5CfiCsSWZhSieDLXv%5Ct3AguRRrchW7jRrAM6BLavrsnBlxqEvhGPYi1OwoE%2FaN%2B3M%5CBpi%5CR%5C7NjoVpmJA0xmz4zwcMYA4de0eUDXZYp4RJo9Y%2BjGlcOzJRkt%2F%2F9BqBp83PlGi%2BsMA7%2BRxyaJacwORXqXPcomts0g5vEECoonQPUXjw64%3A1716559243514; captcha_session_v2=2|1:0|10:1716558652|18:captcha_session_v2|88:Zkd2NUNXUVdpN3E0ZmUyN1dlTVN4TjBhK0RvdlE4eitMVjl1Y1NDSGRSNVV6cDVKQTF5SjlVSUpPUC9oaG1USA==|11af66da98a81768f475a5558097a123c6391e27794a891f34172dab56190d2a; captcha_ticket_v2=2|1:0|10:1716558659|17:captcha_ticket_v2|728:eyJ2YWxpZGF0ZSI6IkNOMzFfdUxaMmYwXzF2cFFjeEszRndnRSowdktHTEhrQlc4RlJqaGlhQkdtYlk4NjhITVoySy5FMXJoYnpuVkVMZF9ic25iX3RlV1pFTldFaWQzTTQ0cmNDbTlfd0FUbHNKWGJZV1FGcFBtMEV3NnFTRG50d0lqeE4qOVRlQmtCblRmQnhQRmYwNXVJWG40WkV0MWdzTV9YOUNkWHJvTlhJeCpWZ0hxWVFhME45SnFYVzY0Qi5mdjYzbENOWURGSFlxRzRlZmxtQndOWVZ2SllPb2VVNUI4VnNSd0JIOGtTVFZTNklnSTl1Lmk1bm5jWXJSWllZZy5NSGp3YWhfOEtXXzVocFNubWUuYkUwZmVFbnlpMTlJUHd1M0ZfaGpEQkNoQVRMMlZTLm9kVFZVX3JDZHloZ3BTQnpSbkZSMnFoKlU1dm5tUUxRek9ONF9lcWVGRDJMaHAwRm12a3hCUDVnWXVWbUpJME1kRWtzMnB6S2NzUGg2UU5qVDVpTTBPSklvNlU5KnBPaklUT3FOYlZiV212Y0FWTGRYc0JOYk9jYU04dDBnQXpUU3FVTE9yZ3E4VGlMXzBjRllXc3ZYR1JkMWJRd2lyaFVjX1VkQ0tsc0xqZGp6S3ZXQk1DTXJaYUduNkRyWlZtR3d0Z0xfZ1hRbkpZbTJOeWQuNGdlOEhGWV9yc3g2elhoTFk3N192X2lfMSJ9|e0f868b2e2d47db698edafa7872c6b33a8923e0944e0ba99b01f86e89b5660b6; z_c0=2|1:0|10:1716558659|4:z_c0|92:Mi4xMEJmOU9RQUFBQUFBd0phNDRVVlFHQ1lBQUFCZ0FsVk5RLWs5WndDV1FRbFFKR0tXQWZyUENJeFdsUlpqRlgwWnBB|28319975d9abad2d2994a9c6e0c0033f965d4bf6fc3438e9b9c92e0ae52523c7; tst=r; Hm_lvt_98beee57fd2ef70ccdd5ca52b9740c49=1716466237,1716532982,1716544229,1716607619; Hm_lvt_bff3d83079cef1ed8fc5e3f4579ec3b3=1716466237,1716534406,1716550544,1716607826; Hm_lpvt_bff3d83079cef1ed8fc5e3f4579ec3b3=1716613494; KLBRSID=b33d76655747159914ef8c32323d16fd|1716614050|1716607812; Hm_lpvt_98beee57fd2ef70ccdd5ca52b9740c49=1716614051; BEC=f3a75d7265fd269b7c515e5c94175904'
 
     for item in cookie_text.split('; '):
         key, value = item.split('=', 1)
