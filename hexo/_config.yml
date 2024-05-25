@@ -101,3 +101,9 @@ deploy:
   type: git
   repo: https://github.com/16bit-ykiko/about-me.git
   branch: gh-pages
+
+search:
+  path: search.xml
+  field: post
+  content: true
+  template: ./search.xml

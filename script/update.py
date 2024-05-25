@@ -3,128 +3,25 @@ import json
 import datetime
 import requests
 
-from typing import Iterable
-from urllib.parse import unquote
-from bs4 import BeautifulSoup, PageElement
+from parse import toMarkdown, urls_map
+from bs4 import BeautifulSoup
 
-urls_map = {}
+
 cookies = {}
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+}
 
 
 def get(url: str):
     n = 0
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-    }
     while n < 5:
         try:
-            assert len(cookies) > 0
             return requests.get(
                 url, timeout=10, headers=headers, cookies=cookies)
         except Exception as e:
             print(e)
             n += 1
-
-
-def image(element: PageElement) -> str:
-    noscript = element.find('noscript')
-    img = noscript.find('img')
-    src = img.attrs.get("data-original")
-    if src == None:
-        src = img.attrs.get("data-default-watermark-src")
-    if src == None:
-        src = img.attrs.get("src")
-    return f'![img]({src})'
-
-
-def normalize(url: str) -> str:
-    url = unquote(url.replace('//link.zhihu.com/?target=https%3A', ""))
-    if url in urls_map:
-        url = urls_map[url]
-    return url
-
-
-def link(element: PageElement) -> str:
-    url = normalize(element['href'])
-    return f'[{element.text}]({url})'
-
-
-def link_card(element: PageElement) -> str:
-    url = normalize(element['href'])
-    title = element.attrs.get("data-text")
-    if title == None:
-        soup = BeautifulSoup(get(url).text, 'html.parser')
-        title = soup.title.string
-        if title.endswith("| BLOGS"):
-            title = title[:-7]
-
-    return "---\n\n" + title + "\n" + url + "\n\n---"
-
-
-def paragraph(element: PageElement) -> str:
-    result = ""
-    for element in element.children:
-        match element.name:
-            case 'a':
-                result += link(element)
-            case 'b':
-                result += f' **{element.text}** '
-            case 'code':
-                result += f'`{element.text}`'
-            case None:
-                result += element.text
-    return result
-
-
-def unordered_list(element: PageElement, tab=0) -> str:
-    result = ""
-    for element in element.children:
-        match element.name:
-            case 'li':
-                for _ in range(tab):
-                    result += '\t'
-                result += f'- {paragraph(element)}\n'
-            case "ul":
-                result += unordered_list(element, tab + 1)
-    return result
-
-
-def code_block(element: PageElement) -> str:
-    pre = element.find('pre')
-    code = pre.find('code')
-    lang: str = code['class'][0]
-    lang = lang.replace('language-', '')
-    if lang == 'nasm':
-        lang = 'x86asm'
-    if lang == 'text':
-        lang = 'bash'
-    text: str = code.get_text()
-    return "```" + lang + "\n" + text + ("" if text.endswith("\n") else "\n") + "```"
-
-
-def toMarkdown(result: list, elements: Iterable[PageElement]):
-    for element in elements:
-        match element.name:
-            case 'p':
-                result.append("\n\n")
-                result.append(paragraph(element))
-            case 'a':
-                result.append("\n\n" + link_card(element))
-            case 'h2':
-                result.append(f'\n\n## {paragraph(element)}')
-            case 'h3':
-                result.append(f'\n\n#### {paragraph(element)}')
-            case 'blockquote':
-                result.append("\n\n" + f'> {paragraph(element)}')
-            case 'ul':
-                result.append("\n\n" + unordered_list(element))
-            case 'div':
-                if element.attrs['class'][0] == 'highlight':
-                    result.append("\n\n" + code_block(element))
-            case 'figure':
-                result.append("\n\n" + image(element))
-            case None:
-                result.append(element.text)
 
 
 def article(soup: BeautifulSoup) -> str:
@@ -137,9 +34,8 @@ def article(soup: BeautifulSoup) -> str:
     updated = inner["updated"]
     return created, updated
 
+
 # 知乎专栏
-
-
 def column(soup: BeautifulSoup) -> str:
     jsinitdata = json.loads(soup.select(
         'script[id="js-initialData"]')[0].get_text())
@@ -159,16 +55,13 @@ def request(url: str):
     cover = soup.select("meta[property='og:image']")[0]['content']
 
     created, updated = article(soup)
-    result = []
-    body = soup.select('div[class^="RichText"]')[0].children
-
-    toMarkdown(result, body)
+    body = soup.select('div[class^="RichText"]')[0]
+    result = toMarkdown(body)
 
     return "".join(result), cover, title, datetime.datetime.fromtimestamp(created), datetime.datetime.fromtimestamp(updated)
 
 
-def main():
-
+def load_cookies():
     cookie_text = None
 
     if 'COOKIE_TEXT' in os.environ:
@@ -182,12 +75,22 @@ def main():
 
     print("Cookies loaded successfully")
 
+
+def load_urls_map():
     current_dir = os.path.dirname(__file__)
     json_path = os.path.join(current_dir, 'map.json')
     map_json = json.loads(open(json_path, 'r').read())
     for url, value in map_json.items():
         urls_map[url] = url.replace(
             'https://zhuanlan.zhihu.com/p', "https://16bit-ykiko.github.io/about-me")
+
+    print("Urls map loaded successfully")
+
+
+def main():
+    current_dir = os.path.dirname(__file__)
+    load_cookies()
+    load_urls_map()
 
     for url in urls_map.keys():
         name = url.split('/')[-1]
