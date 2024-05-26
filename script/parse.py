@@ -42,6 +42,8 @@ def paragraph(element: PageElement) -> str:
                 result += f'**{element.text}**'
             case 'code':
                 result += f'`{element.text}`'
+            case 'br':
+                result += (element.text + '\n')
             case None:
                 result += element.text
     return result
