@@ -7,7 +7,7 @@
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Circle</span> &#123;</span><br><span class="line">    <span class="type">double</span> radius;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Rectangle</span> &#123;</span><br><span class="line">    <span class="type">double</span> width;</span><br><span class="line">    <span class="type">double</span> height;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Shape</span> &#123;</span><br><span class="line">    <span class="keyword">enum</span> <span class="title class_">Type</span> &#123; Circle, Rectangle &#125; type;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">        <span class="keyword">struct</span> <span class="title class_">Circle</span> circle;</span><br><span class="line">        <span class="keyword">struct</span> <span class="title class_">Rectangle</span> rectangle;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p> 这里使用了叫做 anonymous union 的特性，相当于声明了一个对应类型的 union 成员，并且把字段名字注入到当前作用域。</p>
+<p> 这里使用了叫做 <a href="https://en.cppreference.com/w/cpp/language/union#Anonymous_unions">anonymous union</a> 的特性，相当于声明了一个对应类型的 union 成员，并且把字段名字注入到当前作用域。</p>
 </blockquote>
 <p>这样我们就可以定义一个<code>Shape</code>类型的变量，给它赋不同类型的值。访问的时候根据<code>type</code>的值来判断它是<code>Circle</code>还是<code>Rectangle</code>就行了。上面这种写法也可以被叫做 <strong>tagged union</strong>，在<code>C</code>语言里面我们经常这么做。</p>
 <p>但在 C++ 中，事情就没这么简单了。考虑如下代码</p>
@@ -90,7 +90,7 @@
 <p>答案是肯定的，不管多么难以置信。相关的讨论，早在2015年的时候就有了。知乎上也有相关讨论的 <a href="https://zhuanlan.zhihu.com/p/24835482">文章</a>。但是时过境迁，这篇文章发布的时间是在 2017 年，使用的 C++ 版本还是14，文章里面已经有很多的内容不适用了。更何况现在 C++26 的相关标准都开始制定了，有很多东西需要被重新讨论。我们将要选择的版本是 C++20。</p>
 <p>如果你只对代码感兴趣，我已经将相关的代码放在 <a href="https://godbolt.org/z/MGPKeqPaj">Compiler Explorer - C++</a> 。三大编译器 C++20 均编译通过，你可以直接看到编译器的输出结果。防止链接失效，也放到 <a href="https://github.com/16bit-ykiko/blog/blob/main/code/compile-time-counter.cpp">GitHub</a> 上。如果你想要了解它的原理，欢迎继续往下阅读。C++ 标准极其复杂，作者也没法保证文章内容百分百正确，如果有任何错误，欢迎评论区讨论。</p>
 <blockquote>
-<p>注意：本文仅仅只是技术讨论，请不要将相关的代码运用于实际生产中。事实上，相关的代码似乎被认为是  ill formed。而且非常容易造成 ODR 违反。相关的提案在 CWG 2015 年就有了。但是似乎好像并没有进一步被解决，而且在 C++20 中标准库还主动加入了具有类似作用的库，那就是std::source_location::line。当line作为函数默认参数的时候，随着函数调用位置不同，实际上默认参数取值也是不同的。</p>
+<p>注意：本文仅仅只是技术讨论，请不要将相关的代码运用于实际生产中。事实上，相关的代码似乎被认为是  ill formed。而且非常容易造成 ODR 违反。相关的提案在 <a href="https://cplusplus.github.io/CWG/issues/2118.html">CWG</a> 2015 年就有了。但是似乎好像并没有进一步被解决，而且在 C++20 中标准库还主动加入了具有类似作用的库，那就是<code>std::source_location::line</code>。当<code>line</code>作为函数默认参数的时候，随着函数调用位置不同，实际上默认参数取值也是不同的。</p>
 </blockquote>
 <h2 id="都是友元惹的祸"><a href="#都是友元惹的祸" class="headerlink" title="都是友元惹的祸"></a>都是友元惹的祸</h2><p>我们都知道 C++ 的 friend 关键字，可以对一个函数进行标记，然后允许这个函数访问类的私有成员。让我们考虑下面这两种情况。</p>
 <ul>
@@ -587,8 +587,9 @@
 <p>这样一大堆名词实在是让人听的云里雾里，晕头转向。而且 static，dynamic，compile time，runtime 这些前缀词也都是惯用词，甚至可以说经常被滥用，于语境不同有非常多的含义。</p>
 <p>当然，为了方便交流，在日常的讨论中，我也会使用这些表意不明确的词来简明的表达观点。但是这样会导致一个问题，如果对方对这些东西也比较了解，那交流起来就很轻松。如果对方不是很了解，这样的描述会导致误解被进一步扩大。也经常会有人在交流中提问：<strong>什么是反射？</strong>对于这样的提问，我常常是无能为力的，因为我知道三言两语是说不清的。而且前文也提到了，这个东西其实本来就没有准确的定义，所以也没法通过下定义的方式来回复。虽然 <a href="https://en.wikipedia.org/wiki/Reflective_programming">wiki</a> 上是有定义的：</p>
 <blockquote>
-<p> In computer science, reflective programming or reflection is the ability of a process to examine, introspect, and modify its own structure and behavior. 反射是程序具有自省，检查和修改它自身结构和行为的一种能力。</p>
+<p> In computer science, reflective programming or reflection is the ability of a process to examine, introspect, and modify its own structure and behavior.</p>
 </blockquote>
+<p> 反射是程序具有自省，检查和修改它自身结构和行为的一种能力。</p>
 <p>但是这个定义说了和没说一样，即使发出来了也没什么帮助。当遇到类似的情况，比如有人问 C++ TMP 是什么？这种时候我会把我认为非常好的教程发给提问者，这样也就圆满解决了问题。 于是我就想能不能发一篇关于反射的教程过去呢？很可惜的是，在中文互联网上搜索到的内容都是具体到某个语言的。比如 Python，Java 里面的机制，而且是具体到如何使用，也就是讨论 API，讨论实现的并不多。如果把搜索关键字精确到 <strong>C++ 反射</strong>，在知乎上倒是有各种各样的反射实现方案。但是可惜的是他们都侧重于实现，而都没有仔细地讨论反射这个概念。而且不同的实现上还会牵扯到宏，模板这些繁琐的细节，更加让人难以理解了，而且好像让人觉得没有这些就不能实现反射了。总之，目前还没有什么详细讨论反射这个概念的文章，于是我就想结合自己的理解来编写系列文章。</p>
 <p>主要目的就是为了让和我一样想搞懂反射的小伙伴，少走些弯路。由于反射没有一个准确的定义，所以我选择把它拆分成几个过程进行解释，这样我们就不用去纠结「<strong>反射究竟是什么</strong>」这个概念问题了。取而代之的是，弄明白了这几个过程，自然而然的你就明白反射是在做什么事情了。</p>
 <p>系列文章共有五篇，不仅仅讨论概念，后面也会教你如何利用外部工具自己实现反射。而且我对文章内容做了精心布局，五篇文章内容前后并没有强关联，所以只挑你感兴趣的阅读也是可以的，阅读顺序不做要求。</p>
@@ -1409,7 +1410,7 @@
 <li><a href="https://en.cppreference.com/w/cpp/language/constant_initialization">常量初始化</a> 使用常量表达式进行初始化，内存（如果需要的话）立即填充为计算出来的值</li>
 </ul>
 <blockquote>
-<p>所有其它的初始化都被叫做 动态初始化，这里我们不考虑它们。</p>
+<p>所有其它的初始化都被叫做 <a href="https://en.cppreference.com/w/cpp/language/initialization#Dynamic_initialization">动态初始化</a>，这里我们不考虑它们。</p>
 </blockquote>
 <p>让我们看一个包含两种静态初始化的例子</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">foo</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="number">13</span>; &#125;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> v1 = <span class="number">1</span> + <span class="number">2</span> + <span class="number">3</span> + <span class="number">4</span>;              <span class="comment">// const initialization</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> v2 = <span class="number">15</span> * v1 + <span class="number">8</span>;                <span class="comment">// const initialization</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> v3 = <span class="built_in">foo</span>() + <span class="number">5</span>;                  <span class="comment">// zero initialization</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> v4 = (<span class="number">1</span> &lt; <span class="number">2</span>) ? <span class="number">10</span> * v3 : <span class="number">12345</span>;  <span class="comment">// zero initialization</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> v5 = (<span class="number">1</span> &gt; <span class="number">2</span>) ? <span class="number">10</span> * v3 : <span class="number">12345</span>;  <span class="comment">// const initialization</span></span><br></pre></td></tr></table></figure>
@@ -1451,8 +1452,19 @@
 <p>因此在有些时候可以用它们来检测程序中的潜在错误。</p>
 <h2 id="2003：真的能-macro-free-吗？"><a href="#2003：真的能-macro-free-吗？" class="headerlink" title="2003：真的能 macro free 吗？"></a>2003：真的能 macro free 吗？</h2><p><strong>标准的改变是通过 proposals（提案）进行的</strong></p>
 <blockquote>
-<p>在哪里可以找到提案？它们是由什么组成的？所有的有关 C++ 标准的提案都可以在 open-std.org 上找到。它们中的大多数都有详细的描述并且易于阅读。通常由如下部分组成： -  当前遇到的问题 -  标准中相关措辞的的链接 -  上述问题的解决方案 -  建议对标准措辞进行的修改 -  相关提案的链接（提案可能有多个版本或者需要和其它提案进行对比） -  在高级提案中，往往还会附带上实验性实现的链接可以通过这些提案来了解 C++ 的每个部分是如何演变的。并非存档中的所有提案最终都被接受，但是它们都对 C++ 的发展有着重要的影响。通过提交新提案，任何人都可以参与到 C++ 的演变过程中来。</p>
+<p>在哪里可以找到提案？它们是由什么组成的？</p>
 </blockquote>
+<p>所有的有关 C++ 标准的提案都可以在 <a href="https://open-std.org/JTC1/SC22/WG21/">open-std.org</a> 上找到。它们中的大多数都有详细的描述并且易于阅读。通常由如下部分组成： </p>
+<ul>
+<li>当前遇到的问题 </li>
+<li>标准中相关措辞的的链接 </li>
+<li>上述问题的解决方案 </li>
+<li>建议对标准措辞进行的修改 </li>
+<li>相关提案的链接（提案可能有多个版本或者需要和其它提案进行对比） </li>
+<li>在高级提案中，往往还会附带上实验性实现的链接</li>
+</ul>
+<p>可以通过这些提案来了解 C++ 的每个部分是如何演变的。并非存档中的所有提案最终都被接受，但是它们都对 C++ 的发展有着重要的影响。</p>
+<p>通过提交新提案，任何人都可以参与到 C++ 的演变过程中来。</p>
 <p><code>2003</code>年的提案 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2003/n1521.pdf">N1521 Generalized Constant Expressions</a> 指出一个问题。如果一个表达式中的某个部分含有函数调用，那么整个表达式就不能是常量表达式，即使这个函数最终能够被常量折叠。这迫使人们在处理复杂常量表达式的时候使用宏，甚至一定程度上导致了宏的滥用</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123; <span class="keyword">return</span> x * x; &#125;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SQUARE(x) ((x) * (x))</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">square</span>(<span class="number">9</span>)</span><br><span class="line">std::numeric_limits&lt;<span class="type">int</span>&gt;::<span class="built_in">max</span>() </span><br><span class="line"><span class="comment">// 理论上可用于常量表达式, 但是实际上不能</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">SQUARE</span>(<span class="number">9</span>)</span><br><span class="line">INT_MAX</span><br><span class="line"><span class="comment">// 被迫使用宏代替</span></span><br></pre></td></tr></table></figure>
 
@@ -1946,7 +1958,7 @@
 <figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">main:</span></span><br><span class="line">        <span class="keyword">sub</span>     <span class="built_in">rsp</span>, <span class="number">24</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">edi</span>, <span class="number">1</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">esi</span>, <span class="number">2</span> </span><br><span class="line">        <span class="keyword">call</span>    f(X)</span><br><span class="line">        <span class="keyword">movdqa</span>  <span class="built_in">xmm0</span>, XMMWORD <span class="built_in">PTR</span> .LC0[<span class="built_in">rip</span>]</span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">rdi</span>, <span class="built_in">rsp</span></span><br><span class="line">        <span class="keyword">movaps</span>  XMMWORD <span class="built_in">PTR</span> [<span class="built_in">rsp</span>], <span class="built_in">xmm0</span></span><br><span class="line">        <span class="keyword">call</span>    g(X const&amp;)</span><br><span class="line">        <span class="keyword">xor</span>     <span class="built_in">eax</span>, <span class="built_in">eax</span></span><br><span class="line">        <span class="keyword">add</span>     <span class="built_in">rsp</span>, <span class="number">24</span></span><br><span class="line">        <span class="keyword">ret</span></span><br><span class="line"><span class="symbol">.LC0:</span></span><br><span class="line"><span class="meta">        .quad</span>   <span class="number">1</span></span><br><span class="line"><span class="meta">        .quad</span>   <span class="number">2</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>System V ABI 规定了前六个整形参数，依次可以使用rdi，rsi，rdx，rcx，r8，r9寄存器传递，而 Windows x64 ABI 规定了前四个整形参数，依次可以使用rcx，rdx，r8，r9寄存器传递。如果过寄存器用完了，就通过栈传递。整形参数即char，short，int，long，long long等基础整数类型外加指针类型。浮点参数和 SIMD 类型的参数则有专门的寄存器负责，这里不过多涉及了。</p>
+<p>System V ABI 规定了前六个整形参数，依次可以使用<code>rdi</code>，<code>rsi</code>，<code>rdx</code>，<code>rcx</code>，<code>r8</code>，<code>r9</code>寄存器传递，而 Windows x64 ABI 规定了前四个整形参数，依次可以使用<code>rcx</code>，<code>rdx</code>，<code>r8</code>，<code>r9</code>寄存器传递。如果过寄存器用完了，就通过栈传递。整形参数即<code>char</code>，<code>short</code>，<code>int</code>，<code>long</code>，<code>long long</code>等基础整数类型外加指针类型。浮点参数和 SIMD 类型的参数则有专门的寄存器负责，这里不过多涉及了。</p>
 </blockquote>
 <p>可以发现<code>1</code>,<code>2</code>分别通过寄存器<code>edi</code>和<code>esi</code>传递给了<code>f</code>函数，而<code>g</code>则是把临时变量的地址传递给了<code>g</code>函数。但是这只是 System V ABI，对于 Windows x64 ABI 来说，<strong>只要结构体的大小大于8字节，只能通过引用传递。</strong>同样的代码，在 Windows 上编译的结果如下</p>
 <figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">main:</span></span><br><span class="line">        <span class="keyword">sub</span>     <span class="built_in">rsp</span>, <span class="number">56</span>                             </span><br><span class="line">        <span class="keyword">lea</span>     <span class="built_in">rcx</span>, <span class="built_in">QWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rsp</span>+<span class="number">32</span>]</span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">QWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rsp</span>+<span class="number">32</span>], <span class="number">1</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">QWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rsp</span>+<span class="number">40</span>], <span class="number">2</span></span><br><span class="line">        <span class="keyword">call</span>    void f(X)                   </span><br><span class="line">        <span class="keyword">lea</span>     <span class="built_in">rcx</span>, <span class="built_in">QWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rsp</span>+<span class="number">32</span>]</span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">QWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rsp</span>+<span class="number">32</span>], <span class="number">1</span></span><br><span class="line">        <span class="keyword">mov</span>     <span class="built_in">QWORD</span> <span class="built_in">PTR</span> [<span class="built_in">rsp</span>+<span class="number">40</span>], <span class="number">2</span></span><br><span class="line">        <span class="keyword">call</span>    void g(X const &amp;)</span><br><span class="line">        <span class="keyword">xor</span>     <span class="built_in">eax</span>, <span class="built_in">eax</span></span><br><span class="line">        <span class="keyword">add</span>     <span class="built_in">rsp</span>, <span class="number">56</span>                        </span><br><span class="line">        <span class="keyword">ret</span>     <span class="number">0</span></span><br></pre></td></tr></table></figure>
@@ -2018,7 +2030,7 @@
 </ul>
 <p>如果编译器对这些部分的实现不同，那么最后不同编译器编译出的二进制产物自然是互不兼容，不能混用的。</p>
 <blockquote>
-<p>在上世纪90年代，那时候还是 C++ 发展的黄金时期，各个厂商都致力于实现自己的编译器并扩大基本盘，争夺用户。出于竞争关系，不同编译器之间使用不同的 ABI 是很常见的行为。随着时代的发展，它们中的大多数已经退出了历史舞台，要么停止更新，要么仅做维护，不再跟进 C++ 的新标准。浪潮过后，留下的只有 GCC，Clang 和 MSVC 这三大编译器。</p>
+<p>在上世纪<code>90</code>年代，那时候还是 C++ 发展的黄金时期，各个厂商都致力于实现自己的编译器并扩大基本盘，争夺用户。出于竞争关系，不同编译器之间使用不同的 ABI 是很常见的行为。随着时代的发展，它们中的大多数已经退出了历史舞台，要么停止更新，要么仅做维护，不再跟进 C++ 的新标准。浪潮过后，留下的只有 GCC，Clang 和 MSVC 这三大编译器。</p>
 </blockquote>
 <p>在今天，C++ 编译器的 ABI 已经基本得到统一，主流的 ABI 只有两套：</p>
 <ul>
@@ -2034,7 +2046,7 @@
 </blockquote>
 <p>考虑到 C++ 巨大的 codebase，这两套 C++ ABI 已经基本稳定，不会再改动了，<strong>所以我们现在其实可以说 C++ 编译器具有稳定的 ABI</strong>。怎么样，是不是和网上主流的说法不同？但是事实的确就摆在这里。</p>
 <blockquote>
-<p>MSVC 从 2015 的版本往后开始保证 ABI 稳定。GCC 从 3.4 开始使用 Itanium ABI 并保证 ABI 稳定。</p>
+<p>MSVC 从 <a href="https://learn.microsoft.com/en-us/cpp/porting/binary-compat-2015-2017?view=msvc-170">2015</a> 的版本往后开始保证 ABI 稳定。GCC 从 3.4 开始使用 Itanium ABI 并保证 ABI 稳定。</p>
 </blockquote>
 <h3 id="Workaround"><a href="#Workaround" class="headerlink" title="Workaround"></a>Workaround</h3><p>尽管基础的 ABI 不再改变，但是升级编译器版本仍然可能会导致编译出来的库发生 ABI Broken，为什么呢？</p>
 <p>这其实不难理解，首先编译器也是软件，只要是软件就可能有 BUG。有时候为了修复 BUG，会被迫做出一些 ABI Broken（一般会在新版本的发行介绍中详细说明）。例如 GCC 有一个编译选项 <a href="https://gcc.gnu.org/onlinedocs/gcc/C_002b_002b-Dialect-Options.html#index-fabi-version">-fabi-version</a> 用于专门控制这些不同的版本，其中一些内容如下：</p>
@@ -2064,7 +2076,7 @@
 <p>但是对于 C++ 标准库来说情况就有些不一样了，从 C++98 到 C++11，标准库经历了一次大的 ABI Break Change。标准库中修改了对一些容器实现的要求，例如<code>std::string</code>。这导致原来广泛使用的 COW 实现不符合新标准，于是在 C++11 中不得不采用新实现。这也就导致了 C++98 和 C++11 之间的标准库 ABI Broken。不过在这之后，标准库的 ABI 一般相对稳定，各家实现也尽量保证。参考 <a href="https://learn.microsoft.com/en-us/cpp/porting/binary-compat-2015-2017?view=msvc-170">stl</a>，<a href="https://gcc.gnu.org/onlinedocs/libstdc++/manual/abi.html">libstdc++</a> 和 <a href="https://libcxx.llvm.org/DesignDocs/ABIVersioning.html">libc++</a> 相关的页面以获取详细介绍。</p>
 <p>另外由于 RTTI 和 Exception 一般可以关掉，所以这两项功能可能由单独的运行时库来负责，比如 MSVC 的 <a href="https://docs.microsoft.com/en-us/cpp/c-runtime-library/crt-library-features?view=msvc-170">vcruntime</a> 和 libc++ 的 <a href="https://libcxxabi.llvm.org/">libcxxabi</a>。</p>
 <blockquote>
-<p>值得一提的是，libcxxabi 中还包含了对静态局部变量初始化的支持，涉及到的主要函数是 cxa_guard_acquire, cxa_guard_release。使用它们来保证静态局部变量只在运行时初始化一次，如果对具体的实现感到好奇，可以查阅相关源码。</p>
+<p>值得一提的是，libcxxabi 中还包含了对静态局部变量初始化的支持，涉及到的主要函数是 **cxa_guard_acquire, **cxa_guard_release。使用它们来保证静态局部变量只在运行时初始化一次，如果对具体的实现感到好奇，可以查阅相关源码。</p>
 </blockquote>
 <p>还有就是负责一些底层功能的运行时库，比如 <a href="https://gcc.gnu.org/onlinedocs/gccint/Libgcc.html">libgcc</a> 和 <a href="https://compiler-rt.llvm.org/">compiler-rt</a>。</p>
 <p>除了标准库以外，C++ 程序一般还需要链接 C 运行时 </p>
