@@ -43,7 +43,7 @@ def paragraph(element: PageElement) -> str:
             case 'code':
                 result += f'`{element.text}`'
             case 'br':
-                result += (element.text + '\n')
+                result += '</br>'
             case None:
                 result += element.text
     return result
