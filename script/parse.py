@@ -27,7 +27,7 @@ def toMarkdown(page: Tag):
             case 'div':
                 result.append("\n\n" + code_block(element))
             case 'blockquote':
-                result.append("\n\n" + f"> {element.text}")
+                result.append("\n\n" + f"> {paragraph(element)}")
     return "".join(result)
 
 
