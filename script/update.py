@@ -6,9 +6,8 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 from parse import toMarkdown, urls_map
 
+
 # 知乎文章
-
-
 def article(soup: BeautifulSoup) -> str:
 
     jsinitdata = json.loads(soup.select(

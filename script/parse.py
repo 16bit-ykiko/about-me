@@ -20,10 +20,14 @@ def toMarkdown(page: Tag):
                 result.append("\n\n" + link_card(element))
             case 'h2':
                 result.append(f'\n\n## {paragraph(element)}')
+            case 'h3':
+                result.append(f'\n\n### {paragraph(element)}')
             case 'ul':
                 result.append("\n\n" + unordered_list(element))
             case 'div':
                 result.append("\n\n" + code_block(element))
+            case 'blockquote':
+                result.append("\n\n" + f"> {element.text}")
     return "".join(result)
 
 
