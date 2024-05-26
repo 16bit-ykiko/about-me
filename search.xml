@@ -197,11 +197,11 @@
 <ul>
 <li><p><code>Set</code>函数用来初始化一个<code>setter</code>，这个<code>setter</code>里面包含了一个类型列表，这个列表表示初始值。</p>
 </li>
-<li><p><code>value</code>用<code>count</code>取出最后一个状态。</p>
+<li><p><code>value</code>用<code>count</code>取出最后一个状态。</br> </p>
 </li>
-<li><p><code>push</code>用<code>count</code>取出最后一个状态的<code>index</code>，取出对应的<code>type_list</code>，然后对这个<code>type_list</code>进行操作。通过实例化一个新的模板，添加一个新的状态，并且存放这个新的<code>type_list</code>。</p>
+<li><p><code>push</code>用<code>count</code>取出最后一个状态的<code>index</code>，取出对应的<code>type_list</code>，然后对这个<code>type_list</code>进行操作。通过实例化一个新的模板，添加一个新的状态，并且存放这个新的<code>type_list</code>。</br> </p>
 </li>
-<li><p><code>pop</code>与<code>push</code>类似，只不过对<code>type_list</code>的操作变成了删除。</p>
+<li><p><code>pop</code>与<code>push</code>类似，只不过对<code>type_list</code>的操作变成了删除。</br></p>
 </li>
 </ul>
 <p><code>......</code>按照这个原理，可以轻松的扩展很多类似的操作，其实只要对<code>type_list</code>进行操作就行了。</p>
@@ -276,10 +276,8 @@
 <h2 id="编译期计算"><a href="#编译期计算" class="headerlink" title="编译期计算"></a>编译期计算</h2><h3 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h3><p>首先要肯定的一点是，编译期计算肯定是有用的。具体到特定场景，意义有多大，倒是没法判断。有很多人谈编译期计算色变，什么代码难懂，屠龙技，没有价值云云。这样的确很容易误导初学者。事实上相关的需求的确存在。如果编程语言没有这个功能，但是确有需求，程序员也会想方设法的通过其它的办法来实现。</p>
 <p>我将举两个例子来说明：</p>
 <ul>
-<li><p>首先是编译器对常量表达式的优化，相信这个大家都并不陌生。极其简单的情况，像<code>1+1+x</code>这样的表达式，必然是会被优化成<code>2+x</code>。事实上现代编译器对于类似的情况能做的优化非常多，比如这个 <a href="https://www.zhihu.com/question/619246858/answer/3184453259">问题</a>。提问者提问 C 语言的<code>strlen</code>函数在参数是常量字符串的时候，会不会把函数调用直接优化成一个常量。比如<code>strlen(&quot;hello&quot;)</code>会不会直接优化成<code>5</code>。从主流编译器的实验结果来看，答案是肯定的。类似的情况数不胜数，不知不觉中你就在使用编译期计算。只是它被归到编译器优化的一部分去了。而编译器的优化能力总归是有上限的，允许使用者自己定义这种优化规则，会更加灵活和自由。比如在 C++ 里面明确了<code>strlen</code>是<code>constexpr</code>的，这种优化必然会发生</p>
-</li>
-<li><p>其而是在程序语言发展早期，编译器优化能力还没那么强的时候。就已经开始广泛的使用外部脚本语言提前算好数据（甚至生成好代码）用来减少运行时开销了。典型的例子是算好三角函数表这种常量表，然后运行期直接用就行了（比如在编译代码之前，运行一段<code>python</code>脚本用来生成一些需要的代码）</p>
-</li>
+<li>首先是编译器对常量表达式的优化，相信这个大家都并不陌生。极其简单的情况，像<code>1+1+x</code>这样的表达式，必然是会被优化成<code>2+x</code>。事实上现代编译器对于类似的情况能做的优化非常多，比如这个 <a href="https://www.zhihu.com/question/619246858/answer/3184453259">问题</a>。提问者提问 C 语言的<code>strlen</code>函数在参数是常量字符串的时候，会不会把函数调用直接优化成一个常量。比如<code>strlen(&quot;hello&quot;)</code>会不会直接优化成<code>5</code>。从主流编译器的实验结果来看，答案是肯定的。类似的情况数不胜数，不知不觉中你就在使用编译期计算。只是它被归到编译器优化的一部分去了。而编译器的优化能力总归是有上限的，允许使用者自己定义这种优化规则，会更加灵活和自由。比如在 C++ 里面明确了<code>strlen</code>是<code>constexpr</code>的，这种优化必然会发生</br> </li>
+<li>其而是在程序语言发展早期，编译器优化能力还没那么强的时候。就已经开始广泛的使用外部脚本语言提前算好数据（甚至生成好代码）用来减少运行时开销了。典型的例子是算好三角函数表这种常量表，然后运行期直接用就行了（比如在编译代码之前，运行一段<code>python</code>脚本用来生成一些需要的代码）</li>
 </ul>
 <p>C++ 的编译期计算有明确的语义保证，并且内嵌于语言之中，能和其它部分良好的交互。从这个角度来说，很好的解决了上面两点问题。当然很多人对它的讨伐并不无道理，通过模板元编程进行的编译期计算。代码丑陋且晦涩难懂，牵扯到的语法细节多，并且大大拖慢编译时间，增加二进制文件大小。无可否认的是，这些问题的确存在。但是随着 C++ 版本的不断更新，编译期计算现在已经非常容易理解了，不再需要去写那些复杂的模板元代码，新手也能很快学会。因为和运行期代码几乎一样了。接下来伴随着它的发展史，我们将逐步阐明。</p>
 <h3 id="发展史"><a href="#发展史" class="headerlink" title="发展史"></a>发展史</h3><p>从历史上看，<code>TMP</code> 是一个偶然事件。在标准化 C++ 语言的过程中发现它的模板系统恰好是图灵完备的，即原则上能够计算任何可计算的东西。第一个具体演示是 Erwin Unruh 编写的一个程序，该程序计算素数，尽管它实际上并未完成编译：素数列表是编译器在尝试编译代码时生成的错误消息的一部分。具体的示例，请参考 <a href="https://en.wikibooks.org/wiki/C%2B%2B_Programming/Templates/Template_Meta-Programming#History_of_TMP">这里</a>。</p>
@@ -587,9 +585,8 @@
 <p>这样一大堆名词实在是让人听的云里雾里，晕头转向。而且 static，dynamic，compile time，runtime 这些前缀词也都是惯用词，甚至可以说经常被滥用，于语境不同有非常多的含义。</p>
 <p>当然，为了方便交流，在日常的讨论中，我也会使用这些表意不明确的词来简明的表达观点。但是这样会导致一个问题，如果对方对这些东西也比较了解，那交流起来就很轻松。如果对方不是很了解，这样的描述会导致误解被进一步扩大。也经常会有人在交流中提问：<strong>什么是反射？</strong>对于这样的提问，我常常是无能为力的，因为我知道三言两语是说不清的。而且前文也提到了，这个东西其实本来就没有准确的定义，所以也没法通过下定义的方式来回复。虽然 <a href="https://en.wikipedia.org/wiki/Reflective_programming">wiki</a> 上是有定义的：</p>
 <blockquote>
-<p> In computer science, reflective programming or reflection is the ability of a process to examine, introspect, and modify its own structure and behavior.</p>
+<p> In computer science, reflective programming or reflection is the ability of a process to examine, introspect, and modify its own structure and behavior.</br></br> 反射是程序具有自省，检查和修改它自身结构和行为的一种能力。</p>
 </blockquote>
-<p> 反射是程序具有自省，检查和修改它自身结构和行为的一种能力。</p>
 <p>但是这个定义说了和没说一样，即使发出来了也没什么帮助。当遇到类似的情况，比如有人问 C++ TMP 是什么？这种时候我会把我认为非常好的教程发给提问者，这样也就圆满解决了问题。 于是我就想能不能发一篇关于反射的教程过去呢？很可惜的是，在中文互联网上搜索到的内容都是具体到某个语言的。比如 Python，Java 里面的机制，而且是具体到如何使用，也就是讨论 API，讨论实现的并不多。如果把搜索关键字精确到 <strong>C++ 反射</strong>，在知乎上倒是有各种各样的反射实现方案。但是可惜的是他们都侧重于实现，而都没有仔细地讨论反射这个概念。而且不同的实现上还会牵扯到宏，模板这些繁琐的细节，更加让人难以理解了，而且好像让人觉得没有这些就不能实现反射了。总之，目前还没有什么详细讨论反射这个概念的文章，于是我就想结合自己的理解来编写系列文章。</p>
 <p>主要目的就是为了让和我一样想搞懂反射的小伙伴，少走些弯路。由于反射没有一个准确的定义，所以我选择把它拆分成几个过程进行解释，这样我们就不用去纠结「<strong>反射究竟是什么</strong>」这个概念问题了。取而代之的是，弄明白了这几个过程，自然而然的你就明白反射是在做什么事情了。</p>
 <p>系列文章共有五篇，不仅仅讨论概念，后面也会教你如何利用外部工具自己实现反射。而且我对文章内容做了精心布局，五篇文章内容前后并没有强关联，所以只挑你感兴趣的阅读也是可以的，阅读顺序不做要求。</p>
@@ -767,8 +764,7 @@
 <h2 id="解析案例"><a href="#解析案例" class="headerlink" title="解析案例"></a>解析案例</h2><h3 id="namespace"><a href="#namespace" class="headerlink" title="namespace"></a>namespace</h3><p>由于 clang 在解析的时候会把所有的头文件都展开，全部输出内容太多了。但是我们主要可能只是想要我们自己代码的信息，这时候就可以利用命名空间进行筛选了。示例如下：</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// main.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">namespace</span> my</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">Person</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> age;</span><br><span class="line">        std::string name;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
+</br>
 
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># main.py</span></span><br><span class="line"><span class="keyword">import</span> clang.cindex <span class="keyword">as</span> CX</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">traverse_my</span>(<span class="params">node: CX.Cursor</span>):</span><br><span class="line">    <span class="keyword">if</span> node.kind == CX.CursorKind.NAMESPACE:</span><br><span class="line">        <span class="keyword">if</span> node.spelling == <span class="string">&quot;my&quot;</span>:</span><br><span class="line">            traverse(node) <span class="comment"># 这里的 traverse 就是文章最开始那个函数</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> child <span class="keyword">in</span> node.get_children():</span><br><span class="line">        traverse_my(child)</span><br><span class="line"></span><br><span class="line">index = CX.Index.create()</span><br><span class="line">tu = index.parse(<span class="string">&#x27;main.cpp&#x27;</span>, args=[<span class="string">&#x27;-std=c++20&#x27;</span>])</span><br><span class="line">traverse_my(tu.cursor)</span><br></pre></td></tr></table></figure>
 
@@ -776,8 +772,7 @@
 <h3 id="class-struct"><a href="#class-struct" class="headerlink" title="class &amp; struct"></a>class &amp; struct</h3><p>我们主要是获取它们里面的字段名，类型，方法名，类型等，示例如下：</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// main.cpp</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Person</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>* name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">say_hello</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-
-
+</br>
 
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># main.py</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">traverse_class</span>(<span class="params">node: CX.Cursor</span>):</span><br><span class="line">    <span class="keyword">match</span> node.kind:</span><br><span class="line">        <span class="keyword">case</span> CX.CursorKind.STRUCT_DECL | CX.CursorKind.CLASS_DECL:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;class: <span class="subst">&#123;node.spelling&#125;</span>:&quot;</span>)</span><br><span class="line">        <span class="keyword">case</span> CX.CursorKind.FIELD_DECL:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;field: <span class="subst">&#123;node.spelling&#125;</span>: <span class="subst">&#123;node.<span class="built_in">type</span>.spelling&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">case</span> CX.CursorKind.CXX_METHOD:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;method: <span class="subst">&#123;node.spelling&#125;</span>: <span class="subst">&#123;node.<span class="built_in">type</span>.spelling&#125;</span>&quot;</span>)</span><br><span class="line">            <span class="keyword">for</span> arg <span class="keyword">in</span> node.get_arguments():</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&quot;arg: <span class="subst">&#123;arg.spelling&#125;</span>: <span class="subst">&#123;arg.<span class="built_in">type</span>.spelling&#125;</span>&quot;</span>)</span><br><span class="line">            result_type = node.result_type</span><br><span class="line">    <span class="keyword">for</span> child <span class="keyword">in</span> node.get_children():</span><br><span class="line">        traverse_class(child)</span><br><span class="line"></span><br><span class="line"><span class="comment"># class: Person:</span></span><br><span class="line"><span class="comment"># field: age: int</span></span><br><span class="line"><span class="comment"># field: name: const char *</span></span><br><span class="line"><span class="comment"># method: say_hello: void (const char *)</span></span><br><span class="line"><span class="comment"># CursorKind.PARM_DECL</span></span><br><span class="line"><span class="comment"># arg: to: const char *</span></span><br></pre></td></tr></table></figure>
 
@@ -788,16 +783,14 @@
 </ul>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// main.cpp</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief func description</span></span><br><span class="line"><span class="comment"> * @param param1</span></span><br><span class="line"><span class="comment"> * @param param2</span></span><br><span class="line"><span class="comment"> * @return</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">func</span><span class="params">(<span class="type">int</span> param1, <span class="type">int</span> param2)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> param1 + param2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
+</br>
 
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># main.py</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">traverse_comment</span>(<span class="params">node: CX.Cursor</span>):</span><br><span class="line">    <span class="keyword">if</span> node.brief_comment:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;brief_comment =&gt; <span class="subst">&#123;node.brief_comment&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> node.raw_comment:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;raw_comment =&gt; <span class="subst">&#123;node.raw_comment&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> child <span class="keyword">in</span> node.get_children():</span><br><span class="line">        traverse_comment(child)</span><br><span class="line"></span><br><span class="line"><span class="comment"># node.brief_comment =&gt; func description</span></span><br><span class="line"><span class="comment"># node.raw_comment =&gt; func description\n@param param1\n@param param2\n@return\n</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="enum"><a href="#enum" class="headerlink" title="enum"></a>enum</h3><p>获取枚举名以及对应的枚举常量值，还有它的底层类型</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// main.cpp</span></span><br><span class="line"><span class="keyword">enum class</span> <span class="title class_">Color</span></span><br><span class="line">&#123;</span><br><span class="line">    RED = <span class="number">0</span>,</span><br><span class="line">    GREEN,</span><br><span class="line">    BLUE</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-
-
+</br>
 
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># main.py</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">traverse_enum</span>(<span class="params">node: CX.Cursor</span>):</span><br><span class="line">    <span class="keyword">if</span> node.kind == CX.CursorKind.ENUM_DECL:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;enum: <span class="subst">&#123;node.spelling&#125;</span>, type: <span class="subst">&#123;node.enum_type.spelling&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(node.is_scoped_enum())</span><br><span class="line">        <span class="keyword">for</span> child <span class="keyword">in</span> node.get_children():</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;enum_value: <span class="subst">&#123;child.spelling&#125;</span>: <span class="subst">&#123;child.enum_value&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> child <span class="keyword">in</span> node.get_children():</span><br><span class="line">        traverse_enum(child)</span><br><span class="line"></span><br><span class="line"><span class="comment"># enum: Color, type: int</span></span><br><span class="line"><span class="comment"># True</span></span><br><span class="line"><span class="comment"># enum_value: RED: 0</span></span><br><span class="line"><span class="comment"># enum_value: GREEN: 1</span></span><br><span class="line"><span class="comment"># enum_value: BLUE: 2</span></span><br></pre></td></tr></table></figure>
 
@@ -812,8 +805,7 @@
 <h3 id="macro"><a href="#macro" class="headerlink" title="macro"></a>macro</h3><p>clang 在实际解析语法树之前，会把所有的预处理指令这些都替换成实际的代码。所以最后的语法树信息中就没有它们了。但是有些时候我们的确想要获取到这些信息，比如我们想要获取到<code>#define</code>的信息，这里需要把<code>parse</code>的<code>options</code>参数设为<code>TranslationUnit.PARSE_DETAILED_PROCESSING_RECORD</code>。如果想要获取宏的内容就用<code>get_tokens</code>就行了</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// main.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CONCAT(a, b) a##b</span></span><br><span class="line"><span class="keyword">auto</span> x = <span class="built_in">CONCAT</span>(<span class="number">1</span>, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
 
-
-
+</br>
 
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># main.py</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">traverse_macro</span>(<span class="params">node: CX.Cursor</span>):</span><br><span class="line">    <span class="keyword">if</span> node.kind == CX.CursorKind.MACRO_DEFINITION:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;MACRO: <span class="subst">&#123;node.spelling&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>([token.spelling <span class="keyword">for</span> token <span class="keyword">in</span> node.get_tokens()])</span><br><span class="line">    <span class="keyword">elif</span> node.kind == CX.CursorKind.MACRO_INSTANTIATION:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;MACRO_INSTANTIATION: <span class="subst">&#123;node.spelling&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>([token.spelling <span class="keyword">for</span> token <span class="keyword">in</span> node.get_tokens()])</span><br><span class="line">    <span class="keyword">for</span> child <span class="keyword">in</span> node.get_children():</span><br><span class="line">        traverse_marco(child)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意这里会多一些编译器内置的宏</span></span><br><span class="line"><span class="comment"># MACRO: CONCAT</span></span><br><span class="line"><span class="comment"># [&#x27;CONCAT&#x27;, &#x27;(&#x27;, &#x27;a&#x27;, &#x27;,&#x27;, &#x27;b&#x27;, &#x27;)&#x27;, &#x27;a&#x27;, &#x27;##&#x27;, &#x27;b&#x27;]</span></span><br><span class="line"><span class="comment"># MACRO_INSTANTIATION: CONCAT</span></span><br><span class="line"><span class="comment"># [&#x27;CONCAT&#x27;, &#x27;(&#x27;, &#x27;1&#x27;, &#x27;,&#x27;, &#x27;2&#x27;, &#x27;)&#x27;]</span></span><br></pre></td></tr></table></figure>
 
@@ -821,6 +813,8 @@
 <p>国内关于 clang 工具的具体使用的文章介绍实在是很少，本文尝试对一些常用功能进行了具体的介绍。当然，并没有那么完善。如果你有任何疑问，可以直接阅读 Index.h 的源码，里面的注释非常详尽。或者也可以在评论区留言，我会尽可能的解决。除此之外，如果实在想获取一些 libclang 不提供的信息，可以善用<code>get_tokens</code>这个函数自行获取，比如 libclang 居然不支持获取整数字面量和浮点数字面量的值，这时候就可以利用<code>get_tokens</code>来手动获取了。</p>
 <p>在从语法树中获取出这些信息之后，你可以进一步的处理它们，例如生成元信息或者直接生成代码之类的。当然，这都是后话了，具体还是取决于你的需求。</p>
 <p>本文到这里就结束了，这是反射系列中的其中一篇，如果对其它的文章感兴趣，可以点击下面的链接进行阅读其它文章</p>
+</br>
+
 <p><a target="_blank" href="https://16bit-ykiko.github.io/about-me/669358870" style="position: relative; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; box-sizing: border-box; -webkit-flex-direction: row; -ms-flex-direction: row; flex-direction: row; -webkit-align-items: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; width: 390px; min-height: 84px; border-radius: 8px; max-width: 100%; overflow: hidden; margin: 16px auto; padding: 12px 12px 9px 12px; background-color: #F6F6F6;"><span class="LinkCard-contents"><span style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; max-height: 40px; line-height: 1.25; color: #121212;">写给 C++ 程序员的反射教程 | ykiko’s blog</span><span style="display: -webkit-box; font-size: 13px; height: 18px; line-height: 18px; color: #999; word-break: break-all; text-overflow: ellipsis; overflow: hidden; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"><span style="display: inline-flex; align-items: center;"><svg class="Zi Zi--InsertLink" fill="currentColor" viewBox="0 0 24 24" width="14" height="14"><path d="M13.414 4.222a4.5 4.5 0 1 1 6.364 6.364l-3.005 3.005a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707l3.005-3.005a2.5 2.5 0 1 0-3.536-3.536l-3.005 3.005a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707l3.005-3.005zm-6.187 6.187a.5.5 0 0 1 .638-.058l.07.058.706.707a.5.5 0 0 1 .058.638l-.058.07-3.005 3.004a2.5 2.5 0 0 0 3.405 3.658l.13-.122 3.006-3.005a.5.5 0 0 1 .638-.058l.069.058.707.707a.5.5 0 0 1 .058.638l-.058.069-3.005 3.005a4.5 4.5 0 0 1-6.524-6.196l.16-.168 3.005-3.005zm8.132-3.182a.25.25 0 0 1 .353 0l1.061 1.06a.25.25 0 0 1 0 .354l-8.132 8.132a.25.25 0 0 1-.353 0l-1.061-1.06a.25.25 0 0 1 0-.354l8.132-8.132z"></path></svg></span><span>https://16bit-ykiko.github.io/about-me/669358870</span></span></span></a></p>
 ]]></content>
   </entry>
@@ -971,14 +965,13 @@
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">char</span> <span class="title">f</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">char</span> a[<span class="number">3</span>];</span><br><span class="line">    <span class="keyword">return</span> a[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">auto</span> c = <span class="built_in">f</span>(); <span class="comment">// compile error</span></span><br></pre></td></tr></table></figure>
 
 <p>直接编译错误，所以这些检测其实并没有任何实际的作用，反倒是无用的检查拖慢了<code>constexpr</code>函数的编译期执行速度，更好的办法是自己实现一份不带检查的编译期使用的数据结构。另外一个有关编译速度优化相关的<code>PR</code>是 这个 <a href="https://github.com/Neargye/magic_enum/issues/219">compile-time optimization · Issue #219</a> </p>
-<p>实际上，如果对于运行期代码，编译器完全会把这两种代码优化成一种形式，我们是不用考虑这个问题的。但是这个<code>PR</code>的确表现出来一个问题，那就是C++编译器对于<code>constexpr expression</code>求值的效率问题，在以后<code>C++</code>引入静态反射之后，<code>constexpr</code>函数的使用会更加泛滥，如果编译器不能通过有效的手段加快它的执行速度，恐怕会更进一步加剧<code>C++</code>编译速度慢的问题。</p>
-<p>后来我在<code>clang</code>的社区提出了这个 <a href="https://discourse.llvm.org/t/will-clang-do-some-optimization-when-evaluate-the-constexpr-expression-for-faster-compile-speed/75900">问题</a> 。他们回复表示，目前（即<code>clang18</code>以及之前），<code>clang</code>的<code>constexpr expression</code>的求值效率的确是有问题的，现在的<code>tree evaluator</code>效率低下，并且在将来会有有一个新的 <a href="https://clang.llvm.org/docs/ConstantInterpreter.html">Interpreter</a> 来解决这个问题，现在在<code>clang18</code>中可以用<code>-fexperimental-new-constant-interpreter</code>来开启这个实验性的功能。</p>
+<p>实际上，如果对于运行期代码，编译器完全会把这两种代码优化成一种形式，我们是不用考虑这个问题的。但是这个<code>PR</code>的确表现出来一个问题，那就是C++编译器对于<code>constexpr expression</code>求值的效率问题，在以后<code>C++</code>引入静态反射之后，<code>constexpr</code>函数的使用会更加泛滥，如果编译器不能通过有效的手段加快它的执行速度，恐怕会更进一步加剧<code>C++</code>编译速度慢的问题。</br></br>后来我在<code>clang</code>的社区提出了这个 <a href="https://discourse.llvm.org/t/will-clang-do-some-optimization-when-evaluate-the-constexpr-expression-for-faster-compile-speed/75900">问题</a> 。他们回复表示，目前（即<code>clang18</code>以及之前），<code>clang</code>的<code>constexpr expression</code>的求值效率的确是有问题的，现在的<code>tree evaluator</code>效率低下，并且在将来会有有一个新的 <a href="https://clang.llvm.org/docs/ConstantInterpreter.html">Interpreter</a> 来解决这个问题，现在在<code>clang18</code>中可以用<code>-fexperimental-new-constant-interpreter</code>来开启这个实验性的功能。</p>
 <p>这里有其主要贡献者 <a href="https://www.redhat.com/en/authors/timm-baeder">Timm Baeder</a> 的两篇相关介绍文章：</p>
 <ul>
 <li><a href="https://www.redhat.com/en/blog/new-constant-expression-interpreter-clang">A new constant expression interpreter for Clang</a></li>
 <li><a href="https://www.redhat.com/en/blog/new-constant-expression-interpreter-clang-part-2">A new constant expression interpreter for Clang, Part 2</a></li>
 </ul>
-<p>如果这个新的解释器被正式加入了，有关的情况应该会得到比较大的改善。<strong>但是在那之前如果你的项目中大量使用了常量求值相关的代码，可能需要你手动进行优化编译期求值的代码来换取更快的编译速度</strong></p>
+<p>如果这个新的解释器被正式加入了，有关的情况应该会得到比较大的改善。<strong>但是在那之前如果你的项目中大量使用了常量求值相关的代码，可能需要你手动进行优化编译期求值的代码来换取更快的编译速度</strong></br></p>
 <p>还剩下<code>gcc</code>和<code>msvc</code>的相关实现未调查，未完待续<code>......</code> </p>
 ]]></content>
   </entry>
@@ -1452,19 +1445,8 @@
 <p>因此在有些时候可以用它们来检测程序中的潜在错误。</p>
 <h2 id="2003：真的能-macro-free-吗？"><a href="#2003：真的能-macro-free-吗？" class="headerlink" title="2003：真的能 macro free 吗？"></a>2003：真的能 macro free 吗？</h2><p><strong>标准的改变是通过 proposals（提案）进行的</strong></p>
 <blockquote>
-<p>在哪里可以找到提案？它们是由什么组成的？</p>
+<p>在哪里可以找到提案？它们是由什么组成的？</br></br>所有的有关 C++ 标准的提案都可以在 <a href="https://open-std.org/JTC1/SC22/WG21/">open-std.org</a> 上找到。它们中的大多数都有详细的描述并且易于阅读。通常由如下部分组成： </br></br>-  当前遇到的问题 </br>-  标准中相关措辞的的链接 </br>-  上述问题的解决方案 </br>-  建议对标准措辞进行的修改 </br>-  相关提案的链接（提案可能有多个版本或者需要和其它提案进行对比） </br>-  在高级提案中，往往还会附带上实验性实现的链接</br></br>可以通过这些提案来了解 C++ 的每个部分是如何演变的。并非存档中的所有提案最终都被接受，但是它们都对 C++ 的发展有着重要的影响。</br></br>通过提交新提案，任何人都可以参与到 C++ 的演变过程中来。</p>
 </blockquote>
-<p>所有的有关 C++ 标准的提案都可以在 <a href="https://open-std.org/JTC1/SC22/WG21/">open-std.org</a> 上找到。它们中的大多数都有详细的描述并且易于阅读。通常由如下部分组成： </p>
-<ul>
-<li>当前遇到的问题 </li>
-<li>标准中相关措辞的的链接 </li>
-<li>上述问题的解决方案 </li>
-<li>建议对标准措辞进行的修改 </li>
-<li>相关提案的链接（提案可能有多个版本或者需要和其它提案进行对比） </li>
-<li>在高级提案中，往往还会附带上实验性实现的链接</li>
-</ul>
-<p>可以通过这些提案来了解 C++ 的每个部分是如何演变的。并非存档中的所有提案最终都被接受，但是它们都对 C++ 的发展有着重要的影响。</p>
-<p>通过提交新提案，任何人都可以参与到 C++ 的演变过程中来。</p>
 <p><code>2003</code>年的提案 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2003/n1521.pdf">N1521 Generalized Constant Expressions</a> 指出一个问题。如果一个表达式中的某个部分含有函数调用，那么整个表达式就不能是常量表达式，即使这个函数最终能够被常量折叠。这迫使人们在处理复杂常量表达式的时候使用宏，甚至一定程度上导致了宏的滥用</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123; <span class="keyword">return</span> x * x; &#125;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SQUARE(x) ((x) * (x))</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">square</span>(<span class="number">9</span>)</span><br><span class="line">std::numeric_limits&lt;<span class="type">int</span>&gt;::<span class="built_in">max</span>() </span><br><span class="line"><span class="comment">// 理论上可用于常量表达式, 但是实际上不能</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">SQUARE</span>(<span class="number">9</span>)</span><br><span class="line">INT_MAX</span><br><span class="line"><span class="comment">// 被迫使用宏代替</span></span><br></pre></td></tr></table></figure>
 
@@ -2168,6 +2150,8 @@
 <li><code>Filters</code>：一些选项</li>
 </ul>
 <h3 id="多文件支持"><a href="#多文件支持" class="headerlink" title="多文件支持"></a>多文件支持</h3><p>使用<code>Add CMake</code>按钮可以添加一个 CMake 编译器实例，这个实例可以用于编译多个文件。</p>
+</br>
+
 <p>大部分选项和单文件的编译器实例一样，额外多出了两个 </p>
 <ul>
 <li><code>CMake Arguments</code>：传递给 CMake 的参数</li>
