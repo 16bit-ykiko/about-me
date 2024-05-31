@@ -130,7 +130,7 @@ anchor:
   # when you scroll, the URL will update according to header id.
   auto_update: false
   # Click the headline to scroll and update the anchor
-  click_to_scroll: false
+  click_to_scroll: true
 
 # figcaption (圖片描述文字)
 photofigcaption: false
