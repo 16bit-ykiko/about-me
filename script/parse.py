@@ -28,6 +28,8 @@ def toMarkdown(page: Tag):
                 result.append("\n\n" + code_block(element))
             case 'blockquote':
                 result.append("\n\n" + f"> {paragraph(element)}")
+            case 'hr':
+                result.append("\n\n---\n\n")
     return "".join(result)
 
 
@@ -44,6 +46,8 @@ def paragraph(element: PageElement) -> str:
                 result += f'`{element.text}`'
             case 'br':
                 result += '</br>'
+            case 'hr':
+                result += '\n\n---\n\n'
             case None:
                 result += element.text
     return result
