@@ -107,3 +107,21 @@ search:
   field: post
   content: true
   template: ./search.xml
+
+nofollow:
+  enable: true
+  field: site
+  exclude: ''
+
+sitemap:
+  path: 
+    - sitemap.xml
+    - sitemap.txt
+  template: ./sitemap_template.xml
+  template_txt: ./sitemap_template.txt
+  rel: false
+  tags: true
+  categories: true
+
+baidusitemap:
+  path: baidusitemap.xml
