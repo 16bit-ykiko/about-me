@@ -679,73 +679,61 @@
 ]]></content>
   </entry>
   <entry>
-    <title>使用 clang 工具自由的支配 C++ 代码吧！</title>
+    <title>使用 Clang 工具自由的支配 C++ 代码吧</title>
     <url>/about-me/669360731/</url>
-    <content><![CDATA[<p>clang 是一个由 LLVM 项目提供的 C 语言家族的编译器前端。它最初是为了替代 GNU Compiler Collection (GCC) 的 C 语言前端而开发的。clang 的目标是提供更快的编译速度、更好的诊断信息和更灵活的架构。clang 包括一个 C、C++ 和 Objective-C 编译器的前端，它们被设计成可嵌入到其他项目中。clang 的一个重要特点是其 modularity（模块化）架构，这使得开发者可以更容易地扩展和定制编译器的功能。它也被广泛用于许多项目中，包括 LLVM 自身、一些操作系统的内核开发，以及一些编程语言的编译器实现。</p>
-<p>除了作为编译器使用之外，clang 还可以作为一个库提供，使开发者能够在其应用程序中利用编译器的功能，例如源代码分析和生成。没错！clang 还可以作为一个库提供，我们可以用 clang 来获取 C++ 源文件的 AST，以便于我们进一步处理这些信息。本文就是对如何使用 clang 工具的一篇介绍</p>
-<h2 id="安装-使用"><a href="#安装-使用" class="headerlink" title="安装 &amp; 使用"></a>安装 &amp; 使用</h2><p>目前 clang 被划分为以下库和工具：</p>
-<ul>
-<li>libsupport </li>
-<li>libsystem </li>
-<li>libbasic </li>
-<li>libast </li>
-<li>liblex </li>
-<li>libparse </li>
-<li>libsema </li>
-<li>libcodegen </li>
-<li>librewrite </li>
-<li>libanalysis</li>
-</ul>
-<p>由于 clang 本身是用 C++ 编写的，所以相关的接口都是 C++ 的。然而由于 C++ 接口内容本身的复杂性，以及不稳定性（例如在 Windows 上由 gcc 编译出来的 dll，没法给 msvc 用，又或者 clang 自身版本升级，导致原来的 API 变动从而出现不兼容性），所以官方并不推荐我们首选 C++ 接口来使用。除了 C++ 接口之外，官方还提供了一个叫做 libclang 的 C 语言 <a href="https://clang.llvm.org/doxygen/group__CINDEX.html">接口</a>，这个接口不仅使用起来相对简单，而且本身也是比较稳定的。唯一的缺点是没法获取完整的 C++ 的 AST，不过鉴于 C++ 完整的语法树本身就极度复杂，很多时候我们只需要一部分就好了，所以这个问题完全可以忽略，除非你真的有这方面需求。</p>
-<p>如果你想要使用 libclang，你需要先安装 llvm 和 clang，<a href="https://github.com/llvm/llvm-project/releases">这里</a> 有若干预发布的二进制包可以下载。如果你需要定制化的需求，请参考这个 <a href="https://llvm.org/docs/GettingStarted.html#id4">页面</a> 尝试手动进行编译。安装完成之后只需要把 llvm&#x2F;lib 目录下的 libclang.dll 链接到程序，然后包含 llvm&#x2F;include 目录下的 clang-c&#x2F;Index.h 头文件即可使用。</p>
-<p>然而，由于 C 语言没有高级的一些抽象，操作个字符串都麻烦。如果想要实际使用，还得我们自己用 C++ 封装一下，还好官方基于这套 C 接口还提供了一个 py bind，也就是这个 <a href="https://pypi.org/project/clang/">包</a>，这样的话用起来就比较方便了。不过官方提供的 py bind 并没有打包 libclang 的这个 dll，也就是你还得在电脑上手动配置环境。这很让人讨厌，不过还好社区有人提供了打包好的 <a href="https://pypi.org/project/libclang/">版本</a>。</p>
+    <content><![CDATA[<p>Clang 是一个由 LLVM 项目提供的 C 语言家族的编译器前端。它最初是为了替代 GNU Compiler Collection (GCC) 的 C 语言前端而开发的，目标是提供更快的编译速度、更好的诊断信息和更灵活的架构。Clang包括一个 C、C++ 和 Objective-C 编译器的前端，它们被设计成可嵌入到其他项目中。Clang 的一个重要特点是其模块化架构，这使得开发者可以更容易地扩展和定制编译器的功能。它也被广泛用于许多项目中，包括 LLVM 自身，一些操作系统的内核开发，以及一些编程语言的编译器实现。</p>
+<p>除了作为编译器使用之外，Clang 还可以作为一个库提供，使得开发者能够在其应用程序中利用编译器的功能，例如源代码分析和生成。没错！Clang 还可以作为一个库提供，我们可以用 Clang 来获取 C++ 源文件的 AST，以便于我们进一步处理这些信息。本文就是对如何使用 Clang 工具的一篇介绍。</p>
+<h2 id="Installation-Usage"><a href="#Installation-Usage" class="headerlink" title="Installation &amp; Usage"></a>Installation &amp; Usage</h2><p>目前 Clang 被划分为以下库和工具：libsupport, libsystem, libbasic, libast, liblex, libparse, libsema , libcodegen, librewrite, libanalysis。 由于 Clang 本身是用 C++ 编写的，所以相关的接口都是 C++ 的。然而由于 C++ 接口内容本身的复杂性和不稳定性（例如在 Windows 上由 GCC 编译出来的 DLL，没法给 MSVC 用，又或者 Clang 自身版本升级，导致 API 变动从而出现不兼容性），所以官方并不推荐我们首选 C++ 接口来使用。除了 C++ 接口之外，官方还提供了一个叫做 libclang 的 C 语言 <a href="https://clang.llvm.org/doxygen/group__CINDEX.html">接口</a>，这个接口不仅使用起来相对简单，而且本身也是比较稳定的。唯一的缺点是没法获取完整的 C++ 的 AST，不过鉴于 C++ 完整的语法树本身就极度复杂，很多时候我们只需要其中一小部分就好了，所以这个问题完全可以忽略，除非你真的有这方面需求。</p>
+<p>如果你想要使用 libclang，你需要先安装 llvm 和 clang，<a href="https://github.com/llvm/llvm-project/releases">LLVM Release</a> 界面有若干预发布的二进制包可以下载。如果你需要定制化的需求，请参考 <a href="https://llvm.org/docs/GettingStarted.html#id4">Getting Started</a> 页面进行手动进行编译。安装完成之后只需要把<code>llvm/lib</code>目录下的<code>libclang.dll</code>链接到程序，然后包含<code>llvm/include</code>目录下的<code>clang-c/Index.h</code>头文件即可使用。</p>
+<p>然而，由于 C 语言没有一些高级抽象。操作字符串都不是很方便。如果大规模使用，还得我们自己用 C++ 封装一层，还好官方基于这套 C 接口还提供了一个 python binding，也就是 <a href="https://pypi.org/project/clang/">clang</a> 这个包，这样的话用起来就比较方便了。不过官方提供的 python binding 并没有打包 libclang 的这个 dll，也就是你还是得在电脑上手动配置 LLVM 的环境，这很让人讨厌。不过还好社区有人在 PyPI 上提供了打包好的包：<a href="https://pypi.org/project/libclang/">libclang</a>。</p>
 <p>于是如果你想使用 libclang 来获取 C++ 语法树，只需要</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install libclang</span><br></pre></td></tr></table></figure>
 
-<p>什么额外的事情都不用做。本文就基于这个 py bind 的版本进行介绍，C 版本的 API 和 Python 版本的 API 基本是完全一致的。如果你觉得 Python 性能不够，你也可以参考这个教程对照写 C 版本的代码即可。另外官方提供的包并没有 type hint，这样的话用 Python 写就没有代码补全，用起来也不舒服。我自己补了一个类型提示的 <a href="https://github.com/16bit-ykiko/clang-related/blob/main/cindex.pyi">文件</a>，下载下来之后直接和  放在同一文件夹内就能有代码提示了。</p>
-<h2 id="入门案例"><a href="#入门案例" class="headerlink" title="入门案例"></a>入门案例</h2><p>示例的 C++ 源文件代码如下</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// main.cpp</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Person</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>* name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Person person = &#123; <span class="number">1</span>, <span class="string">&quot;John&quot;</span> &#125;; </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>什么额外的事情都不用做。本文就基于这个 python binding 的版本进行介绍。C 版本的 API 和 Python 版本的 API 基本是完全一致的，如果你觉得 Python 性能不够，你也可以参考这个教程对照着写 C 版本的代码。另外官方提供的包并没有 type hint，这样的话用 Python 写就没有代码补全，用起来也不舒服。我自己补了一个类型提示的 <a href="https://github.com/16bit-ykiko/clang-related/blob/main/cindex.pyi">文件</a>，下载下来之后直接和  放在同一文件夹内就能有代码提示了。</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p>示例的 C++ 源文件代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// main.cpp</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>* name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Person person = &#123;<span class="number">1</span>, <span class="string">&quot;John&quot;</span>&#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>解析它的 Python 代码如下</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> clang.cindex <span class="keyword">as</span> CX</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">traverse</span>(<span class="params">node: CX.Cursor, prefix=<span class="string">&quot;&quot;</span>, is_last=<span class="literal">True</span></span>):</span><br><span class="line">    branch = <span class="string">&quot;└──&quot;</span> <span class="keyword">if</span> is_last <span class="keyword">else</span> <span class="string">&quot;├──&quot;</span></span><br><span class="line">    text = <span class="string">f&quot;<span class="subst">&#123;<span class="built_in">str</span>(node.kind).removeprefix(<span class="string">&#x27;CursorKind.&#x27;</span>)&#125;</span>: <span class="subst">&#123;node.spelling&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> node.kind == CX.CursorKind.INTEGER_LITERAL:</span><br><span class="line">        value = <span class="built_in">list</span>(node.get_tokens())[<span class="number">0</span>].spelling</span><br><span class="line">        text = <span class="string">f&quot;<span class="subst">&#123;text&#125;</span><span class="subst">&#123;value&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;prefix&#125;</span><span class="subst">&#123;branch&#125;</span> <span class="subst">&#123;text&#125;</span>&quot;</span>)</span><br><span class="line">    new_prefix = prefix + (<span class="string">&quot;    &quot;</span> <span class="keyword">if</span> is_last <span class="keyword">else</span> <span class="string">&quot;│   &quot;</span>)</span><br><span class="line">    children = <span class="built_in">list</span>(node.get_children())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 遍历子节点</span></span><br><span class="line">    <span class="keyword">for</span> child <span class="keyword">in</span> children:</span><br><span class="line">        traverse(child, new_prefix, child <span class="keyword">is</span> children[-<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">index = CX.Index.create(excludeDecls=<span class="literal">True</span>)</span><br><span class="line">tu = index.parse(<span class="string">&#x27;main.cpp&#x27;</span>, args=[<span class="string">&#x27;-std=c++20&#x27;</span>])</span><br><span class="line">traverse(tu.cursor)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> clang.cindex <span class="keyword">as</span> CX</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">traverse</span>(<span class="params">node: CX.Cursor, prefix=<span class="string">&quot;&quot;</span>, is_last=<span class="literal">True</span></span>):</span><br><span class="line">    branch = <span class="string">&quot;└──&quot;</span> <span class="keyword">if</span> is_last <span class="keyword">else</span> <span class="string">&quot;├──&quot;</span></span><br><span class="line">    text = <span class="string">f&quot;<span class="subst">&#123;<span class="built_in">str</span>(node.kind).removeprefix(<span class="string">&#x27;CursorKind.&#x27;</span>)&#125;</span>: <span class="subst">&#123;node.spelling&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> node.kind == CX.CursorKind.INTEGER_LITERAL:</span><br><span class="line">        value = <span class="built_in">list</span>(node.get_tokens())[<span class="number">0</span>].spelling</span><br><span class="line">        text = <span class="string">f&quot;<span class="subst">&#123;text&#125;</span><span class="subst">&#123;value&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;prefix&#125;</span><span class="subst">&#123;branch&#125;</span> <span class="subst">&#123;text&#125;</span>&quot;</span>)</span><br><span class="line">    new_prefix = prefix + (<span class="string">&quot;    &quot;</span> <span class="keyword">if</span> is_last <span class="keyword">else</span> <span class="string">&quot;│   &quot;</span>)</span><br><span class="line">    children = <span class="built_in">list</span>(node.get_children())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> child <span class="keyword">in</span> children:</span><br><span class="line">        traverse(child, new_prefix, child <span class="keyword">is</span> children[-<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">index = CX.Index.create(excludeDecls=<span class="literal">True</span>)</span><br><span class="line">tu = index.parse(<span class="string">&#x27;main.cpp&#x27;</span>, args=[<span class="string">&#x27;-std=c++20&#x27;</span>])</span><br><span class="line">traverse(tu.cursor)</span><br></pre></td></tr></table></figure>
 
-<p>输出结果，前面的是语法树节点类型，后面是节点的内容。可以发现还是非常清晰的，几乎能和源代码一一对应</p>
+<p>输出结果如下</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">TRANSLATION_UNIT: main.cpp</span><br><span class="line">├── STRUCT_DECL: Person</span><br><span class="line">│   ├── FIELD_DECL: age</span><br><span class="line">│   └── FIELD_DECL: name</span><br><span class="line">└── FUNCTION_DECL: main</span><br><span class="line">    └── COMPOUND_STMT:</span><br><span class="line">        ├── DECL_STMT:</span><br><span class="line">        │   └── VAR_DECL: person</span><br><span class="line">        │       ├── TYPE_REF: struct Person</span><br><span class="line">        │       └── INIT_LIST_EXPR:</span><br><span class="line">        │           ├── INTEGER_LITERAL: 1</span><br><span class="line">        │           └── STRING_LITERAL: <span class="string">&quot;John&quot;</span></span><br><span class="line">        └── RETURN_STMT:</span><br><span class="line">            └── INTEGER_LITERAL: 0</span><br></pre></td></tr></table></figure>
 
-<h2 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h2><p>注意，本文假定读者对语法树有一定的认识，不在这里做过多介绍了。如果不知道语法树是什么的话，可以看一下 <a href="https://16bit-ykiko.github.io/about-me/670190357">为什么说 C&#x2F;C++ 编译器不保留元信息</a>。下面对 cindex 中的一些常用类型做一些介绍</p>
+<p>前面的是语法树节点类型，后面是节点的内容。可以发现还是非常清晰的，几乎能和源代码一一对应。</p>
+<h2 id="Basic-Types"><a href="#Basic-Types" class="headerlink" title="Basic Types"></a>Basic Types</h2><p>注意，本文假定读者对语法树有一定的认识，不在这里做过多介绍了。如果不知道语法树是什么的话，可以看一下 <a href="https://16bit-ykiko.github.io/about-me/670190357">为什么说 C&#x2F;C++ 编译器不保留元信息</a>。下面对 cindex 中的一些常用类型做一些介绍</p>
 <h3 id="Cursor"><a href="#Cursor" class="headerlink" title="Cursor"></a>Cursor</h3><p>相当于语法树的基本节点，整个语法树都是由<code>Cursor</code>组成的。通过<code>kind</code>属性返回一个<code>CursorKind</code>类型枚举值，就代表了这个节点实际对应的类型。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> kind <span class="keyword">in</span> CursorKind.get_all_kinds():</span><br><span class="line">    <span class="built_in">print</span>(kind)</span><br></pre></td></tr></table></figure>
 
 <p>这样可以打印出所有支持的节点类型，也可以直接去源码查看。 <code>Cursor</code>还有一些其它的属性让我们使用，常用的有如下这些：</p>
 <ul>
-<li><code>spelling</code> —— 节点的名字，例如一个类型声明的节点，它的<code>spelling</code>就是类型的名字</li>
-<li><code>displayname</code> —— 节点的简短名字，大多数时候和<code>spelling</code>是一样的。但是有些时候会有区别，例如一个函数的<code>spelling</code>会带上参数类型，例如<code>func(int)</code>，但是它的<code>displayname</code>就只是<code>func</code> </li>
-<li><code>type</code> —— 节点元素的类型，例如一个变量声明的节点，它的<code>type</code>就是这个变量的类型。或者一个字段声明的节点，它的<code>type</code>就是这个字段的类型。返回类型为<code>Type</code> </li>
-<li><code>location</code> —— 节点的位置信息，返回类型为<code>SourceLocation</code>，其中携带了该节点在源码中的行数，列数，文件名等信息 </li>
-<li><code>extent</code> —— 节点的范围信息，返回类型为<code>SourceRange</code>，由两个<code>SourceLocation</code>组成，其中携带了该节点在源码中的起始位置和结束位置 </li>
-<li><code>access_specifier</code> —— 节点的访问权限，返回类型为<code>AccessSpecifier</code>，有<code>PUBLIC</code>，<code>PROTECTED</code>，<code>PRIVATE</code>，<code>NONE</code>，<code>INVALID</code>五种</li>
+<li><code>spelling</code>: 节点的名字，例如一个类型声明的节点，它的<code>spelling</code>就是类型的名字</li>
+<li><code>displayname</code>: 节点的简短名字，大多数时候和<code>spelling</code>是一样的。但是有些时候会有区别，例如一个函数的<code>spelling</code>会带上参数类型，例如<code>func(int)</code>，但是它的<code>displayname</code>就只是<code>func</code> </li>
+<li><code>type</code>: 节点元素的类型，例如一个变量声明的节点，它的<code>type</code>就是这个变量的类型。或者一个字段声明的节点，它的<code>type</code>就是这个字段的类型。返回类型为<code>Type</code> </li>
+<li><code>location</code>: 节点的位置信息，返回类型为<code>SourceLocation</code>，其中携带了该节点在源码中的行数，列数，文件名等信息 </li>
+<li><code>extent</code>: 节点的范围信息，返回类型为<code>SourceRange</code>，由两个<code>SourceLocation</code>组成，其中携带了该节点在源码中的起始位置和结束位置 </li>
+<li><code>access_specifier</code>: 节点的访问权限，返回类型为<code>AccessSpecifier</code>。有<code>PUBLIC</code>, <code>PROTECTED</code>, <code>PRIVATE</code>, <code>NONE</code>, <code>INVALID</code>五种</li>
 </ul>
 <p>还有一些成员函数： </p>
 <ul>
-<li><code>get_children</code> —— 获取所有子节点</li>
-<li><code>get_tokens</code> —— 获取代表该节点的所有<code>token</code> </li>
-<li><code>is_definition</code> —— 判断该节点是否是定义（C++ 里面支持向前声明，所以节点分为声明和定义两类）</li>
+<li><code>get_children</code>:  获取所有子节点</li>
+<li><code>get_tokens</code>: 获取代表该节点的所有<code>token</code> </li>
+<li><code>is_definition</code>: 判断该节点是否是定义（C++ 里面支持向前声明，所以节点分为声明和定义两类）</li>
 </ul>
-<p>还有很多<code>is</code>开头的函数，基本上看看名字就知道是什么意思了，例如<code>is_anonymous</code>，<code>is_const_method</code>，<code>is_virtual_method</code>等等。这里就不过多介绍了。</p>
+<p>还有很多<code>is</code>开头的函数，基本上看看名字就知道是什么意思了，例如<code>is_anonymous</code>, <code>is_const_method</code>, <code>is_virtual_method</code>等等。这里就不过多介绍了。</p>
 <h3 id="Type"><a href="#Type" class="headerlink" title="Type"></a>Type</h3><p>如果该节点有类型的话，代表该节点的类型。常用的属性有 </p>
 <ul>
-<li><code>kind</code> —— 类型的类型，返回类型为<code>TypeKind</code>，例如<code>INT</code>，<code>FLOAT</code>，<code>POINTER</code>，<code>FUNCTIONPROTO</code>等等 </li>
-<li><code>spelling</code> —— 类型的名字，例如<code>int</code>，<code>float</code>，<code>void</code>等等 </li>
-<li><code>get_fields</code> —— 如果该类型是一个<code>struct</code>或者<code>class</code>的话，字段 </li>
-<li><code>get_typedef_name</code> —— 如果该类型是一个<code>typedef</code>或者<code>using</code>的话，返回原本的名字</li>
+<li><code>kind</code>: 类型的类型，返回类型为<code>TypeKind</code>。例如<code>INT</code>, <code>FLOAT</code>, <code>POINTER</code>, <code>FUNCTIONPROTO</code>等等 </li>
+<li><code>spelling</code>: 类型的名字，例如<code>int</code>, <code>float</code>, <code>void</code>等等 </li>
+<li><code>get_fields</code>: 如果该类型是一个<code>struct</code>或者<code>class</code>的话，字段 </li>
+<li><code>get_typedef_name</code>: 如果该类型是一个<code>typedef</code>或者<code>using</code>的话，返回原本的名字</li>
 </ul>
-<p>以及一些<code>is</code>开头的函数，例如<code>is_const_qualified</code>，<code>is_function_variadic</code>，<code>is_pod</code>等等。这里也省略了。</p>
-<h3 id="TranslationUnit"><a href="#TranslationUnit" class="headerlink" title="TranslationUnit"></a>TranslationUnit</h3><p>一般来说一个 C++ 源文件就代表一个<code>TranslationUnit</code>，也就是我们常说的编译单元</p>
+<p>以及一些<code>is</code>开头的函数，例如<code>is_const_qualified</code>, <code>is_function_variadic</code>, <code>is_pod</code>等等。这里也省略了。</p>
+<h3 id="TranslationUnit"><a href="#TranslationUnit" class="headerlink" title="TranslationUnit"></a>TranslationUnit</h3><p>一般来说一个 C++ 源文件就代表一个<code>TranslationUnit</code>，也就是我们常说的编译单元。</p>
 <p>常用的有 </p>
 <ul>
-<li><code>cursor</code> —— 获取该<code>TranslationUnit</code>的根节点，也就是<code>TRANSLATION_UNIT</code>类型的<code>Cursor</code> </li>
-<li><code>spelling</code> —— 获取该<code>TranslationUnit</code>的文件名 </li>
-<li><code>get_includes()</code> —— 获取该<code>TranslationUnit</code>的所有<code>include</code>，返回类型为<code>FileInclusion</code>的<code>list</code>，注意由于<code>include</code>的文件里面可能还会包含别的文件所以，可以用<code>depth</code>这个参数来限制，比如我只想获取第一层也就是直接包含的头文件可以这么写</li>
+<li><code>cursor</code>: 获取该<code>TranslationUnit</code>的根节点，也就是<code>TRANSLATION_UNIT</code>类型的<code>Cursor</code> </li>
+<li><code>spelling</code>: 获取该<code>TranslationUnit</code>的文件名 </li>
+<li><code>get_includes</code>: 获取该<code>TranslationUnit</code>的所有<code>include</code>，返回类型为<code>FileInclusion</code>的<code>list</code>，注意由于<code>include</code>的文件里面可能还会包含别的文件所以，可以用<code>depth</code>这个参数来限制，比如我只想获取第一层也就是直接包含的头文件可以这么写</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">index = CX.Index.create()</span><br><span class="line">tu = index.parse(<span class="string">&#x27;main.cpp&#x27;</span>, args=[<span class="string">&#x27;-std=c++20&#x27;</span>])</span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> tu.get_includes():</span><br><span class="line">    <span class="keyword">if</span> file.depth == <span class="number">1</span>:</span><br><span class="line">        <span class="built_in">print</span>(file.include.name)</span><br></pre></td></tr></table></figure>
 
@@ -753,11 +741,11 @@
 <h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><p>一个<code>Index</code>就是一个<code>TranslationUnit</code>的集合，并且最终被链接到一起，形成一个可执行文件或者库。</p>
 <p>有一个静态方法<code>create</code>用于创建一个新的<code>Index</code> ，然后成员方法<code>parse</code>可以解析一个<code>C++</code>源文件，返回一个<code>TranslationUnit</code>，该函数的参数有： </p>
 <ul>
-<li><code>path</code> —— 源文件路径 </li>
-<li><code>args</code> —— 编译参数，例如<code>-std=c++20</code>，<code>-I</code>等等 </li>
-<li><code>options</code>：一些定义在<code>TranslationUnit.PARSE_XXX</code>中的参数，例如<code>PARSE_SKIP_FUNCTION_BODIES和PARSE_INCOMPLETE</code>。可以用来定制化解析过程，加快解析速度，或者保留宏信息等。</li>
+<li><code>path</code>: 源文件路径 </li>
+<li><code>args</code>: 编译参数，例如<code>-std=c++20</code>，<code>-I</code>等等 </li>
+<li><code>options</code>: 一些定义在<code>TranslationUnit.PARSE_XXX</code>中的参数，例如<code>PARSE_SKIP_FUNCTION_BODIES和PARSE_INCOMPLETE</code>。可以用来定制化解析过程，加快解析速度，或者保留宏信息等。</li>
 </ul>
-<h2 id="解析案例"><a href="#解析案例" class="headerlink" title="解析案例"></a>解析案例</h2><h3 id="namespace"><a href="#namespace" class="headerlink" title="namespace"></a>namespace</h3><p>由于 clang 在解析的时候会把所有的头文件都展开，全部输出内容太多了。但是我们主要可能只是想要我们自己代码的信息，这时候就可以利用命名空间进行筛选了。示例如下：</p>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="namespace"><a href="#namespace" class="headerlink" title="namespace"></a>namespace</h3><p>由于 clang 在解析的时候会把所有的头文件都展开，全部输出内容太多了。但是我们主要可能只是想要我们自己代码的信息，这时候就可以利用命名空间进行筛选了。示例如下：</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// main.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">namespace</span> my</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">Person</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> age;</span><br><span class="line">        std::string name;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 </br>
@@ -805,13 +793,13 @@
 
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># main.py</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">traverse_macro</span>(<span class="params">node: CX.Cursor</span>):</span><br><span class="line">    <span class="keyword">if</span> node.kind == CX.CursorKind.MACRO_DEFINITION:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;MACRO: <span class="subst">&#123;node.spelling&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>([token.spelling <span class="keyword">for</span> token <span class="keyword">in</span> node.get_tokens()])</span><br><span class="line">    <span class="keyword">elif</span> node.kind == CX.CursorKind.MACRO_INSTANTIATION:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;MACRO_INSTANTIATION: <span class="subst">&#123;node.spelling&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>([token.spelling <span class="keyword">for</span> token <span class="keyword">in</span> node.get_tokens()])</span><br><span class="line">    <span class="keyword">for</span> child <span class="keyword">in</span> node.get_children():</span><br><span class="line">        traverse_marco(child)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意这里会多一些编译器内置的宏</span></span><br><span class="line"><span class="comment"># MACRO: CONCAT</span></span><br><span class="line"><span class="comment"># [&#x27;CONCAT&#x27;, &#x27;(&#x27;, &#x27;a&#x27;, &#x27;,&#x27;, &#x27;b&#x27;, &#x27;)&#x27;, &#x27;a&#x27;, &#x27;##&#x27;, &#x27;b&#x27;]</span></span><br><span class="line"><span class="comment"># MACRO_INSTANTIATION: CONCAT</span></span><br><span class="line"><span class="comment"># [&#x27;CONCAT&#x27;, &#x27;(&#x27;, &#x27;1&#x27;, &#x27;,&#x27;, &#x27;2&#x27;, &#x27;)&#x27;]</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>前面以及说了 libclang 并不能提供完整的 C++ 语法树，例如它对于<code>Expr</code>的解析就缺少很多接口。这也就意味着，如果你需要解析具体的表达式内容，那么你可能更适合使用它的 C++ 的接口，它提供完整而复杂的语法树。</p>
-<p>国内关于 clang 工具的具体使用的文章介绍实在是很少，本文尝试对一些常用功能进行了具体的介绍。当然，并没有那么完善。如果你有任何疑问，可以直接阅读 Index.h 的源码，里面的注释非常详尽。或者也可以在评论区留言，我会尽可能的解决。除此之外，如果实在想获取一些 libclang 不提供的信息，可以善用<code>get_tokens</code>这个函数自行获取，比如 libclang 居然不支持获取整数字面量和浮点数字面量的值，这时候就可以利用<code>get_tokens</code>来手动获取了。</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>前面以及说了 libclang 并不能提供完整的 C++ 语法树，例如它对于<code>Expr</code>的解析就缺少很多接口。这也就意味着，如果你需要解析具体的表达式内容，那么你可能更适合使用它的 C++ 的接口，它提供完整而复杂的语法树。</p>
+<p>国内关于 Clang 工具的具体使用的文章介绍实在是很少，本文尝试对一些常用功能进行了具体的介绍。当然，并没有那么完善。如果你有任何疑问，可以直接阅读 Index.h 的源码，里面的注释非常详尽。或者也可以在评论区留言，我会尽可能的解决。除此之外，如果实在想获取一些 libclang 不提供的信息，可以善用<code>get_tokens</code>这个函数自行获取，比如 libclang 居然不支持获取整数字面量和浮点数字面量的值，这时候就可以利用<code>get_tokens</code>来手动获取了。</p>
 <p>在从语法树中获取出这些信息之后，你可以进一步的处理它们，例如生成元信息或者直接生成代码之类的。当然，这都是后话了，具体还是取决于你的需求。</p>
 <p>本文到这里就结束了，这是反射系列中的其中一篇，如果对其它的文章感兴趣，可以点击下面的链接进行阅读其它文章</p>
 </br>
 
-<p><a target="_blank" href="https://16bit-ykiko.github.io/about-me/669358870" style="position: relative; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; box-sizing: border-box; -webkit-flex-direction: row; -ms-flex-direction: row; flex-direction: row; -webkit-align-items: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; width: 390px; min-height: 84px; border-radius: 8px; max-width: 100%; overflow: hidden; margin: 16px auto; padding: 12px 12px 9px 12px; background-color: #F6F6F6;"><span class="LinkCard-contents"><span style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; max-height: 40px; line-height: 1.25; color: #121212;">写给 C++ 程序员的反射教程 | ykiko’s blog</span><span style="display: -webkit-box; font-size: 13px; height: 18px; line-height: 18px; color: #999; word-break: break-all; text-overflow: ellipsis; overflow: hidden; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"><span style="display: inline-flex; align-items: center;"><svg class="Zi Zi--InsertLink" fill="currentColor" viewBox="0 0 24 24" width="14" height="14"><path d="M13.414 4.222a4.5 4.5 0 1 1 6.364 6.364l-3.005 3.005a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707l3.005-3.005a2.5 2.5 0 1 0-3.536-3.536l-3.005 3.005a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707l3.005-3.005zm-6.187 6.187a.5.5 0 0 1 .638-.058l.07.058.706.707a.5.5 0 0 1 .058.638l-.058.07-3.005 3.004a2.5 2.5 0 0 0 3.405 3.658l.13-.122 3.006-3.005a.5.5 0 0 1 .638-.058l.069.058.707.707a.5.5 0 0 1 .058.638l-.058.069-3.005 3.005a4.5 4.5 0 0 1-6.524-6.196l.16-.168 3.005-3.005zm8.132-3.182a.25.25 0 0 1 .353 0l1.061 1.06a.25.25 0 0 1 0 .354l-8.132 8.132a.25.25 0 0 1-.353 0l-1.061-1.06a.25.25 0 0 1 0-.354l8.132-8.132z"></path></svg></span><span>https://16bit-ykiko.github.io/about-me/669358870</span></span></span></a></p>
+<p><a target="_blank" href="https://16bit-ykiko.github.io/about-me/669358870" style="position: relative; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; box-sizing: border-box; -webkit-flex-direction: row; -ms-flex-direction: row; flex-direction: row; -webkit-align-items: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; width: 390px; min-height: 84px; border-radius: 8px; max-width: 100%; overflow: hidden; margin: 16px auto; padding: 12px 12px 9px 12px; background-color: #F6F6F6;"><span class="LinkCard-contents"><span style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; max-height: 40px; line-height: 1.25; color: #121212;">写给 C++ 程序员的反射教程</span><span style="display: -webkit-box; font-size: 13px; height: 18px; line-height: 18px; color: #999; word-break: break-all; text-overflow: ellipsis; overflow: hidden; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"><span style="display: inline-flex; align-items: center;"><svg class="Zi Zi--InsertLink" fill="currentColor" viewBox="0 0 24 24" width="14" height="14"><path d="M13.414 4.222a4.5 4.5 0 1 1 6.364 6.364l-3.005 3.005a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707l3.005-3.005a2.5 2.5 0 1 0-3.536-3.536l-3.005 3.005a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707l3.005-3.005zm-6.187 6.187a.5.5 0 0 1 .638-.058l.07.058.706.707a.5.5 0 0 1 .058.638l-.058.07-3.005 3.004a2.5 2.5 0 0 0 3.405 3.658l.13-.122 3.006-3.005a.5.5 0 0 1 .638-.058l.069.058.707.707a.5.5 0 0 1 .058.638l-.058.069-3.005 3.005a4.5 4.5 0 0 1-6.524-6.196l.16-.168 3.005-3.005zm8.132-3.182a.25.25 0 0 1 .353 0l1.061 1.06a.25.25 0 0 1 0 .354l-8.132 8.132a.25.25 0 0 1-.353 0l-1.061-1.06a.25.25 0 0 1 0-.354l8.132-8.132z"></path></svg></span><span>https://16bit-ykiko.github.io/about-me/669358870</span></span></span></a></p>
 ]]></content>
   </entry>
   <entry>
@@ -969,122 +957,6 @@
 </ul>
 <p>如果这个新的解释器被正式加入了，有关的情况应该会得到比较大的改善。<strong>但是在那之前如果你的项目中大量使用了常量求值相关的代码，可能需要你手动进行优化编译期求值的代码来换取更快的编译速度</strong></br></p>
 <p>还剩下<code>gcc</code>和<code>msvc</code>的相关实现未调查，未完待续<code>......</code> </p>
-]]></content>
-  </entry>
-  <entry>
-    <title>全新的构造函数，C++ 中的 relocate 构造函数</title>
-    <url>/about-me/679782886/</url>
-    <content><![CDATA[<p>众所周知，现在 C++ 里面有两种特殊的构造函数，即 copy constructor 和 move constructor</p>
-<p>copy constructor 早在 C++98 的时候就加入了，用来拷贝一个对象，像<code>vector</code>这种拥有资源的类型，拷贝的时候会把它拥有的资源也拷贝一份</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::vector&lt;<span class="type">int</span>&gt; v1 = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; v2 = v1; <span class="comment">// copy</span></span><br></pre></td></tr></table></figure>
-
-<p>当然了，拷贝的开销有些时候非常大，而且完全没必要。于是在 C++11 加入了 move constructor，用来把一个对象的资源转移到另一个对象上。这样相对于直接拷贝，开销是小得多的</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::vector&lt;<span class="type">int</span>&gt; v1 = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; v2 = std::<span class="built_in">move</span>(v1); <span class="comment">// move</span></span><br></pre></td></tr></table></figure>
-
-<p>注意 C++ 中的 move 被叫做 C++ 标准规定了，被移动过后的对象状态是一种 ，实现需要保证它能够正常调用析构函数。<strong>被移动的对象仍然可能被再次使用</strong>（具体能否使用取决于实现）。</p>
-<h2 id="结束了？"><a href="#结束了？" class="headerlink" title="结束了？"></a>结束了？</h2><p>有这两个构造函数就足够了吗？当然没有。事实上还有另一种广泛使用的操作，可以把它叫做 <strong>relocate</strong> 操作。考虑如下场景</p>
-<p>假设你正在实现一个<code>vector</code>，扩容是必要的，于是你写了一个私有成员函数<code>grow</code>用来进行扩容（下面的代码示例暂时忽略异常安全）</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">grow</span><span class="params">(std::<span class="type">size_t</span> new_capacity)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> new_data = <span class="built_in">malloc</span>(new_capacity * <span class="built_in">sizeof</span>(T));</span><br><span class="line">    <span class="keyword">for</span> (std::<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; m_Size; ++i) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">new</span> (new_data + i) <span class="built_in">T</span>(std::<span class="built_in">move</span>(m_Data[i]));</span><br><span class="line">        m_Data[i].~<span class="built_in">T</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">free</span>(m_Data); </span><br><span class="line">    m_Data = new_data;</span><br><span class="line">    m_Capacity = new_capacity;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码很简单，先通过<code>malloc</code>分配新的内存，然后通过 <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new">placement new</a> 在新分配的内存上调用移动构造进行初始化。注意，正如前文提到的： C++ 中的 move 是 non-destructive 的，所以需要在调用完移动构造之后，原对象还需要调用析构函数，来正确的结束生存期。最后释放原来的内存，更新成员变量的值就行了。</p>
-<p>但是这样的实现并不高效，在 C++ 中有一个 <a href="https://en.cppreference.com/w/cpp/named_req/TriviallyCopyable">trivially copyable</a> 的概念，可以通过<code>is_trivially_copyable</code>这个 triat 来进行判断。满足这个约束的类型，可以直接使用<code>memcpy</code>或者<code>memmove</code>来进行拷贝得到一个新的对象。考虑下面这个例子：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Point</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="type">int</span> y;</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line"><span class="built_in">static_assert</span>(std::is_trivially_copyable_v&lt;Point&gt;);</span><br><span class="line"></span><br><span class="line">Point points[<span class="number">3</span>] = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>&#125;, &#123;<span class="number">5</span>, <span class="number">6</span>&#125;&#125;;</span><br><span class="line">Point new_points[<span class="number">3</span>];</span><br><span class="line">std::<span class="built_in">memcpy</span>(new_points, points, <span class="built_in">sizeof</span>(points));</span><br></pre></td></tr></table></figure>
-
-<p>不仅仅省去了多次函数调用，而且<code>memcpy</code>和<code>memmove</code>本身就是高度优化的 builtin 函数（可以通过 SIMD 进行向量化）。所以效率相比于直接调用拷贝构造进行复制效率会高很多。</p>
-<p>为了让我们的<code>vector</code>更快，我们也可以做一下这种优化，利用 C++17 加入的<code>if constexpr</code>来做编译期判断，很轻松的写出下面的代码</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">grow</span><span class="params">(std::<span class="type">size_t</span> new_capacity)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> new_data = <span class="built_in">malloc</span>(new_capacity * <span class="built_in">sizeof</span>(T));</span><br><span class="line">    <span class="function"><span class="keyword">if</span> <span class="title">constexpr</span> <span class="params">(std::is_trivially_copyable_v&lt;T&gt;)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        std::<span class="built_in">memcpy</span>(new_data, m_Data, m_Size * <span class="built_in">sizeof</span>(T));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> <span class="built_in">constexpr</span> (std::is_move_constructible_v&lt;T&gt;) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (std::<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; m_Size; ++i) </span><br><span class="line">        &#123;</span><br><span class="line">            std::<span class="built_in">construct_at</span>(new_data + i, std::<span class="built_in">move</span>(m_Data[i]));</span><br><span class="line">            std::<span class="built_in">destroy_at</span>(m_Data + i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> <span class="built_in">constexpr</span> (std::is_copy_constructible_v&lt;T&gt;) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (std::<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; m_Size; ++i) </span><br><span class="line">        &#123;</span><br><span class="line">            std::<span class="built_in">construct_at</span>(new_data + i, m_Data[i]);</span><br><span class="line">            std::<span class="built_in">destroy_at</span>(m_Data + i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="built_in">free</span>(m_Data); </span><br><span class="line">    m_Data = new_data;</span><br><span class="line">    m_Capacity = new_capacity;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="大材小用"><a href="#大材小用" class="headerlink" title="大材小用"></a>大材小用</h2><p>这样总感觉怪怪的，我们主要的目的是把就旧内存上的对象全部移动到新内存上，但是用的居然是 <a href="https://en.cppreference.com/w/cpp/named_req/TriviallyCopyable">trivially copyable</a> 这个 trait，似乎约束过强了。完全创建一个新对象和把原来的对象放置到新的位置，感觉差别还挺大的。考虑下面这个例子。似乎直接对<code>std::string</code>这样的类型进行<code>memcpy</code>也是可以的。由于内存都是我们手动管理，析构函数也是我们手动调用，并不会出现多次调用析构函数的情况</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::byte buffer[<span class="built_in">sizeof</span>(std::string)];</span><br><span class="line"><span class="keyword">auto</span>&amp; str1 = *std::<span class="built_in">construct_at</span>((std::string*) buffer, <span class="string">&quot;hello world&quot;</span>);</span><br><span class="line"></span><br><span class="line">std::byte new_buffer[<span class="built_in">sizeof</span>(std::string)];</span><br><span class="line">std::<span class="built_in">memcpy</span>(new_buffer, buffer, <span class="built_in">sizeof</span>(std::string));</span><br><span class="line"><span class="keyword">auto</span>&amp; str2 = *(std::string*) new_buffer;</span><br><span class="line"></span><br><span class="line">str2.~<span class="built_in">basic_string</span>();</span><br></pre></td></tr></table></figure>
-
-<p>仔细思考一下数据的流向和析构函数的调用，发现没有任何不妥。似乎我们应该寻找一种叫做 trivially moveable 的概念，用来放宽松条件，从而使更多的类型得到优化。很可惜，目前 C++ 标准中并没有这样的概念。为了和 C++ 已经存在的 move 操作区分开来，我们把这种操作叫做 relocate，即把原本的对象放置在一个全新的位置。</p>
-<p>事实上有很多著名的开源组件也都通过模板特化来实现了类似的功能，例如 </p>
-<ul>
-<li><a href="https://github.com/bloomberg/bde/blob/962f7aa/groups/bsl/bslmf/bslmf_isbitwisemoveable.h#L8-L48">BSL</a> 的<code>bslmf::IsBitwiseMoveable&lt;T&gt;</code> </li>
-<li><a href="https://github.com/facebook/folly/blob/main/folly/docs/FBVector.md#object-relocation">Folly</a> 的<code>folly::IsRelocatable&lt;T&gt; </code> </li>
-<li><a href="https://github.com/qt/qtbase/">QT</a> 的<code>QTypeInfo&lt;T&gt;::isRelocatable</code></li>
-</ul>
-<p>通过对特定的类型进行标记，使得它们可以拥有这种优化。但是，上面的优化只是在我们逻辑上认为相等，严格来说目前这样写在 C++ 中算是 undefined behavior。那怎么办？只能想办法通过新提案，修改标准措辞，来支持上面的优化。</p>
-<h2 id="现状"><a href="#现状" class="headerlink" title="现状"></a>现状</h2><p>首先这个问题早就被发现了，例如知乎上很久之前就有相关的讨论：</p>
-<ul>
-<li><a href="https://www.zhihu.com/question/316026652/answer/623722536">比起 malloc new &#x2F; free old，realloc 在性能上有多少的优势?</a></li>
-<li><a href="https://www.zhihu.com/question/384869006/answer/1130101522">C++ vector 的 push_back 扩容机制为什么不考虑在尾元素后面的空间申请内存?</a></li>
-</ul>
-<p>类似的问题还有挺多的。<code>realloc</code>会尝试在原地扩容，如果失败。就会尝试分配一块新的内存，然后用<code>memcpy</code>把原来的数据拷贝到新的内存上。所以在目前的 C++ 标准中，如果你想要直接使用<code>realloc</code>进行扩容的话，必须要保证对象是 trivially copyable 的。当然，前面已经说了，这个条件是比较苛刻的，需要引入新的概念来放宽条件。</p>
-<p>相关的提案最早在 2015 年就被提出了，在 2023 年仍然活跃的提案主要有下面四个（目标都是 C++26）：</p>
-<ul>
-<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p1144r9.html">std::is_trivially_relocatable</a></li>
-<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2786r4.pdf">Trivial Relocatability For C++26</a></li>
-<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2785r3.html">Relocating prvalues</a></li>
-<li><a href="https://isocpp.org/files/papers/D2839R1.html#part-i-owning-references-and-defaulted-relocation-constructors">Nontrivial Relocation via a New owning reference Type</a></li>
-</ul>
-<p>大概可以分为两派，保守派和激进派</p>
-<h3 id="保守派"><a href="#保守派" class="headerlink" title="保守派"></a>保守派</h3><p>保守派的解决方案是添加 relocatable 和 trivally-relocatable 的概念，以及用来判断的相关 trait。</p>
-<p>如果一个类型是 move-constructible 且 destructible 的，那么它就是 relocatable 的</p>
-<p>如果一个类型满足下列条件之一，那么它就是 trivally-relocatable 的</p>
-<ul>
-<li>是一个 trivially-copyable 的类型</li>
-<li>是一个 trivally-relocatable 类型的数组</li>
-<li>是一个用具有值为 true 的<code>trivially_relocatable</code>属性声明的类类型</li>
-<li>是一个类类型，满足以下条件：<ul>
-<li>没有用户提供的移动构造函数或移动赋值运算符</li>
-<li>没有用户提供的复制构造函数或复制赋值运算符</li>
-<li>没有用户提供的析构函数</li>
-<li>没有虚拟成员函数</li>
-<li>没有虚基类</li>
-<li>每个成员都是引用或者 trivally-relocatable 类型，并且所有基类都是 trivally-relocatable 类型</li>
-</ul>
-</li>
-</ul>
-<p>可以通过新的 attribute ——<code>trivially_relocatable</code> 来显式标记一个类型为 trivally-relocatable，它可以用常量表达式作为参数，来支持泛型类型</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">struct</span> [[<span class="built_in">trivially_relocatable</span>(std::std::is_trivially_relocatable_v&lt;T&gt;)]] X &#123; T t; &#125;;</span><br></pre></td></tr></table></figure>
-
-<p>还增加了一些新的操作：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function">T *<span class="title">relocate_at</span><span class="params">(T* source, T* dest)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line">[[nodiscard]] <span class="function"><span class="type">remove_cv_t</span>&lt;T&gt; <span class="title">relocate</span><span class="params">(T* source)</span></span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> InputIterator, <span class="keyword">class</span> Size, <span class="keyword">class</span> NoThrowForwardIterator&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">uninitialized_relocate_n</span><span class="params">(InputIterator first, Size n, NoThrowForwardIterator result)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p>这些函数都是由编译器实现的，效果上等同于 move + destroy 原对象。并且允许编译器在满足 as-if 规则的前提下，把对 trivially_relocatable 的类型的操作优化成<code>memcpy</code>或者<code>memmove</code>。对于那些不能优化的结构，比如含有自引用的结构，就正常调用移动构造 + 析构函数就行了。这样在实现<code>vector</code>的时候，直接使用这些标准库提供的函数就可以享受优化了。</p>
-<p>该提案之所以被称作保守派，最大的原因就是它既不影响原来的 API，也不影响原来的 ABI，具有较强的兼容性，引入进来十分方便。</p>
-<h3 id="激进派"><a href="#激进派" class="headerlink" title="激进派"></a>激进派</h3><p>更为激进的就是今天的主角了，它主张引入 relocate constructor，并且引入了新的关键字<code>reloc</code></p>
-<p><code>reloc</code>是一个一员运算符，可以用于函数非静态局部变量，<code>reloc</code>用于执行如下操作</p>
-<ul>
-<li>如果变量是引用类型，则进行完美转发</li>
-<li>如果不是则把源对象变成纯右值并返回</li>
-</ul>
-<p>并且被<code>reloc</code>过后的对象，如果再次使用被认为是编译错误（实际判定的规则会更加详细，详见提案里面的相关小节）</p>
-<p>然后引入了一个新的构造函数，即 relocate constructor（重定位构造函数），具有如下形式<code>T(T)</code>，函数参数是<code>T</code>类型的纯右值。选择这个作为函数签名是为了完善 C++ value category 体系。目前（C++17）及以后，C++ 的拷贝构造函数从 lvalue 创建对象，移动构造函数从 xvalue 创建对象，而重定位构造函数则是从 prvalue 创建对象。这样就完整的覆盖了所有的 value category，对于重载决议来说是十分友好的，语义上也十分和谐融洽。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">X</span></span><br><span class="line">&#123;</span><br><span class="line">    std::string s;</span><br><span class="line">    <span class="built_in">X</span>(X x): <span class="built_in">s</span>(std::<span class="built_in">move</span>(x.s)) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>另外一个好处是，目前这种<code>T(T)</code>声明的构造函数是不允许的，所以不会和现有的代码冲突。有一点需要注意，相信之前大家可能听人这样解释过，为什么拷贝构造函数的参数必须是引用？因为如果不是引用的话，函数传参也需要拷贝，就会导致无限递归。</p>
-<p>事实上这种解释已经过时了，由于 C++17 引入的强制性的 <a href="https://en.cppreference.com/w/cpp/language/copy_elision">copy elision</a>。即使一个类型没有拷贝构造函数和移动构造函数，它也可以直接从纯右值构造，并且没有任何拷贝&#x2F;移动构造函数的调用</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">X</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">X</span>() = <span class="keyword">default</span>;</span><br><span class="line">    <span class="built_in">X</span>(<span class="type">const</span> X&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    <span class="built_in">X</span>(X&amp;&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">X <span class="title">f</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> X&#123;&#125;; &#125;;</span><br><span class="line"></span><br><span class="line">X x = <span class="built_in">f</span>();</span><br></pre></td></tr></table></figure>
-
-<p>上述的代码在开启 C++17 之后各大编译器都能编译通过。所以这里<code>T(T)</code>的这种构造函数的形式并不会导致无限递归。该提案也引入了重定位赋值函数，具有如下形式<code>T&amp; operator=(T)</code>，函数参数是<code>T</code>类型的纯右值。当然，也还有 trivially-relocatable 的概念，允许满足这个条件的重定位构造函数被优化为<code>memcpy</code>。但是，这是通过重定位构造函数等规则来进行判断的，用户不能显式通过 attribute 进行标记。我觉得这一点并不好，应该允许用户手动标记一个类型为 trivially-relocatable。<code>tuple</code>就是由于目前的实现限制，必须要写一个构造函数，从而导致永远不能是 trivially-copyable 的了，pair 居然也不是 trivially-copyable 的，显然这不合理。所以希望该提案以后能支持通过 attribute 来标记一个类型为 trivially-relocatable。</p>
-<p>我个人是比较喜欢这个提案的，有了它以后，我甚至感觉 C++ 的 value category 系统能够和优雅挂钩了。在这之前，我一直觉得 value category 这个系统是混乱邪恶的，是为了兼容以前的旧代码打的烂补丁。但是如果该提案通过以后</p>
-<ul>
-<li>左值 —— 拷贝构造</li>
-<li>亡值 —— 移动构造</li>
-<li>纯右值 —— 重定位构造</li>
-</ul>
-<p>有一种逻辑完全自洽的美感。提案中其它的细节，就比较琐碎了，这里就省略了。感兴趣的读者可以自己阅读。</p>
-<h2 id="为什么过多这么久还没进入标准"><a href="#为什么过多这么久还没进入标准" class="headerlink" title="为什么过多这么久还没进入标准"></a>为什么过多这么久还没进入标准</h2><p>关于为什么过了这么多年这个问题仍然没有解决，其实这是一段相当长的历史，是 C++ 的对象模型存在缺陷导致的。直到 C++20 的 <a href="https://en.cppreference.com/w/cpp/language/lifetime">隐式生存期提案</a> 被接受之前，在最开始的扩容函数实现中，连把 trivially-copyable 的类型优化为 memcpy 都是 undefined behavior。</p>
-<p>当然，不要听到 undefined behavior 就害怕，觉得心里面有道坎一样。事实上这一直被认为是标准的缺陷，这种优化早已经广泛实践各大代码库之中了，可靠性已经得到验证。只是 C++ 标准一直没有合适的措辞来描述这种情况，完全认为是 UB 肯定是不对的，不加限制的使用也是不对的，所以问题的关键就是如何在这两者之间如何找出一个合适的边界了。最近我会专门写一篇文章来介绍 C++ 对象模型相关的内容，这里就不展开了。</p>
-<h2 id="其它语言"><a href="#其它语言" class="headerlink" title="其它语言"></a>其它语言</h2><p>C++ 固然有各种不足，考虑到历史兼容性等因素，导致设计放不开手脚。那新语言呢？它们是如何解决这些问题的？</p>
-<h3 id="Rust"><a href="#Rust" class="headerlink" title="Rust"></a>Rust</h3><p>首先先看最近比较火热的 Rust。其实，只要结构中不含有自引用的成员，那么使用<code>memcpy</code>把旧的对象移动到新的内存上，几乎总是可行的。另外，Rust 并没有什么多继承虚函数（虚表结构复杂）啦，虚继承啦，这种比较奇怪的东西（并且实际用到的地方很少），所以几乎所有的类型都可以直接使用<code>memcpy</code>来从旧对象创建一个新对象。刚好 Safe Rust 中的 move 语义还是 destructive move，所以它的 move 的默认实现就是直接<code>memcpy</code>，是清爽很多。</p>
-<p>但是默认的移动只能移动局部非静态变量，如果一个变量是引用，那么你就没法移动它。不过还好 Safe Rust 提供了一个 <a href="https://doc.rust-lang.org/std/mem/fn.take.html">std::mem::take</a> 函数用来解决这个问题：</p>
-<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">use</span> std::mem;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">v</span>: <span class="type">Vec</span>&lt;<span class="type">i32</span>&gt; = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="variable">old_v</span> = mem::<span class="title function_ invoke__">take</span>(&amp;<span class="keyword">mut</span> v);</span><br><span class="line"><span class="built_in">assert_eq!</span>(<span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>], old_v);</span><br><span class="line"><span class="built_in">assert!</span>(v.<span class="title function_ invoke__">is_empty</span>());</span><br></pre></td></tr></table></figure>
-
-<p>效果是，移动 + 原对象置空，比较类似于 C++ 中的 move。还有 <a href="https://doc.rust-lang.org/std/mem/fn.swap.html">std::mem::swap</a> 和 <a href="https://doc.rust-lang.org/std/mem/fn.replace.html">std::mem::replace</a> 用于其它需要从引用处进行移动的场景。</p>
-<p>虽然可能情况不多，但是如果一个类型含有自引用的结构怎么办？事实上，允许用户自定义构造函数是一个比较简单的解决办法，但是 Rust 社区对此似乎比较反感。目前的解决方案是通过 Pin，不过 Rust 社区似乎对这个解决方案也不是很满意，它很难理解且很难使用。未来全新的设计应该和 linear type 有关，相关的讨论详见 <a href="https://without.boats/blog/changing-the-rules-of-rust/">Changing the rules of Rust</a>。</p>
-<h3 id="Mojo"><a href="#Mojo" class="headerlink" title="Mojo"></a>Mojo</h3><p>这个语言前些日子也在知乎上也宣传过一波，但是目前还处于完全早期的状态，不过一开始人家就考虑提供四种构造函数</p>
-<ul>
-<li><code>__init__()</code></li>
-<li><code>__copy__()</code></li>
-<li><code>__move__()</code></li>
-<li><code>__take__()</code></li>
-</ul>
-<p>其中 copy 就类似于 拷贝构造函数，move 类似于重定位构造函数，take 则类似于现在的移动构造函数。更多的细节就无从得知了。</p>
 ]]></content>
   </entry>
   <entry>
@@ -1292,6 +1164,122 @@
 <p><a target="_blank" href="https://16bit-ykiko.github.io/about-me/669358870" style="position: relative; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; box-sizing: border-box; -webkit-flex-direction: row; -ms-flex-direction: row; flex-direction: row; -webkit-align-items: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; width: 390px; min-height: 84px; border-radius: 8px; max-width: 100%; overflow: hidden; margin: 16px auto; padding: 12px 12px 9px 12px; background-color: #F6F6F6;"><span class="LinkCard-contents"><span style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; max-height: 40px; line-height: 1.25; color: #121212;">写给 C++ 程序员的反射教程</span><span style="display: -webkit-box; font-size: 13px; height: 18px; line-height: 18px; color: #999; word-break: break-all; text-overflow: ellipsis; overflow: hidden; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"><span style="display: inline-flex; align-items: center;"><svg class="Zi Zi--InsertLink" fill="currentColor" viewBox="0 0 24 24" width="14" height="14"><path d="M13.414 4.222a4.5 4.5 0 1 1 6.364 6.364l-3.005 3.005a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707l3.005-3.005a2.5 2.5 0 1 0-3.536-3.536l-3.005 3.005a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707l3.005-3.005zm-6.187 6.187a.5.5 0 0 1 .638-.058l.07.058.706.707a.5.5 0 0 1 .058.638l-.058.07-3.005 3.004a2.5 2.5 0 0 0 3.405 3.658l.13-.122 3.006-3.005a.5.5 0 0 1 .638-.058l.069.058.707.707a.5.5 0 0 1 .058.638l-.058.069-3.005 3.005a4.5 4.5 0 0 1-6.524-6.196l.16-.168 3.005-3.005zm8.132-3.182a.25.25 0 0 1 .353 0l1.061 1.06a.25.25 0 0 1 0 .354l-8.132 8.132a.25.25 0 0 1-.353 0l-1.061-1.06a.25.25 0 0 1 0-.354l8.132-8.132z"></path></svg></span><span>https://16bit-ykiko.github.io/about-me/669358870</span></span></span></a></p>
 <p><strong>当然如果用这些功能仅仅是为了log，debug或者study的话</strong>，而不是用于任何核心的代码部分，又不想引入很重的依赖，那这些东西用一用也未尝不可。我专门写了一个<code>C++20</code>的库，把这些有用的奇淫巧技都合并起来了，方便进行<code>log</code>，<code>debug</code>之类的。目前还在更新中，欢迎<code>star</code>和报告问题呐</p>
 <p><a target="_blank" href="https://github.com/16bit-ykiko/magic-cpp" style="position: relative; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; box-sizing: border-box; -webkit-flex-direction: row; -ms-flex-direction: row; flex-direction: row; -webkit-align-items: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; width: 390px; min-height: 84px; border-radius: 8px; max-width: 100%; overflow: hidden; margin: 16px auto; padding: 12px 12px 9px 12px; background-color: #F6F6F6;"><span class="LinkCard-contents"><span style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; max-height: 40px; line-height: 1.25; color: #121212;">magic-cpp</span><span style="display: -webkit-box; font-size: 13px; height: 18px; line-height: 18px; color: #999; word-break: break-all; text-overflow: ellipsis; overflow: hidden; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"><span style="display: inline-flex; align-items: center;"><svg class="Zi Zi--InsertLink" fill="currentColor" viewBox="0 0 24 24" width="14" height="14"><path d="M13.414 4.222a4.5 4.5 0 1 1 6.364 6.364l-3.005 3.005a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707l3.005-3.005a2.5 2.5 0 1 0-3.536-3.536l-3.005 3.005a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707l3.005-3.005zm-6.187 6.187a.5.5 0 0 1 .638-.058l.07.058.706.707a.5.5 0 0 1 .058.638l-.058.07-3.005 3.004a2.5 2.5 0 0 0 3.405 3.658l.13-.122 3.006-3.005a.5.5 0 0 1 .638-.058l.069.058.707.707a.5.5 0 0 1 .058.638l-.058.069-3.005 3.005a4.5 4.5 0 0 1-6.524-6.196l.16-.168 3.005-3.005zm8.132-3.182a.25.25 0 0 1 .353 0l1.061 1.06a.25.25 0 0 1 0 .354l-8.132 8.132a.25.25 0 0 1-.353 0l-1.061-1.06a.25.25 0 0 1 0-.354l8.132-8.132z"></path></svg></span><span>https://github.com/16bit-ykiko/magic-cpp</span></span></span></a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>全新的构造函数，C++ 中的 relocate 构造函数</title>
+    <url>/about-me/679782886/</url>
+    <content><![CDATA[<p>众所周知，现在 C++ 里面有两种特殊的构造函数，即 copy constructor 和 move constructor</p>
+<p>copy constructor 早在 C++98 的时候就加入了，用来拷贝一个对象，像<code>vector</code>这种拥有资源的类型，拷贝的时候会把它拥有的资源也拷贝一份</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::vector&lt;<span class="type">int</span>&gt; v1 = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; v2 = v1; <span class="comment">// copy</span></span><br></pre></td></tr></table></figure>
+
+<p>当然了，拷贝的开销有些时候非常大，而且完全没必要。于是在 C++11 加入了 move constructor，用来把一个对象的资源转移到另一个对象上。这样相对于直接拷贝，开销是小得多的</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::vector&lt;<span class="type">int</span>&gt; v1 = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; v2 = std::<span class="built_in">move</span>(v1); <span class="comment">// move</span></span><br></pre></td></tr></table></figure>
+
+<p>注意 C++ 中的 move 被叫做 C++ 标准规定了，被移动过后的对象状态是一种 ，实现需要保证它能够正常调用析构函数。<strong>被移动的对象仍然可能被再次使用</strong>（具体能否使用取决于实现）。</p>
+<h2 id="结束了？"><a href="#结束了？" class="headerlink" title="结束了？"></a>结束了？</h2><p>有这两个构造函数就足够了吗？当然没有。事实上还有另一种广泛使用的操作，可以把它叫做 <strong>relocate</strong> 操作。考虑如下场景</p>
+<p>假设你正在实现一个<code>vector</code>，扩容是必要的，于是你写了一个私有成员函数<code>grow</code>用来进行扩容（下面的代码示例暂时忽略异常安全）</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">grow</span><span class="params">(std::<span class="type">size_t</span> new_capacity)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> new_data = <span class="built_in">malloc</span>(new_capacity * <span class="built_in">sizeof</span>(T));</span><br><span class="line">    <span class="keyword">for</span> (std::<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; m_Size; ++i) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">new</span> (new_data + i) <span class="built_in">T</span>(std::<span class="built_in">move</span>(m_Data[i]));</span><br><span class="line">        m_Data[i].~<span class="built_in">T</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">free</span>(m_Data); </span><br><span class="line">    m_Data = new_data;</span><br><span class="line">    m_Capacity = new_capacity;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码很简单，先通过<code>malloc</code>分配新的内存，然后通过 <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new">placement new</a> 在新分配的内存上调用移动构造进行初始化。注意，正如前文提到的： C++ 中的 move 是 non-destructive 的，所以需要在调用完移动构造之后，原对象还需要调用析构函数，来正确的结束生存期。最后释放原来的内存，更新成员变量的值就行了。</p>
+<p>但是这样的实现并不高效，在 C++ 中有一个 <a href="https://en.cppreference.com/w/cpp/named_req/TriviallyCopyable">trivially copyable</a> 的概念，可以通过<code>is_trivially_copyable</code>这个 triat 来进行判断。满足这个约束的类型，可以直接使用<code>memcpy</code>或者<code>memmove</code>来进行拷贝得到一个新的对象。考虑下面这个例子：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Point</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="type">int</span> y;</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line"><span class="built_in">static_assert</span>(std::is_trivially_copyable_v&lt;Point&gt;);</span><br><span class="line"></span><br><span class="line">Point points[<span class="number">3</span>] = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>&#125;, &#123;<span class="number">5</span>, <span class="number">6</span>&#125;&#125;;</span><br><span class="line">Point new_points[<span class="number">3</span>];</span><br><span class="line">std::<span class="built_in">memcpy</span>(new_points, points, <span class="built_in">sizeof</span>(points));</span><br></pre></td></tr></table></figure>
+
+<p>不仅仅省去了多次函数调用，而且<code>memcpy</code>和<code>memmove</code>本身就是高度优化的 builtin 函数（可以通过 SIMD 进行向量化）。所以效率相比于直接调用拷贝构造进行复制效率会高很多。</p>
+<p>为了让我们的<code>vector</code>更快，我们也可以做一下这种优化，利用 C++17 加入的<code>if constexpr</code>来做编译期判断，很轻松的写出下面的代码</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">grow</span><span class="params">(std::<span class="type">size_t</span> new_capacity)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> new_data = <span class="built_in">malloc</span>(new_capacity * <span class="built_in">sizeof</span>(T));</span><br><span class="line">    <span class="function"><span class="keyword">if</span> <span class="title">constexpr</span> <span class="params">(std::is_trivially_copyable_v&lt;T&gt;)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        std::<span class="built_in">memcpy</span>(new_data, m_Data, m_Size * <span class="built_in">sizeof</span>(T));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> <span class="built_in">constexpr</span> (std::is_move_constructible_v&lt;T&gt;) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (std::<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; m_Size; ++i) </span><br><span class="line">        &#123;</span><br><span class="line">            std::<span class="built_in">construct_at</span>(new_data + i, std::<span class="built_in">move</span>(m_Data[i]));</span><br><span class="line">            std::<span class="built_in">destroy_at</span>(m_Data + i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> <span class="built_in">constexpr</span> (std::is_copy_constructible_v&lt;T&gt;) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (std::<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; m_Size; ++i) </span><br><span class="line">        &#123;</span><br><span class="line">            std::<span class="built_in">construct_at</span>(new_data + i, m_Data[i]);</span><br><span class="line">            std::<span class="built_in">destroy_at</span>(m_Data + i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="built_in">free</span>(m_Data); </span><br><span class="line">    m_Data = new_data;</span><br><span class="line">    m_Capacity = new_capacity;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="大材小用"><a href="#大材小用" class="headerlink" title="大材小用"></a>大材小用</h2><p>这样总感觉怪怪的，我们主要的目的是把就旧内存上的对象全部移动到新内存上，但是用的居然是 <a href="https://en.cppreference.com/w/cpp/named_req/TriviallyCopyable">trivially copyable</a> 这个 trait，似乎约束过强了。完全创建一个新对象和把原来的对象放置到新的位置，感觉差别还挺大的。考虑下面这个例子。似乎直接对<code>std::string</code>这样的类型进行<code>memcpy</code>也是可以的。由于内存都是我们手动管理，析构函数也是我们手动调用，并不会出现多次调用析构函数的情况</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::byte buffer[<span class="built_in">sizeof</span>(std::string)];</span><br><span class="line"><span class="keyword">auto</span>&amp; str1 = *std::<span class="built_in">construct_at</span>((std::string*) buffer, <span class="string">&quot;hello world&quot;</span>);</span><br><span class="line"></span><br><span class="line">std::byte new_buffer[<span class="built_in">sizeof</span>(std::string)];</span><br><span class="line">std::<span class="built_in">memcpy</span>(new_buffer, buffer, <span class="built_in">sizeof</span>(std::string));</span><br><span class="line"><span class="keyword">auto</span>&amp; str2 = *(std::string*) new_buffer;</span><br><span class="line"></span><br><span class="line">str2.~<span class="built_in">basic_string</span>();</span><br></pre></td></tr></table></figure>
+
+<p>仔细思考一下数据的流向和析构函数的调用，发现没有任何不妥。似乎我们应该寻找一种叫做 trivially moveable 的概念，用来放宽松条件，从而使更多的类型得到优化。很可惜，目前 C++ 标准中并没有这样的概念。为了和 C++ 已经存在的 move 操作区分开来，我们把这种操作叫做 relocate，即把原本的对象放置在一个全新的位置。</p>
+<p>事实上有很多著名的开源组件也都通过模板特化来实现了类似的功能，例如 </p>
+<ul>
+<li><a href="https://github.com/bloomberg/bde/blob/962f7aa/groups/bsl/bslmf/bslmf_isbitwisemoveable.h#L8-L48">BSL</a> 的<code>bslmf::IsBitwiseMoveable&lt;T&gt;</code> </li>
+<li><a href="https://github.com/facebook/folly/blob/main/folly/docs/FBVector.md#object-relocation">Folly</a> 的<code>folly::IsRelocatable&lt;T&gt; </code> </li>
+<li><a href="https://github.com/qt/qtbase/">QT</a> 的<code>QTypeInfo&lt;T&gt;::isRelocatable</code></li>
+</ul>
+<p>通过对特定的类型进行标记，使得它们可以拥有这种优化。但是，上面的优化只是在我们逻辑上认为相等，严格来说目前这样写在 C++ 中算是 undefined behavior。那怎么办？只能想办法通过新提案，修改标准措辞，来支持上面的优化。</p>
+<h2 id="现状"><a href="#现状" class="headerlink" title="现状"></a>现状</h2><p>首先这个问题早就被发现了，例如知乎上很久之前就有相关的讨论：</p>
+<ul>
+<li><a href="https://www.zhihu.com/question/316026652/answer/623722536">比起 malloc new &#x2F; free old，realloc 在性能上有多少的优势?</a></li>
+<li><a href="https://www.zhihu.com/question/384869006/answer/1130101522">C++ vector 的 push_back 扩容机制为什么不考虑在尾元素后面的空间申请内存?</a></li>
+</ul>
+<p>类似的问题还有挺多的。<code>realloc</code>会尝试在原地扩容，如果失败。就会尝试分配一块新的内存，然后用<code>memcpy</code>把原来的数据拷贝到新的内存上。所以在目前的 C++ 标准中，如果你想要直接使用<code>realloc</code>进行扩容的话，必须要保证对象是 trivially copyable 的。当然，前面已经说了，这个条件是比较苛刻的，需要引入新的概念来放宽条件。</p>
+<p>相关的提案最早在 2015 年就被提出了，在 2023 年仍然活跃的提案主要有下面四个（目标都是 C++26）：</p>
+<ul>
+<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p1144r9.html">std::is_trivially_relocatable</a></li>
+<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2786r4.pdf">Trivial Relocatability For C++26</a></li>
+<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2785r3.html">Relocating prvalues</a></li>
+<li><a href="https://isocpp.org/files/papers/D2839R1.html#part-i-owning-references-and-defaulted-relocation-constructors">Nontrivial Relocation via a New owning reference Type</a></li>
+</ul>
+<p>大概可以分为两派，保守派和激进派</p>
+<h3 id="保守派"><a href="#保守派" class="headerlink" title="保守派"></a>保守派</h3><p>保守派的解决方案是添加 relocatable 和 trivally-relocatable 的概念，以及用来判断的相关 trait。</p>
+<p>如果一个类型是 move-constructible 且 destructible 的，那么它就是 relocatable 的</p>
+<p>如果一个类型满足下列条件之一，那么它就是 trivally-relocatable 的</p>
+<ul>
+<li>是一个 trivially-copyable 的类型</li>
+<li>是一个 trivally-relocatable 类型的数组</li>
+<li>是一个用具有值为 true 的<code>trivially_relocatable</code>属性声明的类类型</li>
+<li>是一个类类型，满足以下条件：<ul>
+<li>没有用户提供的移动构造函数或移动赋值运算符</li>
+<li>没有用户提供的复制构造函数或复制赋值运算符</li>
+<li>没有用户提供的析构函数</li>
+<li>没有虚拟成员函数</li>
+<li>没有虚基类</li>
+<li>每个成员都是引用或者 trivally-relocatable 类型，并且所有基类都是 trivally-relocatable 类型</li>
+</ul>
+</li>
+</ul>
+<p>可以通过新的 attribute ——<code>trivially_relocatable</code> 来显式标记一个类型为 trivally-relocatable，它可以用常量表达式作为参数，来支持泛型类型</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">struct</span> [[<span class="built_in">trivially_relocatable</span>(std::std::is_trivially_relocatable_v&lt;T&gt;)]] X &#123; T t; &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>还增加了一些新的操作：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function">T *<span class="title">relocate_at</span><span class="params">(T* source, T* dest)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line">[[nodiscard]] <span class="function"><span class="type">remove_cv_t</span>&lt;T&gt; <span class="title">relocate</span><span class="params">(T* source)</span></span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> InputIterator, <span class="keyword">class</span> Size, <span class="keyword">class</span> NoThrowForwardIterator&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">uninitialized_relocate_n</span><span class="params">(InputIterator first, Size n, NoThrowForwardIterator result)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>这些函数都是由编译器实现的，效果上等同于 move + destroy 原对象。并且允许编译器在满足 as-if 规则的前提下，把对 trivially_relocatable 的类型的操作优化成<code>memcpy</code>或者<code>memmove</code>。对于那些不能优化的结构，比如含有自引用的结构，就正常调用移动构造 + 析构函数就行了。这样在实现<code>vector</code>的时候，直接使用这些标准库提供的函数就可以享受优化了。</p>
+<p>该提案之所以被称作保守派，最大的原因就是它既不影响原来的 API，也不影响原来的 ABI，具有较强的兼容性，引入进来十分方便。</p>
+<h3 id="激进派"><a href="#激进派" class="headerlink" title="激进派"></a>激进派</h3><p>更为激进的就是今天的主角了，它主张引入 relocate constructor，并且引入了新的关键字<code>reloc</code></p>
+<p><code>reloc</code>是一个一员运算符，可以用于函数非静态局部变量，<code>reloc</code>用于执行如下操作</p>
+<ul>
+<li>如果变量是引用类型，则进行完美转发</li>
+<li>如果不是则把源对象变成纯右值并返回</li>
+</ul>
+<p>并且被<code>reloc</code>过后的对象，如果再次使用被认为是编译错误（实际判定的规则会更加详细，详见提案里面的相关小节）</p>
+<p>然后引入了一个新的构造函数，即 relocate constructor（重定位构造函数），具有如下形式<code>T(T)</code>，函数参数是<code>T</code>类型的纯右值。选择这个作为函数签名是为了完善 C++ value category 体系。目前（C++17）及以后，C++ 的拷贝构造函数从 lvalue 创建对象，移动构造函数从 xvalue 创建对象，而重定位构造函数则是从 prvalue 创建对象。这样就完整的覆盖了所有的 value category，对于重载决议来说是十分友好的，语义上也十分和谐融洽。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">X</span></span><br><span class="line">&#123;</span><br><span class="line">    std::string s;</span><br><span class="line">    <span class="built_in">X</span>(X x): <span class="built_in">s</span>(std::<span class="built_in">move</span>(x.s)) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>另外一个好处是，目前这种<code>T(T)</code>声明的构造函数是不允许的，所以不会和现有的代码冲突。有一点需要注意，相信之前大家可能听人这样解释过，为什么拷贝构造函数的参数必须是引用？因为如果不是引用的话，函数传参也需要拷贝，就会导致无限递归。</p>
+<p>事实上这种解释已经过时了，由于 C++17 引入的强制性的 <a href="https://en.cppreference.com/w/cpp/language/copy_elision">copy elision</a>。即使一个类型没有拷贝构造函数和移动构造函数，它也可以直接从纯右值构造，并且没有任何拷贝&#x2F;移动构造函数的调用</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">X</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">X</span>() = <span class="keyword">default</span>;</span><br><span class="line">    <span class="built_in">X</span>(<span class="type">const</span> X&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">    <span class="built_in">X</span>(X&amp;&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">X <span class="title">f</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> X&#123;&#125;; &#125;;</span><br><span class="line"></span><br><span class="line">X x = <span class="built_in">f</span>();</span><br></pre></td></tr></table></figure>
+
+<p>上述的代码在开启 C++17 之后各大编译器都能编译通过。所以这里<code>T(T)</code>的这种构造函数的形式并不会导致无限递归。该提案也引入了重定位赋值函数，具有如下形式<code>T&amp; operator=(T)</code>，函数参数是<code>T</code>类型的纯右值。当然，也还有 trivially-relocatable 的概念，允许满足这个条件的重定位构造函数被优化为<code>memcpy</code>。但是，这是通过重定位构造函数等规则来进行判断的，用户不能显式通过 attribute 进行标记。我觉得这一点并不好，应该允许用户手动标记一个类型为 trivially-relocatable。<code>tuple</code>就是由于目前的实现限制，必须要写一个构造函数，从而导致永远不能是 trivially-copyable 的了，pair 居然也不是 trivially-copyable 的，显然这不合理。所以希望该提案以后能支持通过 attribute 来标记一个类型为 trivially-relocatable。</p>
+<p>我个人是比较喜欢这个提案的，有了它以后，我甚至感觉 C++ 的 value category 系统能够和优雅挂钩了。在这之前，我一直觉得 value category 这个系统是混乱邪恶的，是为了兼容以前的旧代码打的烂补丁。但是如果该提案通过以后</p>
+<ul>
+<li>左值 —— 拷贝构造</li>
+<li>亡值 —— 移动构造</li>
+<li>纯右值 —— 重定位构造</li>
+</ul>
+<p>有一种逻辑完全自洽的美感。提案中其它的细节，就比较琐碎了，这里就省略了。感兴趣的读者可以自己阅读。</p>
+<h2 id="为什么过多这么久还没进入标准"><a href="#为什么过多这么久还没进入标准" class="headerlink" title="为什么过多这么久还没进入标准"></a>为什么过多这么久还没进入标准</h2><p>关于为什么过了这么多年这个问题仍然没有解决，其实这是一段相当长的历史，是 C++ 的对象模型存在缺陷导致的。直到 C++20 的 <a href="https://en.cppreference.com/w/cpp/language/lifetime">隐式生存期提案</a> 被接受之前，在最开始的扩容函数实现中，连把 trivially-copyable 的类型优化为 memcpy 都是 undefined behavior。</p>
+<p>当然，不要听到 undefined behavior 就害怕，觉得心里面有道坎一样。事实上这一直被认为是标准的缺陷，这种优化早已经广泛实践各大代码库之中了，可靠性已经得到验证。只是 C++ 标准一直没有合适的措辞来描述这种情况，完全认为是 UB 肯定是不对的，不加限制的使用也是不对的，所以问题的关键就是如何在这两者之间如何找出一个合适的边界了。最近我会专门写一篇文章来介绍 C++ 对象模型相关的内容，这里就不展开了。</p>
+<h2 id="其它语言"><a href="#其它语言" class="headerlink" title="其它语言"></a>其它语言</h2><p>C++ 固然有各种不足，考虑到历史兼容性等因素，导致设计放不开手脚。那新语言呢？它们是如何解决这些问题的？</p>
+<h3 id="Rust"><a href="#Rust" class="headerlink" title="Rust"></a>Rust</h3><p>首先先看最近比较火热的 Rust。其实，只要结构中不含有自引用的成员，那么使用<code>memcpy</code>把旧的对象移动到新的内存上，几乎总是可行的。另外，Rust 并没有什么多继承虚函数（虚表结构复杂）啦，虚继承啦，这种比较奇怪的东西（并且实际用到的地方很少），所以几乎所有的类型都可以直接使用<code>memcpy</code>来从旧对象创建一个新对象。刚好 Safe Rust 中的 move 语义还是 destructive move，所以它的 move 的默认实现就是直接<code>memcpy</code>，是清爽很多。</p>
+<p>但是默认的移动只能移动局部非静态变量，如果一个变量是引用，那么你就没法移动它。不过还好 Safe Rust 提供了一个 <a href="https://doc.rust-lang.org/std/mem/fn.take.html">std::mem::take</a> 函数用来解决这个问题：</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><span class="line"><span class="keyword">use</span> std::mem;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">v</span>: <span class="type">Vec</span>&lt;<span class="type">i32</span>&gt; = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="variable">old_v</span> = mem::<span class="title function_ invoke__">take</span>(&amp;<span class="keyword">mut</span> v);</span><br><span class="line"><span class="built_in">assert_eq!</span>(<span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>], old_v);</span><br><span class="line"><span class="built_in">assert!</span>(v.<span class="title function_ invoke__">is_empty</span>());</span><br></pre></td></tr></table></figure>
+
+<p>效果是，移动 + 原对象置空，比较类似于 C++ 中的 move。还有 <a href="https://doc.rust-lang.org/std/mem/fn.swap.html">std::mem::swap</a> 和 <a href="https://doc.rust-lang.org/std/mem/fn.replace.html">std::mem::replace</a> 用于其它需要从引用处进行移动的场景。</p>
+<p>虽然可能情况不多，但是如果一个类型含有自引用的结构怎么办？事实上，允许用户自定义构造函数是一个比较简单的解决办法，但是 Rust 社区对此似乎比较反感。目前的解决方案是通过 Pin，不过 Rust 社区似乎对这个解决方案也不是很满意，它很难理解且很难使用。未来全新的设计应该和 linear type 有关，相关的讨论详见 <a href="https://without.boats/blog/changing-the-rules-of-rust/">Changing the rules of Rust</a>。</p>
+<h3 id="Mojo"><a href="#Mojo" class="headerlink" title="Mojo"></a>Mojo</h3><p>这个语言前些日子也在知乎上也宣传过一波，但是目前还处于完全早期的状态，不过一开始人家就考虑提供四种构造函数</p>
+<ul>
+<li><code>__init__()</code></li>
+<li><code>__copy__()</code></li>
+<li><code>__move__()</code></li>
+<li><code>__take__()</code></li>
+</ul>
+<p>其中 copy 就类似于 拷贝构造函数，move 类似于重定位构造函数，take 则类似于现在的移动构造函数。更多的细节就无从得知了。</p>
 ]]></content>
   </entry>
   <entry>
