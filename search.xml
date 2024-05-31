@@ -1876,63 +1876,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>超好用的 C++ 在线编译器（VSCode 版）</title>
-    <url>/about-me/694365783/</url>
-    <content><![CDATA[<p><a href="https://godbolt.org/">Compiler Explorer</a> 是一个非常流行的 C++ 在线编译器，可用于测试不同的编译执行环境，或者分享代码。作为一个 C++ 爱好者，我几乎每天都要和它打交道，使用频率之高远超我的想象。同时，我也是一个重度 VSCode 用户，几乎所有的事情都在 VSCode 中完成。考虑到经常在本地写代码然后拷贝到 Compiler Explorer 上去，总觉得不太舒服，有时候直接就在它的网页编辑器上改了，但是又没有代码补全，也不舒服。所以我和 <a href="https://www.zhihu.com/people/32ffceca937677f7950b64e5186bb998">@iiirhe</a> 合作编写了这个插件 <a href="https://marketplace.visualstudio.com/items?itemName=ykiko.vscode-compiler-explorer">Compiler Explorer for VSCode</a>，基于 Compiler Explorer 提供的 <a href="https://github.com/compiler-explorer/compiler-explorer/blob/main/docs/API.md">API</a> 将 Compiler Explorer 集成到 VSCode 中，使得用户可以在 VSCode 中直接使用 Compiler Explorer 的功能。</p>
-<p>现在你可以在 VSCode 插件市场搜索到这个插件</p>
-<h2 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h2><h2 id="单文件支持"><a href="#单文件支持" class="headerlink" title="单文件支持"></a>单文件支持</h2><p>让我们从上往下以此介绍 </p>
-<p>这个三个按钮的功能依次是： </p>
-<ul>
-<li><code>Compile All</code>：编译所有的编译器实例 </li>
-<li><code>Add New</code>：添加一个新的编译器实例 </li>
-<li><code>Share Link</code>：根据当前的编译器实例生成一个链接，并复制到剪贴板</li>
-</ul>
-<p> 这四个按钮的功能依次是： </p>
-<ul>
-<li><code>Add CMake</code>：添加一个 CMake 编译器实例（后面会细说） </li>
-<li><code>Clear All</code>：关闭所有用于展示的<code>webview</code>面板 </li>
-<li><code>Load Link</code>：根据输入的链接加载编译器实例的信息 </li>
-<li><code>Remove All</code>：删除所有的编译器实例</li>
-</ul>
-<p> 这个三个按钮的功能依次是： </p>
-<ul>
-<li><code>Run</code>：编译这个编译器实例 </li>
-<li><code>Clone</code>：克隆这个编译器实例 </li>
-<li><code>Remove</code>：删除这个编译器实例</li>
-</ul>
-<p>下面这些用于设置编译器实例的参数：</p>
-<ul>
-<li><code>Compiler</code>：点击右侧的按钮可以选择编译器版本</li>
-<li><code>Input</code>：选择源代码文件，默认是<code>active</code>即当前活跃的编辑器</li>
-<li><code>Output</code>：输出编译结果的文件，默认使用<code>webview</code></li>
-<li><code>Options</code>：编译选项，点击右侧按钮可以打开输入框</li>
-<li><code>Execute Arguments</code>：传递给可执行文件的参数</li>
-<li><code>Stdin</code>：用于标准输入的缓冲区</li>
-<li><code>Filters</code>：一些选项</li>
-</ul>
-<h2 id="多文件支持"><a href="#多文件支持" class="headerlink" title="多文件支持"></a>多文件支持</h2><p>使用<code>Add CMake</code>按钮可以添加一个 CMake 编译器实例，这个实例可以用于编译多个文件。</p>
-</br>
-
-<p>大部分选项和单文件的编译器实例一样，额外多出了两个 </p>
-<ul>
-<li><code>CMake Arguments</code>：传递给 CMake 的参数</li>
-<li><code>Source</code>：CMakelists.txt 所在的文件夹路径</li>
-</ul>
-<p>注意，由于多文件编译需要把所有用到的文件都上传到服务器，所以我们默认会读取你指定的目录下的所有文件（无论后缀名），<strong>所以目前请不要指定文件数量过多的文件夹</strong>。之后可能会添加一些选项允许用户过滤掉一些文件，但是目前还没有。</p>
-<h2 id="一些用户设置"><a href="#一些用户设置" class="headerlink" title="一些用户设置"></a>一些用户设置</h2><p><code>compiler-explorer.default.options</code>：使用<code>+</code>号创建编译器时的默认参数</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;compiler-explorer.default.options&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;object&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;The default compiler configuration&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;default&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;compiler&quot;</span><span class="punctuation">:</span> <span class="string">&quot;x86-64 gcc 13.2&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;language&quot;</span><span class="punctuation">:</span> <span class="string">&quot;c++&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;options&quot;</span><span class="punctuation">:</span> <span class="string">&quot;-std=c++17&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;exec&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;stdin&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;cmakeArgs&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;src&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workspace&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;filters&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;binaryObject&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;binary&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;execute&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;intel&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;demangle&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;labels&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;libraryCode&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;directives&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;commentOnly&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;trim&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;debugCalls&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>compiler-explorer.default.color</code>：用于指定高亮汇编代码时的颜色</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;compiler-explorer.default.color&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;symbol&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#61AFEF&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;string&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#98C379&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;number&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#D19A66&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;register&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#E5C07B&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;instruction&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#C678DD&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;comment&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#7F848E&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;operator&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#ABB2BF&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>compiler-explorer.default.url</code>：用于打开插件时默认加载的链接，默认是空</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;compiler-explorer.default.url&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;default&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="问题反馈"><a href="#问题反馈" class="headerlink" title="问题反馈"></a>问题反馈</h2><p>该插件还处于早期阶段，如果你在使用过程中遇到了问题，或者有任何建议，欢迎在 <a href="https://github.com/16bit-ykiko/vscode-compiler-explorer">GitHub</a> 上留言讨论。或者添加 QQ 群：<code>662499937</code>。</p>
-<p>另外 Output 窗口可能会提供一些有用的信息，可以注意检索</p>
-]]></content>
-  </entry>
-  <entry>
     <title>彻底理解 C++ ABI</title>
     <url>/about-me/692886292/</url>
     <content><![CDATA[<p>Application Binary Interface 也就是我们常说的 ABI，是个让人感觉到既熟悉又陌生的概念。熟悉在哪里？讨论问题的时候经常会讨论到它，看文章的时候经常会提到它，有时候又要处理它导致的兼容性。陌生在哪里？如果有人问你什么是 ABI，你会发现你知道它是怎么一回事，但是要用严谨的语言去描述它有些困难。最后只好照着 <a href="https://en.wikipedia.org/wiki/Application_binary_interface">WIKI</a> 说：ABI 就是两个二进制程序模块之间的接口。有问题吗？没有问题，作为一个概括性的描述，已经足够了。但是让人感觉到有些空洞。</p>
@@ -2176,6 +2119,63 @@
 <li><a href="https://d3s.mff.cuni.cz/files/teaching/nswi200/202324/doc/riscv-abi.pdf">RISCV ABI</a></li>
 <li><a href="https://go.googlesource.com/go/+/refs/heads/dev.regabi/src/cmd/compile/internal-abi.md">Go Internal ABI</a></li>
 </ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>超好用的 C++ 在线编译器（VSCode 版）</title>
+    <url>/about-me/694365783/</url>
+    <content><![CDATA[<p><a href="https://godbolt.org/">Compiler Explorer</a> 是一个非常流行的 C++ 在线编译器，可用于测试不同的编译执行环境，或者分享代码。作为一个 C++ 爱好者，我几乎每天都要和它打交道，使用频率之高远超我的想象。同时，我也是一个重度 VSCode 用户，几乎所有的事情都在 VSCode 中完成。考虑到经常在本地写代码然后拷贝到 Compiler Explorer 上去，总觉得不太舒服，有时候直接就在它的网页编辑器上改了，但是又没有代码补全，也不舒服。所以我和 <a href="https://www.zhihu.com/people/32ffceca937677f7950b64e5186bb998">@iiirhe</a> 合作编写了这个插件 <a href="https://marketplace.visualstudio.com/items?itemName=ykiko.vscode-compiler-explorer">Compiler Explorer for VSCode</a>，基于 Compiler Explorer 提供的 <a href="https://github.com/compiler-explorer/compiler-explorer/blob/main/docs/API.md">API</a> 将 Compiler Explorer 集成到 VSCode 中，使得用户可以在 VSCode 中直接使用 Compiler Explorer 的功能。</p>
+<p>现在你可以在 VSCode 插件市场搜索到这个插件</p>
+<h2 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h2><h2 id="单文件支持"><a href="#单文件支持" class="headerlink" title="单文件支持"></a>单文件支持</h2><p>让我们从上往下以此介绍 </p>
+<p>这个三个按钮的功能依次是： </p>
+<ul>
+<li><code>Compile All</code>：编译所有的编译器实例 </li>
+<li><code>Add New</code>：添加一个新的编译器实例 </li>
+<li><code>Share Link</code>：根据当前的编译器实例生成一个链接，并复制到剪贴板</li>
+</ul>
+<p> 这四个按钮的功能依次是： </p>
+<ul>
+<li><code>Add CMake</code>：添加一个 CMake 编译器实例（后面会细说） </li>
+<li><code>Clear All</code>：关闭所有用于展示的<code>webview</code>面板 </li>
+<li><code>Load Link</code>：根据输入的链接加载编译器实例的信息 </li>
+<li><code>Remove All</code>：删除所有的编译器实例</li>
+</ul>
+<p> 这个三个按钮的功能依次是： </p>
+<ul>
+<li><code>Run</code>：编译这个编译器实例 </li>
+<li><code>Clone</code>：克隆这个编译器实例 </li>
+<li><code>Remove</code>：删除这个编译器实例</li>
+</ul>
+<p>下面这些用于设置编译器实例的参数：</p>
+<ul>
+<li><code>Compiler</code>：点击右侧的按钮可以选择编译器版本</li>
+<li><code>Input</code>：选择源代码文件，默认是<code>active</code>即当前活跃的编辑器</li>
+<li><code>Output</code>：输出编译结果的文件，默认使用<code>webview</code></li>
+<li><code>Options</code>：编译选项，点击右侧按钮可以打开输入框</li>
+<li><code>Execute Arguments</code>：传递给可执行文件的参数</li>
+<li><code>Stdin</code>：用于标准输入的缓冲区</li>
+<li><code>Filters</code>：一些选项</li>
+</ul>
+<h2 id="多文件支持"><a href="#多文件支持" class="headerlink" title="多文件支持"></a>多文件支持</h2><p>使用<code>Add CMake</code>按钮可以添加一个 CMake 编译器实例，这个实例可以用于编译多个文件。</p>
+</br>
+
+<p>大部分选项和单文件的编译器实例一样，额外多出了两个 </p>
+<ul>
+<li><code>CMake Arguments</code>：传递给 CMake 的参数</li>
+<li><code>Source</code>：CMakelists.txt 所在的文件夹路径</li>
+</ul>
+<p>注意，由于多文件编译需要把所有用到的文件都上传到服务器，所以我们默认会读取你指定的目录下的所有文件（无论后缀名），<strong>所以目前请不要指定文件数量过多的文件夹</strong>。之后可能会添加一些选项允许用户过滤掉一些文件，但是目前还没有。</p>
+<h2 id="一些用户设置"><a href="#一些用户设置" class="headerlink" title="一些用户设置"></a>一些用户设置</h2><p><code>compiler-explorer.default.options</code>：使用<code>+</code>号创建编译器时的默认参数</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;compiler-explorer.default.options&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;object&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;The default compiler configuration&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;default&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;compiler&quot;</span><span class="punctuation">:</span> <span class="string">&quot;x86-64 gcc 13.2&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;language&quot;</span><span class="punctuation">:</span> <span class="string">&quot;c++&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;options&quot;</span><span class="punctuation">:</span> <span class="string">&quot;-std=c++17&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;exec&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;stdin&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;cmakeArgs&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;src&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workspace&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;filters&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;binaryObject&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;binary&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;execute&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;intel&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;demangle&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;labels&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;libraryCode&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;directives&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;commentOnly&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;trim&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;debugCalls&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>compiler-explorer.default.color</code>：用于指定高亮汇编代码时的颜色</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;compiler-explorer.default.color&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;symbol&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#61AFEF&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;string&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#98C379&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;number&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#D19A66&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;register&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#E5C07B&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;instruction&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#C678DD&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;comment&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#7F848E&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;operator&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#ABB2BF&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>compiler-explorer.default.url</code>：用于打开插件时默认加载的链接，默认是空</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;compiler-explorer.default.url&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;default&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="问题反馈"><a href="#问题反馈" class="headerlink" title="问题反馈"></a>问题反馈</h2><p>该插件还处于早期阶段，如果你在使用过程中遇到了问题，或者有任何建议，欢迎在 <a href="https://github.com/16bit-ykiko/vscode-compiler-explorer">GitHub</a> 上留言讨论。或者添加 QQ 群：<code>662499937</code>。</p>
+<p>另外 Output 窗口可能会提供一些有用的信息，可以注意检索</p>
 ]]></content>
   </entry>
   <entry>

@@ -3938,6 +3938,37 @@ h1.page-title + .tag-cloud-list {
   font-family: Monaco, 'Ubuntu Mono', monospace;
   line-height: 1em;
 }
+#article-container h1,
+#article-container h2,
+#article-container h3,
+#article-container h4,
+#article-container h5,
+#article-container h6 {
+  width: fit-content;
+}
+#article-container h1 a:not(.headerlink),
+#article-container h2 a:not(.headerlink),
+#article-container h3 a:not(.headerlink),
+#article-container h4 a:not(.headerlink),
+#article-container h5 a:not(.headerlink),
+#article-container h6 a:not(.headerlink) {
+  position: relative;
+  z-index: 10;
+}
+#article-container h1 a.headerlink,
+#article-container h2 a.headerlink,
+#article-container h3 a.headerlink,
+#article-container h4 a.headerlink,
+#article-container h5 a.headerlink,
+#article-container h6 a.headerlink {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
 #article-container ol ol,
 #article-container ul ol,
 #article-container ol ul,
