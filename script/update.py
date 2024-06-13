@@ -1,4 +1,5 @@
 import os
+import time
 import json
 
 from request import get
@@ -80,6 +81,7 @@ def main():
 
         print(f"Done: {name}")
 
+        time.sleep(2)
 
 if __name__ == '__main__':
     main()
