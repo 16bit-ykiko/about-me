@@ -81,7 +81,7 @@ def main():
 
         print(f"Done: {name}")
 
-        time.sleep(2)
+        time.sleep(1)
 
 if __name__ == '__main__':
     main()

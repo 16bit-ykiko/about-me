@@ -12,7 +12,7 @@ language: zh-CN
 timezone: "Asia/Shanghai"
 email: ykikoykikoykiko@gmail.com
 
-url: www.ykiko.me
+url: https://www.ykiko.me
 permalink: :title/
 permalink_defaults:
 pretty_urls:
