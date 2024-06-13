@@ -1,5 +1,7 @@
 import os
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 cookies = {}
 headers = {
@@ -23,15 +25,23 @@ def load_cookies():
 
 
 def get(url: str):
-
     if not cookies:
         load_cookies()
 
     n = 0
+
+    session = requests.Session()
+    retries = Retry(total=5, backoff_factor=1,
+                    status_forcelist=[500, 502, 503, 504])
+    session.mount('http://', HTTPAdapter(max_retries=retries))
+    session.mount('https://', HTTPAdapter(max_retries=retries))
+
     while n < 5:
         try:
-            return requests.get(
+            response = session.get(
                 url, timeout=10, headers=headers, cookies=cookies)
+            response.raise_for_status()
+            return response
         except Exception as e:
             print(e)
             n += 1
