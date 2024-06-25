@@ -1,166 +1,286 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>各种姿势进行代码生成 | ykiko's blog</title><meta name="author" content="ykiko,ykikoykikoykiko@gmail.com"><meta name="copyright" content="ykiko"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="引入刚好拿最近的一个需求作为引入吧。我们都知道 markdown 可以用lang来填入代码块，并支持代码高亮。可是我想支持自己定义的代码高亮规则，遇到了如下问题：  有些网站对 markdown 渲染是静态的，不能运行脚本，所以没法直接调用那些 Javascript 的代码高亮库。例如 Github 上面对 markdown 文件的渲染 究竟支持哪些语言一般是由渲染引擎决定的，比如 Githu">
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ykiko">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="引入刚好拿最近的一个需求作为引入吧。我们都知道 markdown 可以用lang来填入代码块，并支持代码高亮。可是我想支持自己定义的代码高亮规则，遇到了如下问题：  有些网站对 markdown 渲染是静态的，不能运行脚本，所以没法直接调用那些 Javascript 的代码高亮库。例如 Github 上面对 markdown 文件的渲染 究竟支持哪些语言一般是由渲染引擎决定的，比如 Github">
 <meta property="og:type" content="article">
 <meta property="og:title" content="各种姿势进行代码生成">
 <meta property="og:url" content="https://www.ykiko.me/669359855/index.html">
 <meta property="og:site_name" content="ykiko&#39;s blog">
-<meta property="og:description" content="引入刚好拿最近的一个需求作为引入吧。我们都知道 markdown 可以用lang来填入代码块，并支持代码高亮。可是我想支持自己定义的代码高亮规则，遇到了如下问题：  有些网站对 markdown 渲染是静态的，不能运行脚本，所以没法直接调用那些 Javascript 的代码高亮库。例如 Github 上面对 markdown 文件的渲染 究竟支持哪些语言一般是由渲染引擎决定的，比如 Githu">
+<meta property="og:description" content="引入刚好拿最近的一个需求作为引入吧。我们都知道 markdown 可以用lang来填入代码块，并支持代码高亮。可是我想支持自己定义的代码高亮规则，遇到了如下问题：  有些网站对 markdown 渲染是静态的，不能运行脚本，所以没法直接调用那些 Javascript 的代码高亮库。例如 Github 上面对 markdown 文件的渲染 究竟支持哪些语言一般是由渲染引擎决定的，比如 Github">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.ykiko.me/img/avatar.jpg">
+<meta property="og:image" content="https://picx.zhimg.com/v2-effe29ad4d276f5fe1b0eda7b8a598e4_720w.jpg?source=172ae18b">
 <meta property="article:published_time" content="2023-11-28T17:14:16.000Z">
 <meta property="article:modified_time" content="2024-06-25T02:05:16.000Z">
 <meta property="article:author" content="ykiko">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.ykiko.me/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.ykiko.me/669359855/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="bqMzBRWXY0rylTl-WU6BF0Pb_1ZhME9hmyW4W8ZX_6k"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
-  root: '/',
-  algolia: undefined,
-  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
-  translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  dateSuffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  infinitegrid: {
-    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
-    buttonText: '加载更多'
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isAnchor: true,
-  percent: {
-    toc: true,
-    rightside: true,
-  },
-  autoDarkmode: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: '各种姿势进行代码生成',
-  isPost: true,
-  isHome: false,
-  isHighlightShrink: false,
-  isToc: true,
-  postUpdate: '2024-06-25 10:05:16'
-}</script><script>(win=>{
-      win.saveToLocal = {
-        set: (key, value, ttl) => {
-          if (ttl === 0) return
-          const now = Date.now()
-          const expiry = now + ttl * 86400000
-          const item = {
-            value,
-            expiry
-          }
-          localStorage.setItem(key, JSON.stringify(item))
-        },
-      
-        get: key => {
-          const itemStr = localStorage.getItem(key)
-      
-          if (!itemStr) {
-            return undefined
-          }
-          const item = JSON.parse(itemStr)
-          const now = Date.now()
-      
-          if (now > item.expiry) {
-            localStorage.removeItem(key)
-            return undefined
-          }
-          return item.value
-        }
-      }
-    
-      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.src = url
-        script.async = true
-        script.onerror = reject
-        script.onload = script.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          script.onload = script.onreadystatechange = null
-          resolve()
-        }
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://picx.zhimg.com/v2-effe29ad4d276f5fe1b0eda7b8a598e4_720w.jpg?source=172ae18b">
+  
+  
+  
+  <title>各种姿势进行代码生成 - ykiko&#39;s blog</title>
 
-        Object.keys(attr).forEach(key => {
-          script.setAttribute(key, attr[key])
-        })
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
-        document.head.appendChild(script)
-      })
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.ykiko.me","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
     
-      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = url
-        if (id) link.id = id
-        link.onerror = reject
-        link.onload = link.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          link.onload = link.onreadystatechange = null
-          resolve()
-        }
-        document.head.appendChild(link)
-      })
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>ykiko&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" rel="external nofollow noreferrer" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" rel="external nofollow noreferrer" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="各种姿势进行代码生成"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
     
-      win.activateDarkMode = () => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = () => {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
     
-        if (t === 'dark') activateDarkMode()
-        else if (t === 'light') activateLightMode()
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-11-29 01:14" pubdate>
+          2023年11月29日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          25 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
       
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
     
-      const detectApple = () => {
-        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-          document.documentElement.classList.add('apple')
-        }
-      }
-      detectApple()
-    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/background.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="ykiko's blog"><span class="site-name">ykiko's blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">各种姿势进行代码生成</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-11-28T17:14:16.000Z" title="发表于 2023-11-29 01:14:16">2023-11-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-06-25T02:05:16.000Z" title="更新于 2024-06-25 10:05:16">2024-06-25</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="各种姿势进行代码生成"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><img src="https://picx.zhimg.com/v2-effe29ad4d276f5fe1b0eda7b8a598e4_720w.jpg?source=172ae18b"></p>
-<hr>
-<h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><p>刚好拿最近的一个需求作为引入吧。我们都知道 markdown 可以用<code>lang</code>来填入代码块，并支持代码高亮。可是我想支持自己定义的代码高亮规则，遇到了如下问题：</p>
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">各种姿势进行代码生成</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><p>刚好拿最近的一个需求作为引入吧。我们都知道 markdown 可以用<code>lang</code>来填入代码块，并支持代码高亮。可是我想支持自己定义的代码高亮规则，遇到了如下问题：</p>
 <ul>
 <li>有些网站对 markdown 渲染是静态的，不能运行脚本，所以没法直接调用那些 Javascript 的代码高亮库。例如 Github 上面对 markdown 文件的渲染</li>
 <li>究竟支持哪些语言一般是由渲染引擎决定的，比如 Github 的渲染支持和 的所支持的就不同。如果要针对不同的渲染引擎写扩展，每个都得写一份，工作量太大了，而且相关的资料很少</li>
 </ul>
 <p>那真就没有办法了吗？唉，办法还是有的，幸好大多数引擎都支持直接用 html 的规则，比如<code>&lt;code&gt;</code>来进行渲染</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">code</span> <span class="attr">style</span>= <span class="string">&quot;color: #5C6370;font-style: italic;&quot;</span>&gt;</span></span><br><span class="line"># this a variable named <span class="symbol">&amp;#x27;</span>a<span class="symbol">&amp;#x27;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">code</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">code</span> <span class="hljs-attr">style</span>= <span class="hljs-string">&quot;color: #5C6370;font-style: italic;&quot;</span>&gt;</span><br># this a variable named <span class="hljs-symbol">&amp;#x27;</span>a<span class="hljs-symbol">&amp;#x27;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>这为我们添加自定义样式提供了可能。但是我们写 markdown 的源文件不能手写这种代码的啊。如果一个语句有三种不同颜色，如果是<code>let a = 3;</code>这样的语句，意味着光一句话我们就得写三个不同的<code>&lt;span&gt;</code>。非常难写，后面维护起来也不好维护，</p>
 <p>事实上我们可以这么做，读取 markdown 的源文件，源文件就按照正常的 markdown 语法写，然后我们在读取的时候，遇到<code>lang</code>的时候，把文本提取出来，然后交给负责渲染的库渲染成 dom 文本，我选择的是<code>highlight.js</code>这个库。然后把原来的文本替换掉，单独输出在新的文件夹里，比如原来的叫文件夹叫 src，新的叫 out。这样的话源文件不需要任何修改，然后实际渲染的是 out 文件夹里面的内容就好了。每次我们更改完源文件，运行一下这个程序做一下转换就行了。</p>
@@ -177,16 +297,16 @@
 </ul>
 <p>下面就这几点来举一些具体的例子：</p>
 <h1 id="编译时代码生成"><a href="#编译时代码生成" class="headerlink" title="编译时代码生成"></a>编译时代码生成</h1><h2 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h2><p>C 语言的 <code>marco</code>macro 就是一种最经典，也最简单的编译期代码生成技术。纯文本替换，比如我们想重复<code>&quot;Hello World&quot;</code>这个字符串 100 次。那怎么办呢？显然我们不想手动粘贴复制。考虑使用宏来完成这个工作</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> REPEAT(x) (REPEAT1(x) REPEAT1(x) REPEAT1(x) REPEAT1(x) REPEAT1(x))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> REPEAT1(x) REPEAT2(x) REPEAT2(x) REPEAT2(x) REPEAT2(x) REPEAT2(x)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> REPEAT2(x) x x x x</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>* str = REPEAT(<span class="string">&quot;Hello world &quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">define</span> REPEAT(x) (REPEAT1(x) REPEAT1(x) REPEAT1(x) REPEAT1(x) REPEAT1(x))</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> REPEAT1(x) REPEAT2(x) REPEAT2(x) REPEAT2(x) REPEAT2(x) REPEAT2(x)</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> REPEAT2(x) x x x x</span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-type">const</span> <span class="hljs-type">char</span>* str = REPEAT(<span class="hljs-string">&quot;Hello world &quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>这里主要运用了 C 语言中的一个特性就是<code>&quot;a&quot;&quot;b&quot;</code>等价于<code>&quot;ab&quot;</code>。然后通过宏展开<code>5*5*4</code>刚好一百次，然后就轻松的完成了这个任务。 当然了<code>C</code>语言的宏由于其本质上只是 Token 替换，而且不允许使用者获取 Token 流进行输入分析，所以功能十分有限。尽管如此，还是有一些比较有意思的用法的。感兴趣的可以阅读下这篇文章<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/152354031">C&#x2F;C++ 宏编程的艺术</a>。当然了宏可不止<code>C</code>语言有，其它的编程语言也是有的，而且还可以支持更强的特性。例如 Rust 中的宏灵活性就比<code>C</code>语言强很多，关键就在于 Rust 允许你对输入的 Token Stream 进行分析，而不是简简单单的执行替换了，你可以根据输入 Token 的不同选择生成不同的代码。更有甚者像 Lisp 中的宏就超级灵活了。</p>
 <h2 id="泛型-模板"><a href="#泛型-模板" class="headerlink" title="泛型&#x2F;模板"></a>泛型&#x2F;模板</h2><p>在一些编程语言中**泛型 (Generic) **也被看作是一种代码生成的技术，根据不同的类型生成实际不同的代码。当然这是最基础的了，一些编程语言还支持更强大的特性，比如在<code>C++</code>中还可以通过模板元编程进行一些高级的代码生成。典型的案例是在编译期打一个函数指针表（跳转表）</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;std::<span class="type">size_t</span> N, <span class="keyword">typename</span> T, <span class="keyword">typename</span> F&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">helper</span><span class="params">(T t, F f)</span> </span>&#123; <span class="built_in">f</span>(std::<span class="built_in">get</span>&lt;N&gt;(t)); &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Tuple, <span class="keyword">typename</span> Func&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">void</span> <span class="title">access</span><span class="params">(std::<span class="type">size_t</span> index, Tuple&amp;&amp; tuple, Func&amp;&amp; f)</span></span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">auto</span> length = std::tuple_size&lt;std::<span class="type">decay_t</span>&lt;<span class="keyword">decltype</span>(tuple)&gt;&gt;::value;</span><br><span class="line">    <span class="keyword">using</span> FuncType = <span class="built_in">void</span> (*)(<span class="keyword">decltype</span>(tuple), <span class="keyword">decltype</span>(f));</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">auto</span> fn_table = []&lt;std::<span class="type">size_t</span>... I&gt;(std::index_sequence&lt;I...&gt;)&#123;</span><br><span class="line">        std::array&lt;FuncType, length&gt; table = &#123; helper&lt;I, <span class="keyword">decltype</span>(tuple), <span class="keyword">decltype</span>(f)&gt;... &#125;;</span><br><span class="line">        <span class="keyword">return</span> table;</span><br><span class="line">    &#125;(std::make_index_sequence&lt;length&gt;&#123;&#125;);</span><br><span class="line">    <span class="keyword">return</span> fn_table[index](std::forward&lt;Tuple&gt;(tuple), std::forward&lt;Func&gt;(f));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    std::tuple a = &#123; <span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&quot;123&quot;</span> &#125;;</span><br><span class="line">    <span class="keyword">auto</span> f = [](<span class="keyword">auto</span>&amp;&amp; v) &#123; std::cout &lt;&lt; v &lt;&lt; std::endl; &#125;;</span><br><span class="line">    std::<span class="type">size_t</span> index = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">access</span>(index, a, f); <span class="comment">// =&gt; 1</span></span><br><span class="line">    index = <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">access</span>(index, a, f); <span class="comment">// =&gt; 123</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">template</span>&lt;std::<span class="hljs-type">size_t</span> N, <span class="hljs-keyword">typename</span> T, <span class="hljs-keyword">typename</span> F&gt;</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">helper</span><span class="hljs-params">(T t, F f)</span> </span>&#123; <span class="hljs-built_in">f</span>(std::<span class="hljs-built_in">get</span>&lt;N&gt;(t)); &#125;<br><br><span class="hljs-function"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> Tuple, <span class="hljs-keyword">typename</span> Func&gt;</span><br><span class="hljs-function"><span class="hljs-keyword">constexpr</span> <span class="hljs-type">void</span> <span class="hljs-title">access</span><span class="hljs-params">(std::<span class="hljs-type">size_t</span> index, Tuple&amp;&amp; tuple, Func&amp;&amp; f)</span></span>&#123;<br>    <span class="hljs-keyword">constexpr</span> <span class="hljs-keyword">auto</span> length = std::tuple_size&lt;std::<span class="hljs-type">decay_t</span>&lt;<span class="hljs-keyword">decltype</span>(tuple)&gt;&gt;::value;<br>    <span class="hljs-keyword">using</span> FuncType = <span class="hljs-built_in">void</span> (*)(<span class="hljs-keyword">decltype</span>(tuple), <span class="hljs-keyword">decltype</span>(f));<br>    <span class="hljs-keyword">constexpr</span> <span class="hljs-keyword">auto</span> fn_table = []&lt;std::<span class="hljs-type">size_t</span>... I&gt;(std::index_sequence&lt;I...&gt;)&#123;<br>        std::array&lt;FuncType, length&gt; table = &#123; helper&lt;I, <span class="hljs-keyword">decltype</span>(tuple), <span class="hljs-keyword">decltype</span>(f)&gt;... &#125;;<br>        <span class="hljs-keyword">return</span> table;<br>    &#125;(std::make_index_sequence&lt;length&gt;&#123;&#125;);<br>    <span class="hljs-keyword">return</span> fn_table[index](std::forward&lt;Tuple&gt;(tuple), std::forward&lt;Func&gt;(f));<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    std::tuple a = &#123; <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&quot;123&quot;</span> &#125;;<br>    <span class="hljs-keyword">auto</span> f = [](<span class="hljs-keyword">auto</span>&amp;&amp; v) &#123; std::cout &lt;&lt; v &lt;&lt; std::endl; &#125;;<br>    std::<span class="hljs-type">size_t</span> index = <span class="hljs-number">0</span>;<br>    <span class="hljs-built_in">access</span>(index, a, f); <span class="hljs-comment">// =&gt; 1</span><br>    index = <span class="hljs-number">2</span>;<br>    <span class="hljs-built_in">access</span>(index, a, f); <span class="hljs-comment">// =&gt; 123</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>这样我们就实现了根据运行期的<code>index</code>来访问<code>tuple</code>中的元素的效果了，具体原理就是手动打了一个函数指针表，然后根据索引来进行分派。</p>
 <h2 id="代码生成器"><a href="#代码生成器" class="headerlink" title="代码生成器"></a>代码生成器</h2><p>上面两点说的都是语言内建的特性。然而在很多场景，语言内置的特性，不够灵活，并不能满足我们的需求。比如在<code>C++</code>中想整块整块的生成函数和类型，那么无论是宏还是模板都做不到。</p>
 <p>但是代码就是源文件中的字符串而已，基于这一点想法。我们完全可以编写一个专门的程序用来生成这样的字符串。例如写一个<code>python</code>代码来生成上面那个<code>100</code>次<code>Hello World</code>的<code>C</code>程序</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&quot;&quot;</span>;</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">    s += <span class="string">&#x27;&quot;Hello World &quot;&#x27;</span></span><br><span class="line"></span><br><span class="line">code = <span class="string">f&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">int main()</span></span><br><span class="line"><span class="string">&#123;&#123;</span></span><br><span class="line"><span class="string">    const char* str = <span class="subst">&#123;s&#125;</span>;</span></span><br><span class="line"><span class="string">&#125;&#125;&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;hello.c&quot;</span>, <span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    file.write(code)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python">s = <span class="hljs-string">&quot;&quot;</span>;<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100</span>):<br>    s += <span class="hljs-string">&#x27;&quot;Hello World &quot;&#x27;</span><br><br>code = <span class="hljs-string">f&quot;&quot;&quot;</span><br><span class="hljs-string">int main()</span><br><span class="hljs-string">&#123;&#123;</span><br><span class="hljs-string">    const char* str = <span class="hljs-subst">&#123;s&#125;</span>;</span><br><span class="hljs-string">&#125;&#125;&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;hello.c&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>) <span class="hljs-keyword">as</span> file:<br>    file.write(code)<br></code></pre></td></tr></table></figure>
 
 <p>好了，这样的话就生成了上面那个源文件。当然这只是最简单的应用。亦或者我们可以用<code>Protocol Buffer</code>来进行自动生成序列化和反序列化的代码。又或者我们可以从<code>AST</code>中获取信息，连类型的元信息都由代码生成器生成，这种程序的原理很简单，就是字符串拼接，而它的上限完全取决于你的代码是怎么写的。</p>
 <p>但是更多时候还是语言内建的特性使用的更加方便一些，使用外部的代码生成器会让编译流程变得复杂一些。然而也有一些语言，将这个特性作为了语言内置的特性之一，比如<code>C#</code>的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/source-generators-overview">code generation</a>。</p>
@@ -194,12 +314,12 @@
 <ul>
 <li><code>eval</code>是一种将字符串解析为可执行代码的机制。在<code>Python</code>中，<code>eval</code>函数可以接受一个字符串作为参数，并执行其中的表达式，返回结果。这为动态计算和代码生成提供了强大的工具。</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = <span class="built_in">eval</span>(<span class="string">&quot;2 + 3&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(result)  <span class="comment"># 输出: 5</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">result = <span class="hljs-built_in">eval</span>(<span class="hljs-string">&quot;2 + 3&quot;</span>)<br><span class="hljs-built_in">print</span>(result)  <span class="hljs-comment"># 输出: 5</span><br></code></pre></td></tr></table></figure>
 
 <ul>
 <li><code>exec</code>与<code>eval</code>不同的是，<code>exec</code>可以执行多个语句，甚至包含函数和类的定义。</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Copy code</span><br><span class="line">code_block = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">def multiply(x, y):</span></span><br><span class="line"><span class="string">    return x * y</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">result = multiply(4, 5)</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="built_in">exec</span>(code_block)</span><br><span class="line"><span class="built_in">print</span>(result)  <span class="comment"># 输出: 20</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">Copy code<br>code_block = <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">def multiply(x, y):</span><br><span class="hljs-string">    return x * y</span><br><span class="hljs-string"></span><br><span class="hljs-string">result = multiply(4, 5)</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-built_in">exec</span>(code_block)<br><span class="hljs-built_in">print</span>(result)  <span class="hljs-comment"># 输出: 20</span><br></code></pre></td></tr></table></figure>
 
 <p>毫无疑问，仅仅通过字符串拼接就能在运行期生成代码，在合适的场景使用它们，可以轻松完成一些比较苛刻的需求。</p>
 <h2 id="动态编译"><a href="#动态编译" class="headerlink" title="动态编译"></a>动态编译</h2><p>现在有一个问题，<code>C</code>语言能做到上面的动态编译特性吗？当然你可能会说我们可以实现一个<code>C</code>语言的解释器，那自然不就行了。但其实其实有更简单的办法。</p>
@@ -208,22 +328,363 @@
 <li><strong>运行期编译代码</strong></li>
 </ul>
 <p>如果你的电脑上装了<code>gcc</code>，则可以通过下面运行两条命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将源文件编译成目标文件</span></span><br><span class="line">gcc -c source.c source.o </span><br><span class="line"></span><br><span class="line"><span class="comment"># 将目标文件中的.text段提取出来，生成二进制文件</span></span><br><span class="line">objcopy -O binary -j .text source.o source.bin</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 将源文件编译成目标文件</span><br>gcc -c source.c source.o <br><br><span class="hljs-comment"># 将目标文件中的.text段提取出来，生成二进制文件</span><br>objcopy -O binary -j .text source.o source.bin<br></code></pre></td></tr></table></figure>
 
 <p>通过这样的方式就能获取<code>source.c</code>文件中代码的二进制形式了，但是光有代码还不行，我们需要执行它。</p>
 <ul>
 <li>**申请可执行内存 **</li>
 </ul>
 <p>代码也是二进制数据，只要把刚才得到的代码数据写入一块内存，然后<code>jmp</code>过去执行不就行了？想法很直接，但是很遗憾，大多数操作系统对内存都是有保护的，一般的申请内存是不可执行的。如果尝试写入数据然后执行则会直接段错误。但是我们可以通过<code>VirtualAlloc</code>或者<code>mmap</code>来申请一块有执行权限内存，然后把代码写入进去，再执行就行了。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Windows</span></span><br><span class="line"><span class="built_in">VirtualAlloc</span>(<span class="literal">NULL</span>, size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Linux</span></span><br><span class="line"><span class="built_in">mmap</span>(<span class="literal">NULL</span>, size, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_PRIVATE | MAP_ANONYMOUS, <span class="number">-1</span>, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// Windows</span><br><span class="hljs-built_in">VirtualAlloc</span>(<span class="hljs-literal">NULL</span>, size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);<br><br><span class="hljs-comment">// Linux</span><br><span class="hljs-built_in">mmap</span>(<span class="hljs-literal">NULL</span>, size, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_PRIVATE | MAP_ANONYMOUS, <span class="hljs-number">-1</span>, <span class="hljs-number">0</span>);<br></code></pre></td></tr></table></figure>
 
 <p>结合这两点然后稍作处理，就可以实现从命令行读取代码和输入，然后直接运行输出结果了</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> _WIN32</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Alloc(size) VirtualAlloc(NULL, size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE)</span></span><br><span class="line"><span class="meta">#<span class="keyword">elif</span> __linux__</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Alloc(size) mmap(NULL, size, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::<span class="built_in">ofstream</span>(<span class="string">&quot;source.c&quot;</span>) &lt;&lt; argv[<span class="number">1</span>];</span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;gcc -c source.c &amp;&amp; objcopy -O binary -j .text source.o source.bin&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function">std::ifstream <span class="title">file</span><span class="params">(<span class="string">&quot;source.bin&quot;</span>, std::ios::binary)</span></span>;</span><br><span class="line">    <span class="function">std::string <span class="title">source</span><span class="params">((std::istreambuf_iterator&lt;<span class="type">char</span>&gt;(file)), &#123;&#125;)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> p = <span class="built_in">Alloc</span>(source.<span class="built_in">size</span>());</span><br><span class="line">    <span class="built_in">memcpy</span>(p, source.<span class="built_in">c_str</span>(), source.<span class="built_in">size</span>());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">using</span> Fn = <span class="built_in">int</span> (*)(<span class="type">int</span>, <span class="type">int</span>);</span><br><span class="line">    std::cout &lt;&lt; <span class="built_in">reinterpret_cast</span>&lt;Fn&gt;(p)(std::<span class="built_in">stoi</span>(argv[<span class="number">2</span>]), std::<span class="built_in">stoi</span>(argv[<span class="number">3</span>])) &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;fstream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">ifdef</span> _WIN32</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;Windows.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> Alloc(size) VirtualAlloc(NULL, size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE)</span><br><span class="hljs-meta">#<span class="hljs-keyword">elif</span> __linux__</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/mman.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> Alloc(size) mmap(NULL, size, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0)</span><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span>* argv[])</span></span><br><span class="hljs-function"></span>&#123;<br>    std::<span class="hljs-built_in">ofstream</span>(<span class="hljs-string">&quot;source.c&quot;</span>) &lt;&lt; argv[<span class="hljs-number">1</span>];<br>    <span class="hljs-built_in">system</span>(<span class="hljs-string">&quot;gcc -c source.c &amp;&amp; objcopy -O binary -j .text source.o source.bin&quot;</span>);<br><br>    <span class="hljs-function">std::ifstream <span class="hljs-title">file</span><span class="hljs-params">(<span class="hljs-string">&quot;source.bin&quot;</span>, std::ios::binary)</span></span>;<br>    <span class="hljs-function">std::string <span class="hljs-title">source</span><span class="hljs-params">((std::istreambuf_iterator&lt;<span class="hljs-type">char</span>&gt;(file)), &#123;&#125;)</span></span>;<br><br>    <span class="hljs-keyword">auto</span> p = <span class="hljs-built_in">Alloc</span>(source.<span class="hljs-built_in">size</span>());<br>    <span class="hljs-built_in">memcpy</span>(p, source.<span class="hljs-built_in">c_str</span>(), source.<span class="hljs-built_in">size</span>());<br><br>    <span class="hljs-keyword">using</span> Fn = <span class="hljs-built_in">int</span> (*)(<span class="hljs-type">int</span>, <span class="hljs-type">int</span>);<br>    std::cout &lt;&lt; <span class="hljs-built_in">reinterpret_cast</span>&lt;Fn&gt;(p)(std::<span class="hljs-built_in">stoi</span>(argv[<span class="hljs-number">2</span>]), std::<span class="hljs-built_in">stoi</span>(argv[<span class="hljs-number">3</span>])) &lt;&lt; std::endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>最后的效果</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.\main.exe <span class="string">&quot;int f(int a, int b)&#123; return a + b; &#125;&quot;</span> 1 2</span><br><span class="line"><span class="comment">#  output: 3</span></span><br><span class="line"></span><br><span class="line">.\main.exe <span class="string">&quot;int f(int a, int b)&#123; return a - b; &#125;&quot;</span> 1 2</span><br><span class="line"><span class="comment">#  output: -1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">.\main.exe <span class="hljs-string">&quot;int f(int a, int b)&#123; return a + b; &#125;&quot;</span> 1 2<br><span class="hljs-comment">#  output: 3</span><br><br>.\main.exe <span class="hljs-string">&quot;int f(int a, int b)&#123; return a - b; &#125;&quot;</span> 1 2<br><span class="hljs-comment">#  output: -1</span><br></code></pre></td></tr></table></figure>
 
 <p>完美实现</p>
 <h1 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h1><p>本文主要介绍了代码生成的一些基本概念和示例，以及一些简单的应用。代码生成是一种非常强大的技术，如果仅仅把眼光局限在编程语言内建的特性，很多时候我们无法完成一些复杂的需求，如果将眼光放宽广一些，则会意外发现新世界。这是反射系列文章中的一篇，欢迎阅读系列其它文章！</p>
 <p><a target="_blank" href="https://www.ykiko.me/669358870" style="position: relative; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; box-sizing: border-box; -webkit-flex-direction: row; -ms-flex-direction: row; flex-direction: row; -webkit-align-items: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; width: 390px; min-height: 84px; border-radius: 8px; max-width: 100%; overflow: hidden; margin: 16px auto; padding: 12px 12px 9px 12px; background-color: #F6F6F6;"><span class="LinkCard-contents"><span style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; max-height: 40px; line-height: 1.25; color: #121212;">YKIKO：写给 C++ 程序员的反射教程</span><span style="display: -webkit-box; font-size: 13px; height: 18px; line-height: 18px; color: #999; word-break: break-all; text-overflow: ellipsis; overflow: hidden; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"><span style="display: inline-flex; align-items: center;"><svg class="Zi Zi--InsertLink" fill="currentColor" viewBox="0 0 24 24" width="14" height="14"><path d="M13.414 4.222a4.5 4.5 0 1 1 6.364 6.364l-3.005 3.005a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707l3.005-3.005a2.5 2.5 0 1 0-3.536-3.536l-3.005 3.005a.5.5 0 0 1-.707 0l-.707-.707a.5.5 0 0 1 0-.707l3.005-3.005zm-6.187 6.187a.5.5 0 0 1 .638-.058l.07.058.706.707a.5.5 0 0 1 .058.638l-.058.07-3.005 3.004a2.5 2.5 0 0 0 3.405 3.658l.13-.122 3.006-3.005a.5.5 0 0 1 .638-.058l.069.058.707.707a.5.5 0 0 1 .058.638l-.058.069-3.005 3.005a4.5 4.5 0 0 1-6.524-6.196l.16-.168 3.005-3.005zm8.132-3.182a.25.25 0 0 1 .353 0l1.061 1.06a.25.25 0 0 1 0 .354l-8.132 8.132a.25.25 0 0 1-.353 0l-1.061-1.06a.25.25 0 0 1 0-.354l8.132-8.132z"></path></svg></span><span>https://www.ykiko.me/669358870</span></span></span></a></p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.ykiko.me">ykiko</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.ykiko.me/669359855/">https://www.ykiko.me/669359855/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.ykiko.me" target="_blank">ykiko's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/669360731/" title="使用 Clang 工具自由的支配 C++ 代码吧"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">使用 Clang 工具自由的支配 C++ 代码吧</div></div></a></div><div class="next-post pull-right"><a href="/669358870/" title="写给 C++ 程序员的反射教程"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">写给 C++ 程序员的反射教程</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ykiko</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/16bit-ykiko"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/16bit-ykiko" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:ykikoykikoykiko@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #000000;"></i></a><a class="social-icon" href="https://www.zhihu.com/people/75-49-80-77" rel="external nofollow noreferrer" target="_blank" title="Zhihu"><i class="fa-brands fa-zhihu" style="color: #0084ff;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%95%E5%85%A5"><span class="toc-text">引入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFCode-Generation"><span class="toc-text">什么是Code Generation</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E6%97%B6%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90"><span class="toc-text">编译时代码生成</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8F"><span class="toc-text">宏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B-%E6%A8%A1%E6%9D%BF"><span class="toc-text">泛型&#x2F;模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-text">代码生成器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%9C%9F%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90"><span class="toc-text">运行期代码生成</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#exec"><span class="toc-text">exec</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E7%BC%96%E8%AF%91"><span class="toc-text">动态编译</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E6%9D%9F"><span class="toc-text">结束</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/702197261/" title="Python 与 C++ 的完美结合：pybind11 中的对象设计">Python 与 C++ 的完美结合：pybind11 中的对象设计</a><time datetime="2024-06-06T23:28:11.000Z" title="发表于 2024-06-07 07:28:11">2024-06-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/696878184/" title="C++ 中的单例模式真的“单例”吗？">C++ 中的单例模式真的“单例”吗？</a><time datetime="2024-05-09T10:08:28.000Z" title="发表于 2024-05-09 18:08:28">2024-05-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/694365783/" title="超好用的 C++ 在线编译器（VSCode 版）">超好用的 C++ 在线编译器（VSCode 版）</a><time datetime="2024-04-24T05:35:41.000Z" title="发表于 2024-04-24 13:35:41">2024-04-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/692886292/" title="彻底理解 C++ ABI">彻底理解 C++ ABI</a><time datetime="2024-04-16T10:19:38.000Z" title="发表于 2024-04-16 18:19:38">2024-04-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/686296374/" title="C++ 究竟代码膨胀在哪里？">C++ 究竟代码膨胀在哪里？</a><time datetime="2024-03-10T17:33:37.000Z" title="发表于 2024-03-11 01:33:37">2024-03-11</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/background.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By ykiko</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>各种姿势进行代码生成</div>
+      <div>https://www.ykiko.me/669359855/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ykiko</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年11月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/" rel="external nofollow noreferrer">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/669360731/" title="使用 Clang 工具自由的支配 C++ 代码吧">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">使用 Clang 工具自由的支配 C++ 代码吧</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/669358870/" title="写给 C++ 程序员的反射教程">
+                        <span class="hidden-mobile">写给 C++ 程序员的反射教程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
