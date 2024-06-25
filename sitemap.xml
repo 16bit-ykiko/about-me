@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.ykiko.me/categories/index.html</loc>
+    
+    <lastmod>2024-06-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.ykiko.me/tags/index.html</loc>
     
     <lastmod>2024-06-25</lastmod>
@@ -11,7 +20,7 @@
   </url>
   
   <url>
-    <loc>https://www.ykiko.me/categories/index.html</loc>
+    <loc>https://www.ykiko.me/669359855/</loc>
     
     <lastmod>2024-06-25</lastmod>
     
@@ -22,7 +31,16 @@
   <url>
     <loc>https://www.ykiko.me/655902377/</loc>
     
-    <lastmod>2024-06-10</lastmod>
+    <lastmod>2024-06-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.ykiko.me/645810896/</loc>
+    
+    <lastmod>2024-06-25</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -95,15 +113,6 @@
     <loc>https://www.ykiko.me/683463723/</loc>
     
     <lastmod>2024-05-24</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.ykiko.me/645810896/</loc>
-    
-    <lastmod>2024-05-23</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -194,15 +203,6 @@
     <loc>https://www.ykiko.me/674157958/</loc>
     
     <lastmod>2024-01-01</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.ykiko.me/669359855/</loc>
-    
-    <lastmod>2023-12-30</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
