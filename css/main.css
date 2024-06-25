@@ -765,7 +765,7 @@ sup > a::before,
   padding: 3rem 0;
 }
 html {
-  font-size: 16px;
+  font-size: 18px;
   letter-spacing: 0.02em;
 }
 html,
@@ -1458,7 +1458,7 @@ figure.highlight td.code > pre {
   transition: border-color 0.2s ease-in-out;
 }
 .markdown-body pre {
-  font-size: 85% !important;
+  font-size: 100% !important;
 }
 .markdown-body pre .mermaid {
   text-align: center;
