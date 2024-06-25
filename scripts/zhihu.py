@@ -24,6 +24,10 @@ class Answer:
 
 class Parser:
     urls_map = {}
+    languages_map = {
+        "nasm": "x86asm",
+        "text": "bash"
+    }
 
     def parse_article(self, text: str) -> Article:
         soup = BeautifulSoup(text, 'html.parser')
@@ -100,11 +104,8 @@ class Parser:
         return markdown.Paragraph(nodes)
 
     def normalize_url(self, url: str) -> str:
-        url = url.replace('//link.zhihu.com/?target=', "")
-        if url in self.urls_map:
-            return self.urls_map[url]
-        else:
-            return url
+        url = unquote(url.replace('//link.zhihu.com/?target=https%3A', ""))
+        return self.urls_map.get(url, url)
 
     def parse_link(self, element: Tag) -> markdown.Link:
         url = self.normalize_url(element['href'])
@@ -154,6 +155,7 @@ class Parser:
         code = pre.find('code')
         text = code.text.removesuffix('\n')
         language = code['class'][0].removeprefix('language-')
+        language = self.languages_map.get(language, language)
         return markdown.BlockCode(text, language)
 
     def parse_blockquote(self, element: PageElement) -> markdown.BlockQuote:
