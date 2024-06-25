@@ -52,8 +52,7 @@ jobs:
       - name: Install Dependencies
         run: |
           cd hexo  
-          npm install 
-          git clone -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly
+          npm install
 
       - name: Build
         run: |

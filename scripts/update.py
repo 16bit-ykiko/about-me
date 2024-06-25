@@ -46,7 +46,8 @@ def request(url: str):
               f"date: {created}\n"
               f"updated: {updated}\n"
               f"type: 'post'\n"
-              f"---\n\n") + f"![]({article.cover})\n\n---\n\n" + article.content.dump()
+              f"index_img: '{article.cover}'\n"
+              f"---\n\n") + article.content.dump()
     return result
 
 
