@@ -46,7 +46,7 @@ def request(url: str):
               f"date: {created}\n"
               f"updated: {updated}\n"
               f"type: 'post'\n"
-              f"---\n\n") + f"![]({article.cover})\n\n" + article.content.dump()
+              f"---\n\n") + f"---\n![]({article.cover})\n\n" + article.content.dump()
     return result
 
 
