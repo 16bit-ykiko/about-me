@@ -50,7 +50,10 @@ jobs:
           hugo-version: "latest"
 
       - name: Build
-        run: cd website && hugo --minify
+        run: | 
+          cd website
+          hugo mod init github.com/16bit-ykiko/about-me
+          hugo --minify
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
