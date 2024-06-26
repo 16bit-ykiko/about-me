@@ -64,4 +64,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: hugo/public
+          publish_dir: website/public
