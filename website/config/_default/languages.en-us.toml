@@ -1,0 +1,21 @@
+languageCode = "en-us"
+languageName = "English"
+weight = 1
+
+title = "ykiko's blog"
+# description = "My personal website"
+# copyright = "Copy, _right?_ :thinking_face:"
+copyright = "©2024 ykiko"
+
+[author]
+name = "ykiko"
+image = "img/author.jpg"
+headline = "understand the trade-offs"
+
+links = [
+  { github = "https://github.com/16bit-ykiko" },
+  { envelope-solid = "mailto:ykikoykikoykiko@gmail.com" },
+  { zhihu = "https://www.zhihu.com/people/75-49-80-77" },
+  { bilibili = "https://space.bilibili.com/360835081" },
+  { banguim = "https://bangumi.tv/user/857516" },
+]

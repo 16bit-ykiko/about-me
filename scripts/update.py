@@ -78,7 +78,7 @@ def main():
         name = url.split('/')[-1]
         markdown, cover = request(url)
 
-        dir = os.path.join(path, f'../website/content/articles/{name}')
+        dir = os.path.join(path, f'../website/content/zh-cn/articles/{name}')
         if not os.path.exists(dir):
             os.makedirs(dir)
 
