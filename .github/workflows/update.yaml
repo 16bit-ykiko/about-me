@@ -37,7 +37,12 @@ jobs:
           git config --global user.name "ykiko"
           git config --global user.email "ykikoykikoykiko@gmail.com"
           git add .
-          git commit -m "Update articles automatically"
+          if ! git diff-index --quiet HEAD --; then
+            git commit -m "Update articles automatically"
+            git push origin main
+          else
+            echo "No changes to commit"
+          fi
 
       - name: Push changes
         uses: ad-m/github-push-action@master
