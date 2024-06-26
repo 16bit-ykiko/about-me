@@ -63,7 +63,7 @@ def main():
     for url, value in urls.items():
         name = url.split('/')[-1]
         markdown = request(url)
-        dest = os.path.join(path, f'../hexo/source/_posts/{name}.md')
+        dest = os.path.join(path, f'../website/content/posts/{name}.md')
         with open(dest, 'w', encoding="utf-8") as f:
             f.write(markdown)
 
