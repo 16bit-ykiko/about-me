@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Articles on ykiko&#39;s blog</title>
+    <link>https://www.ykiko.me/zh-cn/articles/</link>
+    <description>Recent content in Articles on ykiko&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>© 2024 ykiko</copyright>
+    <lastBuildDate>Fri, 07 Jun 2024 07:28:11 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/zh-cn/articles/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python 与 C&#43;&#43; 的完美结合：pybind11 中的对象设计</title>
+      <link>https://www.ykiko.me/zh-cn/articles/702197261/</link>
+      <pubDate>Fri, 07 Jun 2024 07:28:11 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/702197261/</guid>
+      <description>参加了 Google Summer of Code 2024，主要的任务就是为一个 Python 解释器 实现 pybind11 的</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/702197261/featured.png" />
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; 中的单例模式真的“单例”吗？</title>
+      <link>https://www.ykiko.me/zh-cn/articles/696878184/</link>
+      <pubDate>Thu, 09 May 2024 18:08:28 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/696878184/</guid>
+      <description>单例模式 (Singleton Pattern) 是一种常见的设计模式，往往应用于配置系统，日志系</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/696878184/featured.png" />
+    </item>
+    
+    <item>
+      <title>超好用的 C&#43;&#43; 在线编译器（VSCode 版）</title>
+      <link>https://www.ykiko.me/zh-cn/articles/694365783/</link>
+      <pubDate>Wed, 24 Apr 2024 13:35:41 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/694365783/</guid>
+      <description>Compiler Explorer 是一个非常流行的 C++ 在线编译器，可用于测试不同的编译执行环</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/694365783/featured.png" />
+    </item>
+    
+    <item>
+      <title>彻底理解 C&#43;&#43; ABI</title>
+      <link>https://www.ykiko.me/zh-cn/articles/692886292/</link>
+      <pubDate>Tue, 16 Apr 2024 18:19:38 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/692886292/</guid>
+      <description>Application Binary Interface 也就是我们常说的 ABI，是个让人感觉到既熟悉又陌生的概</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/692886292/featured.png" />
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; 究竟代码膨胀在哪里？</title>
+      <link>https://www.ykiko.me/zh-cn/articles/686296374/</link>
+      <pubDate>Mon, 11 Mar 2024 01:33:37 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/686296374/</guid>
+      <description>相信读者经常能听见有人说 C++ 代码二进制膨胀严重，但是一般很少会</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/686296374/featured.png" />
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; 中 constexpr 的发展史（下）</title>
+      <link>https://www.ykiko.me/zh-cn/articles/683463723/</link>
+      <pubDate>Thu, 22 Feb 2024 14:15:32 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/683463723/</guid>
+      <description>前情提要： # https://www.ykiko.me/articles/682031684 2015-2016：模板的语法糖 # 在 C++ 中支持 全</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/683463723/featured.png" />
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; 中 constexpr 的发展史!（上）</title>
+      <link>https://www.ykiko.me/zh-cn/articles/682031684/</link>
+      <pubDate>Sat, 10 Feb 2024 15:15:47 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/682031684/</guid>
+      <description>几个月前，我写了一篇介绍 C++ 模板的文章 雾里看花：真正意义上的理</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/682031684/featured.png" />
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; 中如何优雅进行 enum 到 string 的转换 ？</title>
+      <link>https://www.ykiko.me/zh-cn/articles/680412313/</link>
+      <pubDate>Mon, 29 Jan 2024 09:03:28 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/680412313/</guid>
+      <description>拒绝硬编码 # 定义一个enum enum Color { RED, GREEN, BLUE }; 尝试打印 Color color = RED; std::cout</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/680412313/featured.png" />
+    </item>
+    
+    <item>
+      <title>全新的构造函数，C&#43;&#43; 中的 relocate 构造函数</title>
+      <link>https://www.ykiko.me/zh-cn/articles/679782886/</link>
+      <pubDate>Thu, 25 Jan 2024 09:22:29 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/679782886/</guid>
+      <description>众所周知，现在 C++ 里面有两种特殊的构造函数，即 copy constructor 和 move constructor copy constructor 早</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/679782886/featured.png" />
+    </item>
+    
+    <item>
+      <title>跨越 7 年的接力赛：获取 C&#43;&#43; 结构体字段数量</title>
+      <link>https://www.ykiko.me/zh-cn/articles/674157958/</link>
+      <pubDate>Mon, 25 Dec 2023 20:45:30 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/674157958/</guid>
+      <description>引子 # 在C++17中引入了叫做「结构化绑定」的特性也就是St</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/674157958/featured.png" />
+    </item>
+    
+    <item>
+      <title>手动优化C&#43;&#43;代码来加快编译速度？！</title>
+      <link>https://www.ykiko.me/zh-cn/articles/673852429/</link>
+      <pubDate>Sat, 23 Dec 2023 15:32:28 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/673852429/</guid>
+      <description>事情的起因是我最近在编写的一个库 magic cpp ，正在编写其中enum的</description>
+      
+    </item>
+    
+    <item>
+      <title>在 C&#43;&#43; 中实现 Object!</title>
+      <link>https://www.ykiko.me/zh-cn/articles/670191053/</link>
+      <pubDate>Sun, 03 Dec 2023 15:40:52 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/670191053/</guid>
+      <description>静态与动态 # 静态类型和动态类型这两个词语相信大家都不陌生了，</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/670191053/featured.png" />
+    </item>
+    
+    <item>
+      <title>为什么说 C/C&#43;&#43; 编译器不保留元信息？</title>
+      <link>https://www.ykiko.me/zh-cn/articles/670190357/</link>
+      <pubDate>Sun, 03 Dec 2023 15:37:51 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/670190357/</guid>
+      <description>首先什么是元信息？ # 来看下面一段python代码，我们希望能</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/670190357/featured.png" />
+    </item>
+    
+    <item>
+      <title>使用 Clang 工具自由的支配 C&#43;&#43; 代码吧</title>
+      <link>https://www.ykiko.me/zh-cn/articles/669360731/</link>
+      <pubDate>Wed, 29 Nov 2023 01:14:27 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/669360731/</guid>
+      <description>Clang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最初开发的目的</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/669360731/featured.png" />
+    </item>
+    
+    <item>
+      <title>各种姿势进行代码生成</title>
+      <link>https://www.ykiko.me/zh-cn/articles/669359855/</link>
+      <pubDate>Wed, 29 Nov 2023 01:14:16 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/669359855/</guid>
+      <description>引入 # 刚好拿最近的一个需求作为引入吧。我们都知道 markdown 可以用la</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/669359855/featured.png" />
+    </item>
+    
+    <item>
+      <title>写给 C&#43;&#43; 程序员的反射教程</title>
+      <link>https://www.ykiko.me/zh-cn/articles/669358870/</link>
+      <pubDate>Wed, 29 Nov 2023 01:14:02 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/669358870/</guid>
+      <description>What is Reflection? # 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/669358870/featured.png" />
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;26 静态反射提案解析</title>
+      <link>https://www.ykiko.me/zh-cn/articles/661692275/</link>
+      <pubDate>Mon, 16 Oct 2023 18:38:26 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/661692275/</guid>
+      <description>最近打算写一个系列文章详细讨论反射（reflection）这</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/661692275/featured.png" />
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; 成员指针完全解析</title>
+      <link>https://www.ykiko.me/zh-cn/articles/659510753/</link>
+      <pubDate>Wed, 04 Oct 2023 06:50:12 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/659510753/</guid>
+      <description>Introduction # 在 C++ 中，形如&amp;amp;T::name的表达式返回的结果就</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/659510753/featured.png" />
+    </item>
+    
+    <item>
+      <title>雾里看花：真正意义上的理解 C&#43;&#43; 模板(Template)</title>
+      <link>https://www.ykiko.me/zh-cn/articles/655902377/</link>
+      <pubDate>Tue, 12 Sep 2023 15:46:11 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/655902377/</guid>
+      <description>在 C++ 中，模板（Template）这个概念已经存在二十多年了。</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/655902377/featured.png" />
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; 禁忌黑魔法: STMP 多态</title>
+      <link>https://www.ykiko.me/zh-cn/articles/646812253/</link>
+      <pubDate>Sun, 30 Jul 2023 01:29:27 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/646812253/</guid>
+      <description>前情提要： # C++ 禁忌黑魔法: STMP https://www.ykiko.me/articles/646752343 什么是 STMP 多态 # struct Any{ void* data; std::size_t index; }; int</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/646812253/featured.png" />
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; 禁忌黑魔法：STMP</title>
+      <link>https://www.ykiko.me/zh-cn/articles/646752343/</link>
+      <pubDate>Sat, 29 Jul 2023 10:20:50 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/646752343/</guid>
+      <description>STMP 全名 stateful template meta programming，又叫状态元编程。之所以这</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/646752343/featured.png" />
+    </item>
+    
+    <item>
+      <title>std::variant 很难用！</title>
+      <link>https://www.ykiko.me/zh-cn/articles/645810896/</link>
+      <pubDate>Tue, 25 Jul 2023 07:19:25 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/645810896/</guid>
+      <description>sum type # 下面让我们来讨论 CS 中一个简单但非常有用的概念：sum t</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/645810896/featured.png" />
+    </item>
+    
+  </channel>
+</rss>

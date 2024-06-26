@@ -1,0 +1,2282 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="dark"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="zh-cn" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>C&#43;&#43; 究竟代码膨胀在哪里？ &middot; ykiko&#39;s blog</title>
+  <meta name="title" content="C&#43;&#43; 究竟代码膨胀在哪里？ &middot; ykiko&#39;s blog" />
+  
+  
+  
+  
+  
+  <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/686296374/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.85f006de1806b55b2d082d1122deedd8cec6fdc1f7c8a51be975a4496165d6c798f4a3de52545a6a87cc4bc09fc2d6f5201d44ea57acc1ac2b1c42a688c62bee.css"
+    integrity="sha512-hfAG3hgGtVstCC0RIt7t2M7G/cH3yKUb6XWkSWFl1seY9KPeUlRaaofMS8Cfwtb1IB1E6leswawrHEKmiMYr7g==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.d6c35110b5d7df8014403fbb81cd21a9d89daf9eb586c936e585e9d04adc204dce554aa737f81e8c902b9dea9e67bd63a977b77dedefb8a39430581ebc519207.js"
+    integrity="sha512-1sNRELXX34AUQD&#43;7gc0hqdidr561hsk25YXp0ErcIE3OVUqnN/gejJArneqeZ71jqXe3fe3vuKOUMFgevFGSBw==" data-copy="" data-copied=""></script>
+  
+  
+  <script src="/js/zoom.min.js"></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/686296374/">
+  <meta property="og:site_name" content="ykiko&#39;s blog">
+  <meta property="og:title" content="C&#43;&#43; 究竟代码膨胀在哪里？">
+  <meta property="og:description" content="相信读者经常能听见有人说 C&#43;&#43; 代码二进制膨胀严重，但是一般很少会">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2024-03-11T01:33:37+00:00">
+    <meta property="article:modified_time" content="2024-03-11T01:33:37+00:00">
+    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/686296374/featured.png">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/686296374/featured.png">
+  <meta name="twitter:title" content="C&#43;&#43; 究竟代码膨胀在哪里？">
+  <meta name="twitter:description" content="相信读者经常能听见有人说 C&#43;&#43; 代码二进制膨胀严重，但是一般很少会">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Articles",
+    "name": "C\u002b\u002b 究竟代码膨胀在哪里？",
+    "headline": "C\u002b\u002b 究竟代码膨胀在哪里？",
+    
+    "abstract": "相信读者经常能听见有人说 C\u002b\u002b 代码二进制膨胀严重，但是一般很少会",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/686296374\/",
+    "author" : {
+      "@type": "Person",
+      "name": "ykiko"
+    },
+    "copyrightYear": "2024",
+    "dateCreated": "2024-03-11T01:33:37\u002b00:00",
+    "datePublished": "2024-03-11T01:33:37\u002b00:00",
+    
+    "dateModified": "2024-03-11T01:33:37\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "7473"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="ykiko" />
+  
+  
+  
+  <link href="https://github.com/16bit-ykiko" rel="me" />
+  
+  
+  <link href="mailto:ykikoykikoykiko@gmail.com" rel="me" />
+  
+  
+  <link href="https://www.zhihu.com/people/75-49-80-77" rel="me" />
+  
+  
+  <link href="https://space.bilibili.com/360835081" rel="me" />
+  
+  
+  <link href="https://bangumi.tv/user/857516" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.js" integrity=""></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PEDMYR1V0K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PEDMYR1V0K');
+</script>
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+  </div>
+  
+  
+  <div class="min-h-[148px]"></div>
+<div class="fixed inset-x-0 pl-[24px] pr-[24px]" style="z-index:100">
+  <div id="menu-blur" class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
+  <div class="relative max-w-[64rem] ml-auto mr-auto">
+    <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/zh-cn/" class="text-base font-medium text-gray-500 hover:text-gray-900">ykiko&rsquo;s blog</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        关于我
+    </p>
+</a>
+
+
+
+            
+            
+  <a href="/zh-cn/articles/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        文章
+    </p>
+</a>
+
+
+
+            
+            
+  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        研究
+    </p>
+</a>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" for="menu-controller" class="block">
+            <input type="checkbox" id="menu-controller" class="hidden" />
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li>
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            关于我
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/zh-cn/articles/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            文章
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            研究
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  </div>
+</div>
+<script>
+  window.addEventListener('scroll', function (e) {
+    var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    var background_blur = document.getElementById('menu-blur');
+    background_blur.style.opacity = (scroll / 300);
+  });
+</script>
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+
+
+<div id="hero" class="h-[150px] md:h-[200px]"></div>
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/zh-cn/articles/686296374/featured_huf109e724cb5db6f2ccc9b1e5c200ef8e_33581_1200x0_resize_box_3.png);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+<div id="background-blur" class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+<script>
+    window.addEventListener('scroll', function (e) {
+        var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        var background_blur = document.getElementById('background-blur');
+        background_blur.style.opacity = (scroll / 300)
+    });
+</script>
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/zh-cn/"
+      >ykiko&#39;s blog</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/zh-cn/articles/"
+      >Articles</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/zh-cn/articles/686296374/"
+      >C&#43;&#43; 究竟代码膨胀在哪里？</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      C++ 究竟代码膨胀在哪里？
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-03-11 01:33:37 &#43;0000 UTC">March 11, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>7473 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">15 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+
+
+  
+    
+  
+  
+
+<span class="mb-[2px]">
+  <a
+    href="#/articles/686296374/index.md"
+    class="text-lg hover:text-primary-500"
+    rel="noopener noreferrer"
+    target="_blank"
+    title="编辑内容"
+    ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z"/></svg>
+  </span>
+
+</span></a
+  >
+</span><span class="px-2 text-primary-500">&middot;</span>
+
+
+<script type="text/javascript" src="/js/zen-mode.min.63c8a202661f4a2063fdc2706685d668e8ea3da613da2224e9da527e5876e4f53dcac39ab60732626fb4151feae5d430d0cf44731e5d3c726522fcc1519c1547.js" integrity="sha512-Y8iiAmYfSiBj/cJwZoXWaOjqPaYT2iIk6dpSflh25PU9ysOatgcyYm&#43;0FR/q5dQw0M9Ecx5dPHJlIvzBUZwVRw=="></script>
+
+<span class="mb-[2px]">
+    <span id="zen-mode-button"
+          class="text-lg hover:text-primary-500"
+          title=""
+          data-title-i18n-disable=""
+          data-title-i18n-enable="">
+        <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
+    <path fill="currentColor" d="M 12.980469 4 C 9.1204688 4 5.9804688 7.14 5.9804688 11 L 6 26 L 9.9804688 26 L 9.9804688 11 C 9.9804688 9.35 11.320469 8 12.980469 8 L 40.019531 8 C 41.679531 8 43.019531 9.35 43.019531 11 L 43.019531 39 C 43.019531 40.65 41.679531 42 40.019531 42 L 29 42 C 29 43.54 28.420938 44.94 27.460938 46 L 40.019531 46 C 43.879531 46 47.019531 42.86 47.019531 39 L 47.019531 11 C 47.019531 7.14 43.879531 4 40.019531 4 L 12.980469 4 z M 7 28 C 4.794 28 3 29.794 3 32 L 3 42 C 3 44.206 4.794 46 7 46 L 23 46 C 25.206 46 27 44.206 27 42 L 27 32 C 27 29.794 25.206 28 23 28 L 7 28 z M 7 32 L 23 32 L 23.001953 42 L 7 42 L 7 32 z"/>
+</svg>
+  </span>
+
+</span>
+    </span>
+</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="ykiko" src="/img/author_hu2ced2606473956c941ba66a547516b95_62782_192x192_fill_q75_box_center.jpg" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      作者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      ykiko
+    </div>
+    
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/16bit-ykiko"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="mailto:ykikoykikoykiko@gmail.com"
+          target="_blank"
+          aria-label="Envelope-Solid"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path fill="currentColor" d="M464 64C490.5 64 512 85.49 512 112C512 127.1 504.9 141.3 492.8 150.4L275.2 313.6C263.8 322.1 248.2 322.1 236.8 313.6L19.2 150.4C7.113 141.3 0 127.1 0 112C0 85.49 21.49 64 48 64H464zM217.6 339.2C240.4 356.3 271.6 356.3 294.4 339.2L512 176V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V176L217.6 339.2z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://www.zhihu.com/people/75-49-80-77"
+          target="_blank"
+          aria-label="Zhihu"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1719381188729" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6448" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M541.867 556.8s0-66.133-32-68.267c-32-4.266-132.267 0-132.267 0v-204.8h149.333s-2.133-68.266-29.866-68.266h-243.2l40.533-108.8s-59.733 4.266-83.2 42.666C189.867 187.733 121.6 384 121.6 384s23.467 10.667 61.867-19.2c38.4-27.733 51.2-78.933 51.2-78.933l70.4-4.267 2.133 206.933s-125.867-2.133-149.333 0c-25.6 2.134-38.4 68.267-38.4 68.267h189.866s-17.066 117.333-64 198.4C196.267 840.533 102.4 906.667 102.4 906.667S168.533 934.4 234.667 896s113.066-206.933 113.066-206.933L499.2 878.933s12.8-89.6-2.133-117.333C480 736 390.4 633.6 390.4 633.6L352 667.733l27.733-113.066 162.134 2.133z m38.4-345.6l-2.134 614.4H640l21.333 74.667 108.8-74.667H921.6V211.2H580.267z m273.066 546.133h-70.4l-89.6 68.267-19.2-68.267h-19.2V281.6h198.4v475.733z" fill="currentColor" p-id="6449"></path></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://space.bilibili.com/360835081"
+          target="_blank"
+          aria-label="Bilibili"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1719381779479" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9290" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M306.005333 117.632L444.330667 256h135.296l138.368-138.325333a42.666667 42.666667 0 0 1 60.373333 60.373333L700.330667 256H789.333333A149.333333 149.333333 0 0 1 938.666667 405.333333v341.333334a149.333333 149.333333 0 0 1-149.333334 149.333333h-554.666666A149.333333 149.333333 0 0 1 85.333333 746.666667v-341.333334A149.333333 149.333333 0 0 1 234.666667 256h88.96L245.632 177.962667a42.666667 42.666667 0 0 1 60.373333-60.373334zM789.333333 341.333333h-554.666666a64 64 0 0 0-63.701334 57.856L170.666667 405.333333v341.333334a64 64 0 0 0 57.856 63.701333L234.666667 810.666667h554.666666a64 64 0 0 0 63.701334-57.856L853.333333 746.666667v-341.333334A64 64 0 0 0 789.333333 341.333333zM341.333333 469.333333a42.666667 42.666667 0 0 1 42.666667 42.666667v85.333333a42.666667 42.666667 0 0 1-85.333333 0v-85.333333a42.666667 42.666667 0 0 1 42.666666-42.666667z m341.333334 0a42.666667 42.666667 0 0 1 42.666666 42.666667v85.333333a42.666667 42.666667 0 0 1-85.333333 0v-85.333333a42.666667 42.666667 0 0 1 42.666667-42.666667z" fill="currentColor" p-id="9291"></path></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://bangumi.tv/user/857516"
+          target="_blank"
+          aria-label="Banguim"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1719382391801" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11123" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M1013.49888 192.13312l0-50.2016c0-133.98528-115.46112-133.98528-133.98528-133.98528l-49.9968 0c-1.69472-0.06656-3.25632-0.47616-5.02272-0.47616L197.31968 7.47008c-1.69472 0-3.32288 0.47616-5.02272 0.47616l-49.9968 0c-18.51904 0-133.98528 0-133.98528 133.98528l0 50.13504c-0.06656 1.62816-0.47616 3.18976-0.47616 4.81792l0 627.1744c0 1.62816 0.47616 3.18976 0.47616 4.81792l0 50.13504c0 133.98528 133.98528 133.98528 133.98528 133.98528l49.9968 0c1.69472 0.06656 3.25632 0.47616 4.95104 0.47616l627.1744 0c1.69472 0 3.25632-0.47616 4.95104-0.47616l50.06848 0c38.67136 0 65.87392-11.25888 85.4784-27.20256 1.22368-0.95232 2.5088-1.89952 3.73248-2.85184 4.47488-3.93216 8.61696-8.1408 12.2112-12.48256 1.01888-1.29024 1.89952-2.57536 2.85184-3.93216 29.57824-38.66624 29.78304-87.58272 29.78304-87.58272l0-50.2016c0.06656-1.62816 0.47616-3.1232 0.47616-4.81792L1013.97504 196.8128C1013.97504 195.32288 1013.56544 193.76128 1013.49888 192.13312zM162.11456 874.5984 61.0304 874.5984l0-101.07904 101.07904 0L162.10944 874.5984zM162.11456 717.824 61.0304 717.824l0-101.07904 101.07904 0L162.10944 717.824zM162.11456 561.04448 61.0304 561.04448 61.0304 459.96544l101.07904 0L162.10944 561.04448zM162.11456 404.27008 61.0304 404.27008 61.0304 303.18592l101.07904 0L162.10944 404.27008zM162.11456 247.49056 61.0304 247.49056 61.0304 146.41152l101.07904 0L162.10944 247.49056zM794.98752 899.63008 224.18432 899.63008 224.18432 121.4464l570.8032 0L794.98752 899.63008zM952.30464 873.4464l-101.07904 0 0-101.07904 101.07904 0L952.30464 873.4464zM952.30464 716.66688l-101.07904 0 0-101.07904 101.07904 0L952.30464 716.66688zM952.30464 559.89248l-101.07904 0L851.2256 458.81344l101.07904 0L952.30464 559.89248zM952.30464 403.11296l-101.07904 0L851.2256 302.03392l101.07904 0L952.30464 403.11296zM952.30464 246.33856l-101.07904 0L851.2256 145.25952l101.07904 0L952.30464 246.33856z" fill="currentColor" p-id="11124"></path><path d="M452.46464 680.91904 452.46464 680.91904 646.7584 543.744c20.48512-14.72 20.48512-51.42016 0-66.14528L452.46464 340.02432c-20.48512-14.72-54.272-4.13696-54.272 25.23648l0 290.82624C398.19264 685.46048 432.04608 695.57248 452.46464 680.91904z" fill="currentColor" p-id="11125"></path></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#用-inline-标记函数会导致膨胀吗">用 inline 标记函数会导致膨胀吗？</a>
+      <ul>
+        <li><a href="#多份实例的情况">多份实例的情况</a></li>
+        <li><a href="#完全内联的情况">完全内联的情况</a></li>
+        <li><a href="#其它情况">其它情况</a></li>
+      </ul>
+    </li>
+    <li><a href="#模板导致代码膨胀的真正原因">模板导致代码膨胀的真正原因？</a>
+      <ul>
+        <li><a href="#隐式实例化如同-inline-标记">隐式实例化如同 inline 标记</a></li>
+        <li><a href="#显式实例化和-extern-模板">显式实例化和 extern 模板</a></li>
+        <li><a href="#真正的模板膨胀开销">真正的模板膨胀开销</a></li>
+        <li><a href="#手动优化模板膨胀问题">手动优化模板膨胀问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#异常导致的代码膨胀">异常导致的代码膨胀！</a>
+      <ul>
+        <li><a href="#noexcept">noexcept</a></li>
+        <li><a href="#fno-exceptions">fno-exceptions</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#用-inline-标记函数会导致膨胀吗">用 inline 标记函数会导致膨胀吗？</a>
+      <ul>
+        <li><a href="#多份实例的情况">多份实例的情况</a></li>
+        <li><a href="#完全内联的情况">完全内联的情况</a></li>
+        <li><a href="#其它情况">其它情况</a></li>
+      </ul>
+    </li>
+    <li><a href="#模板导致代码膨胀的真正原因">模板导致代码膨胀的真正原因？</a>
+      <ul>
+        <li><a href="#隐式实例化如同-inline-标记">隐式实例化如同 inline 标记</a></li>
+        <li><a href="#显式实例化和-extern-模板">显式实例化和 extern 模板</a></li>
+        <li><a href="#真正的模板膨胀开销">真正的模板膨胀开销</a></li>
+        <li><a href="#手动优化模板膨胀问题">手动优化模板膨胀问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#异常导致的代码膨胀">异常导致的代码膨胀！</a>
+      <ul>
+        <li><a href="#noexcept">noexcept</a></li>
+        <li><a href="#fno-exceptions">fno-exceptions</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+          
+            $(e).removeClass('active');
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>相信读者经常能听见有人说 C++ 代码二进制膨胀严重，但是一般很少会有人指出具体的原因。在网络上一番搜索过后，发现深入讨论这个问题的文章的并不多。上面那句话更像是八股文的一部分，被口口相传，但是没什么人能说出个所以然。今天小编 ykiko 就带大家一起来探秘 C++ 代码膨胀那些事  (^ω^)</p>
+<p>首先要讨论的是，什么叫做代码膨胀？如果一个函数被大量内联，那相比于不被内联，最终生成的可执行文件是更大了对吧。那这样算膨胀吗？我认为不算，这是我们预期范围内的，可接受的，正常行为。那反过来，不在我们预期范围内的，理论上能消除，但迫于现有的实现却没有消除的代码膨胀，我把它叫做&quot;真正的代码膨胀&quot;。后文所讨论的膨胀都是这个意思。</p>
+
+
+<h2 class="relative group">用 inline 标记函数会导致膨胀吗？ 
+    <div id="%E7%94%A8-inline-%E6%A0%87%E8%AE%B0%E5%87%BD%E6%95%B0%E4%BC%9A%E5%AF%BC%E8%87%B4%E8%86%A8%E8%83%80%E5%90%97" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%94%A8-inline-%E6%A0%87%E8%AE%B0%E5%87%BD%E6%95%B0%E4%BC%9A%E5%AF%BC%E8%87%B4%E8%86%A8%E8%83%80%E5%90%97" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>首先要明确，这里的<code>inline</code>是 C++ 中的<code>inline</code>，标准中规定的语义是，<strong>允许一个函数的在多个源文件中定义</strong>。被<code>inline</code>标记的函数可以直接定义在头文件中，即使被多个源文件<code>#include</code>，也不会导致链接错误，这样可以方便的支持 header-only 的库。</p>
+
+
+<h3 class="relative group">多份实例的情况 
+    <div id="%E5%A4%9A%E4%BB%BD%E5%AE%9E%E4%BE%8B%E7%9A%84%E6%83%85%E5%86%B5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%A4%9A%E4%BB%BD%E5%AE%9E%E4%BE%8B%E7%9A%84%E6%83%85%E5%86%B5" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>既然可以在多个源文件中定义，那是不是就意味着每个源文件都有一份代码实例，会不会导致代码膨胀呢?</p>
+<p>考虑如下示例，开头的注释表示文件名</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src1.cpp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">g1</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// src2.cpp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">g2</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// main.cpp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">extern</span> <span class="kt">int</span> <span class="nf">g1</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">extern</span> <span class="kt">int</span> <span class="nf">g2</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">g1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">g2</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>先尝试<strong>不开优化</strong>编译前两个文件，看看他们是不是各自保留了一份<code>add</code>函数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ -c src1.cpp -o src1.o
+</span></span><span class="line"><span class="cl">$ g++ -c src2.cpp -o src2.o
+</span></span></code></pre></div><p>分别查看这两个文件里面的符号表</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ objdump -d src1.o <span class="p">|</span> c++filt
+</span></span><span class="line"><span class="cl">$ objdump -d src2.o <span class="p">|</span> c++filt
+</span></span></code></pre></div><p>本地验证都通过上述命令直接查看符号表进行。但是为了方便展示，我会把 godbolt 对应的链接和截图放上来，它把很多影响阅读的不关键符号都省略了，看起来更加清晰。</p>
+<p>
+  <figure>
+    <img class="my-0 rounded-md" loading="lazy" src="https://pic4.zhimg.com/v2-0f8338487557d14a675e82276a73b9a3_r.jpg" alt="" />
+    
+  </figure>
+</p>
+<p>可以看到这两个 <a href="https://godbolt.org/z/xoW8TTvP7" target="_blank">源文件</a> 分别保留了一份，<code>add</code>函数的实例。然后我们将它们链接成可执行文件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ main.o src1.o src2.o -o main.exe
+</span></span><span class="line"><span class="cl">$ objdump -d main.exe <span class="p">|</span> c++filt
+</span></span></code></pre></div><p>结果如下图所示</p>
+<p>
+  <figure>
+    <img class="my-0 rounded-md" loading="lazy" src="https://pic3.zhimg.com/v2-90853d7ae94867f68e8130b835c8f832_r.jpg" alt="" />
+    
+  </figure>
+</p>
+<p>发现链接器只保留了两份<code>add</code>实例中的一份，所以并没有<strong>额外的代码膨胀</strong>。并且 C++ 标准要求，内联函数在不同编译单元的定义必须相同，所以无论选哪一份代码保留都没区别。但是如果你问：万一定义不同呢？那就会导致 ODR 违反，严格意义来说算 undefined behavior，究竟保留哪一个可能就看具体实现了，甚至和链接顺序有关。关于 ODR 违反相关的内容，我最近可能会单独写一个文章介绍，这里就不说太多了。<strong>只需要知道 C++ 标准保证 inline 函数在不同编译单元定义相同就行了</strong>。</p>
+
+
+<h3 class="relative group">完全内联的情况 
+    <div id="%E5%AE%8C%E5%85%A8%E5%86%85%E8%81%94%E7%9A%84%E6%83%85%E5%86%B5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AE%8C%E5%85%A8%E5%86%85%E8%81%94%E7%9A%84%E6%83%85%E5%86%B5" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>前面我特意强调了，不打开优化，如果打开了优化会怎么样呢？仍然是上面的代码，我们尝试打开<code>O2</code>优化。最后的 <a href="https://godbolt.org/z/jfx8jrnzf" target="_blank">结果</a> 如下图所示</p>
+<p>
+  <figure>
+    <img class="my-0 rounded-md" loading="lazy" src="https://pic1.zhimg.com/v2-ef6dc326331416c2a20e98a632a87150_r.jpg" alt="" />
+    
+  </figure>
+</p>
+<p>可能让人有点吃惊，打开<code>-O2</code>优化之后，<code>add</code>调用被完全内联。编译器最后连符号都没有给<code>add</code>生成，链接的时候自然也没有<code>add</code>。按照我们之前的定义来看，这种函数内联不属于代码膨胀，所以是没有<strong>额外的</strong>二进制膨胀开销的。</p>
+<p>稍微偏个题，既然这两个文件都不生成<code>add</code>这个符号，那万一有别的文件引用了<code>add</code>这个符号，不就会导致编译失败吗？</p>
+<p>考虑如下代码</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src1.cpp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">g1</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// main.cpp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">g1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">add</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>尝试编译链接上面的代码。发现不开优化可以链接通过。开了优化就会导致链接失败了。链接器会告诉你<code>undefined reference to add(int, int)</code>。<strong>三大编译器的行为都是如此</strong>，具体的原因上面已经解释过了，开了优化之后，编译器压根没生成<code>add</code>这个符号，链接的时候自然无法找到了。</p>
+<p>但是我们想知道的是，这样做符合 C++ 标准吗？</p>
+<p>三大编译器都这样，似乎没有不符合的道理。但是在 inline 那一小节并没有明确说明，而在 <a href="https://en.cppreference.com/w/cpp/language/definition#One_Definition_Rule" target="_blank">One Definition Rule</a>  这里有如下两句话</p>
+<ul>
+<li>For an inline function or inline variable(since C++17), a definition is required in every translation unit where it is odr-used.</li>
+<li>a function is odr-used if a function call to it is made or its address is taken</li>
+</ul>
+<p>两句话啥意思呢？意思就是，一个 inline 函数，如果在某个编译单元被 <a href="https://en.cppreference.com/w/cpp/language/definition#ODR-use" target="_blank">odr-used</a> 了，那么这个编译单元必须要有该函数的定义。啥情况是 odr-used 呢？后面一句话就是在解释，如果<strong>函数被调用</strong>或者<strong>取函数的地址</strong>就算是 odr-used。</p>
+<p>那我们看看之前的代码，在 main.cpp 中调用一个 inline 函数，但是却没有定义，所以其实是违背了 C++ 标准的约定的。到这里，算是松了一口气了。虽然有点反直觉，但是事实的确如此，三大编译器都没错！</p>
+
+
+<h3 class="relative group">其它情况 
+    <div id="%E5%85%B6%E5%AE%83%E6%83%85%E5%86%B5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%85%B6%E5%AE%83%E6%83%85%E5%86%B5" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>我们这一小节主要讨论了两种情况：</p>
+<ul>
+<li>第一种即<code>inline</code>函数在多个编译单元都有实例（生成符号），那么这时候目前主流的链接器都只会选择其中一份保留，不会有额外的代码膨胀</li>
+<li>第二种情况是<code>inline</code>函数被完全内联，并且不生成符号。这时候就如同普通的函数被内联一样，不属于&quot;额外的开销&quot;</li>
+</ul>
+<p>可能会有人觉得 C++ 优化怎么规则这么多啊。但是实际上核心的规则只有一条，那就是<code>as-if</code>原则，也就是编译器可以对代码进行任何优化，只要最后生成的代码运行效果和不优化的一样就行了。编译器绝大部分时候都是按照这个原则来进行优化的，只有少数几个例外可以不满足这个原则。上述对 inline 函数的优化也是满足这个原则的，如果不显式对 inline 函数取地址，那的确没必要保留符号。</p>
+<p>另外， inline 虽然标准层面没有强制内联的语义了，但是实际上它会给编译器一些 hint，使得这个函数更容易被内联。这个 hint 是如何作用的呢？前面提到了，标准的措辞表明 inline 函数可以不生成符号。那相比之下，没有任何说明符限定的函数，则默认被标记为 extern ，必须要生成符号。<strong>编译器肯定是更愿意内联可以不生成符号的函数的</strong>。从这个角度出发，你可能会猜测 static 也会有类似的 hint 效果，实际情况的确如此。当然了，这些只是一个方面，实际上，判断函数是否被内联的计算会复杂的多。</p>
+<p>注意：本小节，只讨论了仅被<code>inline</code>标记的函数，除此之外还有<code>inline static</code>和<code>inline extern</code>这样的组合，感兴趣的读者可以阅读官方文档或者自行尝试效果如何。</p>
+
+
+<h2 class="relative group">模板导致代码膨胀的真正原因？ 
+    <div id="%E6%A8%A1%E6%9D%BF%E5%AF%BC%E8%87%B4%E4%BB%A3%E7%A0%81%E8%86%A8%E8%83%80%E7%9A%84%E7%9C%9F%E6%AD%A3%E5%8E%9F%E5%9B%A0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%A8%A1%E6%9D%BF%E5%AF%BC%E8%87%B4%E4%BB%A3%E7%A0%81%E8%86%A8%E8%83%80%E7%9A%84%E7%9C%9F%E6%AD%A3%E5%8E%9F%E5%9B%A0" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>如果有人给出 C++ 二进制膨胀的理由，那么几乎它的答案一定是模板。果真如此吗？模板究竟是怎么导致二进制膨胀的？在什么情况导致的？难道我用了就导致吗？</p>
+
+
+<h3 class="relative group">隐式实例化如同 inline 标记 
+    <div id="%E9%9A%90%E5%BC%8F%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%A6%82%E5%90%8C-inline-%E6%A0%87%E8%AE%B0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%9A%90%E5%BC%8F%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%A6%82%E5%90%8C-inline-%E6%A0%87%E8%AE%B0" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>我们知道模板实例化发生在当前编译单元，实例化一份就会产生一份代码。考虑下面这个例子</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src1.cpp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">add</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">float</span> <span class="nf">g1</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">add</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// src2.cpp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">add</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">float</span> <span class="nf">g2</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">add</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// main.cpp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">extern</span> <span class="kt">float</span> <span class="nf">g1</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">extern</span> <span class="kt">float</span> <span class="nf">g2</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">g1</span><span class="p">()</span> <span class="o">+</span> <span class="n">g2</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>仍然不开优化，尝试编译 <a href="https://godbolt.org/z/aTxMsnK5n" target="_blank">编译结果</a> 如下</p>
+<p>
+  <figure>
+    <img class="my-0 rounded-md" loading="lazy" src="https://pic4.zhimg.com/v2-5de99e270f381ff7f77f012ed72836bb_r.jpg" alt="" />
+    
+  </figure>
+</p>
+<p>可以看见就像被 inline 标记的函数那样，这两个编译单元都实例化了<code>add&lt;int, int&gt;</code>和<code>add&lt;double, double&gt;</code>，各有一份代码。然后在最终链接的时候，链接器只为每个模板实例化保留了一份代码。那我们尝试打开<code>-O2</code>，然后再看看情况。<a href="https://godbolt.org/z/edEd8Tvo4" target="_blank">结果</a> 如下</p>
+<p>
+  <figure>
+    <img class="my-0 rounded-md" loading="lazy" src="https://pic2.zhimg.com/v2-5e915f5cb7b7fc25e00a5f6c8ae2fa95_r.jpg" alt="" />
+    
+  </figure>
+</p>
+<p>也和 inline 标记的效果一样，编译器直接把函数内联了，然后实例化出的函数的符号都扔了。那这样的话，要么内联了符号都没生成，要么生成了符号，最后函数合并了。和 inline 一样，这种情况似乎没有额外的膨胀啊，那经常说的模板膨胀，究竟膨胀在哪呢？</p>
+
+
+<h3 class="relative group">显式实例化和 extern 模板 
+    <div id="%E6%98%BE%E5%BC%8F%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%92%8C-extern-%E6%A8%A1%E6%9D%BF" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%98%BE%E5%BC%8F%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%92%8C-extern-%E6%A8%A1%E6%9D%BF" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>在介绍真正膨胀的原因之前，我们先来讨论一下显式实例化。</p>
+<p>虽然链接器最后能合并多份相同的模板实例化。但是模板定义的解析，模板实例化，以及生成最终的二进制代码和链接器去除重复代码，这些都要编译时间的啊。有些时候，我们能确定，只是使用某几种固定模板参数的实例化，比如像标准库的<code>basic_string</code>几乎只有那几种固定的类型作为模板参数，如果每次个文件用到它们，都要进行模板实例化可能会大大增长编译时间。</p>
+<p>那我们可以像非模板函数一样，把实现放在某一个源文件，其它文件引用这个源文件的函数吗？从上一小节的讨论来看，既然会生成符号，那应该就有办法链接到。但是不能保证一定生成啊，有什么办法保证生成符号吗？</p>
+<p>答案就是 —— 显式实例化！</p>
+<p>什么叫显式实例化？简单来说，如果一个模板，你直接使用。而不提前声明具体到何种类型，由编译器帮你生成声明，那就算隐式实例化。反之就叫做显式实例化。以函数模板为例，</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="kt">void</span> <span class="n">f</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span> <span class="c1">// 显式实例化 f&lt;int&gt; 定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">g</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// 调用之前显式实例化的 f&lt;int&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">f</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">);</span> <span class="c1">// 隐式实例化 f&lt;double&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>相信还是很好理解的，而且<strong>显式实例化定义</strong>的话，编译器一定会为你保留符号。那接下来就是外部如何链接到这个显式实例化的函数了，有两种办法</p>
+<p>一种是，直接显式实例化一个函数声明</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="kt">void</span> <span class="n">f</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span> <span class="c1">// 显式实例化 f&lt;int&gt; 仅声明
+</span></span></span></code></pre></div><p>另一种是直接使用<code>extern</code>关键字实例化一个定义</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">){</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">extern</span> <span class="k">template</span> <span class="kt">void</span> <span class="n">f</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span> <span class="c1">// 显式实例化 f&lt;int&gt; 声明
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 注意不加 extern 就会显式实例化一个定义了
+</span></span></span></code></pre></div><p>这两种都能正确引用到上面那个函数<code>f</code>，这样就可以调用其它文件的模板实例化了！</p>
+
+
+<h3 class="relative group">真正的模板膨胀开销 
+    <div id="%E7%9C%9F%E6%AD%A3%E7%9A%84%E6%A8%A1%E6%9D%BF%E8%86%A8%E8%83%80%E5%BC%80%E9%94%80" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%9C%9F%E6%AD%A3%E7%9A%84%E6%A8%A1%E6%9D%BF%E8%86%A8%E8%83%80%E5%BC%80%E9%94%80" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>接下来是最重要的部分了，我们将会介绍模板膨胀的真正原因。由于一些历史遗留问题，C++ 中<code>char</code>,<code>unsigned char</code>,<code>signed char</code>三种类型永远互不相同</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="kt">signed</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">signed</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">);</span>
+</span></span></code></pre></div><p>但是如果落实到到编译器最终实现上来，<code>char</code>要么<code>signed</code>，要么<code>unsigned</code>。假设我们编写一个模板函数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">){</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">g</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">&lt;</span><span class="kt">signed</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>实例化三种类型的函数模板，那么其中必然有两个实例化是相同的代码。编译器会把函数类型不同，但是最后生成的二进制代码相同的两个函数合并吗？尝试一下，<a href="https://godbolt.org/z/KncEh3z5n" target="_blank">结果</a> 如下</p>
+<p>
+  <figure>
+    <img class="my-0 rounded-md" loading="lazy" src="https://pic3.zhimg.com/v2-5c57236015036328a7e0f321aadf513a_r.jpg" alt="" />
+    
+  </figure>
+</p>
+<p>可以看到这里生成了两个完全一样的函数，但是并没有合并。当然，如果我们打开<code>-O2</code>优化，这样短的函数就会被内联掉了，也不会生成最终符号。就和第一小节说的那样，也就没有所谓的&quot;模板膨胀开销&quot;。实际代码编写中有很多这样的短小的模板函数，比如<code>vector</code>这种容器的<code>end</code>,<code>begin</code>,<code>operator[]</code>等等，它们大概率会被完全内联，从而没有&quot;额外的膨胀&quot;开销。</p>
+<p>现在问题来了，如果函数没被没有内联呢？假设模板函数比较复杂，函数体较大。为了方便演示，我们暂时使用 GCC 的一个 attribute <code>[[gnu::noinline]]</code>来实现这种效果，然后打开 O2，再次编译上面的 <a href="https://godbolt.org/z/Exff5cnfj" target="_blank">代码</a></p>
+<p>
+  <figure>
+    <img class="my-0 rounded-md" loading="lazy" src="https://pic3.zhimg.com/v2-37da15bf141999c1bc8d6f7b07575f36_r.jpg" alt="" />
+    
+  </figure>
+</p>
+<p>可以看到虽然被优化的只剩一条指令，但是编译器还是生成了三份函数。实际上，真的不被编译器内联的函数体积可能比较大，情况可能比这个“伪装的大函数”糟糕的多。于是，这样的话就产生了所谓的&quot;模板膨胀&quot;。<strong>本来能合并的代码却没有合并，这就是真正的模板膨胀开销所在</strong>。</p>
+<p>如果非常希望编译器/链接器合并这些相同的二进制代码怎么办呢？很遗憾，主流的工具链 ld / lld / ms linker 都不会做这种合并。目前唯一支持这个特性的链接器是 <a href="https://www.gnu.org/software/binutils/" target="_blank">gold</a>，但是它只能用于链接 elf 格式的可执行文件，所以没法在 Windows 上面使用了。下面我展示一下：如何使用它合并相同的二进制代码</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// main.cpp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;utility&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">I</span><span class="o">&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="na">[[gnu::noinline]]</span> <span class="kt">void</span> <span class="n">f</span><span class="p">()</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;X&lt;%zu&gt;::f() called</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">...</span> <span class="n">Is</span><span class="o">&gt;</span> 
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">call_f</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">index_sequence</span><span class="o">&lt;</span><span class="n">Is</span><span class="p">...</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">((</span><span class="n">X</span><span class="o">&lt;</span><span class="n">Is</span><span class="o">&gt;</span><span class="p">{</span><span class="n">Is</span><span class="p">}).</span><span class="n">f</span><span class="p">(),</span> <span class="p">...);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">call_f</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="mi">100</span><span class="o">&gt;</span><span class="p">{});</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>我这里通过模板生成了<code>100</code>个不同的类型，但是实际上它们底层都是<code>size_t</code>类型，所以进行最终编译生成的二进制代码是完全相同的。使用如下命令尝试编译它</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ -O2 -ffunction-sections -fuse-ld<span class="o">=</span>gold -Wl,--icf<span class="o">=</span>all main.cpp -o main.o
+</span></span><span class="line"><span class="cl">$ objdump -d main.o <span class="p">|</span> c++filt
+</span></span></code></pre></div><p>使用<code>-fue-ld=gold</code>指定链接器，<code>-Wl,--icf=all</code>指定链接器选项。<code>icf</code>即意味着<code>identical code folding</code>，即相同代码折叠。因为链接器只在 section 级别上工作，所以 GCC 则需要配合开启<code>-ffunction-sections</code>，上面的编译器也可以替换成<code>clang</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">0000000000000740</span> &lt;X&lt;99ul&gt;::f<span class="o">()</span> <span class="o">[</span>clone .isra.0<span class="o">]</span>&gt;:
+</span></span><span class="line"><span class="cl"> 740:   <span class="m">48</span> <span class="m">89</span> fa                mov    %rdi,%rdx
+</span></span><span class="line"><span class="cl"> 743:   <span class="m">48</span> 8d <span class="m">35</span> 1a <span class="m">04</span> <span class="m">00</span> <span class="m">00</span>    lea    0x41a<span class="o">(</span>%rip<span class="o">)</span>,%rsi
+</span></span><span class="line"><span class="cl"> 74a:   bf <span class="m">01</span> <span class="m">00</span> <span class="m">00</span> <span class="m">00</span>          mov    <span class="nv">$0</span>x1,%edi
+</span></span><span class="line"><span class="cl"> 74f:   <span class="m">31</span> c0                   xor    %eax,%eax
+</span></span><span class="line"><span class="cl"> 751:   e9 ca fe ff ff          jmp    <span class="m">620</span> &lt;_init+0x68&gt;
+</span></span><span class="line"><span class="cl"> 756:   <span class="m">66</span> 2e 0f 1f <span class="m">84</span> <span class="m">00</span> <span class="m">00</span>    cs nopw 0x0<span class="o">(</span>%rax,%rax,1<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> 75d:   <span class="m">00</span> <span class="m">00</span> <span class="m">00</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="m">0000000000000760</span> &lt;void call_f&lt;0..99&gt;<span class="o">(</span>std::integer_sequence&lt;unsigned long, 0..99&gt;<span class="o">)</span> <span class="o">[</span>clone .isra.0<span class="o">]</span>&gt;:
+</span></span><span class="line"><span class="cl"> 760:   <span class="m">48</span> <span class="m">83</span> ec <span class="m">08</span>             sub    <span class="nv">$0</span>x8,%rsp
+</span></span><span class="line"><span class="cl"> 764:   <span class="m">31</span> ff                   xor    %edi,%edi
+</span></span><span class="line"><span class="cl"> 766:   e8 d5 ff ff ff          call   <span class="m">740</span> &lt;X&lt;99ul&gt;::f<span class="o">()</span> <span class="o">[</span>clone .isra.0<span class="o">]</span>&gt;
+</span></span><span class="line"><span class="cl"> ... <span class="c1"># 重复 98 次</span>
+</span></span><span class="line"><span class="cl"> b48:   e9 f3 fb ff ff          jmp    <span class="m">740</span> &lt;X&lt;99ul&gt;::f<span class="o">()</span> <span class="o">[</span>clone .isra.0<span class="o">]</span>&gt;
+</span></span><span class="line"><span class="cl"> b4d:   0f 1f <span class="m">00</span>                nopl   <span class="o">(</span>%rax<span class="o">)</span>
+</span></span></code></pre></div><p>对输出内容进行了一些筛选，可以发现，gold 把二进制完全相同的 100 个模板函数合并成一个了，所谓的&quot;模板膨胀&quot;消失了。相比之下，前面那些那些不做这种合并的链接器，就自然就有额外的开销了。</p>
+<p>但是 gold 并不是万能的，有些情况不能很好的处理。假设这 100 个函数，前<code>90%</code>的代码相同，但是最后<code>10%</code>的代码不相同，那么它就无能为力了。它只是简单的对比最终生成的二进制，然后合并完全相同的函数。那么还有其他的解决办法吗？**自动挡没有，咱们还有手动挡呢，咱写 C++ 的没什么别的擅长的，就擅长开手动挡。 **</p>
+
+
+<h3 class="relative group">手动优化模板膨胀问题 
+    <div id="%E6%89%8B%E5%8A%A8%E4%BC%98%E5%8C%96%E6%A8%A1%E6%9D%BF%E8%86%A8%E8%83%80%E9%97%AE%E9%A2%98" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%89%8B%E5%8A%A8%E4%BC%98%E5%8C%96%E6%A8%A1%E6%9D%BF%E8%86%A8%E8%83%80%E9%97%AE%E9%A2%98" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>下面以大家最常用的<code>vector</code>为例，展示一下解决模板膨胀的主要思路。前面已经提到了，像迭代器接口这样的短函数，我们是不需要去管的。我们主要来处理那些逻辑比较复杂的函数，对 vector 来说，首当其冲的就是扩容函数了</p>
+<p>假设我们有如下<code>vector</code>代码</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">vector</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span><span class="o">*</span> <span class="n">m_Begin</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span><span class="o">*</span> <span class="n">m_End</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span><span class="o">*</span> <span class="n">m_Capacity</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">grow</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>考虑一个<code>vector</code>扩容的朴素实现，暂不考虑异常安全</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">grow</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span><span class="o">*</span> <span class="n">new_date</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">)));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_move_constructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">uninitialized_move</span><span class="p">(</span><span class="n">m_Begin</span><span class="p">,</span> <span class="n">m_End</span><span class="p">,</span> <span class="n">new_date</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">uninitialized_copy</span><span class="p">(</span><span class="n">m_Begin</span><span class="p">,</span> <span class="n">m_End</span><span class="p">,</span> <span class="n">new_date</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">destroy</span><span class="p">(</span><span class="n">m_Begin</span><span class="p">,</span> <span class="n">m_End</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="n">m_Begin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>逻辑看起来还挺简单的。但是毫无疑问，它算是一个较复杂的函数了，尤其是当对象的构造函数被内联的话，代码量也是比较大的。那如何合并呢？注意，合并模板的前提是找出不同模板实例的相同部分，如果一个函数为不同的类型生成完全不同的代码，那是没法合并的。</p>
+<p>那对于<code>vector</code>来说，如果 T 里面的元素类型不同，扩容逻辑还能相同吗？考虑到构造函数调用，似乎没任何办法。关键点来了，这里需要介绍一个<code>trivially_relocatable</code>的概念，具体的讨论可以参考</p>
+<hr>
+<p>全新的构造函数，C++ 中的 relocate 构造函数
+<a href="https://www.ykiko.me/articles/679782886" target="_blank">https://www.ykiko.me/articles/679782886</a></p>
+<hr>
+<p>我们这里只说结果，如果一个类型是<code>trivially_relocatable</code>的，那么可以使用<code>memcpy</code>把它从旧内存移动到新内存，不需要调用构造函数了。</p>
+<p>考虑编写如下的扩容函数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">trivially_grow</span><span class="p">(</span><span class="kt">char</span><span class="o">*&amp;</span> <span class="n">begin</span><span class="p">,</span> <span class="kt">char</span><span class="o">*&amp;</span> <span class="n">end</span><span class="p">,</span> <span class="kt">char</span><span class="o">*&amp;</span> <span class="n">capacity</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span><span class="o">*</span> <span class="n">new_data</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">size</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">memcpy</span><span class="p">(</span><span class="n">new_data</span><span class="p">,</span> <span class="n">begin</span><span class="p">,</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">begin</span><span class="p">)</span> <span class="o">*</span> <span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="n">begin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">begin</span> <span class="o">=</span> <span class="n">new_data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">end</span> <span class="o">=</span> <span class="n">new_data</span> <span class="o">+</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">begin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">capacity</span> <span class="o">=</span> <span class="n">new_data</span> <span class="o">+</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>然后将原来的<code>grow</code>实现转发到这个函数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">grow</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">is_trivially_relocatable_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">trivially_grow</span><span class="p">(</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">*&amp;&gt;</span><span class="p">(</span><span class="n">m_Begin</span><span class="p">),</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">*&amp;&gt;</span><span class="p">(</span><span class="n">m_End</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">                <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">*&amp;&gt;</span><span class="p">(</span><span class="n">m_Capacity</span><span class="p">),</span> <span class="n">n</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 原来的实现
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>这样就完成了抽取公共逻辑。于是所有的<code>T</code>只要满足<code>trivially_relocatable</code>，就可以全都这共享一份代码了。而几乎所有不含有自引用的类型都符合这个条件，于是<code>99%</code>的类型都使用同一套扩容逻辑！这样的优化效果是非常显著的！实际上 LLVM 很多容器的源码，比如 <code>SmallVector</code>,<code>StringMap</code>等等，都使用了这样的技巧。另外如果你觉得上面的<code>reinterpret_cast</code>破坏了严格别名，用起来有点害怕，你可以通过继承来实现相同的效果（基类成员用<code>void*</code>），具体的代码就不展示了。</p>
+
+
+<h2 class="relative group">异常导致的代码膨胀！ 
+    <div id="%E5%BC%82%E5%B8%B8%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%A3%E7%A0%81%E8%86%A8%E8%83%80" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%BC%82%E5%B8%B8%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%A3%E7%A0%81%E8%86%A8%E8%83%80" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>为什么 LLVM 源码禁用异常？很多人可能会下意识的认为，原因是异常很慢，效率很低。但其实，根据 <a href="https://llvm.org/docs/CodingStandards.html#do-not-use-rtti-or-exceptions" target="_blank">LLVM Coding Standard</a> 里面的内容，关闭异常和<code>RTTI</code>的主要目的是为了减少二进制大小。据说，打开异常和<code>RTTI</code>会导致 LLVM 的编译结果膨胀<code>10%-15%</code>，那么实际情况究竟如何？</p>
+<p>目前主要的异常实现有两种，一种是 Itanium ABI 的实现，另一种则是 MS ABI 的实现。简单来说 MS ABI 采用运行时查找的办法，这样会导致异常在 Happy Path 执行也有的额外运行时开销，但是优点是最终生成的二进制代码相对较小。而 Itanium ABI 则是我们今天的主角，它号称零开销异常，Happy 路径没有任何额外的运行时开销。那古尔丹，代价是什么？代价就是非常严重的二进制膨胀。为什么会产生膨胀呢？简单来说，就是如果不想完全等到运行时去查找，那就得预先打表。由于异常的隐式传播特性，会导致表占用空间很大。具体实现细节非常复杂，不是本文的主题，放张图，大概感受一下</p>
+<p>
+  <figure>
+    <img class="my-0 rounded-md" loading="lazy" src="https://pic2.zhimg.com/v2-35106aada3a2e1e089d6aa685a2ad145_r.jpg" alt="" />
+    
+  </figure>
+</p>
+<p>那我们主要讨论什么呢？异常会导致二进制膨胀，这个没什么好怀疑的。我们主要看看如何减少异常产生的二进制膨胀，以 Itanium ABI 为例</p>
+<p>先来看下面这段示例代码</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">foo</span><span class="p">();</span> <span class="c1">// 外部链接函数，可能抛出异常
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span> <span class="c1">// 拥有 non-trivial 的析构函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">foo</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>注意，这里<code>foo</code>是一个外部链接的函数，可能会抛出异常。另外就是<code>vector</code>的析构函数调用是在<code>foo</code>之后的。如果<code>foo</code>抛出异常，控制流不知道跳转到什么地方了，那么<code>vetcor</code>的析构函数可能被跳过调用了，如果编译器不做些特殊处理的话，就会导致内存泄露了。先只打开<code>-O2</code>看看程序编译的结果</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bar<span class="o">()</span>:
+</span></span><span class="line"><span class="cl">        ...
+</span></span><span class="line"><span class="cl">        call    operator new<span class="o">(</span>unsigned long<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        ...
+</span></span><span class="line"><span class="cl">        call    foo<span class="o">()</span>
+</span></span><span class="line"><span class="cl">        ...
+</span></span><span class="line"><span class="cl">        jmp     operator delete<span class="o">(</span>void*, unsigned long<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        mov     rbp, rax
+</span></span><span class="line"><span class="cl">        jmp     .L2
+</span></span><span class="line"><span class="cl">bar<span class="o">()</span> <span class="o">[</span>clone .cold<span class="o">]</span>:
+</span></span><span class="line"><span class="cl">.L2:
+</span></span><span class="line"><span class="cl">        mov     rdi, rbx
+</span></span><span class="line"><span class="cl">        mov     esi, <span class="m">48</span>
+</span></span><span class="line"><span class="cl">        call    operator delete<span class="o">(</span>void*, unsigned long<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        mov     rdi, rbp
+</span></span><span class="line"><span class="cl">        call    _Unwind_Resume
+</span></span></code></pre></div><p>省略掉不重要的部分，和我们刚才猜的大致相同。那这个<code>.L2</code>是干嘛的呢？这个其实就是异常被<code>catch</code>处理完后会跳转到这个<code>L2</code>把之前没处理完的工作做完（这里就是析构之前未析构的对象），之后再<code>Resume</code>回到先前的位置。</p>
+<p>我们稍微调整下代码，把<code>foo</code>调用移动到<code>vector</code>构造的前面，其它什么都不变</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bar<span class="o">()</span>:
+</span></span><span class="line"><span class="cl">        sub     rsp, <span class="m">8</span>
+</span></span><span class="line"><span class="cl">        call    foo<span class="o">()</span>
+</span></span><span class="line"><span class="cl">        mov     edi, <span class="m">48</span>
+</span></span><span class="line"><span class="cl">        call    operator new<span class="o">(</span>unsigned long<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        ...
+</span></span><span class="line"><span class="cl">        jmp     operator delete<span class="o">(</span>void*, unsigned long<span class="o">)</span>
+</span></span></code></pre></div><p>可以发现没有生成清理栈的代码了，很合理。原因很简单，如果<code>foo</code>抛出异常，控制流直接跳转走了，那<code>vector</code>都没构造呢，自然也不需要析构了。通过简单的调整调用顺序就减少了二进制大小！但是，只有这种特别简单的情况下，依赖关系才比较明显。如果实际抛出异常的函数很多的话，就很难分析了。</p>
+
+
+<h3 class="relative group">noexcept 
+    <div id="noexcept" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#noexcept" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>先讨论 C++11 加入的这个<code>noexcept</code>。注意即使加了<code>noexcept</code>，这个函数还是可能会抛出异常的，如果该函数抛出异常，程序直接<code>terminate</code>。那你可能要问了，这玩意有啥用呢？我异常抛了，不捕获不也是<code>terminate</code>吗？</p>
+<p>其实这个和 const 有点类似，你想改 const 变量，虽然是 undefined behavior，但是运行时随便改呀，限制不多。那你要问了， const 有什么意义？一个重要的意义是给编译器提供优化指示信息。编译器可以利用这个做 <em>constant folding（常量折叠）</em>  和 <em>common subexpression elimination（公共子表达式消除）</em> 。</p>
+<p><code>noexcept</code>也是类似的，它让编译器假设这个函数不会抛出异常，从而可以进行一些额外的优化。 还是第一个例子里面的代码为例，唯一的改变是把<code>foo</code>函数声明为了<code>noexcept</code>，然后再次编译</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bar<span class="o">()</span>:
+</span></span><span class="line"><span class="cl">        push    rbx
+</span></span><span class="line"><span class="cl">        mov     edi, <span class="m">48</span>
+</span></span><span class="line"><span class="cl">        call    operator new<span class="o">(</span>unsigned long<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        ...
+</span></span><span class="line"><span class="cl">        call    foo<span class="o">()</span>
+</span></span><span class="line"><span class="cl">        ...
+</span></span><span class="line"><span class="cl">        jmp     operator delete<span class="o">(</span>void*, unsigned long<span class="o">)</span>
+</span></span></code></pre></div><p>可以发现，用于异常处理的代码路径，同样没有了，这就是<code>noexpect</code>的功劳。</p>
+
+
+<h3 class="relative group">fno-exceptions 
+    <div id="fno-exceptions" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#fno-exceptions" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>终于讲到重头戏了：<code>-fno-exceptions</code>，注意这个选项非标准。但是三大编译器都有提供，不过具体的实现效果有些许差异。好像并没有十分详细的文档，我仅凭经验说一下 GCC 相关的，对于 GCC 来说，该选项会禁止用户的代码里面使用<code>try</code>,<code>catch</code>,<code>throw</code>等关键字，如果使用则导致编译错误。但是特别的，允许使用标准库。如果异常被抛出，就和<code>noexcept</code>一样，程序直接<code>terminate</code>。所以如果打开了这个选项，GCC 会默认假设所有函数不会抛出异常。</p>
+<p>仍然是上面的例子，我们尝试打开<code>-fno-exceptions</code>，然后再次编译</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bar<span class="o">()</span>:
+</span></span><span class="line"><span class="cl">        push    rbx
+</span></span><span class="line"><span class="cl">        mov     edi, <span class="m">48</span>
+</span></span><span class="line"><span class="cl">        call    operator new<span class="o">(</span>unsigned long<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        ...
+</span></span><span class="line"><span class="cl">        call    foo<span class="o">()</span>
+</span></span><span class="line"><span class="cl">        ...
+</span></span><span class="line"><span class="cl">        jmp     operator delete<span class="o">(</span>void*, unsigned long<span class="o">)</span>
+</span></span></code></pre></div><p>可以发现和<code>noexcept</code>产生的效果类似，它们都会让编译器假设某个函数不会抛出异常，从而不需要生成清理栈的额外代码,达到减少程序二进制大小的效果。</p>
+<hr>
+<p>这篇文章涉及到的话题跨度有点大，某些地方有错误在所难免，欢迎评论区讨论交流   (^ω^)</p>
+
+        </div>
+        
+        
+
+        
+        
+  
+  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/zh-cn/articles/686296374/&amp;title=C&#43;&#43;%20%e7%a9%b6%e7%ab%9f%e4%bb%a3%e7%a0%81%e8%86%a8%e8%83%80%e5%9c%a8%e5%93%aa%e9%87%8c%ef%bc%9f"
+      title="分享到 LinkedIn"
+      aria-label="分享到 LinkedIn"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/zh-cn/articles/686296374/&amp;text=C&#43;&#43;%20%e7%a9%b6%e7%ab%9f%e4%bb%a3%e7%a0%81%e8%86%a8%e8%83%80%e5%9c%a8%e5%93%aa%e9%87%8c%ef%bc%9f"
+      title="分享到 Twitter"
+      aria-label="分享到 Twitter"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://reddit.com/submit/?url=https://www.ykiko.me/zh-cn/articles/686296374/&amp;resubmit=true&amp;title=C&#43;&#43;%20%e7%a9%b6%e7%ab%9f%e4%bb%a3%e7%a0%81%e8%86%a8%e8%83%80%e5%9c%a8%e5%93%aa%e9%87%8c%ef%bc%9f"
+      title="提交到 Reddit"
+      aria-label="提交到 Reddit"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://api.whatsapp.com/send?text=https://www.ykiko.me/zh-cn/articles/686296374/&amp;resubmit=true&amp;title=C&#43;&#43;%20%e7%a9%b6%e7%ab%9f%e4%bb%a3%e7%a0%81%e8%86%a8%e8%83%80%e5%9c%a8%e5%93%aa%e9%87%8c%ef%bc%9f"
+      title=""
+      aria-label=""
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://t.me/share/url?url=https://www.ykiko.me/zh-cn/articles/686296374/&amp;resubmit=true&amp;title=C&#43;&#43;%20%e7%a9%b6%e7%ab%9f%e4%bb%a3%e7%a0%81%e8%86%a8%e8%83%80%e5%9c%a8%e5%93%aa%e9%87%8c%ef%bc%9f"
+      title=""
+      aria-label=""
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M248,8C111.033,8,0,119.033,0,256S111.033,504,248,504,496,392.967,496,256,384.967,8,248,8ZM362.952,176.66c-3.732,39.215-19.881,134.378-28.1,178.3-3.476,18.584-10.322,24.816-16.948,25.425-14.4,1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25,5.342-39.5,3.652-3.793,67.107-61.51,68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608,69.142-14.845,10.194-26.894,9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7,18.45-13.7,108.446-47.248,144.628-62.3c68.872-28.647,83.183-33.623,92.511-33.789,2.052-.034,6.639.474,9.61,2.885a10.452,10.452,0,0,1,3.53,6.716A43.765,43.765,0,0,1,362.952,176.66Z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/zh-cn/articles/686296374/&amp;description=C&#43;&#43;%20%e7%a9%b6%e7%ab%9f%e4%bb%a3%e7%a0%81%e8%86%a8%e8%83%80%e5%9c%a8%e5%93%aa%e9%87%8c%ef%bc%9f"
+      title="钉到 Pinterest"
+      aria-label="钉到 Pinterest"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/zh-cn/articles/686296374/&amp;quote=C&#43;&#43;%20%e7%a9%b6%e7%ab%9f%e4%bb%a3%e7%a0%81%e8%86%a8%e8%83%80%e5%9c%a8%e5%93%aa%e9%87%8c%ef%bc%9f"
+      title="分享到 Facebook"
+      aria-label="分享到 Facebook"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="mailto:?body=https://www.ykiko.me/zh-cn/articles/686296374/&amp;subject=C&#43;&#43;%20%e7%a9%b6%e7%ab%9f%e4%bb%a3%e7%a0%81%e8%86%a8%e8%83%80%e5%9c%a8%e5%93%aa%e9%87%8c%ef%bc%9f"
+      title="通过电子邮件发送"
+      aria-label="通过电子邮件发送"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+  </section>
+
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">相关文章</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/zh-cn/articles/683463723/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/zh-cn/articles/683463723/featured_huf86c84c10eb50403dc1c672eb0bc602f_48027_600x0_resize_box_3.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/zh-cn/articles/683463723/">C++ 中 constexpr 的发展史（下）</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-02-22 14:15:32 &#43;0000 UTC">February 22, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>7137 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">15 分钟</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/zh-cn/articles/682031684/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/zh-cn/articles/682031684/featured_hu54134914f8fb337137f3327a4866edf1_41605_600x0_resize_box_3.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/zh-cn/articles/682031684/">C++ 中 constexpr 的发展史!（上）</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-02-10 15:15:47 &#43;0000 UTC">February 10, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>7668 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">16 分钟</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/zh-cn/articles/680412313/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/zh-cn/articles/680412313/featured_hu4ee1b6cff6b3ee3e2e277a1f37a2db5c_41665_600x0_resize_box_3.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/zh-cn/articles/680412313/">C++ 中如何优雅进行 enum 到 string 的转换 ？</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-01-29 09:03:28 &#43;0000 UTC">January 29, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>2427 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/zh-cn/articles/679782886/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/zh-cn/articles/679782886/featured_huf0f1021d4ac8bb58aa14c2208fcbda14_42408_600x0_resize_box_3.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/zh-cn/articles/679782886/">全新的构造函数，C++ 中的 relocate 构造函数</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-01-25 09:22:29 &#43;0000 UTC">January 25, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>4609 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">10 分钟</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+</section>
+
+  
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_articles\/686296374\/index.md"
+        var oid_likes = "likes_articles\/686296374\/index.md"
+      </script>
+      
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/zh-cn/articles/683463723/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >C++ 中 constexpr 的发展史（下）</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2024-02-22 14:15:32 &#43;0000 UTC">February 22, 2024</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/zh-cn/articles/692886292/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >彻底理解 C++ ABI</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2024-04-16 18:19:38 &#43;0000 UTC">April 16, 2024</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      ykiko
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://www.ykiko.me/zh-cn/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>
