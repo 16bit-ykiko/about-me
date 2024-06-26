@@ -35,4 +35,4 @@
 __pycache__/
 website/public/
 website/resource/
-
+website/.hugo_build.lock
