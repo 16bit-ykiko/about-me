@@ -57,13 +57,14 @@ def main():
     urls = json.loads(open(os.path.join(path, 'urls.json'), 'r').read())
 
     for url, value in urls.items():
-        urls[url] = url.replace('zhuanlan.zhihu.com/p', "www.ykiko.me")
+        urls[url] = url.replace('zhuanlan.zhihu.com/p',
+                                "www.ykiko.me/articles")
     Parser.urls_map = urls
 
     for url, value in urls.items():
         name = url.split('/')[-1]
         markdown = request(url)
-        dest = os.path.join(path, f'../website/content/posts/{name}.md')
+        dest = os.path.join(path, f'../website/content/articles/{name}.md')
         with open(dest, 'w', encoding="utf-8") as f:
             f.write(markdown)
 

@@ -11,24 +11,24 @@
 # ordered by weight from lowest to highest.
 
 [[main]]
-  name = "关于我"
-  pageRef = "about"
-  weight = 10
+name = "关于我"
+pageRef = "about"
+weight = 10
 
 [[main]]
-  name = "研究"
-  pageRef = "research"
-  weight = 20
+name = "文章"
+pageRef = "articles"
+weight = 20
+
+[[main]]
+name = "研究"
+pageRef = "research"
+weight = 30
 
 # [[main]]
 #   name = "Journal Club"
 #   pageRef = "journal club"
 #   weight = 30
-
-[[main]]
-  name = "博客"
-  pageRef = "posts"
-  weight = 30
 
 
 # -- Footer Menu --

@@ -8,12 +8,7 @@ title = "ykiko's blog"
 # copyright = "Copy, _right?_ :thinking_face:"
 copyright = "©2024 ykiko"
 
-
-[params]
-rtl = false
-# dateFormat = "2006-01-02"
-
-[params.author]
+[author]
 name = "ykiko"
 image = "img/author.jpg"
 headline = "understand the trade-offs"

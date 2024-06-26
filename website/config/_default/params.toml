@@ -5,7 +5,7 @@
 # Refer to the theme docs for more details about each of these parameters.
 # https://jpanther.github.io/congo/docs/configuration/#theme-parameters
 
-colorScheme = "congo" # "congo", "avocado", "cherry", "fire", "ocean", "sapphire", "slate"
+colorScheme = "blowfish" # "congo", "avocado", "cherry", "fire", "ocean", "sapphire", "slate"
 defaultAppearance = "dark" # valid options: light or dark
 autoSwitchAppearance = false
 
@@ -41,7 +41,7 @@ enableCodeCopy = true
   showPagination = true
   invertPagination = false
   showReadingTime = true
-  showTableOfContents = false
+  showTableOfContents = true
   showTaxonomies = true
   showWordCount = true
   showComments = false

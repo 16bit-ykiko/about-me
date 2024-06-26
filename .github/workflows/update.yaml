@@ -52,11 +52,7 @@ jobs:
       - name: Build
         run: | 
           cd website
-          mkdir themes
-          cd themes
-          git clone https://github.com/jpanther/congo -b stable --depth=1
-          ls
-          cd ..
+          git clone https://github.com/nunocoracao/blowfish.git themes/blowfish --depth=1
           hugo
 
       - name: Deploy
