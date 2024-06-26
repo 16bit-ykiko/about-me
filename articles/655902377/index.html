@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="dark"
+  data-auto-appearance="false"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="zh-cn" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>雾里看花：真正意义上的理解 C&#43;&#43; 模板(Template) &middot; ykiko&#39;s blog</title>
+  <meta name="title" content="雾里看花：真正意义上的理解 C&#43;&#43; 模板(Template) &middot; ykiko&#39;s blog" />
+  
+  
+  
+  
+  
+  <link rel="canonical" href="https://www.ykiko.me/articles/655902377/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.85f006de1806b55b2d082d1122deedd8cec6fdc1f7c8a51be975a4496165d6c798f4a3de52545a6a87cc4bc09fc2d6f5201d44ea57acc1ac2b1c42a688c62bee.css"
+    integrity="sha512-hfAG3hgGtVstCC0RIt7t2M7G/cH3yKUb6XWkSWFl1seY9KPeUlRaaofMS8Cfwtb1IB1E6leswawrHEKmiMYr7g==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.d6c35110b5d7df8014403fbb81cd21a9d89daf9eb586c936e585e9d04adc204dce554aa737f81e8c902b9dea9e67bd63a977b77dedefb8a39430581ebc519207.js"
+    integrity="sha512-1sNRELXX34AUQD&#43;7gc0hqdidr561hsk25YXp0ErcIE3OVUqnN/gejJArneqeZ71jqXe3fe3vuKOUMFgevFGSBw==" data-copy="" data-copied=""></script>
+  
+  
+  <script src="/js/zoom.min.js"></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://www.ykiko.me/articles/655902377/">
+  <meta property="og:site_name" content="ykiko&#39;s blog">
+  <meta property="og:title" content="雾里看花：真正意义上的理解 C&#43;&#43; 模板(Template)">
+  <meta property="og:description" content="在 C&#43;&#43; 中，模板（Template）这个概念已经存在二十多年了。作为 C&#43;&#43; 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，相关深入的有价值的讨论很少，尤其是提供多个视角看待这一技术。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了一大堆，但却不得其要领，反倒容易把不同的概念混淆在一起。
+就我个人而言，讨论一个问题喜欢多层次，多角度的去讨论，而不仅限某一特定的方面。这样一来，既能更好的理解问题本身，也不至于让自己的视野太狭隘。故本文将尝试从模板诞生之初开始讲起，以四个角度来观察，理清模板这一技术在 C&#43;&#43; 中的发展脉络。注意，本文并不是教学文章，不会深入语法细节。更多的谈论设计哲学和 trade-off 。掌握一点点模板的基础知识就能看懂，请放心食用。当然这样可能严谨性有所缺失，如有错误欢迎评论区讨论。
+我们主要讨论四个主题：
+控制代码生成，实现泛型 做泛型约束 编译期计算 对类型做计算 其中第一个主题一般认为就是普通的 Template。而后三者一般被规划到「TMP」中去。TMP 即 Template meta programming 也就是模板元编程。因为模板设计之初的意图并不是实现后面这三个功能，但是能以比较抽搐的语法来实现这些功能，代码写起来也比较抽象难懂，所以一般叫做元编程。
+代码生成，实现泛型 # 事实上，这一点正是模板被设计之初的用法，用于实现泛型。在加入模板之前，常常使用宏来实现泛型。考虑下面这个简单的示例：
+#define add(T) _ADD_IMPL_##T #define ADD_IMPL(T) \ T _ADD_IMPL_##T(T a, T b) { return a &#43; b; } ADD_IMPL(int); ADD_IMPL(float); int main() { add(int)(1, 2); add(float)(1.0f, 2.0f); } 原理倒是很简单，其实就是把函数里面的类型替换成了宏参数。然后通过IMPL来「实例化」一个函数定义，最后直接使用就行了。但是上面的代码有很多缺点：
+代码可读性差，宏的拼接和代码逻辑耦合 没法调试，宏只有展开后才能调试 ，报错信息不好阅读 在使用对应的函数之前，必须手动实例化，比如上面的ADD_IMPL(int) 需要显式写出对应的泛型类型，没法自动推导泛型类型 这些问题，在模板中都被解决了：
+template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int add&lt;&gt;(int, int); // 显式实例化 int main() { add&lt;int&gt;(1, 2); // 显式指定模板参数 T add(1, 2); // 自动推导模板参数 T add(1.">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2023-09-12T15:46:11+00:00">
+    <meta property="article:modified_time" content="2023-09-12T15:46:11+00:00">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="雾里看花：真正意义上的理解 C&#43;&#43; 模板(Template)">
+  <meta name="twitter:description" content="在 C&#43;&#43; 中，模板（Template）这个概念已经存在二十多年了。作为 C&#43;&#43; 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，相关深入的有价值的讨论很少，尤其是提供多个视角看待这一技术。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了一大堆，但却不得其要领，反倒容易把不同的概念混淆在一起。
+就我个人而言，讨论一个问题喜欢多层次，多角度的去讨论，而不仅限某一特定的方面。这样一来，既能更好的理解问题本身，也不至于让自己的视野太狭隘。故本文将尝试从模板诞生之初开始讲起，以四个角度来观察，理清模板这一技术在 C&#43;&#43; 中的发展脉络。注意，本文并不是教学文章，不会深入语法细节。更多的谈论设计哲学和 trade-off 。掌握一点点模板的基础知识就能看懂，请放心食用。当然这样可能严谨性有所缺失，如有错误欢迎评论区讨论。
+我们主要讨论四个主题：
+控制代码生成，实现泛型 做泛型约束 编译期计算 对类型做计算 其中第一个主题一般认为就是普通的 Template。而后三者一般被规划到「TMP」中去。TMP 即 Template meta programming 也就是模板元编程。因为模板设计之初的意图并不是实现后面这三个功能，但是能以比较抽搐的语法来实现这些功能，代码写起来也比较抽象难懂，所以一般叫做元编程。
+代码生成，实现泛型 # 事实上，这一点正是模板被设计之初的用法，用于实现泛型。在加入模板之前，常常使用宏来实现泛型。考虑下面这个简单的示例：
+#define add(T) _ADD_IMPL_##T #define ADD_IMPL(T) \ T _ADD_IMPL_##T(T a, T b) { return a &#43; b; } ADD_IMPL(int); ADD_IMPL(float); int main() { add(int)(1, 2); add(float)(1.0f, 2.0f); } 原理倒是很简单，其实就是把函数里面的类型替换成了宏参数。然后通过IMPL来「实例化」一个函数定义，最后直接使用就行了。但是上面的代码有很多缺点：
+代码可读性差，宏的拼接和代码逻辑耦合 没法调试，宏只有展开后才能调试 ，报错信息不好阅读 在使用对应的函数之前，必须手动实例化，比如上面的ADD_IMPL(int) 需要显式写出对应的泛型类型，没法自动推导泛型类型 这些问题，在模板中都被解决了：
+template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int add&lt;&gt;(int, int); // 显式实例化 int main() { add&lt;int&gt;(1, 2); // 显式指定模板参数 T add(1, 2); // 自动推导模板参数 T add(1.">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Articles",
+    "name": "雾里看花：真正意义上的理解 C\u002b\u002b 模板(Template)",
+    "headline": "雾里看花：真正意义上的理解 C\u002b\u002b 模板(Template)",
+    
+    "abstract": "在 C\u002b\u002b 中，模板（Template）这个概念已经存在二十多年了。作为 C\u002b\u002b 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，相关深入的有价值的讨论很少，尤其是提供多个视角看待这一技术。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了一大堆，但却不得其要领，反倒容易把不同的概念混淆在一起。\n就我个人而言，讨论一个问题喜欢多层次，多角度的去讨论，而不仅限某一特定的方面。这样一来，既能更好的理解问题本身，也不至于让自己的视野太狭隘。故本文将尝试从模板诞生之初开始讲起，以四个角度来观察，理清模板这一技术在 C\u002b\u002b 中的发展脉络。注意，本文并不是教学文章，不会深入语法细节。更多的谈论设计哲学和 trade-off 。掌握一点点模板的基础知识就能看懂，请放心食用。当然这样可能严谨性有所缺失，如有错误欢迎评论区讨论。\n我们主要讨论四个主题：\n控制代码生成，实现泛型 做泛型约束 编译期计算 对类型做计算 其中第一个主题一般认为就是普通的 Template。而后三者一般被规划到「TMP」中去。TMP 即 Template meta programming 也就是模板元编程。因为模板设计之初的意图并不是实现后面这三个功能，但是能以比较抽搐的语法来实现这些功能，代码写起来也比较抽象难懂，所以一般叫做元编程。\n代码生成，实现泛型 # 事实上，这一点正是模板被设计之初的用法，用于实现泛型。在加入模板之前，常常使用宏来实现泛型。考虑下面这个简单的示例：\n#define add(T) _ADD_IMPL_##T #define ADD_IMPL(T) \\ T _ADD_IMPL_##T(T a, T b) { return a \u002b b; } ADD_IMPL(int); ADD_IMPL(float); int main() { add(int)(1, 2); add(float)(1.0f, 2.0f); } 原理倒是很简单，其实就是把函数里面的类型替换成了宏参数。然后通过IMPL来「实例化」一个函数定义，最后直接使用就行了。但是上面的代码有很多缺点：\n代码可读性差，宏的拼接和代码逻辑耦合 没法调试，宏只有展开后才能调试 ，报错信息不好阅读 在使用对应的函数之前，必须手动实例化，比如上面的ADD_IMPL(int) 需要显式写出对应的泛型类型，没法自动推导泛型类型 这些问题，在模板中都被解决了：\ntemplate \u0026lt;typename T\u0026gt; T add(T a, T b) { return a \u002b b; } template int add\u0026lt;\u0026gt;(int, int); \/\/ 显式实例化 int main() { add\u0026lt;int\u0026gt;(1, 2); \/\/ 显式指定模板参数 T add(1, 2); \/\/ 自动推导模板参数 T add(1.",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/www.ykiko.me\/articles\/655902377\/",
+    "author" : {
+      "@type": "Person",
+      "name": "ykiko"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-09-12T15:46:11\u002b00:00",
+    "datePublished": "2023-09-12T15:46:11\u002b00:00",
+    
+    "dateModified": "2023-09-12T15:46:11\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1133"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="ykiko" />
+  
+  
+  
+  <link href="https://github.com/16bit-ykiko" rel="me" />
+  
+  
+  <link href="mailto:ykikoykikoykiko@gmail.com" rel="me" />
+  
+  
+  <link href="https://www.zhihu.com/people/75-49-80-77" rel="me" />
+  
+  
+  <link href="https://space.bilibili.com/360835081" rel="me" />
+  
+  
+  <link href="https://bangumi.tv/user/857516" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.js" integrity=""></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+  </div>
+  
+  
+  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">ykiko&rsquo;s blog</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        关于我
+    </p>
+</a>
+
+
+
+            
+            
+  <a href="/articles/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        文章
+    </p>
+</a>
+
+
+
+            
+            
+  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        研究
+    </p>
+</a>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" for="menu-controller" class="block">
+            <input type="checkbox" id="menu-controller" class="hidden" />
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li>
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            关于我
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/articles/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            文章
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            研究
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      雾里看花：真正意义上的理解 C++ 模板(Template)
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2023-09-12 15:46:11 &#43;0000 UTC">September 12, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>1133 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">6 分钟</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="ykiko" src="/img/author_hu2ced2606473956c941ba66a547516b95_62782_192x192_fill_q75_box_smart1.jpg" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      作者
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      ykiko
+    </div>
+    
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/16bit-ykiko"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="mailto:ykikoykikoykiko@gmail.com"
+          target="_blank"
+          aria-label="Envelope-Solid"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path fill="currentColor" d="M464 64C490.5 64 512 85.49 512 112C512 127.1 504.9 141.3 492.8 150.4L275.2 313.6C263.8 322.1 248.2 322.1 236.8 313.6L19.2 150.4C7.113 141.3 0 127.1 0 112C0 85.49 21.49 64 48 64H464zM217.6 339.2C240.4 356.3 271.6 356.3 294.4 339.2L512 176V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V176L217.6 339.2z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://www.zhihu.com/people/75-49-80-77"
+          target="_blank"
+          aria-label="Zhihu"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1719381188729" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6448" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M541.867 556.8s0-66.133-32-68.267c-32-4.266-132.267 0-132.267 0v-204.8h149.333s-2.133-68.266-29.866-68.266h-243.2l40.533-108.8s-59.733 4.266-83.2 42.666C189.867 187.733 121.6 384 121.6 384s23.467 10.667 61.867-19.2c38.4-27.733 51.2-78.933 51.2-78.933l70.4-4.267 2.133 206.933s-125.867-2.133-149.333 0c-25.6 2.134-38.4 68.267-38.4 68.267h189.866s-17.066 117.333-64 198.4C196.267 840.533 102.4 906.667 102.4 906.667S168.533 934.4 234.667 896s113.066-206.933 113.066-206.933L499.2 878.933s12.8-89.6-2.133-117.333C480 736 390.4 633.6 390.4 633.6L352 667.733l27.733-113.066 162.134 2.133z m38.4-345.6l-2.134 614.4H640l21.333 74.667 108.8-74.667H921.6V211.2H580.267z m273.066 546.133h-70.4l-89.6 68.267-19.2-68.267h-19.2V281.6h198.4v475.733z" fill="currentColor" p-id="6449"></path></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://space.bilibili.com/360835081"
+          target="_blank"
+          aria-label="Bilibili"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1719381779479" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9290" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M306.005333 117.632L444.330667 256h135.296l138.368-138.325333a42.666667 42.666667 0 0 1 60.373333 60.373333L700.330667 256H789.333333A149.333333 149.333333 0 0 1 938.666667 405.333333v341.333334a149.333333 149.333333 0 0 1-149.333334 149.333333h-554.666666A149.333333 149.333333 0 0 1 85.333333 746.666667v-341.333334A149.333333 149.333333 0 0 1 234.666667 256h88.96L245.632 177.962667a42.666667 42.666667 0 0 1 60.373333-60.373334zM789.333333 341.333333h-554.666666a64 64 0 0 0-63.701334 57.856L170.666667 405.333333v341.333334a64 64 0 0 0 57.856 63.701333L234.666667 810.666667h554.666666a64 64 0 0 0 63.701334-57.856L853.333333 746.666667v-341.333334A64 64 0 0 0 789.333333 341.333333zM341.333333 469.333333a42.666667 42.666667 0 0 1 42.666667 42.666667v85.333333a42.666667 42.666667 0 0 1-85.333333 0v-85.333333a42.666667 42.666667 0 0 1 42.666666-42.666667z m341.333334 0a42.666667 42.666667 0 0 1 42.666666 42.666667v85.333333a42.666667 42.666667 0 0 1-85.333333 0v-85.333333a42.666667 42.666667 0 0 1 42.666667-42.666667z" fill="currentColor" p-id="9291"></path></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://bangumi.tv/user/857516"
+          target="_blank"
+          aria-label="Banguim"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1719382391801" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11123" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M1013.49888 192.13312l0-50.2016c0-133.98528-115.46112-133.98528-133.98528-133.98528l-49.9968 0c-1.69472-0.06656-3.25632-0.47616-5.02272-0.47616L197.31968 7.47008c-1.69472 0-3.32288 0.47616-5.02272 0.47616l-49.9968 0c-18.51904 0-133.98528 0-133.98528 133.98528l0 50.13504c-0.06656 1.62816-0.47616 3.18976-0.47616 4.81792l0 627.1744c0 1.62816 0.47616 3.18976 0.47616 4.81792l0 50.13504c0 133.98528 133.98528 133.98528 133.98528 133.98528l49.9968 0c1.69472 0.06656 3.25632 0.47616 4.95104 0.47616l627.1744 0c1.69472 0 3.25632-0.47616 4.95104-0.47616l50.06848 0c38.67136 0 65.87392-11.25888 85.4784-27.20256 1.22368-0.95232 2.5088-1.89952 3.73248-2.85184 4.47488-3.93216 8.61696-8.1408 12.2112-12.48256 1.01888-1.29024 1.89952-2.57536 2.85184-3.93216 29.57824-38.66624 29.78304-87.58272 29.78304-87.58272l0-50.2016c0.06656-1.62816 0.47616-3.1232 0.47616-4.81792L1013.97504 196.8128C1013.97504 195.32288 1013.56544 193.76128 1013.49888 192.13312zM162.11456 874.5984 61.0304 874.5984l0-101.07904 101.07904 0L162.10944 874.5984zM162.11456 717.824 61.0304 717.824l0-101.07904 101.07904 0L162.10944 717.824zM162.11456 561.04448 61.0304 561.04448 61.0304 459.96544l101.07904 0L162.10944 561.04448zM162.11456 404.27008 61.0304 404.27008 61.0304 303.18592l101.07904 0L162.10944 404.27008zM162.11456 247.49056 61.0304 247.49056 61.0304 146.41152l101.07904 0L162.10944 247.49056zM794.98752 899.63008 224.18432 899.63008 224.18432 121.4464l570.8032 0L794.98752 899.63008zM952.30464 873.4464l-101.07904 0 0-101.07904 101.07904 0L952.30464 873.4464zM952.30464 716.66688l-101.07904 0 0-101.07904 101.07904 0L952.30464 716.66688zM952.30464 559.89248l-101.07904 0L851.2256 458.81344l101.07904 0L952.30464 559.89248zM952.30464 403.11296l-101.07904 0L851.2256 302.03392l101.07904 0L952.30464 403.11296zM952.30464 246.33856l-101.07904 0L851.2256 145.25952l101.07904 0L952.30464 246.33856z" fill="currentColor" p-id="11124"></path><path d="M452.46464 680.91904 452.46464 680.91904 646.7584 543.744c20.48512-14.72 20.48512-51.42016 0-66.14528L452.46464 340.02432c-20.48512-14.72-54.272-4.13696-54.272 25.23648l0 290.82624C398.19264 685.46048 432.04608 695.57248 452.46464 680.91904z" fill="currentColor" p-id="11125"></path></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#函数重载">函数重载</a></li>
+    <li><a href="#模板">模板</a></li>
+    <li><a href="#c20之前">C++20之前</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#意义">意义</a></li>
+    <li><a href="#发展史">发展史</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#对类型做计算">对类型做计算</a></li>
+    <li><a href="#编译期变量之痛">编译期变量之痛</a></li>
+    <li><a href="#心中所向往的">心中所向往的</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#函数重载">函数重载</a></li>
+    <li><a href="#模板">模板</a></li>
+    <li><a href="#c20之前">C++20之前</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#意义">意义</a></li>
+    <li><a href="#发展史">发展史</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#对类型做计算">对类型做计算</a></li>
+    <li><a href="#编译期变量之痛">编译期变量之痛</a></li>
+    <li><a href="#心中所向往的">心中所向往的</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>在 C++ 中，模板（Template）这个概念已经存在二十多年了。作为 C++ 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，相关深入的有价值的讨论很少，尤其是提供多个视角看待这一技术。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了一大堆，但却不得其要领，反倒容易把不同的概念混淆在一起。</p>
+<p>就我个人而言，讨论一个问题喜欢多层次，多角度的去讨论，而不仅限某一特定的方面。这样一来，既能更好的理解问题本身，也不至于让自己的视野太狭隘。故本文将尝试从模板诞生之初开始讲起，以四个角度来观察，理清模板这一技术在 C++ 中的发展脉络。注意，本文并不是教学文章，不会深入语法细节。更多的谈论设计哲学和 trade-off 。掌握一点点模板的基础知识就能看懂，请放心食用。当然这样可能严谨性有所缺失，如有错误欢迎评论区讨论。</p>
+<p><strong>我们主要讨论四个主题：</strong></p>
+<ul>
+<li>控制代码生成，实现泛型</li>
+<li>做泛型约束</li>
+<li>编译期计算</li>
+<li>对类型做计算</li>
+</ul>
+<p>其中第一个主题一般认为就是普通的 Template。而后三者一般被规划到「TMP」中去。TMP 即 Template meta programming 也就是模板元编程。因为模板设计之初的意图并不是实现后面这三个功能，但是能以比较抽搐的语法来实现这些功能，代码写起来也比较抽象难懂，所以一般叫做元编程。</p>
+
+
+<h1 class="relative group">代码生成，实现泛型 
+    <div id="%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%AE%9E%E7%8E%B0%E6%B3%9B%E5%9E%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%AE%9E%E7%8E%B0%E6%B3%9B%E5%9E%8B" aria-label="锚点">#</a>
+    </span>        
+    
+</h1>
+<p>事实上，这一点正是模板被设计之初的用法，用于实现泛型。在加入模板之前，常常使用宏来实现泛型。考虑下面这个简单的示例：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define add(T) _ADD_IMPL_##T
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define ADD_IMPL(T)  \
+</span></span></span><span class="line"><span class="cl"><span class="cp">    T _ADD_IMPL_##T(T a, T b) { return a + b; }
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="n">ADD_IMPL</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">ADD_IMPL</span><span class="p">(</span><span class="kt">float</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">add</span><span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">add</span><span class="p">(</span><span class="kt">float</span><span class="p">)(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">2.0f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>原理倒是很简单，其实就是把函数里面的类型替换成了宏参数。然后通过<code>IMPL</code>来「实例化」一个函数定义，最后直接使用就行了。但是上面的代码有很多缺点：</p>
+<ul>
+<li>代码可读性差，宏的拼接和代码逻辑耦合</li>
+<li>没法调试，宏只有展开后才能调试 ，报错信息不好阅读</li>
+<li>在使用对应的函数之前，必须手动实例化，比如上面的<code>ADD_IMPL(int)</code></li>
+<li>需要显式写出对应的泛型类型，没法自动推导泛型类型</li>
+</ul>
+<p>这些问题，在模板中都被解决了：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span> <span class="n">add</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="kt">int</span> <span class="n">add</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>  <span class="c1">// 显式实例化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">add</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>   <span class="c1">// 显式指定模板参数 T
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>        <span class="c1">// 自动推导模板参数 T
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">add</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">2.0f</span><span class="p">);</span>  <span class="c1">// 自动推导并且隐式实例化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><ul>
+<li>模板就是占位符，不需要拼接字符串，完全不影响代码的可读性</li>
+<li>模板的报错信息相对友好，当类型不匹配时，会提示对应的类型</li>
+<li>模板既可以隐式实例化也可以显式实例化</li>
+<li>既可以自动推导模板参数，也可以显式指明模板参数</li>
+</ul>
+<p>除此之外，模板还支持偏特化，特化，可变模板参数，类成员模板等等一系列特性，这些都是宏做不到的。而且通过模板这一特性的的确确实现了 STL 这样通用的标准库。经常听见很多人问为什么 C 语言没有别的语言那样的容器，算法标准库呢？一个很重的原因就是 C 语言抽象能力不够，没法实现一套这样通用的方案。而且结合后面聊的三个主题，我们可以通过模板实现一些更高级的代码生成。比如经常说的<strong>编译期打表，打函数表</strong>这种**。**</p>
+<p>别的我都同意，但是你这上面的 <strong>模板的报错信息相对友好，当类型不匹配时，会提示对应的类型</strong>。难道这不是五十步笑百步吗？甚至有过之而无不及。轻松产生几百，几千行的代码报错，只有 C++ 的模板能做到吧。</p>
+<p>哎，别急，这就是下面我要讲到的问题。</p>
+
+
+<h1 class="relative group">对类型做约束 
+    <div id="%E5%AF%B9%E7%B1%BB%E5%9E%8B%E5%81%9A%E7%BA%A6%E6%9D%9F" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AF%B9%E7%B1%BB%E5%9E%8B%E5%81%9A%E7%BA%A6%E6%9D%9F" aria-label="锚点">#</a>
+    </span>        
+    
+</h1>
+<p>首先我们要讨论的问题是，为什么 C++ 的编译错误信息这么长？而且有时候非常难读懂。</p>
+
+
+<h2 class="relative group">函数重载 
+    <div id="%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="p">{}</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>在我的 GCC 编译器上，足足产生了 239 行报错信息。不过好消息是 GCC 把重点信息标记出来了，如下所示：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">no</span> <span class="n">match</span> <span class="k">for</span> <span class="err">&#39;</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="err">&#39;</span> <span class="p">(</span><span class="n">operand</span> <span class="n">types</span> <span class="n">are</span> <span class="err">&#39;</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="err">&#39;</span> <span class="p">{</span><span class="n">aka</span> <span class="err">&#39;</span><span class="n">std</span><span class="o">::</span><span class="n">basic_ostream</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="err">&#39;</span><span class="p">}</span> <span class="n">and</span> <span class="sc">&#39;A&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">9</span> <span class="o">|</span>     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="p">{}</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">|</span>     <span class="o">~~~~~~~~~</span> <span class="o">^~</span> <span class="o">~~~</span>
+</span></span><span class="line"><span class="cl">      <span class="o">|</span>          <span class="o">|</span>       <span class="o">|</span>
+</span></span><span class="line"><span class="cl">      <span class="o">|</span>          <span class="o">|</span>       <span class="n">A</span>
+</span></span><span class="line"><span class="cl">      <span class="o">|</span>          <span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="p">{</span><span class="n">aka</span> <span class="n">std</span><span class="o">::</span><span class="n">basic_ostream</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="p">}</span>
+</span></span></code></pre></div><p>那大概还是能读懂的的，意思就是没有找到匹配的重载函数。也就是说我们需要为<code>A</code>重载<code>operator&lt;&lt;</code>。当然这个只是入门级别的，还是能轻松看懂的。但是我们好奇的是，剩下的两百行报错在干嘛呢？其实关键就在于重载函数和隐式类型转换。让我们来看其中一段信息。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="nl">note</span><span class="p">:</span>   <span class="k">template</span> <span class="n">argument</span> <span class="n">deduction</span><span class="o">/</span><span class="n">substitution</span> <span class="nl">failed</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="nl">note</span><span class="p">:</span>   <span class="n">cannot</span> <span class="n">convert</span> <span class="err">&#39;</span><span class="n">A</span><span class="p">()</span><span class="err">&#39;</span> <span class="p">(</span><span class="n">type</span> <span class="sc">&#39;A&#39;</span><span class="p">)</span> <span class="n">to</span> <span class="n">type</span> <span class="err">&#39;</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="err">&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">9</span> <span class="o">|</span>     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="p">{}</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span></code></pre></div><p>意思就是尝试用<code>A</code>类型匹配<code>const char*</code>这个重载（通过隐式类型转换），结果失败了。标准库类似这样的函数，都实现了很多的重载函数，比如这个<code>operator&lt;&lt;</code>就重载了<code>int</code>,<code>bool</code>,<code>lon</code>g,<code>double</code> 等等，将近几十个函数。结果报错信息就是把所有重载函数尝试失败的原因都列出来，于是轻松就有几百行了，再加上标准库诡异的命名，看起来就像天书一样。</p>
+
+
+<h2 class="relative group">模板 
+    <div id="%E6%A8%A1%E6%9D%BF" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%A8%A1%E6%9D%BF" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>函数重载是导致报错信息难以读懂的一部分原因，但不是全部。实际上如上面所示，仅仅是把所有可能性枚举出来，不过几百行报错。要知道我们还能产出上千行呢，量级上的差距可不是能用数量轻松堆叠出的。况且本小节要说的是约束，和报错有什么关系呢。 来看下面这个简单的例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">B</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">test</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">b</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">test</span><span class="p">(</span><span class="n">A</span><span class="p">{},</span> <span class="n">B</span><span class="p">{});</span>  <span class="c1">// 短短几行报错
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">test</span><span class="p">(</span><span class="n">A</span><span class="p">{},</span> <span class="n">A</span><span class="p">{});</span>  <span class="c1">// 几百行报错
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>究竟为什么会出现如此大的差距呢？还记得我们在第一部分里面说的模板相比于宏的两个优点吗？一个是自动类型推导，一个是隐式实例化。对于模板报错来说也基本是从这两个角度入手，<code>test(A{}, B{})</code>这里模板参数推导失败了。因为<code>test</code>函数隐含了一个重要的条件，那就是 a 和 b 的类型是一样的，于是实际上它报的错误是找不到匹配的函数，然后把推断失败的模板函数的原因列出来。而第二个函数<code>test(A{}, A{})</code>则是模板参数推导成功了，进入到实例化的阶段了，但是在实例化的阶段出错了。也就是说<code>T</code>已经被推断为<code>A</code>了，尝试把<code>A</code>代入函数体的时候，出错了。于是就只能把替换失败的原因列出来了。</p>
+<p>那对类型做约束有什么用呢？看下面这个例子</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">print1</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// requires requires (T x) { std::cout &lt;&lt; x; }
+</span></span></span><span class="line"><span class="cl"><span class="c1">// C++20 加入的requires语法，意思就是要求 std::cout &lt;&lt; x 是合法的。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="n">print2</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print1</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print2</span><span class="p">(</span><span class="n">A</span><span class="p">{});</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>短短几行，在我的 GCC 上产生了 700 行的编译错误。稍微改动一下，把注释掉的那行代码加上。相比之下这种情况的代码报错只有短短几行：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">In</span> <span class="n">substitution</span> <span class="n">of</span> <span class="err">&#39;</span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>  <span class="k">requires</span> <span class="k">requires</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">;}</span> <span class="kt">void</span> <span class="nf">print2</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="p">[</span><span class="n">with</span> <span class="n">T</span> <span class="o">=</span> <span class="n">A</span><span class="p">]</span><span class="err">&#39;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"><span class="n">required</span> <span class="n">from</span> <span class="n">here</span>
+</span></span><span class="line"><span class="cl"><span class="n">required</span> <span class="n">by</span> <span class="n">the</span> <span class="n">constraints</span> <span class="n">of</span> <span class="err">&#39;</span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>  <span class="k">requires</span> <span class="k">requires</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">;}</span> <span class="kt">void</span> <span class="nf">print2</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="err">&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">in</span> <span class="n">requirements</span> <span class="n">with</span> <span class="err">&#39;</span><span class="n">T</span> <span class="n">x</span><span class="err">&#39;</span> <span class="p">[</span><span class="n">with</span> <span class="n">T</span> <span class="o">=</span> <span class="n">A</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nl">note</span><span class="p">:</span> <span class="n">the</span> <span class="n">required</span> <span class="n">expression</span> <span class="err">&#39;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">)</span><span class="err">&#39;</span> <span class="n">is</span> <span class="n">invalid</span>
+</span></span><span class="line"><span class="cl">   <span class="mi">15</span> <span class="o">|</span> <span class="k">requires</span> <span class="k">requires</span> <span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
+</span></span></code></pre></div><p>意思就是<code>A</code>类型的实例<code>x</code>不满足<code>requires</code>语句<code>std::cout &lt;&lt; x</code>。事实上通过这样的语法，我们就可以把错误限制在类型推断的阶段，而不去进行实例化。于是报错就友好一万倍了。也就是说通过<code>requires</code>我们能阻止编译错误的传播。 但是可惜的是，相关的约束语法是在 C++20 才加入的。那在这之前呢？</p>
+
+
+<h2 class="relative group">C++20之前 
+    <div id="c20%E4%B9%8B%E5%89%8D" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#c20%E4%B9%8B%E5%89%8D" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>在 C++20 之前，我们并没有这么好用的方法。只能通过一种叫做 <a href="https://en.cppreference.com/w/cpp/language/sfinae" target="_blank">SFINAE</a>的技术来实现类似的功能，对类型实现约束。比如上面那个功能，在 C++20 之前只能这么写：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="o">=</span> <span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">())</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">print2</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print1</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>具体的规则在这里就不介绍了，感兴趣的可以去搜搜相关的文章看看。</p>
+<p>结果就是<code>typename = decltype(std::cout &lt;&lt; std::declval&lt;T&gt;())</code>这行代码，完全让人不知所云。只有深入了解相关的规则之后才能看懂这究竟是在干嘛。被口诛笔伐自然是少不了的，如此常用的功能直到 C++20 才加入，实在是很让人很流汗黄豆啊。不过据 C++ 之父本人 <a href="https://github.com/Cpp-Club/Cxx_HOPL4_zh/blob/main/06.md" target="_blank">自述</a> ，其实他早就意识到这个问题了，需要对泛型添加某种约束，不过一直拖到 C++20 而已（笑）。别的支持泛型的语言，也基本都有类似的东西。例如 Rust 和 C# 都通过<code>where</code>来表达类似的约束。</p>
+
+
+<h1 class="relative group">编译期计算 
+    <div id="%E7%BC%96%E8%AF%91%E6%9C%9F%E8%AE%A1%E7%AE%97" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%BC%96%E8%AF%91%E6%9C%9F%E8%AE%A1%E7%AE%97" aria-label="锚点">#</a>
+    </span>        
+    
+</h1>
+
+
+<h2 class="relative group">意义 
+    <div id="%E6%84%8F%E4%B9%89" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%84%8F%E4%B9%89" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>首先要肯定的一点是，编译期计算肯定是有用的。具体到特定场景，意义有多大，倒是没法判断。有很多人谈编译期计算色变，什么代码难懂，屠龙技，没有价值云云。这样的确很容易误导初学者。事实上相关的需求的确存在。如果编程语言没有这个功能，但是确有需求，程序员也会想方设法的通过其它的办法来实现。</p>
+<p>我将举两个例子来说明：</p>
+<ul>
+<li>首先是编译器对常量表达式的优化，相信这个大家都并不陌生。极其简单的情况，像<code>1+1+x</code>这样的表达式，必然是会被优化成<code>2+x</code>。事实上现代编译器对于类似的情况能做的优化非常多，比如这个 <a href="https://www.zhihu.com/question/619246858/answer/3184453259" target="_blank">问题</a>。提问者提问 C 语言的<code>strlen</code>函数在参数是常量字符串的时候，会不会把函数调用直接优化成一个常量。比如<code>strlen(&quot;hello&quot;)</code>会不会直接优化成<code>5</code>。从主流编译器的实验结果来看，答案是肯定的。类似的情况数不胜数，不知不觉中你就在使用编译期计算。只是它被归到编译器优化的一部分去了。而编译器的优化能力总归是有上限的，允许使用者自己定义这种优化规则，会更加灵活和自由。比如在 C++ 里面明确了<code>strlen</code>是<code>constexpr</code>的，这种优化必然会发生<br></li>
+<li>其而是在程序语言发展早期，编译器优化能力还没那么强的时候。就已经开始广泛的使用外部脚本语言提前算好数据（甚至生成好代码）用来减少运行时开销了。典型的例子是算好三角函数表这种常量表，然后运行期直接用就行了（比如在编译代码之前，运行一段<code>python</code>脚本用来生成一些需要的代码）</li>
+</ul>
+<p>C++ 的编译期计算有明确的语义保证，并且内嵌于语言之中，能和其它部分良好的交互。从这个角度来说，很好的解决了上面两点问题。当然很多人对它的讨伐并不无道理，通过模板元编程进行的编译期计算。代码丑陋且晦涩难懂，牵扯到的语法细节多，并且大大拖慢编译时间，增加二进制文件大小。无可否认的是，这些问题的确存在。但是随着 C++ 版本的不断更新，编译期计算现在已经非常容易理解了，不再需要去写那些复杂的模板元代码，新手也能很快学会。因为和运行期代码几乎一样了。接下来伴随着它的发展史，我们将逐步阐明。</p>
+
+
+<h2 class="relative group">发展史 
+    <div id="%E5%8F%91%E5%B1%95%E5%8F%B2" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%8F%91%E5%B1%95%E5%8F%B2" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>从历史上看，<code>TMP</code> 是一个偶然事件。在标准化 C++ 语言的过程中发现它的模板系统恰好是图灵完备的，即原则上能够计算任何可计算的东西。第一个具体演示是 Erwin Unruh 编写的一个程序，该程序计算素数，尽管它实际上并未完成编译：素数列表是编译器在尝试编译代码时生成的错误消息的一部分。具体的示例，请参考 <a href="https://en.wikibooks.org/wiki/C%2B%2B_Programming/Templates/Template_Meta-Programming#History_of_TMP" target="_blank">这里</a>。</p>
+<p>作为入门级别的编程案例，可以展示一个编译期计算阶乘的方法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Factorial</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">enum</span> <span class="p">{</span> <span class="n">value</span> <span class="o">=</span> <span class="n">N</span> <span class="o">*</span> <span class="n">Factorial</span><span class="o">&lt;</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="o">&gt;::</span><span class="n">value</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Factorial</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">enum</span> <span class="p">{</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">value</span> <span class="o">=</span> <span class="n">Factorial</span><span class="o">&lt;</span><span class="mi">5</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>  <span class="c1">// =&gt; 120
+</span></span></span></code></pre></div><p>这段代码即使在 C++11 之前也能通过编译，在那之后 C++ 引入了很多新的东西用于简化编译期计算。最重要的就是<code>constexpr</code>关键字了。可以发现在 C++11 之前，我们并没有合适的办法表示编译期常量这一概念，只能借用<code>enum</code>来表达。而 C++11 之后，我们可以这么写：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Factorial</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">static</span> <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">N</span> <span class="o">*</span> <span class="n">Factorial</span><span class="o">&lt;</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Factorial</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">static</span> <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>尽管进行了一些简化，但实际上我们仍然是借助模板来进行编译期计算。这样写出的代码是难以读懂的，主要原因有以下两点：</p>
+<ul>
+<li>模板参数只能是编译期常量，并没有编译期变量的概念，无论是全局还是局部都没有</li>
+<li>只能通过递归而不能通过循环来进行编程</li>
+</ul>
+<p>想象一下，如果平常写代码，把变量和循环给你禁了，那写起来是有多难受啊。</p>
+<p>那有没有满足上面两个特征的编程语言呢？其实满足上面两点的编程语言，一般称为 pure functional 也即纯函数式的编程语言。Haskell 就是一个典型的例子。 但是 Haskell 它有强大的模式匹配，在熟悉了 Haskell 的思维之后，也能写出短小优美的代码（而且 Haskell 本身也能用 do 语法模拟出局部变量，因为使用局部变量，其实就相当于把它作为函数参数一级级传递下去）。而 C++ 这些都没有，属于是把别人缺点都继承来了，优点一个没有，自然是被声讨的对象。所幸的是，上面这些问题都在<code>cosntexpr function</code>中都被解决了。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">factorial</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">*=</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="n">factorial</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>  <span class="c1">// compile-time
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="o">&amp;</span> <span class="n">n</span> <span class="o">=</span> <span class="o">*</span><span class="k">new</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>  <span class="c1">// run-time
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>事实上，C++ 允许在一个函数前面直接加上<code>constexpr</code>关键字修饰。表示这个函数既可以在运行期调用，也可以在编译期调用，而函数本身的内容几乎不需要任何改变。这样一来，我们可以直接把运行期的代码复用到编译期。也允许使用循环和局部变量进行编程，可以说和平常写的代码没有任何区别。很令人震惊对吧，所以编译期计算在 C++ 里面早已经是一件司空见惯的事情了，用户压根就不需要去写复杂的模板元。在 C++20 之后几乎所有的标准库函数也都是<code>constexpr</code>的了，我们可以轻松的调用它们，比如编译期排序。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">sort</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">range</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">range</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">range</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">range</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">arr</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="nl">i</span><span class="p">:</span> <span class="n">arr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>真正意义上的代码复用！如果你想要这个函数只在编译期执行，你也可以用<code>consteval</code>标记它。同时，在 C++20 中还允许了编译期动态内存分配，可以在<code>constexpr function</code>中使用<code>new</code>来进行内存分配，但是编译期分配的内存必须要在编译期释放。你也可以直接在编译期使用<code>vector</code>和<code>string</code>这样的容器。而且请注意，相比于利用模板进行编译期计算，<code>constexpr</code>函数的编译速度会快很多 。如果你好奇编译期是如何实现这一强大的特性的，可以认为，<code>C++</code>编译器内部内嵌了一个小的解释器，这样遇到<code>constexpr</code>函数的时候用这个解释器解释一下，再把计算结果返回就行了。</p>
+<p>相信你已经充分见识到 C++ 在编译期计算方面所做的努力，编译期计算早就和模板元脱离关系了，在 C++ 中已经成为一种非常自然的特性，不需要特殊的语法，却能发挥强大的威力。所以以后千万不要一谈到 C++ 的编译期计算就十分恐慌，以为是什么屠龙之技。现在它早已经变得十分温柔美丽。</p>
+<p>尽管编译期计算已经脱离了模板元的魔爪，但是 C++ 并没有。还有两种情况，我们不得不编写蹩脚的模板元代码。</p>
+
+
+<h1 class="relative group">无法迈过的坎 
+    <div id="%E6%97%A0%E6%B3%95%E8%BF%88%E8%BF%87%E7%9A%84%E5%9D%8E" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E6%97%A0%E6%B3%95%E8%BF%88%E8%BF%87%E7%9A%84%E5%9D%8E" aria-label="锚点">#</a>
+    </span>        
+    
+</h1>
+
+
+<h2 class="relative group">对类型做计算 
+    <div id="%E5%AF%B9%E7%B1%BB%E5%9E%8B%E5%81%9A%E8%AE%A1%E7%AE%97" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%AF%B9%E7%B1%BB%E5%9E%8B%E5%81%9A%E8%AE%A1%E7%AE%97" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>如何判断两个类型相等呢，或者说判断两个变量的类型相等。可能有人会想，这不是多此一举吗，变量的类型都是编译期已知的，还需要判断吗？其实这个问题可以说是伴随着泛型编程而出现的，考虑下面的示例：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">test</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">T</span> <span class="o">==</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="cm">/* ... */</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>这样的代码是符合我们直觉的，可惜 C++ 并不允许你这么写。不过在 Python / Java 等语言中确实有这种写法，但是它们的判断大多都是在运行时的。C++ 的确允许我们在编译期对类型进行操作，但是可惜的是类型并不能作为一等公民，作为普通的值，只能作为模板参数。我们只能写出如下的代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">test</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="cm">/* ... */</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>类型只能存在于模板参数里面，这直接导致上一小节的<code>constexpr</code>编译计算提到的优势全都消失了。我们又回到了刀耕火种的时代，没有变量和循环。</p>
+<p>下面是判断两个<code>type_list</code>满足不满足子序列关系的代码:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_list</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">SubFirst</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">SubRest</span><span class="p">,</span> <span class="k">typename</span> <span class="n">SuperFirst</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">SuperRest</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">is_subsequence_of_impl</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">SubFirst</span><span class="p">,</span> <span class="n">SubRest</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="n">SuperFirst</span><span class="p">,</span> <span class="n">SuperRest</span><span class="p">...</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">SubFirst</span><span class="p">,</span> <span class="n">SuperFirst</span><span class="o">&gt;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="k">constexpr</span><span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">SubRest</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nf">is_subsequence_of</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">SubRest</span><span class="p">...</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="n">SuperRest</span><span class="p">...</span><span class="o">&gt;</span><span class="p">{});</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">SuperRest</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">is_subsequence_of</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">SubFirst</span><span class="p">,</span> <span class="n">SubRest</span><span class="p">...</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="n">SuperRest</span><span class="p">...</span><span class="o">&gt;</span><span class="p">{});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Sub</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Super</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">Sub</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="n">Super</span><span class="p">...</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">Sub</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">Super</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">is_subsequence_of_impl</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">Sub</span><span class="p">...</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="n">Super</span><span class="p">...</span><span class="o">&gt;</span><span class="p">{});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;</span><span class="p">{}));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">{}));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;&gt;</span><span class="p">{},</span> <span class="n">type_list</span><span class="o">&lt;&gt;</span><span class="p">{}));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>写起来非常难受，我把相同的代码逻辑用<code>constexpr</code>函数写一遍，把类型参数换成<code>std::size_t</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">bool</span> <span class="nf">is_subsequence_of</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">sub</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">super</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="n">index</span><span class="p">;</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">sub</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">super</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">super</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">sub</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">index</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">index</span> <span class="o">==</span> <span class="n">sub</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}));</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}));</span>
+</span></span></code></pre></div><p>瞬间清爽一万倍，仅仅是因为在 C++ 中类型不是一等公民，只能作为模板参数，在涉及到类型相关的计算的时候，我们就不得不编写繁琐的模板元代码。事实上对类型做计算的需求一直都存在，典型的例子是<code>std::variant</code>。在编写<code>operator=</code>的时候，我们需要从一个类型列表里面（<code>variant</code>的模板参数列表）里面查找某个类型并返回一个索引，其实就是从一个数组里面查找一个满足特定条件的元素。相关的实现这里就不展示了。其实可怕的并不是使用模板元编程本身，而是就 C++ 自身而言，把类型当作值这样的改动是完全不可接受 unacceptable 的。也就是说这样的状况会一直持续下去，以后都不会有什么本质上的改变，这一事实才是最让人悲伤的。不过仍然要清楚的一个事实是，支持对类型做计算的语言并不多，像 Rust 对于这方面的支持几乎没有。C++ 的代码虽然写起来蹩脚，但是至少能写。</p>
+<p>但是还好这里有还有另外一条路可以走。就是通过一些手段把类型映射到值。例如把类型映射到字符串，匹配类型可以类似于匹配字符串，只要对字符串进行计算就好了，也能实现一定程度上的<code>type as value</code>。C++23之前 并没有标准化的手段进行这种映射，通过一些特殊的编译器扩展能做到，可以参考 <a href="https://www.ykiko.me/articles/680412313" target="_blank">C++ 中如何优雅进行 enum 到 string 的转换</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_list</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">find</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// type_name returns the name of the type
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">array</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">{</span><span class="n">type_name</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">()...};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">type_name</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>在 C++23 之后也可以直接用typeid实现映射，而不使用字符串映射。但是类型映射到值简单，把值映射到类型回去可一点都不简单，除非你利用 <a href="https://www.ykiko.me/articles/646752343" target="_blank">STMP</a> 这种黑魔法，才能方便的把值映射回类型。但是，如果静态反射将来被引入，那么这种从类型和值的双向映射会非常简单。这样的话虽然不能直接支持把类型当成值来进行操作，但是也基本差不多了。不过还有很长一段路要走，具体什么时候能加入标准，还是个未知数。如果对静态反射感兴趣，可以下面这篇文章</p>
+<hr>
+<p>C++26 静态反射提案解析
+<a href="https://www.ykiko.me/articles/661692275" target="_blank">https://www.ykiko.me/articles/661692275</a></p>
+<hr>
+
+
+<h2 class="relative group">编译期变量之痛 
+    <div id="%E7%BC%96%E8%AF%91%E6%9C%9F%E5%8F%98%E9%87%8F%E4%B9%8B%E7%97%9B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%BC%96%E8%AF%91%E6%9C%9F%E5%8F%98%E9%87%8F%E4%B9%8B%E7%97%9B" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>除了上面说的对类型做计算不得不用到模板元编程之外，如果需要在编译期计算的同时实例化模板，也不得不用模板元编程。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">consteval</span> <span class="k">auto</span> <span class="nf">test</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">length</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span> <span class="n">length</span><span class="o">&gt;</span><span class="p">{};</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// error length is not constant expression
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>报错的意思就是<code>length</code>不是编译期常量，一般认为它属于编译期变量。这样就很让人讨厌了，考虑如下需求：我们要实现一个完全类型安全的<code>format</code>。也就是说根据第一个常量字符串的内容，来约束后面函数参数的个数。比如是<code>&quot;{}&quot;</code> 的话，后面<code>format</code>的函数参数个数就是<code>1</code>个</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">consteval</span> <span class="k">auto</span> <span class="nf">count</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">fmt</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">fmt</span><span class="p">.</span><span class="n">length</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">fmt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;{&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">fmt</span><span class="p">.</span><span class="n">length</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">fmt</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;}&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">num</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">format</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">requires</span> <span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">Args</span><span class="p">)</span> <span class="o">==</span> <span class="n">count</span><span class="p">(</span><span class="n">fmt</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* ... */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>事实上我们并没有办法保证一个函数参数是编译期常量，所以上面的代码是没法编译通过的。想要编译期常量，只能把这部分内容填到模板参数里面去，比如上面的函数可能会最后修改成<code>format&lt;&quot;{}&quot;&gt;(1)</code>这样的形式。虽然只是形式上的差别，但这无疑给使用者带来了困难。这样来看，也就不难理解为什么<code>std::make_index_sequence</code>这样的东西大行其道了。想要真正意义上可以做模板参数的编译期变量，也可以通过 <a href="https://www.ykiko.me/articles/646752343" target="_blank">STMP</a> 这种黑魔法做到，但是如前文所述，难以在日常的编程中真正使用它。</p>
+
+
+<h2 class="relative group">心中所向往的 
+    <div id="%E5%BF%83%E4%B8%AD%E6%89%80%E5%90%91%E5%BE%80%E7%9A%84" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E5%BF%83%E4%B8%AD%E6%89%80%E5%90%91%E5%BE%80%E7%9A%84" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>非常值得一提的是，有一个比较新的语言叫 Zig。它解决了上述提到的问题，不仅支持编译期变量，还支持把把类型作为一等公民来进行操作。得益于 Zig 独特的<code>comptime</code>机制，被它标记的变量或代码块都是在编译期执行的。这样一来，我们就可以写出如下的代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">import</span><span class="p">(</span><span class="s">&#34;std&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">is_subsequence_of</span><span class="p">(</span><span class="n">comptime</span><span class="w"> </span><span class="n">sub</span>: <span class="nc">anytype</span><span class="p">,</span><span class="w"> </span><span class="n">comptime</span><span class="w"> </span><span class="k">super</span>: <span class="nc">anytype</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">comptime</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">var</span><span class="w"> </span><span class="n">subIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">var</span><span class="w"> </span><span class="n">superIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="n">superIndex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="k">super</span><span class="p">.</span><span class="n">len</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">subIndex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">sub</span><span class="p">.</span><span class="n">len</span><span class="p">)</span><span class="w"> </span>: <span class="p">(</span><span class="n">superIndex</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">sub</span><span class="p">[</span><span class="n">subIndex</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">super</span><span class="p">[</span><span class="n">superIndex</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">subIndex</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">subIndex</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">sub</span><span class="p">.</span><span class="n">len</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="o">!</span><span class="n">void</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">comptime</span><span class="w"> </span><span class="n">var</span><span class="w"> </span><span class="n">sub</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">_</span><span class="p">]</span><span class="w"> </span><span class="k">type</span> <span class="p">{</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">f32</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">comptime</span><span class="w"> </span><span class="n">var</span><span class="w"> </span><span class="k">super</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">_</span><span class="p">]</span><span class="w"> </span><span class="k">type</span> <span class="p">{</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">f32</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">f32</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">std</span><span class="p">.</span><span class="n">debug</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&#34;{}</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="n">comptime</span><span class="w"> </span><span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span><span class="w"> </span><span class="k">super</span><span class="p">)});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">comptime</span><span class="w"> </span><span class="n">var</span><span class="w"> </span><span class="n">sub2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">_</span><span class="p">]</span><span class="w"> </span><span class="k">type</span> <span class="p">{</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">f32</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">comptime</span><span class="w"> </span><span class="n">var</span><span class="w"> </span><span class="n">super2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">_</span><span class="p">]</span><span class="w"> </span><span class="k">type</span> <span class="p">{</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">f32</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">f32</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">std</span><span class="p">.</span><span class="n">debug</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&#34;{}</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="n">comptime</span><span class="w"> </span><span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">sub2</span><span class="p">,</span><span class="w"> </span><span class="n">super2</span><span class="p">)});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>写出了我们梦寐以求的代码，啊，实在是太优雅了！在对类型计算这方面 Zig 可以说是完胜目前的 C++，感兴趣的读者可以自己去 Zig 官网了解一下，不过在类型计算以外的其它方面，比如泛型和代码生成，Zig 其实做的并不好，这并不是本文的重点，所以就不讨论了。</p>
+
+
+<h1 class="relative group">结尾 
+    <div id="%E7%BB%93%E5%B0%BE" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E7%BB%93%E5%B0%BE" aria-label="锚点">#</a>
+    </span>        
+    
+</h1>
+<p>到这里文章就结束了，主要对 C++ 模板的不同方面进行探索和讨论。把这庞大的怪物一层层拆开后其实也没那么可怕了，也让我们更加接近它的本质。稍微总结一下吧：</p>
+<ul>
+<li>模板元编程并不等于编译期计算，现在的 C++ 编译期计算和运行期代码逻辑几乎一致。除非需要对类型进行计算 ，否则不需要模板元编程</li>
+<li><code>requires</code>解决了 C++ 代码报错冗长的问题？<code>requires</code>的确让模板报错更加清晰了，但是并没法完全解决  C++ 报错冗长。因为另一罪魁祸首函数重载和隐式类型转换仍然存在</li>
+</ul>
+
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_articles\/655902377.md"
+        var oid_likes = "likes_articles\/655902377.md"
+      </script>
+      
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/articles/646812253/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >C++ 禁忌黑魔法: STMP 多态</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-07-30 01:29:27 &#43;0000 UTC">July 30, 2023</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/articles/659510753/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >C++ 成员指针完全解析</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-10-04 06:50:12 &#43;0000 UTC">October 4, 2023</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      ykiko
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://www.ykiko.me/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>
