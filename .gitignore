@@ -33,5 +33,6 @@
 
 *.pyc
 __pycache__/
-
+website/public/
+website/resource/
 

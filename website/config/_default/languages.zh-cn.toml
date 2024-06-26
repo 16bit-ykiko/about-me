@@ -1,0 +1,28 @@
+languageCode = "zh-cn"
+languageName = "简体中文"
+weight = 1
+
+title = "ykiko's blog"
+# logo = "img/profile.png"
+# description = "My personal website"
+# copyright = "Copy, _right?_ :thinking_face:"
+copyright = "©2024 ykiko"
+
+
+[params]
+rtl = false
+# dateFormat = "2006-01-02"
+
+[params.author]
+name = "ykiko"
+image = "img/author.jpg"
+headline = "understand the trade-offs"
+
+links = [
+  { github = "https://github.com/16bit-ykiko" },
+  { envelope-solid = "mailto:ykikoykikoykiko@gmail.com" },
+  { zhihu = "https://www.zhihu.com/people/75-49-80-77" },
+  { bilibili = "https://space.bilibili.com/360835081" },
+  { banguim = "https://bangumi.tv/user/857516" }
+]
+

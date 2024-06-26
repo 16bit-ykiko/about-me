@@ -1,0 +1,9 @@
+baseURL = 'https://www.ykiko.me'
+languageCode = 'en'
+title = "ykiko's blog"
+
+defaultContentLanguage = "zh-cn"
+enableRobotsTXT = true
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
