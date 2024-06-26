@@ -85,8 +85,9 @@ def main():
         with open(os.path.join(dir, 'index.md'), 'w', encoding="utf-8") as f:
             f.write(markdown)
 
-        with open(os.path.join(dir, 'featured.png'), 'wb') as f:
-            f.write(download(cover))
+        if cover:
+            with open(os.path.join(dir, 'featured.png'), 'wb') as f:
+                f.write(download(cover))
 
         print(f"Done: {name}")
 
