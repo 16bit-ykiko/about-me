@@ -34,5 +34,5 @@
 *.pyc
 __pycache__/
 website/public/
-website/resource/
+website/resources/
 website/.hugo_build.lock
