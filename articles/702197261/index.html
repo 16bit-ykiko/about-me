@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="dark"
-  data-auto-appearance="false"><head>
+  data-auto-appearance="true"><head>
   <meta charset="utf-8" />
   
   <meta http-equiv="content-language" content="zh-cn" />
@@ -66,13 +66,7 @@
   <meta property="og:url" content="https://www.ykiko.me/articles/702197261/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
   <meta property="og:title" content="Python 与 C&#43;&#43; 的完美结合：pybind11 中的对象设计">
-  <meta property="og:description" content="参加了 Google Summer of Code 2024，主要的任务就是为一个 Python 解释器 实现 pybind11 的兼容性接口。说是实现兼容性接口，实际上相当于重写 pybind11 了，所以最近一直在读它的源码。
-可能有的读者不太清楚 pybind11 是什么，简单来说 pybind11 是一个中间件，让你可以方便进行 Python 与 C&#43;&#43; 代码之间的交互。比如在 C&#43;&#43; 中内嵌 Python 解释器，或者把 C&#43;&#43; 代码编译成动态库以供 Python 调用。具体的内容还请见官方文档。
-最近基本把框架的大体的运作逻辑理清了。现在回过头来看，pybind11 不愧是 C&#43;&#43; 和 Python 绑定的事实标准，有很多巧妙的设计。它这套交互逻辑也完全可以套用到 C&#43;&#43; 和其它有 GC 的语言的交互上，比如 JS 和 C#（虽然现在并没有 jsbind11 和 csharpbind11 之类的东西）。最近可能我会写一系列相关的文章，去掉一些繁琐的细节，介绍其中一些共用的思想。
-这篇文章主要是讨论 pybind11 对象设计一些有意思的点。
-PyObject # 我们都知道 Python 中，一切皆对象，全都是object。但是 pybind11 实际上是需要和 CPython 这种 Python 的具体实现打交道的。那一切皆对象在 CPython 中的体现是什么呢？答案是PyObject*。接下来让我们“看见” Python，理解实际的 Python 代码是如何运作在 CPython 中的。
-创建一个对象实际上就是创建一个PyObject*
-x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上面这句话大概就会被翻译成">
+  <meta property="og:description" content="参加了 Google Summer of Code 2024，主要的任务就是为一个 Python 解释器 实现 pybind11 的">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
@@ -82,13 +76,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
   
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Python 与 C&#43;&#43; 的完美结合：pybind11 中的对象设计">
-  <meta name="twitter:description" content="参加了 Google Summer of Code 2024，主要的任务就是为一个 Python 解释器 实现 pybind11 的兼容性接口。说是实现兼容性接口，实际上相当于重写 pybind11 了，所以最近一直在读它的源码。
-可能有的读者不太清楚 pybind11 是什么，简单来说 pybind11 是一个中间件，让你可以方便进行 Python 与 C&#43;&#43; 代码之间的交互。比如在 C&#43;&#43; 中内嵌 Python 解释器，或者把 C&#43;&#43; 代码编译成动态库以供 Python 调用。具体的内容还请见官方文档。
-最近基本把框架的大体的运作逻辑理清了。现在回过头来看，pybind11 不愧是 C&#43;&#43; 和 Python 绑定的事实标准，有很多巧妙的设计。它这套交互逻辑也完全可以套用到 C&#43;&#43; 和其它有 GC 的语言的交互上，比如 JS 和 C#（虽然现在并没有 jsbind11 和 csharpbind11 之类的东西）。最近可能我会写一系列相关的文章，去掉一些繁琐的细节，介绍其中一些共用的思想。
-这篇文章主要是讨论 pybind11 对象设计一些有意思的点。
-PyObject # 我们都知道 Python 中，一切皆对象，全都是object。但是 pybind11 实际上是需要和 CPython 这种 Python 的具体实现打交道的。那一切皆对象在 CPython 中的体现是什么呢？答案是PyObject*。接下来让我们“看见” Python，理解实际的 Python 代码是如何运作在 CPython 中的。
-创建一个对象实际上就是创建一个PyObject*
-x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上面这句话大概就会被翻译成">
+  <meta name="twitter:description" content="参加了 Google Summer of Code 2024，主要的任务就是为一个 Python 解释器 实现 pybind11 的">
 
   
   <script type="application/ld+json">
@@ -99,7 +87,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
     "name": "Python 与 C\u002b\u002b 的完美结合：pybind11 中的对象设计",
     "headline": "Python 与 C\u002b\u002b 的完美结合：pybind11 中的对象设计",
     
-    "abstract": "参加了 Google Summer of Code 2024，主要的任务就是为一个 Python 解释器 实现 pybind11 的兼容性接口。说是实现兼容性接口，实际上相当于重写 pybind11 了，所以最近一直在读它的源码。\n可能有的读者不太清楚 pybind11 是什么，简单来说 pybind11 是一个中间件，让你可以方便进行 Python 与 C\u002b\u002b 代码之间的交互。比如在 C\u002b\u002b 中内嵌 Python 解释器，或者把 C\u002b\u002b 代码编译成动态库以供 Python 调用。具体的内容还请见官方文档。\n最近基本把框架的大体的运作逻辑理清了。现在回过头来看，pybind11 不愧是 C\u002b\u002b 和 Python 绑定的事实标准，有很多巧妙的设计。它这套交互逻辑也完全可以套用到 C\u002b\u002b 和其它有 GC 的语言的交互上，比如 JS 和 C#（虽然现在并没有 jsbind11 和 csharpbind11 之类的东西）。最近可能我会写一系列相关的文章，去掉一些繁琐的细节，介绍其中一些共用的思想。\n这篇文章主要是讨论 pybind11 对象设计一些有意思的点。\nPyObject # 我们都知道 Python 中，一切皆对象，全都是object。但是 pybind11 实际上是需要和 CPython 这种 Python 的具体实现打交道的。那一切皆对象在 CPython 中的体现是什么呢？答案是PyObject*。接下来让我们“看见” Python，理解实际的 Python 代码是如何运作在 CPython 中的。\n创建一个对象实际上就是创建一个PyObject*\nx = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上面这句话大概就会被翻译成",
+    "abstract": "参加了 Google Summer of Code 2024，主要的任务就是为一个 Python 解释器 实现 pybind11 的",
     "inLanguage": "zh-cn",
     "url" : "https:\/\/www.ykiko.me\/articles\/702197261\/",
     "author" : {
@@ -115,7 +103,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "755"
+    "wordCount": "2802"
   }]
   </script>
 
@@ -169,6 +157,15 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
   
   
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PEDMYR1V0K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PEDMYR1V0K');
+</script>
+
 
   
   
@@ -185,7 +182,11 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
   </div>
   
   
-  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+  <div class="min-h-[148px]"></div>
+<div class="fixed inset-x-0 pl-[24px] pr-[24px]" style="z-index:100">
+  <div id="menu-blur" class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
+  <div class="relative max-w-[64rem] ml-auto mr-auto">
+    <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
     class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
     
     <div class="flex flex-1 items-center justify-between">
@@ -423,6 +424,26 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
 
 
 
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  </div>
+</div>
+<script>
+  window.addEventListener('scroll', function (e) {
+    var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    var background_blur = document.getElementById('menu-blur');
+    background_blur.style.opacity = (scroll / 300);
+  });
+</script>
 
   
   <div class="relative flex flex-col grow">
@@ -432,8 +453,86 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
 
 <article>
   
+  
+  
+  
+  
+  
+ 
+  
+   
+  
+ 
+
+
+
+<div id="hero" class="h-[150px] md:h-[200px]"></div>
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/img/background.svg);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+<div id="background-blur" class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+<script>
+    window.addEventListener('scroll', function (e) {
+        var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        var background_blur = document.getElementById('background-blur');
+        background_blur.style.opacity = (scroll / 300)
+    });
+</script>
+
+  
+  
 
   <header id="single_header" class="mt-5 max-w-prose">
+    
+    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/"
+      >ykiko&#39;s blog</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/articles/"
+      >Articles</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/articles/702197261/"
+      >Python 与 C&#43;&#43; 的完美结合：pybind11 中的对象设计</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
     
     <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
       Python 与 C++ 的完美结合：pybind11 中的对象设计
@@ -454,13 +553,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
 
 
 
-  
 
-
-
-
-
-  
 
 
 
@@ -468,6 +561,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
 
 
 
+  
 
 
 
@@ -475,13 +569,64 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
 
 
 
+
+
+  
+
+
+
+  
 
 
 
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-06-07 07:28:11 &#43;0000 UTC">June 7, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>755 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">4 分钟</span>
+  <span>2802 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">6 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+
+
+  
+    
+  
+  
+
+<span class="mb-[2px]">
+  <a
+    href="https://github.com/nunocoracao/blowfish/tree/main/exampleSite/content/articles/702197261.md"
+    class="text-lg hover:text-primary-500"
+    rel="noopener noreferrer"
+    target="_blank"
+    title="编辑内容"
+    ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z"/></svg>
+  </span>
+
+</span></a
+  >
+</span><span class="px-2 text-primary-500">&middot;</span>
+
+
+<script type="text/javascript" src="/js/zen-mode.min.63c8a202661f4a2063fdc2706685d668e8ea3da613da2224e9da527e5876e4f53dcac39ab60732626fb4151feae5d430d0cf44731e5d3c726522fcc1519c1547.js" integrity="sha512-Y8iiAmYfSiBj/cJwZoXWaOjqPaYT2iIk6dpSflh25PU9ysOatgcyYm&#43;0FR/q5dQw0M9Ecx5dPHJlIvzBUZwVRw=="></script>
+
+<span class="mb-[2px]">
+    <span id="zen-mode-button"
+          class="text-lg hover:text-primary-500"
+          title=""
+          data-title-i18n-disable=""
+          data-title-i18n-enable="">
+        <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
+    <path fill="currentColor" d="M 12.980469 4 C 9.1204688 4 5.9804688 7.14 5.9804688 11 L 6 26 L 9.9804688 26 L 9.9804688 11 C 9.9804688 9.35 11.320469 8 12.980469 8 L 40.019531 8 C 41.679531 8 43.019531 9.35 43.019531 11 L 43.019531 39 C 43.019531 40.65 41.679531 42 40.019531 42 L 29 42 C 29 43.54 28.420938 44.94 27.460938 46 L 40.019531 46 C 43.879531 46 47.019531 42.86 47.019531 39 L 47.019531 11 C 47.019531 7.14 43.879531 4 40.019531 4 L 12.980469 4 z M 7 28 C 4.794 28 3 29.794 3 32 L 3 42 C 3 44.206 4.794 46 7 46 L 23 46 C 25.206 46 27 44.206 27 42 L 27 32 C 27 29.794 25.206 28 23 28 L 7 28 z M 7 32 L 23 32 L 23.001953 42 L 7 42 L 7 32 z"/>
+</svg>
+  </span>
+
+</span>
+    </span>
+</span>
   
 
   
@@ -489,10 +634,28 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
 </div>
 
 
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
 
 
 
 <div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
   
   
   
@@ -532,7 +695,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="ykiko" src="/img/author_hu2ced2606473956c941ba66a547516b95_62782_192x192_fill_q75_box_smart1.jpg" />
+      alt="ykiko" src="/img/author_hu2ced2606473956c941ba66a547516b95_62782_192x192_fill_q75_box_center.jpg" />
     
   
   <div class="place-self-center">
@@ -654,7 +817,119 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
   
   <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
     
-    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#pyobject">PyObject</a></li>
+    <li><a href="#handle">handle</a></li>
+    <li><a href="#getset">get/set</a></li>
+    <li><a href="#accessor">accessor</a></li>
+    <li><a href="#lazy-evaluation">lazy evaluation</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#pyobject">PyObject</a></li>
+    <li><a href="#handle">handle</a></li>
+    <li><a href="#getset">get/set</a></li>
+    <li><a href="#accessor">accessor</a></li>
+    <li><a href="#lazy-evaluation">lazy evaluation</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+          
+            $(e).removeClass('active');
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
 
       <div class="min-w-0 min-h-0 max-w-fit">
         
@@ -670,7 +945,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
 <p>这篇文章主要是讨论 pybind11 对象设计一些有意思的点。</p>
 
 
-<h1 class="relative group">PyObject 
+<h2 class="relative group">PyObject 
     <div id="pyobject" class="anchor"></div>
     
     <span
@@ -679,7 +954,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
             style="text-decoration-line: none !important;" href="#pyobject" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>我们都知道 Python 中，一切皆对象，全都是<code>object</code>。但是 pybind11 实际上是需要和 CPython 这种 Python 的具体实现打交道的。那一切皆对象在 CPython 中的体现是什么呢？答案是<code>PyObject*</code>。接下来让我们“看见” Python，理解实际的 Python 代码是如何运作在 CPython 中的。</p>
 <p>创建一个对象实际上就是创建一个<code>PyObject*</code></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
@@ -707,7 +982,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
 </span></span></code></pre></div><p>这些函数在 Python 中基本都有直接对应，看名字就知道是干什么用的了。</p>
 
 
-<h1 class="relative group">handle 
+<h2 class="relative group">handle 
     <div id="handle" class="anchor"></div>
     
     <span
@@ -716,7 +991,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
             style="text-decoration-line: none !important;" href="#handle" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>由于 pybind11 要支持在 C++ 中操作 Python 对象，首要任务就是对上述这些 C 风格的 API 进行封装。具体是由<code>handle</code>这个类型来完成的。<code>handle</code>是对<code>PyObject*</code>的简单包装，并且封装了一些成员函数，例如</p>
 <p>大概像下面这样</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">handle</span> <span class="p">{</span>
@@ -738,7 +1013,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
 </span></span></code></pre></div><p>大部分函数都是像上面这样简单包装一下，但有一些函数比较特殊。</p>
 
 
-<h1 class="relative group">get/set 
+<h2 class="relative group">get/set 
     <div id="getset" class="anchor"></div>
     
     <span
@@ -747,7 +1022,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
             style="text-decoration-line: none !important;" href="#getset" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>根据 C++ 之父 Bjarne Stroustrup 在《The Design and Evolution of C++》中的说法，引入引用（左值）类型的部分原因是为了使得用户能够对返回值进行赋值，让<code>[]</code>这样的运算符的重载变的更加自然。例如：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// get
@@ -794,7 +1069,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
 </span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
 </span></span></code></pre></div>
 
-<h1 class="relative group">accessor 
+<h2 class="relative group">accessor 
     <div id="accessor" class="anchor"></div>
     
     <span
@@ -803,7 +1078,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
             style="text-decoration-line: none !important;" href="#accessor" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>接下来就让我们重点讨论如何实现这样的效果。首先考虑<code>operator[]</code>的返回值，由于可能要调用<code>__setitem__</code>，所以这里我们返回一个代理对象。里面会把<code>key</code>存下来以备后续调用</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">accessor</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">handle</span> <span class="n">m_obj</span><span class="p">;</span>
@@ -865,7 +1140,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></div>
 
-<h1 class="relative group">lazy evaluation 
+<h2 class="relative group">lazy evaluation 
     <div id="lazy-evaluation" class="anchor"></div>
     
     <span
@@ -874,7 +1149,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
             style="text-decoration-line: none !important;" href="#lazy-evaluation" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>更进一步，我们希望这个代理对象仿佛就像一个<code>handle</code>一样，可以使用<code>handle</code>的所有方法。这很简单，直接继承<code>handle</code>就行了。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">accessor</span> <span class="o">:</span> <span class="k">public</span> <span class="n">handle</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">handle</span> <span class="n">m_obj</span><span class="p">;</span>
@@ -953,7 +1228,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
 </span></span></code></pre></div><p>这样我们就在不额外引入其它运行时开销的情况下把<code>__getitem__</code>的调用 lazy 化了。</p>
 
 
-<h1 class="relative group">Conclusion 
+<h2 class="relative group">Conclusion 
     <div id="conclusion" class="anchor"></div>
     
     <span
@@ -962,7 +1237,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
             style="text-decoration-line: none !important;" href="#conclusion" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>我们常说 C++ 实在是太复杂了，各种眼花缭乱的特性太多了，不同特性之间还经常打架。那换一个角度来看待，特性多，意味着用户就有更多的选择，有更多的设计空间，就能组装出上述这样精彩的设计。我想很难有另外一门语言能实现这样的效果。或许这就是 C++ 的魅力所在吧。</p>
 <p>文章到这里就结束了，感谢你的阅读，欢迎评论区讨论交流。</p>
 
@@ -972,8 +1247,826 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
 
         
         
+  
+  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/articles/702197261/&amp;title=Python%20%e4%b8%8e%20C&#43;&#43;%20%e7%9a%84%e5%ae%8c%e7%be%8e%e7%bb%93%e5%90%88%ef%bc%9apybind11%20%e4%b8%ad%e7%9a%84%e5%af%b9%e8%b1%a1%e8%ae%be%e8%ae%a1"
+      title="分享到 LinkedIn"
+      aria-label="分享到 LinkedIn"
+      >
+      
 
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/articles/702197261/&amp;text=Python%20%e4%b8%8e%20C&#43;&#43;%20%e7%9a%84%e5%ae%8c%e7%be%8e%e7%bb%93%e5%90%88%ef%bc%9apybind11%20%e4%b8%ad%e7%9a%84%e5%af%b9%e8%b1%a1%e8%ae%be%e8%ae%a1"
+      title="分享到 Twitter"
+      aria-label="分享到 Twitter"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://reddit.com/submit/?url=https://www.ykiko.me/articles/702197261/&amp;resubmit=true&amp;title=Python%20%e4%b8%8e%20C&#43;&#43;%20%e7%9a%84%e5%ae%8c%e7%be%8e%e7%bb%93%e5%90%88%ef%bc%9apybind11%20%e4%b8%ad%e7%9a%84%e5%af%b9%e8%b1%a1%e8%ae%be%e8%ae%a1"
+      title="提交到 Reddit"
+      aria-label="提交到 Reddit"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://api.whatsapp.com/send?text=https://www.ykiko.me/articles/702197261/&amp;resubmit=true&amp;title=Python%20%e4%b8%8e%20C&#43;&#43;%20%e7%9a%84%e5%ae%8c%e7%be%8e%e7%bb%93%e5%90%88%ef%bc%9apybind11%20%e4%b8%ad%e7%9a%84%e5%af%b9%e8%b1%a1%e8%ae%be%e8%ae%a1"
+      title=""
+      aria-label=""
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://t.me/share/url?url=https://www.ykiko.me/articles/702197261/&amp;resubmit=true&amp;title=Python%20%e4%b8%8e%20C&#43;&#43;%20%e7%9a%84%e5%ae%8c%e7%be%8e%e7%bb%93%e5%90%88%ef%bc%9apybind11%20%e4%b8%ad%e7%9a%84%e5%af%b9%e8%b1%a1%e8%ae%be%e8%ae%a1"
+      title=""
+      aria-label=""
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M248,8C111.033,8,0,119.033,0,256S111.033,504,248,504,496,392.967,496,256,384.967,8,248,8ZM362.952,176.66c-3.732,39.215-19.881,134.378-28.1,178.3-3.476,18.584-10.322,24.816-16.948,25.425-14.4,1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25,5.342-39.5,3.652-3.793,67.107-61.51,68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608,69.142-14.845,10.194-26.894,9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7,18.45-13.7,108.446-47.248,144.628-62.3c68.872-28.647,83.183-33.623,92.511-33.789,2.052-.034,6.639.474,9.61,2.885a10.452,10.452,0,0,1,3.53,6.716A43.765,43.765,0,0,1,362.952,176.66Z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/articles/702197261/&amp;description=Python%20%e4%b8%8e%20C&#43;&#43;%20%e7%9a%84%e5%ae%8c%e7%be%8e%e7%bb%93%e5%90%88%ef%bc%9apybind11%20%e4%b8%ad%e7%9a%84%e5%af%b9%e8%b1%a1%e8%ae%be%e8%ae%a1"
+      title="钉到 Pinterest"
+      aria-label="钉到 Pinterest"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/articles/702197261/&amp;quote=Python%20%e4%b8%8e%20C&#43;&#43;%20%e7%9a%84%e5%ae%8c%e7%be%8e%e7%bb%93%e5%90%88%ef%bc%9apybind11%20%e4%b8%ad%e7%9a%84%e5%af%b9%e8%b1%a1%e8%ae%be%e8%ae%a1"
+      title="分享到 Facebook"
+      aria-label="分享到 Facebook"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="mailto:?body=https://www.ykiko.me/articles/702197261/&amp;subject=Python%20%e4%b8%8e%20C&#43;&#43;%20%e7%9a%84%e5%ae%8c%e7%be%8e%e7%bb%93%e5%90%88%ef%bc%9apybind11%20%e4%b8%ad%e7%9a%84%e5%af%b9%e8%b1%a1%e8%ae%be%e8%ae%a1"
+      title="通过电子邮件发送"
+      aria-label="通过电子邮件发送"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+  </section>
+
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">相关文章</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/articles/692886292/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/img/featured.svg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/692886292/">彻底理解 C++ ABI</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <span>9709 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">20 分钟</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/articles/696878184/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/img/featured.svg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/696878184/">C++ 中的单例模式真的“单例”吗？</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <span>3743 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/articles/694365783/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/img/featured.svg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/694365783/">超好用的 C++ 在线编译器（VSCode 版）</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <span>1212 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">3 分钟</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/articles/686296374/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/img/featured.svg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/686296374/">C++ 究竟代码膨胀在哪里？</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <span>7473 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">15 分钟</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/articles/683463723/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/img/featured.svg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/683463723/">C++ 中 constexpr 的发展史（下）</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <span>7137 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">15 分钟</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/articles/682031684/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/img/featured.svg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/682031684/">C++ 中 constexpr 的发展史!（上）</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <span>7668 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">16 分钟</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+</section>
+
+  
       </div>
      
       
@@ -1020,8 +2113,6 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
                   >C++ 中的单例模式真的“单例”吗？</span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2024-05-09 18:08:28 &#43;0000 UTC">May 9, 2024</time>
                   
                 </span>
               </span>
@@ -1145,5 +2236,9 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
 
   </div>
 </body>
+
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+  data-id="nunocoracao" data-description="Support me on Buy me a coffee!" data-message=""
+  data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 
 </html>

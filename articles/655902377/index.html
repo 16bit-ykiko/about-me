@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="dark"
-  data-auto-appearance="false"><head>
+  data-auto-appearance="true"><head>
   <meta charset="utf-8" />
   
   <meta http-equiv="content-language" content="zh-cn" />
@@ -66,14 +66,7 @@
   <meta property="og:url" content="https://www.ykiko.me/articles/655902377/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
   <meta property="og:title" content="雾里看花：真正意义上的理解 C&#43;&#43; 模板(Template)">
-  <meta property="og:description" content="在 C&#43;&#43; 中，模板（Template）这个概念已经存在二十多年了。作为 C&#43;&#43; 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，相关深入的有价值的讨论很少，尤其是提供多个视角看待这一技术。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了一大堆，但却不得其要领，反倒容易把不同的概念混淆在一起。
-就我个人而言，讨论一个问题喜欢多层次，多角度的去讨论，而不仅限某一特定的方面。这样一来，既能更好的理解问题本身，也不至于让自己的视野太狭隘。故本文将尝试从模板诞生之初开始讲起，以四个角度来观察，理清模板这一技术在 C&#43;&#43; 中的发展脉络。注意，本文并不是教学文章，不会深入语法细节。更多的谈论设计哲学和 trade-off 。掌握一点点模板的基础知识就能看懂，请放心食用。当然这样可能严谨性有所缺失，如有错误欢迎评论区讨论。
-我们主要讨论四个主题：
-控制代码生成，实现泛型 做泛型约束 编译期计算 对类型做计算 其中第一个主题一般认为就是普通的 Template。而后三者一般被规划到「TMP」中去。TMP 即 Template meta programming 也就是模板元编程。因为模板设计之初的意图并不是实现后面这三个功能，但是能以比较抽搐的语法来实现这些功能，代码写起来也比较抽象难懂，所以一般叫做元编程。
-代码生成，实现泛型 # 事实上，这一点正是模板被设计之初的用法，用于实现泛型。在加入模板之前，常常使用宏来实现泛型。考虑下面这个简单的示例：
-#define add(T) _ADD_IMPL_##T #define ADD_IMPL(T) \ T _ADD_IMPL_##T(T a, T b) { return a &#43; b; } ADD_IMPL(int); ADD_IMPL(float); int main() { add(int)(1, 2); add(float)(1.0f, 2.0f); } 原理倒是很简单，其实就是把函数里面的类型替换成了宏参数。然后通过IMPL来「实例化」一个函数定义，最后直接使用就行了。但是上面的代码有很多缺点：
-代码可读性差，宏的拼接和代码逻辑耦合 没法调试，宏只有展开后才能调试 ，报错信息不好阅读 在使用对应的函数之前，必须手动实例化，比如上面的ADD_IMPL(int) 需要显式写出对应的泛型类型，没法自动推导泛型类型 这些问题，在模板中都被解决了：
-template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int add&lt;&gt;(int, int); // 显式实例化 int main() { add&lt;int&gt;(1, 2); // 显式指定模板参数 T add(1, 2); // 自动推导模板参数 T add(1.">
+  <meta property="og:description" content="在 C&#43;&#43; 中，模板（Template）这个概念已经存在二十多年了。">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
@@ -83,14 +76,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
   
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="雾里看花：真正意义上的理解 C&#43;&#43; 模板(Template)">
-  <meta name="twitter:description" content="在 C&#43;&#43; 中，模板（Template）这个概念已经存在二十多年了。作为 C&#43;&#43; 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，相关深入的有价值的讨论很少，尤其是提供多个视角看待这一技术。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了一大堆，但却不得其要领，反倒容易把不同的概念混淆在一起。
-就我个人而言，讨论一个问题喜欢多层次，多角度的去讨论，而不仅限某一特定的方面。这样一来，既能更好的理解问题本身，也不至于让自己的视野太狭隘。故本文将尝试从模板诞生之初开始讲起，以四个角度来观察，理清模板这一技术在 C&#43;&#43; 中的发展脉络。注意，本文并不是教学文章，不会深入语法细节。更多的谈论设计哲学和 trade-off 。掌握一点点模板的基础知识就能看懂，请放心食用。当然这样可能严谨性有所缺失，如有错误欢迎评论区讨论。
-我们主要讨论四个主题：
-控制代码生成，实现泛型 做泛型约束 编译期计算 对类型做计算 其中第一个主题一般认为就是普通的 Template。而后三者一般被规划到「TMP」中去。TMP 即 Template meta programming 也就是模板元编程。因为模板设计之初的意图并不是实现后面这三个功能，但是能以比较抽搐的语法来实现这些功能，代码写起来也比较抽象难懂，所以一般叫做元编程。
-代码生成，实现泛型 # 事实上，这一点正是模板被设计之初的用法，用于实现泛型。在加入模板之前，常常使用宏来实现泛型。考虑下面这个简单的示例：
-#define add(T) _ADD_IMPL_##T #define ADD_IMPL(T) \ T _ADD_IMPL_##T(T a, T b) { return a &#43; b; } ADD_IMPL(int); ADD_IMPL(float); int main() { add(int)(1, 2); add(float)(1.0f, 2.0f); } 原理倒是很简单，其实就是把函数里面的类型替换成了宏参数。然后通过IMPL来「实例化」一个函数定义，最后直接使用就行了。但是上面的代码有很多缺点：
-代码可读性差，宏的拼接和代码逻辑耦合 没法调试，宏只有展开后才能调试 ，报错信息不好阅读 在使用对应的函数之前，必须手动实例化，比如上面的ADD_IMPL(int) 需要显式写出对应的泛型类型，没法自动推导泛型类型 这些问题，在模板中都被解决了：
-template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int add&lt;&gt;(int, int); // 显式实例化 int main() { add&lt;int&gt;(1, 2); // 显式指定模板参数 T add(1, 2); // 自动推导模板参数 T add(1.">
+  <meta name="twitter:description" content="在 C&#43;&#43; 中，模板（Template）这个概念已经存在二十多年了。">
 
   
   <script type="application/ld+json">
@@ -101,7 +87,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
     "name": "雾里看花：真正意义上的理解 C\u002b\u002b 模板(Template)",
     "headline": "雾里看花：真正意义上的理解 C\u002b\u002b 模板(Template)",
     
-    "abstract": "在 C\u002b\u002b 中，模板（Template）这个概念已经存在二十多年了。作为 C\u002b\u002b 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，相关深入的有价值的讨论很少，尤其是提供多个视角看待这一技术。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了一大堆，但却不得其要领，反倒容易把不同的概念混淆在一起。\n就我个人而言，讨论一个问题喜欢多层次，多角度的去讨论，而不仅限某一特定的方面。这样一来，既能更好的理解问题本身，也不至于让自己的视野太狭隘。故本文将尝试从模板诞生之初开始讲起，以四个角度来观察，理清模板这一技术在 C\u002b\u002b 中的发展脉络。注意，本文并不是教学文章，不会深入语法细节。更多的谈论设计哲学和 trade-off 。掌握一点点模板的基础知识就能看懂，请放心食用。当然这样可能严谨性有所缺失，如有错误欢迎评论区讨论。\n我们主要讨论四个主题：\n控制代码生成，实现泛型 做泛型约束 编译期计算 对类型做计算 其中第一个主题一般认为就是普通的 Template。而后三者一般被规划到「TMP」中去。TMP 即 Template meta programming 也就是模板元编程。因为模板设计之初的意图并不是实现后面这三个功能，但是能以比较抽搐的语法来实现这些功能，代码写起来也比较抽象难懂，所以一般叫做元编程。\n代码生成，实现泛型 # 事实上，这一点正是模板被设计之初的用法，用于实现泛型。在加入模板之前，常常使用宏来实现泛型。考虑下面这个简单的示例：\n#define add(T) _ADD_IMPL_##T #define ADD_IMPL(T) \\ T _ADD_IMPL_##T(T a, T b) { return a \u002b b; } ADD_IMPL(int); ADD_IMPL(float); int main() { add(int)(1, 2); add(float)(1.0f, 2.0f); } 原理倒是很简单，其实就是把函数里面的类型替换成了宏参数。然后通过IMPL来「实例化」一个函数定义，最后直接使用就行了。但是上面的代码有很多缺点：\n代码可读性差，宏的拼接和代码逻辑耦合 没法调试，宏只有展开后才能调试 ，报错信息不好阅读 在使用对应的函数之前，必须手动实例化，比如上面的ADD_IMPL(int) 需要显式写出对应的泛型类型，没法自动推导泛型类型 这些问题，在模板中都被解决了：\ntemplate \u0026lt;typename T\u0026gt; T add(T a, T b) { return a \u002b b; } template int add\u0026lt;\u0026gt;(int, int); \/\/ 显式实例化 int main() { add\u0026lt;int\u0026gt;(1, 2); \/\/ 显式指定模板参数 T add(1, 2); \/\/ 自动推导模板参数 T add(1.",
+    "abstract": "在 C\u002b\u002b 中，模板（Template）这个概念已经存在二十多年了。",
     "inLanguage": "zh-cn",
     "url" : "https:\/\/www.ykiko.me\/articles\/655902377\/",
     "author" : {
@@ -117,7 +103,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "1133"
+    "wordCount": "7795"
   }]
   </script>
 
@@ -171,6 +157,15 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
   
   
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PEDMYR1V0K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PEDMYR1V0K');
+</script>
+
 
   
   
@@ -187,7 +182,11 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
   </div>
   
   
-  <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+  <div class="min-h-[148px]"></div>
+<div class="fixed inset-x-0 pl-[24px] pr-[24px]" style="z-index:100">
+  <div id="menu-blur" class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
+  <div class="relative max-w-[64rem] ml-auto mr-auto">
+    <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
     class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
     
     <div class="flex flex-1 items-center justify-between">
@@ -425,6 +424,26 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 
 
 
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  </div>
+</div>
+<script>
+  window.addEventListener('scroll', function (e) {
+    var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    var background_blur = document.getElementById('menu-blur');
+    background_blur.style.opacity = (scroll / 300);
+  });
+</script>
 
   
   <div class="relative flex flex-col grow">
@@ -434,8 +453,86 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 
 <article>
   
+  
+  
+  
+  
+  
+ 
+  
+   
+  
+ 
+
+
+
+<div id="hero" class="h-[150px] md:h-[200px]"></div>
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/img/background.svg);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+<div id="background-blur" class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+<script>
+    window.addEventListener('scroll', function (e) {
+        var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        var background_blur = document.getElementById('background-blur');
+        background_blur.style.opacity = (scroll / 300)
+    });
+</script>
+
+  
+  
 
   <header id="single_header" class="mt-5 max-w-prose">
+    
+    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/"
+      >ykiko&#39;s blog</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/articles/"
+      >Articles</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/articles/655902377/"
+      >雾里看花：真正意义上的理解 C&#43;&#43; 模板(Template)</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
     
     <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
       雾里看花：真正意义上的理解 C++ 模板(Template)
@@ -456,13 +553,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 
 
 
-  
 
-
-
-
-
-  
 
 
 
@@ -470,6 +561,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 
 
 
+  
 
 
 
@@ -477,13 +569,64 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 
 
 
+
+
+  
+
+
+
+  
 
 
 
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-09-12 15:46:11 &#43;0000 UTC">September 12, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>1133 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">6 分钟</span>
+  <span>7795 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">16 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+
+
+  
+    
+  
+  
+
+<span class="mb-[2px]">
+  <a
+    href="https://github.com/nunocoracao/blowfish/tree/main/exampleSite/content/articles/655902377.md"
+    class="text-lg hover:text-primary-500"
+    rel="noopener noreferrer"
+    target="_blank"
+    title="编辑内容"
+    ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z"/></svg>
+  </span>
+
+</span></a
+  >
+</span><span class="px-2 text-primary-500">&middot;</span>
+
+
+<script type="text/javascript" src="/js/zen-mode.min.63c8a202661f4a2063fdc2706685d668e8ea3da613da2224e9da527e5876e4f53dcac39ab60732626fb4151feae5d430d0cf44731e5d3c726522fcc1519c1547.js" integrity="sha512-Y8iiAmYfSiBj/cJwZoXWaOjqPaYT2iIk6dpSflh25PU9ysOatgcyYm&#43;0FR/q5dQw0M9Ecx5dPHJlIvzBUZwVRw=="></script>
+
+<span class="mb-[2px]">
+    <span id="zen-mode-button"
+          class="text-lg hover:text-primary-500"
+          title=""
+          data-title-i18n-disable=""
+          data-title-i18n-enable="">
+        <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
+    <path fill="currentColor" d="M 12.980469 4 C 9.1204688 4 5.9804688 7.14 5.9804688 11 L 6 26 L 9.9804688 26 L 9.9804688 11 C 9.9804688 9.35 11.320469 8 12.980469 8 L 40.019531 8 C 41.679531 8 43.019531 9.35 43.019531 11 L 43.019531 39 C 43.019531 40.65 41.679531 42 40.019531 42 L 29 42 C 29 43.54 28.420938 44.94 27.460938 46 L 40.019531 46 C 43.879531 46 47.019531 42.86 47.019531 39 L 47.019531 11 C 47.019531 7.14 43.879531 4 40.019531 4 L 12.980469 4 z M 7 28 C 4.794 28 3 29.794 3 32 L 3 42 C 3 44.206 4.794 46 7 46 L 23 46 C 25.206 46 27 44.206 27 42 L 27 32 C 27 29.794 25.206 28 23 28 L 7 28 z M 7 32 L 23 32 L 23.001953 42 L 7 42 L 7 32 z"/>
+</svg>
+  </span>
+
+</span>
+    </span>
+</span>
   
 
   
@@ -491,10 +634,28 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 </div>
 
 
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
 
 
 
 <div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
   
   
   
@@ -534,7 +695,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
         
       
       <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="ykiko" src="/img/author_hu2ced2606473956c941ba66a547516b95_62782_192x192_fill_q75_box_smart1.jpg" />
+      alt="ykiko" src="/img/author_hu2ced2606473956c941ba66a547516b95_62782_192x192_fill_q75_box_center.jpg" />
     
   
   <div class="place-self-center">
@@ -658,7 +819,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
     
      <div
       class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
-      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
 
          <details open id="TOCView"
   class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
@@ -670,20 +831,28 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
     class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#函数重载">函数重载</a></li>
-    <li><a href="#模板">模板</a></li>
-    <li><a href="#c20之前">C++20之前</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#意义">意义</a></li>
-    <li><a href="#发展史">发展史</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#对类型做计算">对类型做计算</a></li>
-    <li><a href="#编译期变量之痛">编译期变量之痛</a></li>
-    <li><a href="#心中所向往的">心中所向往的</a></li>
+    <li><a href="#代码生成实现泛型">代码生成，实现泛型</a></li>
+    <li><a href="#对类型做约束">对类型做约束</a>
+      <ul>
+        <li><a href="#函数重载">函数重载</a></li>
+        <li><a href="#模板">模板</a></li>
+        <li><a href="#c20之前">C++20之前</a></li>
+      </ul>
+    </li>
+    <li><a href="#编译期计算">编译期计算</a>
+      <ul>
+        <li><a href="#意义">意义</a></li>
+        <li><a href="#发展史">发展史</a></li>
+      </ul>
+    </li>
+    <li><a href="#无法迈过的坎">无法迈过的坎</a>
+      <ul>
+        <li><a href="#对类型做计算">对类型做计算</a></li>
+        <li><a href="#编译期变量之痛">编译期变量之痛</a></li>
+        <li><a href="#心中所向往的">心中所向往的</a></li>
+      </ul>
+    </li>
+    <li><a href="#结尾">结尾</a></li>
   </ul>
 </nav>
   </div>
@@ -697,20 +866,28 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#函数重载">函数重载</a></li>
-    <li><a href="#模板">模板</a></li>
-    <li><a href="#c20之前">C++20之前</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#意义">意义</a></li>
-    <li><a href="#发展史">发展史</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#对类型做计算">对类型做计算</a></li>
-    <li><a href="#编译期变量之痛">编译期变量之痛</a></li>
-    <li><a href="#心中所向往的">心中所向往的</a></li>
+    <li><a href="#代码生成实现泛型">代码生成，实现泛型</a></li>
+    <li><a href="#对类型做约束">对类型做约束</a>
+      <ul>
+        <li><a href="#函数重载">函数重载</a></li>
+        <li><a href="#模板">模板</a></li>
+        <li><a href="#c20之前">C++20之前</a></li>
+      </ul>
+    </li>
+    <li><a href="#编译期计算">编译期计算</a>
+      <ul>
+        <li><a href="#意义">意义</a></li>
+        <li><a href="#发展史">发展史</a></li>
+      </ul>
+    </li>
+    <li><a href="#无法迈过的坎">无法迈过的坎</a>
+      <ul>
+        <li><a href="#对类型做计算">对类型做计算</a></li>
+        <li><a href="#编译期变量之痛">编译期变量之痛</a></li>
+        <li><a href="#心中所向往的">心中所向往的</a></li>
+      </ul>
+    </li>
+    <li><a href="#结尾">结尾</a></li>
   </ul>
 </nav>
   </div>
@@ -743,6 +920,44 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 
 
 
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+          
+            $(e).removeClass('active');
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+        
+        onScroll();
+      });
+    }
+  })();
+
+
 </script>
    </div>
       </div>
@@ -766,7 +981,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 <p>其中第一个主题一般认为就是普通的 Template。而后三者一般被规划到「TMP」中去。TMP 即 Template meta programming 也就是模板元编程。因为模板设计之初的意图并不是实现后面这三个功能，但是能以比较抽搐的语法来实现这些功能，代码写起来也比较抽象难懂，所以一般叫做元编程。</p>
 
 
-<h1 class="relative group">代码生成，实现泛型 
+<h2 class="relative group">代码生成，实现泛型 
     <div id="%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%AE%9E%E7%8E%B0%E6%B3%9B%E5%9E%8B" class="anchor"></div>
     
     <span
@@ -775,7 +990,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
             style="text-decoration-line: none !important;" href="#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%AE%9E%E7%8E%B0%E6%B3%9B%E5%9E%8B" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>事实上，这一点正是模板被设计之初的用法，用于实现泛型。在加入模板之前，常常使用宏来实现泛型。考虑下面这个简单的示例：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define add(T) _ADD_IMPL_##T
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
@@ -820,7 +1035,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 <p>哎，别急，这就是下面我要讲到的问题。</p>
 
 
-<h1 class="relative group">对类型做约束 
+<h2 class="relative group">对类型做约束 
     <div id="%E5%AF%B9%E7%B1%BB%E5%9E%8B%E5%81%9A%E7%BA%A6%E6%9D%9F" class="anchor"></div>
     
     <span
@@ -829,11 +1044,11 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
             style="text-decoration-line: none !important;" href="#%E5%AF%B9%E7%B1%BB%E5%9E%8B%E5%81%9A%E7%BA%A6%E6%9D%9F" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>首先我们要讨论的问题是，为什么 C++ 的编译错误信息这么长？而且有时候非常难读懂。</p>
 
 
-<h2 class="relative group">函数重载 
+<h3 class="relative group">函数重载 
     <div id="%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD" class="anchor"></div>
     
     <span
@@ -842,7 +1057,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
             style="text-decoration-line: none !important;" href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
@@ -863,7 +1078,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 </span></span></code></pre></div><p>意思就是尝试用<code>A</code>类型匹配<code>const char*</code>这个重载（通过隐式类型转换），结果失败了。标准库类似这样的函数，都实现了很多的重载函数，比如这个<code>operator&lt;&lt;</code>就重载了<code>int</code>,<code>bool</code>,<code>lon</code>g,<code>double</code> 等等，将近几十个函数。结果报错信息就是把所有重载函数尝试失败的原因都列出来，于是轻松就有几百行了，再加上标准库诡异的命名，看起来就像天书一样。</p>
 
 
-<h2 class="relative group">模板 
+<h3 class="relative group">模板 
     <div id="%E6%A8%A1%E6%9D%BF" class="anchor"></div>
     
     <span
@@ -872,7 +1087,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
             style="text-decoration-line: none !important;" href="#%E6%A8%A1%E6%9D%BF" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>函数重载是导致报错信息难以读懂的一部分原因，但不是全部。实际上如上面所示，仅仅是把所有可能性枚举出来，不过几百行报错。要知道我们还能产出上千行呢，量级上的差距可不是能用数量轻松堆叠出的。况且本小节要说的是约束，和报错有什么关系呢。 来看下面这个简单的例子：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
@@ -918,7 +1133,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 </span></span></code></pre></div><p>意思就是<code>A</code>类型的实例<code>x</code>不满足<code>requires</code>语句<code>std::cout &lt;&lt; x</code>。事实上通过这样的语法，我们就可以把错误限制在类型推断的阶段，而不去进行实例化。于是报错就友好一万倍了。也就是说通过<code>requires</code>我们能阻止编译错误的传播。 但是可惜的是，相关的约束语法是在 C++20 才加入的。那在这之前呢？</p>
 
 
-<h2 class="relative group">C++20之前 
+<h3 class="relative group">C++20之前 
     <div id="c20%E4%B9%8B%E5%89%8D" class="anchor"></div>
     
     <span
@@ -927,7 +1142,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
             style="text-decoration-line: none !important;" href="#c20%E4%B9%8B%E5%89%8D" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>在 C++20 之前，我们并没有这么好用的方法。只能通过一种叫做 <a href="https://en.cppreference.com/w/cpp/language/sfinae" target="_blank">SFINAE</a>的技术来实现类似的功能，对类型实现约束。比如上面那个功能，在 C++20 之前只能这么写：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="o">=</span> <span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">())</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">print2</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
@@ -938,7 +1153,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 <p>结果就是<code>typename = decltype(std::cout &lt;&lt; std::declval&lt;T&gt;())</code>这行代码，完全让人不知所云。只有深入了解相关的规则之后才能看懂这究竟是在干嘛。被口诛笔伐自然是少不了的，如此常用的功能直到 C++20 才加入，实在是很让人很流汗黄豆啊。不过据 C++ 之父本人 <a href="https://github.com/Cpp-Club/Cxx_HOPL4_zh/blob/main/06.md" target="_blank">自述</a> ，其实他早就意识到这个问题了，需要对泛型添加某种约束，不过一直拖到 C++20 而已（笑）。别的支持泛型的语言，也基本都有类似的东西。例如 Rust 和 C# 都通过<code>where</code>来表达类似的约束。</p>
 
 
-<h1 class="relative group">编译期计算 
+<h2 class="relative group">编译期计算 
     <div id="%E7%BC%96%E8%AF%91%E6%9C%9F%E8%AE%A1%E7%AE%97" class="anchor"></div>
     
     <span
@@ -947,10 +1162,10 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
             style="text-decoration-line: none !important;" href="#%E7%BC%96%E8%AF%91%E6%9C%9F%E8%AE%A1%E7%AE%97" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 
 
-<h2 class="relative group">意义 
+<h3 class="relative group">意义 
     <div id="%E6%84%8F%E4%B9%89" class="anchor"></div>
     
     <span
@@ -959,7 +1174,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
             style="text-decoration-line: none !important;" href="#%E6%84%8F%E4%B9%89" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>首先要肯定的一点是，编译期计算肯定是有用的。具体到特定场景，意义有多大，倒是没法判断。有很多人谈编译期计算色变，什么代码难懂，屠龙技，没有价值云云。这样的确很容易误导初学者。事实上相关的需求的确存在。如果编程语言没有这个功能，但是确有需求，程序员也会想方设法的通过其它的办法来实现。</p>
 <p>我将举两个例子来说明：</p>
 <ul>
@@ -969,7 +1184,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 <p>C++ 的编译期计算有明确的语义保证，并且内嵌于语言之中，能和其它部分良好的交互。从这个角度来说，很好的解决了上面两点问题。当然很多人对它的讨伐并不无道理，通过模板元编程进行的编译期计算。代码丑陋且晦涩难懂，牵扯到的语法细节多，并且大大拖慢编译时间，增加二进制文件大小。无可否认的是，这些问题的确存在。但是随着 C++ 版本的不断更新，编译期计算现在已经非常容易理解了，不再需要去写那些复杂的模板元代码，新手也能很快学会。因为和运行期代码几乎一样了。接下来伴随着它的发展史，我们将逐步阐明。</p>
 
 
-<h2 class="relative group">发展史 
+<h3 class="relative group">发展史 
     <div id="%E5%8F%91%E5%B1%95%E5%8F%B2" class="anchor"></div>
     
     <span
@@ -978,7 +1193,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
             style="text-decoration-line: none !important;" href="#%E5%8F%91%E5%B1%95%E5%8F%B2" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>从历史上看，<code>TMP</code> 是一个偶然事件。在标准化 C++ 语言的过程中发现它的模板系统恰好是图灵完备的，即原则上能够计算任何可计算的东西。第一个具体演示是 Erwin Unruh 编写的一个程序，该程序计算素数，尽管它实际上并未完成编译：素数列表是编译器在尝试编译代码时生成的错误消息的一部分。具体的示例，请参考 <a href="https://en.wikibooks.org/wiki/C%2B%2B_Programming/Templates/Template_Meta-Programming#History_of_TMP" target="_blank">这里</a>。</p>
 <p>作为入门级别的编程案例，可以展示一个编译期计算阶乘的方法：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
@@ -1039,7 +1254,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 <p>尽管编译期计算已经脱离了模板元的魔爪，但是 C++ 并没有。还有两种情况，我们不得不编写蹩脚的模板元代码。</p>
 
 
-<h1 class="relative group">无法迈过的坎 
+<h2 class="relative group">无法迈过的坎 
     <div id="%E6%97%A0%E6%B3%95%E8%BF%88%E8%BF%87%E7%9A%84%E5%9D%8E" class="anchor"></div>
     
     <span
@@ -1048,10 +1263,10 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
             style="text-decoration-line: none !important;" href="#%E6%97%A0%E6%B3%95%E8%BF%88%E8%BF%87%E7%9A%84%E5%9D%8E" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 
 
-<h2 class="relative group">对类型做计算 
+<h3 class="relative group">对类型做计算 
     <div id="%E5%AF%B9%E7%B1%BB%E5%9E%8B%E5%81%9A%E8%AE%A1%E7%AE%97" class="anchor"></div>
     
     <span
@@ -1060,7 +1275,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
             style="text-decoration-line: none !important;" href="#%E5%AF%B9%E7%B1%BB%E5%9E%8B%E5%81%9A%E8%AE%A1%E7%AE%97" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>如何判断两个类型相等呢，或者说判断两个变量的类型相等。可能有人会想，这不是多此一举吗，变量的类型都是编译期已知的，还需要判断吗？其实这个问题可以说是伴随着泛型编程而出现的，考虑下面的示例：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">test</span><span class="p">()</span> <span class="p">{</span>
@@ -1143,7 +1358,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 <hr>
 
 
-<h2 class="relative group">编译期变量之痛 
+<h3 class="relative group">编译期变量之痛 
     <div id="%E7%BC%96%E8%AF%91%E6%9C%9F%E5%8F%98%E9%87%8F%E4%B9%8B%E7%97%9B" class="anchor"></div>
     
     <span
@@ -1152,7 +1367,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
             style="text-decoration-line: none !important;" href="#%E7%BC%96%E8%AF%91%E6%9C%9F%E5%8F%98%E9%87%8F%E4%B9%8B%E7%97%9B" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>除了上面说的对类型做计算不得不用到模板元编程之外，如果需要在编译期计算的同时实例化模板，也不得不用模板元编程。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">consteval</span> <span class="k">auto</span> <span class="nf">test</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">length</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span> <span class="n">length</span><span class="o">&gt;</span><span class="p">{};</span>
@@ -1180,7 +1395,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 </span></span></code></pre></div><p>事实上我们并没有办法保证一个函数参数是编译期常量，所以上面的代码是没法编译通过的。想要编译期常量，只能把这部分内容填到模板参数里面去，比如上面的函数可能会最后修改成<code>format&lt;&quot;{}&quot;&gt;(1)</code>这样的形式。虽然只是形式上的差别，但这无疑给使用者带来了困难。这样来看，也就不难理解为什么<code>std::make_index_sequence</code>这样的东西大行其道了。想要真正意义上可以做模板参数的编译期变量，也可以通过 <a href="https://www.ykiko.me/articles/646752343" target="_blank">STMP</a> 这种黑魔法做到，但是如前文所述，难以在日常的编程中真正使用它。</p>
 
 
-<h2 class="relative group">心中所向往的 
+<h3 class="relative group">心中所向往的 
     <div id="%E5%BF%83%E4%B8%AD%E6%89%80%E5%90%91%E5%BE%80%E7%9A%84" class="anchor"></div>
     
     <span
@@ -1189,7 +1404,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
             style="text-decoration-line: none !important;" href="#%E5%BF%83%E4%B8%AD%E6%89%80%E5%90%91%E5%BE%80%E7%9A%84" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>非常值得一提的是，有一个比较新的语言叫 Zig。它解决了上述提到的问题，不仅支持编译期变量，还支持把把类型作为一等公民来进行操作。得益于 Zig 独特的<code>comptime</code>机制，被它标记的变量或代码块都是在编译期执行的。这样一来，我们就可以写出如下的代码：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">import</span><span class="p">(</span><span class="s">&#34;std&#34;</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
@@ -1218,7 +1433,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 </span></span></span></code></pre></div><p>写出了我们梦寐以求的代码，啊，实在是太优雅了！在对类型计算这方面 Zig 可以说是完胜目前的 C++，感兴趣的读者可以自己去 Zig 官网了解一下，不过在类型计算以外的其它方面，比如泛型和代码生成，Zig 其实做的并不好，这并不是本文的重点，所以就不讨论了。</p>
 
 
-<h1 class="relative group">结尾 
+<h2 class="relative group">结尾 
     <div id="%E7%BB%93%E5%B0%BE" class="anchor"></div>
     
     <span
@@ -1227,7 +1442,7 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
             style="text-decoration-line: none !important;" href="#%E7%BB%93%E5%B0%BE" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>到这里文章就结束了，主要对 C++ 模板的不同方面进行探索和讨论。把这庞大的怪物一层层拆开后其实也没那么可怕了，也让我们更加接近它的本质。稍微总结一下吧：</p>
 <ul>
 <li>模板元编程并不等于编译期计算，现在的 C++ 编译期计算和运行期代码逻辑几乎一致。除非需要对类型进行计算 ，否则不需要模板元编程</li>
@@ -1240,8 +1455,499 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 
         
         
+  
+  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/articles/655902377/&amp;title=%e9%9b%be%e9%87%8c%e7%9c%8b%e8%8a%b1%ef%bc%9a%e7%9c%9f%e6%ad%a3%e6%84%8f%e4%b9%89%e4%b8%8a%e7%9a%84%e7%90%86%e8%a7%a3%20C&#43;&#43;%20%e6%a8%a1%e6%9d%bf%28Template%29"
+      title="分享到 LinkedIn"
+      aria-label="分享到 LinkedIn"
+      >
+      
 
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/articles/655902377/&amp;text=%e9%9b%be%e9%87%8c%e7%9c%8b%e8%8a%b1%ef%bc%9a%e7%9c%9f%e6%ad%a3%e6%84%8f%e4%b9%89%e4%b8%8a%e7%9a%84%e7%90%86%e8%a7%a3%20C&#43;&#43;%20%e6%a8%a1%e6%9d%bf%28Template%29"
+      title="分享到 Twitter"
+      aria-label="分享到 Twitter"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://reddit.com/submit/?url=https://www.ykiko.me/articles/655902377/&amp;resubmit=true&amp;title=%e9%9b%be%e9%87%8c%e7%9c%8b%e8%8a%b1%ef%bc%9a%e7%9c%9f%e6%ad%a3%e6%84%8f%e4%b9%89%e4%b8%8a%e7%9a%84%e7%90%86%e8%a7%a3%20C&#43;&#43;%20%e6%a8%a1%e6%9d%bf%28Template%29"
+      title="提交到 Reddit"
+      aria-label="提交到 Reddit"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://api.whatsapp.com/send?text=https://www.ykiko.me/articles/655902377/&amp;resubmit=true&amp;title=%e9%9b%be%e9%87%8c%e7%9c%8b%e8%8a%b1%ef%bc%9a%e7%9c%9f%e6%ad%a3%e6%84%8f%e4%b9%89%e4%b8%8a%e7%9a%84%e7%90%86%e8%a7%a3%20C&#43;&#43;%20%e6%a8%a1%e6%9d%bf%28Template%29"
+      title=""
+      aria-label=""
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://t.me/share/url?url=https://www.ykiko.me/articles/655902377/&amp;resubmit=true&amp;title=%e9%9b%be%e9%87%8c%e7%9c%8b%e8%8a%b1%ef%bc%9a%e7%9c%9f%e6%ad%a3%e6%84%8f%e4%b9%89%e4%b8%8a%e7%9a%84%e7%90%86%e8%a7%a3%20C&#43;&#43;%20%e6%a8%a1%e6%9d%bf%28Template%29"
+      title=""
+      aria-label=""
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M248,8C111.033,8,0,119.033,0,256S111.033,504,248,504,496,392.967,496,256,384.967,8,248,8ZM362.952,176.66c-3.732,39.215-19.881,134.378-28.1,178.3-3.476,18.584-10.322,24.816-16.948,25.425-14.4,1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25,5.342-39.5,3.652-3.793,67.107-61.51,68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608,69.142-14.845,10.194-26.894,9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7,18.45-13.7,108.446-47.248,144.628-62.3c68.872-28.647,83.183-33.623,92.511-33.789,2.052-.034,6.639.474,9.61,2.885a10.452,10.452,0,0,1,3.53,6.716A43.765,43.765,0,0,1,362.952,176.66Z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/articles/655902377/&amp;description=%e9%9b%be%e9%87%8c%e7%9c%8b%e8%8a%b1%ef%bc%9a%e7%9c%9f%e6%ad%a3%e6%84%8f%e4%b9%89%e4%b8%8a%e7%9a%84%e7%90%86%e8%a7%a3%20C&#43;&#43;%20%e6%a8%a1%e6%9d%bf%28Template%29"
+      title="钉到 Pinterest"
+      aria-label="钉到 Pinterest"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/articles/655902377/&amp;quote=%e9%9b%be%e9%87%8c%e7%9c%8b%e8%8a%b1%ef%bc%9a%e7%9c%9f%e6%ad%a3%e6%84%8f%e4%b9%89%e4%b8%8a%e7%9a%84%e7%90%86%e8%a7%a3%20C&#43;&#43;%20%e6%a8%a1%e6%9d%bf%28Template%29"
+      title="分享到 Facebook"
+      aria-label="分享到 Facebook"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="mailto:?body=https://www.ykiko.me/articles/655902377/&amp;subject=%e9%9b%be%e9%87%8c%e7%9c%8b%e8%8a%b1%ef%bc%9a%e7%9c%9f%e6%ad%a3%e6%84%8f%e4%b9%89%e4%b8%8a%e7%9a%84%e7%90%86%e8%a7%a3%20C&#43;&#43;%20%e6%a8%a1%e6%9d%bf%28Template%29"
+      title="通过电子邮件发送"
+      aria-label="通过电子邮件发送"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+  </section>
+
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">相关文章</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/articles/646812253/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/img/featured.svg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/646812253/">C++ 禁忌黑魔法: STMP 多态</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <span>2093 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/articles/646752343/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/img/featured.svg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/646752343/">C++ 禁忌黑魔法：STMP</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <span>3848 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/articles/645810896/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/img/featured.svg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/articles/645810896/">std::variant 很难用！</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <span>2751 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">6 分钟</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+</section>
+
+  
       </div>
      
       
@@ -1289,8 +1995,6 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2023-07-30 01:29:27 &#43;0000 UTC">July 30, 2023</time>
-                  
                 </span>
               </span>
             </a>
@@ -1305,8 +2009,6 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
                   >C++ 成员指针完全解析</span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2023-10-04 06:50:12 &#43;0000 UTC">October 4, 2023</time>
                   
                 </span>
               </span>
@@ -1435,5 +2137,9 @@ template &lt;typename T&gt; T add(T a, T b) { return a &#43; b; } template int a
 
   </div>
 </body>
+
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+  data-id="nunocoracao" data-description="Support me on Buy me a coffee!" data-message=""
+  data-color="#FFDD00" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 
 </html>

@@ -14,13 +14,7 @@
       <pubDate>Fri, 07 Jun 2024 07:28:11 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/702197261/</guid>
-      <description>参加了 Google Summer of Code 2024，主要的任务就是为一个 Python 解释器 实现 pybind11 的兼容性接口。说是实现兼容性接口，实际上相当于重写 pybind11 了，所以最近一直在读它的源码。
-可能有的读者不太清楚 pybind11 是什么，简单来说 pybind11 是一个中间件，让你可以方便进行 Python 与 C++ 代码之间的交互。比如在 C++ 中内嵌 Python 解释器，或者把 C++ 代码编译成动态库以供 Python 调用。具体的内容还请见官方文档。
-最近基本把框架的大体的运作逻辑理清了。现在回过头来看，pybind11 不愧是 C++ 和 Python 绑定的事实标准，有很多巧妙的设计。它这套交互逻辑也完全可以套用到 C++ 和其它有 GC 的语言的交互上，比如 JS 和 C#（虽然现在并没有 jsbind11 和 csharpbind11 之类的东西）。最近可能我会写一系列相关的文章，去掉一些繁琐的细节，介绍其中一些共用的思想。
-这篇文章主要是讨论 pybind11 对象设计一些有意思的点。
-PyObject # 我们都知道 Python 中，一切皆对象，全都是object。但是 pybind11 实际上是需要和 CPython 这种 Python 的具体实现打交道的。那一切皆对象在 CPython 中的体现是什么呢？答案是PyObject*。接下来让我们“看见” Python，理解实际的 Python 代码是如何运作在 CPython 中的。
-创建一个对象实际上就是创建一个PyObject*
-x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上面这句话大概就会被翻译成</description>
+      <description>参加了 Google Summer of Code 2024，主要的任务就是为一个 Python 解释器 实现 pybind11 的</description>
       
     </item>
     
@@ -30,16 +24,7 @@ x = [1, 2, 3] CPython 中有专门的 API 来创建内建类型的对象，上�
       <pubDate>Thu, 09 May 2024 18:08:28 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/696878184/</guid>
-      <description>单例模式 (Singleton Pattern) 是一种常见的设计模式，往往应用于配置系统，日志系统，数据库连接池等需要确保对象唯一性的场景。但是单例模式真的能保证单例吗？如果唯一性得不到保证会产生什么后果呢？
-既然写了这篇文章，那答案肯定是否了。知乎上已经有很多相关的讨论了，比如 C++单例模式跨 DLL 是不是就是会出问题？ 和 动态库和静态库混合使用下的单例模式 BUG。不过大部分都是遇到问题以后，贴一下解决方案，很零散，并没有系统分析问题产生的原因。于是，我写了这篇文章来详细讨论一下这个问题。
-明确问题 # 首先我们要明确讨论的问题，以 C++11 常见的单例模式实现为例：
-class Singleton { public: Singleton(const Singleton&amp;amp;) = delete; Singleton&amp;amp; operator=(const Singleton&amp;amp;) = delete; static Singleton&amp;amp; instance() { static Singleton instance; return instance; } private: Singleton() = default; }; 我们将默认构造设置为private并且显式delete拷贝构造和赋值运算符，这样的话用户只能通过instance这个函数来获取我们预先创建好的对象，不能自己通过构造函数创建一个对象。而使用静态局部变量是为了保证这个变量的初始化线程安全。
-但其实，单例对象和一个普通的全局变量并没有什么区别。在 C++ 中，它们都属于 静态储存期 (static storage duration)，编译器对它们的处理是类似的（只是初始化方式上有点区别）。而所谓的单例模式，只是在语言层面通过一些手段，防止用户不小心创建多个对象。
-那我们讨论的问题其实可以等价为：C++ 中的全局变量是唯一的吗？
-一个定义 # 首先得区分变量的声明和定义。我们都知道，头文件中一般是不能写变量定义的。否则如果这个头文件被多个源文件包含，就会出现多个定义，链接的时候就会报multiple definition of variable的错误。所以我们一般会在头文件中使用extern声明变量，然后在对应的源文件中定义变量。
-那编译器是如何处理全局变量定义的呢？
-假设我们定义一个全局变量
-int x = 1; 其实不会产生任何的指令，编译器会在这个编译单元（每个源文件）编译产物的符号表中，增加一个符号x。在静态储存（具体的实现可能是 bss 段或者 rdata 段等等）中给符号x预留4字节的空间。视初始化方式（静态初始化 或者 动态初始化）来决定这块内存的数据如何填充。</description>
+      <description>单例模式 (Singleton Pattern) 是一种常见的设计模式，往往应用于配置系统，日志系</description>
       
     </item>
     
@@ -49,14 +34,7 @@ int x = 1; 其实不会产生任何的指令，编译器会在这个编译单元
       <pubDate>Wed, 24 Apr 2024 13:35:41 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/694365783/</guid>
-      <description>Compiler Explorer 是一个非常流行的 C++ 在线编译器，可用于测试不同的编译执行环境，或者分享代码。作为一个 C++ 爱好者，我几乎每天都要和它打交道，使用频率之高远超我的想象。同时，我也是一个重度 VSCode 用户，几乎所有的事情都在 VSCode 中完成。考虑到经常在本地写代码然后拷贝到 Compiler Explorer 上去，总觉得不太舒服，有时候直接就在它的网页编辑器上改了，但是又没有代码补全，也不舒服。所以我和 @iiirhe 合作编写了这个插件 Compiler Explorer for VSCode，基于 Compiler Explorer 提供的 API 将 Compiler Explorer 集成到 VSCode 中，使得用户可以在 VSCode 中直接使用 Compiler Explorer 的功能。
-现在你可以在 VSCode 插件市场搜索到这个插件
-效果展示 # 单文件支持 # 让我们从上往下以此介绍
-这个三个按钮的功能依次是：
-Compile All：编译所有的编译器实例 Add New：添加一个新的编译器实例 Share Link：根据当前的编译器实例生成一个链接，并复制到剪贴板 这四个按钮的功能依次是：
-Add CMake：添加一个 CMake 编译器实例（后面会细说） Clear All：关闭所有用于展示的webview面板 Load Link：根据输入的链接加载编译器实例的信息 Remove All：删除所有的编译器实例 这个三个按钮的功能依次是：
-Run：编译这个编译器实例 Clone：克隆这个编译器实例 Remove：删除这个编译器实例 下面这些用于设置编译器实例的参数：
-Compiler：点击右侧的按钮可以选择编译器版本 Input：选择源代码文件，默认是active即当前活跃的编辑器 Output：输出编译结果的文件，默认使用webview Options：编译选项，点击右侧按钮可以打开输入框 Execute Arguments：传递给可执行文件的参数 Stdin：用于标准输入的缓冲区 Filters：一些选项 多文件支持 # 使用Add CMake按钮可以添加一个 CMake 编译器实例，这个实例可以用于编译多个文件。</description>
+      <description>Compiler Explorer 是一个非常流行的 C++ 在线编译器，可用于测试不同的编译执行环</description>
       
     </item>
     
@@ -66,13 +44,7 @@ Compiler：点击右侧的按钮可以选择编译器版本 Input：选择源代
       <pubDate>Tue, 16 Apr 2024 18:19:38 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/692886292/</guid>
-      <description>Application Binary Interface 也就是我们常说的 ABI，是个让人感觉到既熟悉又陌生的概念。熟悉在哪里？讨论问题的时候经常会讨论到它，看文章的时候经常会提到它，有时候又要处理它导致的兼容性。陌生在哪里？如果有人问你什么是 ABI，你会发现你知道它是怎么一回事，但是要用严谨的语言去描述它有些困难。最后只好照着 WIKI 说：ABI 就是两个二进制程序模块之间的接口。有问题吗？没有问题，作为一个概括性的描述，已经足够了。但是让人感觉到有些空洞。
-这一情况在 CS 领域并不少见，笔者之前写的讨论 反射 的文章也遇到完全相同的情况。究其根本，CS 本来就不是一门力求严谨性的学科，很多概念都没有严格的定义，更多的是约定俗成的说法。所以我们就不去纠结定义，而是就实际出发，来看看这些所谓的二进制接口究竟有哪些，又有哪些因素会影响它们的稳定性。
-软件工程讲究分层，对于一个 C++ 程序的 ABI 来说，我们也可以从下面这五个层次来看待。
-CPU &amp;amp; OS # 最终的可执行文件最后都是要运行在特定 CPU 上的特定操作系统的。如果 CPU 的指令集不同，那肯定会导致二进制不兼容，比如 ARM 上的程序没法直接运行在 x64 处理器上（除非借助一些虚拟化技术）。如果指令集兼容呢？比如 x64 处理器就兼容 x86 的指令集，那 x86 程序一定能运行在 x64 操作系统上吗？这时候就要看操作系统了，具体来说，要考虑到 Object File Format（目标文件格式），Data Representation（数据表示）， Function Calling Convention（函数调用约定）和 Runtime Library（运行时库）等因素。这几点就可以看做是操作系统层面的 ABI 规定。第四点我们后面有专门的一节来讨论，下面以 x64 平台为例，就前三点进行讨论。
-x64, x86-64, x86_64, AMD64 和 Intel 64 是一个意思，都是指 x86 指令集的 64 位版本。
-x64 平台上主要有两套常用的 ABI：
-用于 64 位 Windows 操作系统上的 Windows x64 ABI 用于 64 位 Linux 以及一众 UNIX-like 的操作系统上的 x86-64 System V ABI 而从一个动态库里面调用某个函数可以简单的看成下面这个三个步骤：</description>
+      <description>Application Binary Interface 也就是我们常说的 ABI，是个让人感觉到既熟悉又陌生的概</description>
       
     </item>
     
@@ -82,12 +54,7 @@ x64 平台上主要有两套常用的 ABI：
       <pubDate>Mon, 11 Mar 2024 01:33:37 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/686296374/</guid>
-      <description>相信读者经常能听见有人说 C++ 代码二进制膨胀严重，但是一般很少会有人指出具体的原因。在网络上一番搜索过后，发现深入讨论这个问题的文章的并不多。上面那句话更像是八股文的一部分，被口口相传，但是没什么人能说出个所以然。今天小编 ykiko 就带大家一起来探秘 C++ 代码膨胀那些事 (^ω^)
-首先要讨论的是，什么叫做代码膨胀？如果一个函数被大量内联，那相比于不被内联，最终生成的可执行文件是更大了对吧。那这样算膨胀吗？我认为不算，这是我们预期范围内的，可接受的，正常行为。那反过来，不在我们预期范围内的，理论上能消除，但迫于现有的实现却没有消除的代码膨胀，我把它叫做&amp;quot;真正的代码膨胀&amp;quot;。后文所讨论的膨胀都是这个意思。
-用 inline 标记函数会导致膨胀吗？ # 首先要明确，这里的inline是 C++ 中的inline，标准中规定的语义是，允许一个函数的在多个源文件中定义。被inline标记的函数可以直接定义在头文件中，即使被多个源文件#include，也不会导致链接错误，这样可以方便的支持 header-only 的库。
-多份实例的情况 # 既然可以在多个源文件中定义，那是不是就意味着每个源文件都有一份代码实例，会不会导致代码膨胀呢?
-考虑如下示例，开头的注释表示文件名
-// src1.cpp inline int add(int a, int b) { return a + b; } int g1(int a, int b) { return add(a, b); } // src2.cpp inline int add(int a, int b) { return a + b; } int g2(int a, int b){ return add(a, b); } // main.</description>
+      <description>相信读者经常能听见有人说 C++ 代码二进制膨胀严重，但是一般很少会</description>
       
     </item>
     
@@ -97,13 +64,7 @@ x64 平台上主要有两套常用的 ABI：
       <pubDate>Thu, 22 Feb 2024 14:15:32 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/683463723/</guid>
-      <description>前情提要： # https://www.ykiko.me/articles/682031684
-2015-2016：模板的语法糖 # 在 C++ 中支持 全特化 (full specialization) 的模板很多，但是支持 偏特化 (partial specialization) 的模板并不多，事实上其实只有类模板 (class template) 和变量模板 (variable template) 两种支持，而变量模板其实可以看做类模板的语法糖，四舍五入一下其实只有类模板支持偏特化。不支持偏特化会导致有些代码十分难写
-假设我们想实现一个destroy_at函数，效果就是调用对象的析构函数。特别的，如果析构函数是 trivial 的，那我们就省去这次无意义的析构函数调用。
-直觉上我们能写出下面这样的代码
-template&amp;lt;typename T, bool value = std::is_trivially_destructible_v&amp;lt;T&amp;gt;&amp;gt; void destroy_at(T* p) { p-&amp;gt;~T(); } template&amp;lt;typename T&amp;gt; void destroy_at&amp;lt;T, true&amp;gt;(T* p) {} 很可惜，clangd 已经可以智慧的提醒你：Function template partial specialization is not allowed。函数模板不能偏特化，那咋办呢？当然了，可以包一层类模板解决，但是每次遇到这种情况都额外包一层实在是让人难以接受。
-旧时代的做法是利用 SFINAE 来解决这个问题
-template&amp;lt;typename T, std::enable_if_t&amp;lt;(!std::is_trivially_destructible_v&amp;lt;T&amp;gt;)&amp;gt;* = nullptr&amp;gt; void destroy_at(T* p) { p-&amp;gt;~T(); } template&amp;lt;typename T, std::enable_if_t&amp;lt;std::is_trivially_destructible_v&amp;lt;T&amp;gt;&amp;gt;* = nullptr&amp;gt; void destroy_at(T* p) {} 具体的原理这里就不叙述了，虽然少了一层包装，但是仍然有很多与代码逻辑无关的东西出现。这里的std::enable_if_t就是典型例子，严重影响了代码的可读性。</description>
+      <description>前情提要： # https://www.ykiko.me/articles/682031684 2015-2016：模板的语法糖 # 在 C++ 中支持 全</description>
       
     </item>
     
@@ -113,20 +74,7 @@ template&amp;lt;typename T, std::enable_if_t&amp;lt;(!std::is_trivially_destruct
       <pubDate>Sat, 10 Feb 2024 15:15:47 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/682031684/</guid>
-      <description>几个月前，我写了一篇介绍 C++ 模板的文章
-雾里看花：真正意义上的理解 C++ 模板 https://www.ykiko.me/articles/655902377
-理清了现代 C++ 中模板的地位。其中用 constexpr function 替代模板进行编译期计算可以说是现代 C++ 最重要的改进之一了。 constexpr 本身其实并不难以理解，非常直观。但是由于几乎每个 C++ 版本都在改进它，所以不同的 C++ 版本可以使用的内容差别很大，有时候可能给人一种inconsistency的感觉。
-刚好最近我偶然间读到了这篇文章：Design and evolution of constexpr in C++，全面介绍了 C++ 中 constexpr 的发展史，写的非常好。于是便想将其翻译到中文社区。
-但是有趣的是，这篇文章其实也是翻译的。文章的原作者是一位俄罗斯人，文章最初也是发表在俄罗斯的论坛上。这是作者的邮箱：izaronplatz@gmail.com，我已经和他联系过了，他回复到：
-It&amp;rsquo;s always good to spread knowledge in more languages.
-也就是允许翻译了。但是我并不懂俄文，所以主要参考了原文结构，而主体部分，基本都是我重新叙述的。
-原文内容较长，故分为上下两篇，这是上篇
-很神奇吗？ # constexpr 是当代 C++ 中最神奇的关键字之一。它使得某些代码可以在编译期执行。
-随着时间的推移，constexpr 的功能越来越强大。现在几乎可以在编译时计算中使用标准库的所有功能。
-constexpr 的发展历史可以追溯到早期版本的 C++。通过研究标准提案和编译器源代码，我们可以了解这一语言特性是如何一步步地构建起来的，为什么会以这样的形式存在，实际上 constexpr 表达式是如何计算的，未来有哪些可能的功能，以及哪些功能可能会存在但没有被纳入标准。
-本文适合于任何人，无论你是否了解 constexpr ！
-C++98/03：我比你更 const # 在 C++ 中，有些地方需要整数常量（比如内建数组类型的长度），这些值必须在编译期就确定。C++ 标准允许通过简单的表达式来构造常量，例如
-enum EPlants{ APRICOT = 1 &amp;lt;&amp;lt; 0, LIME = 1 &amp;lt;&amp;lt; 1, PAPAYA = 1 &amp;lt;&amp;lt; 2, TOMATO = 1 &amp;lt;&amp;lt; 3, PEPPER = 1 &amp;lt;&amp;lt; 4, FRUIT = APRICOT | LIME | PAPAYA, VEGETABLE = TOMATO | PEPPER, }; template &amp;lt;int V&amp;gt; int foo(int v = 0){ switch(v){ case 1 + 4 + 7: case 1 &amp;lt;&amp;lt; (5 | sizeof(int)): case (12 &amp;amp; 15) + PEPPER: return v; } } int f1 = foo&amp;lt;1 + 2 + 3&amp;gt;(); int f2 = foo&amp;lt;((1 &amp;lt; 2) ?</description>
+      <description>几个月前，我写了一篇介绍 C++ 模板的文章 雾里看花：真正意义上的理</description>
       
     </item>
     
@@ -136,15 +84,7 @@ enum EPlants{ APRICOT = 1 &amp;lt;&amp;lt; 0, LIME = 1 &amp;lt;&amp;lt; 1, PAPAY
       <pubDate>Mon, 29 Jan 2024 09:03:28 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/680412313/</guid>
-      <description>拒绝硬编码 # 定义一个enum
-enum Color { RED, GREEN, BLUE }; 尝试打印
-Color color = RED; std::cout &amp;lt;&amp;lt; color &amp;lt;&amp;lt; std::endl; // output =&amp;gt; 0 如果需要枚举作为日志输出，我们不希望在查看日志的时候，还要人工去根据枚举值去查找对应的字符串，麻烦并且不直观。我们希望直接输出枚举值对应的字符串，比如RED，GREEN，BLUE。
-考虑使用一个数组当map，将枚举值作为key，将字符串作为value，这样就可以通过枚举值直接查找到对应的字符串了
-std::string_view color_map[] = { &amp;#34;RED&amp;#34;, &amp;#34;GREEN&amp;#34;, &amp;#34;BLUE&amp;#34; }; 但是当枚举数量很多的时候，手写并不方便，非常繁琐。具体表现为，如果我们想增加若干枚举定义，那字符串映射表相应的内容也需要修改，当数量达到上百个的时候，很可以会有疏漏。或者接手一个别人的项目，发现他有一大堆枚举，内容太多，手写非常耗时间。
-需要寻找解决办法，能自动的进行相关的修改。在别的语言中，如 Java，C#，Python，可以轻松的通过反射实现这个功能。但是 C++ 目前并没有反射，故此路不通。目前这个问题主要有三种解决方案。
-模板打表 # 这一小节介绍的内容已经有人提前封装好了，可以直接使用 magic enum 这个库。下面主要是对这个库的原理进行解析，为了方便展示，将用 C++20 实现，实际上 C++17 就可以。
-在三大主流编译器中，有一些特殊宏变量。GCC 和 Clang 中的__PRETTY_FUNCTION__，MSVC 中的__FUNCSIG__。这几个宏变量会在编译期间被替换成函数的签名，如果该函数是模板函数则会将模板实例化的信息也输出（也可以使用 C++20 加入标准的 source_location，它具有和这些宏类似的效果）
-template &amp;lt;typename T&amp;gt; void print_fn(){ #if __GNUC__ || __clang__ std::cout &amp;lt;&amp;lt; __PRETTY_FUNCTION__ &amp;lt;&amp;lt; std::endl; #elif _MSC_VER std::cout &amp;lt;&amp;lt; __FUNCSIG__ &amp;lt;&amp;lt; std::endl; #endif } print_fn&amp;lt;int&amp;gt;(); // gcc and clang =&amp;gt; void print_fn() [with T = int] // msvc =&amp;gt; void __cdecl print_fn&amp;lt;int&amp;gt;(void) 特别的，当模板参数是枚举常量的时候，会输出枚举常量的名称</description>
+      <description>拒绝硬编码 # 定义一个enum enum Color { RED, GREEN, BLUE }; 尝试打印 Color color = RED; std::cout</description>
       
     </item>
     
@@ -154,13 +94,7 @@ template &amp;lt;typename T&amp;gt; void print_fn(){ #if __GNUC__ || __clang__ s
       <pubDate>Thu, 25 Jan 2024 09:22:29 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/679782886/</guid>
-      <description>众所周知，现在 C++ 里面有两种特殊的构造函数，即 copy constructor 和 move constructor
-copy constructor 早在 C++98 的时候就加入了，用来拷贝一个对象，像vector这种拥有资源的类型，拷贝的时候会把它拥有的资源也拷贝一份
-std::vector&amp;lt;int&amp;gt; v1 = {1, 2, 3}; std::vector&amp;lt;int&amp;gt; v2 = v1; // copy 当然了，拷贝的开销有些时候非常大，而且完全没必要。于是在 C++11 加入了 move constructor，用来把一个对象的资源转移到另一个对象上。这样相对于直接拷贝，开销是小得多的
-std::vector&amp;lt;int&amp;gt; v1 = {1, 2, 3}; std::vector&amp;lt;int&amp;gt; v2 = std::move(v1); // move 注意 C++ 中的 move 被叫做 non-destructive move。 C++ 标准规定了，被移动过后的对象状态是一种 valid state ，实现需要保证它能够正常调用析构函数。被移动的对象仍然可能被再次使用（具体能否使用取决于实现）。
-结束了？ # 有这两个构造函数就足够了吗？当然没有。事实上还有另一种广泛使用的操作，可以把它叫做 relocate 操作。考虑如下场景
-假设你正在实现一个vector，扩容是必要的，于是你写了一个私有成员函数grow用来进行扩容（下面的代码示例暂时忽略异常安全）
-void grow(std::size_t new_capacity) { auto new_data = malloc(new_capacity * sizeof(T)); for (std::size_t i = 0; i &amp;lt; m_Size; ++i) { new (new_data + i) T(std::move(m_Data[i])); m_Data[i].</description>
+      <description>众所周知，现在 C++ 里面有两种特殊的构造函数，即 copy constructor 和 move constructor copy constructor 早</description>
       
     </item>
     
@@ -170,10 +104,7 @@ void grow(std::size_t new_capacity) { auto new_data = malloc(new_capacity * size
       <pubDate>Mon, 25 Dec 2023 20:45:30 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/674157958/</guid>
-      <description>引子 # 在C++17中引入了叫做「结构化绑定」的特性也就是Struct Bind，这一特性类似于别的语言中的模式匹配，可以让我们方便的对结构体的成员进行访问
-struct Point { int x; int y; }; Point p = {1, 2}; auto [x, y] = p; // x = 1, y = 2 利用它我们能实现一些有趣的功能，包括有限的 对结构体的反射功能，比如实现一个for_each函数
-void for_each(auto&amp;amp;&amp;amp; object, auto&amp;amp;&amp;amp; func) { using T = std::remove_cvref_t&amp;lt;decltype(object)&amp;gt;; if constexpr (std::is_aggregate_v&amp;lt;T&amp;gt;) { auto&amp;amp;&amp;amp; [x, y] = object; for_each(x, func); for_each(y, func); } else { func(object); } } 这样的话对于任意的含有两个成员的聚合类型，我们都可以对其进行遍历
-struct Point { int x; int y; }; struct Line { Point start; Point end; }; Line line = {{ 1, 2 }, { 3, 4 }}; for_each(line, [](auto&amp;amp;&amp;amp; object) { std::cout &amp;lt;&amp;lt; object &amp;lt;&amp;lt; std::endl; // 1 2 3 4 }); 但是这样有一个问题那就是，只能递归的支持结构体字段数量为2的情况，如果你尝试填入一个字段数量为3的结构体，那么编译器就会抛出一个hard error。即结构化绑定数量错误，它不能被SFINAE或者requires处理，会直接导致编译中止</description>
+      <description>引子 # 在C++17中引入了叫做「结构化绑定」的特性也就是St</description>
       
     </item>
     
@@ -183,12 +114,7 @@ struct Point { int x; int y; }; struct Line { Point start; Point end; }; Line li
       <pubDate>Sat, 23 Dec 2023 15:32:28 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/673852429/</guid>
-      <description>事情的起因是我最近在编写的一个库 magic cpp ，正在编写其中enum的相关部分。打算参考一下magic enum的相关实现，在翻 issue的时候翻到这么一个神奇的PR
-​pull request https://github.com/Neargye/magic_enum/pull/227
-我们都知道C++的constexpr/consteval函数可以在编译期执行，目前编译器对此的实现大概是内部实现了一个小型的解释器，用来直接执行代码。然而这个解释器具体是什么表现我们无从得知，但是这个 pr 的作者仅仅改了几行代码就让编译速度提升了不少。
-原代码
-char const* str = name.data(); for (std::size_t i = name.size(); i &amp;gt; 0; --i) { if (!((name[i - 1] &amp;gt;= &amp;#39;0&amp;#39; &amp;amp;&amp;amp; name[i - 1] &amp;lt;= &amp;#39;9&amp;#39;) || (name[i - 1] &amp;gt;= &amp;#39;a&amp;#39; &amp;amp;&amp;amp; name[i - 1] &amp;lt;= &amp;#39;z&amp;#39;) || (name[i - 1] &amp;gt;= &amp;#39;A&amp;#39; &amp;amp;&amp;amp; name[i - 1] &amp;lt;= &amp;#39;Z&amp;#39;) ** 优化代码**
-char const* str = name.</description>
+      <description>事情的起因是我最近在编写的一个库 magic cpp ，正在编写其中enum的</description>
       
     </item>
     
@@ -198,17 +124,7 @@ char const* str = name.</description>
       <pubDate>Sun, 03 Dec 2023 15:40:52 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/670191053/</guid>
-      <description>静态与动态 # 静态类型和动态类型这两个词语相信大家都不陌生了，区分二者的关键在于类型检查的时机。什么意思呢？
-假设我们有如下的 C++ 代码
-std::string s = &amp;#34;123&amp;#34;; int a = s + 1; 那我们知道，string是不能和int直接相加的，所以这里应该有一个 TypeError。C++ 在编译期检查类型错误，所以这段代码会触发一个 compile time error（编译时错误）。
-考虑对应的 Python 代码
-s = &amp;#34;123&amp;#34; a = s + 1 而 Python 则是在运行期检查错误，上述代码实际上会产生一个 runtime error（运行时错误）。
-有必要强调一下这里的编译期 compile time 和 runtime 指代的含义。这些词可能经常会见到，但是在不同的上下文中可以含义不太一样，在我们这里：
-compile time：泛指将一种代码编译为目标代码的时候，这时候程序还没有运行起来
-对于 AOT 编译的语言，例如 C++，就是把 C++ 编译成机器码的过程 对于 JIT 编译的语言，例如如 C#/Java，一般是指把源码编译成 IR 的过程
-对于转译语言来说，例如 TypeScript，则是把 TypeScript 编译成 JavaScript 的过程
-runtime：泛指程序实际运行的时候，比如机器码在 CPU 上执行的时候，或者字节码在虚拟机上执行的时候
-因此 C++，Java，C#，TypeScript 被称作静态类型的语言。而 Python 虽然也有把源码编译到字节码这个阶段，但是这个阶段不进行类型检查，所以 Python 被称作动态类型的语言。</description>
+      <description>静态与动态 # 静态类型和动态类型这两个词语相信大家都不陌生了，</description>
       
     </item>
     
@@ -218,10 +134,7 @@ runtime：泛指程序实际运行的时候，比如机器码在 CPU 上执行�
       <pubDate>Sun, 03 Dec 2023 15:37:51 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/670190357/</guid>
-      <description>首先什么是元信息？ # 来看下面一段python代码，我们希望能够根据传入的字符串来自动修改对应的字段值
-class Person: def __init__(self, age, name): self.age = age self.name = name person = Person(10, &amp;#34;xiaohong&amp;#34;) setattr(person, &amp;#34;age&amp;#34;, 12) setattr(person, &amp;#34;name&amp;#34;, &amp;#34;xiaoming&amp;#34;) print(f&amp;#34;name: {person.name}, age: {person.age}&amp;#34;) # =&amp;gt; name: xiaoming, age: 12 setattr是python内置的一个函数，刚好可以实现我们的需求。根据输入的字段名，修改对应值。
-如果想要在C++中实现应该怎么办呢？C++可没有内置setattr这种函数。代码示例如下。（暂时就先考虑可以直接memcpy的类型了，也就是trivially copyable的类型）
-struct Person { int age; std::string_view name; }; // 名字 -&amp;gt; 字段偏移量，字段大小 std::map&amp;lt;std::string_view, std::pair&amp;lt;std::size_t, std::size_t&amp;gt;&amp;gt; fieldInfo = { {&amp;#34;age&amp;#34;, {offsetof(Person, age), sizeof(int)}}, {&amp;#34;name&amp;#34;, {offsetof(Person, name), sizeof(std::string_view)}}, }; void setattr(Person* point, std::string_view name, void* data) { if (!</description>
+      <description>首先什么是元信息？ # 来看下面一段python代码，我们希望能</description>
       
     </item>
     
@@ -231,10 +144,7 @@ struct Person { int age; std::string_view name; }; // 名字 -&amp;gt; 字段偏
       <pubDate>Wed, 29 Nov 2023 01:14:27 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/669360731/</guid>
-      <description>Clang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最初开发的目的是替代 GNU Compiler Collection (GCC) 的 C 语言前端，目标是提供更快的编译速度、更好的诊断信息和更灵活的架构。Clang 包含一个 C、C++ 和 Objective-C 编译器前端，这些前端设计为可以嵌入到其他项目中。Clang 的一个重要特点是其模块化架构，使开发者能够更轻松地扩展和定制编译器的功能。Clang 被广泛应用于许多项目，包括 LLVM 自身、一些操作系统内核的开发以及一些编程语言的编译器实现。
-除了作为编译器使用之外，Clang 还可以作为一个库提供，使开发者能够在其应用程序中利用编译器的功能，例如源代码分析和生成。Clang 可以用来获取 C++ 源文件的抽象语法树 (AST)，以便进一步处理这些信息。本文将介绍如何使用 Clang 工具。
-Installation &amp;amp; Usage # 目前，Clang 被划分为以下库和工具：libsupport、libsystem、libbasic、libast、liblex、libparse、libsema、libcodegen、librewrite、libanalysis。由于 Clang 本身是用 C++ 编写的，所以相关的接口都是 C++ 的。然而，由于 C++ 接口本身的复杂性和不稳定性（例如：在 Windows 上由 GCC 编译出来的 DLL 无法给 MSVC 使用，或者 Clang 自身版本升级导致 API 变动，从而出现不兼容性），官方并不推荐优先使用 C++ 接口。
-除了 C++ 接口之外，官方还提供了一个叫做 libclang 的 C 语言接口，这个接口不仅使用起来相对简单，而且本身也比较稳定。唯一的缺点是无法获取完整的 C++ 抽象语法树 (AST)，不过鉴于 C++ 完整的语法树本身就极度复杂，很多时候我们只需要其中的一小部分信息，所以这个问题通常可以忽略，除非你真的有这方面的需求。</description>
+      <description>Clang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最初开发的目的</description>
       
     </item>
     
@@ -244,14 +154,7 @@ Installation &amp;amp; Usage # 目前，Clang 被划分为以下库和工具：l
       <pubDate>Wed, 29 Nov 2023 01:14:16 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/669359855/</guid>
-      <description>引入 # 刚好拿最近的一个需求作为引入吧。我们都知道 markdown 可以用lang来填入代码块，并支持代码高亮。可是我想支持自己定义的代码高亮规则，遇到了如下问题：
-有些网站对 markdown 渲染是静态的，不能运行脚本，所以没法直接调用那些 Javascript 的代码高亮库。例如 Github 上面对 markdown 文件的渲染 究竟支持哪些语言一般是由渲染引擎决定的，比如 Github 的渲染支持和 的所支持的就不同。如果要针对不同的渲染引擎写扩展，每个都得写一份，工作量太大了，而且相关的资料很少 那真就没有办法了吗？唉，办法还是有的，幸好大多数引擎都支持直接用 html 的规则，比如&amp;lt;code&amp;gt;来进行渲染
-&amp;lt;code style= &amp;#34;color: #5C6370;font-style: italic;&amp;#34;&amp;gt; # this a variable named &amp;amp;#x27;a&amp;amp;#x27; &amp;lt;/code&amp;gt; 这为我们添加自定义样式提供了可能。但是我们写 markdown 的源文件不能手写这种代码的啊。如果一个语句有三种不同颜色，如果是let a = 3;这样的语句，意味着光一句话我们就得写三个不同的&amp;lt;span&amp;gt;。非常难写，后面维护起来也不好维护，
-事实上我们可以这么做，读取 markdown 的源文件，源文件就按照正常的 markdown 语法写，然后我们在读取的时候，遇到lang的时候，把文本提取出来，然后交给负责渲染的库渲染成 dom 文本，我选择的是highlight.js这个库。然后把原来的文本替换掉，单独输出在新的文件夹里，比如原来的叫文件夹叫 src，新的叫 out。这样的话源文件不需要任何修改，然后实际渲染的是 out 文件夹里面的内容就好了。每次我们更改完源文件，运行一下这个程序做一下转换就行了。
-什么是Code Generation # 其实上面的案例就是一个典型的使用『代码生成』也即 code generation 解来决问题的案例。那究竟什么是代码生成呢？这其实也是一个含义相当广泛的词汇。一般来说
-代码生成是指是指通过使用计算机程序来生成其他程序或代码的过程
-包括但不限于：
-编译器生成目标代码： 这是最典型的例子，其中编译器将高级编程语言的源代码翻译成机器可执行的目标代码 使用配置文件或 DSL 生成代码：通过特定的配置文件或领域特定语言 (DSL)，生成实际的代码。一个示例是使用 XML 配置文件来定义 UI 界面，然后生成相应的代码 语言内建特性生成代码： 一些编程语言具有内建的特性，如宏、泛型等，可以在编译时或运行时生成代码。这样的机制可以提高代码的灵活性和重用性。 外部代码生成器： 某些框架或库使用外部代码生成器来创建所需的代码。例如，Qt 框架使用元对象编译器 (MOC) 来处理元对象系统，生成与信号和槽相关的代码。 下面就这几点来举一些具体的例子：</description>
+      <description>引入 # 刚好拿最近的一个需求作为引入吧。我们都知道 markdown 可以用la</description>
       
     </item>
     
@@ -261,12 +164,7 @@ Installation &amp;amp; Usage # 目前，Clang 被划分为以下库和工具：l
       <pubDate>Wed, 29 Nov 2023 01:14:02 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/669358870/</guid>
-      <description>What is Reflection? # 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的惯用词一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 std::Any 模块 的介绍。里面提到了
-Utilities for dynamic typing or type reflection 用于动态类型或类型反射的工具
-但是尴尬就尴尬在，你说它是反射吧，功能非常鸡肋，你说它不是吧，硬要说有这种体现也不是不行。
-类似的情况在 C++ 中也经常发生。相信你也经常能听到如下观点：C++ 只有非常弱的反射即 RTTI(Run Time Type Information)，但是 C++ 的一些框架比如 QT，UE 自己实现了反射。在最近的讨论中，网上的博客中又或者 C++ 新标准的提案中，你可能又会听到所谓：
-静态反射 (static reflection) 动态反射 (dynamic reflection) 编译期反射 (compile time reflection) 运行期反射 (runtime reflection) 这样一大堆名词实在是让人听的云里雾里，晕头转向。而且 static, dynamic, compile time, runtime 这些前缀词本身也都是惯用词，经常和各种词组合起来，于语境不同有非常多的含义。
-有的读者可能会说，我查了 WIKI，反射 明明就是有定义的啊，如下：</description>
+      <description>What is Reflection? # 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一</description>
       
     </item>
     
@@ -276,12 +174,7 @@ Utilities for dynamic typing or type reflection 用于动态类型或类型反�
       <pubDate>Mon, 16 Oct 2023 18:38:26 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/661692275/</guid>
-      <description>最近打算写一个系列文章详细讨论反射（reflection）这一概念，刚好 C++26 有了新的反射提案，发现知乎上又没有相关的文章，而这个话题又经常被讨论。所以借此机会来聊一聊属于 C++ 的静态反射（static reflection），作为系列预热了。
-what is static reflection? # 首先反射是指什么呢？这个词就像计算机科学领域很多其他的惯用词一样，并没有详细而准确的定义。关于这个问题，我不打算在这个文章讨论，后续的文章我会详细的解释。本文的重点是 C++ 的 static reflection，为什么强调 static 呢？主要是因为平常我们谈论到反射的时候几乎总是指 Java，C#，Python 这些语言中的反射，而它们的实现方式无一不是把类型擦除，在运行期进行信息的查询。这种方式当然有不可避免的运行时开销，而这种开销显然是违背了 C++ zero cost abstraction 的原则的。为了和它们的反射区分开来，故加上 static 作为限定词，也指示了 C++ 的反射是在编译期完成的。当然，这种说法仍然缺乏一些严谨性。详细的讨论在后续的文章给出，你只需要知道 C++ 的静态反射和 Java，C#，Python 的反射不同，并且主要是在编译期完成的就行了。
-what can static reflection do? # type as value # 我们都知道随着 C++ 版本的不断更新，编译期计算的功能在不断的增强，通过constexpr/consteval函数我们能很大程度上直接复用运行期的代码，方便的进行编译期计算。完全取代了很久之前使用模板元进行编译期计算的方法。不仅写起来更加方便，编译速度也更快。
-观察下面几段编译期计算阶乘的代码：
-在 C++03/98 的时候，我们只能通过模板递归实例化来实现，而且无法将代码复用到运行期
-template&amp;lt;int N&amp;gt; struct factorial { enum { value = N * factorial&amp;lt;N - 1&amp;gt;::value }; }; template&amp;lt;&amp;gt; struct factorial&amp;lt;0&amp;gt; { enum { value = 1 }; }; C++11 中第一次引入了constexpr函数的概念，使得我们可以编写编译期和运行期复用的代码。但是限制很多，没有变量和循环，我们只能按照纯函数式的风格来编写代码</description>
+      <description>最近打算写一个系列文章详细讨论反射（reflection）这</description>
       
     </item>
     
@@ -291,10 +184,7 @@ template&amp;lt;int N&amp;gt; struct factorial { enum { value = N * factorial&am
       <pubDate>Wed, 04 Oct 2023 06:50:12 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/659510753/</guid>
-      <description>Introduction # 在 C++ 中，形如&amp;amp;T::name的表达式返回的结果就是成员指针。写代码的时候偶尔会用到，但是这个概念可能很多人都并不熟悉。考虑如下代码
-struct Point { int x; int y; }; int main() { Point point; *(int*)((char*)&amp;amp;point + offsetof(Point, x)) = 20; *(int*)((char*)&amp;amp;point + offsetof(Point, y)) = 20; } 在 C 语言中，我们经常通过这样计算 offset 的方式来访问结构体成员。如果把它封装成函数，还能用来根据传入的参数动态访问结构体的成员变量。然而上面的代码在 C++ 中是 undefined behavior，具体的原因可以参考 Stack Overflow 上的这个讨论。但是如果我们确实有这样需求，那该怎么合法的实现需求呢？C++ 为我们提供了一层抽象：pointers to members，用来合法进行这样的操作。
-Usage # pointer to data member # 一个指向类C非静态成员m的成员指针可以用&amp;amp;C::m进行初始化。当在C的成员函数里面使用&amp;amp;C::m会出现二义性。即既可以指代对m成员取地址&amp;amp;this-&amp;gt;m，也可以指代成员指针。为此标准规定，&amp;amp;C::m表示成员指针，&amp;amp;(C::m)或者&amp;amp;m表示对m成员取地址。可以通过运算符.*和-&amp;gt;*来访问对应的成员。示例代码如下
-struct C { int m; void foo() { int C::*x1 = &amp;amp;C::m; // pointer to member m of C int* x2 = &amp;amp;(C::m); // pointer to member this-&amp;gt;m } }; int main() { int C::*p = &amp;amp;C::m; // type of a member pointer is: T U::* // T is the type of the member, U is the class type // here, T is int, U is C C c = {7}; std::cout &amp;lt;&amp;lt; c.</description>
+      <description>Introduction # 在 C++ 中，形如&amp;amp;T::name的表达式返回的结果就</description>
       
     </item>
     
@@ -304,14 +194,7 @@ struct C { int m; void foo() { int C::*x1 = &amp;amp;C::m; // pointer to member 
       <pubDate>Tue, 12 Sep 2023 15:46:11 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/655902377/</guid>
-      <description>在 C++ 中，模板（Template）这个概念已经存在二十多年了。作为 C++ 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，相关深入的有价值的讨论很少，尤其是提供多个视角看待这一技术。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了一大堆，但却不得其要领，反倒容易把不同的概念混淆在一起。
-就我个人而言，讨论一个问题喜欢多层次，多角度的去讨论，而不仅限某一特定的方面。这样一来，既能更好的理解问题本身，也不至于让自己的视野太狭隘。故本文将尝试从模板诞生之初开始讲起，以四个角度来观察，理清模板这一技术在 C++ 中的发展脉络。注意，本文并不是教学文章，不会深入语法细节。更多的谈论设计哲学和 trade-off 。掌握一点点模板的基础知识就能看懂，请放心食用。当然这样可能严谨性有所缺失，如有错误欢迎评论区讨论。
-我们主要讨论四个主题：
-控制代码生成，实现泛型 做泛型约束 编译期计算 对类型做计算 其中第一个主题一般认为就是普通的 Template。而后三者一般被规划到「TMP」中去。TMP 即 Template meta programming 也就是模板元编程。因为模板设计之初的意图并不是实现后面这三个功能，但是能以比较抽搐的语法来实现这些功能，代码写起来也比较抽象难懂，所以一般叫做元编程。
-代码生成，实现泛型 # 事实上，这一点正是模板被设计之初的用法，用于实现泛型。在加入模板之前，常常使用宏来实现泛型。考虑下面这个简单的示例：
-#define add(T) _ADD_IMPL_##T #define ADD_IMPL(T) \ T _ADD_IMPL_##T(T a, T b) { return a + b; } ADD_IMPL(int); ADD_IMPL(float); int main() { add(int)(1, 2); add(float)(1.0f, 2.0f); } 原理倒是很简单，其实就是把函数里面的类型替换成了宏参数。然后通过IMPL来「实例化」一个函数定义，最后直接使用就行了。但是上面的代码有很多缺点：
-代码可读性差，宏的拼接和代码逻辑耦合 没法调试，宏只有展开后才能调试 ，报错信息不好阅读 在使用对应的函数之前，必须手动实例化，比如上面的ADD_IMPL(int) 需要显式写出对应的泛型类型，没法自动推导泛型类型 这些问题，在模板中都被解决了：
-template &amp;lt;typename T&amp;gt; T add(T a, T b) { return a + b; } template int add&amp;lt;&amp;gt;(int, int); // 显式实例化 int main() { add&amp;lt;int&amp;gt;(1, 2); // 显式指定模板参数 T add(1, 2); // 自动推导模板参数 T add(1.</description>
+      <description>在 C++ 中，模板（Template）这个概念已经存在二十多年了。</description>
       
     </item>
     
@@ -321,9 +204,7 @@ template &amp;lt;typename T&amp;gt; T add(T a, T b) { return a + b; } template i
       <pubDate>Sun, 30 Jul 2023 01:29:27 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/646812253/</guid>
-      <description>前情提要： # C++ 禁忌黑魔法: STMP https://www.ykiko.me/articles/646752343
-什么是 STMP 多态 # struct Any{ void* data; std::size_t index; }; int main() { Set&amp;lt;&amp;gt;(); std::vector&amp;lt;Any&amp;gt; vec = make_any(1, std::string(&amp;#34;hello&amp;#34;), 3.14); for(auto&amp;amp;&amp;amp; any: vec) { visit([](auto&amp;amp;&amp;amp; v) { std::cout &amp;lt;&amp;lt; v &amp;lt;&amp;lt; std::endl; }, any); } vec.push_back(make_any(std::string_view(&amp;#34;world&amp;#34;))); vec.push_back(make_any(A{})); std::cout &amp;lt;&amp;lt; &amp;#34;-----------------------&amp;#34; &amp;lt;&amp;lt; std::endl; for(auto&amp;amp;&amp;amp; any: vec) { visit([](auto&amp;amp;&amp;amp; v) { std::cout &amp;lt;&amp;lt; v &amp;lt;&amp;lt; std::endl; }, any); } } STMP多态把所有类型都擦成了Any类型，但是与std::any不同的是，std::any需要显示进行类型转换，非常麻烦，但是我们的Any可以方便的使用visit进行访问，不需要任何显示类型转换。这是因为我们利用了STMP，实现了类型的自动注册。
-相关的代码仍然放 Compiler Explorer 上。为了防止链接失效，同样放在 Github。</description>
+      <description>前情提要： # C++ 禁忌黑魔法: STMP https://www.ykiko.me/articles/646752343 什么是 STMP 多态 # struct Any{ void* data; std::size_t index; }; int</description>
       
     </item>
     
@@ -333,10 +214,7 @@ template &amp;lt;typename T&amp;gt; T add(T a, T b) { return a + b; } template i
       <pubDate>Sat, 29 Jul 2023 10:20:50 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/646752343/</guid>
-      <description>STMP 全名 stateful template meta programming，又叫状态元编程。之所以这么称呼，是因为传统的 C++ 的常量表达式求值既不依赖，也不能改变全局的状态，对于任意确定的输入，它的输出结果总是不变的，是 purely functional 的。
-但是事实真的如此吗？
-在不触发未定义行为的情况下，下面的代码可能通过编译吗？ constexpr auto a = f(); constexpr auto b = f(); static_assert(a != b); 再考虑下这样计数器的实现，这可能做到吗？ constexpr auto a = f(); constexpr auto b = f(); constexpr auto c = f(); static_assert(a == 0 &amp;amp;&amp;amp; b == 1 &amp;amp;&amp;amp; c == 2); 事实上通过一些编译器内置的宏，我们是可以做到的。比如
-constexpr auto a = __COUNTER__; constexpr auto b = __COUNTER__; constexpr auto c = __COUNTER__; static_assert(a == 0 &amp;amp;&amp;amp; b == 1 &amp;amp;&amp;amp; c == 2); 利用主流 C++ 编译器都内置的__COUNTER__宏可以实现上述的效果。但是即使三大编译器都有这个宏，它也不是标准的语法。并且这个计数器是全局唯一的，我们并不能创建很多个计数器。那还有别的办法吗？并且不依赖于编译器扩展？</description>
+      <description>STMP 全名 stateful template meta programming，又叫状态元编程。之所以这</description>
       
     </item>
     
@@ -346,11 +224,7 @@ constexpr auto a = __COUNTER__; constexpr auto b = __COUNTER__; constexpr auto c
       <pubDate>Tue, 25 Jul 2023 07:19:25 +0000</pubDate>
       
       <guid>https://www.ykiko.me/articles/645810896/</guid>
-      <description>sum type # 下面让我们来讨论 CS 中一个简单但非常有用的概念：sum type，直译过来就是和类型，是一种可以容纳多种类型的类型。什么意思呢？假设现在有一个Shape类型，它可以是Circle或者Rectangle，在 C 语言中怎么实现它呢？使用union我们不难写出如下的实现
-struct Circle { double radius; }; struct Rectangle { double width; double height; }; struct Shape { enum Type { Circle, Rectangle } type; union { struct Circle circle; struct Rectangle rectangle; }; }; 这里使用了叫做 anonymous union 的特性，相当于声明了一个对应类型的 union 成员，并且把字段名字注入到当前作用域。
-这样我们就可以定义一个Shape类型的变量，给它赋不同类型的值。访问的时候根据type的值来判断它是Circle还是Rectangle就行了。上面这种写法也可以被叫做 tagged union，在C语言里面我们经常这么做。
-但在 C++ 中，事情就没这么简单了。考虑如下代码
-struct Settings { enum class Type { int_, double_, string }; Type type; union { int i; double d; std::string s; }; }; int main(){ Settings settings; settings.</description>
+      <description>sum type # 下面让我们来讨论 CS 中一个简单但非常有用的概念：sum t</description>
       
     </item>
     
