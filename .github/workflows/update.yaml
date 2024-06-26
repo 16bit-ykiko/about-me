@@ -58,7 +58,7 @@ jobs:
           git clone https://github.com/jpanther/congo -b stable --depth=1
           ls
           cd ..
-          hugo --minify
+          hugo
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
