@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on ykiko&#39;s blog</title>
+    <link>https://www.ykiko.me/categories/</link>
+    <description>Recent content in Categories on ykiko&#39;s blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>©2024 ykiko</copyright>
+    <atom:link href="https://www.ykiko.me/categories/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>

@@ -1,0 +1,1169 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html
+  lang="zh-cn"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="dark"
+  data-auto-appearance="false"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="rgb(255,255,255)" />
+  
+  <title>跨越 7 年的接力赛：获取 C&#43;&#43; 结构体字段数量 &middot; ykiko&#39;s blog</title>
+    <meta name="title" content="跨越 7 年的接力赛：获取 C&#43;&#43; 结构体字段数量 &middot; ykiko&#39;s blog" />
+  
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.74ad8406faea02f3e186ba5126249aaeed9073629e04b05037b903396b188724.js"
+    integrity="sha256-dK2EBvrqAvPhhrpRJiSaru2Qc2KeBLBQN7kDOWsYhyQ="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.9602fe0216290b9ff0322c1fd14e88ab9fc0a13741f4de563f67831708d72bb2.css"
+    integrity="sha256-lgL&#43;AhYpC5/wMiwf0U6Iq5/AoTdB9N5WP2eDFwjXK7I="
+  />
+  
+    
+    
+    
+  
+  
+  
+    
+    
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.af5d9722112bedac95702865c340bcd6286c4e9b2c15ce26b531ea1fba974cb8.js"
+      integrity="sha256-r12XIhEr7ayVcChlw0C81ihsTpssFc4mtTHqH7qXTLg="
+      data-copy="复制"
+      data-copied="已复制"
+    ></script>
+  
+  
+  <meta
+    name="description"
+    content="
+      
+        引子 #在C&#43;&#43;17中引入了叫做「结构化绑定」的特性也就是Struct Bind，这一特性类似于别的语言中的模式匹配，可以让我们方便的对结构体的成员进行访问
+struct Point { int x; int y; }; Point p = {1, 2}; auto [x, y] = p; // x = 1, y = 2 利用它我们能实现一些有趣的功能，包括有限的 对结构体的反射功能，比如实现一个for_each函数
+void for_each(auto&amp;&amp; object, auto&amp;&amp; func) { using T = std::remove_cvref_t&lt;decltype(object)&gt;; if constexpr (std::is_aggregate_v&lt;T&gt;) { auto&amp;&amp; [x, y] = object; for_each(x, func); for_each(y, func); } else { func(object); } } 这样的话对于任意的含有两个成员的聚合类型，我们都可以对其进行遍历
+struct Point { int x; int y; }; struct Line { Point start; Point end; }; Line line = {{ 1, 2 }, { 3, 4 }}; for_each(line, [](auto&amp;&amp; object) { std::cout &lt;&lt; object &lt;&lt; std::endl; // 1 2 3 4 }); 但是这样有一个问题那就是，只能递归的支持结构体字段数量为2的情况，如果你尝试填入一个字段数量为3的结构体，那么编译器就会抛出一个hard error。即结构化绑定数量错误，它不能被SFINAE或者requires处理，会直接导致编译中止
+      
+    "
+  />
+  
+  
+  
+  <link rel="canonical" href="https://www.ykiko.me/posts/674157958/" />
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://www.ykiko.me/posts/674157958/">
+  <meta property="og:site_name" content="ykiko&#39;s blog">
+  <meta property="og:title" content="跨越 7 年的接力赛：获取 C&#43;&#43; 结构体字段数量">
+  <meta property="og:description" content="引子 #在C&#43;&#43;17中引入了叫做「结构化绑定」的特性也就是Struct Bind，这一特性类似于别的语言中的模式匹配，可以让我们方便的对结构体的成员进行访问
+struct Point { int x; int y; }; Point p = {1, 2}; auto [x, y] = p; // x = 1, y = 2 利用它我们能实现一些有趣的功能，包括有限的 对结构体的反射功能，比如实现一个for_each函数
+void for_each(auto&amp;&amp; object, auto&amp;&amp; func) { using T = std::remove_cvref_t&lt;decltype(object)&gt;; if constexpr (std::is_aggregate_v&lt;T&gt;) { auto&amp;&amp; [x, y] = object; for_each(x, func); for_each(y, func); } else { func(object); } } 这样的话对于任意的含有两个成员的聚合类型，我们都可以对其进行遍历
+struct Point { int x; int y; }; struct Line { Point start; Point end; }; Line line = {{ 1, 2 }, { 3, 4 }}; for_each(line, [](auto&amp;&amp; object) { std::cout &lt;&lt; object &lt;&lt; std::endl; // 1 2 3 4 }); 但是这样有一个问题那就是，只能递归的支持结构体字段数量为2的情况，如果你尝试填入一个字段数量为3的结构体，那么编译器就会抛出一个hard error。即结构化绑定数量错误，它不能被SFINAE或者requires处理，会直接导致编译中止">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-12-25T20:45:30+00:00">
+    <meta property="article:modified_time" content="2023-12-25T20:45:30+00:00">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="跨越 7 年的接力赛：获取 C&#43;&#43; 结构体字段数量">
+  <meta name="twitter:description" content="引子 #在C&#43;&#43;17中引入了叫做「结构化绑定」的特性也就是Struct Bind，这一特性类似于别的语言中的模式匹配，可以让我们方便的对结构体的成员进行访问
+struct Point { int x; int y; }; Point p = {1, 2}; auto [x, y] = p; // x = 1, y = 2 利用它我们能实现一些有趣的功能，包括有限的 对结构体的反射功能，比如实现一个for_each函数
+void for_each(auto&amp;&amp; object, auto&amp;&amp; func) { using T = std::remove_cvref_t&lt;decltype(object)&gt;; if constexpr (std::is_aggregate_v&lt;T&gt;) { auto&amp;&amp; [x, y] = object; for_each(x, func); for_each(y, func); } else { func(object); } } 这样的话对于任意的含有两个成员的聚合类型，我们都可以对其进行遍历
+struct Point { int x; int y; }; struct Line { Point start; Point end; }; Line line = {{ 1, 2 }, { 3, 4 }}; for_each(line, [](auto&amp;&amp; object) { std::cout &lt;&lt; object &lt;&lt; std::endl; // 1 2 3 4 }); 但是这样有一个问题那就是，只能递归的支持结构体字段数量为2的情况，如果你尝试填入一个字段数量为3的结构体，那么编译器就会抛出一个hard error。即结构化绑定数量错误，它不能被SFINAE或者requires处理，会直接导致编译中止">
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "跨越 7 年的接力赛：获取 C\u002b\u002b 结构体字段数量",
+    "headline": "跨越 7 年的接力赛：获取 C\u002b\u002b 结构体字段数量",
+    
+    "abstract": "引子 #在C\u002b\u002b17中引入了叫做「结构化绑定」的特性也就是Struct Bind，这一特性类似于别的语言中的模式匹配，可以让我们方便的对结构体的成员进行访问\nstruct Point { int x; int y; }; Point p = {1, 2}; auto [x, y] = p; \/\/ x = 1, y = 2 利用它我们能实现一些有趣的功能，包括有限的 对结构体的反射功能，比如实现一个for_each函数\nvoid for_each(auto\u0026amp;\u0026amp; object, auto\u0026amp;\u0026amp; func) { using T = std::remove_cvref_t\u0026lt;decltype(object)\u0026gt;; if constexpr (std::is_aggregate_v\u0026lt;T\u0026gt;) { auto\u0026amp;\u0026amp; [x, y] = object; for_each(x, func); for_each(y, func); } else { func(object); } } 这样的话对于任意的含有两个成员的聚合类型，我们都可以对其进行遍历\nstruct Point { int x; int y; }; struct Line { Point start; Point end; }; Line line = {{ 1, 2 }, { 3, 4 }}; for_each(line, [](auto\u0026amp;\u0026amp; object) { std::cout \u0026lt;\u0026lt; object \u0026lt;\u0026lt; std::endl; \/\/ 1 2 3 4 }); 但是这样有一个问题那就是，只能递归的支持结构体字段数量为2的情况，如果你尝试填入一个字段数量为3的结构体，那么编译器就会抛出一个hard error。即结构化绑定数量错误，它不能被SFINAE或者requires处理，会直接导致编译中止",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/www.ykiko.me\/posts\/674157958\/",
+    "author" : {
+      "@type": "Person",
+      "name": "ykiko"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-12-25T20:45:30\u002b00:00",
+    "datePublished": "2023-12-25T20:45:30\u002b00:00",
+    
+    "dateModified": "2023-12-25T20:45:30\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1687"
+  }
+  </script>
+
+
+  
+  <meta name="author" content="ykiko" />
+  
+    
+      <link href="https://github.com/16bit-ykiko" rel="me" />
+    
+      <link href="mailto:ykikoykikoykiko@gmail.com" rel="me" />
+    
+      <link href="https://www.zhihu.com/people/75-49-80-77" rel="me" />
+    
+      <link href="https://space.bilibili.com/360835081" rel="me" />
+    
+      <link href="https://bangumi.tv/user/857516" rel="me" />
+    
+  
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+
+
+
+
+  
+  
+</head>
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 sm:px-14 md:px-24 lg:px-32 dark:bg-neutral-800 dark:text-neutral"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >跳到主要内容</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold text-neutral-900 print:hidden sm:py-10 dark:text-neutral">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="flex flex-row items-center">
+      
+  <a
+    class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+    rel="me"
+    href="/"
+    >ykiko&rsquo;s blog</a
+  >
+
+    </div>
+    
+    
+      <ul class="flex list-none flex-col text-end sm:flex-row">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href=""
+                  title=""
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >关于我</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href=""
+                  title=""
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >研究</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href="/posts/"
+                  title=""
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >博客</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+          
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              <button id="search-button-m0" title="搜索 (/)">
+                <span
+                  class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                >
+                  <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+                </span>
+              </button>
+            </li>
+          
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        跨越 7 年的接力赛：获取 C++ 结构体字段数量
+      </h1>
+      
+        <div class="mb-12 mt-8 text-base text-neutral-500 print:hidden dark:text-neutral-400">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2023-12-25 20:45:30 &#43;0000 UTC">December 25, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>1687 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span>
+    
+
+    
+    
+  </div>
+
+  
+  
+    <div class="my-1 flex flex-wrap text-xs leading-relaxed text-neutral-500 dark:text-neutral-400">
+      
+        
+      
+        
+      
+    </div>
+  
+
+
+        </div>
+      
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <h1 id="引子" class="relative group">引子 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%bc%95%e5%ad%90" aria-label="锚点">#</a></span></h1><p>在<code>C++17</code>中引入了叫做「<strong>结构化绑定</strong>」的特性也就是<code>Struct Bind</code>，这一特性类似于别的语言中的模式匹配，可以让我们方便的对结构体的成员进行访问</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Point</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Point</span> <span class="n">p</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// x = 1, y = 2
+</span></span></span></code></pre></div><p>利用它我们能实现一些有趣的功能，包括<em>有限的</em> 对结构体的反射功能，比如实现一个<code>for_each</code>函数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">for_each</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">object</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">func</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">T</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">remove_cvref_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">object</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="k">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_aggregate_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">object</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">for_each</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">func</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">for_each</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">func</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">func</span><span class="p">(</span><span class="n">object</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>这样的话对于任意的含有两个成员的聚合类型，我们都可以对其进行遍历</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Point</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Line</span> <span class="p">{</span> <span class="n">Point</span> <span class="n">start</span><span class="p">;</span> <span class="n">Point</span> <span class="n">end</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Line</span> <span class="n">line</span> <span class="o">=</span> <span class="p">{{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">},</span> <span class="p">{</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">}};</span>
+</span></span><span class="line"><span class="cl"><span class="n">for_each</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="p">[](</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">object</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">object</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 1 2 3 4
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">});</span>
+</span></span></code></pre></div><p>但是这样有一个问题那就是，只能递归的支持结构体字段数量为<code>2</code>的情况，如果你尝试填入一个字段数量为<code>3</code>的结构体，那么编译器就会抛出一个<code>hard error</code>。即结构化绑定数量错误，它不能被<code>SFINAE</code>或者<code>requires</code>处理，会直接导致编译中止</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Vec3</span> <span class="p">{</span> <span class="kt">float</span> <span class="n">x</span><span class="p">;</span> <span class="kt">float</span> <span class="n">y</span><span class="p">;</span> <span class="kt">float</span> <span class="n">z</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 里面是个 lambda
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">value</span> <span class="o">=</span> <span class="k">requires</span><span class="p">{</span> <span class="p">[](){</span> <span class="k">auto</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">Vec3</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">};</span> <span class="p">};</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// hard error
+</span></span></span></code></pre></div><p>我们可以通过手动分发的方式来解决这个问题</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="n">N</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">object</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span> <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="n">N</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">object</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span> <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="n">N</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span> <span class="o">=</span> <span class="n">object</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span></code></pre></div><p>你可以自由枚举到你想要支持的数量，这里面的<code>N</code>就是结构体字段数量了，你可能需要把它作为模板参数显式传入，或者给每个类型都特化一个模板，里面存上它的字段数量。但是这仍然很麻烦，那么有没有一种方法可以让编译器自动的帮我们计算出结构体的字段数量呢？</p>
+<h1 id="第一棒-antony-polukhin" class="relative group">第一棒 Antony Polukhin <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e7%ac%ac%e4%b8%80%e6%a3%92-antony-polukhin" aria-label="锚点">#</a></span></h1><p>初步解决方案在 <a href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost_pfr.html" target="_blank" rel="noreferrer">boost/pfr</a> 中就已经给出了，其作者 Antony Polukhin 在 <a href="https://www.youtube.com/watch?v=abdeAew3gmQ" target="_blank" rel="noreferrer">CppCon2016</a> 和 <a href="https://www.youtube.com/watch?v=UlNUNxLtBI0" target="_blank" rel="noreferrer">CppCon2018</a> 中对此做了详细的介绍，不过作者采用的版本是<code>C++14/17</code>，其中的代码较为晦涩难懂，在我使用<code>C++20</code>进行重写之后可读性提高了不少。</p>
+<p>首先在<code>C++</code>中我们可以写一个<code>Any</code>类型，它支持向任意类型进行转换，其实就是把它的 <a href="https://en.cppreference.com/w/cpp/language/cast_operator" target="_blank" rel="noreferrer">类型转换函数</a> 写成模板函数就行了</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Any</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="nf">Any</span><span class="p">(</span><span class="kt">int</span><span class="p">){};</span> <span class="c1">// 支持从 int 构造
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">operator</span> <span class="n">T</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_convertible_v</span><span class="o">&lt;</span><span class="n">Any</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_convertible_v</span><span class="o">&lt;</span><span class="n">Any</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// true
+</span></span></span></code></pre></div><p>之后我们可以利用聚合初始化的特性，那就是对于超出聚合初始化最大数量的表达式，<code>requires</code>语句会返回<code>false</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Point</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">test</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 利用 make_index_sequence 构造 N 个参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="p">[]</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">...</span> <span class="n">I</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">index_sequence</span><span class="o">&lt;</span><span class="n">I</span><span class="p">...</span><span class="o">&gt;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">requires</span><span class="p">{</span> <span class="n">T</span><span class="p">{</span> <span class="n">Any</span><span class="p">(</span><span class="n">I</span><span class="p">)...</span> <span class="p">};</span> <span class="p">};</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">}(</span><span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span><span class="p">{});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">test</span><span class="o">&lt;</span><span class="n">Point</span><span class="p">,</span> <span class="mi">0</span><span class="o">&gt;</span><span class="p">());</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">test</span><span class="o">&lt;</span><span class="n">Point</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">());</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">test</span><span class="o">&lt;</span><span class="n">Point</span><span class="p">,</span> <span class="mi">2</span><span class="o">&gt;</span><span class="p">());</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">test</span><span class="o">&lt;</span><span class="n">Point</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span><span class="p">());</span> <span class="c1">// false
+</span></span></span></code></pre></div><p>注意到这里<code>Point</code>只有两个成员，当我们传入了三个参数给初始化列表的时候，<code>requires</code>就会返回<code>false</code>。利用这个特性，我们可以把上面的尝试过程改成递归的，也就是线性查找这个序列直到找到<code>false</code>为止。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">member_count</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="o">!</span><span class="n">test</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">member_count</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>如果<code>test&lt;T, N&gt;</code>为真说明<code>N</code>个参数可以成功构造<code>T</code>，那么我们就递归的尝试<code>N + 1</code>个参数，直到<code>test&lt;T, N&gt;</code>为假，那么<code>N - 1</code>就是<code>T</code>的成员数量了。这样我们就可以通过<code>member_count&lt;T&gt;()</code>来获取<code>T</code>的成员数量了。测试一下效果</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span><span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">a</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">member_count</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">B</span><span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">a</span><span class="p">;</span> <span class="kt">int</span> <span class="n">b</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">member_count</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
+</span></span></code></pre></div><p>很好啊，大获成功！事情到这里就结束了吗？</p>
+<h1 id="第二棒-joão-baptista" class="relative group">第二棒 João Baptista <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e7%ac%ac%e4%ba%8c%e6%a3%92-jo%c3%a3o-baptista" aria-label="锚点">#</a></span></h1><p>考虑下面这三个例子</p>
+<ul>
+<li>左值引用</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span><span class="p">{</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">member_count</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// error
+</span></span></span></code></pre></div><ul>
+<li>默认构造函数被删除</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span> <span class="n">X</span><span class="p">()</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// 默认构造函数被删除
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">B</span><span class="p">{</span> <span class="n">X</span> <span class="n">x</span><span class="p">;</span> <span class="n">X</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">member_count</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// error
+</span></span></span></code></pre></div><ul>
+<li>数组</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">C</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">member_count</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// error
+</span></span></span></code></pre></div><p><strong>遇到这三种情况，原来的方法完全失效了，为什么会这样？</strong></p>
+<p>这一小节的主要内容参考自 João Baptista 的两篇博客</p>
+<ul>
+<li><a href="https://towardsdev.com/counting-the-number-of-fields-in-an-aggregate-in-c-20-c81aecfd725c" target="_blank" rel="noreferrer">Counting the number of fields in an aggregate in C++20</a></li>
+<li><a href="https://towardsdev.com/counting-the-number-of-fields-in-an-aggregate-in-c-20-part-2-d3103dec734f" target="_blank" rel="noreferrer">Counting the number of fields in an aggregate in C++20 — part 2</a></li>
+</ul>
+<p>他总结了<code>boost/pfr</code>中的问题，并提出了解决方案，解决了上述提到的三个问题</p>
+<h2 id="左值引用的问题" class="relative group">左值引用的问题 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%b7%a6%e5%80%bc%e5%bc%95%e7%94%a8%e7%9a%84%e9%97%ae%e9%a2%98" aria-label="锚点">#</a></span></h2><p>第一个问题相对比较好理解，主要就是因为<code>T()</code>类型产生的转换产生的都是纯右值，左值引用没法绑定到纯右值，如果是右值引用就可以了</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_constructible_v</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// false
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_constructible_v</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// true
+</span></span></span></code></pre></div><p>怎么办呢？其实有一种很巧妙的写法，可以解决这个问题</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Any</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="nf">Any</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="p">{};</span> <span class="c1">// 支持从 int 构造
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">operator</span> <span class="n">T</span><span class="o">&amp;</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">operator</span> <span class="n">T</span><span class="o">&amp;&amp;</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>一个转换成左值引用，一个转换成右值引用。如果它们俩只有一个能匹配，那就会选择那一个能匹配的。如果两个都能匹配，左值引用转换的优先级比右值引用高，会被优先选择，不会有重载决议的问题。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_constructible_v</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_constructible_v</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_constructible_v</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_constructible_v</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">int</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// true
+</span></span></span></code></pre></div><p>很好，这样的话第一个问题，解决！</p>
+<h2 id="默认构造函数的问题" class="relative group">默认构造函数的问题 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e9%bb%98%e8%ae%a4%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%e7%9a%84%e9%97%ae%e9%a2%98" aria-label="锚点">#</a></span></h2><p>为什么把默认构造函数删了就不行了呢？还记得我们最开始的那个<code>Point</code>类型吗？</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Point</span><span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
+</span></span></code></pre></div><p>我们尝试的结果是<code>0</code>,<code>1</code>,<code>2</code>都可以，<code>3</code>不行。可是，如果说，<code>{ }</code>里面的数量多于<code>Point</code>的成员数量导致失败我能理解，为啥少于里面的成员数量可以成功呢？其实原因很简单，那就是你没有<strong>显式初始化的成员</strong>会被<strong>值初始化</strong>。于是<code>{ }</code>里面的参数，可以少于实际的字段数量。但是如果字段禁止了默认构造函数，就没法进行值初始化，就会编译错误</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span> <span class="n">X</span><span class="p">()</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// 默认构造函数被删除
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">B</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="n">X</span> <span class="n">x</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">X</span> <span class="n">y</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">z</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>对于下面这个类型，我们如果用<code>Any</code>尝试的话，应该是<code>0</code>,<code>1</code>不行,<code>2</code>,<code>3</code>可以,<code>4</code>,<code>5</code>,<code>...</code>以及往后的都不行。也就是说至少要让所有<strong>不能默认初始化</strong>的成员都初始化之后才行。 如果一个类型支持默认初始化，那么搜索它的有效区间是<code>[0, N]</code>其中<code>N</code>就是它的<strong>最大字段数量</strong>。如果不支持默认初始化，那其实搜索区间就变成了<code>[M, N]</code>，<code>M</code>是保证其不能默认初始化的成员全都初始化的最小数量。</p>
+<p>我们之前的搜索策略是从<code>0</code>开始搜索，如果当前这个是<code>true</code>，那就求下一个，直到<code>false</code>停止。显然这种搜索策略不适合现在这种情况了，因为在<code>[0, M)</code>之间，也符合之前的搜索策略搜索失败的情况。我们现在要改成，如果当前这个是<code>ture</code>并且下一个是<code>false</code>才停止搜索，这样刚好能搜到这个<strong>区间的上界</strong>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">member_count</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="n">test</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">test</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">N</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">member_count</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>测试一下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span><span class="p">{</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">member_count</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span> <span class="n">X</span><span class="p">()</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span> <span class="p">};</span> <span class="c1">// 默认构造函数被删除
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">B</span><span class="p">{</span> <span class="n">X</span> <span class="n">x</span><span class="p">;</span> <span class="n">X</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">member_count</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
+</span></span></code></pre></div><p><code>OK</code>，第二个问题也解决了，实在是太酷了！</p>
+<h2 id="数组的问题" class="relative group">数组的问题 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%95%b0%e7%bb%84%e7%9a%84%e9%97%ae%e9%a2%98" aria-label="锚点">#</a></span></h2><p>如果在结构体的成员里面有数组，那么计算的时候最终得到的结果就是把数组的每一个成员都当成一个字段来计算，其实就是因为对标准数组的聚合初始化开了后门</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Array</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">Array</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">};</span> <span class="c1">// OK
+</span></span></span></code></pre></div><p>注意到没有，只有一个字段却可以填两个值。但是对数组开洞就导致了这样的困境，如果结构体里面含有数组就会最终得到错误的计数。那有没有什么办法能解决这个问题？</p>
+<p><em>注意：下面这部分可能有点难以理解</em></p>
+<p>考虑下面这个例子</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">D</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">z</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>举例子，来看一下它初始化的情况：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">D</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">}</span> <span class="c1">// OK
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 第 0 个位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">D</span><span class="p">{</span> <span class="p">{</span><span class="mi">1</span><span class="p">},</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">}</span> <span class="c1">// OK, 0号位置最多放置 1 个元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">D</span><span class="p">{</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">}</span> <span class="c1">// Error 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 第 1 个位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">D</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="mi">2</span><span class="p">},</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">}</span> <span class="c1">// Error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">D</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">}</span> <span class="c1">// OK, 1号位置最多放置 2 个元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">D</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span> <span class="mi">5</span> <span class="p">}</span> <span class="c1">// Error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 第 3 个位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">D</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">{</span><span class="mi">4</span><span class="p">},</span> <span class="mi">5</span><span class="p">}</span> <span class="c1">// Error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">D</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span> <span class="p">}</span> <span class="c1">// OK, 3号位置最多放置 2 个元素
+</span></span></span></code></pre></div><p>没错，我们可以利用嵌套初始化，来解决这个问题！我们先用原本的方法求出最大的可能的结构体字段数量（包含数组展开的，这里就是5个），然后再在每个位置尝试把原本的序列塞到这个嵌套初始化里面去，通过不停尝试就能找到这个位置所能放置的元素的最大数量，如果最大数量超过<code>1</code>的话，说明这个位置是个数组。这个最大数量就是数组的元素数量，我们在最后的结果中，把多余数量减掉就行了。</p>
+<p><strong>听起来简单，实现起来还是有点复杂的哦。</strong></p>
+<p>先写一个函数用来辅助，通过填不同的<code>N1</code>,<code>N2</code>,<code>N3</code>就能对应到上面不同情况了，注意<code>I2</code>那里的<code>Any</code>那里是嵌套初始化，多了一层括号</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N2</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N3</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">test_three_parts</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[]</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">...</span> <span class="n">I1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">...</span> <span class="n">I2</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">...</span> <span class="n">I3</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">index_sequence</span><span class="o">&lt;</span><span class="n">I1</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">index_sequence</span><span class="o">&lt;</span><span class="n">I2</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">index_sequence</span><span class="o">&lt;</span><span class="n">I3</span><span class="p">...</span><span class="o">&gt;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">requires</span><span class="p">{</span> <span class="n">T</span><span class="p">{</span> <span class="n">Any</span><span class="p">(</span><span class="n">I1</span><span class="p">)...,</span> <span class="p">{</span> <span class="n">Any</span><span class="p">(</span><span class="n">I2</span><span class="p">)...</span> <span class="p">},</span> <span class="n">Any</span><span class="p">(</span><span class="n">I3</span><span class="p">)...</span> <span class="p">};</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}(</span><span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="n">N1</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="n">N2</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="n">N3</span><span class="o">&gt;</span><span class="p">{});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>接下来我们要写一个函数，用来测试在指定位置用二层<code>{ }</code> 放置<code>N</code>个元素是不是可行的</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">position</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">try_place_n_in_pos</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">Total</span> <span class="o">=</span> <span class="n">member_count</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">();</span> <span class="c1">// 可能的最大字段数量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">N</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">// 放置 0 个和原本的效果是一样的肯定可行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">position</span> <span class="o">+</span> <span class="n">N</span> <span class="o">&lt;=</span> <span class="n">Total</span><span class="p">)</span> <span class="c1">// 元素数量之和的肯定不能超过总共的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">test_three_parts</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">Total</span> <span class="o">-</span> <span class="n">position</span> <span class="o">-</span> <span class="n">N</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>由于内容有点多，可能有点难以理解，我们这里先展示一下这个函数的测试结果，方便理解，这样如果你看不懂函数实现也没问题。 还是以之前那个结构体<code>D</code>为例子</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">try_place_n_in_pos</span><span class="o">&lt;</span><span class="n">D</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">();</span> 
+</span></span><span class="line"><span class="cl"><span class="c1">// 这其实就是在测试 D{ {1}, 2, 3, 4, 5 } 这种情况
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 在 0 号位置放置 1个元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">try_place_n_in_pos</span><span class="o">&lt;</span><span class="n">D</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 这其实就是在测试 D{ 1, {2, 3}, 4, 5 } 这种情况
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 在 1 号位置放置 2 个元素
+</span></span></span></code></pre></div><p>好了，看懂这个函数是在做什么事情就行了，在某一个位置不停地尝试就行了，然后就能找到这个位置能放置的最大的元素数量了。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">pos</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">search_max_in_pos</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">Total</span> <span class="o">=</span> <span class="n">member_count</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="o">&amp;</span><span class="p">]</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">...</span> <span class="n">Is</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">index_sequence</span><span class="o">&lt;</span><span class="n">Is</span><span class="p">...</span><span class="o">&gt;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="p">((</span><span class="n">try_place_n_in_pos</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">Is</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">?</span> <span class="n">result</span> <span class="o">=</span> <span class="nl">Is</span> <span class="p">:</span> <span class="mi">0</span><span class="p">),</span> <span class="p">...);</span> <span class="p">}(</span><span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="n">Total</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>这里就是在这个位置搜索能放置的元素最大数量</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">search_max_in_pos</span><span class="o">&lt;</span><span class="n">D</span><span class="p">,</span> <span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 1, 0号位置最多放置 1 个元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">search_max_in_pos</span><span class="o">&lt;</span><span class="n">D</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// 2, 1号位置最多放置 2 个元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">search_max_in_pos</span><span class="o">&lt;</span><span class="n">D</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// 2, 3号位置最多放置 2 个元素
+</span></span></span></code></pre></div><p>这与我们最开始的手动测试结果一致，接下来就是遍历所有位置，找出所有的额外的数组元素数量，然后从一开始的那个最大数量里面减掉这些多余的就行了。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">search_all_extra_index</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">array</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">total</span> <span class="o">=</span> <span class="n">member_count</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">num</span> <span class="o">=</span> <span class="n">search_max_in_pos</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">value</span> <span class="o">=</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">?</span> <span class="nl">num</span> <span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">array</span><span class="p">[</span><span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="n">total</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">search_all_extra_index</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="n">value</span><span class="o">&gt;</span><span class="p">(</span><span class="n">array</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>这里就是递归的找，结果储存在数组里面。注意这里<code>N + value</code>，如果这里找到两个元素了，我们可以直接往后挑两个位置。例如<code>1</code>号位置可以放置<code>2</code>个元素，那我直接找<code>3</code>号位置就行了，不用找<code>2</code>号位置了。</p>
+<p>接下来就是把结果都存到数组里面然后，把多余的减掉就行了。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">true_member_count</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">Total</span> <span class="o">=</span> <span class="n">member_count</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">Total</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span> <span class="n">Total</span><span class="o">&gt;</span> <span class="n">indices</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="n">search_all_extra_index</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">indices</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">result</span> <span class="o">=</span> <span class="n">Total</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">Total</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">auto</span> <span class="n">n</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="n">result</span> <span class="o">-=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">index</span> <span class="o">+=</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>测试一下结果</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">D</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">z</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">true_member_count</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">E</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">z</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span><span class="o">&amp;&amp;</span> <span class="n">w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">true_member_count</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">4</span><span class="p">);</span>
+</span></span></code></pre></div><p>拿这里的<code>E</code>类型最后生成的数组举一下例子吧，可以都<code>print</code>出来看看</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="nl">index</span><span class="p">:</span> <span class="mi">0</span> <span class="nl">num</span><span class="p">:</span> <span class="mi">1</span>  <span class="c1">// 0 号位置对应 x， 数量是 1 合理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">index</span><span class="p">:</span> <span class="mi">1</span> <span class="nl">num</span><span class="p">:</span> <span class="mi">4</span>  <span class="c1">// 1 号位置对应 y， 数量是 4 合理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">index</span><span class="p">:</span> <span class="mi">5</span> <span class="nl">num</span><span class="p">:</span> <span class="mi">2</span>  <span class="c1">// 5 号位置对应 z， 数量是 2 合理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">index</span><span class="p">:</span> <span class="mi">7</span> <span class="nl">num</span><span class="p">:</span> <span class="mi">1</span>  <span class="c1">// 7 号位置对应 w， 数量是 1 合理
+</span></span></span></code></pre></div><p>完美谢幕！我很佩服这个作者的想法，真的是太巧妙了，让人叹为观止。然而，在文章的末尾他却说道，</p>
+<blockquote>
+<p>As it could be seen, I ran into some inconsistencies between gcc and clang (and for some reason I haven’t managed to make it work on MSVC at all, but that is another story).</p>
+</blockquote>
+<p>他说，他遇到了<code>clang</code>和<code>gcc</code>的行为不一致的情况，而且完全没法让这种方法在<code>msvc</code>上工作。</p>
+<p><strong>看来事情远远没有结束！</strong></p>
+<h1 id="第三棒-ykiko" class="relative group">第三棒 YKIKO <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e7%ac%ac%e4%b8%89%e6%a3%92-ykiko" aria-label="锚点">#</a></span></h1><p>我花了一些时间读懂了刚才这位作者的文章，说实话他的模板写的我很难读懂，他不喜欢用<code>if constexpr</code>来做分支选择，用了很多特化来做选择，给可读性造成了很大影响。所以刚才那些代码并不完全是原作者中的代码，是我用我认为的，更好阅读的形式进行转译的。</p>
+<p>哪些情况会<code>break</code>第二位作者的代码呢？</p>
+<ul>
+<li>移动构造被删除</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span> <span class="n">X</span><span class="p">(</span><span class="n">X</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">F</span><span class="p">{</span> <span class="n">X</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">true_member_count</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// error
+</span></span></span></code></pre></div><ul>
+<li>结构体中含有其它结构体成员</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Y</span><span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">G</span><span class="p">{</span> <span class="n">Y</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">true_member_count</span><span class="o">&lt;</span><span class="n">G</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// error
+</span></span></span></code></pre></div><ul>
+<li><code>MSVC</code>的<code>bug</code>和<code>GCC</code>的<code>bug</code></li>
+</ul>
+<h2 id="移动构造被删除的问题" class="relative group">移动构造被删除的问题 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e7%a7%bb%e5%8a%a8%e6%9e%84%e9%80%a0%e8%a2%ab%e5%88%a0%e9%99%a4%e7%9a%84%e9%97%ae%e9%a2%98" aria-label="锚点">#</a></span></h2><p>这一切都源于<code>C++17</code>加入的一条新规则，是关于 <a href="https://en.cppreference.com/w/cpp/language/copy_elision" target="_blank" rel="noreferrer">copy elision</a> 的。</p>
+<blockquote>
+<p>Since C++17, a prvalue is not materialized until needed, and then it is constructed directly into the storage of its final destination. This sometimes means that even when the language syntax visually suggests a copy/move (e.g. copy initialization), no copy/move is performed — which means the type need not have an accessible copy/move constructor at all.</p>
+</blockquote>
+<p>什么意思呢，举例子说明最清晰</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">M</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">M</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">M</span><span class="p">(</span><span class="n">M</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">M</span> <span class="n">m1</span> <span class="o">=</span> <span class="n">M</span><span class="p">();</span> <span class="c1">// ok in C++17, error in C++14
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">M</span> <span class="n">m2</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">M</span><span class="p">());</span> <span class="c1">// error
+</span></span></span></code></pre></div><p>啊？为什么会这样，第一个可以编译通过，第二个不行，难道我写<code>std::move</code>还多余了吗？</p>
+<p>其实第二个编译不通过的原因是很好理解的，因为移动构造函数被删除了，所以没法调用移动构造函数了，于是就编译失败了。注意到第一种情况在<code>C++14</code>和<code>C++17</code>中的行为是不一样的，<code>C++14</code>是先产生临时对象，然后调用移动构造函数，初始化<code>m1</code>，但是这样的行为其实是多余的，所以编译器可能会优化掉这步多余的步骤。但是这里还是有调用移动构造函数的可能性，所以删除构造函数了就<code>GG</code>了，编译失败。<strong>到了C++17这个优化直接变成语言强制性的要求了</strong>，所以完全没有<strong>移动构造</strong>这一步了，自然也不需要可访问的构造函数了，所以在<code>C++17</code>可以编译通过。</p>
+<p><strong>这也就意味着，右值之间亦有差距</strong>。<code>prvalue</code>即纯右值可以直接复制消除构造对象（比如这里的<strong>非引用类型</strong>的函数返回值就是纯右值），但是<code>xvalue</code>也即亡值必须得有可调用的移动构造函数才行，也不行进行复制消除（<strong>右值引用类型</strong>的函数返回值就是亡值）。所以这里<code>std::move</code>反倒起了负面效果。</p>
+<p>回到我们的问题，注意到<code>Any</code>有一个转化成右值引用类型的转换函数，所以如果遇到了这种情况就没办法了。但是再次通过巧妙地修改，又能解决这个问题：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Any</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="nf">Any</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">requires</span> <span class="n">std</span><span class="o">::</span><span class="n">is_copy_constructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">operator</span> <span class="n">T</span><span class="o">&amp;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">requires</span> <span class="n">std</span><span class="o">::</span><span class="n">is_move_constructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">operator</span> <span class="n">T</span><span class="o">&amp;&amp;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">requires</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_copy_constructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_move_constructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">operator</span> <span class="n">T</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>注意到我们这里对类型做了约束，如果是不可移动的类型（移动构造被删除），那就对应到了最后一个类型转换函数。直接产生<code>prvalue</code>构造对象，这样就巧妙地解决了这个问题了。写拷贝构造的约束是为了防止重载决议歧义（同时在最后可以顺便修复<code>MSVC</code>的<code>bug</code>）。</p>
+<h2 id="结构体中含有其它结构体成员" class="relative group">结构体中含有其它结构体成员 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e7%bb%93%e6%9e%84%e4%bd%93%e4%b8%ad%e5%90%ab%e6%9c%89%e5%85%b6%e5%ae%83%e7%bb%93%e6%9e%84%e4%bd%93%e6%88%90%e5%91%98" aria-label="锚点">#</a></span></h2><p>事实上作者原本的思路很好，但是忽略了一个问题，那就是<strong>不只有数组类型在可以使用二重</strong><code>{{ }}</code>初始化，结构体也是可以的</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span><span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">B</span><span class="p">{</span> <span class="n">A</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">B</span><span class="p">{</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span> <span class="mi">3</span> <span class="p">};</span> <span class="c1">// ok
+</span></span></span></code></pre></div><p>所以如果这个位置有是结构体成员的话，就会导致错误的计数。所以我们需要先判断一个下这个位置是不是结构体，如果是的话，就不用对这个位置尝试求最大放置数量了，直接去求下一个位置就行了</p>
+<p>那怎么判断当前位置成员是不是结构体呢？考虑下面这个例子</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span><span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">B</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">A</span> <span class="n">x</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> 
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>手动枚举一下测试情况</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Any</span> <span class="nf">any</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">B</span><span class="p">{</span> <span class="n">any</span><span class="p">,</span> <span class="n">any</span><span class="p">,</span> <span class="n">any</span> <span class="p">};</span> <span class="c1">// ok
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">B</span><span class="p">{</span> <span class="p">{</span><span class="n">any</span><span class="p">},</span> <span class="n">any</span><span class="p">,</span> <span class="n">any</span> <span class="p">};</span> <span class="c1">// ok
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">B</span><span class="p">{</span> <span class="p">{</span><span class="n">any</span><span class="p">,</span> <span class="n">any</span><span class="p">},</span> <span class="n">any</span><span class="p">,</span> <span class="n">any</span> <span class="p">};</span> <span class="c1">// ok
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">B</span><span class="p">{</span> <span class="n">any</span><span class="p">,</span> <span class="p">{</span><span class="n">any</span><span class="p">},</span> <span class="n">any</span> <span class="p">};</span> <span class="c1">// error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">B</span><span class="p">{</span> <span class="n">any</span><span class="p">,</span> <span class="p">{</span><span class="n">any</span><span class="p">,</span> <span class="n">any</span><span class="p">},</span> <span class="n">any</span> <span class="p">};</span> <span class="c1">// error
+</span></span></span></code></pre></div><p><code>OK</code>其实答案很显然了，那就是如果当前位置是结构体的话，可以往这个位置额外添加元素。注意到原本的<code>Total</code>即最大可能的元素数量是<code>3</code>，但是如果当前位置是结构体的话，放<code>4</code>个元素也是可以，但是如果是数组就不行了。我们利用这个特性来判断当前位置的是不是结构体，如果是的话，就跳去下一个位置，如果不是就在这个位置搜索最大能放置的元素。</p>
+<p>其实就是在这个位置递归尝试放置元素，但是这里有一个问题是，当前位置的结构体成员中仍然可能含有不能默认初始化的成员。所以究竟放几个才能确定这个位置能被初始化呢？这还是不确定的，我这里设置的最大上线是<code>10</code>个，如果子结构体中不能默认初始化的成员位置在<code>10</code>之后的话这个方法就失败了。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">pos</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">Max</span> <span class="o">=</span> <span class="mi">10</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">has_extra_elements</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">Total</span> <span class="o">=</span> <span class="n">member_count</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">test_three_parts</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">Total</span> <span class="o">-</span> <span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">Max</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">has_extra_elements</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>有了这个函数之后在把原来那个<code>serach</code>函数逻辑稍微改一下就行了</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">pos</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">search_max_in_pos</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">Total</span> <span class="o">=</span> <span class="n">member_count</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="o">!</span><span class="n">has_extra_elements</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">pos</span><span class="o">&gt;</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ... 原本的代码不变
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>就是加一个分支判断，如果当前位置没有额外的元素就直接返回<code>1</code>，如果有的就去搜索（数组的）最大边界。这样的话就解决了原作者的代码中中的问题了</p>
+<p>仍然测试一下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Y</span><span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">G</span><span class="p">{</span> <span class="n">Y</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">true_member_count</span><span class="o">&lt;</span><span class="n">G</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// OK
+</span></span></span></code></pre></div><p><code>Nice</code>！！！太好了。</p>
+<h2 id="msvc-的-bug-和-gcc-的-bug" class="relative group">MSVC 的 bug 和 GCC 的 bug <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#msvc-%e7%9a%84-bug-%e5%92%8c-gcc-%e7%9a%84-bug" aria-label="锚点">#</a></span></h2><p>作者在原文中提到的<code>GCC</code>和<code>MSVC</code>的问题我也一并找出来了，<code>MSVC</code>目前有一个<a href="https://developercommunity.visualstudio.com/t/MSVC-accepts-invalid-initialization-of-a/10541811" target="_blank" rel="noreferrer">缺陷</a>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Any</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="c1">// requires std::is_copy_constructible_v&lt;T&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">operator</span> <span class="n">T</span><span class="o">&amp;</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="nc">A</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span> <span class="n">a</span><span class="p">{</span> <span class="n">Any</span><span class="p">{}</span> <span class="p">};</span> <span class="c1">// 这里 Any 转化成 int(&amp;)[2]类型了，即数组的引用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>上述的代码可以正常编译，这意味着<code>MSVC</code>允许直接从数组的引用聚合初始化数组成员。但是这是<code>C++</code>标准所不允许的，这个<code>Bug</code>会导致在<code>MSVC</code>上对成员计数错误，解决办法其实很简单，前面我们已经顺便解决过这个问题了，只要把注释的那行加上就行了。因为数组是不可拷贝构造的类型，所以约束会把这个重载函数排除掉，这样就不会出现这个问题了。</p>
+<p><code>GCC 13</code>也有一个严重的 <a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=113141" target="_blank" rel="noreferrer">缺陷</a>，直接会导致<code>ice</code>，这个<code>bug</code>用下面几行代码就能复现出来：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Number</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">operator</span> <span class="kt">int</span><span class="o">&amp;</span><span class="p">(){</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">concept</span> <span class="n">F</span> <span class="o">=</span> <span class="k">requires</span><span class="p">{</span> <span class="n">T</span><span class="p">{</span> <span class="p">{</span> <span class="n">Number</span><span class="p">{}</span> <span class="p">}</span> <span class="p">};</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">F</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// internal compiler error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>这个显然是不应该导致<code>ice</code>的，而且只在<code>GCC 13</code>才有这个<code>bug</code>实在是很奇怪。测试代码在 <a href="https://godbolt.org/z/jW4YWYf1P" target="_blank" rel="noreferrer">godbolt</a> 。<code>clang</code>没任何问题，但是<code>GCC 13</code>就直接内部编译器错误了。而<code>GCC 12</code>和<code>clang</code>的编译结果不一样<code>...</code>但是其实<code>clang</code>是对的。这也就是原作者文章里面说的<code>clang</code>和<code>gcc</code>不一致的地方。*注：后经评论区提醒，clang 15也会遇到类似的内部编译器错误。 *</p>
+<h1 id="后记" class="relative group">后记 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%90%8e%e8%ae%b0" aria-label="锚点">#</a></span></h1><p>后来又和评论区的各位讨论了一番，上面的处理仍然有些欠缺考虑。一个典型的例子是，当成员变量的构造函数是模板函数的时候就会出错，例如<code>std::any</code>，原因是不知道调用类型转换函数和模板构造函数中的哪一个（重载决议失败）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">any</span> <span class="n">any</span> <span class="o">=</span> <span class="n">Any</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// conversion from &#39;Any&#39; to &#39;std::any&#39; is ambiguous
+</span></span></span><span class="line"><span class="cl"><span class="c1">// candidate: &#39;Any::operator T&amp;() [with T = std::any]&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// candidate: &#39;std::any::any(_Tp&amp;&amp;)
+</span></span></span></code></pre></div><p>但是目前还没有一个完美的解决办法能解决这个问题，不能直接检测<code>T</code>能不能由<code>Any</code>构造来解决这个问题，这会涉及到递归的约束，最后导致无法求解，从而编译错误。这里用了一个比较取巧的办法</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Any</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="nf">Any</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">requires</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_copy_constructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">operator</span> <span class="n">T</span><span class="o">&amp;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">requires</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_move_constructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_copy_constructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">operator</span> <span class="n">T</span><span class="o">&amp;&amp;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="nc">Empty</span><span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">requires</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_copy_constructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_move_constructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_constructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Empty</span><span class="o">&gt;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">operator</span> <span class="n">T</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span> 
+</span></span></code></pre></div><p>就是声明了一个空类，然后尝试用这个空类能不能转换成类型<code>T</code>，如果不行就能说明<code>T</code>的构造函数应该不是模板函数，于是类型转换可以生效。如果可以，则说明<code>T</code>的构造函数是模板函数，要排除这个类型转换函数。当然了，如果<code>T</code>的构造函数有一些奇怪的约束，比如直接把<code>Empty</code>排掉，但是接受<code>Any</code>。这样话还是会导致错误，但是这属于刻意为之了，正常情况下基本是不会遇到这个问题的，这个问题可以算是解决了</p>
+<p>除此之外还有一个和引用相关的问题，如果结构体中含有不可拷贝/复制类型的引用成员，那么也会失败，下面就拿左值引用举例子吧</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">CanNotCopy</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">CanNotCopy</span><span class="p">(</span><span class="k">const</span> <span class="n">CanNotCopy</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span> <span class="n">CanNotCopy</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="n">x</span><span class="p">{</span> <span class="n">Any</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">};</span> <span class="c1">// error
+</span></span></span></code></pre></div><p>这里<code>T</code>就会实例化成<code>CanNotCopy</code>类型。显然因为它不可拷贝，导致重载决议选到了<code>operator T()</code>上，然后实际产生的是右值没法绑定到左值引用，就编译错误了。那这个问题可能解决吗？非常困难。事实上，我们无法让下面两个表达式同时成立</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span> <span class="n">CanNotCopy</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Y</span> <span class="p">{</span> <span class="n">CanNotCopy</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="n">x</span><span class="p">{</span> <span class="n">Any</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">Y</span> <span class="n">y</span><span class="p">{</span> <span class="n">Any</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">};</span> 
+</span></span></code></pre></div><p>在这两个聚合初始化里面，类型转换函数实例化的<code>T</code>都是<code>CanNotCopy</code>类型，但是如果想让<code>x</code>，<code>y</code>都良构，那么就意味对于同一个<code>T</code>要选择两个不同的重载函数，第一个选<code>operator T&amp;()</code>，第二个选<code>operator T()</code>，但是这两个函数之间并没有哪个更优先，<code>C++</code>也没法对返回值进行重载，所以这是做不到的。一个可能的解决方案是写三种<code>Any</code>,分别转化成<code>T&amp;</code>，<code>T&amp;&amp;</code>，<code>T</code>然后在每个位置使用这三种进行尝试，这样的话倒是可以解决这个问题，<strong>但是可能会导致模板实例化个数以3 ^ N次方的速度增长</strong>。这种实现比之前的遍历方式加起来开销都要大，所以这里我就不做展示了，理论可行，实践上会累跨编译器</p>
+<h1 id="结语" class="relative group">结语 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e7%bb%93%e8%af%ad" aria-label="锚点">#</a></span></h1><p>本文的全部代码都在 <a href="https://godbolt.org/z/scPP6WxbT" target="_blank" rel="noreferrer">Compiler Explorer - C++</a> 上，三大编译器均通过（gcc版本是12），有很多测试代码，如果你找到其它的<code>concer case</code>欢迎留言讨论</p>
+<p>好了，这篇文章到这里就结束了。如果你耐心看完了全文，相比你也是和我一样，喜欢这些好玩的东西。这种东西最有趣的地方就在于，利用<code>C++</code>暴露的一点点接口，去一步步扩展它，最后实现非常漂亮的接口出来。当然对于作者来说其实并不漂亮<code>OvO</code>。总之这种东西就像是游戏一样，是日常的消遣，没事给<code>C++</code>编译器找找<code>bug</code>，钻研这些犄角旮旯的特性，也是一份乐趣。如果非要谈实际价值，<strong>其实这种东西几乎不可能在实际的代码生产环境中使用</strong>。首先通过实例化大量模板来寻找结构体的字段数量，会大大拖慢编译速度，而且即使花费如此大的功夫，也只是实现了对聚合类型的遍历，还不支持其的非聚合类型。不仅副作用强，而且主要功能也不强。权衡一下考虑也是非常不值当了，对于这种需要类似反射的需求的时候，在<code>C++</code>加入静态反射之前（真正用上也许还得过十年！？），目前真正可行的自动化方案是采用代码生成来做这个事情。</p>
+<p>我也有相关的文章详细介绍了相关的原理，不依赖于这些奇淫巧技，真正可用于实际项目中的方案：</p>
+<hr>
+<p>写给 C++ 程序员的反射教程
+<a href="https://www.ykiko.me/669358870" target="_blank" rel="noreferrer">https://www.ykiko.me/669358870</a></p>
+<hr>
+<p><strong>当然如果用这些功能仅仅是为了log，debug或者study的话</strong>，而不是用于任何核心的代码部分，又不想引入很重的依赖，那这些东西用一用也未尝不可。我专门写了一个<code>C++20</code>的库，把这些有用的奇淫巧技都合并起来了，方便进行<code>log</code>，<code>debug</code>之类的。目前还在更新中，欢迎<code>star</code>和报告问题呐</p>
+<hr>
+<p>magic-cpp
+<a href="https://github.com/16bit-ykiko/magic-cpp" target="_blank" rel="noreferrer">https://github.com/16bit-ykiko/magic-cpp</a></p>
+<hr>
+
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
+    
+    
+    
+      
+      
+        
+        
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+      
+    >
+      
+      
+      
+      
+      <img
+        width="640"
+        height="640"
+        class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+        alt="ykiko"
+        loading="lazy" decoding="async"
+        
+          src="/img/author.jpg"
+        
+      />
+    </picture>
+  
+
+
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          作者
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          ykiko
+        </div>
+      
+      
+      <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="https://github.com/16bit-ykiko"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="mailto:ykikoykikoykiko@gmail.com"
+          target="_blank"
+          aria-label="Envelope-Solid"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path fill="currentColor" d="M464 64C490.5 64 512 85.49 512 112C512 127.1 504.9 141.3 492.8 150.4L275.2 313.6C263.8 322.1 248.2 322.1 236.8 313.6L19.2 150.4C7.113 141.3 0 127.1 0 112C0 85.49 21.49 64 48 64H464zM217.6 339.2C240.4 356.3 271.6 356.3 294.4 339.2L512 176V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V176L217.6 339.2z"/></svg></span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="https://www.zhihu.com/people/75-49-80-77"
+          target="_blank"
+          aria-label="Zhihu"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1719381188729" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6448" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M541.867 556.8s0-66.133-32-68.267c-32-4.266-132.267 0-132.267 0v-204.8h149.333s-2.133-68.266-29.866-68.266h-243.2l40.533-108.8s-59.733 4.266-83.2 42.666C189.867 187.733 121.6 384 121.6 384s23.467 10.667 61.867-19.2c38.4-27.733 51.2-78.933 51.2-78.933l70.4-4.267 2.133 206.933s-125.867-2.133-149.333 0c-25.6 2.134-38.4 68.267-38.4 68.267h189.866s-17.066 117.333-64 198.4C196.267 840.533 102.4 906.667 102.4 906.667S168.533 934.4 234.667 896s113.066-206.933 113.066-206.933L499.2 878.933s12.8-89.6-2.133-117.333C480 736 390.4 633.6 390.4 633.6L352 667.733l27.733-113.066 162.134 2.133z m38.4-345.6l-2.134 614.4H640l21.333 74.667 108.8-74.667H921.6V211.2H580.267z m273.066 546.133h-70.4l-89.6 68.267-19.2-68.267h-19.2V281.6h198.4v475.733z" fill="currentColor" p-id="6449"></path></svg></span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="https://space.bilibili.com/360835081"
+          target="_blank"
+          aria-label="Bilibili"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1719381779479" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9290" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M306.005333 117.632L444.330667 256h135.296l138.368-138.325333a42.666667 42.666667 0 0 1 60.373333 60.373333L700.330667 256H789.333333A149.333333 149.333333 0 0 1 938.666667 405.333333v341.333334a149.333333 149.333333 0 0 1-149.333334 149.333333h-554.666666A149.333333 149.333333 0 0 1 85.333333 746.666667v-341.333334A149.333333 149.333333 0 0 1 234.666667 256h88.96L245.632 177.962667a42.666667 42.666667 0 0 1 60.373333-60.373334zM789.333333 341.333333h-554.666666a64 64 0 0 0-63.701334 57.856L170.666667 405.333333v341.333334a64 64 0 0 0 57.856 63.701333L234.666667 810.666667h554.666666a64 64 0 0 0 63.701334-57.856L853.333333 746.666667v-341.333334A64 64 0 0 0 789.333333 341.333333zM341.333333 469.333333a42.666667 42.666667 0 0 1 42.666667 42.666667v85.333333a42.666667 42.666667 0 0 1-85.333333 0v-85.333333a42.666667 42.666667 0 0 1 42.666666-42.666667z m341.333334 0a42.666667 42.666667 0 0 1 42.666666 42.666667v85.333333a42.666667 42.666667 0 0 1-85.333333 0v-85.333333a42.666667 42.666667 0 0 1 42.666667-42.666667z" fill="currentColor" p-id="9291"></path></svg></span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="https://bangumi.tv/user/857516"
+          target="_blank"
+          aria-label="Banguim"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1719382391801" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11123" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M1013.49888 192.13312l0-50.2016c0-133.98528-115.46112-133.98528-133.98528-133.98528l-49.9968 0c-1.69472-0.06656-3.25632-0.47616-5.02272-0.47616L197.31968 7.47008c-1.69472 0-3.32288 0.47616-5.02272 0.47616l-49.9968 0c-18.51904 0-133.98528 0-133.98528 133.98528l0 50.13504c-0.06656 1.62816-0.47616 3.18976-0.47616 4.81792l0 627.1744c0 1.62816 0.47616 3.18976 0.47616 4.81792l0 50.13504c0 133.98528 133.98528 133.98528 133.98528 133.98528l49.9968 0c1.69472 0.06656 3.25632 0.47616 4.95104 0.47616l627.1744 0c1.69472 0 3.25632-0.47616 4.95104-0.47616l50.06848 0c38.67136 0 65.87392-11.25888 85.4784-27.20256 1.22368-0.95232 2.5088-1.89952 3.73248-2.85184 4.47488-3.93216 8.61696-8.1408 12.2112-12.48256 1.01888-1.29024 1.89952-2.57536 2.85184-3.93216 29.57824-38.66624 29.78304-87.58272 29.78304-87.58272l0-50.2016c0.06656-1.62816 0.47616-3.1232 0.47616-4.81792L1013.97504 196.8128C1013.97504 195.32288 1013.56544 193.76128 1013.49888 192.13312zM162.11456 874.5984 61.0304 874.5984l0-101.07904 101.07904 0L162.10944 874.5984zM162.11456 717.824 61.0304 717.824l0-101.07904 101.07904 0L162.10944 717.824zM162.11456 561.04448 61.0304 561.04448 61.0304 459.96544l101.07904 0L162.10944 561.04448zM162.11456 404.27008 61.0304 404.27008 61.0304 303.18592l101.07904 0L162.10944 404.27008zM162.11456 247.49056 61.0304 247.49056 61.0304 146.41152l101.07904 0L162.10944 247.49056zM794.98752 899.63008 224.18432 899.63008 224.18432 121.4464l570.8032 0L794.98752 899.63008zM952.30464 873.4464l-101.07904 0 0-101.07904 101.07904 0L952.30464 873.4464zM952.30464 716.66688l-101.07904 0 0-101.07904 101.07904 0L952.30464 716.66688zM952.30464 559.89248l-101.07904 0L851.2256 458.81344l101.07904 0L952.30464 559.89248zM952.30464 403.11296l-101.07904 0L851.2256 302.03392l101.07904 0L952.30464 403.11296zM952.30464 246.33856l-101.07904 0L851.2256 145.25952l101.07904 0L952.30464 246.33856z" fill="currentColor" p-id="11124"></path><path d="M452.46464 680.91904 452.46464 680.91904 646.7584 543.744c20.48512-14.72 20.48512-51.42016 0-66.14528L452.46464 340.02432c-20.48512-14.72-54.272-4.13696-54.272 25.23648l0 290.82624C398.19264 685.46048 432.04608 695.57248 452.46464 680.91904z" fill="currentColor" p-id="11125"></path></svg></span></a
+        >
+      
+    
+  </div>
+
+</div>
+    </div>
+  </div>
+
+
+      
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="/posts/673852429/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >手动优化C++代码来加快编译速度？！</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2023-12-23 15:32:28 &#43;0000 UTC">December 23, 2023</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="group flex text-right" href="/posts/679782886/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >全新的构造函数，C++ 中的 relocate 构造函数</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2024-01-25 09:22:29 &#43;0000 UTC">January 25, 2024</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&rarr;</span
+                ><span class="ltr:hidden rtl:inline">&larr;</span></span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+          <div class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12">
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="回到顶部"
+              title="回到顶部"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            ©2024 ykiko
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a> 强力驱动
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+        <div
+          class="me-14 cursor-pointer text-sm text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        >
+          <button id="appearance-switcher-0" type="button" aria-label="appearance switcher">
+            <div
+              class="flex h-12 w-12 items-center justify-center dark:hidden"
+              title="切换为深色模式"
+            >
+              <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+            </div>
+            <div
+              class="hidden h-12 w-12 items-center justify-center dark:flex"
+              title="切换为浅色模式"
+            >
+              <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+            </div>
+          </button>
+        </div>
+      
+    </div>
+  </div>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm sm:p-6 md:p-[10vh] lg:p-[12vh] dark:bg-neutral-900/50"
+  data-url="https://www.ykiko.me/"
+>
+  <div
+    id="search-modal"
+    class="top-20 mx-auto flex min-h-0 w-full max-w-3xl flex-col rounded-md border border-neutral-200 bg-neutral shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex flex-none items-center justify-between px-2">
+      <form class="flex min-w-0 flex-auto items-center">
+        <div class="flex h-8 w-8 items-center justify-center text-neutral-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="mx-1 flex h-12 flex-auto appearance-none bg-transparent focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex h-8 w-8 items-center justify-center text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto overflow-auto px-2">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+</html>
