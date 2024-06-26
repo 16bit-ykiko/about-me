@@ -49,6 +49,21 @@ def request(url: str):
     return result, article.cover
 
 
+def download(url: str):
+    n = 0
+    while n < 5:
+        try:
+            response = requests.get(
+                url, timeout=10, headers=headers)
+            response.raise_for_status()
+            break
+        except Exception as e:
+            print(e)
+            n += 1
+
+    return response.content
+
+
 def main():
     load_cookies()
     path = os.path.dirname(__file__)
@@ -62,6 +77,7 @@ def main():
     for url, value in urls.items():
         name = url.split('/')[-1]
         markdown, cover = request(url)
+
         dir = os.path.join(path, f'../website/content/articles/{name}')
         if not os.path.exists(dir):
             os.makedirs(dir)
@@ -69,8 +85,8 @@ def main():
         with open(os.path.join(dir, 'index.md'), 'w', encoding="utf-8") as f:
             f.write(markdown)
 
-        with open(os.path.join(dir, 'featured.jpg'), 'wb') as f:
-            f.write(requests.get(cover).content)
+        with open(os.path.join(dir, 'featured.png'), 'wb') as f:
+            f.write(download(cover))
 
         print(f"Done: {name}")
 
