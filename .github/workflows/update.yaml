@@ -53,6 +53,9 @@ jobs:
         run: | 
           cd website
           hugo mod init github.com/16bit-ykiko/about-me
+          cd themes
+          git clone https://github.com/jpanther/congo -b stable --depth=1
+          cd ..
           hugo --minify
 
       - name: Deploy

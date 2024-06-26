@@ -5,5 +5,7 @@ title = "ykiko's blog"
 defaultContentLanguage = "zh-cn"
 enableRobotsTXT = true
 
+theme = "congo"
+
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
+home = ["HTML", "RSS", "JSON"]
