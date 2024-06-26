@@ -45,10 +45,8 @@ def request(url: str):
               f"title: '{article.title}'\n"
               f"date: {created}\n"
               f"updated: {updated}\n"
-              f"type: 'post'\n"
-              f"index_img: '{article.cover}'\n"
               f"---\n\n") + article.content.dump()
-    return result
+    return result, article.cover
 
 
 def main():
@@ -63,10 +61,16 @@ def main():
 
     for url, value in urls.items():
         name = url.split('/')[-1]
-        markdown = request(url)
-        dest = os.path.join(path, f'../website/content/articles/{name}.md')
-        with open(dest, 'w', encoding="utf-8") as f:
+        markdown, cover = request(url)
+        dir = os.path.join(path, f'../website/content/articles/{name}')
+        if not os.path.exists(dir):
+            os.makedirs(dir)
+
+        with open(os.path.join(dir, 'index.md'), 'w', encoding="utf-8") as f:
             f.write(markdown)
+
+        with open(os.path.join(dir, 'featured.jpg'), 'wb') as f:
+            f.write(requests.get(cover).content)
 
         print(f"Done: {name}")
 
