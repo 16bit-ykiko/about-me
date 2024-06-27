@@ -2,6 +2,8 @@
 title: '在 C++ 中实现 Object!'
 date: 2023-12-03 15:40:52
 updated: 2024-05-14 07:17:07
+series: ['Reflection']
+series_order: 3
 ---
 
 ## 静态与动态 
