@@ -71,7 +71,7 @@ def main():
 
     for url, value in urls.items():
         urls[url] = url.replace('zhuanlan.zhihu.com/p',
-                                "www.ykiko.me/articles")
+                                "www.ykiko.me/zh-cn/articles")
     Parser.urls_map = urls
 
     for url, value in urls.items():
