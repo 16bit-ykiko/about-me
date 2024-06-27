@@ -517,5 +517,5 @@ void func() {
 
 本文到这里就结束了，这是反射系列中的其中一篇，如果对其它的文章感兴趣，可以点击下面的链接进行阅读其它文章。
 
-{{< article link="/zh-cn/articles/669358870" >}}
+{{< article link="/zh-cn/articles/669358870/" >}}
 

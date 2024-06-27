@@ -279,9 +279,9 @@ std::string_view color_to_string(Color value){
 
 年年月月盼反射，还是不知道什么时候才能进入标准呢。想要提前了解 C++ 静态反射的小伙伴，可以看
 
-{{< article link="/zh-cn/articles/661692275" >}}
+{{< article link="/zh-cn/articles/661692275/" >}}
 
 或者还不知道反射是什么的小伙伴，可以参考这篇文章的内容
 
-{{< article link="/zh-cn/articles/669358870" >}}
+{{< article link="/zh-cn/articles/669358870/" >}}
 

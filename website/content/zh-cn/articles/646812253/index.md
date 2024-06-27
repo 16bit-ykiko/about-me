@@ -6,7 +6,7 @@ updated: 2024-05-26 15:07:56
 
 ## 前情提要： 
 
-{{< article link="/zh-cn/articles/646752343" >}}
+{{< article link="/zh-cn/articles/646752343/" >}}
 
 ## 什么是 STMP 多态 
 

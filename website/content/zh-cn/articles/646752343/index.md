@@ -311,7 +311,7 @@ int main() {
 
 续篇已出，欢迎阅读：
 
-{{< article link="/zh-cn/articles/646812253" >}}
+{{< article link="/zh-cn/articles/646812253/" >}}
 
 参考文章： 
 
