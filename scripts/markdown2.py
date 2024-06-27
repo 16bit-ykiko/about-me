@@ -173,7 +173,7 @@ class NewLine(Node):
         return "<br>"
 
 
-# markdown extension
+# markdown extension, see that https://blowfish.page/zh-cn/docs/shortcodes/#article
 class LinkCard(Node):
     """Represents a link card in a markdown document. Syntax: [label](url)"""
 
@@ -185,7 +185,7 @@ class LinkCard(Node):
         self.url = url
 
     def __str__(self) -> str:
-        return f"---\n\n{self.label}\n{self.url}\n\n---"
+        return '{{< article link="' + self.url + '" >}}'
 
 
 class Document:
