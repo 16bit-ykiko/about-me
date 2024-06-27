@@ -430,35 +430,15 @@ constexpr std::string enum_to_string(E value)
 
 为了让静态反射能早点进入标准，作者团队特地选了原本提案的一部分核心子集。希望如作者所愿，静态反射能在 C++26 进入标准！当然，核心部分先进入，之后再补充更多更加有用的功能，所以这绝不是反射的全部内容。本文只是对该提案的粗略解读和翻译，想要详细了解的还请阅读下方链接中的提案，相关进展持续更新中：
 
----
+{{< article link="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r0.html#ref-P2670R1" >}}
 
-Reflection for C++26 - P2996R0
-https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r0.html#ref-P2670R1
+{{< article link="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r1.html" >}}
 
----
-
----
-
-Reflection for C++26 - P2996R1
-https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r1.html
-
----
-
----
-
-Reflection for C++26 - P2996R2
-https://www.open-std.org/JTC1/SC22/WG21/docs/papers/2024/p2996r2.html
-
----
+{{< article link="https://www.open-std.org/JTC1/SC22/WG21/docs/papers/2024/p2996r2.html" >}}
 
 <br>
 
----
-
-Reflection for C++26 - P2996R3
-https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2996r3.html
-
----
+{{< article link="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2996r3.html" >}}
 
 实验编译器：
 
@@ -468,10 +448,5 @@ https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2996r3.html
 
 反射系列文章：
 
----
-
-
-https://www.ykiko.me/articles/669358870
-
----
+{{< article link="https://www.ykiko.me/articles/669358870" >}}
 

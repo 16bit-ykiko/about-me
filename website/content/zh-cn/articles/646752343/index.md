@@ -311,12 +311,7 @@ int main() {
 
 续篇已出，欢迎阅读：
 
----
-
-C++ 禁忌黑魔法: STMP 多态
-https://www.ykiko.me/articles/646812253
-
----
+{{< article link="https://www.ykiko.me/articles/646812253" >}}
 
 参考文章： 
 

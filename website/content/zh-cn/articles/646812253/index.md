@@ -6,12 +6,7 @@ updated: 2024-05-26 15:07:56
 
 ## 前情提要： 
 
----
-
-C++ 禁忌黑魔法: STMP
-https://www.ykiko.me/articles/646752343
-
----
+{{< article link="https://www.ykiko.me/articles/646752343" >}}
 
 ## 什么是 STMP 多态 
 

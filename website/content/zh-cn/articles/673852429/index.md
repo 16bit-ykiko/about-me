@@ -6,12 +6,7 @@ updated: 2023-12-24 18:03:44
 
 事情的起因是我最近在编写的一个库  [magic cpp](https://github.com/16bit-ykiko/magic-cpp) ，正在编写其中`enum`的相关部分。打算参考一下`magic enum`的相关实现，在翻 `issue`的时候翻到这么一个神奇的`PR` 
 
----
-
-​pull request
-https://github.com/Neargye/magic_enum/pull/227
-
----
+{{< article link="https://github.com/Neargye/magic_enum/pull/227" >}}
 
 我们都知道`C++`的`constexpr/consteval`函数可以在编译期执行，目前编译器对此的实现大概是内部实现了一个小型的解释器，用来直接执行代码。然而这个解释器具体是什么表现我们无从得知，但是这个 pr 的作者仅仅改了几行代码就让编译速度提升了不少。
 
