@@ -74,7 +74,7 @@
       <pubDate>Sat, 10 Feb 2024 15:15:47 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/682031684/</guid>
-      <description>几个月前，我写了一篇介绍 C++ 模板的文章 理清了现代 C++ 中模板的地位</description>
+      <description>几个月前，我写了一篇介绍 C++ 模板的文章 雾里看花：真正意义上的理</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/682031684/featured.png" />
     </item>
     
@@ -204,7 +204,7 @@
       <pubDate>Sun, 30 Jul 2023 01:29:27 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/646812253/</guid>
-      <description>前情提要： # 什么是 STMP 多态 # struct Any{ void* data; std::size_t index; }; int main() { Set&amp;lt;&amp;gt;(); std::vector&amp;lt;Any&amp;gt; vec = make_any(1, std::string(&amp;#34;hello&amp;#34;), 3.14);</description>
+      <description>前情提要： # C&amp;#43;&amp;#43; 禁忌黑魔法: STMP 什么是 STMP 多态 # struct Any{ void* data; std::size_t index; }; int main()</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/646812253/featured.png" />
     </item>
     

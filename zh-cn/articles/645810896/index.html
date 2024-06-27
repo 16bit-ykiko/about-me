@@ -105,7 +105,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "2751"
+    "wordCount": "2747"
   }]
   </script>
 
@@ -580,7 +580,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-07-25 07:19:25 &#43;0000 UTC">July 25, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>2751 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">6 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2023-07-25 07:19:25 &#43;0000 UTC">July 25, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>2747 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">6 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -829,15 +829,11 @@
     class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li><a href="#sum-type">sum type</a></li>
-        <li><a href="#stdvariant">std::variant</a></li>
-        <li><a href="#stdvisit">std::visit</a></li>
-        <li><a href="#pattern-match">pattern match</a></li>
-        <li><a href="#that-is-too-bad-">that is too bad !</a></li>
-      </ul>
-    </li>
+    <li><a href="#sum-type">sum type</a></li>
+    <li><a href="#stdvariant">std::variant</a></li>
+    <li><a href="#stdvisit">std::visit</a></li>
+    <li><a href="#pattern-match">pattern match</a></li>
+    <li><a href="#conclusion">conclusion</a></li>
   </ul>
 </nav>
   </div>
@@ -851,15 +847,11 @@
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li><a href="#sum-type">sum type</a></li>
-        <li><a href="#stdvariant">std::variant</a></li>
-        <li><a href="#stdvisit">std::visit</a></li>
-        <li><a href="#pattern-match">pattern match</a></li>
-        <li><a href="#that-is-too-bad-">that is too bad !</a></li>
-      </ul>
-    </li>
+    <li><a href="#sum-type">sum type</a></li>
+    <li><a href="#stdvariant">std::variant</a></li>
+    <li><a href="#stdvisit">std::visit</a></li>
+    <li><a href="#pattern-match">pattern match</a></li>
+    <li><a href="#conclusion">conclusion</a></li>
   </ul>
 </nav>
   </div>
@@ -943,7 +935,7 @@
         <div class="article-content max-w-prose mb-20">
           
 
-<h3 class="relative group">sum type 
+<h2 class="relative group">sum type 
     <div id="sum-type" class="anchor"></div>
     
     <span
@@ -952,7 +944,7 @@
             style="text-decoration-line: none !important;" href="#sum-type" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>下面让我们来讨论 CS 中一个简单但非常有用的概念：<a href="https://en.wikipedia.org/wiki/Tagged_union" target="_blank">sum type</a>，直译过来就是<strong>和类型</strong>，是一种可以容纳多种类型的类型。什么意思呢？假设现在有一个<code>Shape</code>类型，它可以是<code>Circle</code>或者<code>Rectangle</code>，在 C 语言中怎么实现它呢？使用<code>union</code>我们不难写出如下的实现</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Circle</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">radius</span><span class="p">;</span>
@@ -1002,7 +994,7 @@
 <p>这实在太让人抓狂了。如果哪一步忘记了，一不小心，就会写出 undefined behavior 的代码。这里难道就没有什么更好的方案吗？终于，在 C++17 我们等到了 <code>std::variant</code>。它会是我们的救星吗？</p>
 
 
-<h3 class="relative group">std::variant 
+<h2 class="relative group">std::variant 
     <div id="stdvariant" class="anchor"></div>
     
     <span
@@ -1011,7 +1003,7 @@
             style="text-decoration-line: none !important;" href="#stdvariant" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>直接看代码</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;variant&gt;</span><span class="cp">
@@ -1040,11 +1032,11 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> <span class="c1">// hello
 </span></span></span></code></pre></div><p>我悟了，既然能直接用<code>index</code>来获取对应的类型，那直接下面这样写不就好了？</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="n">settings</span><span class="p">.</span><span class="n">index</span><span class="p">()</span><span class="o">&gt;</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> <span class="c1">// error
-</span></span></span></code></pre></div><p>很遗憾，这样的想法是好的，但是这样做是不行的。如果你看报错信息的话，可能会看见几百行。但是最重要的一句话是这样的：<code>error: the value of 'settings' is not usable in a constant expression</code>。不得不说 C++ 的报错实在是太容易让初学者望而却步了。如果我当时遇到这么长的报错，那我要晕过去了。现在问题是，假设我是初学者，就算我知道了这个报错的原因，我也不知道这是什么意思。<code>setting</code>的值不能在常量表达式里面使用？意思是这里的模板参数必须是编译期常量，相关的话题展开谈又是一大块内容了。想要真正理解这部分内容，可以参考下这篇文章 <a href="https://16bit-ykiko.github.io/about-me/655902377" target="_blank">真正意义上的理解 C++ 模板</a> 。</p>
+</span></span></span></code></pre></div><p>很遗憾，这样的想法是好的，但是这样做是不行的。如果你看报错信息的话，可能会看见几百行。但是最重要的一句话是这样的：<code>error: the value of 'settings' is not usable in a constant expression</code>。不得不说 C++ 的报错实在是太容易让初学者望而却步了。如果我当时遇到这么长的报错，那我要晕过去了。现在问题是，假设我是初学者，就算我知道了这个报错的原因，我也不知道这是什么意思。<code>setting</code>的值不能在常量表达式里面使用？意思是这里的模板参数必须是编译期常量，相关的话题展开谈又是一大块内容了。想要真正理解这部分内容，可以参考下这篇文章 <a href="https://www.ykiko.me/zh-cn/articles/655902377" target="_blank">真正意义上的理解 C++ 模板</a> 。</p>
 <p>别急让我们请<code>std::visit</code>上场。</p>
 
 
-<h3 class="relative group">std::visit 
+<h2 class="relative group">std::visit 
     <div id="stdvisit" class="anchor"></div>
     
     <span
@@ -1053,7 +1045,7 @@
             style="text-decoration-line: none !important;" href="#stdvisit" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p><code>visit</code>这个名字其实就来源于设计模式里面的那个<code>visitor</code>模式。我们可以写出下面这样的代码。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Settings</span> <span class="n">settings</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="n">settings</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span>
@@ -1095,7 +1087,7 @@
 </span></span></span></code></pre></div><p>哦老天爷，如此方便。使用<code>match</code>进行匹配的这种语法被叫做模式匹配 (pattern match)。其实关键的地方就在于，判断完类型之后，分支里面可以直接使用这个变量，而不需要额外再多写什么代码。那 C++ 里面有 pattern match 吗？很可惜并没有，只能通过一些模板元编程技巧来实现上面的效果。</p>
 
 
-<h3 class="relative group">pattern match 
+<h2 class="relative group">pattern match 
     <div id="pattern-match" class="anchor"></div>
     
     <span
@@ -1104,7 +1096,7 @@
             style="text-decoration-line: none !important;" href="#pattern-match" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>想要在 C++ 写出类似上面代码的效果，有两种方案：</p>
 <ul>
 <li>利用函数重载</li>
@@ -1147,16 +1139,16 @@
 </span></span></code></pre></div><p>这里的代码就不做解释了，还是那句话，如果想要真正理解，参考上面的链接。</p>
 
 
-<h3 class="relative group">that is too bad ! 
-    <div id="that-is-too-bad-" class="anchor"></div>
+<h2 class="relative group">conclusion 
+    <div id="conclusion" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#that-is-too-bad-" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#conclusion" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>C++ 经常喜欢用模板来实现各种东西。和上面的<code>variant</code>类似的窘境还有遍历<code>tuple</code>的时候，我们不得不使用<code>make_index_sequence</code> + 可变模板参数展开。还有就是按<code>index</code>访问可变模板参数还得先转成<code>tuple</code>，才能继续进一步的操作。 这样不仅用起来很麻烦，是语法噪音，读起来不好读，而且因为要额外很多实例化模板，大大拖慢了编译速度。事实上，这些东西对编译器来说都是透明的，它能直接以较高的效率进行访问，不用额外实例化很多模板。于是像<code>tuple</code>和<code>variant</code>这种类型，虽然你可以自己手动实现。但是你自己实现的是没有编译器实现的编译速度快的，因为编译器对此做了特殊处理，也就是我们通常说的「开洞」。 不过还好，可变模板参数访问的问题在 C++26 被解决了，我们可以用<code>...[index]</code>来访问可变模板参数中的元素了，不再需要<code>tuple</code>了。相比之下模式匹配相关的提案还没有进入标准，不知道还要写多久。现在我们只能选择多写点代码了。</p>
 
         </div>

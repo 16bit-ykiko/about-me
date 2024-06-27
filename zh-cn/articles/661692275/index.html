@@ -105,7 +105,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "3973"
+    "wordCount": "3993"
   }]
   </script>
 
@@ -580,7 +580,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-10-16 18:38:26 &#43;0000 UTC">October 16, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3973 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2023-10-16 18:38:26 &#43;0000 UTC">October 16, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3993 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1396,26 +1396,182 @@
 <p>花费了很长的篇幅介绍 C++ 的 static reflection。其实我非常喜欢 C++ 的编译期计算，对它的发展史也非常感兴趣。C++ 的编译期计算是一步步摸索出来的，有很多富有智慧的大师提出他们的独特想法，让不可能的事情变成现实。从 C++03 的变态模板元，到 C++11 的<code>constexpr</code>变量，到 C++14 ~23 对<code>constexpr</code>函数中的限制逐渐放开，把越来越多的操作移到编译期。再到如今的 static reflection，C++ 正在逐步脱离模板元的魔爪。之前那些老旧的模板元写法全都可以淘汰掉了！！！如果你没写过以前的老式模板元代码，大概是体会不到它有多可怕的。</p>
 <p>为了让静态反射能早点进入标准，作者团队特地选了原本提案的一部分核心子集。希望如作者所愿，静态反射能在 C++26 进入标准！当然，核心部分先进入，之后再补充更多更加有用的功能，所以这绝不是反射的全部内容。本文只是对该提案的粗略解读和翻译，想要详细了解的还请阅读下方链接中的提案，相关进展持续更新中：</p>
 
-<section class="space-y-10 w-full">
-    
-    
-</section>
+<div class="linkcard">
+    <a href="" target="_blank" class="linkcard-link">
+        <div class="linkcard-content">
+            <h3 class="linkcard-title">Reflection for C&#43;&#43;26 - P2996R0</h3>
+        </div>
+    </a>
+</div>
 
-<section class="space-y-10 w-full">
-    
-    
-</section>
+<style>
+    .linkcard {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 16px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s;
+    }
 
-<section class="space-y-10 w-full">
-    
-    
-</section>
+    .linkcard:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .linkcard-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    .linkcard-content {
+        padding: 16px;
+    }
+
+    .linkcard-title {
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    .linkcard-description {
+        margin: 8px 0 0;
+        font-size: 1em;
+        color: #666;
+    }
+</style>
+
+<div class="linkcard">
+    <a href="" target="_blank" class="linkcard-link">
+        <div class="linkcard-content">
+            <h3 class="linkcard-title">Reflection for C&#43;&#43;26 - P2996R1</h3>
+        </div>
+    </a>
+</div>
+
+<style>
+    .linkcard {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 16px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s;
+    }
+
+    .linkcard:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .linkcard-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    .linkcard-content {
+        padding: 16px;
+    }
+
+    .linkcard-title {
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    .linkcard-description {
+        margin: 8px 0 0;
+        font-size: 1em;
+        color: #666;
+    }
+</style>
+
+<div class="linkcard">
+    <a href="" target="_blank" class="linkcard-link">
+        <div class="linkcard-content">
+            <h3 class="linkcard-title">Reflection for C&#43;&#43;26 - P2996R2</h3>
+        </div>
+    </a>
+</div>
+
+<style>
+    .linkcard {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 16px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s;
+    }
+
+    .linkcard:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .linkcard-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    .linkcard-content {
+        padding: 16px;
+    }
+
+    .linkcard-title {
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    .linkcard-description {
+        margin: 8px 0 0;
+        font-size: 1em;
+        color: #666;
+    }
+</style>
 <br>
 
-<section class="space-y-10 w-full">
-    
-    
-</section>
+<div class="linkcard">
+    <a href="" target="_blank" class="linkcard-link">
+        <div class="linkcard-content">
+            <h3 class="linkcard-title">Reflection for C&#43;&#43;26 - P2996R3</h3>
+        </div>
+    </a>
+</div>
+
+<style>
+    .linkcard {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 16px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s;
+    }
+
+    .linkcard:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .linkcard-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    .linkcard-content {
+        padding: 16px;
+    }
+
+    .linkcard-title {
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    .linkcard-description {
+        margin: 8px 0 0;
+        font-size: 1em;
+        color: #666;
+    }
+</style>
 <p>实验编译器：</p>
 <ul>
 <li>在线尝试： <a href="https://godbolt.org/z/13anqE1Pa" target="_blank">https://godbolt.org/z/13anqE1Pa</a></li>
@@ -1423,10 +1579,49 @@
 </ul>
 <p>反射系列文章：</p>
 
-<section class="space-y-10 w-full">
-    
-    
-</section>
+<div class="linkcard">
+    <a href="" target="_blank" class="linkcard-link">
+        <div class="linkcard-content">
+            <h3 class="linkcard-title"></h3>
+        </div>
+    </a>
+</div>
+
+<style>
+    .linkcard {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 16px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s;
+    }
+
+    .linkcard:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .linkcard-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    .linkcard-content {
+        padding: 16px;
+    }
+
+    .linkcard-title {
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    .linkcard-description {
+        margin: 8px 0 0;
+        font-size: 1em;
+        color: #666;
+    }
+</style>
 
         </div>
         
@@ -1710,6 +1905,117 @@
   
   
 
+  <a href="/zh-cn/articles/645810896/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/zh-cn/articles/645810896/featured_hu2b7ce483047163dd3f1af92b5391a555_143680_600x0_resize_box_3.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/zh-cn/articles/645810896/">std::variant 很难用！</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2023-07-25 07:19:25 &#43;0000 UTC">July 25, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>2747 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">6 分钟</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+        </div>
+
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
   <a href="/zh-cn/articles/655902377/" class="min-w-full">
     
     <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
@@ -1765,7 +2071,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-09-12 15:46:11 &#43;0000 UTC">September 12, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>7785 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">16 分钟</span>
+  <time datetime="2023-09-12 15:46:11 &#43;0000 UTC">September 12, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>7794 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">16 分钟</span>
   
 
   
@@ -1876,7 +2182,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-07-30 01:29:27 &#43;0000 UTC">July 30, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>2084 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span>
+  <time datetime="2023-07-30 01:29:27 &#43;0000 UTC">July 30, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>2092 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span>
   
 
   
@@ -1987,118 +2293,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-07-29 10:20:50 &#43;0000 UTC">July 29, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3837 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span>
-  
-
-  
-  
-</div>
-
-
-<div class="flex flex-row flex-wrap items-center">
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-</div>
-
-
-
-
-<div class="flex flex-row flex-wrap items-center">
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-</div>
-
-
-
-        </div>
-
-        
-      </div>
-      <div class="px-6 pt-4 pb-2">
-
-      </div>
-    </div>
-  </a>
-
-  
-  
-
-  <a href="/zh-cn/articles/645810896/" class="min-w-full">
-    
-    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
-        
-        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/zh-cn/articles/645810896/featured_hu2b7ce483047163dd3f1af92b5391a555_143680_600x0_resize_box_3.png);"></div>
-        
-      
-
-      <div class="px-6 py-4">
-
-        
-        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
-          href="/zh-cn/articles/645810896/">std::variant 很难用！</div>
-        
-
-        <div class="text-sm text-neutral-500 dark:text-neutral-400">
-          
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="flex flex-row flex-wrap items-center">
-  
-  
-  <time datetime="2023-07-25 07:19:25 &#43;0000 UTC">July 25, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>2751 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">6 分钟</span>
+  <time datetime="2023-07-29 10:20:50 &#43;0000 UTC">July 29, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3855 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span>
   
 
   

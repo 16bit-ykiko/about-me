@@ -105,7 +105,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "3321"
+    "wordCount": "3347"
   }]
   </script>
 
@@ -580,7 +580,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-12-03 15:37:51 &#43;0000 UTC">December 3, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3321 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2023-12-03 15:37:51 &#43;0000 UTC">December 3, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3347 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1186,10 +1186,49 @@
 </span></span><span class="line"><span class="cl">      <span class="err">`</span><span class="o">-</span><span class="n">IntegerLiteral</span> <span class="mh">0x2103e866c28</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">15</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="mi">2</span>
 </span></span></code></pre></div><p>或者如果你的<code>vscode</code>装了<code>clangd</code>这个插件，可以右键选择一块代码，然后右键<code>show AST</code>来看这块代码片段的<code>ast</code>。可以发现上面的确是把源码内容以树的方式呈现给我们了，既然是一颗树，我们就可以自由的遍历树的节点，然后筛选获取我们想要的信息。上面两例都是可视化的输出，通常情况下也会有直接的代码接口来直接获取。比如<code>python</code>内置就有<code>ast</code>模块来获取，<code>C++</code>一般是通过<code>clang</code>相关的工具来获取这些内容。如果想知道具体该如何使用<code>clang</code>工具，可以参考这篇文章</p>
 
-<section class="space-y-10 w-full">
-    
-    
-</section>
+<div class="linkcard">
+    <a href="" target="_blank" class="linkcard-link">
+        <div class="linkcard-content">
+            <h3 class="linkcard-title">使用 clang 工具自由的支配 C&#43;&#43; 代码吧！</h3>
+        </div>
+    </a>
+</div>
+
+<style>
+    .linkcard {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 16px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s;
+    }
+
+    .linkcard:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .linkcard-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    .linkcard-content {
+        padding: 16px;
+    }
+
+    .linkcard-title {
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    .linkcard-description {
+        margin: 8px 0 0;
+        font-size: 1em;
+        color: #666;
+    }
+</style>
 <p>如果你好奇编译器究竟是如何把源代码变成<code>ast</code>的，你可以去学习一下编译原理前端的内容。</p>
 
 
@@ -1235,10 +1274,49 @@
 </span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="p">;</span>
 </span></span></code></pre></div><p>这样无疑给了我们更大的操作空间，那么有了这些信息之后，下一步该做些什么？事实上我们可以选择基于这部分信息进行代码生成，相关的内容可以浏览系列文章中的其它小节。总目录的链接在下方：</p>
 
-<section class="space-y-10 w-full">
-    
-    
-</section>
+<div class="linkcard">
+    <a href="" target="_blank" class="linkcard-link">
+        <div class="linkcard-content">
+            <h3 class="linkcard-title">写给 C&#43;&#43; 程序员的反射教程</h3>
+        </div>
+    </a>
+</div>
+
+<style>
+    .linkcard {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 16px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s;
+    }
+
+    .linkcard:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .linkcard-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    .linkcard-content {
+        padding: 16px;
+    }
+
+    .linkcard-title {
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    .linkcard-description {
+        margin: 8px 0 0;
+        font-size: 1em;
+        color: #666;
+    }
+</style>
 
         </div>
         
@@ -1466,7 +1544,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-11-29 01:14:27 &#43;0000 UTC">November 29, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>5350 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">11 分钟</span>
+  <time datetime="2023-11-29 01:14:27 &#43;0000 UTC">November 29, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>5361 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">11 分钟</span>
   
 
   
@@ -1577,7 +1655,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-11-29 01:14:16 &#43;0000 UTC">November 29, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3214 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span>
+  <time datetime="2023-11-29 01:14:16 &#43;0000 UTC">November 29, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3231 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span>
   
 
   
@@ -1799,7 +1877,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-10-16 18:38:26 &#43;0000 UTC">October 16, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3973 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span>
+  <time datetime="2023-10-16 18:38:26 &#43;0000 UTC">October 16, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3993 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span>
   
 
   
@@ -2021,7 +2099,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-09-12 15:46:11 &#43;0000 UTC">September 12, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>7785 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">16 分钟</span>
+  <time datetime="2023-09-12 15:46:11 &#43;0000 UTC">September 12, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>7794 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">16 分钟</span>
   
 
   
