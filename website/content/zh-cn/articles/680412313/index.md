@@ -182,7 +182,7 @@ int main(){
 
 ## 外部代码生成 
 
-既然手写字符串转枚举很麻烦，那么写个脚本生成代码不就行了？的确如此，我们可以使用 libclang 的 python bind 轻松的完成这项工作。具体如何使用这个工具，可以参考 [使用 clang 工具自由的支配 C++ 代码吧](https://www.ykiko.me/articles/669360731)，下面只展示实现效果的代码
+既然手写字符串转枚举很麻烦，那么写个脚本生成代码不就行了？的确如此，我们可以使用 libclang 的 python bind 轻松的完成这项工作。具体如何使用这个工具，可以参考 [使用 clang 工具自由的支配 C++ 代码吧](https://www.ykiko.me/zh-cn/articles/669360731)，下面只展示实现效果的代码
 
 ```python
 import clang.cindex as CX
@@ -279,9 +279,9 @@ std::string_view color_to_string(Color value){
 
 年年月月盼反射，还是不知道什么时候才能进入标准呢。想要提前了解 C++ 静态反射的小伙伴，可以看
 
-{{< article link="https://www.ykiko.me/articles/661692275" >}}
+{{< article link="zh-cn/articles/661692275" >}}
 
 或者还不知道反射是什么的小伙伴，可以参考这篇文章的内容
 
-{{< article link="https://www.ykiko.me/articles/669358870" >}}
+{{< article link="zh-cn/articles/669358870" >}}
 

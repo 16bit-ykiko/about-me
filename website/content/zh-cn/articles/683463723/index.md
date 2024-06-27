@@ -6,7 +6,7 @@ updated: 2024-05-25 04:28:17
 
 ## 前情提要： 
 
-{{< article link="https://www.ykiko.me/articles/682031684" >}}
+{{< article link="zh-cn/articles/682031684" >}}
 
 ## 2015-2016：模板的语法糖 
 

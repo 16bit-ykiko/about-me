@@ -87,7 +87,7 @@ struct find_first_of<T, T, Ts...>
 static_assert(find_first_of<int, double, char, int, char>::value == 2);
 ```
 
-由于 type 和 higher kind type 只能是 template arguments，所以还是只能通过**模板递归匹配**处理它们。要是我们能像 value 一样操作它们就好了，这样的话 constexpr 函数也能处理它们了。但是 C++ 又不是像 Zig 那样的语言，type is value。怎么办呢？没关系，我们把 type 映射到 value 不就行了？实现 type as value 的效果。在静态反射加入之前，我们可以通过一些 trick 来实现这个效果。可以在编译期把类型映射到类型名，于是只要对类型名进行计算就好了。关于如何进行这种映射，可以参考 [C++ 中如何优雅进行 enum 到 string 的转换](https://www.ykiko.me/articles/680412313)。
+由于 type 和 higher kind type 只能是 template arguments，所以还是只能通过**模板递归匹配**处理它们。要是我们能像 value 一样操作它们就好了，这样的话 constexpr 函数也能处理它们了。但是 C++ 又不是像 Zig 那样的语言，type is value。怎么办呢？没关系，我们把 type 映射到 value 不就行了？实现 type as value 的效果。在静态反射加入之前，我们可以通过一些 trick 来实现这个效果。可以在编译期把类型映射到类型名，于是只要对类型名进行计算就好了。关于如何进行这种映射，可以参考 [C++ 中如何优雅进行 enum 到 string 的转换](https://www.ykiko.me/zh-cn/articles/680412313)。
 
 ```cpp
 template<typename ...Ts>
@@ -448,5 +448,5 @@ constexpr std::string enum_to_string(E value)
 
 反射系列文章：
 
-{{< article link="https://www.ykiko.me/articles/669358870" >}}
+{{< article link="zh-cn/articles/669358870" >}}
 
