@@ -1091,7 +1091,7 @@
     </span>        
     
 </h2>
-<p>既然手写字符串转枚举很麻烦，那么写个脚本生成代码不就行了？的确如此，我们可以使用 libclang 的 python bind 轻松的完成这项工作。具体如何使用这个工具，可以参考 <a href="https://www.ykiko.me/articles/669360731" target="_blank">使用 clang 工具自由的支配 C++ 代码吧</a>，下面只展示实现效果的代码</p>
+<p>既然手写字符串转枚举很麻烦，那么写个脚本生成代码不就行了？的确如此，我们可以使用 libclang 的 python bind 轻松的完成这项工作。具体如何使用这个工具，可以参考 <a href="https://www.ykiko.me/zh-cn/articles/669360731" target="_blank">使用 clang 工具自由的支配 C++ 代码吧</a>，下面只展示实现效果的代码</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">clang.cindex</span> <span class="k">as</span> <span class="nn">CX</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">generate_enum_to_string</span><span class="p">(</span><span class="n">enum</span><span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">Cursor</span><span class="p">):</span>

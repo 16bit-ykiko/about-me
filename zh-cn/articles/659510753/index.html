@@ -1153,7 +1153,7 @@
     
 </h2>
 <p>首先要明确的是，C++ 标准并没有规定成员指针是什么实现的。在这一点上和虚函数一样，即标准没有规定虚函数是怎么实现的，只规定了虚函数的行为。所以成员指针相关的实现完全是 <strong>implementation defined</strong>。本来只需要了解怎么使用就足够了，不要关心底层实现。但是奈何网络上相关话题的错误文章太多了，已经严重的产生了误导，所以有必要进行澄清。</p>
-<p>对于三大主流编译器，GCC 遵循 Itanium C++ ABI ，MSVC 则遵守 MSVC C++ ABI，Clang 通过不同的编译选项可以分别设置为这两种 ABI。关于 ABI 的详细讨论请移步 <a href="https://www.ykiko.me/articles/692886292" target="_blank">彻底理解 C++ ABI</a> 和 <a href="https://www.zhihu.com/question/653778109/answer/3480007666" target="_blank">MSVC 与 GCC 产生的动态库如何才能相互替换</a>，这里不过多介绍。</p>
+<p>对于三大主流编译器，GCC 遵循 Itanium C++ ABI ，MSVC 则遵守 MSVC C++ ABI，Clang 通过不同的编译选项可以分别设置为这两种 ABI。关于 ABI 的详细讨论请移步 <a href="https://www.ykiko.me/zh-cn/articles/692886292" target="_blank">彻底理解 C++ ABI</a> 和 <a href="https://www.zhihu.com/question/653778109/answer/3480007666" target="_blank">MSVC 与 GCC 产生的动态库如何才能相互替换</a>，这里不过多介绍。</p>
 <ul>
 <li><a href="https://itanium-cxx-abi.github.io/cxx-abi/abi.html#data-member-pointers" target="_blank">Itanium ABI</a> 具有公开的文档，之后的相关描述主要参考这个文档</li>
 <li>MSVC ABI 没有公开的文档，之后的相关描述主要参考 <a href="https://rants.vastheman.com/2021/09/21/msvc/" target="_blank">MSVC C++ ABI Member Function Pointers</a> 这篇博客</li>

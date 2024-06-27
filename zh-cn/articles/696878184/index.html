@@ -999,7 +999,7 @@
     
 </h2>
 <p>我们都知道 C++ 并没有官方的构建系统，不同的库使用不同的构建系统，就不方便互相使用了（目前的事实标准来看是 cmake）。这个现状使得 header-only 库变得越来越流行，<code>include</code>即用，谁不喜欢呢？但是 header-only 也就意味着所有的代码都写在头文件中，如何在头文件中定义变量并且使得它能直接被多个源文件包含而不导致链接错误呢？</p>
-<p>在 C++17 之前，并没有直接的办法。但有一些间接的办法，考虑到<code>inline</code>函数或者模板函数的定义都可以出现在多个源文件中，并且 C++ 标准保证它们具有相同的地址（相关的讨论可以参考 <a href="https://www.ykiko.me/articles/686296374" target="_blank">C++ 究竟代码膨胀在哪里？</a>）。于是只需要在这些函数中定义静态局部变量，效果上就相当于在头文件中定义变量了</p>
+<p>在 C++17 之前，并没有直接的办法。但有一些间接的办法，考虑到<code>inline</code>函数或者模板函数的定义都可以出现在多个源文件中，并且 C++ 标准保证它们具有相同的地址（相关的讨论可以参考 <a href="https://www.ykiko.me/zh-cn/articles/686296374" target="_blank">C++ 究竟代码膨胀在哪里？</a>）。于是只需要在这些函数中定义静态局部变量，效果上就相当于在头文件中定义变量了</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>

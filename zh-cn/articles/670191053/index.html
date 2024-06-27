@@ -1114,7 +1114,7 @@
 </span></span><span class="line"><span class="cl">        <span class="p">}(</span><span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">tuple_size_v</span><span class="o">&lt;</span><span class="n">args_type</span><span class="o">&gt;&gt;</span><span class="p">{});</span>
 </span></span><span class="line"><span class="cl">    <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>这里的代码我就不解释了，如果看不懂也没关系。其实就是通过模板元，把成员函数类型擦除的这个过程自动化了一下。只要知道如何使用就行了，使用起来是非常简单的。这里的<code>&amp;Person::say</code>是 pointer to member 的写法，不太熟悉的可以参考 <a href="https://www.ykiko.me/articles/659510753" target="_blank">C++ 成员指针完全解析</a>。</p>
+</span></span></code></pre></div><p>这里的代码我就不解释了，如果看不懂也没关系。其实就是通过模板元，把成员函数类型擦除的这个过程自动化了一下。只要知道如何使用就行了，使用起来是非常简单的。这里的<code>&amp;Person::say</code>是 pointer to member 的写法，不太熟悉的可以参考 <a href="https://www.ykiko.me/zh-cn/articles/659510753" target="_blank">C++ 成员指针完全解析</a>。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">f</span> <span class="o">=</span> <span class="n">type_ensure</span><span class="o">&lt;&amp;</span><span class="n">Person</span><span class="o">::</span><span class="n">say</span><span class="o">&gt;</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// decltype(f) =&gt; Any (*)(void*, std::span&lt;Any&gt;)
 </span></span></span></code></pre></div>

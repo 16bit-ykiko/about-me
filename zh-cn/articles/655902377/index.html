@@ -1335,7 +1335,7 @@
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}));</span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}));</span>
 </span></span></code></pre></div><p>瞬间清爽一万倍，仅仅是因为在 C++ 中类型不是一等公民，只能作为模板参数，在涉及到类型相关的计算的时候，我们就不得不编写繁琐的模板元代码。事实上对类型做计算的需求一直都存在，典型的例子是<code>std::variant</code>。在编写<code>operator=</code>的时候，我们需要从一个类型列表里面（<code>variant</code>的模板参数列表）里面查找某个类型并返回一个索引，其实就是从一个数组里面查找一个满足特定条件的元素。相关的实现这里就不展示了。其实可怕的并不是使用模板元编程本身，而是就 C++ 自身而言，把类型当作值这样的改动是完全不可接受 unacceptable 的。也就是说这样的状况会一直持续下去，以后都不会有什么本质上的改变，这一事实才是最让人悲伤的。不过仍然要清楚的一个事实是，支持对类型做计算的语言并不多，像 Rust 对于这方面的支持几乎没有。C++ 的代码虽然写起来蹩脚，但是至少能写。</p>
-<p>但是还好这里有还有另外一条路可以走。就是通过一些手段把类型映射到值。例如把类型映射到字符串，匹配类型可以类似于匹配字符串，只要对字符串进行计算就好了，也能实现一定程度上的<code>type as value</code>。C++23之前 并没有标准化的手段进行这种映射，通过一些特殊的编译器扩展能做到，可以参考 <a href="https://www.ykiko.me/articles/680412313" target="_blank">C++ 中如何优雅进行 enum 到 string 的转换</a></p>
+<p>但是还好这里有还有另外一条路可以走。就是通过一些手段把类型映射到值。例如把类型映射到字符串，匹配类型可以类似于匹配字符串，只要对字符串进行计算就好了，也能实现一定程度上的<code>type as value</code>。C++23之前 并没有标准化的手段进行这种映射，通过一些特殊的编译器扩展能做到，可以参考 <a href="https://www.ykiko.me/zh-cn/articles/680412313" target="_blank">C++ 中如何优雅进行 enum 到 string 的转换</a></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_list</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
@@ -1349,7 +1349,7 @@
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>在 C++23 之后也可以直接用typeid实现映射，而不使用字符串映射。但是类型映射到值简单，把值映射到类型回去可一点都不简单，除非你利用 <a href="https://www.ykiko.me/articles/646752343" target="_blank">STMP</a> 这种黑魔法，才能方便的把值映射回类型。但是，如果静态反射将来被引入，那么这种从类型和值的双向映射会非常简单。这样的话虽然不能直接支持把类型当成值来进行操作，但是也基本差不多了。不过还有很长一段路要走，具体什么时候能加入标准，还是个未知数。如果对静态反射感兴趣，可以下面这篇文章</p>
+</span></span></code></pre></div><p>在 C++23 之后也可以直接用typeid实现映射，而不使用字符串映射。但是类型映射到值简单，把值映射到类型回去可一点都不简单，除非你利用 <a href="https://www.ykiko.me/zh-cn/articles/646752343" target="_blank">STMP</a> 这种黑魔法，才能方便的把值映射回类型。但是，如果静态反射将来被引入，那么这种从类型和值的双向映射会非常简单。这样的话虽然不能直接支持把类型当成值来进行操作，但是也基本差不多了。不过还有很长一段路要走，具体什么时候能加入标准，还是个未知数。如果对静态反射感兴趣，可以下面这篇文章</p>
 
 <section class="space-y-10 w-full">
     
@@ -1391,7 +1391,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="cm">/* ... */</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>事实上我们并没有办法保证一个函数参数是编译期常量，所以上面的代码是没法编译通过的。想要编译期常量，只能把这部分内容填到模板参数里面去，比如上面的函数可能会最后修改成<code>format&lt;&quot;{}&quot;&gt;(1)</code>这样的形式。虽然只是形式上的差别，但这无疑给使用者带来了困难。这样来看，也就不难理解为什么<code>std::make_index_sequence</code>这样的东西大行其道了。想要真正意义上可以做模板参数的编译期变量，也可以通过 <a href="https://www.ykiko.me/articles/646752343" target="_blank">STMP</a> 这种黑魔法做到，但是如前文所述，难以在日常的编程中真正使用它。</p>
+</span></span></code></pre></div><p>事实上我们并没有办法保证一个函数参数是编译期常量，所以上面的代码是没法编译通过的。想要编译期常量，只能把这部分内容填到模板参数里面去，比如上面的函数可能会最后修改成<code>format&lt;&quot;{}&quot;&gt;(1)</code>这样的形式。虽然只是形式上的差别，但这无疑给使用者带来了困难。这样来看，也就不难理解为什么<code>std::make_index_sequence</code>这样的东西大行其道了。想要真正意义上可以做模板参数的编译期变量，也可以通过 <a href="https://www.ykiko.me/zh-cn/articles/646752343" target="_blank">STMP</a> 这种黑魔法做到，但是如前文所述，难以在日常的编程中真正使用它。</p>
 
 
 <h3 class="relative group">心中所向往的 
