@@ -185,12 +185,7 @@ class LinkCard(Node):
         self.url = url
 
     def __str__(self) -> str:
-        url = self.url
-
-        if url.startswith("https://www.ykiko.me"):
-            url = url.removeprefix("https://www.ykiko.me") + "/"
-
-        return '{{< article link="' + url + '" >}}'
+        return '{{< ' + f'linkcard url="{self.url}" title="{self.label}"' + ' >}}'
 
 
 class Document:

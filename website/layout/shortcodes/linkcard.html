@@ -1,0 +1,44 @@
+<!-- layouts/shortcodes/linkcard.html -->
+<div class="linkcard">
+    <a href="{{ .Get " url" }}" target="_blank" class="linkcard-link">
+        <div class="linkcard-content">
+            <h3 class="linkcard-title">{{ .Get "title" }}</h3>
+        </div>
+    </a>
+</div>
+
+<style>
+    .linkcard {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 16px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s;
+    }
+
+    .linkcard:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .linkcard-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    .linkcard-content {
+        padding: 16px;
+    }
+
+    .linkcard-title {
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    .linkcard-description {
+        margin: 8px 0 0;
+        font-size: 1em;
+        color: #666;
+    }
+</style>
