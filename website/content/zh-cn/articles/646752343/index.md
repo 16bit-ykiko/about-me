@@ -1,7 +1,7 @@
 ---
 title: 'C++ 禁忌黑魔法：STMP'
 date: 2023-07-29 10:20:50
-updated: 2024-05-26 15:05:38
+updated: 2024-06-27 05:23:30
 ---
 
 STMP 全名 stateful template meta programming，又叫状态元编程。之所以这么称呼，是因为传统的 C++ 的常量表达式求值既不依赖，也不能改变全局的状态，对于任意确定的输入，它的输出结果总是不变的，是 purely functional 的。
@@ -277,7 +277,7 @@ int main() {
 
 那么存在这样的方法吗？答案是存在。我们有**模板显示实例化的时候可以忽略类作用域的访问权限**
 
->  The C++11/14 standards state the following in note 14.7.2/12 [temp.explicit]: -The usual access checking rules do not apply to names used to specify explicit instantiations. [ Note: In particular, the template arguments and names used in the function declarator (including parameter types, return types and exception speciﬁcations) may be private types or objects which would normally not be accessible and the template may be a member template or member function which would not normally be accessible. — end note ] 
+> The C++11/14 standards state the following in note 14.7.2/12 [temp.explicit]: The usual access checking rules do not apply to names used to specify explicit instantiations. [ Note: In particular, the template arguments and names used in the function declarator (including parameter types, return types and exception speciﬁcations) may be private types or objects which would normally not be accessible and the template may be a member template or member function which would not normally be accessible. — end note ] 
 
 也就是说在显示实例化模板的时候，我们可以直接访问类的私有成员。
 
@@ -305,13 +305,9 @@ int main() {
 }
 ```
 
-成功输出`100`！
-
----
-
 续篇已出，欢迎阅读：
 
-{{< linkcard url="https://www.ykiko.me/zh-cn/articles/646812253" title="C++ 禁忌黑魔法: STMP 多态" >}}
+{{< linkcard url="https://www.ykiko.me/zh-cn/articles/646812253" title="YKIKO：C++ 禁忌黑魔法: STMP 多态" >}}
 
 参考文章： 
 
