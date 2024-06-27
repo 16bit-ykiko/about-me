@@ -360,7 +360,7 @@ void vector<T>::grow(std::size_t n) {
 
 那对于`vector`来说，如果 T 里面的元素类型不同，扩容逻辑还能相同吗？考虑到构造函数调用，似乎没任何办法。关键点来了，这里需要介绍一个`trivially_relocatable`的概念，具体的讨论可以参考
 
-{{< article link="/zh-cn/articles/679782886/" >}}
+{{< linkcard url="https://www.ykiko.me/zh-cn/articles/679782886" title="全新的构造函数，C++ 中的 relocate 构造函数" >}}
 
 我们这里只说结果，如果一个类型是`trivially_relocatable`的，那么可以使用`memcpy`把它从旧内存移动到新内存，不需要调用构造函数了。
 

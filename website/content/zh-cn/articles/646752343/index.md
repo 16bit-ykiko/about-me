@@ -311,7 +311,7 @@ int main() {
 
 续篇已出，欢迎阅读：
 
-{{< article link="/zh-cn/articles/646812253/" >}}
+{{< linkcard url="https://www.ykiko.me/zh-cn/articles/646812253" title="C++ 禁忌黑魔法: STMP 多态" >}}
 
 参考文章： 
 

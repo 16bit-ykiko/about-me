@@ -6,7 +6,7 @@ updated: 2024-05-26 15:07:56
 
 ## 前情提要： 
 
-{{< article link="/zh-cn/articles/646752343/" >}}
+{{< linkcard url="https://www.ykiko.me/zh-cn/articles/646752343" title="C++ 禁忌黑魔法: STMP" >}}
 
 ## 什么是 STMP 多态 
 
