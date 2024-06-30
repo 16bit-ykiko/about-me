@@ -1,12 +1,16 @@
 ---
 title: 'std::variant 很难用！'
 date: 2023-07-25 07:19:25
-updated: 2024-06-27 05:21:27
+updated: 2024-06-29 12:39:34
 ---
 
-## sum type 
+`std::variant`于 C++17 加入标准库，本文将讨论其加入标准的背景，以及一些使用上的问题。
 
-下面让我们来讨论 CS 中一个简单但非常有用的概念：[sum type](https://en.wikipedia.org/wiki/Tagged_union)，直译过来就是**和类型**，是一种可以容纳多种类型的类型。什么意思呢？假设现在有一个`Shape`类型，它可以是`Circle`或者`Rectangle`，在 C 语言中怎么实现它呢？使用`union`我们不难写出如下的实现
+### sum type 
+
+首先来讨论一下**和类型 (sum type)**，或者叫做 [tagged union](https://en.wikipedia.org/wiki/Tagged_union)。和类型就是只能在几种可能的类型中取值的类型。
+
+例如我们有如下两个类型
 
 ```cpp
 struct Circle {
@@ -17,7 +21,11 @@ struct Rectangle {
     double width;
     double height;
 };
+```
 
+那么`Circle`和`Rectangle`的和类型，比如我们就叫`Shape`吧，在 C 语言中可以这么实现
+
+```cpp
 struct Shape {
     enum Type { Circle, Rectangle } type;
 
@@ -28,16 +36,40 @@ struct Shape {
 };
 ```
 
->  这里使用了叫做 [anonymous union](https://en.cppreference.com/w/cpp/language/union#Anonymous_unions) 的特性，相当于声明了一个对应类型的 union 成员，并且把字段名字注入到当前作用域。 
+>  这里使用了叫做 [anonymous union](https://en.cppreference.com/w/cpp/language/union#Anonymous_unions) 的特性，相当于声明了一个对应类型的 union 成员，并且把字段名字注入到当前作用域。  
 
-这样我们就可以定义一个`Shape`类型的变量，给它赋不同类型的值。访问的时候根据`type`的值来判断它是`Circle`还是`Rectangle`就行了。上面这种写法也可以被叫做 **tagged union**，在`C`语言里面我们经常这么做。
+这样我们就可以给`Shape`类型的变量赋不同类型的值，同时更新记录下赋值时的`type`。访问的时候反过来根据`type`来决定按照哪种类型访问即可。例如
 
-但在 C++ 中，事情就没这么简单了。考虑如下代码
+```cpp
+void foo(Shape shape) {
+    if(shape.type == Shape::Circle) {
+        Circle c = shape.circle;
+        printf("circle: radius is %f\n", c.radius);
+    } else if(shape.type == Shape::Rectangle) {
+        Rectangle r = shape.rectangle;
+        printf("rectangle: width is %f, height is %f\n", r.width, r.height);
+    }
+}
+
+int main() {
+    Shape shape;
+    shape.type = Shape::Circle;
+    shape.circle.radius = 1.0;
+    foo(shape);
+    shape.type = Shape::Rectangle;
+    shape.rectangle.width = 1.0;
+    shape.rectangle.height = 2.0;
+    foo(shape);
+}
+```
+
+### not trivial 
+
+但在 C++ 中事情就没这么简单了，考虑如下代码
 
 ```cpp
 struct Settings {
-    enum class Type { int_, double_, string };
-    Type type;
+    enum class Type { int_, double_, string } type;
 
     union {
         int i;
@@ -53,18 +85,49 @@ int main(){
 }
 ```
 
-事实上这段代码，甚至没法通过编译。会报错`use of deleted function Settings::Settings()`。为什么`Settings`的构造函数被删除了呢？这其实是因为`std::string`的构造函数是 not trivial 的，当`union`中含有 not trivial 的类型的时候，编译期无法生成正确的默认构造函数（有多个成员，编译器不知道你要初始化哪一个）。详情请见的可以参考 cppreference 上对 [union](https://en.cppreference.com/w/cpp/language/union) 的介绍。怎么解决呢？那就是我们自己来定义`union`的构造函数和析构函数，要确保对象都能正确构造析构，正确保证它们的 lifetime。
+这段代码其实没法通过编译，编译器会报错`use of deleted function Settings::Settings()`。为什么`Settings`的构造函数被删除了呢？这其实是因为`std::string`的构造函数是 not trivial 的，当`union`中含有 not trivial 的类型的成员的时候，编译器无法正确的生成构造函数和析构函数（不知道你要初始化或者析构哪个成员）。详情原因请见的可以参考 cppreference 上对 [union](https://en.cppreference.com/w/cpp/language/union) 的介绍。
 
-事实上，在 C++ 中直接使用 C 语言的`union`来表示 sum type 是非常不方便的。原因有以下三点：
+怎么解决呢？那就是我们自己来定义`union`的构造函数和析构函数。比如我们可以给它定义一个空的构造函数和析构函数，也就是什么都不做
 
-- 当分配到一个新的类型的时候，我们需要手动更新这个表示当前活跃成员的 tag
-- 当我们需要访问某个成员的时候，我们需要手动检查 tag 的值，确保访问的成员是 active 的
-- 还要正确的调用构造函数和析构函数
+```cpp
+union Value {
+    int i;
+    double d;
+    std::string s;
 
+    Value() {}
+    ~Value() {}
+};
 
-这实在太让人抓狂了。如果哪一步忘记了，一不小心，就会写出 undefined behavior 的代码。这里难道就没有什么更好的方案吗？终于，在 C++17 我们等到了 `std::variant`。它会是我们的救星吗？
+struct Settings {
+    enum class Type { int_, double_, string } type;
+    Value value;
+};
+```
 
-## std::variant 
+使用的时候则要求我们通过 [placement new](https://en.cppreference.com/w/cpp/language/new#Placement_new) 显式调用构造函数来初始化某个成员，同样的，我们也要手动调用析构函数来销毁某个成员。
+
+```cpp
+int main(){
+    Settings settings;
+
+    settings.type = Settings::Type::string;
+    new (&settings.value.s) std::string("hello");
+    std::cout << settings.value.s << std::endl;
+    settings.value.s.~basic_string();
+
+    settings.type = Settings::Type::int_;
+    new (&settings.value.i) int(1);
+    std::cout << settings.value.i << std::endl;
+    settings.value.i.~int();
+}
+```
+
+>  注意，这里不能**直接赋值 (assign)**。因为赋值操作其实是在调用成员函数`operator=`，而只有已经初始化过后的对象才能调用成员函数。 
+
+从上面的代码不难看出，如果要在 C++ 里面直接使用 union 来表示 sum type，非常麻烦。不仅要及时更新`type`，还要正确调用构造函数和析构函数，还要留意赋值的时机问题赋值。如果其中的某一步忘记了，就会导致 undefined behavior，这非常让人头疼。不过还好，C++17 给我们提供了`std::variant`来解决这个问题。
+
+### std::variant 
 
 直接看代码
 
@@ -72,78 +135,88 @@ int main(){
 #include <string>
 #include <variant>
 
+using Settings = std::variant<int, bool, std::string>;
+
 int main() {
-    using Settings = std::variant<int, bool, std::string>;
-    Settings settings;
-    settings = std::string("hello");
-    settings = 1;
-    settings = true;
+    Settings s = {1};
+    s = true;
+    s = std::string("hello");
 }
 ```
 
-上面的代码完全是 well defined 的，实在是太令人开心了。事实上`variant`可以完美解决上述三个问题中的第三个，它会帮你合适的调用构造函数和析构函数（通过模板类型的特化）。
+上面的代码完全是 well defined，通过模板元编程，`variant`会在合适和时机处理对象的构造和析构。
 
-但光存不行，我想知道现在哪个类型是活跃的怎么办呢？其实`variant`有一个`index`成员函数，可以获取当前类型在你写的类型列表里面的索引，在更新类型的时候也会自动更新这个`index`的值。所以我们可以这样写
+它有一个`index`成员函数可以获取当前类型在你写的类型列表里面的索引。
 
 ```cpp
-Settings settings;
-settings = std::string("hello");
-std::cout << settings.index() << std::endl; // 2
-settings = 1;
-std::cout << settings.index() << std::endl; // 0
-settings = true;
-std::cout << settings.index() << std::endl; // 1
+Settings s;
+s = std::string("hello"); // s.index() => 2
+s = 1; // s.index() => 0
+s = true; // s.index() => 1
 ```
 
-嗯很好，看来第一个问题也解决了。下面只剩第二个问题了。如何把值取出来用呢？这里有一个函数`std::get`可以用来取出对应类型的值。
+使用用`std::get`可以从`variant`里面取出对应的值
 
 ```cpp
-Settings settings;
-settings = std::string("hello");
-std::cout << std::get<std::string>(settings) << std::endl; // hello
+Settings s;
+s = std::string("hello");
+std::cout << std::get<std::string>(s); // => hello
 ```
 
-但这样有些奇怪，我都知道里面存的是`std::string`了，再写一遍不是多此一举吗？也可以直接把`index`作为模板参数
+有些人可能会疑惑，我都提前知道里面存的是`string`了，为什么还要用`std::variant`呢？注意到`get`还有一个模板参数是整数的重载，它能解决这个问题吗？
 
 ```cpp
-std::cout << std::get<2>(settings) << std::endl; // hello
+std::cout << std::get<2>(s); // => hello
 ```
 
-我悟了，既然能直接用`index`来获取对应的类型，那直接下面这样写不就好了？
+哦，我懂了。那既然能直接用`index`来获取，那直接下面这样写不就好了？
 
 ```cpp
-std::cout << std::get<settings.index()>(settings) << std::endl; // error
+std::cout << std::get<s.index()>(s);
 ```
 
-很遗憾，这样的想法是好的，但是这样做是不行的。如果你看报错信息的话，可能会看见几百行。但是最重要的一句话是这样的：`error: the value of 'settings' is not usable in a constant expression`。不得不说 C++ 的报错实在是太容易让初学者望而却步了。如果我当时遇到这么长的报错，那我要晕过去了。现在问题是，假设我是初学者，就算我知道了这个报错的原因，我也不知道这是什么意思。`setting`的值不能在常量表达式里面使用？意思是这里的模板参数必须是编译期常量，相关的话题展开谈又是一大块内容了。想要真正理解这部分内容，可以参考下这篇文章 [真正意义上的理解 C++ 模板](https://www.ykiko.me/zh-cn/articles/655902377) 。
-
-别急让我们请`std::visit`上场。
-
-## std::visit 
-
-`visit`这个名字其实就来源于设计模式里面的那个`visitor`模式。我们可以写出下面这样的代码。
+很遗憾，想法是好的，但是这样做是不行的。模板参数必须是编译期常量，而`variant`作为一种类型擦除的手段，其`index`肯定是运行时的值。怎么办呢？动态转静态，只能一个个分发。例如
 
 ```cpp
-Settings settings;
-settings = std::string("hello");
-std::visit([](auto&& arg) {std::cout << arg << std::endl;}, settings); // hello
-settings = 1;
-std::visit([](auto&& arg) {std::cout << arg << std::endl;}, settings); // 1
-```
-
-我们要做的就是给它一个`callback`，然后就可以访问到里面的值了。上面的`callback`是一个`lambda`表达式。那这里第二个问题解决了吗？并没有解决。我们的主要需求是，根据不同的类型做不同的事情，而不是对所有的类型做同一件事情，那该怎么办呢？有一种思路是采用`std::holds_alternative`来判断
-
-```cpp
-if (std::holds_alternative<std::string>(settings)){
-    std::cout << std::get<std::string>(settings) << std::endl;
-}else if (std::holds_alternative<int>(settings)){
-    std::cout << std::get<int>(settings) << std::endl;
-}else if (std::holds_alternative<bool>(settings)){
-    std::cout << std::get<bool>(settings) << std::endl;
+if (s.index() == 0){
+    std::cout << std::get<0>(s) << std::endl;
+} else if (s.index() == 1){
+    std::cout << std::get<1>(s) << std::endl;
+} else if (s.index() == 2){
+    std::cout << std::get<2>(s) << std::endl;
 }
 ```
 
-但是这样有很多重复代码，首先要在条件里面写上对应的类型，然后还得使用的时候再写一遍。完全算得上冗余代码了。这样的方案并不是很能接受，除此之外呢，还有别的解决方案吗？我们先来看看别的语言对 `sum type`是怎么处理的吧。
+用数字的可读性是比较糟糕的，我们可以用`std::holds_alternative`来根据类型做判断
+
+```cpp
+if (std::holds_alternative<std::string>(s)){
+    std::cout << std::get<std::string>(s) << std::endl;
+} else if (std::holds_alternative<int>(s)){
+    std::cout << std::get<int>(s) << std::endl;
+} else if (std::holds_alternative<bool>(s)){
+    std::cout << std::get<bool>(s) << std::endl;
+}
+```
+
+虽然能行，但是太多冗余代码了，有没有什么更好的办法来操作`variant`里面的值呢？
+
+### std::visit 
+
+`visit`这个名字其实就来源于设计模式里面的那个`visitor`模式。利用它，我们可以写出如下代码
+
+```cpp
+Settings s;
+s = std::string("hello");
+auto callback = [](auto&& value){ std::cout << value << std::endl; };
+std::visit(callback, s); // => hello
+settings = 1;
+std::visit(callback, s); // => 1
+```
+
+是不是很神奇呢？只需要传入一个`callback`，就能直接访问到`variant`里面的值了，不需要手动进行任何分发。软件工程领域有一条铁律：复杂度不会消失，只会转移，这里也不例外。其实`visit`内部帮你把`callback`根据`variant`里面的每个类型实例化了一份函数，预先打好了函数表，然后再运行时根据`index`直接调用函数表里面的函数就行了。
+
+但更多时候，我们其实是想根据不同类型做不同的事情。这在其它语言中可以方便的通过模式匹配做到
 
 **Haskell:**
 
@@ -176,14 +249,9 @@ fn main(){
 }
 ```
 
-哦老天爷，如此方便。使用`match`进行匹配的这种语法被叫做模式匹配 (pattern match)。其实关键的地方就在于，判断完类型之后，分支里面可以直接使用这个变量，而不需要额外再多写什么代码。那 C++ 里面有 pattern match 吗？很可惜并没有，只能通过一些模板元编程技巧来实现上面的效果。
+很可惜，截止 C++23，C++ 还是没有模式匹配。想要在 C++ 写出类似上面代码的效果，目前有两种方案来自己模拟：
 
-## pattern match 
-
-想要在 C++ 写出类似上面代码的效果，有两种方案：
-
-- 利用函数重载
-
+**function overload:**
 
 ```cpp
 template<typename ...Ts>
@@ -194,40 +262,34 @@ Overload(Ts...) -> Overload<Ts...>;
 
 int main() {
     using Settings = std::variant<int, bool, std::string>;
-    Settings settings = 1;
     Overload overloads{
         [](int x) { std::cout << "Int: " << x << std::endl; },
         [](bool x) { std::cout << "Bool: " << std::boolalpha << x << std::endl; },
         [](std::string x) { std::cout << "String: " << x << std::endl; },
     };
+    Settings settings = 1;
     std::visit(overloads, settings);
 }
 ```
 
-- 利用`type_traits`
-
+**if constexpr:**
 
 ```cpp
 int main() {
     using Settings = std::variant<int, bool, std::string>;
+    auto callback = [](auto&& value) {
+        using type = std::decay_t<decltype(value)>;
+        if constexpr(std::is_same_v<type, int>) {
+            std::cout << "Int: " << value + 1 << std::endl;
+        } else if constexpr(std::is_same_v<type, bool>) {
+            std::cout << "Bool: " << !value << std::endl;
+        } else if constexpr(std::is_same_v<type, std::string>) {
+            std::cout << "String: " << value << std::endl;
+        }
+    };
     Settings settings = 1;
-    std::visit(
-        [](auto&& arg) {
-            using type = std::decay_t<decltype(arg)>;
-            if constexpr(std::is_same_v<type, int>) {
-                std::cout << "Int: " << arg + 1 << std::endl;
-            } else if constexpr(std::is_same_v<type, bool>) {
-                std::cout << "Bool: " << std::boolalpha << !arg << std::endl;
-            } else if constexpr(std::is_same_v<type, std::string>) {
-                std::cout << "String: " << arg << std::endl;
-            }
-        },
-        settings);
+    std::visit(callback, settings);
 }
 ```
 
-这里的代码就不做解释了，还是那句话，如果想要真正理解，参考上面的链接。
-
-## conclusion 
-
-C++ 经常喜欢用模板来实现各种东西。和上面的`variant`类似的窘境还有遍历`tuple`的时候，我们不得不使用`make_index_sequence` + 可变模板参数展开。还有就是按`index`访问可变模板参数还得先转成`tuple`，才能继续进一步的操作。 这样不仅用起来很麻烦，是语法噪音，读起来不好读，而且因为要额外很多实例化模板，大大拖慢了编译速度。事实上，这些东西对编译器来说都是透明的，它能直接以较高的效率进行访问，不用额外实例化很多模板。于是像`tuple`和`variant`这种类型，虽然你可以自己手动实现。但是你自己实现的是没有编译器实现的编译速度快的，因为编译器对此做了特殊处理，也就是我们通常说的「开洞」。 不过还好，可变模板参数访问的问题在 C++26 被解决了，我们可以用`...[index]`来访问可变模板参数中的元素了，不再需要`tuple`了。相比之下模式匹配相关的提案还没有进入标准，不知道还要写多久。现在我们只能选择多写点代码了。
+无论是哪种方法都比较别扭，用模板来做这种 trick，不仅编译慢报错还不好看。这也意味着目前的`variant`非常不好用，没有配套的语言设施来简化其操作，和模板深深地纠缠在一起，让人望而却步。
