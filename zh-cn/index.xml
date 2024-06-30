@@ -224,7 +224,7 @@
       <pubDate>Tue, 25 Jul 2023 07:19:25 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/645810896/</guid>
-      <description>sum type # 下面让我们来讨论 CS 中一个简单但非常有用的概念：sum t</description>
+      <description>std::variant于 C++17 加入标准库，本文将讨论其加入标准</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/645810896/featured.png" />
     </item>
     
