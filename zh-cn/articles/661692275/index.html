@@ -110,7 +110,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "3993"
+    "wordCount": "3976"
   }]
   </script>
 
@@ -585,7 +585,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-10-16 18:38:26 &#43;0000 UTC">October 16, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3993 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2023-10-16 18:38:26 &#43;0000 UTC">October 16, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3976 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -847,7 +847,7 @@
         <li><a href="#non-transient-constexpr-allocation">non-transient constexpr allocation</a></li>
       </ul>
     </li>
-    <li><a href="#do-something-fun">do something fun</a>
+    <li><a href="#some-examples">some examples</a>
       <ul>
         <li><a href="#print-any-type">print any type</a></li>
         <li><a href="#enum-to-string">enum to string</a></li>
@@ -880,7 +880,7 @@
         <li><a href="#non-transient-constexpr-allocation">non-transient constexpr allocation</a></li>
       </ul>
     </li>
-    <li><a href="#do-something-fun">do something fun</a>
+    <li><a href="#some-examples">some examples</a>
       <ul>
         <li><a href="#print-any-type">print any type</a></li>
         <li><a href="#enum-to-string">enum to string</a></li>
@@ -1187,12 +1187,8 @@
 </ul>
 <p>看下面的使用示例</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">g</span><span class="p">()</span> 
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">g</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="o">:^</span><span class="nl">x</span><span class="p">:]</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>     <span class="c1">// Okay.  Same as: x = 42;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="o">:^</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span><span class="o">:</span><span class="p">];</span>  <span class="c1">// Error: &#34;2 * x&#34; is a general non-constant expression
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="o">:^</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span><span class="p">)</span><span class="o">:</span><span class="p">];</span>  <span class="c1">// Okay: &#34;2 * N&#34; is a constant-expression
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></div><p>如果还原的东西和原本储存的不一样，则会编译错误</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typename</span><span class="p">[</span><span class="o">:</span> <span class="o">^::</span> <span class="o">:</span><span class="p">]</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// Error
@@ -1385,17 +1381,17 @@
 </span></span></span></code></pre></div><p>主要难点是，在数据段分配的内存不像在堆上的内存一样有所有权，不需要<code>delete</code>。只要解决了这个问题，就能使用编译期的<code>std::map</code>，<code>std::vector</code>并且保留到运行期。这个作者的做法是进行标记。具体的细节这里就不说了。如果这个加入了，利用模板元打常量表也可以退出了。</p>
 
 
-<h2 class="relative group">do something fun 
-    <div id="do-something-fun" class="anchor"></div>
+<h2 class="relative group">some examples 
+    <div id="some-examples" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#do-something-fun" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#some-examples" aria-label="锚点">#</a>
     </span>        
     
 </h2>
-<p>好了，上面说了那么多，让我们用它们来做些有趣的东西！</p>
+<p>好了，上面说了那么多，让我们看看用反射我们都能干些什么</p>
 
 
 <h3 class="relative group">print any type 
@@ -1605,12 +1601,58 @@
         color: #666;
     }
 </style>
-<br>
 
 <div class="linkcard">
     <a href="" target="_blank" class="linkcard-link">
         <div class="linkcard-content">
             <a class="linkcard-title">Reflection for C&#43;&#43;26 - P2996R3</a>
+        </div>
+    </a>
+</div>
+
+<style>
+    .linkcard {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        margin: auto;
+        transition: box-shadow 0.3s;
+        width: 75%;
+        height: 60%;
+        text-align: center;
+    }
+
+    .linkcard:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .linkcard-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    .linkcard-content {
+        padding: 16px;
+    }
+
+    .linkcard-title {
+        margin: 0;
+        color: black;
+        font-size: 1.5em;
+    }
+
+    .linkcard-description {
+        margin: 8px 0 0;
+        font-size: 1em;
+        color: #666;
+    }
+</style>
+
+<div class="linkcard">
+    <a href="" target="_blank" class="linkcard-link">
+        <div class="linkcard-content">
+            <a class="linkcard-title">Reflection for C&#43;&#43;26 - P2996R4</a>
         </div>
     </a>
 </div>
@@ -1663,7 +1705,7 @@
 <div class="linkcard">
     <a href="" target="_blank" class="linkcard-link">
         <div class="linkcard-content">
-            <a class="linkcard-title"></a>
+            <a class="linkcard-title">写给 C&#43;&#43; 程序员的反射教程</a>
         </div>
     </a>
 </div>
