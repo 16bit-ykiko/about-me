@@ -1,7 +1,7 @@
 ---
 title: 'C++26 静态反射提案解析'
 date: 2023-10-16 18:38:26
-updated: 2024-06-02 18:18:40
+updated: 2024-07-01 18:56:48
 series: ['Reflection']
 series_order: 6
 ---
@@ -170,12 +170,8 @@ static_assert(std::is_same_v<Second, double>);
 
 ```cpp
 int x = 0;
-void g() 
-{
+void g() {
     [:^x:] = 42;     // Okay.  Same as: x = 42;
-    x = [:^(2 * x):];  // Error: "2 * x" is a general non-constant expression
-    constexpr int N = 42;
-    x = [:^(2 * N):];  // Okay: "2 * N" is a constant-expression
 }
 ```
 
@@ -382,9 +378,9 @@ constexpr std::vector<int> v = {1, 2, 3, 4, 5}; // 全局的
 
 主要难点是，在数据段分配的内存不像在堆上的内存一样有所有权，不需要`delete`。只要解决了这个问题，就能使用编译期的`std::map`，`std::vector`并且保留到运行期。这个作者的做法是进行标记。具体的细节这里就不说了。如果这个加入了，利用模板元打常量表也可以退出了。
 
-## do something fun 
+## some examples 
 
-好了，上面说了那么多，让我们用它们来做些有趣的东西！
+好了，上面说了那么多，让我们看看用反射我们都能干些什么
 
 ### print any type 
 
@@ -438,9 +434,9 @@ constexpr std::string enum_to_string(E value)
 
 {{< linkcard url="https://www.open-std.org/JTC1/SC22/WG21/docs/papers/2024/p2996r2.html" title="Reflection for C++26 - P2996R2" >}}
 
-<br>
-
 {{< linkcard url="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2996r3.html" title="Reflection for C++26 - P2996R3" >}}
+
+{{< linkcard url="https://wg21.link/P2996R4" title="Reflection for C++26 - P2996R4" >}}
 
 实验编译器：
 
@@ -450,5 +446,5 @@ constexpr std::string enum_to_string(E value)
 
 反射系列文章：
 
-{{< linkcard url="https://www.ykiko.me/zh-cn/articles/669358870" title="" >}}
+{{< linkcard url="https://www.ykiko.me/zh-cn/articles/669358870" title="写给 C++ 程序员的反射教程" >}}
 

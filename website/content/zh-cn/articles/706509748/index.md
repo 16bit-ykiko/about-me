@@ -1,7 +1,7 @@
 ---
 title: 'St. Louis WG21 会议回顾'
 date: 2024-07-01 18:46:56
-updated: 2024-07-01 18:46:56
+updated: 2024-07-01 19:35:56
 ---
 
 因为某些机缘巧合参与了上周的 WG21 会议（C++ 标准委员会会议）。虽然我经常浏览 C++ 标准的新提案，但是确实没想到有一天真的能参加 WG21 会议，实时了解 C++ 标准的最新进展。当然，这也是第一次参加，非常激动，在这里记录一下自己的感受和会议的进展。
@@ -12,7 +12,7 @@ updated: 2024-07-01 18:46:56
 
 没过几天，我的的一个好友 [blueloveTH](https://github.com/blueloveTH) ，他就问我能不能帮他的项目写一个轻量级的`small_vector`呢？这个项目就是 [pocketpy](https://github.com/pocketpy/pocketpy)，一个轻量级的 Python 解释器。那我一想，这不巧了吗，我前几天刚刚研究过这个东西，于是花了几个小时就写好了一个支持 trivially relocatable 优化的非常轻量的 [small_vector](https://github.com/pocketpy/pocketpy/pull/208)。很巧的是，这个项目也是我今年 GSoC 申请参加的项目。
 
-五月一号那天，我收到了两封邮件，一份是 GSoC 委员会告知申请通过的邮件。另一份就是来自 P1144(trivially relocatable) 作者 Arthur O'Dwyer 的邮件。我当时很困惑，他怎么突然给我发邮件呢，我和他并不认识啊。原来他会在 Github 上定期使用 trivially relocatable 作为关键字搜索相关的 C++ 项目，并和项目的作者交流一些想法。因为搜索到了 pocketpy 里面的代码，所以就给我们发了邮件，他好像也搜到了我个人博客中那篇讨论 trivially relocatable [文章](https://www.ykiko.me/zh-cn/articles/679782886/)。一开始通过邮件简单的交流了一下，后来我们又在 stack 上讨论了提案里面的一些内容。
+五月一号那天，我收到了两封邮件，一份是 GSoC 委员会告知申请通过的邮件。另一份就是来自 P1144(trivially relocatable) 作者 Arthur O'Dwyer 的邮件。我当时很困惑，他怎么突然给我发邮件呢，我和他并不认识啊。原来他会在 Github 上定期使用 trivially relocatable 作为关键字搜索相关的 C++ 项目，并和项目的作者交流一些想法。因为搜索到了 pocketpy 里面的代码，所以就给我们发了邮件，他好像也搜到了我个人博客中那篇讨论 trivially relocatable [文章](https://www.ykiko.me/zh-cn/articles/679782886/)。一开始通过邮件简单的交流了一下，后来我们又在 slack 上讨论了提案里面的一些内容。
 
 在讨论结束的时候，他邀请我参加这次的 WG21 会议。原因是当时 C++ 中关于 trivially relocatable 现状是，委员会打算采用一个不靠谱的提案 P2786，而不是更完整的提案 P1144。Arthur O'Dwyer 希望我们这些 P1144 的支持者，能表达一些赞成。后来我就写了一封邮件给 ISO 申请作为游客 (guest) 线上参与会议，过了三个星期都没回复，我本来都快以为参加不了了。结果在会议开始前三天，Hurb Sutter 终于给我回复了一封邮件说：他以为所有的邮件都已经回复了，但不知怎么的忘记了我的，然后说我的申请通过了，欢迎参与会议。
 
