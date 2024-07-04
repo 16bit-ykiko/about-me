@@ -1,7 +1,7 @@
 ---
 title: 'C++ 成员指针完全解析'
 date: 2023-10-04 06:50:12
-updated: 2024-05-13 09:53:34
+updated: 2024-07-03 08:06:43
 ---
 
 ## Introduction 
@@ -265,7 +265,7 @@ struct member_function_pointer {
 
 当然也有一些平台不满足上述假设，例如 ARM32 平台的某些情况，这时候它的实现方式就和我们刚才说的不同了。**所以你现在应该能更加理解什么叫实现定义的行为了。即使编译器相同，目标平台不同，相关的实现都有可能不同。**
 
-在我的环境 x86_64 windows 上，符合主流实现的要求。于是对着这个 ABI，进行了"解糖"。
+在我的环境 x64 windows 上，符合主流实现的要求。于是对着这个 ABI，进行了"解糖"。
 
 ```cpp
 struct member_func_pointer {
@@ -273,24 +273,32 @@ struct member_func_pointer {
     ptrdiff_t offset;
 };
 
-template <typename Ret, typename... Args>
-Ret invoke(void* object, auto ptr, Args... args) {
-    member_func_pointer fp = *reinterpret_cast<member_func_pointer*>(&ptr);
-    bool is_virtual = fp.ptr & 1;  // low bit
-    auto this_ptr = reinterpret_cast<void*>((char*)object + fp.offset);
+template <typename Derived, typename Ret, typename Base, typename... Args>
+Ret invoke(Derived& object, Ret (Base::*ptr)(Args...), Args... args) {
+    Ret (Derived::*dptr)(Args...) = ptr;
+    member_func_pointer mfp = *(member_func_pointer*)(&dptr);
+    using func = Ret (*)(void*, Args...);
+
+    void* self = (char*)&object + mfp.offset;
+    func fp = nullptr;
+    bool is_virtual = mfp.ptr & 1;
+
     if(is_virtual) {
-        auto vptr = *reinterpret_cast<void***>(object);  // vptr
-        auto fn_address = *reinterpret_cast<void**>((char*)vptr + fp.ptr - 1);  // voffset
-        auto func = reinterpret_cast<Ret (*)(void*, Args...)>(fn_address);
-        return func(this_ptr, args...);
+        auto vptr = (char*)(*(void***)self);
+        auto voffset = mfp.ptr - 1;
+        auto address = *(void**)(vptr + voffset);
+        fp = (func)address;
     } else {
-        auto func = reinterpret_cast<Ret (*)(void*, Args...)>(fp.ptr);
-        return func(this_ptr, args...);
+        fp = (func)mfp.ptr;
     }
+
+    return fp(self, args...);
 }
 
 struct A {
     int a;
+
+    A(int a) : a(a) {}
 
     virtual void foo(int b) { std::cout << "A::foo " << a << b << std::endl; }
 
@@ -299,8 +307,8 @@ struct A {
 
 int main() {
     A a = {4};
-    invoke<void, int>(&a, &A::foo, 3);  // A::foo 43
-    invoke<void, int>(&a, &A::bar, 3);  // A::bar 43
+    invoke(a, &A::foo, 3);  // A::foo 43
+    invoke(a, &A::bar, 3);  // A::bar 43
 }
 ```
 
@@ -424,7 +432,7 @@ struct member_function_ptr{
 
 ## Conclusion 
 
-讨论 C++ 问题千万不要想当然，你在特定平台上的测试结果，不代表所有可能的实现。而且 MSVC 已经告诉你了，即使是同一个程序内，你的测试也可能没有覆盖到所有的 case。之前发现 MSVC 的成员函数指针大小变来变去的时候给我吓了一跳，以外是我的代码出了问题。如果希望自己写一个类似`std::function`的容器，并希望执行 SBO 优化，最好把 SBO 大小设置在`16`字节以上，这样能覆盖掉绝大部分的成员函数指针。 
+讨论 C++ 问题千万不要想当然，你在特定平台上的测试结果，不代表所有可能的实现。而且 MSVC 已经告诉你了，即使是同一个程序内，你的测试也可能没有覆盖到所有的 case。之前发现 MSVC 的成员函数指针大小变来变去的时候给我吓了一跳，以为是我的代码出了问题。如果希望自己写一个类似`std::function`的容器，并希望执行 SBO 优化，最好把 SBO 大小设置在`16`字节以上，这样能覆盖掉绝大部分的成员函数指针。 
 
 如果需要成员函数作为回调函数的，推荐使用 lambda 表达式包裹一层。 像下面这样
 
