@@ -105,7 +105,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "3440"
+    "wordCount": "3449"
   }]
   </script>
 
@@ -580,7 +580,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-10-04 06:50:12 &#43;0000 UTC">October 4, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3440 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2023-10-04 06:50:12 &#43;0000 UTC">October 4, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3449 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1258,30 +1258,38 @@
 <li>只要知道虚表的地址，虚表索引和函数类型就可以进行函数调用。大多数平台上，虚表指针位于<code>this</code>处，虚表索引和函数类型（调用约定）则由编译器根据 ABI 来决定</li>
 </ul>
 <p>当然也有一些平台不满足上述假设，例如 ARM32 平台的某些情况，这时候它的实现方式就和我们刚才说的不同了。<strong>所以你现在应该能更加理解什么叫实现定义的行为了。即使编译器相同，目标平台不同，相关的实现都有可能不同。</strong></p>
-<p>在我的环境 x86_64 windows 上，符合主流实现的要求。于是对着这个 ABI，进行了&quot;解糖&quot;。</p>
+<p>在我的环境 x64 windows 上，符合主流实现的要求。于是对着这个 ABI，进行了&quot;解糖&quot;。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">member_func_pointer</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">ptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">ptrdiff_t</span> <span class="n">offset</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Ret</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="n">Ret</span> <span class="n">invoke</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">object</span><span class="p">,</span> <span class="k">auto</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">member_func_pointer</span> <span class="n">fp</span> <span class="o">=</span> <span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">member_func_pointer</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ptr</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">is_virtual</span> <span class="o">=</span> <span class="n">fp</span><span class="p">.</span><span class="n">ptr</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">;</span>  <span class="c1">// low bit
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">auto</span> <span class="n">this_ptr</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">*&gt;</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">object</span> <span class="o">+</span> <span class="n">fp</span><span class="p">.</span><span class="n">offset</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Derived</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Ret</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Base</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Ret</span> <span class="n">invoke</span><span class="p">(</span><span class="n">Derived</span><span class="o">&amp;</span> <span class="n">object</span><span class="p">,</span> <span class="n">Ret</span> <span class="p">(</span><span class="n">Base</span><span class="o">::*</span><span class="n">ptr</span><span class="p">)(</span><span class="n">Args</span><span class="p">...),</span> <span class="n">Args</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Ret</span> <span class="p">(</span><span class="n">Derived</span><span class="o">::*</span><span class="n">dptr</span><span class="p">)(</span><span class="n">Args</span><span class="p">...)</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">member_func_pointer</span> <span class="n">mfp</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">member_func_pointer</span><span class="o">*</span><span class="p">)(</span><span class="o">&amp;</span><span class="n">dptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">func</span> <span class="o">=</span> <span class="n">Ret</span> <span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">,</span> <span class="n">Args</span><span class="p">...);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span><span class="o">*</span> <span class="n">self</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">object</span> <span class="o">+</span> <span class="n">mfp</span><span class="p">.</span><span class="n">offset</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">func</span> <span class="n">fp</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">is_virtual</span> <span class="o">=</span> <span class="n">mfp</span><span class="p">.</span><span class="n">ptr</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">is_virtual</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">auto</span> <span class="n">vptr</span> <span class="o">=</span> <span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">***&gt;</span><span class="p">(</span><span class="n">object</span><span class="p">);</span>  <span class="c1">// vptr
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">auto</span> <span class="n">fn_address</span> <span class="o">=</span> <span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">**&gt;</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">vptr</span> <span class="o">+</span> <span class="n">fp</span><span class="p">.</span><span class="n">ptr</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>  <span class="c1">// voffset
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">auto</span> <span class="n">func</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">Ret</span> <span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">,</span> <span class="n">Args</span><span class="p">...)</span><span class="o">&gt;</span><span class="p">(</span><span class="n">fn_address</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">func</span><span class="p">(</span><span class="n">this_ptr</span><span class="p">,</span> <span class="n">args</span><span class="p">...);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">auto</span> <span class="n">vptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)(</span><span class="o">*</span><span class="p">(</span><span class="kt">void</span><span class="o">***</span><span class="p">)</span><span class="n">self</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">auto</span> <span class="n">voffset</span> <span class="o">=</span> <span class="n">mfp</span><span class="p">.</span><span class="n">ptr</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">auto</span> <span class="n">address</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">void</span><span class="o">**</span><span class="p">)(</span><span class="n">vptr</span> <span class="o">+</span> <span class="n">voffset</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fp</span> <span class="o">=</span> <span class="p">(</span><span class="n">func</span><span class="p">)</span><span class="n">address</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">auto</span> <span class="n">func</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">Ret</span> <span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">,</span> <span class="n">Args</span><span class="p">...)</span><span class="o">&gt;</span><span class="p">(</span><span class="n">fp</span><span class="p">.</span><span class="n">ptr</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">func</span><span class="p">(</span><span class="n">this_ptr</span><span class="p">,</span> <span class="n">args</span><span class="p">...);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fp</span> <span class="o">=</span> <span class="p">(</span><span class="n">func</span><span class="p">)</span><span class="n">mfp</span><span class="p">.</span><span class="n">ptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">fp</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">args</span><span class="p">...);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span> <span class="o">:</span> <span class="n">a</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;A::foo &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">b</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -1290,8 +1298,8 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">A</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">4</span><span class="p">};</span>
-</span></span><span class="line"><span class="cl">    <span class="n">invoke</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">A</span><span class="o">::</span><span class="n">foo</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>  <span class="c1">// A::foo 43
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">invoke</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">A</span><span class="o">::</span><span class="n">bar</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>  <span class="c1">// A::bar 43
+</span></span><span class="line"><span class="cl">    <span class="n">invoke</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">A</span><span class="o">::</span><span class="n">foo</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>  <span class="c1">// A::foo 43
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">invoke</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">A</span><span class="o">::</span><span class="n">bar</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>  <span class="c1">// A::bar 43
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></div>
 
@@ -1425,7 +1433,7 @@
     </span>        
     
 </h2>
-<p>讨论 C++ 问题千万不要想当然，你在特定平台上的测试结果，不代表所有可能的实现。而且 MSVC 已经告诉你了，即使是同一个程序内，你的测试也可能没有覆盖到所有的 case。之前发现 MSVC 的成员函数指针大小变来变去的时候给我吓了一跳，以外是我的代码出了问题。如果希望自己写一个类似<code>std::function</code>的容器，并希望执行 SBO 优化，最好把 SBO 大小设置在<code>16</code>字节以上，这样能覆盖掉绝大部分的成员函数指针。</p>
+<p>讨论 C++ 问题千万不要想当然，你在特定平台上的测试结果，不代表所有可能的实现。而且 MSVC 已经告诉你了，即使是同一个程序内，你的测试也可能没有覆盖到所有的 case。之前发现 MSVC 的成员函数指针大小变来变去的时候给我吓了一跳，以为是我的代码出了问题。如果希望自己写一个类似<code>std::function</code>的容器，并希望执行 SBO 优化，最好把 SBO 大小设置在<code>16</code>字节以上，这样能覆盖掉绝大部分的成员函数指针。</p>
 <p>如果需要成员函数作为回调函数的，推荐使用 lambda 表达式包裹一层。 像下面这样</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
