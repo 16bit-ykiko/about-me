@@ -1,12 +1,12 @@
 ---
-title: 'C++ 禁忌黑魔法：STMP'
+title: 'C++ 禁忌黑魔法：STMP （上）'
 date: 2023-07-29 10:20:50
-updated: 2024-06-27 05:23:30
+updated: 2024-07-17 13:13:10
 ---
 
 STMP 全名 stateful template meta programming，又叫状态元编程。之所以这么称呼，是因为传统的 C++ 的常量表达式求值既不依赖，也不能改变全局的状态，对于任意确定的输入，它的输出结果总是不变的，是 purely functional 的。
 
-![](https://pic1.zhimg.com/v2-17999d0f90003c348d733cd32c417a28_r.jpg)
+![](https://pic3.zhimg.com/v2-310046d2ded45ca99cb74d992a94a51e_r.jpg)
 
 但是事实真的如此吗？
 
@@ -273,9 +273,9 @@ int main() {
 
 ## 彩蛋：合法访问类的私有成员 
 
-我们首先要明确一个观点：类的访问权限说明符`private`, `public`, `protected`仅仅只作用于编译期的检查。如果能通过某种手段避免编译期检查，那完全就可以合法的访问，类的私有成员。
+首先要明确一个观点：类的访问权限说明符`private`, `public`, `protected`仅仅只作用于编译期的检查。如果能通过某种手段避免编译期检查，那完全就可以合法的访问，类的私有成员。
 
-那么存在这样的方法吗？答案是存在。我们有**模板显示实例化的时候可以忽略类作用域的访问权限**
+那么存在这样的方法吗？答案是存在。我们有**模板显示实例化的时候可以忽略类作用域的访问权限：**
 
 > The C++11/14 standards state the following in note 14.7.2/12 [temp.explicit]: The usual access checking rules do not apply to names used to specify explicit instantiations. [ Note: In particular, the template arguments and names used in the function declarator (including parameter types, return types and exception speciﬁcations) may be private types or objects which would normally not be accessible and the template may be a member template or member function which would not normally be accessible. — end note ] 
 
@@ -305,9 +305,7 @@ int main() {
 }
 ```
 
-续篇已出，欢迎阅读：
-
-{{< linkcard url="https://www.ykiko.me/zh-cn/articles/646812253" title="YKIKO：C++ 禁忌黑魔法: STMP 多态" >}}
+---
 
 参考文章： 
 
