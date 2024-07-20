@@ -815,7 +815,117 @@
   
   <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
     
-    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#observable-state">observable state</a></li>
+    <li><a href="#modifiable-state">modifiable state</a></li>
+    <li><a href="#constant-switch">constant switch</a></li>
+    <li><a href="#compile-time-counter">compile time counter</a></li>
+    <li><a href="#easter-egg-access-private">easter egg: access private</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#observable-state">observable state</a></li>
+    <li><a href="#modifiable-state">modifiable state</a></li>
+    <li><a href="#constant-switch">constant switch</a></li>
+    <li><a href="#compile-time-counter">compile time counter</a></li>
+    <li><a href="#easter-egg-access-private">easter egg: access private</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+          
+            $(e).removeClass('active');
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
 
       <div class="min-w-0 min-h-0 max-w-fit">
         
@@ -858,7 +968,7 @@
 </blockquote>
 
 
-<h1 class="relative group">observable state 
+<h2 class="relative group">observable state 
     <div id="observable-state" class="anchor"></div>
     
     <span
@@ -867,7 +977,7 @@
             style="text-decoration-line: none !important;" href="#observable-state" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>在改变之前，我们首先得能在编译期观测到全局状态的变化。由于 C++ 支持<strong>向前声明 (forward declaration)</strong>，而一个<code>struct</code>在看到 definition 之前被认为是<strong>不完整类型 (incomplete type)</strong>，即类的完整性在不同的上下文中是不同的。</p>
 <p>而 C++ 标准规定<code>sizeof</code>只能对完整类型使用（毕竟不完整类型没有定义无法计算<code>size</code>）。如果对不完整类型使用会导致编译错误，并且这个错误不是一个<strong>硬错误 (hard error)</strong>，所以可以利用<code>SFINAE</code>或<code>requires</code>来捕获到这个错误。于是我们就能通过如下的方式检测类的完整性</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -941,7 +1051,7 @@
 </span></span></code></pre></div><p>编译通过！至此，我们成功观察到了编译期全局状态的变化。</p>
 
 
-<h1 class="relative group">modifiable state 
+<h2 class="relative group">modifiable state 
     <div id="modifiable-state" class="anchor"></div>
     
     <span
@@ -950,7 +1060,7 @@
             style="text-decoration-line: none !important;" href="#modifiable-state" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>再可以观测到状态变化之后，下面我们要考虑能否通过代码来主动进行状态更改。很可惜，对于绝大多数 declaration 来说，你唯一能改变它们的状态的办法就是通过修改源代码来添加 definition，没有其它的手段实现这个效果。</p>
 <p>唯一的例外是友元函数。但在考虑友元函数如何发挥作用之前，先让我们考虑一下如何观测到一个函数有没有被定义。对于绝大多数的函数是无法观测的，考虑到函数可能定义在其它编译单元，调用一个函数并不要求其定义可见。</p>
 <p>例外就是返回值类型为<code>auto</code>的函数，如果看不到它的函数定义，则无法推导出返回值类型，进而无法进行函数调用。下面的代码就可以检测<code>foo</code>函数是否有定义</p>
@@ -991,7 +1101,7 @@
 </span></span></span></code></pre></div><p>注意到 #1 处模板<code>X</code>没有任何的实例化，故此时<code>foo</code>函数还未有定义，于是<code>is_complete_v</code>返回<code>false</code>。而在 #2 处，我们实例化了一个<code>X&lt;void&gt;</code>，进而导致<code>X</code>内的<code>foo</code>函数被实例化，给<code>foo</code>添加了一个定义，于是<code>is_complete_v</code>返回<code>true</code>。当然了，函数定义最多只能有一个，如果你再尝试实例化一个<code>X&lt;int&gt;</code>，这时候编译器就会报<code>foo</code>被重定义的错误了。</p>
 
 
-<h1 class="relative group">constant switch 
+<h2 class="relative group">constant switch 
     <div id="constant-switch" class="anchor"></div>
     
     <span
@@ -1000,7 +1110,7 @@
             style="text-decoration-line: none !important;" href="#constant-switch" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>结合上面提到的技巧，我们可以轻松实例化一个编译时的开关了</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="nf">flag</span><span class="p">(</span><span class="k">auto</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -1029,7 +1139,7 @@
 </blockquote>
 
 
-<h1 class="relative group">compile time counter 
+<h2 class="relative group">compile time counter 
     <div id="compile-time-counter" class="anchor"></div>
     
     <span
@@ -1038,7 +1148,7 @@
             style="text-decoration-line: none !important;" href="#compile-time-counter" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>更进一步，我们可以直接实现一个编译期的计数器</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">reader</span> <span class="p">{</span>
@@ -1070,7 +1180,7 @@
 </span></span></code></pre></div><p>它的逻辑是，从<code>N</code>为 0 开始，检测<code>flag(reader&lt;N&gt;{})</code>是否有定义，如果没有定义就实例化一个<code>setter&lt;N&gt;</code>，并返回<code>N</code>，否则递归调用<code>next&lt;N + 1&gt;()</code>。所以这个计算器记录的实际上是<code>setter</code>的实例化次数。</p>
 
 
-<h1 class="relative group">easter egg: access private 
+<h2 class="relative group">easter egg: access private 
     <div id="easter-egg-access-private" class="anchor"></div>
     
     <span
@@ -1079,7 +1189,7 @@
             style="text-decoration-line: none !important;" href="#easter-egg-access-private" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>首先要明确一个观点：类的访问权限说明符<code>private</code>, <code>public</code>, <code>protected</code>仅仅只作用于编译期的检查。如果能通过某种手段绕过这个编译期检查，那完全就可以合法的访问类的任意成员。</p>
 <p>那么存在这样的方法吗？有的：<strong>模板显示实例化的时候会忽略类作用域的访问权限：</strong></p>
 <blockquote>

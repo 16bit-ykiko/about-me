@@ -815,7 +815,121 @@
   
   <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
     
-    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#明确问题">明确问题</a></li>
+    <li><a href="#一个定义">一个定义</a></li>
+    <li><a href="#多个定义">多个定义</a></li>
+    <li><a href="#真的单例吗">真的单例吗</a></li>
+    <li><a href="#符号导出">符号导出</a></li>
+    <li><a href="#不唯一如何">不唯一如何？</a></li>
+    <li><a href="#解决方案">解决方案</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#明确问题">明确问题</a></li>
+    <li><a href="#一个定义">一个定义</a></li>
+    <li><a href="#多个定义">多个定义</a></li>
+    <li><a href="#真的单例吗">真的单例吗</a></li>
+    <li><a href="#符号导出">符号导出</a></li>
+    <li><a href="#不唯一如何">不唯一如何？</a></li>
+    <li><a href="#解决方案">解决方案</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+          
+            $(e).removeClass('active');
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
 
       <div class="min-w-0 min-h-0 max-w-fit">
         
@@ -827,7 +941,7 @@
 <p>既然写了这篇文章，那答案肯定是否了。知乎上已经有很多相关的讨论了，比如 <a href="https://www.zhihu.com/question/425920019/answer/2254241454" target="_blank">C++单例模式跨 DLL 是不是就是会出问题？</a> 和 <a href="https://zhuanlan.zhihu.com/p/354694011" target="_blank">动态库和静态库混合使用下的单例模式 BUG</a>。不过大部分都是遇到问题以后，贴一下解决方案，很零散，并没有系统分析问题产生的原因。于是，我写了这篇文章来详细讨论一下这个问题。</p>
 
 
-<h1 class="relative group">明确问题 
+<h2 class="relative group">明确问题 
     <div id="%E6%98%8E%E7%A1%AE%E9%97%AE%E9%A2%98" class="anchor"></div>
     
     <span
@@ -836,7 +950,7 @@
             style="text-decoration-line: none !important;" href="#%E6%98%8E%E7%A1%AE%E9%97%AE%E9%A2%98" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>首先我们要明确讨论的问题，以 C++11 常见的单例模式实现为例：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Singleton</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
@@ -856,7 +970,7 @@
 <p>那我们讨论的问题其实可以等价为：<strong>C++ 中的全局变量是唯一的吗？</strong></p>
 
 
-<h1 class="relative group">一个定义 
+<h2 class="relative group">一个定义 
     <div id="%E4%B8%80%E4%B8%AA%E5%AE%9A%E4%B9%89" class="anchor"></div>
     
     <span
@@ -865,7 +979,7 @@
             style="text-decoration-line: none !important;" href="#%E4%B8%80%E4%B8%AA%E5%AE%9A%E4%B9%89" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>首先得区分变量的声明和定义。我们都知道，头文件中一般是不能写变量定义的。否则如果这个头文件被多个源文件包含，就会出现多个定义，链接的时候就会报<code>multiple definition of variable</code>的错误。所以我们一般会在头文件中使用<code>extern</code>声明变量，然后在对应的源文件中定义变量。</p>
 <p>那编译器是如何处理全局变量定义的呢？</p>
 <p>假设我们定义一个全局变量</p>
@@ -874,7 +988,7 @@
 <p>由于只有一个定义，那么这种情况肯定是全局唯一的了。</p>
 
 
-<h1 class="relative group">多个定义 
+<h2 class="relative group">多个定义 
     <div id="%E5%A4%9A%E4%B8%AA%E5%AE%9A%E4%B9%89" class="anchor"></div>
     
     <span
@@ -883,7 +997,7 @@
             style="text-decoration-line: none !important;" href="#%E5%A4%9A%E4%B8%AA%E5%AE%9A%E4%B9%89" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>我们都知道 C++ 并没有官方的构建系统，不同的库使用不同的构建系统，就不方便互相使用了（目前的事实标准来看是 cmake）。这个现状使得 header-only 库变得越来越流行，<code>include</code>即用，谁不喜欢呢？但是 header-only 也就意味着所有的代码都写在头文件中，如何在头文件中定义变量并且使得它能直接被多个源文件包含而不导致链接错误呢？</p>
 <p>在 C++17 之前，并没有直接的办法。但有一些间接的办法，考虑到<code>inline</code>函数或者模板函数的定义都可以出现在多个源文件中，并且 C++ 标准保证它们具有相同的地址（相关的讨论可以参考 <a href="https://www.ykiko.me/zh-cn/articles/686296374" target="_blank">C++ 究竟代码膨胀在哪里？</a>）。于是只需要在这些函数中定义静态局部变量，效果上就相当于在头文件中定义变量了</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">()</span> <span class="p">{</span>
@@ -901,7 +1015,7 @@
 </span></span></code></pre></div><p>我们知道，把变量标记为<code>static</code>也可以使得它在多个源文件中出现定义。那<code>inline</code>和<code>static</code>有什么区别呢？关键就在于，<code>static</code>标记的变量是内部链接的，每个编译单元都有自己的一份实例，你在不同的编译单元取的地址是不一样的。而<code>inline</code>标记的变量是外部链接的，C++ 标准保证你在不同编译单元取同一个<code>inline</code>变量的地址是一样的。</p>
 
 
-<h1 class="relative group">真的单例吗 
+<h2 class="relative group">真的单例吗 
     <div id="%E7%9C%9F%E7%9A%84%E5%8D%95%E4%BE%8B%E5%90%97" class="anchor"></div>
     
     <span
@@ -910,7 +1024,7 @@
             style="text-decoration-line: none !important;" href="#%E7%9C%9F%E7%9A%84%E5%8D%95%E4%BE%8B%E5%90%97" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>实践是检验真理的唯一标准，我们来实验一下，C++ 标准有没有骗我们呢？</p>
 <p>示例代码如下</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src.cpp
@@ -947,7 +1061,7 @@
 </span></span></code></pre></div><p>夭寿啦，为什么 Windows 和 Linux 的情况不一样呢？</p>
 
 
-<h1 class="relative group">符号导出 
+<h2 class="relative group">符号导出 
     <div id="%E7%AC%A6%E5%8F%B7%E5%AF%BC%E5%87%BA" class="anchor"></div>
     
     <span
@@ -956,7 +1070,7 @@
             style="text-decoration-line: none !important;" href="#%E7%AC%A6%E5%8F%B7%E5%AF%BC%E5%87%BA" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>一开始，我简单的以为是动态库默认符号导出规则的问题。因为 GCC 编译动态库的时候，会默认把所有符号导出。而 MSVC 恰恰相反，默认不导出任何符号，全部都要手动导出。显然只有一个符号被导出了，链接器才能“看见”它，然后才能合并来自不同动态库的符号。</p>
 <p>抱着这个想法，我尝试寻找在 GCC 上自定义符号导出的手段，最终找到了 <a href="https://gcc.gnu.org/wiki/Visibility" target="_blank">Visibility - GCC Wiki</a>。在编译的时候使用<code>-fvisibility=hidden</code>，这样的话符号就都是默认 hidden（不导出）了。然后使用<code>__attribute__((visibility(&quot;default&quot;)))</code>或者它在 C++ 的等价写法<code>[[gnu::visibility(&quot;default&quot;)]]</code>来显式标记需要导出的符号。于是我修改了代码</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src.cpp
@@ -993,7 +1107,7 @@
 <p>动态库链接时的符号解析问题实际上可能还要复杂的得多，还有很多其它的情况，例如通过<code>dlopen</code>等函数主动加载动态库。之后有时间的话，可能会专门写一篇文章来分析这个事情，这里就不多说了。</p>
 
 
-<h1 class="relative group">不唯一如何？ 
+<h2 class="relative group">不唯一如何？ 
     <div id="%E4%B8%8D%E5%94%AF%E4%B8%80%E5%A6%82%E4%BD%95" class="anchor"></div>
     
     <span
@@ -1002,7 +1116,7 @@
             style="text-decoration-line: none !important;" href="#%E4%B8%8D%E5%94%AF%E4%B8%80%E5%A6%82%E4%BD%95" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>为什么要保证“单例”变量的唯一性呢？这里拿 C++ 标准库来举例子</p>
 <p>我们都知道 <a href="https://en.cppreference.com/w/cpp/types/type_info" target="_blank">type_info</a> 可以用于运行时区分不同的类型，标准库的<code>std::function</code>和<code>std::any</code>这些类型擦除的设施就依赖于它来实现。它的<code>constructor</code>和<code>operator=</code>就被<code>deleted</code>了，我们只能通过<code>typeid(T)</code>来获取对应<code>type_info</code>对象的引用，对象的创建则由编译器来负责。</p>
 <p>怎么样，是不是完全符合单例模式呢？下一个问题是，编译器是如何判断两个<code>type_info</code>对象是否相同的呢？一个典型的实现如下</p>
@@ -1025,7 +1139,7 @@
 <p>举这个例子的目的是，为了说明，单例变量地址的唯一性会影响我们代码的编写方式。如果不唯一我们可能被迫要书写一些代码进行防御，可能会影响性能，而如果没写的话，甚至会直接导致逻辑错误。</p>
 
 
-<h1 class="relative group">解决方案 
+<h2 class="relative group">解决方案 
     <div id="%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88" class="anchor"></div>
     
     <span
@@ -1034,7 +1148,7 @@
             style="text-decoration-line: none !important;" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>只提出问题可不行，得要解决，如何确保单例唯一呢？</p>
 <p>在 Linux 上就很简单了，如果同一个变量出现在多个动态库中，只要确保这些动态库都把这个符号设置为对外可见就行了。而编译器默认的行为也就是对外可见，所以基本上不用担心这个问题。</p>
 <p>在 Windows 上呢？非常麻烦了，必须要确保只有一个 dll 使用<code>dllexport</code>导出了这个符号，其它所有的<code>dll</code>必须要使用<code>dllimport</code>。这件事情常常不太好做，你可能写着写着就忘记，是哪个 dll 负责导出的这个符号了。怎么办呢？那就是专门用一个 dll 来管理所有的单例变量，也就是说这个 dll 负责所有<code>dllexport</code>所有的单例变量，除此之外的 dll 都只 dllimport 就行了。之后添加和修改都在这个 dll 中进行，这样就比较好管理了。</p>

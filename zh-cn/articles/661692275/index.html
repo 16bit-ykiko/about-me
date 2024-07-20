@@ -834,18 +834,26 @@
     class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#type-as-value">type as value</a></li>
-    <li><a href="#metainfo">metainfo</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#template-for">template for</a></li>
-    <li><a href="#non-transient-constexpr-allocation">non-transient constexpr allocation</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#print-any-type">print any type</a></li>
-    <li><a href="#enum-to-string">enum to string</a></li>
+    <li><a href="#what-is-static-reflection">what is static reflection?</a></li>
+    <li><a href="#what-can-static-reflection-do">what can static reflection do?</a>
+      <ul>
+        <li><a href="#type-as-value">type as value</a></li>
+        <li><a href="#metainfo">metainfo</a></li>
+      </ul>
+    </li>
+    <li><a href="#better-compile-facilities">better compile facilities</a>
+      <ul>
+        <li><a href="#template-for">template for</a></li>
+        <li><a href="#non-transient-constexpr-allocation">non-transient constexpr allocation</a></li>
+      </ul>
+    </li>
+    <li><a href="#some-examples">some examples</a>
+      <ul>
+        <li><a href="#print-any-type">print any type</a></li>
+        <li><a href="#enum-to-string">enum to string</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">conclusion</a></li>
   </ul>
 </nav>
   </div>
@@ -859,18 +867,26 @@
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#type-as-value">type as value</a></li>
-    <li><a href="#metainfo">metainfo</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#template-for">template for</a></li>
-    <li><a href="#non-transient-constexpr-allocation">non-transient constexpr allocation</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#print-any-type">print any type</a></li>
-    <li><a href="#enum-to-string">enum to string</a></li>
+    <li><a href="#what-is-static-reflection">what is static reflection?</a></li>
+    <li><a href="#what-can-static-reflection-do">what can static reflection do?</a>
+      <ul>
+        <li><a href="#type-as-value">type as value</a></li>
+        <li><a href="#metainfo">metainfo</a></li>
+      </ul>
+    </li>
+    <li><a href="#better-compile-facilities">better compile facilities</a>
+      <ul>
+        <li><a href="#template-for">template for</a></li>
+        <li><a href="#non-transient-constexpr-allocation">non-transient constexpr allocation</a></li>
+      </ul>
+    </li>
+    <li><a href="#some-examples">some examples</a>
+      <ul>
+        <li><a href="#print-any-type">print any type</a></li>
+        <li><a href="#enum-to-string">enum to string</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">conclusion</a></li>
   </ul>
 </nav>
   </div>
@@ -1019,7 +1035,7 @@
           <p>最近打算写一个系列文章详细讨论反射（reflection）这一概念，刚好 C++26 有了新的反射提案，发现知乎上又没有相关的文章，而这个话题又经常被讨论。所以借此机会来聊一聊属于 C++ 的静态反射（static reflection），作为系列预热了。</p>
 
 
-<h1 class="relative group">what is static reflection? 
+<h2 class="relative group">what is static reflection? 
     <div id="what-is-static-reflection" class="anchor"></div>
     
     <span
@@ -1028,11 +1044,11 @@
             style="text-decoration-line: none !important;" href="#what-is-static-reflection" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>首先反射是指什么呢？这个词就像计算机科学领域很多其他的惯用词一样，并没有详细而准确的定义。关于这个问题，我不打算在这个文章讨论，后续的文章我会详细的解释。本文的重点是 C++ 的 static reflection，为什么强调 static 呢？主要是因为平常我们谈论到反射的时候几乎总是指 Java，C#，Python 这些语言中的反射，而它们的实现方式无一不是把类型擦除，在运行期进行信息的查询。这种方式当然有不可避免的运行时开销，而这种开销显然是违背了 C++ zero cost abstraction 的原则的。为了和它们的反射区分开来，故加上 static 作为限定词，也指示了 C++ 的反射是在编译期完成的。当然，这种说法仍然缺乏一些严谨性。详细的讨论在后续的文章给出，你只需要知道 C++ 的静态反射和 Java，C#，Python 的反射不同，并且主要是在编译期完成的就行了。</p>
 
 
-<h1 class="relative group">what can static reflection do? 
+<h2 class="relative group">what can static reflection do? 
     <div id="what-can-static-reflection-do" class="anchor"></div>
     
     <span
@@ -1041,10 +1057,10 @@
             style="text-decoration-line: none !important;" href="#what-can-static-reflection-do" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 
 
-<h2 class="relative group">type as value 
+<h3 class="relative group">type as value 
     <div id="type-as-value" class="anchor"></div>
     
     <span
@@ -1053,7 +1069,7 @@
             style="text-decoration-line: none !important;" href="#type-as-value" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>我们都知道随着 C++ 版本的不断更新，编译期计算的功能在不断的增强，通过<code>constexpr/consteval</code>函数我们能很大程度上直接复用运行期的代码，方便的进行编译期计算。完全取代了很久之前使用模板元进行编译期计算的方法。不仅写起来更加方便，编译速度也更快。</p>
 <p>观察下面几段编译期计算阶乘的代码：</p>
 <p>在 C++03/98 的时候，我们只能通过模板递归实例化来实现，而且无法将代码复用到运行期</p>
@@ -1178,7 +1194,7 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typename</span><span class="p">[</span><span class="o">:</span> <span class="o">^::</span> <span class="o">:</span><span class="p">]</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// Error
 </span></span></span></code></pre></div>
 
-<h2 class="relative group">metainfo 
+<h3 class="relative group">metainfo 
     <div id="metainfo" class="anchor"></div>
     
     <span
@@ -1187,7 +1203,7 @@
             style="text-decoration-line: none !important;" href="#metainfo" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>光是上面一个特性，就足以让人心动了。然而远远不止如此，获取<code>class</code>等实体元信息的功能也有了。</p>
 <p>最基础的，获取类型名（变量名，字段名都可以用这个函数）</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span> 
@@ -1243,7 +1259,7 @@
 </span></span></code></pre></div><p>待会用这个我们就可以实现遍历结构体，枚举等功能。进一步就可以实现序列化，反序列化等高级功能。后文会有一些示例。除此之外，还有一些其它的功能的编译期函数，上面只展示了一部分内容，更多的 API 可以参考提案中的内容。由于提供了直接获取高级模板里面参数的函数，再也不用用模板去进行类型萃取了！用于类型萃取的模板元也可以退出历史舞台了。</p>
 
 
-<h1 class="relative group">better compile facilities 
+<h2 class="relative group">better compile facilities 
     <div id="better-compile-facilities" class="anchor"></div>
     
     <span
@@ -1252,11 +1268,11 @@
             style="text-decoration-line: none !important;" href="#better-compile-facilities" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>反射的主题部分大致已经介绍完了，现在来聊聊其它的。虽然这部分是其它提案的内容，但是他们可以使代码写起来更见轻松，让代码有更强的表达能力。</p>
 
 
-<h2 class="relative group">template for 
+<h3 class="relative group">template for 
     <div id="template-for" class="anchor"></div>
     
     <span
@@ -1265,7 +1281,7 @@
             style="text-decoration-line: none !important;" href="#template-for" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>在 C++ 里面如何生成大量的代码段是一个非常不好解决的问题，得益于 C++ 独（逆）特（天）的机制，目前的代码片段生成几乎都是基于 lambda 表达式 + 可变参数包展开。看下面的例子</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">dynamic_tuple_get</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">tuple</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1322,7 +1338,7 @@
 </span></span></code></pre></div><p>可以认为<code>template for</code>是 lambda 展开的语法糖加强版，反正非常好用就是了。如果这个加入了，利用模板元生成函数（代码）就可以退休了。</p>
 
 
-<h2 class="relative group">non-transient constexpr allocation 
+<h3 class="relative group">non-transient constexpr allocation 
     <div id="non-transient-constexpr-allocation" class="anchor"></div>
     
     <span
@@ -1331,7 +1347,7 @@
             style="text-decoration-line: none !important;" href="#non-transient-constexpr-allocation" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>这个提案主要是将两个问题联合起来讨论了。</p>
 <ul>
 <li>C++ 可以通过控制模板实例化 static 成员在数据段预留位置，可以看作编译期内存分配</li>
@@ -1365,7 +1381,7 @@
 </span></span></span></code></pre></div><p>主要难点是，在数据段分配的内存不像在堆上的内存一样有所有权，不需要<code>delete</code>。只要解决了这个问题，就能使用编译期的<code>std::map</code>，<code>std::vector</code>并且保留到运行期。这个作者的做法是进行标记。具体的细节这里就不说了。如果这个加入了，利用模板元打常量表也可以退出了。</p>
 
 
-<h1 class="relative group">some examples 
+<h2 class="relative group">some examples 
     <div id="some-examples" class="anchor"></div>
     
     <span
@@ -1374,11 +1390,11 @@
             style="text-decoration-line: none !important;" href="#some-examples" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>好了，上面说了那么多，让我们看看用反射我们都能干些什么</p>
 
 
-<h2 class="relative group">print any type 
+<h3 class="relative group">print any type 
     <div id="print-any-type" class="anchor"></div>
     
     <span
@@ -1387,7 +1403,7 @@
             style="text-decoration-line: none !important;" href="#print-any-type" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">print</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1408,7 +1424,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
 
-<h2 class="relative group">enum to string 
+<h3 class="relative group">enum to string 
     <div id="enum-to-string" class="anchor"></div>
     
     <span
@@ -1417,7 +1433,7 @@
             style="text-decoration-line: none !important;" href="#enum-to-string" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">E</span><span class="o">&gt;</span> <span class="k">requires</span> <span class="n">std</span><span class="o">::</span><span class="n">is_enum_v</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">enum_to_string</span><span class="p">(</span><span class="n">E</span> <span class="n">value</span><span class="p">)</span> 
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1432,7 +1448,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
 
-<h1 class="relative group">conclusion 
+<h2 class="relative group">conclusion 
     <div id="conclusion" class="anchor"></div>
     
     <span
@@ -1441,7 +1457,7 @@
             style="text-decoration-line: none !important;" href="#conclusion" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>花费了很长的篇幅介绍 C++ 的 static reflection。其实我非常喜欢 C++ 的编译期计算，对它的发展史也非常感兴趣。C++ 的编译期计算是一步步摸索出来的，有很多富有智慧的大师提出他们的独特想法，让不可能的事情变成现实。从 C++03 的变态模板元，到 C++11 的<code>constexpr</code>变量，到 C++14 ~23 对<code>constexpr</code>函数中的限制逐渐放开，把越来越多的操作移到编译期。再到如今的 static reflection，C++ 正在逐步脱离模板元的魔爪。之前那些老旧的模板元写法全都可以淘汰掉了！！！如果你没写过以前的老式模板元代码，大概是体会不到它有多可怕的。</p>
 <p>为了让静态反射能早点进入标准，作者团队特地选了原本提案的一部分核心子集。希望如作者所愿，静态反射能在 C++26 进入标准！当然，核心部分先进入，之后再补充更多更加有用的功能，所以这绝不是反射的全部内容。本文只是对该提案的粗略解读和翻译，想要详细了解的还请阅读下方链接中的提案，相关进展持续更新中：</p>
 

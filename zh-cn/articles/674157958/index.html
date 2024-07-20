@@ -829,15 +829,24 @@
     class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#左值引用的问题">左值引用的问题</a></li>
-    <li><a href="#默认构造函数的问题">默认构造函数的问题</a></li>
-    <li><a href="#数组的问题">数组的问题</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#移动构造被删除的问题">移动构造被删除的问题</a></li>
-    <li><a href="#结构体中含有其它结构体成员">结构体中含有其它结构体成员</a></li>
-    <li><a href="#msvc-的-bug-和-gcc-的-bug">MSVC 的 bug 和 GCC 的 bug</a></li>
+    <li><a href="#引子">引子</a></li>
+    <li><a href="#第一棒-antony-polukhin">第一棒 Antony Polukhin</a></li>
+    <li><a href="#第二棒-joão-baptista">第二棒 João Baptista</a>
+      <ul>
+        <li><a href="#左值引用的问题">左值引用的问题</a></li>
+        <li><a href="#默认构造函数的问题">默认构造函数的问题</a></li>
+        <li><a href="#数组的问题">数组的问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#第三棒-ykiko">第三棒 YKIKO</a>
+      <ul>
+        <li><a href="#移动构造被删除的问题">移动构造被删除的问题</a></li>
+        <li><a href="#结构体中含有其它结构体成员">结构体中含有其它结构体成员</a></li>
+        <li><a href="#msvc-的-bug-和-gcc-的-bug">MSVC 的 bug 和 GCC 的 bug</a></li>
+      </ul>
+    </li>
+    <li><a href="#后记">后记</a></li>
+    <li><a href="#结语">结语</a></li>
   </ul>
 </nav>
   </div>
@@ -851,15 +860,24 @@
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#左值引用的问题">左值引用的问题</a></li>
-    <li><a href="#默认构造函数的问题">默认构造函数的问题</a></li>
-    <li><a href="#数组的问题">数组的问题</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#移动构造被删除的问题">移动构造被删除的问题</a></li>
-    <li><a href="#结构体中含有其它结构体成员">结构体中含有其它结构体成员</a></li>
-    <li><a href="#msvc-的-bug-和-gcc-的-bug">MSVC 的 bug 和 GCC 的 bug</a></li>
+    <li><a href="#引子">引子</a></li>
+    <li><a href="#第一棒-antony-polukhin">第一棒 Antony Polukhin</a></li>
+    <li><a href="#第二棒-joão-baptista">第二棒 João Baptista</a>
+      <ul>
+        <li><a href="#左值引用的问题">左值引用的问题</a></li>
+        <li><a href="#默认构造函数的问题">默认构造函数的问题</a></li>
+        <li><a href="#数组的问题">数组的问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#第三棒-ykiko">第三棒 YKIKO</a>
+      <ul>
+        <li><a href="#移动构造被删除的问题">移动构造被删除的问题</a></li>
+        <li><a href="#结构体中含有其它结构体成员">结构体中含有其它结构体成员</a></li>
+        <li><a href="#msvc-的-bug-和-gcc-的-bug">MSVC 的 bug 和 GCC 的 bug</a></li>
+      </ul>
+    </li>
+    <li><a href="#后记">后记</a></li>
+    <li><a href="#结语">结语</a></li>
   </ul>
 </nav>
   </div>
@@ -943,7 +961,7 @@
         <div class="article-content max-w-prose mb-20">
           
 
-<h1 class="relative group">引子 
+<h2 class="relative group">引子 
     <div id="%E5%BC%95%E5%AD%90" class="anchor"></div>
     
     <span
@@ -952,7 +970,7 @@
             style="text-decoration-line: none !important;" href="#%E5%BC%95%E5%AD%90" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>在<code>C++17</code>中引入了叫做「<strong>结构化绑定</strong>」的特性也就是<code>Struct Bind</code>，这一特性类似于别的语言中的模式匹配，可以让我们方便的对结构体的成员进行访问</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Point</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">
@@ -1010,7 +1028,7 @@
 </span></span></span></code></pre></div><p>你可以自由枚举到你想要支持的数量，这里面的<code>N</code>就是结构体字段数量了，你可能需要把它作为模板参数显式传入，或者给每个类型都特化一个模板，里面存上它的字段数量。但是这仍然很麻烦，那么有没有一种方法可以让编译器自动的帮我们计算出结构体的字段数量呢？</p>
 
 
-<h1 class="relative group">第一棒 Antony Polukhin 
+<h2 class="relative group">第一棒 Antony Polukhin 
     <div id="%E7%AC%AC%E4%B8%80%E6%A3%92-antony-polukhin" class="anchor"></div>
     
     <span
@@ -1019,7 +1037,7 @@
             style="text-decoration-line: none !important;" href="#%E7%AC%AC%E4%B8%80%E6%A3%92-antony-polukhin" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>初步解决方案在 <a href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost_pfr.html" target="_blank">boost/pfr</a> 中就已经给出了，其作者 Antony Polukhin 在 <a href="https://www.youtube.com/watch?v=abdeAew3gmQ" target="_blank">CppCon2016</a> 和 <a href="https://www.youtube.com/watch?v=UlNUNxLtBI0" target="_blank">CppCon2018</a> 中对此做了详细的介绍，不过作者采用的版本是<code>C++14/17</code>，其中的代码较为晦涩难懂，在我使用<code>C++20</code>进行重写之后可读性提高了不少。</p>
 <p>首先在<code>C++</code>中我们可以写一个<code>Any</code>类型，它支持向任意类型进行转换，其实就是把它的 <a href="https://en.cppreference.com/w/cpp/language/cast_operator" target="_blank">类型转换函数</a> 写成模板函数就行了</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Any</span>
@@ -1071,7 +1089,7 @@
 </span></span></code></pre></div><p>很好啊，大获成功！事情到这里就结束了吗？</p>
 
 
-<h1 class="relative group">第二棒 João Baptista 
+<h2 class="relative group">第二棒 João Baptista 
     <div id="%E7%AC%AC%E4%BA%8C%E6%A3%92-jo%C3%A3o-baptista" class="anchor"></div>
     
     <span
@@ -1080,7 +1098,7 @@
             style="text-decoration-line: none !important;" href="#%E7%AC%AC%E4%BA%8C%E6%A3%92-jo%C3%A3o-baptista" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>考虑下面这三个例子</p>
 <ul>
 <li>左值引用</li>
@@ -1107,7 +1125,7 @@
 <p>他总结了<code>boost/pfr</code>中的问题，并提出了解决方案，解决了上述提到的三个问题</p>
 
 
-<h2 class="relative group">左值引用的问题 
+<h3 class="relative group">左值引用的问题 
     <div id="%E5%B7%A6%E5%80%BC%E5%BC%95%E7%94%A8%E7%9A%84%E9%97%AE%E9%A2%98" class="anchor"></div>
     
     <span
@@ -1116,7 +1134,7 @@
             style="text-decoration-line: none !important;" href="#%E5%B7%A6%E5%80%BC%E5%BC%95%E7%94%A8%E7%9A%84%E9%97%AE%E9%A2%98" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>第一个问题相对比较好理解，主要就是因为<code>T()</code>类型产生的转换产生的都是纯右值，左值引用没法绑定到纯右值，如果是右值引用就可以了</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_constructible_v</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// false
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_constructible_v</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// true
@@ -1139,7 +1157,7 @@
 </span></span></span></code></pre></div><p>很好，这样的话第一个问题，解决！</p>
 
 
-<h2 class="relative group">默认构造函数的问题 
+<h3 class="relative group">默认构造函数的问题 
     <div id="%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E9%97%AE%E9%A2%98" class="anchor"></div>
     
     <span
@@ -1148,7 +1166,7 @@
             style="text-decoration-line: none !important;" href="#%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E9%97%AE%E9%A2%98" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>为什么把默认构造函数删了就不行了呢？还记得我们最开始的那个<code>Point</code>类型吗？</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Point</span><span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
 </span></span></code></pre></div><p>我们尝试的结果是<code>0</code>,<code>1</code>,<code>2</code>都可以，<code>3</code>不行。可是，如果说，<code>{ }</code>里面的数量多于<code>Point</code>的成员数量导致失败我能理解，为啥少于里面的成员数量可以成功呢？其实原因很简单，那就是你没有<strong>显式初始化的成员</strong>会被<strong>值初始化</strong>。于是<code>{ }</code>里面的参数，可以少于实际的字段数量。但是如果字段禁止了默认构造函数，就没法进行值初始化，就会编译错误</p>
@@ -1183,7 +1201,7 @@
 </span></span></code></pre></div><p><code>OK</code>，第二个问题也解决了，实在是太酷了！</p>
 
 
-<h2 class="relative group">数组的问题 
+<h3 class="relative group">数组的问题 
     <div id="%E6%95%B0%E7%BB%84%E7%9A%84%E9%97%AE%E9%A2%98" class="anchor"></div>
     
     <span
@@ -1192,7 +1210,7 @@
             style="text-decoration-line: none !important;" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E9%97%AE%E9%A2%98" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>如果在结构体的成员里面有数组，那么计算的时候最终得到的结果就是把数组的每一个成员都当成一个字段来计算，其实就是因为对标准数组的聚合初始化开了后门</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Array</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="n">Array</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">};</span> <span class="c1">// OK
@@ -1340,7 +1358,7 @@
 <p><strong>看来事情远远没有结束！</strong></p>
 
 
-<h1 class="relative group">第三棒 YKIKO 
+<h2 class="relative group">第三棒 YKIKO 
     <div id="%E7%AC%AC%E4%B8%89%E6%A3%92-ykiko" class="anchor"></div>
     
     <span
@@ -1349,7 +1367,7 @@
             style="text-decoration-line: none !important;" href="#%E7%AC%AC%E4%B8%89%E6%A3%92-ykiko" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>我花了一些时间读懂了刚才这位作者的文章，说实话他的模板写的我很难读懂，他不喜欢用<code>if constexpr</code>来做分支选择，用了很多特化来做选择，给可读性造成了很大影响。所以刚才那些代码并不完全是原作者中的代码，是我用我认为的，更好阅读的形式进行转译的。</p>
 <p>哪些情况会<code>break</code>第二位作者的代码呢？</p>
 <ul>
@@ -1369,7 +1387,7 @@
 </ul>
 
 
-<h2 class="relative group">移动构造被删除的问题 
+<h3 class="relative group">移动构造被删除的问题 
     <div id="%E7%A7%BB%E5%8A%A8%E6%9E%84%E9%80%A0%E8%A2%AB%E5%88%A0%E9%99%A4%E7%9A%84%E9%97%AE%E9%A2%98" class="anchor"></div>
     
     <span
@@ -1378,7 +1396,7 @@
             style="text-decoration-line: none !important;" href="#%E7%A7%BB%E5%8A%A8%E6%9E%84%E9%80%A0%E8%A2%AB%E5%88%A0%E9%99%A4%E7%9A%84%E9%97%AE%E9%A2%98" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>这一切都源于<code>C++17</code>加入的一条新规则，是关于 <a href="https://en.cppreference.com/w/cpp/language/copy_elision" target="_blank">copy elision</a> 的。</p>
 <blockquote>
 <p>Since C++17, a prvalue is not materialized until needed, and then it is constructed directly into the storage of its final destination. This sometimes means that even when the language syntax visually suggests a copy/move (e.g. copy initialization), no copy/move is performed — which means the type need not have an accessible copy/move constructor at all.</p>
@@ -1415,7 +1433,7 @@
 </span></span></code></pre></div><p>注意到我们这里对类型做了约束，如果是不可移动的类型（移动构造被删除），那就对应到了最后一个类型转换函数。直接产生<code>prvalue</code>构造对象，这样就巧妙地解决了这个问题了。写拷贝构造的约束是为了防止重载决议歧义（同时在最后可以顺便修复<code>MSVC</code>的<code>bug</code>）。</p>
 
 
-<h2 class="relative group">结构体中含有其它结构体成员 
+<h3 class="relative group">结构体中含有其它结构体成员 
     <div id="%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%AD%E5%90%AB%E6%9C%89%E5%85%B6%E5%AE%83%E7%BB%93%E6%9E%84%E4%BD%93%E6%88%90%E5%91%98" class="anchor"></div>
     
     <span
@@ -1424,7 +1442,7 @@
             style="text-decoration-line: none !important;" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%AD%E5%90%AB%E6%9C%89%E5%85%B6%E5%AE%83%E7%BB%93%E6%9E%84%E4%BD%93%E6%88%90%E5%91%98" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>事实上作者原本的思路很好，但是忽略了一个问题，那就是<strong>不只有数组类型在可以使用二重</strong><code>{{ }}</code>初始化，结构体也是可以的</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span><span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">B</span><span class="p">{</span> <span class="n">A</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
@@ -1486,7 +1504,7 @@
 </span></span></span></code></pre></div><p><code>Nice</code>！！！太好了。</p>
 
 
-<h2 class="relative group">MSVC 的 bug 和 GCC 的 bug 
+<h3 class="relative group">MSVC 的 bug 和 GCC 的 bug 
     <div id="msvc-%E7%9A%84-bug-%E5%92%8C-gcc-%E7%9A%84-bug" class="anchor"></div>
     
     <span
@@ -1495,7 +1513,7 @@
             style="text-decoration-line: none !important;" href="#msvc-%E7%9A%84-bug-%E5%92%8C-gcc-%E7%9A%84-bug" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>作者在原文中提到的<code>GCC</code>和<code>MSVC</code>的问题我也一并找出来了，<code>MSVC</code>目前有一个<a href="https://developercommunity.visualstudio.com/t/MSVC-accepts-invalid-initialization-of-a/10541811" target="_blank">缺陷</a>：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Any</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1528,7 +1546,7 @@
 </span></span></code></pre></div><p>这个显然是不应该导致<code>ice</code>的，而且只在<code>GCC 13</code>才有这个<code>bug</code>实在是很奇怪。测试代码在 <a href="https://godbolt.org/z/jW4YWYf1P" target="_blank">godbolt</a> 。<code>clang</code>没任何问题，但是<code>GCC 13</code>就直接内部编译器错误了。而<code>GCC 12</code>和<code>clang</code>的编译结果不一样<code>...</code>但是其实<code>clang</code>是对的。这也就是原作者文章里面说的<code>clang</code>和<code>gcc</code>不一致的地方。*注：后经评论区提醒，clang 15也会遇到类似的内部编译器错误。 *</p>
 
 
-<h1 class="relative group">后记 
+<h2 class="relative group">后记 
     <div id="%E5%90%8E%E8%AE%B0" class="anchor"></div>
     
     <span
@@ -1537,7 +1555,7 @@
             style="text-decoration-line: none !important;" href="#%E5%90%8E%E8%AE%B0" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>后来又和评论区的各位讨论了一番，上面的处理仍然有些欠缺考虑。一个典型的例子是，当成员变量的构造函数是模板函数的时候就会出错，例如<code>std::any</code>，原因是不知道调用类型转换函数和模板构造函数中的哪一个（重载决议失败）</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">any</span> <span class="n">any</span> <span class="o">=</span> <span class="n">Any</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// conversion from &#39;Any&#39; to &#39;std::any&#39; is ambiguous
 </span></span></span><span class="line"><span class="cl"><span class="c1">// candidate: &#39;Any::operator T&amp;() [with T = std::any]&#39;
@@ -1580,7 +1598,7 @@
 </span></span></code></pre></div><p>在这两个聚合初始化里面，类型转换函数实例化的<code>T</code>都是<code>CanNotCopy</code>类型，但是如果想让<code>x</code>，<code>y</code>都良构，那么就意味对于同一个<code>T</code>要选择两个不同的重载函数，第一个选<code>operator T&amp;()</code>，第二个选<code>operator T()</code>，但是这两个函数之间并没有哪个更优先，<code>C++</code>也没法对返回值进行重载，所以这是做不到的。一个可能的解决方案是写三种<code>Any</code>,分别转化成<code>T&amp;</code>，<code>T&amp;&amp;</code>，<code>T</code>然后在每个位置使用这三种进行尝试，这样的话倒是可以解决这个问题，<strong>但是可能会导致模板实例化个数以3 ^ N次方的速度增长</strong>。这种实现比之前的遍历方式加起来开销都要大，所以这里我就不做展示了，理论可行，实践上会累跨编译器</p>
 
 
-<h1 class="relative group">结语 
+<h2 class="relative group">结语 
     <div id="%E7%BB%93%E8%AF%AD" class="anchor"></div>
     
     <span
@@ -1589,7 +1607,7 @@
             style="text-decoration-line: none !important;" href="#%E7%BB%93%E8%AF%AD" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>本文的全部代码都在 <a href="https://godbolt.org/z/scPP6WxbT" target="_blank">Compiler Explorer - C++</a> 上，三大编译器均通过（gcc版本是12），有很多测试代码，如果你找到其它的<code>concer case</code>欢迎留言讨论</p>
 <p>好了，这篇文章到这里就结束了。如果你耐心看完了全文，相比你也是和我一样，喜欢这些好玩的东西。这种东西最有趣的地方就在于，利用<code>C++</code>暴露的一点点接口，去一步步扩展它，最后实现非常漂亮的接口出来。当然对于作者来说其实并不漂亮<code>OvO</code>。总之这种东西就像是游戏一样，是日常的消遣，没事给<code>C++</code>编译器找找<code>bug</code>，钻研这些犄角旮旯的特性，也是一份乐趣。如果非要谈实际价值，<strong>其实这种东西几乎不可能在实际的代码生产环境中使用</strong>。首先通过实例化大量模板来寻找结构体的字段数量，会大大拖慢编译速度，而且即使花费如此大的功夫，也只是实现了对聚合类型的遍历，还不支持其的非聚合类型。不仅副作用强，而且主要功能也不强。权衡一下考虑也是非常不值当了，对于这种需要类似反射的需求的时候，在<code>C++</code>加入静态反射之前（真正用上也许还得过十年！？），目前真正可行的自动化方案是采用代码生成来做这个事情。</p>
 <p>我也有相关的文章详细介绍了相关的原理，不依赖于这些奇淫巧技，真正可用于实际项目中的方案：</p>

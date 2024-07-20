@@ -815,7 +815,119 @@
   
   <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
     
-    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#pyobject">PyObject</a></li>
+    <li><a href="#handle">handle</a></li>
+    <li><a href="#getset">get/set</a></li>
+    <li><a href="#accessor">accessor</a></li>
+    <li><a href="#lazy-evaluation">lazy evaluation</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#pyobject">PyObject</a></li>
+    <li><a href="#handle">handle</a></li>
+    <li><a href="#getset">get/set</a></li>
+    <li><a href="#accessor">accessor</a></li>
+    <li><a href="#lazy-evaluation">lazy evaluation</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+          
+            $(e).removeClass('active');
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
 
       <div class="min-w-0 min-h-0 max-w-fit">
         
@@ -831,7 +943,7 @@
 <p>这篇文章主要是讨论 pybind11 对象设计一些有意思的点。</p>
 
 
-<h1 class="relative group">PyObject 
+<h2 class="relative group">PyObject 
     <div id="pyobject" class="anchor"></div>
     
     <span
@@ -840,7 +952,7 @@
             style="text-decoration-line: none !important;" href="#pyobject" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>我们都知道 Python 中，一切皆对象，全都是<code>object</code>。但是 pybind11 实际上是需要和 CPython 这种 Python 的具体实现打交道的。那一切皆对象在 CPython 中的体现是什么呢？答案是<code>PyObject*</code>。接下来让我们“看见” Python，理解实际的 Python 代码是如何运作在 CPython 中的。</p>
 <p>创建一个对象实际上就是创建一个<code>PyObject*</code></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
@@ -868,7 +980,7 @@
 </span></span></code></pre></div><p>这些函数在 Python 中基本都有直接对应，看名字就知道是干什么用的了。</p>
 
 
-<h1 class="relative group">handle 
+<h2 class="relative group">handle 
     <div id="handle" class="anchor"></div>
     
     <span
@@ -877,7 +989,7 @@
             style="text-decoration-line: none !important;" href="#handle" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>由于 pybind11 要支持在 C++ 中操作 Python 对象，首要任务就是对上述这些 C 风格的 API 进行封装。具体是由<code>handle</code>这个类型来完成的。<code>handle</code>是对<code>PyObject*</code>的简单包装，并且封装了一些成员函数，例如</p>
 <p>大概像下面这样</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">handle</span> <span class="p">{</span>
@@ -899,7 +1011,7 @@
 </span></span></code></pre></div><p>大部分函数都是像上面这样简单包装一下，但有一些函数比较特殊。</p>
 
 
-<h1 class="relative group">get/set 
+<h2 class="relative group">get/set 
     <div id="getset" class="anchor"></div>
     
     <span
@@ -908,7 +1020,7 @@
             style="text-decoration-line: none !important;" href="#getset" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>根据 C++ 之父 Bjarne Stroustrup 在《The Design and Evolution of C++》中的说法，引入引用（左值）类型的部分原因是为了使得用户能够对返回值进行赋值，让<code>[]</code>这样的运算符的重载变的更加自然。例如：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// get
@@ -955,7 +1067,7 @@
 </span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
 </span></span></code></pre></div>
 
-<h1 class="relative group">accessor 
+<h2 class="relative group">accessor 
     <div id="accessor" class="anchor"></div>
     
     <span
@@ -964,7 +1076,7 @@
             style="text-decoration-line: none !important;" href="#accessor" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>接下来就让我们重点讨论如何实现这样的效果。首先考虑<code>operator[]</code>的返回值，由于可能要调用<code>__setitem__</code>，所以这里我们返回一个代理对象。里面会把<code>key</code>存下来以备后续调用</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">accessor</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">handle</span> <span class="n">m_obj</span><span class="p">;</span>
@@ -1026,7 +1138,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></div>
 
-<h1 class="relative group">lazy evaluation 
+<h2 class="relative group">lazy evaluation 
     <div id="lazy-evaluation" class="anchor"></div>
     
     <span
@@ -1035,7 +1147,7 @@
             style="text-decoration-line: none !important;" href="#lazy-evaluation" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>更进一步，我们希望这个代理对象仿佛就像一个<code>handle</code>一样，可以使用<code>handle</code>的所有方法。这很简单，直接继承<code>handle</code>就行了。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">accessor</span> <span class="o">:</span> <span class="k">public</span> <span class="n">handle</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">handle</span> <span class="n">m_obj</span><span class="p">;</span>
@@ -1114,7 +1226,7 @@
 </span></span></code></pre></div><p>这样我们就在不额外引入其它运行时开销的情况下把<code>__getitem__</code>的调用 lazy 化了。</p>
 
 
-<h1 class="relative group">Conclusion 
+<h2 class="relative group">Conclusion 
     <div id="conclusion" class="anchor"></div>
     
     <span
@@ -1123,7 +1235,7 @@
             style="text-decoration-line: none !important;" href="#conclusion" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>我们常说 C++ 实在是太复杂了，各种眼花缭乱的特性太多了，不同特性之间还经常打架。那换一个角度来看待，特性多，意味着用户就有更多的选择，有更多的设计空间，就能组装出上述这样精彩的设计。我想很难有另外一门语言能实现这样的效果。或许这就是 C++ 的魅力所在吧。</p>
 <p>文章到这里就结束了，感谢你的阅读，欢迎评论区讨论交流。</p>
 

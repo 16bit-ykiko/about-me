@@ -834,11 +834,19 @@
     class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#变量定义">变量定义</a></li>
-    <li><a href="#内置运算符">内置运算符</a></li>
-    <li><a href="#结构体">结构体</a></li>
-    <li><a href="#函数调用">函数调用</a></li>
-    <li><a href="#总结">总结</a></li>
+    <li><a href="#首先什么是元信息">首先什么是元信息？</a></li>
+    <li><a href="#为什么这些信息是不必要的什么时候需要">为什么这些信息是不必要的，什么时候需要？</a>
+      <ul>
+        <li><a href="#变量定义">变量定义</a></li>
+        <li><a href="#内置运算符">内置运算符</a></li>
+        <li><a href="#结构体">结构体</a></li>
+        <li><a href="#函数调用">函数调用</a></li>
+        <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#如何获取这些信息">如何获取这些信息？</a></li>
+    <li><a href="#astabstract-syntax-tree">AST(Abstract Syntax Tree)</a></li>
+    <li><a href="#以何种方式存储这些信息">以何种方式存储这些信息？</a></li>
   </ul>
 </nav>
   </div>
@@ -852,11 +860,19 @@
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#变量定义">变量定义</a></li>
-    <li><a href="#内置运算符">内置运算符</a></li>
-    <li><a href="#结构体">结构体</a></li>
-    <li><a href="#函数调用">函数调用</a></li>
-    <li><a href="#总结">总结</a></li>
+    <li><a href="#首先什么是元信息">首先什么是元信息？</a></li>
+    <li><a href="#为什么这些信息是不必要的什么时候需要">为什么这些信息是不必要的，什么时候需要？</a>
+      <ul>
+        <li><a href="#变量定义">变量定义</a></li>
+        <li><a href="#内置运算符">内置运算符</a></li>
+        <li><a href="#结构体">结构体</a></li>
+        <li><a href="#函数调用">函数调用</a></li>
+        <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#如何获取这些信息">如何获取这些信息？</a></li>
+    <li><a href="#astabstract-syntax-tree">AST(Abstract Syntax Tree)</a></li>
+    <li><a href="#以何种方式存储这些信息">以何种方式存储这些信息？</a></li>
   </ul>
 </nav>
   </div>
@@ -1004,7 +1020,7 @@
         <div class="article-content max-w-prose mb-20">
           
 
-<h1 class="relative group">首先什么是元信息？ 
+<h2 class="relative group">首先什么是元信息？ 
     <div id="%E9%A6%96%E5%85%88%E4%BB%80%E4%B9%88%E6%98%AF%E5%85%83%E4%BF%A1%E6%81%AF" class="anchor"></div>
     
     <span
@@ -1013,7 +1029,7 @@
             style="text-decoration-line: none !important;" href="#%E9%A6%96%E5%85%88%E4%BB%80%E4%B9%88%E6%98%AF%E5%85%83%E4%BF%A1%E6%81%AF" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>来看下面一段<code>python</code>代码，我们希望能够根据传入的字符串来自动修改对应的字段值</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -1062,7 +1078,7 @@
 </span></span></code></pre></div><p>可以发现我们基本上自己实现了<code>setattr</code>这个函数，而且这样的实现似乎可以是通用的。只要为特定的类型提供属于它的<code>fieldInfo</code>就行了。这个<code>fieldInfo</code>里面存了字段名，字段的偏移量，字段的类型大小。它就可以被看做<strong>元信息</strong>,除此之外可能还有变量名，函数名，等等。<strong>这些信息不直接参与程序的运行，而是提供关于程序结构、数据、类型等方面的附加信息</strong>。元信息里面存的东西似乎也都是死套路，对于我们都是已知信息。因为它们就存在程序的源代码里面。那<code>C/C++</code>编译器提供这种功能吗？答案是：对于<code>debug</code>模式下的程序可能会保留一部分用于程序调试，而在<code>release</code>模式下什么都不会存。这样做的好处是很显然的，因为这些信息并不是程序运行起来必须要的信息，不保留它们可以显著减少二进制可执行文件的大小。</p>
 
 
-<h1 class="relative group">为什么这些信息是不必要的，什么时候需要？ 
+<h2 class="relative group">为什么这些信息是不必要的，什么时候需要？ 
     <div id="%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%BA%9B%E4%BF%A1%E6%81%AF%E6%98%AF%E4%B8%8D%E5%BF%85%E8%A6%81%E7%9A%84%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%9C%80%E8%A6%81" class="anchor"></div>
     
     <span
@@ -1071,11 +1087,11 @@
             style="text-decoration-line: none !important;" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%BA%9B%E4%BF%A1%E6%81%AF%E6%98%AF%E4%B8%8D%E5%BF%85%E8%A6%81%E7%9A%84%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%9C%80%E8%A6%81" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>接下来我会以<code>C</code>语言为例，将它的源码与二进制表示对应起来。看看执行代码究竟需要哪些信息？</p>
 
 
-<h2 class="relative group">变量定义 
+<h3 class="relative group">变量定义 
     <div id="%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89" class="anchor"></div>
     
     <span
@@ -1084,7 +1100,7 @@
             style="text-decoration-line: none !important;" href="#%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
 </span></span></code></pre></div><p>事实上变量声明并没有直接对应的二进制表示，它仅仅是告诉编译器需要分配一块空间来存储名为<code>value</code>的变量，究竟分配多大的内存则由它的类型决定。所以如果变量声明的时候类型大小是未知的，则会编译错误。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">A</span><span class="p">;</span>
@@ -1107,7 +1123,7 @@
 </span></span></span></code></pre></div><p>相信你想到了这和<code>malloc</code>似乎有点像，的确如此。区别在于，<code>malloc</code>是在运行时的堆上分配内存。而直接的变量声明一般是在数据区或者栈上分配内存。编译器可能在内部会维护一个符号表，将变量名与它的地址映射起来，在你后续对这个变量进行操作的时候，实际上是对这块内存区域进行操作。</p>
 
 
-<h2 class="relative group">内置运算符 
+<h3 class="relative group">内置运算符 
     <div id="%E5%86%85%E7%BD%AE%E8%BF%90%E7%AE%97%E7%AC%A6" class="anchor"></div>
     
     <span
@@ -1116,7 +1132,7 @@
             style="text-decoration-line: none !important;" href="#%E5%86%85%E7%BD%AE%E8%BF%90%E7%AE%97%E7%AC%A6" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p><code>C</code>语言内置的运算符一般直接和<code>CPU</code>指令直接对应，至于<code>CPU</code>是如何实现这些运算的，可以学习下数电相关知识。以<code>x86_64</code>为例，可能的对应如下</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="o">|</span> <span class="n">Operator</span> <span class="o">|</span> <span class="n">Meaning</span> <span class="o">|</span> <span class="n">Operator</span> <span class="o">|</span> <span class="n">Meaning</span> <span class="o">|</span>
 </span></span><span class="line"><span class="cl"><span class="o">|----------|---------|----------|---------|</span>
@@ -1135,7 +1151,7 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// mov [addressof(a)] 3
 </span></span></span></code></pre></div>
 
-<h2 class="relative group">结构体 
+<h3 class="relative group">结构体 
     <div id="%E7%BB%93%E6%9E%84%E4%BD%93" class="anchor"></div>
     
     <span
@@ -1144,7 +1160,7 @@
             style="text-decoration-line: none !important;" href="#%E7%BB%93%E6%9E%84%E4%BD%93" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">Point</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
@@ -1168,7 +1184,7 @@
 </span></span></code></pre></div><p>编译器同样可能会维护一个字段名-&gt;偏移量的符号表，字段名最终会替换为<code>offset</code>。也没有必要在程序中保留了。</p>
 
 
-<h2 class="relative group">函数调用 
+<h3 class="relative group">函数调用 
     <div id="%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8" class="anchor"></div>
     
     <span
@@ -1177,11 +1193,11 @@
             style="text-decoration-line: none !important;" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>一般通过函数调用栈实现，这个太常见了，就不仔细说了。函数名最后会直接被替换为函数地址。</p>
 
 
-<h2 class="relative group">总结 
+<h3 class="relative group">总结 
     <div id="%E6%80%BB%E7%BB%93" class="anchor"></div>
     
     <span
@@ -1190,12 +1206,12 @@
             style="text-decoration-line: none !important;" href="#%E6%80%BB%E7%BB%93" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h3>
 <p>通过上面的分析，相信你已经发现了，<code>C</code>语言中的符号名，类型名，变量名，函数名，结构体字段名等等信息都被替换成了数字，地址，偏移量等等。缺少了它们对程序运行并没有什么影响。所以选择把它们抛弃掉，减少二进制文件的大小。对于<code>C++</code>来说情况基本也是类似的，<code>C++</code>只会在一些特殊的情况下保留部分元信息，比如<code>type_info</code>，而且可以手动选择关闭掉<code>RTTI</code>从而确保不会产生这种信息。</p>
 <p>那什么时候我们需要使用这些信息？显然最开始介绍的<code>setattr</code>是需要的。在程序调试的时候，我们得知道一个地址对应的变量名，函数名，成员名等等，方便我们调试，这时候我们也是需要的。当把结构体序列化为<code>json</code>的时候，我们需要知道它的字段名，我们也需要这些信息。把类型擦除成<code>void*</code>了之后，我们还是需要知道它实际对应的类型是什么，这时候我们也是需要的。总之，为了在运行期区分这串二进制内容倒是原本是什么东西的时候，我们就需要这些信息（当然在编译期想要利用这些信息进行代码生成，也是需要的）。</p>
 
 
-<h1 class="relative group">如何获取这些信息？ 
+<h2 class="relative group">如何获取这些信息？ 
     <div id="%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E8%BF%99%E4%BA%9B%E4%BF%A1%E6%81%AF" class="anchor"></div>
     
     <span
@@ -1204,11 +1220,11 @@
             style="text-decoration-line: none !important;" href="#%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E8%BF%99%E4%BA%9B%E4%BF%A1%E6%81%AF" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p><code>C/C++</code>编译器并没有提供给我们接口让我们获取这些信息，但是前面已经说了，这些信息显然就在源代码里面啊。变量名，函数名，类型名，字段名。我们可以选择通过人工理解代码，然后手动去存储元信息。几千个类，几十个成员函数，可能写个几个月就好了吧。开玩笑的，或者我们可以写一些程序，比如正则表达式匹配之类的帮我们获取到这些信息？不过，其实我们有更好的选择来获取这些信息，那就是通过<code>AST</code>。</p>
 
 
-<h1 class="relative group">AST(Abstract Syntax Tree) 
+<h2 class="relative group">AST(Abstract Syntax Tree) 
     <div id="astabstract-syntax-tree" class="anchor"></div>
     
     <span
@@ -1217,7 +1233,7 @@
             style="text-decoration-line: none !important;" href="#astabstract-syntax-tree" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p><code>AST</code>是抽象语法树（<code>Abstract Syntax Tree</code>）的缩写。它是编程语言处理中的一种数据结构，用于表示源代码的抽象语法结构。<code>AST</code>是源代码经过解析器（<code>parser</code>）处理后的结果，它捕捉了代码中的语法结构，但不包含所有细节，比如空白字符或注释。在<code>AST</code>中，每个节点代表源代码中的一个语法结构，例如变量声明、函数调用、循环等。这些节点之间通过父子关系和兄弟关系连接，形成了一棵树状结构，这样的结构更容易被计算机程序理解和处理。如果你的电脑里面装了<code>clang</code>编译器，可以使用下面这个命令查看一个源文件的语法树</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">clang -Xclang -ast-dump -fsyntax-only &lt;your.cpp&gt;
 </span></span></code></pre></div><p>输出如下，我筛选出了重要的信息，无关的已经被删除了</p>
@@ -1288,7 +1304,7 @@
 <p>如果你好奇编译器究竟是如何把源代码变成<code>ast</code>的，你可以去学习一下编译原理前端的内容。</p>
 
 
-<h1 class="relative group">以何种方式存储这些信息？ 
+<h2 class="relative group">以何种方式存储这些信息？ 
     <div id="%E4%BB%A5%E4%BD%95%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AD%98%E5%82%A8%E8%BF%99%E4%BA%9B%E4%BF%A1%E6%81%AF" class="anchor"></div>
     
     <span
@@ -1297,7 +1313,7 @@
             style="text-decoration-line: none !important;" href="#%E4%BB%A5%E4%BD%95%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AD%98%E5%82%A8%E8%BF%99%E4%BA%9B%E4%BF%A1%E6%81%AF" aria-label="锚点">#</a>
     </span>        
     
-</h1>
+</h2>
 <p>这个问题听起来让人有些困惑，实际上这个问题可能只有<code>C++</code>程序员需要考虑</p>
 <p>其实一切原因都是<code>constexpr</code>引起的。把信息下面这样存储起来</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">FieldInfo</span>
