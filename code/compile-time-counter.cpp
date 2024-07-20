@@ -1,24 +1,19 @@
-#include <iostream>
-
-template <std::size_t N>
+template <int N>
 struct reader {
-    friend auto counted_flag(reader<N>);
+    friend auto flag(reader);
 };
 
-template <std::size_t N>
+template <int N>
 struct setter {
-    std::size_t value = N;
-
-    friend auto counted_flag(reader<N>) {}
+    friend auto flag(reader<N>) {}
 };
 
-template <auto N = 0,
-          auto tag = [] {},
-          bool condition = requires(reader<N> red) { counted_flag(red); }>
+template <int N = 0, auto seed = [] {}>
 consteval auto next() {
-    if constexpr(!condition) {
-        constexpr setter<N> s;
-        return s.value;
+    constexpr bool exist = requires { flag(reader<N>{}); };
+    if constexpr(!exist) {
+        setter<N> setter;
+        return N;
     } else {
         return next<N + 1>();
     }
@@ -29,5 +24,4 @@ int main() {
     constexpr auto b = next();
     constexpr auto c = next();
     static_assert(a == 0 && b == 1 && c == 2);
-    std::cout << a << b << c << std::endl;
 }
