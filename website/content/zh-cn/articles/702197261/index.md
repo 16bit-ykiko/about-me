@@ -12,7 +12,7 @@ updated: 2024-06-09 04:11:31
 
 这篇文章主要是讨论 pybind11 对象设计一些有意思的点。
 
-# PyObject 
+## PyObject 
 
 我们都知道 Python 中，一切皆对象，全都是`object`。但是 pybind11 实际上是需要和 CPython 这种 Python 的具体实现打交道的。那一切皆对象在 CPython 中的体现是什么呢？答案是`PyObject*`。接下来让我们“看见” Python，理解实际的 Python 代码是如何运作在 CPython 中的。
 
@@ -54,7 +54,7 @@ int PyObject_DelItem(PyObject *o, PyObject *key);
 
 这些函数在 Python 中基本都有直接对应，看名字就知道是干什么用的了。
 
-# handle 
+## handle 
 
 由于 pybind11 要支持在 C++ 中操作 Python 对象，首要任务就是对上述这些 C 风格的 API 进行封装。具体是由`handle`这个类型来完成的。`handle`是对`PyObject*`的简单包装，并且封装了一些成员函数，例如
 
@@ -81,7 +81,7 @@ public:
 
 大部分函数都是像上面这样简单包装一下，但有一些函数比较特殊。
 
-# get/set 
+## get/set 
 
 根据 C++ 之父 Bjarne Stroustrup 在《The Design and Evolution of C++》中的说法，引入引用（左值）类型的部分原因是为了使得用户能够对返回值进行赋值，让`[]`这样的运算符的重载变的更加自然。例如：
 
@@ -153,7 +153,7 @@ x = obj[0]
 x = 1
 ```
 
-# accessor 
+## accessor 
 
 接下来就让我们重点讨论如何实现这样的效果。首先考虑`operator[]`的返回值，由于可能要调用`__setitem__`，所以这里我们返回一个代理对象。里面会把`key`存下来以备后续调用
 
@@ -234,7 +234,7 @@ public:
 };
 ```
 
-# lazy evaluation 
+## lazy evaluation 
 
 更进一步，我们希望这个代理对象仿佛就像一个`handle`一样，可以使用`handle`的所有方法。这很简单，直接继承`handle`就行了。
 
@@ -330,7 +330,7 @@ class accessor : public object_api<accessor> {
 
 这样我们就在不额外引入其它运行时开销的情况下把`__getitem__`的调用 lazy 化了。
 
-# Conclusion 
+## Conclusion 
 
 我们常说 C++ 实在是太复杂了，各种眼花缭乱的特性太多了，不同特性之间还经常打架。那换一个角度来看待，特性多，意味着用户就有更多的选择，有更多的设计空间，就能组装出上述这样精彩的设计。我想很难有另外一门语言能实现这样的效果。或许这就是 C++ 的魅力所在吧。
 

@@ -53,7 +53,7 @@ static_assert(a == 0 && b == 1 && c == 2);
 
 >  注意：本文仅仅是技术讨论，请不要将相关的代码运用于实际生产中。根据 [CWG 2118](https://cplusplus.github.io/CWG/issues/2118.html)，相关的代码似乎被认为是非良构的 (ill formed)。并且 STMP 较为容易造成 ODR 违背，需要十分谨慎。 
 
-# observable state 
+## observable state 
 
 在改变之前，我们首先得能在编译期观测到全局状态的变化。由于 C++ 支持**向前声明 (forward declaration)**，而一个`struct`在看到 definition 之前被认为是**不完整类型 (incomplete type)**，即类的完整性在不同的上下文中是不同的。
 
@@ -157,7 +157,7 @@ static_assert(is_complete_v<X>);
 
 编译通过！至此，我们成功观察到了编译期全局状态的变化。
 
-# modifiable state 
+## modifiable state 
 
 再可以观测到状态变化之后，下面我们要考虑能否通过代码来主动进行状态更改。很可惜，对于绝大多数 declaration 来说，你唯一能改变它们的状态的办法就是通过修改源代码来添加 definition，没有其它的手段实现这个效果。
 
@@ -213,7 +213,7 @@ static_assert(is_complete_v<>); // #2
 
 注意到 #1 处模板`X`没有任何的实例化，故此时`foo`函数还未有定义，于是`is_complete_v`返回`false`。而在 #2 处，我们实例化了一个`X<void>`，进而导致`X`内的`foo`函数被实例化，给`foo`添加了一个定义，于是`is_complete_v`返回`true`。当然了，函数定义最多只能有一个，如果你再尝试实例化一个`X<int>`，这时候编译器就会报`foo`被重定义的错误了。
 
-# constant switch 
+## constant switch 
 
 结合上面提到的技巧，我们可以轻松实例化一个编译时的开关了
 
@@ -245,7 +245,7 @@ int main() {
 
 > 注意，这里的 N 的类型必须写成 auto，而不能使用 std::size_t。只有这样`flag(N)`才是 [dependent name](https://en.cppreference.com/w/cpp/language/dependent_name)，才能被 requires 检测表达式合法性。由于模板的 [two phase lookup](https://en.cppreference.com/w/cpp/language/two-phase_lookup)，如果写成`flag(0)`，会在第一阶段就进行查找，发现调用失败，产生一个 hard error，导致编译失败。 
 
-# compile time counter 
+## compile time counter 
 
 更进一步，我们可以直接实现一个编译期的计数器
 
@@ -281,7 +281,7 @@ int main() {
 
 它的逻辑是，从`N`为 0 开始，检测`flag(reader<N>{})`是否有定义，如果没有定义就实例化一个`setter<N>`，并返回`N`，否则递归调用`next<N + 1>()`。所以这个计算器记录的实际上是`setter`的实例化次数。
 
-# easter egg: access private 
+## easter egg: access private 
 
 首先要明确一个观点：类的访问权限说明符`private`, `public`, `protected`仅仅只作用于编译期的检查。如果能通过某种手段绕过这个编译期检查，那完全就可以合法的访问类的任意成员。
 
