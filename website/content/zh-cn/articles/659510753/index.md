@@ -4,7 +4,7 @@ date: 2023-10-04 06:50:12
 updated: 2024-07-03 08:06:43
 ---
 
-## Introduction 
+# Introduction 
 
 在 C++ 中，形如`&T::name`的表达式返回的结果就是成员指针。写代码的时候偶尔会用到，但是这个概念可能很多人都并不熟悉。考虑如下代码
 
@@ -23,9 +23,9 @@ int main() {
 
 在 C 语言中，我们经常通过这样计算 offset 的方式来访问结构体成员。如果把它封装成函数，还能用来根据传入的参数动态访问结构体的成员变量。然而上面的代码在 C++ 中是 undefined behavior，具体的原因可以参考 [Stack Overflow](https://stackoverflow.com/questions/66800315/can-i-manually-access-fields-by-their-raw-offset-in-c) 上的这个讨论。但是如果我们确实有这样需求，那该怎么合法的实现需求呢？C++ 为我们提供了一层抽象：[pointers to members](https://en.cppreference.com/w/cpp/language/pointer#Pointers_to_members)，用来合法进行这样的操作。
 
-## Usage 
+# Usage 
 
-### pointer to data member 
+## pointer to data member 
 
 一个指向类`C`非静态成员`m`的成员指针可以用`&C::m`进行初始化。当在`C`的成员函数里面使用`&C::m`会出现二义性。即既可以指代对`m`成员取地址`&this->m`，也可以指代成员指针。为此标准规定，`&C::m`表示成员指针，`&(C::m)`或者`&m`表示对`m`成员取地址。可以通过运算符`.*`和`->*`来访问对应的成员。示例代码如下
 
@@ -96,7 +96,7 @@ int main() {
 }}
 ```
 
-### pointer to member function 
+## pointer to member function 
 
 一个指向非静态成员函数`f`的成员指针可以用`&C::f`进行初始化。由于不能对非静态成员函数取地址，`&(C::f)`和`&f`什么都不表示。类似的可以通过运算符`.*`和`->*`来访问对应的成员函数。如果成员函数是重载函数，想要获取对应的成员函数指针，请参考 [如何获取重载函数的地址](https://en.cppreference.com/w/cpp/language/overloaded_address)。示例代码如下
 
@@ -164,7 +164,7 @@ int main(){
 }
 ```
 
-## Implementation 
+# Implementation 
 
 首先要明确的是，C++ 标准并没有规定成员指针是什么实现的。在这一点上和虚函数一样，即标准没有规定虚函数是怎么实现的，只规定了虚函数的行为。所以成员指针相关的实现完全是 **implementation defined**。本来只需要了解怎么使用就足够了，不要关心底层实现。但是奈何网络上相关话题的错误文章太多了，已经严重的产生了误导，所以有必要进行澄清。
 
@@ -194,9 +194,9 @@ int main(){
 
 输出的结果都是`1`。鼠标移到`<<`就会发现，这是发生了到`bool`的隐式类型转换。`<<`并没有重载成员指针类型。想要打出它具体的值，必须要强制类型转换。
 
-## Itanium C++ ABI 
+# Itanium C++ ABI 
 
-### pointer to data member 
+## pointer to data member 
 
 一般来说可以用下述结构体表示，数据成员指针。表示相对于对象首地址的偏移量。如果是`nullptr`则里面存的是`-1`。此时成员指针大小就是`sizeof(ptrdiff_t)`。
 
@@ -243,7 +243,7 @@ int main() {
 
 这种实现方式有一点缺陷，在文档里面详细说明了，这里就不说了。
 
-### pointer to member function 
+## pointer to member function 
 
 在主流的平台上，一般来说可以用下述结构体表示，成员函数指针:
 
@@ -312,7 +312,7 @@ int main() {
 }
 ```
 
-## MSVC C++ ABI 
+# MSVC C++ ABI 
 
 MSVC 对于此的实现非常复杂，还对 C++ 标准进行了扩展。如果想要细致全面的了解，还是建议阅读上面那篇博客。
 
@@ -336,7 +336,7 @@ int main() {
 
 为了不浪费空间，即使在同一程序中 msvc 的成员指针大小也可能是不同的大小（GCC 中由于统一实现，所以都是一样大的）。MSVC 对不同情况做了不同处理。另外请注意 MSVC 对于虚继承的是实现和 Itanium 也是不一样的。详见 [C++中虚函数、虚继承内存模型](https://zhuanlan.zhihu.com/p/41309205) 这篇文章中的相关介绍。
 
-### pointer to data member 
+## pointer to data member 
 
 对于非虚继承的情况下，实现的和 GCC 类似。除了大小有点区别。`64`位程序中 GCC 是`8`字节，MSVC 是`4`字节。都是用`-1`表示`nullptr`。
 
@@ -382,7 +382,7 @@ int main() {
 }
 ```
 
-### pointer to member function 
+## pointer to member function 
 
 对于成员函数指针就更复杂了，有四种情况： 
 
@@ -430,7 +430,7 @@ struct member_function_ptr{
 
 还要注意：`32`程序中成员函数的调用约定和普通函数不一样。所以如果希望转换成函数指针并调用，需要在函数指针里面把函数调用约定写上才行，不然会导致调用失败。 
 
-## Conclusion 
+# Conclusion 
 
 讨论 C++ 问题千万不要想当然，你在特定平台上的测试结果，不代表所有可能的实现。而且 MSVC 已经告诉你了，即使是同一个程序内，你的测试也可能没有覆盖到所有的 case。之前发现 MSVC 的成员函数指针大小变来变去的时候给我吓了一跳，以为是我的代码出了问题。如果希望自己写一个类似`std::function`的容器，并希望执行 SBO 优化，最好把 SBO 大小设置在`16`字节以上，这样能覆盖掉绝大部分的成员函数指针。 
 

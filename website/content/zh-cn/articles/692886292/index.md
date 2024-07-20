@@ -10,7 +10,7 @@ Application Binary Interface 也就是我们常说的 ABI，是个让人感觉�
 
 软件工程讲究分层，对于一个 C++ 程序的 ABI 来说，我们也可以从下面这五个层次来看待。
 
-## CPU & OS 
+# CPU & OS 
 
 最终的可执行文件最后都是要运行在特定 CPU 上的特定操作系统的。如果 CPU 的指令集不同，那肯定会导致二进制不兼容，比如 [ARM](https://en.wikipedia.org/wiki/ARM_architecture_family) 上的程序没法**直接**运行在 x64 处理器上（除非借助一些虚拟化技术）。如果指令集兼容呢？比如 x64 处理器就兼容 x86 的指令集，那 x86 程序一定能运行在 x64 操作系统上吗？这时候就要看操作系统了，具体来说，要考虑到 **Object File Format**（目标文件格式），**Data Representation**（数据表示）， **Function Calling Convention**（函数调用约定）和 **Runtime Library**（运行时库）等因素。这几点就可以看做是操作系统层面的 ABI 规定。第四点我们后面有专门的一节来讨论，下面以 x64 平台为例，就前三点进行讨论。
 
@@ -29,11 +29,11 @@ Application Binary Interface 也就是我们常说的 ABI，是个让人感觉�
 - 函数参数传递，调用函数
 
 
-### Object File Format 
+## Object File Format 
 
 以何种格式解析动态库？这就是 ABI 中对 Object File Format 的规定起作用的地方了。如果你希望自己写一个链接器，那么最后生成的可执行文件就需要满足对应平台的格式要求。Windows x64 使用的可执行文件格式是 [PE32+](https://learn.microsoft.com/en-us/windows/win32/debug/pe-format) ，也就是 PE32（Portable Executable 32-bit）格式的`64`位版本。System V ABI 使用的则是 [ELF（Executable Linkable Format）](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format) 格式的可执行文件。通过使用一些 parse 库（当然感兴趣的话也可以自己写），例如 [pe-parse](https://github.com/trailofbits/pe-parse) 和 [elfio](https://github.com/serge1/ELFIO)，对实际的可执行文件进行解析，得到其中的符号表，我们便能拿到函数名与函数地址的映射关系了。
 
-### Data Representation 
+## Data Representation 
 
 拿到函数地址之后，接下来就是怎么进行调用了。在调用之前，首先得传参对吧。那传参的时候就特别要注意 Data Representation（数据表示）表示的一致性，什么意思呢？
 
@@ -75,7 +75,7 @@ int main(){
 
 > 注意 C 语言标准仍然是不规定 ABI 的，对于 System V ABI 来说，其主要使用 C 语言的术语和概念编写，所以可以认为提供了针对 C 语言的 ABI。而 Windows x64 ABI 在 C 和 C++ 之间并没有太过明显的界限。 
 
-### Function Calling Convention 
+## Function Calling Convention 
 
 接下来就到函数传参这一步了。我们知道，函数不过就是一段二进制数据，执行函数其实就是跳转到函数的入口地址，然后执行那一段代码，最后执行完了再跳转回来就行了。而传参无非就是找一块地方，存放数据，**使得调用前后都能访问到这个地方来取数据**。有哪些位置可以选择呢？主要有下面四个选项： 
 
@@ -212,7 +212,7 @@ g(int):
 
 > 实际上对于一个非 trivial 的 C++ 对象，究竟能否使用寄存器传参的实际情况更复杂一些，相关的内容参考对应 ABI 中的相关小节，这里不过多描述。另外 C++ 对象如何传递这部分规定，究竟属于操作系统的 ABI 还是 C++ 编译器 ABI 这个问题也并不是很明确。 
 
-## C++ Standard 
+# C++ Standard 
 
 终于说完了操作系统层面的保证，由于偏向底层，涉及到较多汇编，对于不那么熟悉汇编的读者，读起来可能有些困难。不过接下来的内容基本就和汇编没什么关系了，可以放心阅读。
 
@@ -234,7 +234,7 @@ g(int):
 
 更多时候，C++ 新版本会在加入新的语言特性的同时带来新的 ABI，而不会影响旧的代码，例如 C++23 加入的两个新特性：
 
-### Explicit Object Parameter 
+## Explicit Object Parameter 
 
 在 C++23 之前，事实上没有**合法**的手段获取一个成员函数的地址，我们唯一能做的就是获取成员指针（关于成员指针是什么，可以参考这篇 [文章](https://www.ykiko.me/zh-cn/articles/659510753) 的内容）
 
@@ -278,7 +278,7 @@ auto g = &X::g; // type of g is void(*)(X*, int)
 
 所以新代码可以都采用这种写法，只有好处，没有坏处。
 
-### Static Operator() 
+## Static Operator() 
 
 标准库中有一些仿函数，里面什么成员都没有，只有一个`operator()`，例如`std::hash`
 
@@ -307,11 +307,11 @@ std::size_t n = h(42);
 
 但这里只是拿`hash`举个例子，实际上标准库的代码为了 ABI 兼容性已经不会改动了。新代码可以使用这个特性，来避免不必要的`this`传递。
 
-## Compiler Specific 
+# Compiler Specific 
 
 接下来就到了重头戏了，实现定义的部分，这部分似乎是被人诟病最多的内容了。然而事实真的如此吗？让我们一点点往下看。
 
-### De Facto Standard 
+## De Facto Standard 
 
 C++ 中的一些抽象最终是要落实到实现上的，而标准有没有规定如何实现，那这部分内容就由编译器自由发挥，例如：
 
@@ -343,7 +343,7 @@ C++ 中的一些抽象最终是要落实到实现上的，而标准有没有规�
 
 > MSVC 从 [2015](https://learn.microsoft.com/en-us/cpp/porting/binary-compat-2015-2017?view=msvc-170) 的版本往后开始保证 ABI 稳定。GCC 从 3.4 开始使用 Itanium ABI 并保证 ABI 稳定。 
 
-### Workaround 
+## Workaround 
 
 尽管基础的 ABI 不再改变，但是升级编译器版本仍然可能会导致编译出来的库发生 ABI Broken，为什么呢？
 
@@ -356,7 +356,7 @@ C++ 中的一些抽象最终是要落实到实现上的，而标准有没有规�
 
 另外对于用户来说，也可能之前为了绕过编译器的 BUG，编写了一些特殊的代码，我们一般把这个叫做 workaround。当 BUG 被修复之后，这些 workaround 很可能起到反作用。从而导致 ABI 出现不兼容
 
-### Important Options 
+## Important Options 
 
 除此之外，编译器还提供了一些列选项用来控制编译器的行为，这些选项可能会影响 ABI，比如：
 
@@ -370,7 +370,7 @@ C++ 中的一些抽象最终是要落实到实现上的，而标准有没有规�
 
 我最近就遇到了这种情况，我在给 LLVM 的一些函数编写 Python Wrapper，通过 [pybind11](https://github.com/pybind/pybind11)。而 pybind11 要求必须打开 RTTI，但是 LLVM 默认构建是关闭异常和 RTTI 的，所以最后代码就链接不到一块去了。一开始我是自己编译了一份开 RTTI 的 LLVM，这会导致二进制膨胀，后来发现没必要这样做。我其实没有用到 LLVM 里面类型的 RTTI 信息，只是由于写在同一个文件里面，编译器认为我用到了。于是把使用到 LLVM 部分的代码单独编译成一个动态库，再和使用 pybind11 部分的代码一起链接就解决了。
 
-## Runtime & Library 
+# Runtime & Library 
 
 这一小节主要讨论的就是，一个 C++ 程序依赖的库的 ABI 稳定性。**理想情况下是，对于一个可执行程序，使用新版本的动态库替换旧版本的动态库，仍然不影响它运行。**
 
@@ -401,7 +401,7 @@ C 运行时除了提供 C 标准库的实现外，还负责程序的初始化和
 
 最理想的状态自然是，升级编译器的时候把这些对应的运行时库版本也升级，避免不必要的麻烦。但是在实际项目中，依赖关系可能十分复杂，可能会引发连锁反应。
 
-## User Code 
+# User Code 
 
 最后我们来谈谈用户代码自身的改变导致的 ABI 问题，如果希望将你的库以二进制形式进行分发，那么当用户量达到一定程度之后，ABI 兼容性就很重要了。
 
@@ -454,7 +454,7 @@ int main() {
 
 思考一下上面的代码不难发现，`vec`的构造实际上发生在动态库里面，而析构则是发生在`main`函数里面。更进一步，其实就是内存是在动态库里面分配的，释放是在`main`函数里面。但是每一份 CRT 都有自己的`malloc`，`free`（类似于不同进程间的内存）。**你不能把 CRT A 分配的内存交给 CRT B 释放**，这就是问题的根源。所以之后不静态链接到 CRT 就没事了，它们用的都是同一个`malloc`，`free`。不仅仅是 WIndows CRT，对于 Linux 上的 glibc 或者 musl 也是一样的。示例代码放在 [这里](https://github.com/16bit-ykiko/about-me/tree/main/code/crt-fault)，感兴趣的可以自己试试。
 
-### extern "C" 
+## extern "C" 
 
 对于任何带有自定义析构函数的 C++ 类型都可能出现上面那种情况，**由于种种原因，构造函数和析构函数的调用跨越动态库边界，RAII 的约定被打破，导致严重的错误。**
 
@@ -501,7 +501,7 @@ extern "C" {
 
 但是如果代码量很大的话，把全部的函数都封装成这样的 API 显然不太现实，那就只能把 C++ 的类型暴露在导出接口中，然后小心地管理依赖项（比如所有依赖库全都静态链接）。具体选择哪一种方式，还是要看项目大小和复杂度，然后再做定夺。
 
-## Conclusion 
+# Conclusion 
 
 到这里，我们终于讨论完了影响 C++ 程序 ABI 的主要因素。可以清楚地看到，C++ 标准、编译器厂商和运行时库都在尽力维护 ABI 的稳定性，C++ ABI 并没有很多人说的那么不堪，那么不稳定。对于小型项目而言，带源码静态链接，几乎不会有任何的兼容性问题。对于那些历史悠久的大型项目来说，由于复杂的依赖关系，升级某些库的版本可能会导致程序崩溃。**但这并不是 C++ 的错，对于大型项目的管理，早已超出了单纯的语言层面，不能指望通过更换编程语言来解决这些问题**。实际上，学习软件工程就是在学习如何应对巨大的复杂度，如何保证复杂系统的稳定性。
 

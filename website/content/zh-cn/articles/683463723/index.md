@@ -4,11 +4,11 @@ date: 2024-02-22 14:15:32
 updated: 2024-05-25 04:28:17
 ---
 
-## 前情提要： 
+# 前情提要： 
 
 {{< linkcard url="https://www.ykiko.me/zh-cn/articles/682031684" title="" >}}
 
-## 2015-2016：模板的语法糖 
+# 2015-2016：模板的语法糖 
 
 在 C++ 中支持 [全特化 (full specialization)](https://en.cppreference.com/w/cpp/language/template_specialization) 的模板很多，但是支持 [偏特化 (partial specialization)](https://en.cppreference.com/w/cpp/language/partial_specialization) 的模板并不多，事实上其实只有类模板 (class template) 和变量模板 (variable template) 两种支持，而变量模板其实可以看做类模板的语法糖，四舍五入一下其实只有类模板支持偏特化。不支持偏特化会导致有些代码十分难写
 
@@ -59,7 +59,7 @@ else {...}
 
 巧妙地避免了加新的关键字，C++ 委员会还真是喜欢关键字复用呢。
 
-## 2015：constexpr lambda 
+# 2015：constexpr lambda 
 
 提案 [N4487](https://open-std.org/JTC1/SC22/WG21/docs/papers/2015/n4487.pdf) 讨论了支持 constexpr lambda 可能性，尤其希望能在 constexpr 计算中能够使用 lambda 表达式，并附带了一个实验性实现。
 
@@ -87,7 +87,7 @@ void foo() {
 
 可以发现这种情况下，编译器不得不给`x`分配内存。实际上的判断规则更复杂一些，感兴趣的可以自行参考 [lambda capture](https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture)。最终这个提案被接受，进入了 [C++17](https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture:~:text=This%20function%20is%20constexpr%20if%20the%20function%20call%20operator%20(or%20specialization%2C%20for%20generic%20lambdas)%20is%20constexpr.)。
 
-## 2017-2019：编译期和运行期...不同? 
+# 2017-2019：编译期和运行期...不同? 
 
 通过不断放宽 constexpr 的限制，越来越多的函数可以在编译期执行。但是具有外部链接（也就是被`extern`的函数）无论如何是无法在编译期执行的。绝大部分从 C 继承过来的函数都是这样的，例如`memcpy`, `memmove`等等。
 
@@ -141,7 +141,7 @@ if consteval /* !consteval */ {
 
 代码看上去是一目了然的，两个分支一个编译期一个运行期。这个升级过后的版本最终被接受并加入 C++23。
 
-## 2017-2019： 高效的调试 
+# 2017-2019： 高效的调试 
 
 C++ 模板一个最被人诟病的问题就是报错信息非常糟糕，而且难以调试。内层模板实例化失败之后，会把整个实例化栈打印出来，能轻松产生成百上千行报错。但是事情在 constexpr 函数这里其实也并没有变好，如果 constexpr 函数常量求值失败，也会把整个函数调用堆栈打印出来
 
@@ -162,7 +162,7 @@ error: overflow in constant expression [-fpermissive]
 
 如果函数嵌套多了，报错信息也非常糟糕。不同于模板的地方在于，constexpr 函数也可以在运行期运行。所以我们可以在运行期调试代码，最后在编译期执行就好了。但是如果考虑到上一小节加的`is_constant_evaluated`，就会发现这种做法并不完全可行，因为编译期和运行期的代码逻辑可能不同。提案 [P0596](https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0596r0.html) 希望引入`constexpr_trace`和`constexpr_assert`来方便编译期调试代码，虽然投票一致赞成，但是暂时未进入 C++ 标准。
 
-## 2017： 编译期可变容器 
+# 2017： 编译期可变容器 
 
 尽管在先前的提案中，允许了 constexpr 函数使用和修改变量，但是动态内存分配还是不允许的。如果有未知长度的数据需要处理，一般就是在栈上开一个大数组，这没什么问题。但是从实践上来说，有特别多的函数依赖于动态内存分配，支持 constexpr 函数中使用`vector`势在必得。
 
@@ -183,7 +183,7 @@ constexpr auto series(int n) {
 
 这并不彻底解决问题，用户仍然需要重写它的代码以支持常量求值。从在 constexpr 函数支持循环的那一节来看，这种加重语言不一致性的东西，很难被加入标准。最终有更好的提案取代了它，后面会提到。
 
-## 2018：真正的编译期多态？ 
+# 2018：真正的编译期多态？ 
 
 提案 [P1064R0](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1064r0.html) 希望在常量求值中支持虚函数调用。哎，还不支持动态内存分配呢，咋就要支持虚函数调用了？其实不依赖动态内存分配也可以弄出来多态指针嘛，指向栈上的对象或者静态储存就可以了。
 
@@ -206,7 +206,7 @@ constexpr auto foo() {
 
 似乎没有任何理由拒绝上面这段代码编译通过。由于是在编译期执行，编译器当然能知道`p`指向的是`Derived`，然后调用`Derived::f`，实践上没有任何难度。的确如此，之后又有一个新的提案 [P1327R1](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1327r1.html) 进一步希望`dynamic_cast`和`typeid`也能在常量求值中使用，最终它们都被接受并且加入了 [C++20](https://en.cppreference.com/w/cpp/language/constexpr#:~:text=it%20must%20not%20be%20virtual)，现在可以自由的在编译期使用这些特性了。
 
-## 2017-2019： 真正的动态内存分配！ 
+# 2017-2019： 真正的动态内存分配！ 
 
 在 [constexpr everything](https://www.youtube.com/watch?v=HMB9oXFobJc) 的这个演示视频中，展示了一个能在编译期处理`JSON`对象的例子
 
@@ -272,7 +272,7 @@ alloc.deallocate(pb, 1);
 
 虽然支持了动态内存分配，但并不是毫无限制。**在一次常量求值中分配的内存必须要在这次常量求值结束之前释放完全，不能有内存泄漏，否则会导致编译错误**。这种类型的内存分配被叫做 *transient constexpr allocations（瞬态内存分配）* 。该提案也讨论了 *non-transient allocation（非瞬态内存分配）* ，在编译期未被释放的内存，将被转为静态储存（其实就是存在数据区，就像全局变量那样）。但是，委员会认为这种可能性 "too brittle"，出于多种原因，目前尚未采纳。
 
-## 2018：更多的 constexpr 
+# 2018：更多的 constexpr 
 
 提案 [P1002](https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1002r1.pdf) 希望在 constexpr 函数中支持`try-catch`块。但是不能`throw`，这样是为了能把更多的标准库容器的成员函数标记为`constexpr`。
 
@@ -290,7 +290,7 @@ constexpr auto x = foo();  // error
 
 如果在编译期`throw`会直接导致编译错误，由于`throw`不会发生，那自然也不会有异常被捕获。
 
-## 2018：保证编译期执行！ 
+# 2018：保证编译期执行！ 
 
 有些时候我们想保证一个函数在编译期执行
 
@@ -321,7 +321,7 @@ foo(bar(1)); // ensure evaluation at compile time
 
 `consteval`函数不能获取指针或引用，编译器后端根本不需要（也不应该）知道这些函数的存在，也不需要将它们放入符号表中等等。事实上该提案也为未来可能引入的 static reflection 做了铺垫，未来将会有大量只在编译期执行的函数进入标准。
 
-## 2018：默认 constexpr ？ 
+# 2018：默认 constexpr ？ 
 
 在当时，有很多提案的内容仅仅是把标准库的某个部分标记为`constexpr`，在本文中没有讨论它们，因为它们具有相同的模式。
 
@@ -335,7 +335,7 @@ foo(bar(1)); // ensure evaluation at compile time
 
 该提案最终没有被接受。
 
-## 2020：更强的动态内存分配？ 
+# 2020：更强的动态内存分配？ 
 
 正如之前提到的，在 constexpr 函数中支持内存分配已经被允许了，也可以在 constexpr 函数中使用`std::vector`这样的容器，但是由于是瞬态内存分配，无法创建全局的`std::vector`
 
@@ -402,7 +402,7 @@ int main(){
 
 可惜的的是暂时还未被标准接受，在那之后还有一些新的的提案希望能够支持这个特性比如 [P2670R1](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2670r1.html)，相关的讨论还在继续。
 
-## 2021：constexpr 类 
+# 2021：constexpr 类 
 
 C++ 标准库中的很多类型，比如`vector`, `string`, `unique_ptr`中的所有方法都被标记为 constexpr，并且真正可以在编译期执行。很自然的，我们希望能直接标记整个类为 constexpr，这样可以省去哪些重复的说明符编写。
 
@@ -432,7 +432,7 @@ constexpr struct SomeType {
 
 在标准制定过程中，很多几乎相同的提案几乎可以同时出现。这证明了 [多重发现理论的正确性](https://en.wikipedia.org/wiki/Multiple_discovery)：某些思想或概念会在不同的人群中独立地出现，就像它们在空气中漂浮一样，并且谁先发现的并不重要。如果社区的规模足够大，这些思想或概念自然会发生演变。
 
-## 2023：编译期类型擦除！ 
+# 2023：编译期类型擦除！ 
 
 在常量求值中，一直不允许把`void*`转换成`T*`，这样导致诸如`std::any`，`std::function`等类型擦除实现的容器无法在常量求值中使用。原因呢，是因为我们可以通过`void*`来绕过类型系统，把一个类型转换为不相干的类型
 
@@ -454,7 +454,7 @@ constexpr void f(){
 }
 ```
 
-## 2023：支持 placement new？ 
+# 2023：支持 placement new？ 
 
 前面我们提到，为了支持`vector`在常量求值中使用，加入了`construct_at`用于在常量求值中调用构造函数。它具有如下形式
 
@@ -499,7 +499,7 @@ new (p) T{.x = 1, .y = 2} // placement new version
 
 提案 [P2747R1](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2747r1.html) 希望在常量求值中直接支持`placement new`。暂时还未被加入标准。
 
-## 2024-∞：未来无极限！ 
+# 2024-∞：未来无极限！ 
 
 截止目前，C++ 的常量求值已经支持了非常丰富的功能，支持条件，变量，循环，虚函数调用，动态内存分配等等一系列特性。但是受限于日常开发使用的 C++ 版本，有很多功能可能暂时没法使用，可以在 [这里](https://en.cppreference.com/w/cpp/feature_test#:~:text=P2564R3-,__cpp_constexpr,-constexpr) 方便的查看哪个版本支持了什么特性。
 
