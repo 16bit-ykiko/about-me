@@ -224,7 +224,7 @@
       <pubDate>Sat, 29 Jul 2023 10:20:50 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/646752343/</guid>
-      <description>STMP 全名 stateful template meta programming，又叫状态元编程。之所以这</description>
+      <description>众所周知，传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/646752343/featured.png" />
     </item>
     

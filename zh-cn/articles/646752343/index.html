@@ -66,7 +66,7 @@
   <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/646752343/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
   <meta property="og:title" content="C&#43;&#43; 禁忌黑魔法：STMP （上）">
-  <meta property="og:description" content="STMP 全名 stateful template meta programming，又叫状态元编程。之所以这">
+  <meta property="og:description" content="众所周知，传统的 C&#43;&#43; 的常量表达式求值既不依赖也不改变程序全局的">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
@@ -78,7 +78,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/646752343/featured.png">
   <meta name="twitter:title" content="C&#43;&#43; 禁忌黑魔法：STMP （上）">
-  <meta name="twitter:description" content="STMP 全名 stateful template meta programming，又叫状态元编程。之所以这">
+  <meta name="twitter:description" content="众所周知，传统的 C&#43;&#43; 的常量表达式求值既不依赖也不改变程序全局的">
 
   
   <script type="application/ld+json">
@@ -89,7 +89,7 @@
     "name": "C\u002b\u002b 禁忌黑魔法：STMP （上）",
     "headline": "C\u002b\u002b 禁忌黑魔法：STMP （上）",
     
-    "abstract": "STMP 全名 stateful template meta programming，又叫状态元编程。之所以这",
+    "abstract": "众所周知，传统的 C\u002b\u002b 的常量表达式求值既不依赖也不改变程序全局的",
     "inLanguage": "zh-cn",
     "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/646752343\/",
     "author" : {
@@ -105,7 +105,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "3818"
+    "wordCount": "3622"
   }]
   </script>
 
@@ -580,7 +580,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-07-29 10:20:50 &#43;0000 UTC">July 29, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3818 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2023-07-29 10:20:50 &#43;0000 UTC">July 29, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3622 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -829,11 +829,11 @@
     class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#都是友元惹的祸">都是友元惹的祸</a></li>
-    <li><a href="#模板显式实例化">模板显式实例化</a></li>
-    <li><a href="#一元常量表达式开关">一元常量表达式开关</a></li>
-    <li><a href="#编译期常量计数器">编译期常量计数器</a></li>
-    <li><a href="#彩蛋合法访问类的私有成员">彩蛋：合法访问类的私有成员</a></li>
+    <li><a href="#observable-state">observable state</a></li>
+    <li><a href="#modifiable-state">modifiable state</a></li>
+    <li><a href="#constant-switch">constant switch</a></li>
+    <li><a href="#compile-time-counter">compile time counter</a></li>
+    <li><a href="#easter-egg-access-private">easter egg: access private</a></li>
   </ul>
 </nav>
   </div>
@@ -847,11 +847,11 @@
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#都是友元惹的祸">都是友元惹的祸</a></li>
-    <li><a href="#模板显式实例化">模板显式实例化</a></li>
-    <li><a href="#一元常量表达式开关">一元常量表达式开关</a></li>
-    <li><a href="#编译期常量计数器">编译期常量计数器</a></li>
-    <li><a href="#彩蛋合法访问类的私有成员">彩蛋：合法访问类的私有成员</a></li>
+    <li><a href="#observable-state">observable state</a></li>
+    <li><a href="#modifiable-state">modifiable state</a></li>
+    <li><a href="#constant-switch">constant switch</a></li>
+    <li><a href="#compile-time-counter">compile time counter</a></li>
+    <li><a href="#easter-egg-access-private">easter egg: access private</a></li>
   </ul>
 </nav>
   </div>
@@ -933,176 +933,199 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          <p>STMP 全名 stateful template meta programming，又叫状态元编程。之所以这么称呼，是因为传统的 C++ 的常量表达式求值既不依赖，也不能改变全局的状态，对于任意确定的输入，它的输出结果总是不变的，是 purely functional 的。</p>
+          <p>众所周知，传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的状态。对于任意相同的输入，它的输出结果总是相同的，被认为是<strong>纯函数式 (purely functional)</strong> 的。<strong>模板元编程 (Template Meta Programming)</strong> 作为常量求值的一个子集，也应该遵守这个规则。</p>
 <p>
   <figure>
     <img class="my-0 rounded-md" loading="lazy" src="https://pic3.zhimg.com/v2-310046d2ded45ca99cb74d992a94a51e_r.jpg" alt="" />
     
   </figure>
 </p>
-<p>但是事实真的如此吗？</p>
-<ul>
-<li>在不触发未定义行为的情况下，下面的代码可能通过编译吗？</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="n">f</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">f</span><span class="p">();</span>
+<p>但事实真的如此吗？在不违背 C++ 标准的情况下，下面的代码可能通过编译吗？</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="n">value</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">value</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">!=</span> <span class="n">b</span><span class="p">);</span>
-</span></span></code></pre></div><ul>
-<li>再考虑下这样计数器的实现，这可能做到吗？</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="n">f</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">f</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">c</span> <span class="o">=</span> <span class="n">f</span><span class="p">();</span>
+</span></span></code></pre></div><p>下面这样的编译期计数器可能实现吗？</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="n">next</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">next</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">c</span> <span class="o">=</span> <span class="n">next</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
-</span></span></code></pre></div><p>事实上通过一些编译器内置的宏，我们是可以做到的。比如</p>
+</span></span></code></pre></div><p>每次常量求值得到的结果不同，说明求值改变了全局的状态。这种有状态的元编程，就叫做状态元编程。如果再与模板联系起来，就叫做 <strong>Stateful Template Meta Programming(STMP)</strong>。</p>
+<p>其实借助一些编译器内置的宏，我们是可以实现这样的效果的，比如</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="n">__COUNTER__</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">__COUNTER__</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">c</span> <span class="o">=</span> <span class="n">__COUNTER__</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
-</span></span></code></pre></div><p>利用主流 C++ 编译器都内置的<code>__COUNTER__</code>宏可以实现上述的效果。但是即使三大编译器都有这个宏，它也不是标准的语法。并且这个计数器是全局唯一的，我们并不能创建很多个计数器。那还有别的办法吗？并且不依赖于编译器扩展？</p>
-<p>答案是肯定的，不管多么难以置信。相关的讨论，早在2015年的时候就有了。知乎上也有相关讨论的 <a href="https://zhuanlan.zhihu.com/p/24835482" target="_blank">文章</a>。但是时过境迁，这篇文章发布的时间是在 2017 年，使用的 C++ 版本还是14，文章里面已经有很多的内容不适用了。更何况现在 C++26 的相关标准都开始制定了，有很多东西需要被重新讨论。我们将要选择的版本是 C++20。</p>
-<p>如果你只对代码感兴趣，我已经将相关的代码放在 <a href="https://godbolt.org/z/MGPKeqPaj" target="_blank">Compiler Explorer - C++</a> 。三大编译器 C++20 均编译通过，你可以直接看到编译器的输出结果。防止链接失效，也放到 <a href="https://github.com/16bit-ykiko/blog/blob/main/code/compile-time-counter.cpp" target="_blank">GitHub</a> 上。如果你想要了解它的原理，欢迎继续往下阅读。C++ 标准极其复杂，作者也没法保证文章内容百分百正确，如果有任何错误，欢迎评论区讨论。</p>
+</span></span></code></pre></div><p>编译器在预处理的时候，会对<code>__COUNTER__</code>宏的替换结果进行递增。如果你对源文件执行预处理，会发现源文件变成了这样</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
+</span></span></code></pre></div><p>这与我们想要实现的效果还是有很大区别的，毕竟预处理并不涉及到 C++ 程序的语义部分。而且这样的计数器是全局唯一的，我们并不能创建很多个计数器，那还有别的办法吗？</p>
+<p>答案是肯定的。不管多么难以置信，相关的 <a href="https://b.atch.se/posts/non-constant-constant-expressions/" target="_blank">讨论</a> 其实早在 2015 年的时候就有了，知乎上也有相关的 <a href="https://zhuanlan.zhihu.com/p/24835482" target="_blank">文章</a>。但这篇文章是 2017 年发布的，使用的 C++ 版本还是 14，时过境迁，文章里面已经有很多的内容不适用了。更何况现在 C++26 的相关标准都开始制定了，有很多东西需要被重新讨论。我们将要选择的版本是 C++20。</p>
+<p>如果你只对代码感兴趣，我已经将相关的代码放在 <a href="https://godbolt.org/z/T543Tvc3q" target="_blank">Compiler Explorer</a> 上。三大编译器 C++20 均编译通过，你可以直接看到编译器的输出结果。为了防止链接失效，也放到 <a href="https://github.com/16bit-ykiko/blog/blob/main/code/compile-time-counter.cpp" target="_blank">GitHub</a> 上。如果你想要了解它的原理，欢迎继续往下阅读。C++ 标准非常复杂，作者也没法保证文章内容完全正确，如果有任何错误，欢迎评论区讨论交流。</p>
 <blockquote>
-<p>注意：本文仅仅只是技术讨论，请不要将相关的代码运用于实际生产中。事实上，相关的代码似乎被认为是  ill formed。而且非常容易造成 ODR 违反。相关的提案在 <a href="https://cplusplus.github.io/CWG/issues/2118.html" target="_blank">CWG</a> 2015 年就有了。但是似乎好像并没有进一步被解决，而且在 C++20 中标准库还主动加入了具有类似作用的库，那就是<code>std::source_location::line</code>。当<code>line</code>作为函数默认参数的时候，随着函数调用位置不同，实际上默认参数取值也是不同的。</p>
+<p>注意：本文仅仅是技术讨论，请不要将相关的代码运用于实际生产中。根据 <a href="https://cplusplus.github.io/CWG/issues/2118.html" target="_blank">CWG 2118</a>，相关的代码似乎被认为是非良构的 (ill formed)。并且 STMP 较为容易造成 ODR 违背，需要十分谨慎。</p>
 </blockquote>
 
 
-<h2 class="relative group">都是友元惹的祸 
-    <div id="%E9%83%BD%E6%98%AF%E5%8F%8B%E5%85%83%E6%83%B9%E7%9A%84%E7%A5%B8" class="anchor"></div>
+<h2 class="relative group">observable state 
+    <div id="observable-state" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E9%83%BD%E6%98%AF%E5%8F%8B%E5%85%83%E6%83%B9%E7%9A%84%E7%A5%B8" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#observable-state" aria-label="锚点">#</a>
     </span>        
     
 </h2>
-<p>我们都知道 C++ 的 friend 关键字，可以对一个函数进行标记，然后允许这个函数访问类的私有成员。让我们考虑下面这两种情况。</p>
-<ul>
-<li>友元声明在全局空间</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">touch</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="p">);</span>
+<p>在改变之前，我们首先得能在编译期观测到全局状态的变化。由于 C++ 支持<strong>向前声明 (forward declaration)</strong>，而一个<code>struct</code>在看到 definition 之前被认为是<strong>不完整类型 (incomplete type)</strong>，即类的完整性在不同的上下文中是不同的。</p>
+<p>而 C++ 标准规定<code>sizeof</code>只能对完整类型使用（毕竟不完整类型没有定义无法计算<code>size</code>）。如果对不完整类型使用会导致编译错误，并且这个错误不是一个<strong>硬错误 (hard error)</strong>，所以可以利用<code>SFINAE</code>或<code>requires</code>来捕获到这个错误。于是我们就能通过如下的方式检测类的完整性</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">is_complete_v</span> <span class="o">=</span> <span class="k">requires</span> <span class="p">{</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">);</span> <span class="p">};</span>
+</span></span></code></pre></div><blockquote>
+<p>可能有读者会问，都 C++20 了为什么不使用 concept 呢？这里用 concept 会有一些奇怪的效果，是标准中有关原子约束 (atomic constraint) 的措辞导致的。就不深究了，感兴趣的读者可以自行尝试。</p>
+</blockquote>
+<p>尝试使用它来观测类型完整性</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">member</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="kt">void</span> <span class="nf">touch</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">touch</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span> <span class="n">ref</span><span class="p">)</span> <span class="p">{</span> <span class="n">ref</span><span class="p">.</span><span class="n">member</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">A</span> <span class="n">a</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">touch</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span>
+</span></span></code></pre></div><p>实际上，上面的代码会编译错误，第二个静态断言失败了。太奇怪了，怎么回事呢？分开试一下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// first time
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">X</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// second time
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">X</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span>
+</span></span></code></pre></div><p>分开试发现都行，但是放一起就不行了，究竟为什么会这样呢？还记得文章开头说的那段话吗？</p>
+<blockquote>
+<p>传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的状态。对于任意相同的输入，它的输出结果总是相同的。</p>
+</blockquote>
+<p>不仅 C++ 标准这么认为，编译器也这么认为。为了提高编译速度，编译器会把模板实例化的结果缓存起来，也就是会把在第一个位置实例化的结果记录下来，之后再遇到相同的模板会直接复用这个结果。所以在上面的代码中，第二个<code>is_complete_v&lt;X&gt;</code>仍然使用第一次实例化的模板，导致求值为<code>false</code>，于是静态断言失败了。</p>
+<p>如何解决呢？答案是加一个模板参数作为种子，每次求值的时候填入不同的参数，从而让编译器实例化新的模板</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="kt">int</span> <span class="n">seed</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">is_complete_v</span> <span class="o">=</span> <span class="k">requires</span> <span class="p">{</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">);</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="mi">0</span><span class="o">&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">);</span>
+</span></span></code></pre></div><p>每次都手动填入一个不同的参数是很麻烦的，有没有什么办法能自动填入呢？</p>
+<p>注意到如果用 lambda 表达式作为 <strong>Non Type Template Parameter(NTTP)</strong> 默认模板参数，则该模板每次实例化的时候都是不同的类型</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">seed</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">test</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">typeid</span><span class="p">(</span><span class="n">seed</span><span class="p">).</span><span class="n">name</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><ul>
-<li>友元声明在类内部</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">member</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="kt">void</span> <span class="nf">touch</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span> <span class="n">ref</span><span class="p">)</span> <span class="p">{</span> <span class="n">ref</span><span class="p">.</span><span class="n">member</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">A</span> <span class="n">a</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">touch</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>  <span class="c1">// OK
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>上面的两段代码都是 well defined 的，而且函数<code>touch</code>都能访问类<code>A</code>的私有成员。但是这两种实现方式之间，有微小的区别。在全局空间声明的友元函数，就和普通的函数一样，作用域也是一样的。都在全局命名空间，和全局普通的函数访问是一模一样的。而在类内部声明的友元函数，只能通过 C++ 的 <a href="https://en.cppreference.com/w/cpp/language/adl" target="_blank">Argument-dependent lookup</a> 进行访问。</p>
-<ul>
-<li>非 ADL 查找</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">touch</span><span class="p">(</span><span class="n">A</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">test</span><span class="p">();</span> <span class="c1">// class &lt;lambda_1&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">test</span><span class="p">();</span> <span class="c1">// class &lt;lambda_2&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">test</span><span class="p">();</span> <span class="c1">// class &lt;lambda_3&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>这个特性很好的满足了我们的需求，它可以每次自动填入一个不同的种子。于是最终的<code>is_complete_v</code>实现如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">auto</span> <span class="n">seed</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">is_complete_v</span> <span class="o">=</span> <span class="k">requires</span> <span class="p">{</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">);</span> <span class="p">};</span>
+</span></span></code></pre></div><p>再次尝试使用它来观测类型完整性</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">member</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="kt">void</span> <span class="nf">touch</span><span class="p">(</span><span class="n">A</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span> <span class="o">:</span> <span class="n">member</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">touch</span><span class="p">(</span><span class="n">A</span> <span class="n">ref</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ref</span><span class="p">.</span><span class="n">member</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">A</span> <span class="n">a</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">touch</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>  <span class="c1">// normal lookup
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">touch</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>  <span class="c1">// implicit conversion
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><ul>
-<li>ADL 查找</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">member</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="kt">void</span> <span class="n">touch</span><span class="p">(</span><span class="n">A</span> <span class="n">ref</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ref</span><span class="p">.</span><span class="n">member</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span> <span class="o">:</span> <span class="n">member</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">A</span> <span class="n">a</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">touch</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">touch</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>     <span class="c1">// error
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">A</span><span class="o">::</span><span class="n">touch</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>  <span class="c1">// error
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>这里你就会发现了，第一次调用成功了，第二，三次调用失败了。这是因为，ADL会在函数参数对应的类型的命名空间中查找函数。在第一种情况下，<code>touch</code>函数的参数类型是<code>A</code>，发生了<code>ADL</code>查找。而<code>1</code>的类型是<code>int</code>，两者并不相关，所以 ADL 不会发生。</p>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span>
+</span></span></code></pre></div><p>编译通过！至此，我们成功观察到了编译期全局状态的变化。</p>
 
 
-<h2 class="relative group">模板显式实例化 
-    <div id="%E6%A8%A1%E6%9D%BF%E6%98%BE%E5%BC%8F%E5%AE%9E%E4%BE%8B%E5%8C%96" class="anchor"></div>
+<h2 class="relative group">modifiable state 
+    <div id="modifiable-state" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E6%A8%A1%E6%9D%BF%E6%98%BE%E5%BC%8F%E5%AE%9E%E4%BE%8B%E5%8C%96" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#modifiable-state" aria-label="锚点">#</a>
     </span>        
     
 </h2>
-<p>考虑下面这种情况</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="nf">flag</span><span class="p">(</span><span class="k">auto</span><span class="p">);</span>
+<p>再可以观测到状态变化之后，下面我们要考虑能否通过代码来主动进行状态更改。很可惜，对于绝大多数 declaration 来说，你唯一能改变它们的状态的办法就是通过修改源代码来添加 definition，没有其它的手段实现这个效果。</p>
+<p>唯一的例外是友元函数。但在考虑友元函数如何发挥作用之前，先让我们考虑一下如何观测到一个函数有没有被定义。对于绝大多数的函数是无法观测的，考虑到函数可能定义在其它编译单元，调用一个函数并不要求其定义可见。</p>
+<p>例外就是返回值类型为<code>auto</code>的函数，如果看不到它的函数定义，则无法推导出返回值类型，进而无法进行函数调用。下面的代码就可以检测<code>foo</code>函数是否有定义</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">seed</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">is_complete_v</span> <span class="o">=</span> <span class="k">requires</span> <span class="p">{</span> <span class="n">foo</span><span class="p">(</span><span class="n">seed</span><span class="p">);</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">bool</span> <span class="n">val</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">flag_setter</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">flag</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="k">auto</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_complete_v</span><span class="o">&lt;&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="k">auto</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;&gt;</span><span class="p">);</span>
+</span></span></code></pre></div><p>接下来让我们谈谈如何通过友元函数来改变全局的状态。</p>
+<p>友元函数与普通函数最大的不同就在于不要求函数定义与函数声明在同一 scope 中，考虑如下示例</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="n">X</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">flag</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>  <span class="c1">// error
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">flag_setter</span><span class="o">&lt;</span><span class="nb">true</span><span class="o">&gt;</span><span class="p">{};</span>
-</span></span><span class="line"><span class="cl">    <span class="n">flag</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>  <span class="c1">// ok
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>首先直接调用<code>flag</code>会发生错误，因为它的返回值类型尚未确定。需要在函数定义里面推导。所以第一个调用就失败了。后面我们进行了一次类模板显式实例化，可以认为模板显式实例化的时候会在全局命名空间添加一个该类型模板的特化（通过友元函数），而这个特化版本实现了<code>flag()</code>。因为<code>flag</code>函数有了定义，返回值类型也就确定了，所以第二次调用就成功了。</p>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Y</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">42</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">foo</span><span class="p">(</span><span class="n">X</span><span class="p">{});</span>
+</span></span></code></pre></div><p>上面的代码三大编译器都可以编译通过，并且完全符合 C++ 标准。这就给了我们操作的空间，我们可以在实例化类模板同时实例化其内部定义的友元函数，从而给其它位置的函数声明添加定义。这种技术也被叫做<strong>友元注入 (friend injection)</strong>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="k">auto</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="k">auto</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_complete_v</span><span class="o">&lt;&gt;</span><span class="p">);</span> <span class="c1">// #1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span> <span class="n">x</span><span class="p">;</span> <span class="c1">// #2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;&gt;</span><span class="p">);</span> <span class="c1">// #2
+</span></span></span></code></pre></div><p>注意到 #1 处模板<code>X</code>没有任何的实例化，故此时<code>foo</code>函数还未有定义，于是<code>is_complete_v</code>返回<code>false</code>。而在 #2 处，我们实例化了一个<code>X&lt;void&gt;</code>，进而导致<code>X</code>内的<code>foo</code>函数被实例化，给<code>foo</code>添加了一个定义，于是<code>is_complete_v</code>返回<code>true</code>。当然了，函数定义最多只能有一个，如果你再尝试实例化一个<code>X&lt;int&gt;</code>，这时候编译器就会报<code>foo</code>被重定义的错误了。</p>
 
 
-<h2 class="relative group">一元常量表达式开关 
-    <div id="%E4%B8%80%E5%85%83%E5%B8%B8%E9%87%8F%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%BC%80%E5%85%B3" class="anchor"></div>
+<h2 class="relative group">constant switch 
+    <div id="constant-switch" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E4%B8%80%E5%85%83%E5%B8%B8%E9%87%8F%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%BC%80%E5%85%B3" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#constant-switch" aria-label="锚点">#</a>
     </span>        
     
 </h2>
-<p>有了上面那些技巧，我们就可以来实现，本文开头所提到的常量开关了。</p>
+<p>结合上面提到的技巧，我们可以轻松实例化一个编译时的开关了</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="nf">flag</span><span class="p">(</span><span class="k">auto</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">bool</span> <span class="n">val</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">flag_setter</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">value</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">value</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">setter</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">flag</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">arg</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="k">auto</span> <span class="n">condition</span> <span class="o">=</span> <span class="k">requires</span> <span class="p">{</span> <span class="n">flag</span><span class="p">(</span><span class="n">arg</span><span class="p">);</span> <span class="p">}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="k">auto</span> <span class="n">seed</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">consteval</span> <span class="k">auto</span> <span class="n">value</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="o">!</span><span class="n">condition</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">flag_setter</span><span class="o">&lt;</span><span class="n">condition</span><span class="o">&gt;</span><span class="p">{}.</span><span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">exist</span> <span class="o">=</span> <span class="k">requires</span> <span class="p">{</span> <span class="n">flag</span><span class="p">(</span><span class="n">N</span><span class="p">);</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="o">!</span><span class="n">exist</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">setter</span><span class="o">&lt;</span><span class="n">exist</span><span class="o">&gt;</span> <span class="n">setter</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">condition</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">exist</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
@@ -1110,40 +1133,39 @@
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">value</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">!=</span> <span class="n">b</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>它的原理很简单，首先 C++20 加入的<code>requires</code>语句可以用于检查表达式的合法性。最开始的时候，由于<code>flag_setter</code>还尚未实例化，所以<code>flag</code>函数还没有定义，所以<code>flag(arg)</code>是不合法的表达式的。所以<code>condition</code>的值就会是<code>false</code>。然后我们通过<code>if constexpr</code>来判断<code>condition</code>的值，如果是<code>false</code>，那么我们就实例化一个<code>flag_setter</code>，并且返回<code>false</code>的值。如果是<code>true</code>，那么我们就返回<code>condition</code>的值。这样就实现了一元常量表达式开关。相比于 C++14 的版本，这个版本更加的简洁也更好理解。</p>
-<p>值得注意的一点是，可能有人会问为什么不能直接写<code>requries{ flag(0); }</code>呢？这是由于模板的 <a href="https://en.cppreference.com/w/cpp/language/two-phase_lookup" target="_blank">two phase lookup</a>，如果直接写<code>requries{ flag(0); }</code>，会在第一阶段就进行查找，然后查找发现错误，并且这个错误是一个 hard error，会直接导致编译失败。如果让这个表达式依赖于模板变量，它就会变成 <a href="https://en.cppreference.com/w/cpp/language/dependent_name" target="_blank">dependent names</a>，在第二阶段进行查找，并且可以被<code>requires</code>检测表达式是否合法。</p>
+</span></span></code></pre></div><p>它的原理很简单。第一次的时候，<code>setter</code>尚未有任何实例化，所以<code>flag</code>函数也没有定义，于是<code>exist</code>求值为<code>false</code>，走到了<code>if constexpr</code>里面那个分支，实例化了一个<code>setter&lt;false&gt;</code>，并且返回<code>false</code>。第二次的时候，<code>setter</code>有了一个实例化，<code>flag</code>函数也有了定义，于是<code>exist</code>求值为<code>true</code>，直接返回<code>true</code>。</p>
+<blockquote>
+<p>注意，这里的 N 的类型必须写成 auto，而不能使用 std::size_t。只有这样<code>flag(N)</code>才是 <a href="https://en.cppreference.com/w/cpp/language/dependent_name" target="_blank">dependent name</a>，才能被 requires 检测表达式合法性。由于模板的 <a href="https://en.cppreference.com/w/cpp/language/two-phase_lookup" target="_blank">two phase lookup</a>，如果写成<code>flag(0)</code>，会在第一阶段就进行查找，发现调用失败，产生一个 hard error，导致编译失败。</p>
+</blockquote>
 
 
-<h2 class="relative group">编译期常量计数器 
-    <div id="%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F%E8%AE%A1%E6%95%B0%E5%99%A8" class="anchor"></div>
+<h2 class="relative group">compile time counter 
+    <div id="compile-time-counter" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F%E8%AE%A1%E6%95%B0%E5%99%A8" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#compile-time-counter" aria-label="锚点">#</a>
     </span>        
     
 </h2>
-<p>基于上述的原理，更进一步，我们可以直接实现一个编译期的计数器！</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
+<p>更进一步，我们可以直接实现一个编译期的计数器</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">reader</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">counted_flag</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">flag</span><span class="p">(</span><span class="n">reader</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">setter</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">counted_flag</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">value</span> <span class="o">=</span> <span class="n">N</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">flag</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="k">auto</span> <span class="n">tag</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{},</span>
-</span></span><span class="line"><span class="cl">          <span class="kt">bool</span> <span class="n">condition</span> <span class="o">=</span> <span class="k">requires</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span> <span class="n">red</span><span class="p">)</span> <span class="p">{</span> <span class="n">counted_flag</span><span class="p">(</span><span class="n">red</span><span class="p">);</span> <span class="p">}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="k">auto</span> <span class="n">seed</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">consteval</span> <span class="k">auto</span> <span class="n">next</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="o">!</span><span class="n">condition</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">constexpr</span> <span class="n">setter</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span> <span class="n">s</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">s</span><span class="p">.</span><span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">exist</span> <span class="o">=</span> <span class="k">requires</span> <span class="p">{</span> <span class="n">flag</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span><span class="p">{});</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="o">!</span><span class="n">exist</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">setter</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span> <span class="n">setter</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">N</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">next</span><span class="o">&lt;</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -1155,56 +1177,25 @@
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">c</span> <span class="o">=</span> <span class="n">next</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>让我们来解释一下上面的代码。基本原理和一元开关情况类似。<code>reader</code>用来判断函数有没有被实现，<code>setter</code>用来生成实现的函数。然后在<code>next</code>里面，我们首先查看当前的<code>N</code>对应的函数，有没有被实现。如果被没有被实现，就实例化一个<code>setter&lt;N&gt;</code>的模板。如果实现了的话，就递归的查看<code>N+1</code>的情况。</p>
-<p>为了防止有些读者想不通，这里直接从第一次调用开始举例子</p>
-<p>第一次调用这个函数：</p>
-<ul>
-<li><code>N = 0</code>时，检查发现<code>setter&lt;0&gt;</code>尚未实现，也就是<code>condition</code>是<code>false</code>。这样的话会走第一个分支，实例化一个<code>setter&lt;0&gt;</code>，并且返回<code>0</code>。</li>
-</ul>
-<p>第二次调用这个函数：</p>
-<ul>
-<li><code>N = 0</code>时，检查发现<code>setter&lt;0&gt;</code>已经实现了，也就是<code>condition</code>是<code>true</code>。这样的话会走第二个分支，递归调用<code>next&lt;1&gt;()</code>。</li>
-<li><code>N = 1</code>时，检查发现<code>setter&lt;1&gt;</code>尚未实现，也就是<code>condition</code>是<code>false</code>。这样的话会走第一个分支，实例化一个<code>setter&lt;1&gt;</code>，并且返回<code>1</code>。</li>
-</ul>
-<p>第三次调用这个函数：</p>
-<ul>
-<li><code>N = 0</code>时，检查发现<code>setter&lt;0&gt;</code>已经实现了，也就是<code>condition</code>是<code>true</code>。这样的话会走第二个分支，递归调用<code>next&lt;1&gt;()</code>。</li>
-<li><code>N = 1</code>时，检查发现<code>setter&lt;1&gt;</code>已经实现了，也就是<code>condition</code>是<code>true</code>。这样的话会走第二个分支，递归调用<code>next&lt;2&gt;()</code>。</li>
-<li><code>N = 2</code>时，检查发现<code>setter&lt;2&gt;</code>尚未实现，也就是<code>condition</code>是<code>false</code>。这样的话会走第一个分支，实例化一个<code>setter&lt;2&gt;</code>，并且返回<code>2</code>。</li>
-</ul>
-<p><code>......</code>，也就是说，我们每一次调用这个函数，就会实例化一个对应的模板函数，这个计数器，其实记录的就是已经实例化的模板函数的数量。</p>
-<p>值得一提的是，上面有一个奇怪的写法。<code>auto tag = []{}</code>，你可能看的一脸懵逼。事实上，<code>[]{}</code>是一个简写的<code>lambda</code>表达式，其实就相当于<code>[](){}</code>。如果用不到函数参数的话，这个小括号可以省略。那为什么我们要在这里添加一个这个玩意呢，完全用不到啊。你可以尝试把它去掉，就会发现得到了错误的结果。变量的值并没有按照预期的结果进行递增。</p>
-<p>这里的原因是，编译器会对常量表达式的求值结果进行缓存，也就是说编译器认为<code>next</code>函数是常量表达式，返回的值应该是不会变的。那既然不会变，我只要求一次不就行了。于是它就把所有<code>next</code>的返回值都记录成相同的了。但是这不是我们想要的结果，我们想要它每次调用的时候都能计算表达式的值。加上这个标签之后，每次调用的模板参数实际是不同的，于是编译器就会重新计算它的值了。</p>
-<p>看下面这个例子</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">arg</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">test</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">typeid</span><span class="p">(</span><span class="n">arg</span><span class="p">).</span><span class="n">name</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">test</span><span class="p">();</span>  <span class="c1">// class &lt;lambda_1&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">test</span><span class="p">();</span>  <span class="c1">// class &lt;lambda_2&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">test</span><span class="p">();</span>  <span class="c1">// class &lt;lambda_3&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>打印出来的结果不同，表面每一次调用的<code>test()</code>的模板参数其实是不同的，那么这三个<code>test()</code>其实是三个不同的函数。利用这个特性，我们在每次调用<code>next</code>的时候，其实就是不同的模板函数（因为<code>lambda</code>模板参数类型不同）。这样我们就阻止了编译器的缓存。代码就像我们预期的那样进行调用了。</p>
+</span></span></code></pre></div><p>它的逻辑是，从<code>N</code>为 0 开始，检测<code>flag(reader&lt;N&gt;{})</code>是否有定义，如果没有定义就实例化一个<code>setter&lt;N&gt;</code>，并返回<code>N</code>，否则递归调用<code>next&lt;N + 1&gt;()</code>。所以这个计算器记录的实际上是<code>setter</code>的实例化次数。</p>
 
 
-<h2 class="relative group">彩蛋：合法访问类的私有成员 
-    <div id="%E5%BD%A9%E8%9B%8B%E5%90%88%E6%B3%95%E8%AE%BF%E9%97%AE%E7%B1%BB%E7%9A%84%E7%A7%81%E6%9C%89%E6%88%90%E5%91%98" class="anchor"></div>
+<h2 class="relative group">easter egg: access private 
+    <div id="easter-egg-access-private" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E5%BD%A9%E8%9B%8B%E5%90%88%E6%B3%95%E8%AE%BF%E9%97%AE%E7%B1%BB%E7%9A%84%E7%A7%81%E6%9C%89%E6%88%90%E5%91%98" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#easter-egg-access-private" aria-label="锚点">#</a>
     </span>        
     
 </h2>
-<p>首先要明确一个观点：类的访问权限说明符<code>private</code>, <code>public</code>, <code>protected</code>仅仅只作用于编译期的检查。如果能通过某种手段避免编译期检查，那完全就可以合法的访问，类的私有成员。</p>
-<p>那么存在这样的方法吗？答案是存在。我们有<strong>模板显示实例化的时候可以忽略类作用域的访问权限：</strong></p>
+<p>首先要明确一个观点：类的访问权限说明符<code>private</code>, <code>public</code>, <code>protected</code>仅仅只作用于编译期的检查。如果能通过某种手段绕过这个编译期检查，那完全就可以合法的访问类的任意成员。</p>
+<p>那么存在这样的方法吗？有的：<strong>模板显示实例化的时候会忽略类作用域的访问权限：</strong></p>
 <blockquote>
 <p>The C++11/14 standards state the following in note 14.7.2/12 [temp.explicit]: The usual access checking rules do not apply to names used to specify explicit instantiations. [ Note: In particular, the template arguments and names used in the function declarator (including parameter types, return types and exception speciﬁcations) may be private types or objects which would normally not be accessible and the template may be a member template or member function which would not normally be accessible. — end note ]</p>
 </blockquote>
-<p>也就是说在显示实例化模板的时候，我们可以直接访问类的私有成员。</p>
+<p>也就是说在模板<strong>显示实例化 (explicit instantiate)</strong> 的时候，我们可以直接访问类的私有成员。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Bank</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">money</span> <span class="o">=</span> <span class="mi">999&#39;999&#39;999&#39;999</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -1217,22 +1208,17 @@
 </span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="kt">double</span><span class="o">&amp;</span> <span class="n">steal</span><span class="p">(</span><span class="n">Bank</span><span class="o">&amp;</span> <span class="n">bank</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">bank</span><span class="p">.</span><span class="o">*</span><span class="n">mp</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="k">struct</span> <span class="nc">Thief</span><span class="o">&lt;&amp;</span><span class="n">Bank</span><span class="o">::</span><span class="n">money</span><span class="o">&gt;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kt">double</span><span class="o">&amp;</span> <span class="n">steal</span><span class="p">(</span><span class="n">Bank</span><span class="o">&amp;</span> <span class="n">bank</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">double</span><span class="o">&amp;</span> <span class="n">steal</span><span class="p">(</span><span class="n">Bank</span><span class="o">&amp;</span> <span class="n">bank</span><span class="p">);</span> <span class="c1">// #1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="k">struct</span> <span class="nc">Thief</span><span class="o">&lt;&amp;</span><span class="n">Bank</span><span class="o">::</span><span class="n">money</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">// #2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Bank</span> <span class="n">bank</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">steal</span><span class="p">(</span><span class="n">bank</span><span class="p">)</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">bank</span><span class="p">.</span><span class="n">check</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">steal</span><span class="p">(</span><span class="n">bank</span><span class="p">)</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="c1">// #3
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">bank</span><span class="p">.</span><span class="n">check</span><span class="p">();</span> <span class="c1">// 100
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><hr>
-<p>参考文章：</p>
-<ul>
-<li><a href="https://mc-deltat.github.io/articles/stateful-metaprogramming-cpp20" target="_blank">Revisiting Stateful Metaprogramming in C++20</a></li>
-<li><a href="https://b.atch.se/posts/non-constant-constant-expressions/" target="_blank">b.atch: Non-constant constant-expressions in C++</a></li>
-<li><a href="https://ledas.com/post/857-how-to-hack-c-with-templates-and-friends/" target="_blank">How to Hack C++ with Templates and Friends</a></li>
-</ul>
+</span></span></code></pre></div><p>其中 #2 处的语法就是模板显式实例化了，我们可以直接访问到<code>Bank</code>的私有成员<code>money</code>。通过<code>&amp;Bank::money</code>从而取得该成员对应的成员指针。于此同时，该模板显式实例化还通过友元函数，给 #1 处的<code>steal</code>函数添加了一个定义，从而可以直接在 #3 处调用该函数并获取到<code>money</code>的引用。最后成功输出 100。</p>
 
         </div>
         
