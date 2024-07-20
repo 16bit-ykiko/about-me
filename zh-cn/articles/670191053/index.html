@@ -820,123 +820,7 @@
   
   <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
     
-     <div
-      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
-      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
-
-         <details open id="TOCView"
-  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
-  <summary
-    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
-    目录
-  </summary>
-  <div
-    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#静态与动态">静态与动态</a></li>
-    <li><a href="#元类型">元类型</a></li>
-    <li><a href="#元信息">元信息</a></li>
-    <li><a href="#函数类型擦除">函数类型擦除</a></li>
-    <li><a href="#类型信息注册">类型信息注册</a></li>
-    <li><a href="#any-完整实现">Any 完整实现</a></li>
-    <li><a href="#示例代码">示例代码</a></li>
-    <li><a href="#扩展和优化">扩展和优化</a></li>
-  </ul>
-</nav>
-  </div>
-</details>
-<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
-  <summary
-    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
-    目录
-  </summary>
-  <div
-    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#静态与动态">静态与动态</a></li>
-    <li><a href="#元类型">元类型</a></li>
-    <li><a href="#元信息">元信息</a></li>
-    <li><a href="#函数类型擦除">函数类型擦除</a></li>
-    <li><a href="#类型信息注册">类型信息注册</a></li>
-    <li><a href="#any-完整实现">Any 完整实现</a></li>
-    <li><a href="#示例代码">示例代码</a></li>
-    <li><a href="#扩展和优化">扩展和优化</a></li>
-  </ul>
-</nav>
-  </div>
-</details>
-
-<script>
-
-  var margin = 200;
-  var marginError = 50;
-
-  (function () {
-    var $window = $(window);
-    var $toc = $('#TOCView');
-    var tocHeight = $toc.height();
-
-    function onResize() {
-      var windowAndMarginHeight = $window.height() - margin;
-      if(tocHeight >= windowAndMarginHeight) {
-        $toc.css("overflow-y", "scroll")
-        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
-      } else {
-        $toc.css("overflow-y", "hidden")
-        $toc.css("max-height", "9999999px")
-      }
-    }
-
-    $window.on('resize', onResize);
-    $(document).ready(onResize);
-  })();
-
-
-
-  (function () {
-    var $toc = $('#TableOfContents');
-    if ($toc.length > 0) {
-      var $window = $(window);
-
-      function onScroll() {
-        var currentScroll = $window.scrollTop();
-        var h = $('.anchor');
-        var id = "";
-        h.each(function (i, e) {
-          e = $(e);
-          if (e.offset().top - $(window).height()/3 <= currentScroll) {
-            id = decodeURIComponent(e.attr('id'));
-          }
-        });
-        var active = $toc.find('a.active');      
-        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
-
-        active.each(function (i, e) {
-          
-            $(e).removeClass('active');
-          
-        });
-        $toc.find('a[href="#' + id + '"]').addClass('active')
-        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
-          $(e).children('a').parents('ul').show();          
-        });
-      }
-
-      $window.on('scroll', onScroll);
-      $(document).ready(function () {
-        
-        onScroll();
-      });
-    }
-  })();
-
-
-</script>
-   </div>
-      </div>
-      
+    
 
       <div class="min-w-0 min-h-0 max-w-fit">
         
@@ -1010,7 +894,7 @@
         <div class="article-content max-w-prose mb-20">
           
 
-<h2 class="relative group">静态与动态 
+<h1 class="relative group">静态与动态 
     <div id="%E9%9D%99%E6%80%81%E4%B8%8E%E5%8A%A8%E6%80%81" class="anchor"></div>
     
     <span
@@ -1019,7 +903,7 @@
             style="text-decoration-line: none !important;" href="#%E9%9D%99%E6%80%81%E4%B8%8E%E5%8A%A8%E6%80%81" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>静态类型和动态类型这两个词语相信大家都不陌生了，区分二者的关键在于类型检查的时机。什么意思呢？</p>
 <p>假设我们有如下的 C++ 代码</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;123&#34;</span><span class="p">;</span>
@@ -1054,7 +938,7 @@
 <p>目前 C++ 只提供了<code>std::any</code>来进行类型擦除，但是很多时候它不够灵活。我们想要一些更加高级的功能，比如通过<strong>字段名访问成员</strong>，通过<strong>函数名调用函数</strong>，通过<strong>类型名创造类实例</strong>。 本文的目标就是在 C++ 中构建出类似 Java/C# 中的<code>Object</code>那样的动态的类型。</p>
 
 
-<h2 class="relative group">元类型 
+<h1 class="relative group">元类型 
     <div id="%E5%85%83%E7%B1%BB%E5%9E%8B" class="anchor"></div>
     
     <span
@@ -1063,7 +947,7 @@
             style="text-decoration-line: none !important;" href="#%E5%85%83%E7%B1%BB%E5%9E%8B" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>我们这里不采用类似 Java/C# 中<code>Object</code>那种侵入式设计（继承），而是采用被叫做 fat pointer 非侵入式设计。所谓 fat pointer 其实就是一个结构体，包含了一个指向实际数据的指针，以及一个指向类型信息的指针。如果是继承的话，则是这个虚表指针存在对象头部。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Any</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Type</span><span class="o">*</span> <span class="n">type</span><span class="p">;</span>    <span class="c1">// type info, similar to vtable
@@ -1094,7 +978,7 @@
 </span></span></code></pre></div><p>其中的成员函数将会在后面的章节逐步实现，接下来我们先来考虑这个<code>Type</code>类型里面存的是什么。</p>
 
 
-<h2 class="relative group">元信息 
+<h1 class="relative group">元信息 
     <div id="%E5%85%83%E4%BF%A1%E6%81%AF" class="anchor"></div>
     
     <span
@@ -1103,7 +987,7 @@
             style="text-decoration-line: none !important;" href="#%E5%85%83%E4%BF%A1%E6%81%AF" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Type</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">name</span><span class="p">;</span>       <span class="c1">// type name
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">destroy</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">);</span>      <span class="c1">// destructor
@@ -1118,7 +1002,7 @@
 </span></span></code></pre></div><p>这里的内容很简单，我们在<code>Type</code>里面中存了类型名，析构函数，移动构造，拷贝构造，字段信息和方法信息。字段信息里面存的是字段类型和字段名，方法信息里面存的是方法名和函数地址。如果希望进一步扩展的话，还可以把父类的信息和重载函数的信息也存进来。由于这里只是做一个示例，就暂时不考虑它们了。</p>
 
 
-<h2 class="relative group">函数类型擦除 
+<h1 class="relative group">函数类型擦除 
     <div id="%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%93%A6%E9%99%A4" class="anchor"></div>
     
     <span
@@ -1127,7 +1011,7 @@
             style="text-decoration-line: none !important;" href="#%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%93%A6%E9%99%A4" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>为了把不同类型的成员函数存在同一个容器里面，我们必须要对函数类型进行擦除。所有类型的函数都被擦除成了 <code>Any(*)(void*, std::span&lt;Any&gt;)</code>这个类型。这里的<code>Any</code>类型就是我们上面定义的<code>Any</code>类型，这里的<code>void*</code>其实代表就是<code>this</code>指针，而<code>std::span&lt;Any&gt;</code>则是函数的参数列表。现在我们要考虑如何进行这种函数类型擦除。</p>
 <p>以下面给定的成员函数<code>say</code>为例：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Person</span> <span class="p">{</span>
@@ -1188,7 +1072,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">// decltype(f) =&gt; Any (*)(void*, std::span&lt;Any&gt;)
 </span></span></span></code></pre></div>
 
-<h2 class="relative group">类型信息注册 
+<h1 class="relative group">类型信息注册 
     <div id="%E7%B1%BB%E5%9E%8B%E4%BF%A1%E6%81%AF%E6%B3%A8%E5%86%8C" class="anchor"></div>
     
     <span
@@ -1197,7 +1081,7 @@
             style="text-decoration-line: none !important;" href="#%E7%B1%BB%E5%9E%8B%E4%BF%A1%E6%81%AF%E6%B3%A8%E5%86%8C" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>事实上我们需要给每个类型都生成一个对应的<code>Type</code>结构来保存它的信息，这样的话才能正确访问。而这个功能就由上文提到的<code>type_of</code>函数负责。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="n">Type</span><span class="o">*</span> <span class="n">type_of</span><span class="p">()</span> <span class="p">{</span>
@@ -1228,7 +1112,7 @@
 </span></span></code></pre></div><p>我们提供一个默认实现，这样的话如果用到了内置的基础类型可以自动注册一些信息。然后可以通过特化给自定义的类型提供实现，好了，现在有了这些元信息我们可以把<code>Any</code>的成员函数实现补充完整了。</p>
 
 
-<h2 class="relative group">Any 完整实现 
+<h1 class="relative group">Any 完整实现 
     <div id="any-%E5%AE%8C%E6%95%B4%E5%AE%9E%E7%8E%B0" class="anchor"></div>
     
     <span
@@ -1237,7 +1121,7 @@
             style="text-decoration-line: none !important;" href="#any-%E5%AE%8C%E6%95%B4%E5%AE%9E%E7%8E%B0" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Any</span><span class="o">::</span><span class="n">Any</span><span class="p">(</span><span class="k">const</span> <span class="n">Any</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">type</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">type</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">data</span> <span class="o">=</span> <span class="n">type</span><span class="o">-&gt;</span><span class="n">copy</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">data</span><span class="p">);</span>
@@ -1280,7 +1164,7 @@
 </span></span></code></pre></div><p><code>foreach</code>的实现就是遍历所有的<code>Field</code>然后获取偏移量和类型，然后把它包装成<code>Any</code>类型。注意这里只是简单包装一下，实际上由于我们设置了<code>flag</code>，这个包装并不会导致多次析构。<code>invoke</code>就是从成员函数列表里面找出对应的函数，然后调用。</p>
 
 
-<h2 class="relative group">示例代码 
+<h1 class="relative group">示例代码 
     <div id="%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81" class="anchor"></div>
     
     <span
@@ -1289,7 +1173,7 @@
             style="text-decoration-line: none !important;" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Any</span> <span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">{</span><span class="s">&#34;Tom&#34;</span><span class="p">,</span> <span class="mi">18</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Any</span><span class="o">&gt;</span> <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">{</span><span class="s">&#34;Hello&#34;</span><span class="p">}};</span>
@@ -1312,7 +1196,7 @@
 </span></span></code></pre></div><p>完整代码放在 <a href="https://github.com/16bit-ykiko/blog/blob/main/code/dynamic-type-demo.cpp" target="_blank">Github</a> 上了，至此我们就已经实现了一个极度动态，非侵入式的<code>Any</code>了。</p>
 
 
-<h2 class="relative group">扩展和优化 
+<h1 class="relative group">扩展和优化 
     <div id="%E6%89%A9%E5%B1%95%E5%92%8C%E4%BC%98%E5%8C%96" class="anchor"></div>
     
     <span
@@ -1321,7 +1205,7 @@
             style="text-decoration-line: none !important;" href="#%E6%89%A9%E5%B1%95%E5%92%8C%E4%BC%98%E5%8C%96" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>本文给出的只是非常简单的原理介绍，考虑的情况也十分简单。比如这里没有考虑继承和函数重载，在运行效率上也有若干可以优化的地方。尽管如此，可能我写的功能对你来说仍然是过多的。本文想主要表达的意思是，对于 C++ 这种非常注重性能的语言来说，有时候的确会在一些场景需要这些比较动态的特性。然而高效性和通用性往往是矛盾的，语言层面因为要考虑通用性，所以效率往往不尽如人意。例如<code>RTTI</code>和<code>dynamic_cast</code>常常被人抱怨，不过好在编译器提供选项来关闭它们。同样的，我的实现也不一定完全符合你的场景，但是懂得这并不困难的原理之后你完全可以根据你的场景来实现一个更加适合你的版本。</p>
 <p>可以扩展的点：</p>
 <ul>

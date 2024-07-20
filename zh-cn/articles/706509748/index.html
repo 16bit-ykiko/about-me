@@ -815,119 +815,7 @@
   
   <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
     
-     <div
-      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
-      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
-
-         <details open id="TOCView"
-  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
-  <summary
-    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
-    目录
-  </summary>
-  <div
-    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#起因">起因</a></li>
-    <li><a href="#c-标准演进方式">C++ 标准演进方式</a></li>
-    <li><a href="#会议进展">会议进展</a></li>
-    <li><a href="#通过的提案">通过的提案</a></li>
-    <li><a href="#有重大进展的提案">有重大进展的提案</a></li>
-    <li><a href="#一些感受">一些感受</a></li>
-  </ul>
-</nav>
-  </div>
-</details>
-<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
-  <summary
-    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
-    目录
-  </summary>
-  <div
-    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#起因">起因</a></li>
-    <li><a href="#c-标准演进方式">C++ 标准演进方式</a></li>
-    <li><a href="#会议进展">会议进展</a></li>
-    <li><a href="#通过的提案">通过的提案</a></li>
-    <li><a href="#有重大进展的提案">有重大进展的提案</a></li>
-    <li><a href="#一些感受">一些感受</a></li>
-  </ul>
-</nav>
-  </div>
-</details>
-
-<script>
-
-  var margin = 200;
-  var marginError = 50;
-
-  (function () {
-    var $window = $(window);
-    var $toc = $('#TOCView');
-    var tocHeight = $toc.height();
-
-    function onResize() {
-      var windowAndMarginHeight = $window.height() - margin;
-      if(tocHeight >= windowAndMarginHeight) {
-        $toc.css("overflow-y", "scroll")
-        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
-      } else {
-        $toc.css("overflow-y", "hidden")
-        $toc.css("max-height", "9999999px")
-      }
-    }
-
-    $window.on('resize', onResize);
-    $(document).ready(onResize);
-  })();
-
-
-
-  (function () {
-    var $toc = $('#TableOfContents');
-    if ($toc.length > 0) {
-      var $window = $(window);
-
-      function onScroll() {
-        var currentScroll = $window.scrollTop();
-        var h = $('.anchor');
-        var id = "";
-        h.each(function (i, e) {
-          e = $(e);
-          if (e.offset().top - $(window).height()/3 <= currentScroll) {
-            id = decodeURIComponent(e.attr('id'));
-          }
-        });
-        var active = $toc.find('a.active');      
-        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
-
-        active.each(function (i, e) {
-          
-            $(e).removeClass('active');
-          
-        });
-        $toc.find('a[href="#' + id + '"]').addClass('active')
-        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
-          $(e).children('a').parents('ul').show();          
-        });
-      }
-
-      $window.on('scroll', onScroll);
-      $(document).ready(function () {
-        
-        onScroll();
-      });
-    }
-  })();
-
-
-</script>
-   </div>
-      </div>
-      
+    
 
       <div class="min-w-0 min-h-0 max-w-fit">
         
@@ -938,7 +826,7 @@
           <p>因为某些机缘巧合参与了上周的 WG21 会议（C++ 标准委员会会议）。虽然我经常浏览 C++ 标准的新提案，但是确实没想到有一天真的能参加 WG21 会议，实时了解 C++ 标准的最新进展。当然，这也是第一次参加，非常激动，在这里记录一下自己的感受和会议的进展。</p>
 
 
-<h2 class="relative group">起因 
+<h1 class="relative group">起因 
     <div id="%E8%B5%B7%E5%9B%A0" class="anchor"></div>
     
     <span
@@ -947,7 +835,7 @@
             style="text-decoration-line: none !important;" href="#%E8%B5%B7%E5%9B%A0" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>事情的起因是，今年一月份，当时我正在琢磨怎么写一个高效的<code>small_vector</code>。去参考了下 llvm 的源码，发现里面对满足 trivially destructible 的类型特化了实现，采用 bitwise copy 进行扩容之类的操作。当时不太理解为什么呢能这么做呢。后来了解到 trivially copyable 这个概念，进一步了解到了 relocatable 的概念。又阅读了几篇相关的提案，于是就有了这篇讨论 trivially relocatable 的 <a href="https://www.ykiko.me/zh-cn/articles/679782886" target="_blank">文章</a>。</p>
 <p>没过几天，我的的一个好友 <a href="https://github.com/blueloveTH" target="_blank">blueloveTH</a> ，他就问我能不能帮他的项目写一个轻量级的<code>small_vector</code>呢？这个项目就是 <a href="https://github.com/pocketpy/pocketpy" target="_blank">pocketpy</a>，一个轻量级的 Python 解释器。那我一想，这不巧了吗，我前几天刚刚研究过这个东西，于是花了几个小时就写好了一个支持 trivially relocatable 优化的非常轻量的 <a href="https://github.com/pocketpy/pocketpy/pull/208" target="_blank">small_vector</a>。很巧的是，这个项目也是我今年 GSoC 申请参加的项目。</p>
 <p>五月一号那天，我收到了两封邮件，一份是 GSoC 委员会告知申请通过的邮件。另一份就是来自 P1144(trivially relocatable) 作者 Arthur O&rsquo;Dwyer 的邮件。我当时很困惑，他怎么突然给我发邮件呢，我和他并不认识啊。原来他会在 Github 上定期使用 trivially relocatable 作为关键字搜索相关的 C++ 项目，并和项目的作者交流一些想法。因为搜索到了 pocketpy 里面的代码，所以就给我们发了邮件，他好像也搜到了我个人博客中那篇讨论 trivially relocatable <a href="https://www.ykiko.me/zh-cn/articles/679782886/" target="_blank">文章</a>。一开始通过邮件简单的交流了一下，后来我们又在 slack 上讨论了提案里面的一些内容。</p>
@@ -957,7 +845,7 @@
 </blockquote>
 
 
-<h2 class="relative group">C++ 标准演进方式 
+<h1 class="relative group">C++ 标准演进方式 
     <div id="c-%E6%A0%87%E5%87%86%E6%BC%94%E8%BF%9B%E6%96%B9%E5%BC%8F" class="anchor"></div>
     
     <span
@@ -966,7 +854,7 @@
             style="text-decoration-line: none !important;" href="#c-%E6%A0%87%E5%87%86%E6%BC%94%E8%BF%9B%E6%96%B9%E5%BC%8F" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>为了之后方便介绍会议进展，先简单介绍一下 C++ 委员会的运作方式。</p>
 <p>
   <figure>
@@ -982,7 +870,7 @@
 </blockquote>
 
 
-<h2 class="relative group">会议进展 
+<h1 class="relative group">会议进展 
     <div id="%E4%BC%9A%E8%AE%AE%E8%BF%9B%E5%B1%95" class="anchor"></div>
     
     <span
@@ -991,11 +879,11 @@
             style="text-decoration-line: none !important;" href="#%E4%BC%9A%E8%AE%AE%E8%BF%9B%E5%B1%95" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>先简单说说确定通过的提案，然后谈谈一些重要提案现在的进展。</p>
 
 
-<h2 class="relative group">通过的提案 
+<h1 class="relative group">通过的提案 
     <div id="%E9%80%9A%E8%BF%87%E7%9A%84%E6%8F%90%E6%A1%88" class="anchor"></div>
     
     <span
@@ -1004,7 +892,7 @@
             style="text-decoration-line: none !important;" href="#%E9%80%9A%E8%BF%87%E7%9A%84%E6%8F%90%E6%A1%88" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>核心语言方面主要通过了下面这几个提案：</p>
 <ul>
 <li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2747r2.html" target="_blank">constexpr placement new</a> 支持在常量求值中直接使用 placement new 来调用对象的构造函数，在此之前只能使用<code>std::construct_at</code>，而它相当于于 placement new 的一个小括号特化版本。关于这一点的详细讨论，可以阅读一下我这篇介绍 constexpr 发展史的 <a href="https://www.ykiko.me/zh-cn/articles/683463723" target="_blank">博客</a></li>
@@ -1021,7 +909,7 @@
 </ul>
 
 
-<h2 class="relative group">有重大进展的提案 
+<h1 class="relative group">有重大进展的提案 
     <div id="%E6%9C%89%E9%87%8D%E5%A4%A7%E8%BF%9B%E5%B1%95%E7%9A%84%E6%8F%90%E6%A1%88" class="anchor"></div>
     
     <span
@@ -1030,7 +918,7 @@
             style="text-decoration-line: none !important;" href="#%E6%9C%89%E9%87%8D%E5%A4%A7%E8%BF%9B%E5%B1%95%E7%9A%84%E6%8F%90%E6%A1%88" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>这几天我基本上一直待在 EWG 会议室，所以就主要说说核心语言方面的一些进展。</p>
 <p>周一下午和周二一整天，EWG 都在讨论 Contract。相比于上次的 Tokyo 会议，就 Contract 的某些争论达成了一些共识，但是仍然还有没有达成共识的地方。我个人认为加入 C++26 的希望仍然不大。</p>
 <p>周三上午，EWG 在讨论 Reflection for C++26。最后以 0 票反对的结果（其中也有我的一票 super favor）通过，移交给 CWG 进行措辞的修改以纳入 C++ 标准。周四和周五 CWG 已经 review 了一部分内容，但是提案内容太多了，没有 review 完。如果一切顺利的话，预计再过两到三次会议可以正式加入 C++26。从投票结果可以看出，所有人都认为 C++ 需要反射，反射非常有希望加入 C++26。</p>
@@ -1050,7 +938,7 @@
 <p>但是之后通过 CWG 的希望有多大还不好说。如果对某个提案的最新进展感兴趣的话，直接在 ISO C++ Github 的 <a href="https://github.com/cplusplus/papers/issues" target="_blank">issues</a> 里面搜索提案号就可以了，里面会详细记录对应提案的最新进展。</p>
 
 
-<h2 class="relative group">一些感受 
+<h1 class="relative group">一些感受 
     <div id="%E4%B8%80%E4%BA%9B%E6%84%9F%E5%8F%97" class="anchor"></div>
     
     <span
@@ -1059,7 +947,7 @@
             style="text-decoration-line: none !important;" href="#%E4%B8%80%E4%BA%9B%E6%84%9F%E5%8F%97" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>会议进展说完了，现在来说说个人的一些感受。</p>
 <p>首先就是关于 trivially relocatable 的投票，其实在投完之后，我突然有一种负罪感。原因是，在最后的投票之前 P2786 的作者说：</p>
 <blockquote>

@@ -815,131 +815,7 @@
   
   <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
     
-     <div
-      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
-      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
-
-         <details open id="TOCView"
-  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
-  <summary
-    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
-    目录
-  </summary>
-  <div
-    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#很神奇吗">很神奇吗？</a></li>
-    <li><a href="#c9803我比你更-const">C++98/03：我比你更 const</a></li>
-    <li><a href="#0-编译器中的常量求值器">0-∞：编译器中的常量求值器</a></li>
-    <li><a href="#2003真的能-macro-free-吗">2003：真的能 macro free 吗？</a></li>
-    <li><a href="#2006-2007当一切浮出水面">2006-2007：当一切浮出水面</a></li>
-    <li><a href="#2007试着让标准库更加-constexpr">2007：试着让标准库更加 constexpr？</a></li>
-    <li><a href="#2008年停停机问题我才不管">2008年：停停&hellip;机问题？我才不管！</a></li>
-    <li><a href="#2010引用还是指针">2010：引用还是指针？</a></li>
-    <li><a href="#2011为什么不能有声明">2011：为什么不能有声明？</a></li>
-    <li><a href="#2012我需要分支">2012：我需要分支！</a></li>
-    <li><a href="#2013小孩子才做选择循环我也要">2013：小孩子才做选择，循环我也要！</a></li>
-    <li><a href="#2013constexpr-不是-const-的子集">2013：constexpr 不是 const 的子集！</a></li>
-  </ul>
-</nav>
-  </div>
-</details>
-<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
-  <summary
-    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
-    目录
-  </summary>
-  <div
-    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#很神奇吗">很神奇吗？</a></li>
-    <li><a href="#c9803我比你更-const">C++98/03：我比你更 const</a></li>
-    <li><a href="#0-编译器中的常量求值器">0-∞：编译器中的常量求值器</a></li>
-    <li><a href="#2003真的能-macro-free-吗">2003：真的能 macro free 吗？</a></li>
-    <li><a href="#2006-2007当一切浮出水面">2006-2007：当一切浮出水面</a></li>
-    <li><a href="#2007试着让标准库更加-constexpr">2007：试着让标准库更加 constexpr？</a></li>
-    <li><a href="#2008年停停机问题我才不管">2008年：停停&hellip;机问题？我才不管！</a></li>
-    <li><a href="#2010引用还是指针">2010：引用还是指针？</a></li>
-    <li><a href="#2011为什么不能有声明">2011：为什么不能有声明？</a></li>
-    <li><a href="#2012我需要分支">2012：我需要分支！</a></li>
-    <li><a href="#2013小孩子才做选择循环我也要">2013：小孩子才做选择，循环我也要！</a></li>
-    <li><a href="#2013constexpr-不是-const-的子集">2013：constexpr 不是 const 的子集！</a></li>
-  </ul>
-</nav>
-  </div>
-</details>
-
-<script>
-
-  var margin = 200;
-  var marginError = 50;
-
-  (function () {
-    var $window = $(window);
-    var $toc = $('#TOCView');
-    var tocHeight = $toc.height();
-
-    function onResize() {
-      var windowAndMarginHeight = $window.height() - margin;
-      if(tocHeight >= windowAndMarginHeight) {
-        $toc.css("overflow-y", "scroll")
-        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
-      } else {
-        $toc.css("overflow-y", "hidden")
-        $toc.css("max-height", "9999999px")
-      }
-    }
-
-    $window.on('resize', onResize);
-    $(document).ready(onResize);
-  })();
-
-
-
-  (function () {
-    var $toc = $('#TableOfContents');
-    if ($toc.length > 0) {
-      var $window = $(window);
-
-      function onScroll() {
-        var currentScroll = $window.scrollTop();
-        var h = $('.anchor');
-        var id = "";
-        h.each(function (i, e) {
-          e = $(e);
-          if (e.offset().top - $(window).height()/3 <= currentScroll) {
-            id = decodeURIComponent(e.attr('id'));
-          }
-        });
-        var active = $toc.find('a.active');      
-        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
-
-        active.each(function (i, e) {
-          
-            $(e).removeClass('active');
-          
-        });
-        $toc.find('a[href="#' + id + '"]').addClass('active')
-        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
-          $(e).children('a').parents('ul').show();          
-        });
-      }
-
-      $window.on('scroll', onScroll);
-      $(document).ready(function () {
-        
-        onScroll();
-      });
-    }
-  })();
-
-
-</script>
-   </div>
-      </div>
-      
+    
 
       <div class="min-w-0 min-h-0 max-w-fit">
         
@@ -1005,7 +881,7 @@
 <p>原文内容较长，故分为上下两篇，这是上篇</p>
 
 
-<h2 class="relative group">很神奇吗？ 
+<h1 class="relative group">很神奇吗？ 
     <div id="%E5%BE%88%E7%A5%9E%E5%A5%87%E5%90%97" class="anchor"></div>
     
     <span
@@ -1014,14 +890,14 @@
             style="text-decoration-line: none !important;" href="#%E5%BE%88%E7%A5%9E%E5%A5%87%E5%90%97" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>constexpr 是当代 C++ 中最神奇的关键字之一。它使得某些代码可以在编译期执行。</p>
 <p>随着时间的推移，constexpr 的功能越来越强大。现在几乎可以在编译时计算中使用标准库的所有功能。</p>
 <p>constexpr 的发展历史可以追溯到早期版本的 C++。通过研究标准提案和编译器源代码，我们可以了解这一语言特性是如何一步步地构建起来的，为什么会以这样的形式存在，实际上 constexpr 表达式是如何计算的，未来有哪些可能的功能，以及哪些功能可能会存在但没有被纳入标准。</p>
 <p>本文适合于任何人，无论你是否了解 constexpr ！</p>
 
 
-<h2 class="relative group">C++98/03：我比你更 const 
+<h1 class="relative group">C++98/03：我比你更 const 
     <div id="c9803%E6%88%91%E6%AF%94%E4%BD%A0%E6%9B%B4-const" class="anchor"></div>
     
     <span
@@ -1030,7 +906,7 @@
             style="text-decoration-line: none !important;" href="#c9803%E6%88%91%E6%AF%94%E4%BD%A0%E6%9B%B4-const" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>在 C++ 中，有些地方需要整数常量（比如内建数组类型的长度），这些值必须在编译期就确定。C++ 标准允许通过简单的表达式来构造常量，例如</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">enum</span> <span class="nc">EPlants</span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">APRICOT</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">,</span>
@@ -1108,7 +984,7 @@
 <p>从上述的差异可以看出，一些<code>const</code>变量比其它的更加<code>const</code>。但是在当时我们并没有办法检测出这种差异（后来的 C++20 引入了 <a href="https://en.cppreference.com/w/cpp/language/constinit" target="_blank">constinit</a> 来确保一个变量进行常量初始化）。</p>
 
 
-<h2 class="relative group">0-∞：编译器中的常量求值器 
+<h1 class="relative group">0-∞：编译器中的常量求值器 
     <div id="0-%E7%BC%96%E8%AF%91%E5%99%A8%E4%B8%AD%E7%9A%84%E5%B8%B8%E9%87%8F%E6%B1%82%E5%80%BC%E5%99%A8" class="anchor"></div>
     
     <span
@@ -1117,7 +993,7 @@
             style="text-decoration-line: none !important;" href="#0-%E7%BC%96%E8%AF%91%E5%99%A8%E4%B8%AD%E7%9A%84%E5%B8%B8%E9%87%8F%E6%B1%82%E5%80%BC%E5%99%A8" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>为了理解常量表达式是如何求值的，我们需要简单了解编译器的构造。不同编译器的处理方法大致相同，接下来将以 Clang/LLVM 为例</p>
 <p>总的来说，编译器可以看做由以下三个部分组成：</p>
 <ul>
@@ -1152,7 +1028,7 @@
 </span></span></code></pre></div><p>因此在有些时候可以用它们来检测程序中的潜在错误。</p>
 
 
-<h2 class="relative group">2003：真的能 macro free 吗？ 
+<h1 class="relative group">2003：真的能 macro free 吗？ 
     <div id="2003%E7%9C%9F%E7%9A%84%E8%83%BD-macro-free-%E5%90%97" class="anchor"></div>
     
     <span
@@ -1161,7 +1037,7 @@
             style="text-decoration-line: none !important;" href="#2003%E7%9C%9F%E7%9A%84%E8%83%BD-macro-free-%E5%90%97" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p><strong>标准的改变是通过 proposals（提案）进行的</strong></p>
 <blockquote>
 <p>在哪里可以找到提案？它们是由什么组成的？<br><br>所有的有关 C++ 标准的提案都可以在 <a href="https://open-std.org/JTC1/SC22/WG21/" target="_blank">open-std.org</a> 上找到。它们中的大多数都有详细的描述并且易于阅读。通常由如下部分组成： <br><br>-  当前遇到的问题 <br>-  标准中相关措辞的的链接 <br>-  上述问题的解决方案 <br>-  建议对标准措辞进行的修改 <br>-  相关提案的链接（提案可能有多个版本或者需要和其它提案进行对比） <br>-  在高级提案中，往往还会附带上实验性实现的链接<br><br>可以通过这些提案来了解 C++ 的每个部分是如何演变的。并非存档中的所有提案最终都被接受，但是它们都对 C++ 的发展有着重要的影响。<br><br>通过提交新提案，任何人都可以参与到 C++ 的演变过程中来。</p>
@@ -1210,7 +1086,7 @@
 </blockquote>
 
 
-<h2 class="relative group">2006-2007：当一切浮出水面 
+<h1 class="relative group">2006-2007：当一切浮出水面 
     <div id="2006-2007%E5%BD%93%E4%B8%80%E5%88%87%E6%B5%AE%E5%87%BA%E6%B0%B4%E9%9D%A2" class="anchor"></div>
     
     <span
@@ -1219,7 +1095,7 @@
             style="text-decoration-line: none !important;" href="#2006-2007%E5%BD%93%E4%B8%80%E5%88%87%E6%B5%AE%E5%87%BA%E6%B0%B4%E9%9D%A2" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>幸运的是，三年后，这个提案的后续修订版 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2235.pdf" target="_blank">N2235</a> 认识到了过多的隐式特性是不好的，程序员应该有办法确保一个变量可以被用作常量，如果不满足相应的条件应该导致编译错误。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">S</span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>
@@ -1249,7 +1125,7 @@
 <p>constexpr 关键字最后成为了一个 <em>specifier（说明符</em> ），类似于 *override * 这样仅用作标记。在讨论后，决定不创建新的 <a href="https://en.cppreference.com/w/cpp/language/storage_duration" target="_blank">储存期类型</a> 和新的类型限定符，并且也决定不允许将其用于函数参数，以免使得函数的<a href="https://en.cppreference.com/w/cpp/language/overload_resolution" target="_blank">overload resolution</a>规则变得过于复杂。</p>
 
 
-<h2 class="relative group">2007：试着让标准库更加 constexpr？ 
+<h1 class="relative group">2007：试着让标准库更加 constexpr？ 
     <div id="2007%E8%AF%95%E7%9D%80%E8%AE%A9%E6%A0%87%E5%87%86%E5%BA%93%E6%9B%B4%E5%8A%A0-constexpr" class="anchor"></div>
     
     <span
@@ -1258,7 +1134,7 @@
             style="text-decoration-line: none !important;" href="#2007%E8%AF%95%E7%9D%80%E8%AE%A9%E6%A0%87%E5%87%86%E5%BA%93%E6%9B%B4%E5%8A%A0-constexpr" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>在这一年，提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2007/n2349.pdf" target="_blank">N2349 Constant Expressions in the Standard Library</a> 被提出，其中标记了一些函数和常量为   constexpr，还有一些容器的函数，例如：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">bitset</span><span class="p">{</span>
@@ -1274,7 +1150,7 @@
 <p>所有关于 constexpr 的提案中，超过一半是建议将标准库中的某些函数标记为 constexpr。就内容而言，其实并不是十分有趣，因为它们并没有导致核心语言规则的改变。</p>
 
 
-<h2 class="relative group">2008年：停停&hellip;机问题？我才不管！ 
+<h1 class="relative group">2008年：停停&hellip;机问题？我才不管！ 
     <div id="2008%E5%B9%B4%E5%81%9C%E5%81%9C%E6%9C%BA%E9%97%AE%E9%A2%98%E6%88%91%E6%89%8D%E4%B8%8D%E7%AE%A1" class="anchor"></div>
     
     <span
@@ -1283,7 +1159,7 @@
             style="text-decoration-line: none !important;" href="#2008%E5%B9%B4%E5%81%9C%E5%81%9C%E6%9C%BA%E9%97%AE%E9%A2%98%E6%88%91%E6%89%8D%E4%B8%8D%E7%AE%A1" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="n">n</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -1299,7 +1175,7 @@
 </span></span></code></pre></div><p>在 Clang 中默认的层数是 512，可以通过<code>-fconstexpr-depth</code>来修改，其实模板实例化也会有类似的层数限制。从效果上而言，这个限制可以看成类似运行时函数调用的栈大小，超过这个大小就会“爆栈”了，其实也是挺合理的。</p>
 
 
-<h2 class="relative group">2010：引用还是指针？ 
+<h1 class="relative group">2010：引用还是指针？ 
     <div id="2010%E5%BC%95%E7%94%A8%E8%BF%98%E6%98%AF%E6%8C%87%E9%92%88" class="anchor"></div>
     
     <span
@@ -1308,7 +1184,7 @@
             style="text-decoration-line: none !important;" href="#2010%E5%BC%95%E7%94%A8%E8%BF%98%E6%98%AF%E6%8C%87%E9%92%88" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>当时，许多函数都无法被标记为 constexpr，因为它们的参数中含有引用。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> 
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">max</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">);</span> <span class="c1">// error
@@ -1336,7 +1212,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">tets4</span> <span class="o">=</span> <span class="n">near_ref</span><span class="p">(</span><span class="mi">123</span><span class="p">);</span> <span class="c1">// 失败，指针越界访问
 </span></span></span></code></pre></div>
 
-<h2 class="relative group">2011：为什么不能有声明？ 
+<h1 class="relative group">2011：为什么不能有声明？ 
     <div id="2011%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E6%9C%89%E5%A3%B0%E6%98%8E" class="anchor"></div>
     
     <span
@@ -1345,7 +1221,7 @@
             style="text-decoration-line: none !important;" href="#2011%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E6%9C%89%E5%A3%B0%E6%98%8E" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>前文提到过，constexpr 函数只能由单个 return 语句构成。这就意味着，里面甚至不允许任何不影响求值的声明。但是至少有三种声明有助于编写此类函数：静态断言，类型别名和常量表达式初始化的局部变量</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">f</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">magic</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
@@ -1354,7 +1230,7 @@
 </span></span></code></pre></div><p>提案 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3268.htm" target="_blank">N3268 static_assert and list-initialization in constexpr functions</a> 希望在 constexpr 函数中支持这些静态声明。</p>
 
 
-<h2 class="relative group">2012：我需要分支！ 
+<h1 class="relative group">2012：我需要分支！ 
     <div id="2012%E6%88%91%E9%9C%80%E8%A6%81%E5%88%86%E6%94%AF" class="anchor"></div>
     
     <span
@@ -1363,7 +1239,7 @@
             style="text-decoration-line: none !important;" href="#2012%E6%88%91%E9%9C%80%E8%A6%81%E5%88%86%E6%94%AF" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>有许多简单的函数，希望能够在编译时计算，例如计算<code>a</code>的<code>n</code>次方：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pow</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
@@ -1412,7 +1288,7 @@
 </span></span></span></code></pre></div><p>但是，不允许<code>for/while</code>循环，<code>goto</code>，<code>switch</code>，<code>try</code>，这些可能产生复杂控制流，甚至产生无穷循环的语句。</p>
 
 
-<h2 class="relative group">2013：小孩子才做选择，循环我也要！ 
+<h1 class="relative group">2013：小孩子才做选择，循环我也要！ 
     <div id="2013%E5%B0%8F%E5%AD%A9%E5%AD%90%E6%89%8D%E5%81%9A%E9%80%89%E6%8B%A9%E5%BE%AA%E7%8E%AF%E6%88%91%E4%B9%9F%E8%A6%81" class="anchor"></div>
     
     <span
@@ -1421,7 +1297,7 @@
             style="text-decoration-line: none !important;" href="#2013%E5%B0%8F%E5%AD%A9%E5%AD%90%E6%89%8D%E5%81%9A%E9%80%89%E6%8B%A9%E5%BE%AA%E7%8E%AF%E6%88%91%E4%B9%9F%E8%A6%81" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>然而，CWG 认为在 constexpr 函数中支持循环（至少支持<code>for</code>）是必须的。<code>2013</code>年提案  <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2013/n3597.html" target="_blank">Relaxing constraints on constexpr functions</a> 发布了修订版本。</p>
 <p>实现 constexpr for 考虑了四种选项。</p>
 <ul>
@@ -1474,7 +1350,7 @@
 </span></span></code></pre></div><p>常量求值中，局部的副作用也是允许的！</p>
 
 
-<h2 class="relative group">2013：constexpr 不是 const 的子集！ 
+<h1 class="relative group">2013：constexpr 不是 const 的子集！ 
     <div id="2013constexpr-%E4%B8%8D%E6%98%AF-const-%E7%9A%84%E5%AD%90%E9%9B%86" class="anchor"></div>
     
     <span
@@ -1483,7 +1359,7 @@
             style="text-decoration-line: none !important;" href="#2013constexpr-%E4%B8%8D%E6%98%AF-const-%E7%9A%84%E5%AD%90%E9%9B%86" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>目前，类的 constexpr 函数会自动标记为 const</p>
 <p>在提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2013/n3598.html" target="_blank">constexpr member functions and implicit const</a> 中指出：如果一个成员函数是 constexpr 的，它不一定一定要是 const 的。随着 constexpr 计算中的可变性变得越来越重要，这一点变得更加突出。但即使在此之前，它也妨碍了在 constexpr 和非 constexpr 代码中使用相同的函数：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">B</span><span class="p">{</span>

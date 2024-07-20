@@ -815,117 +815,7 @@
   
   <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
     
-     <div
-      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
-      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
-
-         <details open id="TOCView"
-  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
-  <summary
-    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
-    目录
-  </summary>
-  <div
-    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#拒绝硬编码">拒绝硬编码</a></li>
-    <li><a href="#模板打表">模板打表</a></li>
-    <li><a href="#外部代码生成">外部代码生成</a></li>
-    <li><a href="#宏">宏</a></li>
-    <li><a href="#总结">总结</a></li>
-  </ul>
-</nav>
-  </div>
-</details>
-<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
-  <summary
-    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
-    目录
-  </summary>
-  <div
-    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#拒绝硬编码">拒绝硬编码</a></li>
-    <li><a href="#模板打表">模板打表</a></li>
-    <li><a href="#外部代码生成">外部代码生成</a></li>
-    <li><a href="#宏">宏</a></li>
-    <li><a href="#总结">总结</a></li>
-  </ul>
-</nav>
-  </div>
-</details>
-
-<script>
-
-  var margin = 200;
-  var marginError = 50;
-
-  (function () {
-    var $window = $(window);
-    var $toc = $('#TOCView');
-    var tocHeight = $toc.height();
-
-    function onResize() {
-      var windowAndMarginHeight = $window.height() - margin;
-      if(tocHeight >= windowAndMarginHeight) {
-        $toc.css("overflow-y", "scroll")
-        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
-      } else {
-        $toc.css("overflow-y", "hidden")
-        $toc.css("max-height", "9999999px")
-      }
-    }
-
-    $window.on('resize', onResize);
-    $(document).ready(onResize);
-  })();
-
-
-
-  (function () {
-    var $toc = $('#TableOfContents');
-    if ($toc.length > 0) {
-      var $window = $(window);
-
-      function onScroll() {
-        var currentScroll = $window.scrollTop();
-        var h = $('.anchor');
-        var id = "";
-        h.each(function (i, e) {
-          e = $(e);
-          if (e.offset().top - $(window).height()/3 <= currentScroll) {
-            id = decodeURIComponent(e.attr('id'));
-          }
-        });
-        var active = $toc.find('a.active');      
-        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
-
-        active.each(function (i, e) {
-          
-            $(e).removeClass('active');
-          
-        });
-        $toc.find('a[href="#' + id + '"]').addClass('active')
-        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
-          $(e).children('a').parents('ul').show();          
-        });
-      }
-
-      $window.on('scroll', onScroll);
-      $(document).ready(function () {
-        
-        onScroll();
-      });
-    }
-  })();
-
-
-</script>
-   </div>
-      </div>
-      
+    
 
       <div class="min-w-0 min-h-0 max-w-fit">
         
@@ -935,7 +825,7 @@
         <div class="article-content max-w-prose mb-20">
           
 
-<h2 class="relative group">拒绝硬编码 
+<h1 class="relative group">拒绝硬编码 
     <div id="%E6%8B%92%E7%BB%9D%E7%A1%AC%E7%BC%96%E7%A0%81" class="anchor"></div>
     
     <span
@@ -944,7 +834,7 @@
             style="text-decoration-line: none !important;" href="#%E6%8B%92%E7%BB%9D%E7%A1%AC%E7%BC%96%E7%A0%81" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>定义一个<code>enum</code></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">enum</span> <span class="nc">Color</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">RED</span><span class="p">,</span>
@@ -966,7 +856,7 @@
 <p>需要寻找解决办法，能自动的进行相关的修改。在别的语言中，如 Java，C#，Python，可以轻松的通过反射实现这个功能。但是 C++ 目前并没有反射，故此路不通。目前这个问题主要有三种解决方案。</p>
 
 
-<h2 class="relative group">模板打表 
+<h1 class="relative group">模板打表 
     <div id="%E6%A8%A1%E6%9D%BF%E6%89%93%E8%A1%A8" class="anchor"></div>
     
     <span
@@ -975,7 +865,7 @@
             style="text-decoration-line: none !important;" href="#%E6%A8%A1%E6%9D%BF%E6%89%93%E8%A1%A8" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>这一小节介绍的内容已经有人提前封装好了，可以直接使用 <a href="https://github.com/Neargye/magic_enum" target="_blank">magic enum</a> 这个库。下面主要是对这个库的原理进行解析，为了方便展示，将用 C++20 实现，实际上 C++17 就可以。</p>
 <p>在三大主流编译器中，有一些特殊<strong>宏变量</strong>。GCC 和 Clang 中的<code>__PRETTY_FUNCTION__</code>，MSVC 中的<code>__FUNCSIG__</code>。这几个宏变量会在<strong>编译期间被替换成函数的签名</strong>，如果该函数是模板函数则会将模板实例化的信息也输出（也可以使用 C++20 加入标准的 <a href="https://en.cppreference.com/w/cpp/utility/source_location/function_name" target="_blank">source_location</a>，它具有和这些宏类似的效果）</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -1081,7 +971,7 @@
 <p>这种方法的缺点很明显，通过模板实例化来打表，其实会很大的拖慢编译速度。如果<code>enum</code>中的数量较多，在一些对常量求值效率较低的编译器上，如 MSVC，可能会增加<strong>几十秒甚至更长</strong>的编译时间。所以一般只适用于小型枚举。优点是轻量级，开箱即用，其它的什么也不用做。</p>
 
 
-<h2 class="relative group">外部代码生成 
+<h1 class="relative group">外部代码生成 
     <div id="%E5%A4%96%E9%83%A8%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90" class="anchor"></div>
     
     <span
@@ -1090,7 +980,7 @@
             style="text-decoration-line: none !important;" href="#%E5%A4%96%E9%83%A8%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>既然手写字符串转枚举很麻烦，那么写个脚本生成代码不就行了？的确如此，我们可以使用 libclang 的 python bind 轻松的完成这项工作。具体如何使用这个工具，可以参考 <a href="https://www.ykiko.me/zh-cn/articles/669360731" target="_blank">使用 clang 工具自由的支配 C++ 代码吧</a>，下面只展示实现效果的代码</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">clang.cindex</span> <span class="k">as</span> <span class="nn">CX</span>
 </span></span><span class="line"><span class="cl">
@@ -1132,7 +1022,7 @@
 </span></span></code></pre></div><p>优点，非侵入式，可以用于大数量的枚举。缺点，有外部依赖，需要将代码生成加入到编译流程里面。可能会使编译流程变得很复杂。</p>
 
 
-<h2 class="relative group">宏 
+<h1 class="relative group">宏 
     <div id="%E5%AE%8F" class="anchor"></div>
     
     <span
@@ -1141,7 +1031,7 @@
             style="text-decoration-line: none !important;" href="#%E5%AE%8F" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>上面的两种方式都是非侵入式的。也就是说，可能你拿到了一个别人的库，不能修改它的代码，只好这么做了。如果是完全由自己定义枚举呢？其实可以在定义阶段就特殊处理，以方便后续的使用。比如（代码开头的注释表示当前文件名）：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Color.def
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#ifndef COLOR_ENUM
@@ -1169,7 +1059,7 @@
 </span></span></code></pre></div><p>这样的话，只要在<code>def</code>文件里面进行相关的增加和修改就行了。之后如果要遍历<code>enum</code>什么的，也可以直接定义一个宏来生成代码就行了，非常方便。事实上，对于大数量的枚举，有很多开源项目都采取这种方案。例如 clang 在定义<code>TokenKind</code>的时候，就是这么做的，相关的代码请参考  <a href="https://github.com/stuartcarnie/clang/blob/master/include/clang/Basic/TokenKinds.def" target="_blank">Token.def</a>。由于 clang 要适配多种语言前端，最后总计的<code>TokenKind</code>有几百个之多。如果不这样做，进行<code>Token</code>的增加和修改会十分困难。</p>
 
 
-<h2 class="relative group">总结 
+<h1 class="relative group">总结 
     <div id="%E6%80%BB%E7%BB%93" class="anchor"></div>
     
     <span
@@ -1178,7 +1068,7 @@
             style="text-decoration-line: none !important;" href="#%E6%80%BB%E7%BB%93" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <ul>
 <li>非侵入式且枚举数量较少，编译速度不是很重要，那就使用模板打表（至少要求 C++17）</li>
 <li>非侵入式且枚举数量较多，编译速度很重要，那就使用外部代码生成</li>

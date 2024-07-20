@@ -834,28 +834,19 @@
     class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#installation--usage">Installation &amp; Usage</a></li>
-    <li><a href="#quick-start">Quick Start</a></li>
-    <li><a href="#basic-types">Basic Types</a>
-      <ul>
-        <li><a href="#cursor">Cursor</a></li>
-        <li><a href="#type">Type</a></li>
-        <li><a href="#translationunit">TranslationUnit</a></li>
-        <li><a href="#index">Index</a></li>
-      </ul>
-    </li>
-    <li><a href="#examples">Examples</a>
-      <ul>
-        <li><a href="#namespace">Namespace</a></li>
-        <li><a href="#class--struct">Class &amp; Struct</a></li>
-        <li><a href="#comment">Comment</a></li>
-        <li><a href="#enum">Enum</a></li>
-        <li><a href="#attribute">Attribute</a></li>
-        <li><a href="#macro">Macro</a></li>
-      </ul>
-    </li>
-    <li><a href="#rewrite">Rewrite</a></li>
-    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#cursor">Cursor</a></li>
+    <li><a href="#type">Type</a></li>
+    <li><a href="#translationunit">TranslationUnit</a></li>
+    <li><a href="#index">Index</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#namespace">Namespace</a></li>
+    <li><a href="#class--struct">Class &amp; Struct</a></li>
+    <li><a href="#comment">Comment</a></li>
+    <li><a href="#enum">Enum</a></li>
+    <li><a href="#attribute">Attribute</a></li>
+    <li><a href="#macro">Macro</a></li>
   </ul>
 </nav>
   </div>
@@ -869,28 +860,19 @@
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#installation--usage">Installation &amp; Usage</a></li>
-    <li><a href="#quick-start">Quick Start</a></li>
-    <li><a href="#basic-types">Basic Types</a>
-      <ul>
-        <li><a href="#cursor">Cursor</a></li>
-        <li><a href="#type">Type</a></li>
-        <li><a href="#translationunit">TranslationUnit</a></li>
-        <li><a href="#index">Index</a></li>
-      </ul>
-    </li>
-    <li><a href="#examples">Examples</a>
-      <ul>
-        <li><a href="#namespace">Namespace</a></li>
-        <li><a href="#class--struct">Class &amp; Struct</a></li>
-        <li><a href="#comment">Comment</a></li>
-        <li><a href="#enum">Enum</a></li>
-        <li><a href="#attribute">Attribute</a></li>
-        <li><a href="#macro">Macro</a></li>
-      </ul>
-    </li>
-    <li><a href="#rewrite">Rewrite</a></li>
-    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#cursor">Cursor</a></li>
+    <li><a href="#type">Type</a></li>
+    <li><a href="#translationunit">TranslationUnit</a></li>
+    <li><a href="#index">Index</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#namespace">Namespace</a></li>
+    <li><a href="#class--struct">Class &amp; Struct</a></li>
+    <li><a href="#comment">Comment</a></li>
+    <li><a href="#enum">Enum</a></li>
+    <li><a href="#attribute">Attribute</a></li>
+    <li><a href="#macro">Macro</a></li>
   </ul>
 </nav>
   </div>
@@ -1040,7 +1022,7 @@
 <p>除了作为编译器使用之外，Clang 还可以作为一个库提供，使开发者能够在其应用程序中利用编译器的功能，例如源代码分析和生成。Clang 可以用来获取 C++ 源文件的抽象语法树 (AST)，以便进一步处理这些信息。本文将介绍如何使用 Clang 工具。</p>
 
 
-<h2 class="relative group">Installation &amp; Usage 
+<h1 class="relative group">Installation &amp; Usage 
     <div id="installation--usage" class="anchor"></div>
     
     <span
@@ -1049,7 +1031,7 @@
             style="text-decoration-line: none !important;" href="#installation--usage" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>目前，Clang 被划分为以下库和工具：libsupport、libsystem、libbasic、libast、liblex、libparse、libsema、libcodegen、librewrite、libanalysis。由于 Clang 本身是用 C++ 编写的，所以相关的接口都是 C++ 的。然而，由于 C++ 接口本身的复杂性和不稳定性（例如：在 Windows 上由 GCC 编译出来的 DLL 无法给 MSVC 使用，或者 Clang 自身版本升级导致 API 变动，从而出现不兼容性），官方并不推荐优先使用 C++ 接口。</p>
 <p>除了 C++ 接口之外，官方还提供了一个叫做 <a href="https://clang.llvm.org/doxygen/group__CINDEX.html" target="_blank">libclang</a> 的 C 语言接口，这个接口不仅使用起来相对简单，而且本身也比较稳定。唯一的缺点是无法获取完整的 C++ 抽象语法树 (AST)，不过鉴于 C++ 完整的语法树本身就极度复杂，很多时候我们只需要其中的一小部分信息，所以这个问题通常可以忽略，除非你真的有这方面的需求。</p>
 <p>如果你想要使用 libclang，你需要先安装 LLVM 和 Clang。在 <a href="https://github.com/llvm/llvm-project/releases" target="_blank">LLVM Release</a> 页面，有若干预发布的二进制包可以下载。如果你有定制化需求，请参考 <a href="https://llvm.org/docs/GettingStarted.html#id4" target="_blank">Getting Started</a> 页面进行手动编译。安装完成后，只需将<code>llvm/lib</code>目录下的<code>libclang.dll</code>链接到程序中，并包含<code>llvm/include</code>目录下的<code>clang-c/Index.h</code>头文件即可使用。</p>
@@ -1059,7 +1041,7 @@
 </span></span></code></pre></div><p>什么额外的事情都不用做。本文就基于这个 python binding 的版本进行介绍。C 版本的 API 和 Python 版本的 API 基本是完全一致的，如果你觉得 Python 性能不够，你也可以参考这个教程对照着写 C 版本的代码。另外官方提供的包并没有 type hint，这样的话用 Python 写就没有代码补全，用起来也不舒服。我自己补了一个类型提示的 <a href="https://github.com/16bit-ykiko/about-me/blob/main/code/cindex.pyi" target="_blank">cindex.pyi</a>，下载下来之后直接和 放在同一文件夹内就能有代码提示了。</p>
 
 
-<h2 class="relative group">Quick Start 
+<h1 class="relative group">Quick Start 
     <div id="quick-start" class="anchor"></div>
     
     <span
@@ -1068,7 +1050,7 @@
             style="text-decoration-line: none !important;" href="#quick-start" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>示例的 C++ 源文件代码如下</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// main.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">Person</span> <span class="p">{</span>
@@ -1120,7 +1102,7 @@
 </span></span></code></pre></div><p>前面的是语法树节点类型，后面是节点的内容。可以发现还是非常清晰的，几乎能和源代码一一对应。</p>
 
 
-<h2 class="relative group">Basic Types 
+<h1 class="relative group">Basic Types 
     <div id="basic-types" class="anchor"></div>
     
     <span
@@ -1129,11 +1111,11 @@
             style="text-decoration-line: none !important;" href="#basic-types" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>注意，本文假定读者对语法树有一定的认识，不在这里做过多介绍了。如果不知道语法树是什么的话，可以看一下 <a href="https://16bit-ykiko.github.io/about-me/670190357" target="_blank">为什么说 C/C++ 编译器不保留元信息</a>。下面对 cindex 中的一些常用类型做一些介绍</p>
 
 
-<h3 class="relative group">Cursor 
+<h2 class="relative group">Cursor 
     <div id="cursor" class="anchor"></div>
     
     <span
@@ -1142,7 +1124,7 @@
             style="text-decoration-line: none !important;" href="#cursor" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>相当于语法树的基本节点，整个语法树都是由<code>Cursor</code>组成的。通过<code>kind</code>属性返回一个<code>CursorKind</code>类型枚举值，就代表了这个节点实际对应的类型。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">kind</span> <span class="ow">in</span> <span class="n">CursorKind</span><span class="o">.</span><span class="n">get_all_kinds</span><span class="p">():</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span>
@@ -1191,7 +1173,7 @@
 </span></span></code></pre></div><p>这些函数基本就见名知意了，例如<code>is_definition</code>就是判断该节点是否是一个定义，<code>is_const_method</code>就是判断该节点是否是一个<code>const</code>方法。</p>
 
 
-<h3 class="relative group">Type 
+<h2 class="relative group">Type 
     <div id="type" class="anchor"></div>
     
     <span
@@ -1200,7 +1182,7 @@
             style="text-decoration-line: none !important;" href="#type" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>如果该节点有类型的话，代表该节点的类型。常用的属性有</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">kind</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeKind</span><span class="p">:</span>
@@ -1215,7 +1197,7 @@
 <p>以及一些<code>is</code>开头的函数，例如<code>is_const_qualified</code>, <code>is_function_variadic</code>, <code>is_pod</code>等等。这里也就不多说了。</p>
 
 
-<h3 class="relative group">TranslationUnit 
+<h2 class="relative group">TranslationUnit 
     <div id="translationunit" class="anchor"></div>
     
     <span
@@ -1224,7 +1206,7 @@
             style="text-decoration-line: none !important;" href="#translationunit" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>一般来说一个 C++ 源文件就代表一个<code>TranslationUnit</code>，也就是我们常说的编译单元。</p>
 <p>常用的有</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
@@ -1243,7 +1225,7 @@
 </span></span></code></pre></div><p>这样就会打印出所有直接使用的头文件了。</p>
 
 
-<h3 class="relative group">Index 
+<h2 class="relative group">Index 
     <div id="index" class="anchor"></div>
     
     <span
@@ -1252,7 +1234,7 @@
             style="text-decoration-line: none !important;" href="#index" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>一个<code>Index</code>就是一个<code>TranslationUnit</code>的集合，并且最终被链接到一起，形成一个可执行文件或者库。</p>
 <p>有一个静态方法<code>create</code>用于创建一个新的<code>Index</code> ，然后成员方法<code>parse</code>可以解析一个<code>C++</code>源文件，返回一个<code>TranslationUnit</code>。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -1262,7 +1244,7 @@
 </span></span></code></pre></div><p><code>path</code>是源文件路径，<code>args</code>是编译参数，<code>unsaved_files</code>是未保存的文件，<code>options</code>是一些定义在<code>TranslationUnit.PARSE_XXX</code>中的参数，例如<code>PARSE_SKIP_FUNCTION_BODIES</code>和<code>PARSE_INCOMPLETE</code>。可以用来定制化解析过程，加快解析速度，或者保留宏信息等。</p>
 
 
-<h2 class="relative group">Examples 
+<h1 class="relative group">Examples 
     <div id="examples" class="anchor"></div>
     
     <span
@@ -1271,10 +1253,10 @@
             style="text-decoration-line: none !important;" href="#examples" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 
 
-<h3 class="relative group">Namespace 
+<h2 class="relative group">Namespace 
     <div id="namespace" class="anchor"></div>
     
     <span
@@ -1283,7 +1265,7 @@
             style="text-decoration-line: none !important;" href="#namespace" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>由于 clang 在解析的时候会把所有的头文件都展开，全部输出内容太多了。但是我们主要可能只是想要我们自己代码的信息，这时候就可以利用命名空间进行筛选了。示例如下：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
@@ -1310,7 +1292,7 @@
 </span></span></code></pre></div><p>写一个函数对类型空间名进行筛选，然后转发到我们之前那个函数就行，这样就只会输出我们想要的的命名空间里面的内容了。</p>
 
 
-<h3 class="relative group">Class &amp; Struct 
+<h2 class="relative group">Class &amp; Struct 
     <div id="class--struct" class="anchor"></div>
     
     <span
@@ -1319,7 +1301,7 @@
             style="text-decoration-line: none !important;" href="#class--struct" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>我们主要是获取它们里面的字段名，类型，方法名，类型等，示例如下：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Person</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
@@ -1350,7 +1332,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#         Param: b: char</span>
 </span></span></code></pre></div>
 
-<h3 class="relative group">Comment 
+<h2 class="relative group">Comment 
     <div id="comment" class="anchor"></div>
     
     <span
@@ -1359,7 +1341,7 @@
             style="text-decoration-line: none !important;" href="#comment" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>可以获取 Doxygen 风格的注释</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">brief_comment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -1392,7 +1374,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#  */</span>
 </span></span></code></pre></div>
 
-<h3 class="relative group">Enum 
+<h2 class="relative group">Enum 
     <div id="enum" class="anchor"></div>
     
     <span
@@ -1401,7 +1383,7 @@
             style="text-decoration-line: none !important;" href="#enum" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>获取枚举名以及对应的枚举常量值，还有它的底层类型</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">enum</span> <span class="k">class</span> <span class="nc">Color</span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">RED</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
@@ -1425,7 +1407,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#     enum_value: BLUE: 2</span>
 </span></span></code></pre></div>
 
-<h3 class="relative group">Attribute 
+<h2 class="relative group">Attribute 
     <div id="attribute" class="anchor"></div>
     
     <span
@@ -1434,7 +1416,7 @@
             style="text-decoration-line: none !important;" href="#attribute" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>C++11 加入了新的 attribute 语法：<code>[[ ... ]]</code>，可以用来给函数或者变量添加额外的信息。例如<code>[[nodiscard]]</code>和<code>[[deprecated]]</code>。但是我们有时候在自己定义一些标记来给我们的与预处理工具使用，比如标记一个类型需要不需要生成元信息，我们也希望这些标记也能被 libclang 识别出来。但是遗憾的是如果直接写不被标准支持的属性会被 libclang 忽略，也就是最终的 AST 中是没有它的</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="na">[[Reflect]]</span> <span class="nc">Person</span><span class="p">{};</span> <span class="c1">// ignored
 </span></span></span></code></pre></div><p>一个可行的解决办法是利用<code>get_tokens</code>获取声明中的所有<code>token</code>，然后自己裁剪出来。比如这里获取到的结果就是<code>struct</code>,<code>[</code>,<code>[</code>,<code>Reflect</code>,<code>]</code>,<code>]</code>,<code>Person</code>,<code>{</code>,<code>}</code>，我们可以从中获取出我们想要的信息。</p>
@@ -1445,7 +1427,7 @@
 </span></span></code></pre></div><p>这样对于<code>A</code>这个<code>Cursor</code>来说，它的子节点中就会有一个<code>ANNOTATE_ATTR</code>的类型的<code>Cursor</code>，而<code>spelling</code>就是里面存的信息，这里就是<code>reflect</code>。这样我们就可以很方便的获取到我们自定义的属性了。而且 C++ 标准规定了，当编译器遇到一个不认识的 attribute 的时候，它会忽略这个 attribute，而不是报错。这样的话，这个属性它就只作用于我们的预处理器，不会影响到正常编译。</p>
 
 
-<h3 class="relative group">Macro 
+<h2 class="relative group">Macro 
     <div id="macro" class="anchor"></div>
     
     <span
@@ -1454,7 +1436,7 @@
             style="text-decoration-line: none !important;" href="#macro" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>clang 在实际解析语法树之前，会把所有的预处理指令都替换成实际的代码。所以最后的语法树信息中就没有它们了。但是有些时候我们的确想要获取到这些信息，比如我们想要获取到<code>#define</code>的信息，这里需要把<code>parse</code>的<code>options</code>参数设为<code>TranslationUnit.PARSE_DETAILED_PROCESSING_RECORD</code>。如果想要获取宏的内容就用<code>get_tokens</code>就行了。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define CONCAT(a, b) a#b
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">CONCAT</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
@@ -1477,7 +1459,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># [&#39;CONCAT&#39;, &#39;(&#39;, &#39;1&#39;, &#39;,&#39;, &#39;2&#39;, &#39;)&#39;]</span>
 </span></span></code></pre></div>
 
-<h2 class="relative group">Rewrite 
+<h1 class="relative group">Rewrite 
     <div id="rewrite" class="anchor"></div>
     
     <span
@@ -1486,7 +1468,7 @@
             style="text-decoration-line: none !important;" href="#rewrite" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>有时候我们希望对源代码进行一些简单的修改，在某个位置插入一段代码或者删除一段代码。这时候我们可以使用<code>Rewriter</code>这个类。示例如下：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">func</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
@@ -1520,7 +1502,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
 
-<h2 class="relative group">Conclusion 
+<h1 class="relative group">Conclusion 
     <div id="conclusion" class="anchor"></div>
     
     <span
@@ -1529,7 +1511,7 @@
             style="text-decoration-line: none !important;" href="#conclusion" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>如果要获取类型的<code>size</code>, <code>align</code>, <code>offset</code>等 ABI 相关的内容，需要注意 platform。不同 ABI 的情况下它们的值可能不同，例如 MSVC 和 GCC 一般关于这些内容就不同，可以通过在编译参数中指定<code>-target</code>来指定目标平台。如果需要和 MSVC 一致的结果，可以使用<code>--target=x86_64-pc-windows-msvc</code>。如果是 GCC 的话，可以使用<code>--target=x86_64-pc-linux-gnu</code>。</p>
 <p>前文提到，libclang 无法提供完整的 C++ 语法树。例如，它在解析 <code>Expr</code> 方面缺少许多接口。这意味着，如果你需要解析具体的表达式内容，那么使用其 C++ 接口可能更为适合，因为它提供了完整且复杂的语法树。</p>
 <p>国内关于 Clang 工具具体使用的文章较少。本文尝试对一些常用功能进行了具体介绍，尽管并不十分完善。若有任何疑问，可直接阅读 <code>Index.h</code> 源码，其中的注释非常详尽。或者也可以在评论区留言，我会尽力解答。此外，若需要获取 libclang 不提供的信息，可使用 <code>get_tokens</code> 函数自行获取。例如，libclang 不支持获取整数和浮点数面值的值，这时可通过 <code>get_tokens</code> 手动获取。</p>

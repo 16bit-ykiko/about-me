@@ -829,27 +829,21 @@
     class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#用-inline-标记函数会导致膨胀吗">用 inline 标记函数会导致膨胀吗？</a>
-      <ul>
-        <li><a href="#多份实例的情况">多份实例的情况</a></li>
-        <li><a href="#完全内联的情况">完全内联的情况</a></li>
-        <li><a href="#其它情况">其它情况</a></li>
-      </ul>
-    </li>
-    <li><a href="#模板导致代码膨胀的真正原因">模板导致代码膨胀的真正原因？</a>
-      <ul>
-        <li><a href="#隐式实例化如同-inline-标记">隐式实例化如同 inline 标记</a></li>
-        <li><a href="#显式实例化和-extern-模板">显式实例化和 extern 模板</a></li>
-        <li><a href="#真正的模板膨胀开销">真正的模板膨胀开销</a></li>
-        <li><a href="#手动优化模板膨胀问题">手动优化模板膨胀问题</a></li>
-      </ul>
-    </li>
-    <li><a href="#异常导致的代码膨胀">异常导致的代码膨胀！</a>
-      <ul>
-        <li><a href="#noexcept">noexcept</a></li>
-        <li><a href="#fno-exceptions">fno-exceptions</a></li>
-      </ul>
-    </li>
+    <li><a href="#多份实例的情况">多份实例的情况</a></li>
+    <li><a href="#完全内联的情况">完全内联的情况</a></li>
+    <li><a href="#其它情况">其它情况</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#隐式实例化如同-inline-标记">隐式实例化如同 inline 标记</a></li>
+    <li><a href="#显式实例化和-extern-模板">显式实例化和 extern 模板</a></li>
+    <li><a href="#真正的模板膨胀开销">真正的模板膨胀开销</a></li>
+    <li><a href="#手动优化模板膨胀问题">手动优化模板膨胀问题</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#noexcept">noexcept</a></li>
+    <li><a href="#fno-exceptions">fno-exceptions</a></li>
   </ul>
 </nav>
   </div>
@@ -863,27 +857,21 @@
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#用-inline-标记函数会导致膨胀吗">用 inline 标记函数会导致膨胀吗？</a>
-      <ul>
-        <li><a href="#多份实例的情况">多份实例的情况</a></li>
-        <li><a href="#完全内联的情况">完全内联的情况</a></li>
-        <li><a href="#其它情况">其它情况</a></li>
-      </ul>
-    </li>
-    <li><a href="#模板导致代码膨胀的真正原因">模板导致代码膨胀的真正原因？</a>
-      <ul>
-        <li><a href="#隐式实例化如同-inline-标记">隐式实例化如同 inline 标记</a></li>
-        <li><a href="#显式实例化和-extern-模板">显式实例化和 extern 模板</a></li>
-        <li><a href="#真正的模板膨胀开销">真正的模板膨胀开销</a></li>
-        <li><a href="#手动优化模板膨胀问题">手动优化模板膨胀问题</a></li>
-      </ul>
-    </li>
-    <li><a href="#异常导致的代码膨胀">异常导致的代码膨胀！</a>
-      <ul>
-        <li><a href="#noexcept">noexcept</a></li>
-        <li><a href="#fno-exceptions">fno-exceptions</a></li>
-      </ul>
-    </li>
+    <li><a href="#多份实例的情况">多份实例的情况</a></li>
+    <li><a href="#完全内联的情况">完全内联的情况</a></li>
+    <li><a href="#其它情况">其它情况</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#隐式实例化如同-inline-标记">隐式实例化如同 inline 标记</a></li>
+    <li><a href="#显式实例化和-extern-模板">显式实例化和 extern 模板</a></li>
+    <li><a href="#真正的模板膨胀开销">真正的模板膨胀开销</a></li>
+    <li><a href="#手动优化模板膨胀问题">手动优化模板膨胀问题</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#noexcept">noexcept</a></li>
+    <li><a href="#fno-exceptions">fno-exceptions</a></li>
   </ul>
 </nav>
   </div>
@@ -969,7 +957,7 @@
 <p>首先要讨论的是，什么叫做代码膨胀？如果一个函数被大量内联，那相比于不被内联，最终生成的可执行文件是更大了对吧。那这样算膨胀吗？我认为不算，这是我们预期范围内的，可接受的，正常行为。那反过来，不在我们预期范围内的，理论上能消除，但迫于现有的实现却没有消除的代码膨胀，我把它叫做&quot;真正的代码膨胀&quot;。后文所讨论的膨胀都是这个意思。</p>
 
 
-<h2 class="relative group">用 inline 标记函数会导致膨胀吗？ 
+<h1 class="relative group">用 inline 标记函数会导致膨胀吗？ 
     <div id="%E7%94%A8-inline-%E6%A0%87%E8%AE%B0%E5%87%BD%E6%95%B0%E4%BC%9A%E5%AF%BC%E8%87%B4%E8%86%A8%E8%83%80%E5%90%97" class="anchor"></div>
     
     <span
@@ -978,11 +966,11 @@
             style="text-decoration-line: none !important;" href="#%E7%94%A8-inline-%E6%A0%87%E8%AE%B0%E5%87%BD%E6%95%B0%E4%BC%9A%E5%AF%BC%E8%87%B4%E8%86%A8%E8%83%80%E5%90%97" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>首先要明确，这里的<code>inline</code>是 C++ 中的<code>inline</code>，标准中规定的语义是，<strong>允许一个函数的在多个源文件中定义</strong>。被<code>inline</code>标记的函数可以直接定义在头文件中，即使被多个源文件<code>#include</code>，也不会导致链接错误，这样可以方便的支持 header-only 的库。</p>
 
 
-<h3 class="relative group">多份实例的情况 
+<h2 class="relative group">多份实例的情况 
     <div id="%E5%A4%9A%E4%BB%BD%E5%AE%9E%E4%BE%8B%E7%9A%84%E6%83%85%E5%86%B5" class="anchor"></div>
     
     <span
@@ -991,7 +979,7 @@
             style="text-decoration-line: none !important;" href="#%E5%A4%9A%E4%BB%BD%E5%AE%9E%E4%BE%8B%E7%9A%84%E6%83%85%E5%86%B5" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>既然可以在多个源文件中定义，那是不是就意味着每个源文件都有一份代码实例，会不会导致代码膨胀呢?</p>
 <p>考虑如下示例，开头的注释表示文件名</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src1.cpp
@@ -1046,7 +1034,7 @@
 <p>发现链接器只保留了两份<code>add</code>实例中的一份，所以并没有<strong>额外的代码膨胀</strong>。并且 C++ 标准要求，内联函数在不同编译单元的定义必须相同，所以无论选哪一份代码保留都没区别。但是如果你问：万一定义不同呢？那就会导致 ODR 违反，严格意义来说算 undefined behavior，究竟保留哪一个可能就看具体实现了，甚至和链接顺序有关。关于 ODR 违反相关的内容，我最近可能会单独写一个文章介绍，这里就不说太多了。<strong>只需要知道 C++ 标准保证 inline 函数在不同编译单元定义相同就行了</strong>。</p>
 
 
-<h3 class="relative group">完全内联的情况 
+<h2 class="relative group">完全内联的情况 
     <div id="%E5%AE%8C%E5%85%A8%E5%86%85%E8%81%94%E7%9A%84%E6%83%85%E5%86%B5" class="anchor"></div>
     
     <span
@@ -1055,7 +1043,7 @@
             style="text-decoration-line: none !important;" href="#%E5%AE%8C%E5%85%A8%E5%86%85%E8%81%94%E7%9A%84%E6%83%85%E5%86%B5" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>前面我特意强调了，不打开优化，如果打开了优化会怎么样呢？仍然是上面的代码，我们尝试打开<code>O2</code>优化。最后的 <a href="https://godbolt.org/z/jfx8jrnzf" target="_blank">结果</a> 如下图所示</p>
 <p>
   <figure>
@@ -1092,7 +1080,7 @@
 <p>那我们看看之前的代码，在 main.cpp 中调用一个 inline 函数，但是却没有定义，所以其实是违背了 C++ 标准的约定的。到这里，算是松了一口气了。虽然有点反直觉，但是事实的确如此，三大编译器都没错！</p>
 
 
-<h3 class="relative group">其它情况 
+<h2 class="relative group">其它情况 
     <div id="%E5%85%B6%E5%AE%83%E6%83%85%E5%86%B5" class="anchor"></div>
     
     <span
@@ -1101,7 +1089,7 @@
             style="text-decoration-line: none !important;" href="#%E5%85%B6%E5%AE%83%E6%83%85%E5%86%B5" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>我们这一小节主要讨论了两种情况：</p>
 <ul>
 <li>第一种即<code>inline</code>函数在多个编译单元都有实例（生成符号），那么这时候目前主流的链接器都只会选择其中一份保留，不会有额外的代码膨胀</li>
@@ -1112,7 +1100,7 @@
 <p>注意：本小节，只讨论了仅被<code>inline</code>标记的函数，除此之外还有<code>inline static</code>和<code>inline extern</code>这样的组合，感兴趣的读者可以阅读官方文档或者自行尝试效果如何。</p>
 
 
-<h2 class="relative group">模板导致代码膨胀的真正原因？ 
+<h1 class="relative group">模板导致代码膨胀的真正原因？ 
     <div id="%E6%A8%A1%E6%9D%BF%E5%AF%BC%E8%87%B4%E4%BB%A3%E7%A0%81%E8%86%A8%E8%83%80%E7%9A%84%E7%9C%9F%E6%AD%A3%E5%8E%9F%E5%9B%A0" class="anchor"></div>
     
     <span
@@ -1121,11 +1109,11 @@
             style="text-decoration-line: none !important;" href="#%E6%A8%A1%E6%9D%BF%E5%AF%BC%E8%87%B4%E4%BB%A3%E7%A0%81%E8%86%A8%E8%83%80%E7%9A%84%E7%9C%9F%E6%AD%A3%E5%8E%9F%E5%9B%A0" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>如果有人给出 C++ 二进制膨胀的理由，那么几乎它的答案一定是模板。果真如此吗？模板究竟是怎么导致二进制膨胀的？在什么情况导致的？难道我用了就导致吗？</p>
 
 
-<h3 class="relative group">隐式实例化如同 inline 标记 
+<h2 class="relative group">隐式实例化如同 inline 标记 
     <div id="%E9%9A%90%E5%BC%8F%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%A6%82%E5%90%8C-inline-%E6%A0%87%E8%AE%B0" class="anchor"></div>
     
     <span
@@ -1134,7 +1122,7 @@
             style="text-decoration-line: none !important;" href="#%E9%9A%90%E5%BC%8F%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%A6%82%E5%90%8C-inline-%E6%A0%87%E8%AE%B0" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>我们知道模板实例化发生在当前编译单元，实例化一份就会产生一份代码。考虑下面这个例子</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src1.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -1176,7 +1164,7 @@
 <p>也和 inline 标记的效果一样，编译器直接把函数内联了，然后实例化出的函数的符号都扔了。那这样的话，要么内联了符号都没生成，要么生成了符号，最后函数合并了。和 inline 一样，这种情况似乎没有额外的膨胀啊，那经常说的模板膨胀，究竟膨胀在哪呢？</p>
 
 
-<h3 class="relative group">显式实例化和 extern 模板 
+<h2 class="relative group">显式实例化和 extern 模板 
     <div id="%E6%98%BE%E5%BC%8F%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%92%8C-extern-%E6%A8%A1%E6%9D%BF" class="anchor"></div>
     
     <span
@@ -1185,7 +1173,7 @@
             style="text-decoration-line: none !important;" href="#%E6%98%BE%E5%BC%8F%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%92%8C-extern-%E6%A8%A1%E6%9D%BF" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>在介绍真正膨胀的原因之前，我们先来讨论一下显式实例化。</p>
 <p>虽然链接器最后能合并多份相同的模板实例化。但是模板定义的解析，模板实例化，以及生成最终的二进制代码和链接器去除重复代码，这些都要编译时间的啊。有些时候，我们能确定，只是使用某几种固定模板参数的实例化，比如像标准库的<code>basic_string</code>几乎只有那几种固定的类型作为模板参数，如果每次个文件用到它们，都要进行模板实例化可能会大大增长编译时间。</p>
 <p>那我们可以像非模板函数一样，把实现放在某一个源文件，其它文件引用这个源文件的函数吗？从上一小节的讨论来看，既然会生成符号，那应该就有办法链接到。但是不能保证一定生成啊，有什么办法保证生成符号吗？</p>
@@ -1216,7 +1204,7 @@
 </span></span></span></code></pre></div><p>这两种都能正确引用到上面那个函数<code>f</code>，这样就可以调用其它文件的模板实例化了！</p>
 
 
-<h3 class="relative group">真正的模板膨胀开销 
+<h2 class="relative group">真正的模板膨胀开销 
     <div id="%E7%9C%9F%E6%AD%A3%E7%9A%84%E6%A8%A1%E6%9D%BF%E8%86%A8%E8%83%80%E5%BC%80%E9%94%80" class="anchor"></div>
     
     <span
@@ -1225,7 +1213,7 @@
             style="text-decoration-line: none !important;" href="#%E7%9C%9F%E6%AD%A3%E7%9A%84%E6%A8%A1%E6%9D%BF%E8%86%A8%E8%83%80%E5%BC%80%E9%94%80" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>接下来是最重要的部分了，我们将会介绍模板膨胀的真正原因。由于一些历史遗留问题，C++ 中<code>char</code>,<code>unsigned char</code>,<code>signed char</code>三种类型永远互不相同</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="kt">signed</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">);</span>
@@ -1303,7 +1291,7 @@
 <p>但是 gold 并不是万能的，有些情况不能很好的处理。假设这 100 个函数，前<code>90%</code>的代码相同，但是最后<code>10%</code>的代码不相同，那么它就无能为力了。它只是简单的对比最终生成的二进制，然后合并完全相同的函数。那么还有其他的解决办法吗？**自动挡没有，咱们还有手动挡呢，咱写 C++ 的没什么别的擅长的，就擅长开手动挡。 **</p>
 
 
-<h3 class="relative group">手动优化模板膨胀问题 
+<h2 class="relative group">手动优化模板膨胀问题 
     <div id="%E6%89%8B%E5%8A%A8%E4%BC%98%E5%8C%96%E6%A8%A1%E6%9D%BF%E8%86%A8%E8%83%80%E9%97%AE%E9%A2%98" class="anchor"></div>
     
     <span
@@ -1312,7 +1300,7 @@
             style="text-decoration-line: none !important;" href="#%E6%89%8B%E5%8A%A8%E4%BC%98%E5%8C%96%E6%A8%A1%E6%9D%BF%E8%86%A8%E8%83%80%E9%97%AE%E9%A2%98" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>下面以大家最常用的<code>vector</code>为例，展示一下解决模板膨胀的主要思路。前面已经提到了，像迭代器接口这样的短函数，我们是不需要去管的。我们主要来处理那些逻辑比较复杂的函数，对 vector 来说，首当其冲的就是扩容函数了</p>
 <p>假设我们有如下<code>vector</code>代码</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -1407,7 +1395,7 @@
 </span></span></code></pre></div><p>这样就完成了抽取公共逻辑。于是所有的<code>T</code>只要满足<code>trivially_relocatable</code>，就可以全都这共享一份代码了。而几乎所有不含有自引用的类型都符合这个条件，于是<code>99%</code>的类型都使用同一套扩容逻辑！这样的优化效果是非常显著的！实际上 LLVM 很多容器的源码，比如 <code>SmallVector</code>,<code>StringMap</code>等等，都使用了这样的技巧。另外如果你觉得上面的<code>reinterpret_cast</code>破坏了严格别名，用起来有点害怕，你可以通过继承来实现相同的效果（基类成员用<code>void*</code>），具体的代码就不展示了。</p>
 
 
-<h2 class="relative group">异常导致的代码膨胀！ 
+<h1 class="relative group">异常导致的代码膨胀！ 
     <div id="%E5%BC%82%E5%B8%B8%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%A3%E7%A0%81%E8%86%A8%E8%83%80" class="anchor"></div>
     
     <span
@@ -1416,7 +1404,7 @@
             style="text-decoration-line: none !important;" href="#%E5%BC%82%E5%B8%B8%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%A3%E7%A0%81%E8%86%A8%E8%83%80" aria-label="锚点">#</a>
     </span>        
     
-</h2>
+</h1>
 <p>为什么 LLVM 源码禁用异常？很多人可能会下意识的认为，原因是异常很慢，效率很低。但其实，根据 <a href="https://llvm.org/docs/CodingStandards.html#do-not-use-rtti-or-exceptions" target="_blank">LLVM Coding Standard</a> 里面的内容，关闭异常和<code>RTTI</code>的主要目的是为了减少二进制大小。据说，打开异常和<code>RTTI</code>会导致 LLVM 的编译结果膨胀<code>10%-15%</code>，那么实际情况究竟如何？</p>
 <p>目前主要的异常实现有两种，一种是 Itanium ABI 的实现，另一种则是 MS ABI 的实现。简单来说 MS ABI 采用运行时查找的办法，这样会导致异常在 Happy Path 执行也有的额外运行时开销，但是优点是最终生成的二进制代码相对较小。而 Itanium ABI 则是我们今天的主角，它号称零开销异常，Happy 路径没有任何额外的运行时开销。那古尔丹，代价是什么？代价就是非常严重的二进制膨胀。为什么会产生膨胀呢？简单来说，就是如果不想完全等到运行时去查找，那就得预先打表。由于异常的隐式传播特性，会导致表占用空间很大。具体实现细节非常复杂，不是本文的主题，放张图，大概感受一下</p>
 <p>
@@ -1464,7 +1452,7 @@
 </span></span></code></pre></div><p>可以发现没有生成清理栈的代码了，很合理。原因很简单，如果<code>foo</code>抛出异常，控制流直接跳转走了，那<code>vector</code>都没构造呢，自然也不需要析构了。通过简单的调整调用顺序就减少了二进制大小！但是，只有这种特别简单的情况下，依赖关系才比较明显。如果实际抛出异常的函数很多的话，就很难分析了。</p>
 
 
-<h3 class="relative group">noexcept 
+<h2 class="relative group">noexcept 
     <div id="noexcept" class="anchor"></div>
     
     <span
@@ -1473,7 +1461,7 @@
             style="text-decoration-line: none !important;" href="#noexcept" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>先讨论 C++11 加入的这个<code>noexcept</code>。注意即使加了<code>noexcept</code>，这个函数还是可能会抛出异常的，如果该函数抛出异常，程序直接<code>terminate</code>。那你可能要问了，这玩意有啥用呢？我异常抛了，不捕获不也是<code>terminate</code>吗？</p>
 <p>其实这个和 const 有点类似，你想改 const 变量，虽然是 undefined behavior，但是运行时随便改呀，限制不多。那你要问了， const 有什么意义？一个重要的意义是给编译器提供优化指示信息。编译器可以利用这个做 <em>constant folding（常量折叠）</em>  和 <em>common subexpression elimination（公共子表达式消除）</em> 。</p>
 <p><code>noexcept</code>也是类似的，它让编译器假设这个函数不会抛出异常，从而可以进行一些额外的优化。 还是第一个例子里面的代码为例，唯一的改变是把<code>foo</code>函数声明为了<code>noexcept</code>，然后再次编译</p>
@@ -1488,7 +1476,7 @@
 </span></span></code></pre></div><p>可以发现，用于异常处理的代码路径，同样没有了，这就是<code>noexpect</code>的功劳。</p>
 
 
-<h3 class="relative group">fno-exceptions 
+<h2 class="relative group">fno-exceptions 
     <div id="fno-exceptions" class="anchor"></div>
     
     <span
@@ -1497,7 +1485,7 @@
             style="text-decoration-line: none !important;" href="#fno-exceptions" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>终于讲到重头戏了：<code>-fno-exceptions</code>，注意这个选项非标准。但是三大编译器都有提供，不过具体的实现效果有些许差异。好像并没有十分详细的文档，我仅凭经验说一下 GCC 相关的，对于 GCC 来说，该选项会禁止用户的代码里面使用<code>try</code>,<code>catch</code>,<code>throw</code>等关键字，如果使用则导致编译错误。但是特别的，允许使用标准库。如果异常被抛出，就和<code>noexcept</code>一样，程序直接<code>terminate</code>。所以如果打开了这个选项，GCC 会默认假设所有函数不会抛出异常。</p>
 <p>仍然是上面的例子，我们尝试打开<code>-fno-exceptions</code>，然后再次编译</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bar<span class="o">()</span>:
