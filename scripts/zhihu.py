@@ -58,9 +58,9 @@ class Parser:
         for child in element.children:
             match child.name:
                 case 'h2':
-                    nodes.append(markdown.Header(1, child.text))
-                case 'h3':
                     nodes.append(markdown.Header(2, child.text))
+                case 'h3':
+                    nodes.append(markdown.Header(3, child.text))
                 case 'hr':
                     nodes.append(markdown.HorizontalRule())
                 case 'p':
