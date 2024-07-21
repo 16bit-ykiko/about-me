@@ -829,14 +829,10 @@
     class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li><a href="#sum-type">sum type</a></li>
-        <li><a href="#not-trivial">not trivial</a></li>
-        <li><a href="#stdvariant">std::variant</a></li>
-        <li><a href="#stdvisit">std::visit</a></li>
-      </ul>
-    </li>
+    <li><a href="#sum-type">sum type</a></li>
+    <li><a href="#not-trivial">not trivial</a></li>
+    <li><a href="#stdvariant">std::variant</a></li>
+    <li><a href="#stdvisit">std::visit</a></li>
   </ul>
 </nav>
   </div>
@@ -850,14 +846,10 @@
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li><a href="#sum-type">sum type</a></li>
-        <li><a href="#not-trivial">not trivial</a></li>
-        <li><a href="#stdvariant">std::variant</a></li>
-        <li><a href="#stdvisit">std::visit</a></li>
-      </ul>
-    </li>
+    <li><a href="#sum-type">sum type</a></li>
+    <li><a href="#not-trivial">not trivial</a></li>
+    <li><a href="#stdvariant">std::variant</a></li>
+    <li><a href="#stdvisit">std::visit</a></li>
   </ul>
 </nav>
   </div>
@@ -942,7 +934,7 @@
           <p><code>std::variant</code>于 C++17 加入标准库，本文将讨论其加入标准的背景，以及一些使用上的问题。</p>
 
 
-<h3 class="relative group">sum type 
+<h2 class="relative group">sum type 
     <div id="sum-type" class="anchor"></div>
     
     <span
@@ -951,7 +943,7 @@
             style="text-decoration-line: none !important;" href="#sum-type" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>首先来讨论一下<strong>和类型 (sum type)</strong>，或者叫做 <a href="https://en.wikipedia.org/wiki/Tagged_union" target="_blank">tagged union</a>。和类型就是只能在几种可能的类型中取值的类型。</p>
 <p>例如我们有如下两个类型</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Circle</span> <span class="p">{</span>
@@ -997,7 +989,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
 
-<h3 class="relative group">not trivial 
+<h2 class="relative group">not trivial 
     <div id="not-trivial" class="anchor"></div>
     
     <span
@@ -1006,7 +998,7 @@
             style="text-decoration-line: none !important;" href="#not-trivial" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>但在 C++ 中事情就没这么简单了，考虑如下代码</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Settings</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">enum</span> <span class="k">class</span> <span class="nc">Type</span> <span class="p">{</span> <span class="n">int_</span><span class="p">,</span> <span class="n">double_</span><span class="p">,</span> <span class="n">string</span> <span class="p">}</span> <span class="n">type</span><span class="p">;</span>
@@ -1058,7 +1050,7 @@
 <p>从上面的代码不难看出，如果要在 C++ 里面直接使用 union 来表示 sum type，非常麻烦。不仅要及时更新<code>type</code>，还要正确调用构造函数和析构函数，还要留意赋值的时机问题赋值。如果其中的某一步忘记了，就会导致 undefined behavior，这非常让人头疼。不过还好，C++17 给我们提供了<code>std::variant</code>来解决这个问题。</p>
 
 
-<h3 class="relative group">std::variant 
+<h2 class="relative group">std::variant 
     <div id="stdvariant" class="anchor"></div>
     
     <span
@@ -1067,7 +1059,7 @@
             style="text-decoration-line: none !important;" href="#stdvariant" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p>直接看代码</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;variant&gt;</span><span class="cp">
@@ -1112,7 +1104,7 @@
 </span></span></code></pre></div><p>虽然能行，但是太多冗余代码了，有没有什么更好的办法来操作<code>variant</code>里面的值呢？</p>
 
 
-<h3 class="relative group">std::visit 
+<h2 class="relative group">std::visit 
     <div id="stdvisit" class="anchor"></div>
     
     <span
@@ -1121,7 +1113,7 @@
             style="text-decoration-line: none !important;" href="#stdvisit" aria-label="锚点">#</a>
     </span>        
     
-</h3>
+</h2>
 <p><code>visit</code>这个名字其实就来源于设计模式里面的那个<code>visitor</code>模式。利用它，我们可以写出如下代码</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Settings</span> <span class="n">s</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span>
