@@ -1,12 +1,12 @@
 ---
 title: 'std::variant 很难用！'
 date: 2023-07-25 07:19:25
-updated: 2024-06-29 12:39:34
+updated: 2024-07-20 14:31:19
 ---
 
 `std::variant`于 C++17 加入标准库，本文将讨论其加入标准的背景，以及一些使用上的问题。
 
-### sum type 
+## sum type 
 
 首先来讨论一下**和类型 (sum type)**，或者叫做 [tagged union](https://en.wikipedia.org/wiki/Tagged_union)。和类型就是只能在几种可能的类型中取值的类型。
 
@@ -63,7 +63,7 @@ int main() {
 }
 ```
 
-### not trivial 
+## not trivial 
 
 但在 C++ 中事情就没这么简单了，考虑如下代码
 
@@ -127,7 +127,7 @@ int main(){
 
 从上面的代码不难看出，如果要在 C++ 里面直接使用 union 来表示 sum type，非常麻烦。不仅要及时更新`type`，还要正确调用构造函数和析构函数，还要留意赋值的时机问题赋值。如果其中的某一步忘记了，就会导致 undefined behavior，这非常让人头疼。不过还好，C++17 给我们提供了`std::variant`来解决这个问题。
 
-### std::variant 
+## std::variant 
 
 直接看代码
 
@@ -201,7 +201,7 @@ if (std::holds_alternative<std::string>(s)){
 
 虽然能行，但是太多冗余代码了，有没有什么更好的办法来操作`variant`里面的值呢？
 
-### std::visit 
+## std::visit 
 
 `visit`这个名字其实就来源于设计模式里面的那个`visitor`模式。利用它，我们可以写出如下代码
 
