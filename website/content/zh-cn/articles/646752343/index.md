@@ -1,7 +1,7 @@
 ---
 title: 'C++ 禁忌黑魔法：STMP （上）'
 date: 2023-07-29 10:20:50
-updated: 2024-07-20 14:31:37
+updated: 2024-07-22 10:27:10
 ---
 
 众所周知，传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的状态。对于任意相同的输入，它的输出结果总是相同的，被认为是**纯函数式 (purely functional)** 的。**模板元编程 (Template Meta Programming)** 作为常量求值的一个子集，也应该遵守这个规则。 
@@ -194,7 +194,7 @@ struct Y {
 int x = foo(X{});
 ```
 
-上面的代码三大编译器都可以编译通过，并且完全符合 C++ 标准。这就给了我们操作的空间，我们可以在实例化类模板同时实例化其内部定义的友元函数，从而给其它位置的函数声明添加定义。这种技术也被叫做**友元注入 (friend injection)**。
+上面的代码三大编译器都可以编译通过，并且完全符合 C++ 标准。这就给了我们操作的空间，我们可以在实例化类模板的同时实例化其内部定义的友元函数，从而给其它位置的函数声明添加定义。这种技术也被叫做**友元注入 (friend injection)**。
 
 ```cpp
 auto foo(auto);
@@ -208,10 +208,10 @@ static_assert(!is_complete_v<>); // #1
 
 X<void> x; // #2
 
-static_assert(is_complete_v<>); // #2
+static_assert(is_complete_v<>); // #3
 ```
 
-注意到 #1 处模板`X`没有任何的实例化，故此时`foo`函数还未有定义，于是`is_complete_v`返回`false`。而在 #2 处，我们实例化了一个`X<void>`，进而导致`X`内的`foo`函数被实例化，给`foo`添加了一个定义，于是`is_complete_v`返回`true`。当然了，函数定义最多只能有一个，如果你再尝试实例化一个`X<int>`，这时候编译器就会报`foo`被重定义的错误了。
+注意到 #1 处模板`X`没有任何的实例化，故此时`foo`函数还未有定义，于是`is_complete_v`返回`false`。而在 #2 处，我们实例化了一个`X<void>`，进而导致`X`内的`foo`函数被实例化，给`foo`添加了一个定义，于是 #3 处的`is_complete_v`返回`true`。当然了，函数定义最多只能有一个，如果你再尝试实例化一个`X<int>`，这时候编译器就会报`foo`被重定义的错误了。
 
 ## constant switch 
 
@@ -245,7 +245,7 @@ int main() {
 
 > 注意，这里的 N 的类型必须写成 auto，而不能使用 std::size_t。只有这样`flag(N)`才是 [dependent name](https://en.cppreference.com/w/cpp/language/dependent_name)，才能被 requires 检测表达式合法性。由于模板的 [two phase lookup](https://en.cppreference.com/w/cpp/language/two-phase_lookup)，如果写成`flag(0)`，会在第一阶段就进行查找，发现调用失败，产生一个 hard error，导致编译失败。 
 
-## compile time counter 
+## constant counter 
 
 更进一步，我们可以直接实现一个编译期的计数器
 
@@ -279,7 +279,7 @@ int main() {
 }
 ```
 
-它的逻辑是，从`N`为 0 开始，检测`flag(reader<N>{})`是否有定义，如果没有定义就实例化一个`setter<N>`，并返回`N`，否则递归调用`next<N + 1>()`。所以这个计算器记录的实际上是`setter`的实例化次数。
+它的逻辑是，从`N`为 0 开始，检测`flag(reader<N>)`是否有定义，如果没有定义就实例化一个`setter<N>`，也就是给`flag(reader<N>)`添加定义，并返回`N`。否则递归调用`next<N + 1>()`，检测`N+1`的情况。所以这个计算器记录的实际上是`setter`的实例化次数。
 
 ## easter egg: access private 
 
@@ -292,6 +292,8 @@ int main() {
 也就是说在模板**显示实例化 (explicit instantiate)** 的时候，我们可以直接访问类的私有成员。
 
 ```cpp
+#include <iostream>
+
 class Bank {
     double money = 999'999'999'999;
 
@@ -316,4 +318,4 @@ int main() {
 }
 ```
 
-其中 #2 处的语法就是模板显式实例化了，我们可以直接访问到`Bank`的私有成员`money`。通过`&Bank::money`从而取得该成员对应的成员指针。于此同时，该模板显式实例化还通过友元函数，给 #1 处的`steal`函数添加了一个定义，从而可以直接在 #3 处调用该函数并获取到`money`的引用。最后成功输出 100。
+其中 #2 处的语法就是模板显式实例化了，我们可以直接访问到`Bank`的私有成员`money`。通过`&Bank::money`从而取得该成员对应的成员指针。与此同时，通过模板显式实例化，给 #1 处的`steal`函数添加了一个定义，从而可以直接在 #3 处调用该函数并获取到`money`的引用。最后成功输出 100。
