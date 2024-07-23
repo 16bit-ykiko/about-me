@@ -105,7 +105,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "3622"
+    "wordCount": "3658"
   }]
   </script>
 
@@ -580,7 +580,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-07-29 10:20:50 &#43;0000 UTC">July 29, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3622 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2023-07-29 10:20:50 &#43;0000 UTC">July 29, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3658 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -832,7 +832,7 @@
     <li><a href="#observable-state">observable state</a></li>
     <li><a href="#modifiable-state">modifiable state</a></li>
     <li><a href="#constant-switch">constant switch</a></li>
-    <li><a href="#compile-time-counter">compile time counter</a></li>
+    <li><a href="#constant-counter">constant counter</a></li>
     <li><a href="#easter-egg-access-private">easter egg: access private</a></li>
   </ul>
 </nav>
@@ -850,7 +850,7 @@
     <li><a href="#observable-state">observable state</a></li>
     <li><a href="#modifiable-state">modifiable state</a></li>
     <li><a href="#constant-switch">constant switch</a></li>
-    <li><a href="#compile-time-counter">compile time counter</a></li>
+    <li><a href="#constant-counter">constant counter</a></li>
     <li><a href="#easter-egg-access-private">easter egg: access private</a></li>
   </ul>
 </nav>
@@ -1085,7 +1085,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">foo</span><span class="p">(</span><span class="n">X</span><span class="p">{});</span>
-</span></span></code></pre></div><p>上面的代码三大编译器都可以编译通过，并且完全符合 C++ 标准。这就给了我们操作的空间，我们可以在实例化类模板同时实例化其内部定义的友元函数，从而给其它位置的函数声明添加定义。这种技术也被叫做<strong>友元注入 (friend injection)</strong>。</p>
+</span></span></code></pre></div><p>上面的代码三大编译器都可以编译通过，并且完全符合 C++ 标准。这就给了我们操作的空间，我们可以在实例化类模板的同时实例化其内部定义的友元函数，从而给其它位置的函数声明添加定义。这种技术也被叫做<strong>友元注入 (friend injection)</strong>。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="k">auto</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -1097,8 +1097,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="n">X</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span> <span class="n">x</span><span class="p">;</span> <span class="c1">// #2
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;&gt;</span><span class="p">);</span> <span class="c1">// #2
-</span></span></span></code></pre></div><p>注意到 #1 处模板<code>X</code>没有任何的实例化，故此时<code>foo</code>函数还未有定义，于是<code>is_complete_v</code>返回<code>false</code>。而在 #2 处，我们实例化了一个<code>X&lt;void&gt;</code>，进而导致<code>X</code>内的<code>foo</code>函数被实例化，给<code>foo</code>添加了一个定义，于是<code>is_complete_v</code>返回<code>true</code>。当然了，函数定义最多只能有一个，如果你再尝试实例化一个<code>X&lt;int&gt;</code>，这时候编译器就会报<code>foo</code>被重定义的错误了。</p>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;&gt;</span><span class="p">);</span> <span class="c1">// #3
+</span></span></span></code></pre></div><p>注意到 #1 处模板<code>X</code>没有任何的实例化，故此时<code>foo</code>函数还未有定义，于是<code>is_complete_v</code>返回<code>false</code>。而在 #2 处，我们实例化了一个<code>X&lt;void&gt;</code>，进而导致<code>X</code>内的<code>foo</code>函数被实例化，给<code>foo</code>添加了一个定义，于是 #3 处的<code>is_complete_v</code>返回<code>true</code>。当然了，函数定义最多只能有一个，如果你再尝试实例化一个<code>X&lt;int&gt;</code>，这时候编译器就会报<code>foo</code>被重定义的错误了。</p>
 
 
 <h2 class="relative group">constant switch 
@@ -1139,13 +1139,13 @@
 </blockquote>
 
 
-<h2 class="relative group">compile time counter 
-    <div id="compile-time-counter" class="anchor"></div>
+<h2 class="relative group">constant counter 
+    <div id="constant-counter" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#compile-time-counter" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#constant-counter" aria-label="锚点">#</a>
     </span>        
     
 </h2>
@@ -1177,7 +1177,7 @@
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">c</span> <span class="o">=</span> <span class="n">next</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>它的逻辑是，从<code>N</code>为 0 开始，检测<code>flag(reader&lt;N&gt;{})</code>是否有定义，如果没有定义就实例化一个<code>setter&lt;N&gt;</code>，并返回<code>N</code>，否则递归调用<code>next&lt;N + 1&gt;()</code>。所以这个计算器记录的实际上是<code>setter</code>的实例化次数。</p>
+</span></span></code></pre></div><p>它的逻辑是，从<code>N</code>为 0 开始，检测<code>flag(reader&lt;N&gt;)</code>是否有定义，如果没有定义就实例化一个<code>setter&lt;N&gt;</code>，也就是给<code>flag(reader&lt;N&gt;)</code>添加定义，并返回<code>N</code>。否则递归调用<code>next&lt;N + 1&gt;()</code>，检测<code>N+1</code>的情况。所以这个计算器记录的实际上是<code>setter</code>的实例化次数。</p>
 
 
 <h2 class="relative group">easter egg: access private 
@@ -1196,7 +1196,9 @@
 <p>The C++11/14 standards state the following in note 14.7.2/12 [temp.explicit]: The usual access checking rules do not apply to names used to specify explicit instantiations. [ Note: In particular, the template arguments and names used in the function declarator (including parameter types, return types and exception speciﬁcations) may be private types or objects which would normally not be accessible and the template may be a member template or member function which would not normally be accessible. — end note ]</p>
 </blockquote>
 <p>也就是说在模板<strong>显示实例化 (explicit instantiate)</strong> 的时候，我们可以直接访问类的私有成员。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Bank</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Bank</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">money</span> <span class="o">=</span> <span class="mi">999&#39;999&#39;999&#39;999</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
@@ -1218,7 +1220,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">bank</span><span class="p">.</span><span class="n">check</span><span class="p">();</span> <span class="c1">// 100
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>其中 #2 处的语法就是模板显式实例化了，我们可以直接访问到<code>Bank</code>的私有成员<code>money</code>。通过<code>&amp;Bank::money</code>从而取得该成员对应的成员指针。于此同时，该模板显式实例化还通过友元函数，给 #1 处的<code>steal</code>函数添加了一个定义，从而可以直接在 #3 处调用该函数并获取到<code>money</code>的引用。最后成功输出 100。</p>
+</span></span></code></pre></div><p>其中 #2 处的语法就是模板显式实例化了，我们可以直接访问到<code>Bank</code>的私有成员<code>money</code>。通过<code>&amp;Bank::money</code>从而取得该成员对应的成员指针。与此同时，通过模板显式实例化，给 #1 处的<code>steal</code>函数添加了一个定义，从而可以直接在 #3 处调用该函数并获取到<code>money</code>的引用。最后成功输出 100。</p>
 
         </div>
         
