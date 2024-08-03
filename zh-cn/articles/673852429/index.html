@@ -8,8 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>手动优化C&#43;&#43;代码来加快编译速度？！ &middot; ykiko&#39;s blog</title>
-  <meta name="title" content="手动优化C&#43;&#43;代码来加快编译速度？！ &middot; ykiko&#39;s blog" />
+  <title>手动优化 C&#43;&#43; 代码来加快编译速度？！ &middot; ykiko&#39;s blog</title>
+  <meta name="title" content="手动优化 C&#43;&#43; 代码来加快编译速度？！ &middot; ykiko&#39;s blog" />
   
   
   
@@ -65,7 +65,7 @@
   
   <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/673852429/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="手动优化C&#43;&#43;代码来加快编译速度？！">
+  <meta property="og:title" content="手动优化 C&#43;&#43; 代码来加快编译速度？！">
   <meta property="og:description" content="事情的起因是我最近在编写的一个库 magic cpp ，正在编写其中enum的">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
@@ -75,7 +75,7 @@
 
   
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="手动优化C&#43;&#43;代码来加快编译速度？！">
+  <meta name="twitter:title" content="手动优化 C&#43;&#43; 代码来加快编译速度？！">
   <meta name="twitter:description" content="事情的起因是我最近在编写的一个库 magic cpp ，正在编写其中enum的">
 
   
@@ -84,8 +84,8 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Articles",
-    "name": "手动优化C\u002b\u002b代码来加快编译速度？！",
-    "headline": "手动优化C\u002b\u002b代码来加快编译速度？！",
+    "name": "手动优化 C\u002b\u002b 代码来加快编译速度？！",
+    "headline": "手动优化 C\u002b\u002b 代码来加快编译速度？！",
     
     "abstract": "事情的起因是我最近在编写的一个库 magic cpp ，正在编写其中enum的",
     "inLanguage": "zh-cn",
@@ -526,7 +526,7 @@
     <a
       class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
       href="/zh-cn/articles/673852429/"
-      >手动优化C&#43;&#43;代码来加快编译速度？！</a
+      >手动优化 C&#43;&#43; 代码来加快编译速度？！</a
     ><span class="px-1 text-primary-500">/</span>
   </li>
 
@@ -535,7 +535,7 @@
 
     
     <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-      手动优化C++代码来加快编译速度？！
+      手动优化 C++ 代码来加快编译速度？！
     </h1>
     <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
@@ -882,7 +882,7 @@
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">((</span><span class="n">name</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="sc">&#39;0&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">name</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="sc">&#39;9&#39;</span><span class="p">)</span> <span class="o">||</span>
 </span></span><span class="line"><span class="cl">          <span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="sc">&#39;a&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">name</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="sc">&#39;z&#39;</span><span class="p">)</span> <span class="o">||</span>
 </span></span><span class="line"><span class="cl">          <span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="sc">&#39;A&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">name</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="sc">&#39;Z&#39;</span><span class="p">)</span>
-</span></span></code></pre></div><p>** 优化代码**</p>
+</span></span></code></pre></div><p><br>** 优化代码**</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="n">name</span><span class="p">.</span><span class="n">data</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="n">name</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="o">--</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
@@ -923,7 +923,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/zh-cn/articles/673852429/&amp;title=%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96C&#43;&#43;%e4%bb%a3%e7%a0%81%e6%9d%a5%e5%8a%a0%e5%bf%ab%e7%bc%96%e8%af%91%e9%80%9f%e5%ba%a6%ef%bc%9f%ef%bc%81"
+      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/zh-cn/articles/673852429/&amp;title=%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96%20C&#43;&#43;%20%e4%bb%a3%e7%a0%81%e6%9d%a5%e5%8a%a0%e5%bf%ab%e7%bc%96%e8%af%91%e9%80%9f%e5%ba%a6%ef%bc%9f%ef%bc%81"
       title="分享到 LinkedIn"
       aria-label="分享到 LinkedIn"
       >
@@ -942,7 +942,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/zh-cn/articles/673852429/&amp;text=%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96C&#43;&#43;%e4%bb%a3%e7%a0%81%e6%9d%a5%e5%8a%a0%e5%bf%ab%e7%bc%96%e8%af%91%e9%80%9f%e5%ba%a6%ef%bc%9f%ef%bc%81"
+      href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/zh-cn/articles/673852429/&amp;text=%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96%20C&#43;&#43;%20%e4%bb%a3%e7%a0%81%e6%9d%a5%e5%8a%a0%e5%bf%ab%e7%bc%96%e8%af%91%e9%80%9f%e5%ba%a6%ef%bc%9f%ef%bc%81"
       title="分享到 Twitter"
       aria-label="分享到 Twitter"
       >
@@ -960,7 +960,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://reddit.com/submit/?url=https://www.ykiko.me/zh-cn/articles/673852429/&amp;resubmit=true&amp;title=%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96C&#43;&#43;%e4%bb%a3%e7%a0%81%e6%9d%a5%e5%8a%a0%e5%bf%ab%e7%bc%96%e8%af%91%e9%80%9f%e5%ba%a6%ef%bc%9f%ef%bc%81"
+      href="https://reddit.com/submit/?url=https://www.ykiko.me/zh-cn/articles/673852429/&amp;resubmit=true&amp;title=%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96%20C&#43;&#43;%20%e4%bb%a3%e7%a0%81%e6%9d%a5%e5%8a%a0%e5%bf%ab%e7%bc%96%e8%af%91%e9%80%9f%e5%ba%a6%ef%bc%9f%ef%bc%81"
       title="提交到 Reddit"
       aria-label="提交到 Reddit"
       >
@@ -979,7 +979,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://api.whatsapp.com/send?text=https://www.ykiko.me/zh-cn/articles/673852429/&amp;resubmit=true&amp;title=%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96C&#43;&#43;%e4%bb%a3%e7%a0%81%e6%9d%a5%e5%8a%a0%e5%bf%ab%e7%bc%96%e8%af%91%e9%80%9f%e5%ba%a6%ef%bc%9f%ef%bc%81"
+      href="https://api.whatsapp.com/send?text=https://www.ykiko.me/zh-cn/articles/673852429/&amp;resubmit=true&amp;title=%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96%20C&#43;&#43;%20%e4%bb%a3%e7%a0%81%e6%9d%a5%e5%8a%a0%e5%bf%ab%e7%bc%96%e8%af%91%e9%80%9f%e5%ba%a6%ef%bc%9f%ef%bc%81"
       title=""
       aria-label=""
       >
@@ -998,7 +998,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://t.me/share/url?url=https://www.ykiko.me/zh-cn/articles/673852429/&amp;resubmit=true&amp;title=%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96C&#43;&#43;%e4%bb%a3%e7%a0%81%e6%9d%a5%e5%8a%a0%e5%bf%ab%e7%bc%96%e8%af%91%e9%80%9f%e5%ba%a6%ef%bc%9f%ef%bc%81"
+      href="https://t.me/share/url?url=https://www.ykiko.me/zh-cn/articles/673852429/&amp;resubmit=true&amp;title=%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96%20C&#43;&#43;%20%e4%bb%a3%e7%a0%81%e6%9d%a5%e5%8a%a0%e5%bf%ab%e7%bc%96%e8%af%91%e9%80%9f%e5%ba%a6%ef%bc%9f%ef%bc%81"
       title=""
       aria-label=""
       >
@@ -1017,7 +1017,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/zh-cn/articles/673852429/&amp;description=%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96C&#43;&#43;%e4%bb%a3%e7%a0%81%e6%9d%a5%e5%8a%a0%e5%bf%ab%e7%bc%96%e8%af%91%e9%80%9f%e5%ba%a6%ef%bc%9f%ef%bc%81"
+      href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/zh-cn/articles/673852429/&amp;description=%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96%20C&#43;&#43;%20%e4%bb%a3%e7%a0%81%e6%9d%a5%e5%8a%a0%e5%bf%ab%e7%bc%96%e8%af%91%e9%80%9f%e5%ba%a6%ef%bc%9f%ef%bc%81"
       title="钉到 Pinterest"
       aria-label="钉到 Pinterest"
       >
@@ -1036,7 +1036,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/zh-cn/articles/673852429/&amp;quote=%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96C&#43;&#43;%e4%bb%a3%e7%a0%81%e6%9d%a5%e5%8a%a0%e5%bf%ab%e7%bc%96%e8%af%91%e9%80%9f%e5%ba%a6%ef%bc%9f%ef%bc%81"
+      href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/zh-cn/articles/673852429/&amp;quote=%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96%20C&#43;&#43;%20%e4%bb%a3%e7%a0%81%e6%9d%a5%e5%8a%a0%e5%bf%ab%e7%bc%96%e8%af%91%e9%80%9f%e5%ba%a6%ef%bc%9f%ef%bc%81"
       title="分享到 Facebook"
       aria-label="分享到 Facebook"
       >
@@ -1055,7 +1055,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="mailto:?body=https://www.ykiko.me/zh-cn/articles/673852429/&amp;subject=%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96C&#43;&#43;%e4%bb%a3%e7%a0%81%e6%9d%a5%e5%8a%a0%e5%bf%ab%e7%bc%96%e8%af%91%e9%80%9f%e5%ba%a6%ef%bc%9f%ef%bc%81"
+      href="mailto:?body=https://www.ykiko.me/zh-cn/articles/673852429/&amp;subject=%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96%20C&#43;&#43;%20%e4%bb%a3%e7%a0%81%e6%9d%a5%e5%8a%a0%e5%bf%ab%e7%bc%96%e8%af%91%e9%80%9f%e5%ba%a6%ef%bc%9f%ef%bc%81"
       title="通过电子邮件发送"
       aria-label="通过电子邮件发送"
       >

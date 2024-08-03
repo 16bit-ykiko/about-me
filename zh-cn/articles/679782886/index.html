@@ -8,8 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>全新的构造函数，C&#43;&#43; 中的 relocate 构造函数 &middot; ykiko&#39;s blog</title>
-  <meta name="title" content="全新的构造函数，C&#43;&#43; 中的 relocate 构造函数 &middot; ykiko&#39;s blog" />
+  <title>C&#43;&#43; 中的 relocate 语义 &middot; ykiko&#39;s blog</title>
+  <meta name="title" content="C&#43;&#43; 中的 relocate 语义 &middot; ykiko&#39;s blog" />
   
   
   
@@ -65,7 +65,7 @@
   
   <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/679782886/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="全新的构造函数，C&#43;&#43; 中的 relocate 构造函数">
+  <meta property="og:title" content="C&#43;&#43; 中的 relocate 语义">
   <meta property="og:description" content="众所周知，现在 C&#43;&#43; 里面有两种特殊的构造函数，即 copy constructor 和 move constructor copy constructor 早">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
@@ -77,7 +77,7 @@
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/679782886/featured.png">
-  <meta name="twitter:title" content="全新的构造函数，C&#43;&#43; 中的 relocate 构造函数">
+  <meta name="twitter:title" content="C&#43;&#43; 中的 relocate 语义">
   <meta name="twitter:description" content="众所周知，现在 C&#43;&#43; 里面有两种特殊的构造函数，即 copy constructor 和 move constructor copy constructor 早">
 
   
@@ -86,8 +86,8 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Articles",
-    "name": "全新的构造函数，C\u002b\u002b 中的 relocate 构造函数",
-    "headline": "全新的构造函数，C\u002b\u002b 中的 relocate 构造函数",
+    "name": "C\u002b\u002b 中的 relocate 语义",
+    "headline": "C\u002b\u002b 中的 relocate 语义",
     
     "abstract": "众所周知，现在 C\u002b\u002b 里面有两种特殊的构造函数，即 copy constructor 和 move constructor copy constructor 早",
     "inLanguage": "zh-cn",
@@ -522,7 +522,7 @@
     <a
       class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
       href="/zh-cn/articles/679782886/"
-      >全新的构造函数，C&#43;&#43; 中的 relocate 构造函数</a
+      >C&#43;&#43; 中的 relocate 语义</a
     ><span class="px-1 text-primary-500">/</span>
   </li>
 
@@ -531,7 +531,7 @@
 
     
     <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-      全新的构造函数，C++ 中的 relocate 构造函数
+      C++ 中的 relocate 语义
     </h1>
     <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
@@ -1260,7 +1260,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/zh-cn/articles/679782886/&amp;title=%e5%85%a8%e6%96%b0%e7%9a%84%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%ef%bc%8cC&#43;&#43;%20%e4%b8%ad%e7%9a%84%20relocate%20%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0"
+      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/zh-cn/articles/679782886/&amp;title=C&#43;&#43;%20%e4%b8%ad%e7%9a%84%20relocate%20%e8%af%ad%e4%b9%89"
       title="分享到 LinkedIn"
       aria-label="分享到 LinkedIn"
       >
@@ -1279,7 +1279,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/zh-cn/articles/679782886/&amp;text=%e5%85%a8%e6%96%b0%e7%9a%84%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%ef%bc%8cC&#43;&#43;%20%e4%b8%ad%e7%9a%84%20relocate%20%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0"
+      href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/zh-cn/articles/679782886/&amp;text=C&#43;&#43;%20%e4%b8%ad%e7%9a%84%20relocate%20%e8%af%ad%e4%b9%89"
       title="分享到 Twitter"
       aria-label="分享到 Twitter"
       >
@@ -1297,7 +1297,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://reddit.com/submit/?url=https://www.ykiko.me/zh-cn/articles/679782886/&amp;resubmit=true&amp;title=%e5%85%a8%e6%96%b0%e7%9a%84%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%ef%bc%8cC&#43;&#43;%20%e4%b8%ad%e7%9a%84%20relocate%20%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0"
+      href="https://reddit.com/submit/?url=https://www.ykiko.me/zh-cn/articles/679782886/&amp;resubmit=true&amp;title=C&#43;&#43;%20%e4%b8%ad%e7%9a%84%20relocate%20%e8%af%ad%e4%b9%89"
       title="提交到 Reddit"
       aria-label="提交到 Reddit"
       >
@@ -1316,7 +1316,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://api.whatsapp.com/send?text=https://www.ykiko.me/zh-cn/articles/679782886/&amp;resubmit=true&amp;title=%e5%85%a8%e6%96%b0%e7%9a%84%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%ef%bc%8cC&#43;&#43;%20%e4%b8%ad%e7%9a%84%20relocate%20%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0"
+      href="https://api.whatsapp.com/send?text=https://www.ykiko.me/zh-cn/articles/679782886/&amp;resubmit=true&amp;title=C&#43;&#43;%20%e4%b8%ad%e7%9a%84%20relocate%20%e8%af%ad%e4%b9%89"
       title=""
       aria-label=""
       >
@@ -1335,7 +1335,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://t.me/share/url?url=https://www.ykiko.me/zh-cn/articles/679782886/&amp;resubmit=true&amp;title=%e5%85%a8%e6%96%b0%e7%9a%84%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%ef%bc%8cC&#43;&#43;%20%e4%b8%ad%e7%9a%84%20relocate%20%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0"
+      href="https://t.me/share/url?url=https://www.ykiko.me/zh-cn/articles/679782886/&amp;resubmit=true&amp;title=C&#43;&#43;%20%e4%b8%ad%e7%9a%84%20relocate%20%e8%af%ad%e4%b9%89"
       title=""
       aria-label=""
       >
@@ -1354,7 +1354,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/zh-cn/articles/679782886/&amp;description=%e5%85%a8%e6%96%b0%e7%9a%84%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%ef%bc%8cC&#43;&#43;%20%e4%b8%ad%e7%9a%84%20relocate%20%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0"
+      href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/zh-cn/articles/679782886/&amp;description=C&#43;&#43;%20%e4%b8%ad%e7%9a%84%20relocate%20%e8%af%ad%e4%b9%89"
       title="钉到 Pinterest"
       aria-label="钉到 Pinterest"
       >
@@ -1373,7 +1373,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/zh-cn/articles/679782886/&amp;quote=%e5%85%a8%e6%96%b0%e7%9a%84%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%ef%bc%8cC&#43;&#43;%20%e4%b8%ad%e7%9a%84%20relocate%20%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0"
+      href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/zh-cn/articles/679782886/&amp;quote=C&#43;&#43;%20%e4%b8%ad%e7%9a%84%20relocate%20%e8%af%ad%e4%b9%89"
       title="分享到 Facebook"
       aria-label="分享到 Facebook"
       >
@@ -1392,7 +1392,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="mailto:?body=https://www.ykiko.me/zh-cn/articles/679782886/&amp;subject=%e5%85%a8%e6%96%b0%e7%9a%84%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%ef%bc%8cC&#43;&#43;%20%e4%b8%ad%e7%9a%84%20relocate%20%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0"
+      href="mailto:?body=https://www.ykiko.me/zh-cn/articles/679782886/&amp;subject=C&#43;&#43;%20%e4%b8%ad%e7%9a%84%20relocate%20%e8%af%ad%e4%b9%89"
       title="通过电子邮件发送"
       aria-label="通过电子邮件发送"
       >

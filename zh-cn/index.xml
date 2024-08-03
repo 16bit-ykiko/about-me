@@ -69,7 +69,7 @@
     </item>
     
     <item>
-      <title>C&#43;&#43; 中 constexpr 的发展史（下）</title>
+      <title>The History of constexpr in C&#43;&#43;! (Part Two)</title>
       <link>https://www.ykiko.me/zh-cn/articles/683463723/</link>
       <pubDate>Thu, 22 Feb 2024 14:15:32 +0000</pubDate>
       
@@ -79,7 +79,7 @@
     </item>
     
     <item>
-      <title>C&#43;&#43; 中 constexpr 的发展史!（上）</title>
+      <title>The History of constexpr in C&#43;&#43;! (Part One)</title>
       <link>https://www.ykiko.me/zh-cn/articles/682031684/</link>
       <pubDate>Sat, 10 Feb 2024 15:15:47 +0000</pubDate>
       
@@ -99,7 +99,7 @@
     </item>
     
     <item>
-      <title>全新的构造函数，C&#43;&#43; 中的 relocate 构造函数</title>
+      <title>C&#43;&#43; 中的 relocate 语义</title>
       <link>https://www.ykiko.me/zh-cn/articles/679782886/</link>
       <pubDate>Thu, 25 Jan 2024 09:22:29 +0000</pubDate>
       
@@ -119,7 +119,7 @@
     </item>
     
     <item>
-      <title>手动优化C&#43;&#43;代码来加快编译速度？！</title>
+      <title>手动优化 C&#43;&#43; 代码来加快编译速度？！</title>
       <link>https://www.ykiko.me/zh-cn/articles/673852429/</link>
       <pubDate>Sat, 23 Dec 2023 15:32:28 +0000</pubDate>
       
@@ -199,7 +199,7 @@
     </item>
     
     <item>
-      <title>雾里看花：真正意义上的理解 C&#43;&#43; 模板(Template)</title>
+      <title>雾里看花：真正意义上的理解 C&#43;&#43; 模板</title>
       <link>https://www.ykiko.me/zh-cn/articles/655902377/</link>
       <pubDate>Tue, 12 Sep 2023 15:46:11 +0000</pubDate>
       

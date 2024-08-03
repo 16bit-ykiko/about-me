@@ -105,7 +105,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "3658"
+    "wordCount": "3659"
   }]
   </script>
 
@@ -580,7 +580,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-07-29 10:20:50 &#43;0000 UTC">July 29, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3658 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2023-07-29 10:20:50 &#43;0000 UTC">July 29, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3659 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -833,7 +833,7 @@
     <li><a href="#modifiable-state">modifiable state</a></li>
     <li><a href="#constant-switch">constant switch</a></li>
     <li><a href="#constant-counter">constant counter</a></li>
-    <li><a href="#easter-egg-access-private">easter egg: access private</a></li>
+    <li><a href="#-access-private">§ access private</a></li>
   </ul>
 </nav>
   </div>
@@ -851,7 +851,7 @@
     <li><a href="#modifiable-state">modifiable state</a></li>
     <li><a href="#constant-switch">constant switch</a></li>
     <li><a href="#constant-counter">constant counter</a></li>
-    <li><a href="#easter-egg-access-private">easter egg: access private</a></li>
+    <li><a href="#-access-private">§ access private</a></li>
   </ul>
 </nav>
   </div>
@@ -1135,7 +1135,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>它的原理很简单。第一次的时候，<code>setter</code>尚未有任何实例化，所以<code>flag</code>函数也没有定义，于是<code>exist</code>求值为<code>false</code>，走到了<code>if constexpr</code>里面那个分支，实例化了一个<code>setter&lt;false&gt;</code>，并且返回<code>false</code>。第二次的时候，<code>setter</code>有了一个实例化，<code>flag</code>函数也有了定义，于是<code>exist</code>求值为<code>true</code>，直接返回<code>true</code>。</p>
 <blockquote>
-<p>注意，这里的 N 的类型必须写成 auto，而不能使用 std::size_t。只有这样<code>flag(N)</code>才是 <a href="https://en.cppreference.com/w/cpp/language/dependent_name" target="_blank">dependent name</a>，才能被 requires 检测表达式合法性。由于模板的 <a href="https://en.cppreference.com/w/cpp/language/two-phase_lookup" target="_blank">two phase lookup</a>，如果写成<code>flag(0)</code>，会在第一阶段就进行查找，发现调用失败，产生一个 hard error，导致编译失败。</p>
+<p>注意，这里的 N 的类型必须写成 auto，而不能使用 std::size_t。只有这样<code>flag(N)</code>才是 <a href="https://en.cppreference.com/w/cpp/language/dependent_name" target="_blank">dependent name</a>，才能被 requires 检测表达式合法性。由于模板的 <a href="https://en.cppreference.com/w/cpp/language/two-phase_lookup" target="_blank">two phase lookup</a>，如果写成<code>flag(0)</code>，会在第一阶段就进行查找，然后发现调用失败，产生一个 hard error，导致编译错误。</p>
 </blockquote>
 
 
@@ -1177,16 +1177,16 @@
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">c</span> <span class="o">=</span> <span class="n">next</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>它的逻辑是，从<code>N</code>为 0 开始，检测<code>flag(reader&lt;N&gt;)</code>是否有定义，如果没有定义就实例化一个<code>setter&lt;N&gt;</code>，也就是给<code>flag(reader&lt;N&gt;)</code>添加定义，并返回<code>N</code>。否则递归调用<code>next&lt;N + 1&gt;()</code>，检测<code>N+1</code>的情况。所以这个计算器记录的实际上是<code>setter</code>的实例化次数。</p>
+</span></span></code></pre></div><p>它的逻辑是，从<code>N</code>为 0 开始，检测<code>flag(reader&lt;N&gt;)</code>是否有定义，如果没有定义就实例化一个<code>setter&lt;N&gt;</code>，也就是给<code>flag(reader&lt;N&gt;)</code>添加定义，并返回<code>N</code>。否则递归调用<code>next&lt;N + 1&gt;()</code>，检测<code>N+1</code>的情况。所以这个计数器记录的实际上是<code>setter</code>的实例化次数。</p>
 
 
-<h2 class="relative group">easter egg: access private 
-    <div id="easter-egg-access-private" class="anchor"></div>
+<h2 class="relative group">§ access private 
+    <div id="-access-private" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#easter-egg-access-private" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#-access-private" aria-label="锚点">#</a>
     </span>        
     
 </h2>
