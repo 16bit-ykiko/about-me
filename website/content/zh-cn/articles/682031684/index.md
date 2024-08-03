@@ -1,7 +1,7 @@
 ---
-title: 'C++ 中 constexpr 的发展史!（上）'
+title: 'The History of constexpr in C++! (Part One)'
 date: 2024-02-10 15:15:47
-updated: 2024-05-25 05:05:32
+updated: 2024-08-03 11:11:30
 ---
 
 几个月前，我写了一篇介绍 C++ 模板的文章

@@ -1,7 +1,7 @@
 ---
-title: '手动优化C++代码来加快编译速度？！'
+title: '手动优化 C++ 代码来加快编译速度？！'
 date: 2023-12-23 15:32:28
-updated: 2023-12-24 18:03:44
+updated: 2024-08-03 11:09:54
 ---
 
 事情的起因是我最近在编写的一个库  [magic cpp](https://github.com/16bit-ykiko/magic-cpp) ，正在编写其中`enum`的相关部分。打算参考一下`magic enum`的相关实现，在翻 `issue`的时候翻到这么一个神奇的`PR` 
@@ -20,7 +20,7 @@ char const* str = name.data();
           (name[i - 1] >= 'A' && name[i - 1] <= 'Z')
 ```
 
-** 优化代码**
+<br>** 优化代码**
 
 ```cpp
 char const* str = name.data();

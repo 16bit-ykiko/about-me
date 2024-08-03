@@ -1,7 +1,7 @@
 ---
 title: 'C++ 禁忌黑魔法：STMP （上）'
 date: 2023-07-29 10:20:50
-updated: 2024-07-22 10:27:10
+updated: 2024-08-03 12:48:21
 ---
 
 众所周知，传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的状态。对于任意相同的输入，它的输出结果总是相同的，被认为是**纯函数式 (purely functional)** 的。**模板元编程 (Template Meta Programming)** 作为常量求值的一个子集，也应该遵守这个规则。 
@@ -243,7 +243,7 @@ int main() {
 
 它的原理很简单。第一次的时候，`setter`尚未有任何实例化，所以`flag`函数也没有定义，于是`exist`求值为`false`，走到了`if constexpr`里面那个分支，实例化了一个`setter<false>`，并且返回`false`。第二次的时候，`setter`有了一个实例化，`flag`函数也有了定义，于是`exist`求值为`true`，直接返回`true`。
 
-> 注意，这里的 N 的类型必须写成 auto，而不能使用 std::size_t。只有这样`flag(N)`才是 [dependent name](https://en.cppreference.com/w/cpp/language/dependent_name)，才能被 requires 检测表达式合法性。由于模板的 [two phase lookup](https://en.cppreference.com/w/cpp/language/two-phase_lookup)，如果写成`flag(0)`，会在第一阶段就进行查找，发现调用失败，产生一个 hard error，导致编译失败。 
+> 注意，这里的 N 的类型必须写成 auto，而不能使用 std::size_t。只有这样`flag(N)`才是 [dependent name](https://en.cppreference.com/w/cpp/language/dependent_name)，才能被 requires 检测表达式合法性。由于模板的 [two phase lookup](https://en.cppreference.com/w/cpp/language/two-phase_lookup)，如果写成`flag(0)`，会在第一阶段就进行查找，然后发现调用失败，产生一个 hard error，导致编译错误。 
 
 ## constant counter 
 
@@ -279,9 +279,9 @@ int main() {
 }
 ```
 
-它的逻辑是，从`N`为 0 开始，检测`flag(reader<N>)`是否有定义，如果没有定义就实例化一个`setter<N>`，也就是给`flag(reader<N>)`添加定义，并返回`N`。否则递归调用`next<N + 1>()`，检测`N+1`的情况。所以这个计算器记录的实际上是`setter`的实例化次数。
+它的逻辑是，从`N`为 0 开始，检测`flag(reader<N>)`是否有定义，如果没有定义就实例化一个`setter<N>`，也就是给`flag(reader<N>)`添加定义，并返回`N`。否则递归调用`next<N + 1>()`，检测`N+1`的情况。所以这个计数器记录的实际上是`setter`的实例化次数。
 
-## easter egg: access private 
+## § access private 
 
 首先要明确一个观点：类的访问权限说明符`private`, `public`, `protected`仅仅只作用于编译期的检查。如果能通过某种手段绕过这个编译期检查，那完全就可以合法的访问类的任意成员。
 

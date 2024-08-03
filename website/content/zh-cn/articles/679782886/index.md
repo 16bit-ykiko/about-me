@@ -1,7 +1,7 @@
 ---
-title: '全新的构造函数，C++ 中的 relocate 构造函数'
+title: 'C++ 中的 relocate 语义'
 date: 2024-01-25 09:22:29
-updated: 2024-03-29 15:34:49
+updated: 2024-08-03 11:08:04
 ---
 
 众所周知，现在 C++ 里面有两种特殊的构造函数，即 copy constructor 和 move constructor
