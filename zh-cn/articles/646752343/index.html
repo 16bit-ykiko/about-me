@@ -105,7 +105,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "3659"
+    "wordCount": "3660"
   }]
   </script>
 
@@ -580,7 +580,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-07-29 10:20:50 &#43;0000 UTC">July 29, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3659 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2023-07-29 10:20:50 &#43;0000 UTC">July 29, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3660 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -833,7 +833,7 @@
     <li><a href="#modifiable-state">modifiable state</a></li>
     <li><a href="#constant-switch">constant switch</a></li>
     <li><a href="#constant-counter">constant counter</a></li>
-    <li><a href="#-access-private">§ access private</a></li>
+    <li><a href="#-access-private">§: access private</a></li>
   </ul>
 </nav>
   </div>
@@ -851,7 +851,7 @@
     <li><a href="#modifiable-state">modifiable state</a></li>
     <li><a href="#constant-switch">constant switch</a></li>
     <li><a href="#constant-counter">constant counter</a></li>
-    <li><a href="#-access-private">§ access private</a></li>
+    <li><a href="#-access-private">§: access private</a></li>
   </ul>
 </nav>
   </div>
@@ -1180,7 +1180,7 @@
 </span></span></code></pre></div><p>它的逻辑是，从<code>N</code>为 0 开始，检测<code>flag(reader&lt;N&gt;)</code>是否有定义，如果没有定义就实例化一个<code>setter&lt;N&gt;</code>，也就是给<code>flag(reader&lt;N&gt;)</code>添加定义，并返回<code>N</code>。否则递归调用<code>next&lt;N + 1&gt;()</code>，检测<code>N+1</code>的情况。所以这个计数器记录的实际上是<code>setter</code>的实例化次数。</p>
 
 
-<h2 class="relative group">§ access private 
+<h2 class="relative group">§: access private 
     <div id="-access-private" class="anchor"></div>
     
     <span
