@@ -38,8 +38,7 @@ struct list_pop_back;
 
 template <typename T, typename... Types>
 struct list_pop_back<type_list<T, Types...>> {
-    using type =
-        list_push_front_t<typename list_pop_back<type_list<Types...>>::type, T>;
+    using type = list_push_front_t<typename list_pop_back<type_list<Types...>>::type, T>;
 };
 
 template <typename T>
@@ -70,13 +69,14 @@ struct reader {
 
 template <std::size_t N, typename T>
 struct setter {
-    friend auto counted_flag(reader<N>) { return T{}; }
+    friend auto counted_flag(reader<N>) {
+        return T{};
+    }
 };
 
-template <auto tag = [] {}, auto N = 0,
-          bool condition = requires(reader<N> red) { counted_flag(red); }>
+template <auto tag = [] {}, auto N = 0, bool condition = requires(reader<N> red) { counted_flag(red); }>
 consteval auto count() {
-    if constexpr (!condition) {
+    if constexpr(!condition) {
         return N - 1;
     } else {
         return count<tag, N + 1>();
@@ -117,7 +117,7 @@ constexpr auto make_any(T&& t) {
 }
 
 template <typename... Ts>
-    requires(sizeof...(Ts) > 1)
+    requires (sizeof...(Ts) > 1)
 constexpr auto make_any(Ts&&... ts) {
     return std::vector{make_any(std::forward<Ts>(ts))...};
 }
@@ -126,7 +126,7 @@ template <typename Fn, typename T, auto tag = [] {}>
 constexpr auto wrap(Fn&& fn, void* ptr) {
     auto& value = *static_cast<T*>(ptr);
     using ret = decltype(fn(value));
-    if constexpr (std::is_same_v<ret, void>) {
+    if constexpr(std::is_same_v<ret, void>) {
         fn(value);
         return Any{nullptr, 0};
     } else {
@@ -148,7 +148,7 @@ constexpr auto visit(Fn&& fn, Any any) {
 }
 
 struct A {
-    friend std::ostream& operator<<(std::ostream& os, const A& a) {
+    friend std::ostream& operator<< (std::ostream& os, const A& a) {
         return os << "A";
     }
 };
@@ -158,7 +158,7 @@ int main() {
 
     std::vector<Any> vec = make_any(1, std::string("hello"), 3.14);
 
-    for (auto&& any : vec) {
+    for(auto&& any: vec) {
         visit([](auto&& v) { std::cout << v << std::endl; }, any);
     }
 
@@ -166,7 +166,7 @@ int main() {
     vec.push_back(make_any(std::string_view("world")));
     vec.push_back(make_any(A{}));
 
-    for (auto&& any : vec) {
+    for(auto&& any: vec) {
         visit([](auto&& v) { std::cout << v << std::endl; }, any);
     }
 }

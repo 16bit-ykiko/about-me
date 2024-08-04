@@ -1,8 +1,9 @@
+
 # clang-format configuration
 # compatible with clang-format 18
 
 UseTab: Never
-ColumnLimit: 120
+ColumnLimit: 110
 
 # Indent
 IndentWidth: 4
@@ -12,7 +13,6 @@ IndentAccessModifiers: false
 IndentCaseLabels: true
 IndentExternBlock: Indent
 IndentGotoLabels: true
-IndentPPDirectives: BeforeHash
 IndentRequiresClause: true
 IndentWrappedFunctionNames: true
 NamespaceIndentation: All
@@ -20,7 +20,7 @@ LambdaBodyIndentation: Signature
 BitFieldColonSpacing: Both
 
 # Insert
-InsertBraces: true
+InsertBraces: false
 InsertNewlineAtEOF: true
 KeepEmptyLinesAtEOF: true
 
@@ -29,31 +29,31 @@ AlignAfterOpenBracket: true
 AlignTrailingComments:
   Kind: Always
 
-AlignArrayOfStructures: Left
+
 PointerAlignment: Left
 
 # Break
-BreakBeforeBraces: Custom
-BraceWrapping:
-  AfterCaseLabel: true
-  AfterClass: true
-  AfterControlStatement: Always
-  AfterEnum: true
-  AfterFunction: true
-  AfterNamespace: true
-  AfterStruct: true
-  AfterUnion: true
-  AfterExternBlock: true
-  BeforeCatch: true
-  BeforeElse: true
-  BeforeLambdaBody: true
-  BeforeWhile: true
-  IndentBraces: false
-  SplitEmptyFunction: true
-  SplitEmptyRecord: true
-  SplitEmptyNamespace: true
+#BreakBeforeBraces: Custom
+#BraceWrapping:
+#  AfterCaseLabel: true
+#  AfterClass: true
+#  AfterControlStatement: Always
+#  AfterEnum: true
+#  AfterFunction: true
+#  AfterNamespace: true
+#  AfterStruct: true
+#  AfterUnion: true
+#  AfterExternBlock: true
+#  BeforeCatch: true
+#  BeforeElse: true
+#  BeforeLambdaBody: true
+#  BeforeWhile: true
+#  IndentBraces: false
+#  SplitEmptyFunction: true
+#  SplitEmptyRecord: true
+#  SplitEmptyNamespace: true
 
-BreakAfterAttributes: Never
+BreakAfterAttributes: Leave
 BreakBeforeBinaryOperators: None
 BreakBeforeConceptDeclarations: Always
 BreakBeforeInlineASMColon: OnlyMultiline
@@ -74,10 +74,10 @@ AllowShortBlocksOnASingleLine: Always
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortCompoundRequirementOnASingleLine: true
 AllowShortEnumsOnASingleLine: true
-AllowShortFunctionsOnASingleLine: All
-AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
 AllowShortLambdasOnASingleLine: All
-AllowShortLoopsOnASingleLine: true
+AllowShortLoopsOnASingleLine: false
 AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: true
 AlwaysBreakTemplateDeclarations: Yes

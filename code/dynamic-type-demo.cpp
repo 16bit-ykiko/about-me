@@ -6,9 +6,12 @@
 struct Type;
 
 class Any {
-    Type* type;    // type info, similar to vtable
-    void* data;    // pointer to the data
-    uint8_t flag;  // special flag
+    /// type info, similar to vtable
+    Type* type;
+    /// pointer to the data
+    void* data;
+    /// special flag
+    uint8_t flag;
 
 public:
     Any() : type(nullptr), data(nullptr), flag(0) {}
@@ -19,13 +22,18 @@ public:
     Any(Any&& other);
     ~Any();
 
+    /// box value to Any
     template <typename T>
-    Any(T&& value);  // box value to Any
+    Any(T&& value);
 
+    /// unbox Any to value
     template <typename T>
-    T& cast();  // unbox Any to value
+    T& cast();
 
-    Type* GetType() const { return type; }  // get type info
+    /// get type info
+    Type* GetType() const {
+        return type;
+    }
 
     Any invoke(std::string_view name, std::span<Any> args);  // call method
 
@@ -44,8 +52,9 @@ struct Type {
     std::unordered_map<std::string_view, Method> methods;  // method info
 };
 
+/// type_of<T> returns type info of T
 template <typename T>
-Type* type_of();  // type_of<T> returns type info of T
+Type* type_of();
 
 template <typename T>
 T& Any::cast() {
@@ -99,7 +108,9 @@ struct Person {
     std::string_view name;
     std::size_t age;
 
-    void say(std::string_view msg) { std::cout << name << " say: " << msg << std::endl; }
+    void say(std::string_view msg) {
+        std::cout << name << " say: " << msg << std::endl;
+    }
 };
 
 template <>
@@ -107,12 +118,8 @@ Type* type_of<Person>() {
     static Type type;
     type.name = "Person";
     type.destroy = [](void* obj) { delete static_cast<Person*>(obj); };
-    type.copy = [](const void* obj) {
-        return (void*)(new Person(*static_cast<const Person*>(obj)));
-    };
-    type.move = [](void* obj) {
-        return (void*)(new Person(std::move(*static_cast<Person*>(obj))));
-    };
+    type.copy = [](const void* obj) { return (void*)(new Person(*static_cast<const Person*>(obj))); };
+    type.move = [](void* obj) { return (void*)(new Person(std::move(*static_cast<Person*>(obj)))); };
     type.fields.insert({"name", {type_of<std::string_view>(), offsetof(Person, name)}});
     type.fields.insert({"age", {type_of<std::size_t>(), offsetof(Person, age)}});
     type.methods.insert({"say", type_ensure<&Person::say>()});
