@@ -105,7 +105,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "3660"
+    "wordCount": "3666"
   }]
   </script>
 
@@ -580,7 +580,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-07-29 10:20:50 &#43;0000 UTC">July 29, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3660 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2023-07-29 10:20:50 &#43;0000 UTC">July 29, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3666 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1077,11 +1077,11 @@
 </span></span></code></pre></div><p>接下来让我们谈谈如何通过友元函数来改变全局的状态。</p>
 <p>友元函数与普通函数最大的不同就在于不要求函数定义与函数声明在同一 scope 中，考虑如下示例</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="n">X</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="n">X</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Y</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">42</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">42</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">foo</span><span class="p">(</span><span class="n">X</span><span class="p">{});</span>
@@ -1090,7 +1090,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="k">auto</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="k">auto</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">);</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_complete_v</span><span class="o">&lt;&gt;</span><span class="p">);</span> <span class="c1">// #1
@@ -1116,7 +1116,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">value</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">setter</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">flag</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">flag</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="k">auto</span> <span class="n">seed</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
@@ -1152,12 +1152,12 @@
 <p>更进一步，我们可以直接实现一个编译期的计数器</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">reader</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">flag</span><span class="p">(</span><span class="n">reader</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">flag</span><span class="p">(</span><span class="n">reader</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">setter</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">flag</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">flag</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="k">auto</span> <span class="n">seed</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
