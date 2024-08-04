@@ -1,7 +1,7 @@
 ---
 title: 'C++ 禁忌黑魔法：STMP （上）'
 date: 2023-07-29 10:20:50
-updated: 2024-08-03 13:02:18
+updated: 2024-08-04 16:20:04
 ---
 
 众所周知，传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的状态。对于任意相同的输入，它的输出结果总是相同的，被认为是**纯函数式 (purely functional)** 的。**模板元编程 (Template Meta Programming)** 作为常量求值的一个子集，也应该遵守这个规则。 
@@ -184,11 +184,11 @@ static_assert(is_complete_v<>);
 
 ```cpp
 struct X {
-    friend auto foo(X);
+    friend consteval auto foo(X);
 };
 
 struct Y {
-    friend auto foo(X) { return 42; }
+    friend consteval auto foo(X) { return 42; }
 };
 
 int x = foo(X{});
@@ -201,7 +201,7 @@ auto foo(auto);
 
 template <typename T>
 struct X {
-    friend auto foo(auto value) { return sizeof(value); }
+    friend consteval auto foo(auto value) { return sizeof(value); }
 };
 
 static_assert(!is_complete_v<>); // #1
@@ -222,7 +222,7 @@ auto flag(auto);
 
 template <auto value>
 struct setter {
-    friend auto flag(auto) {}
+    friend consteval auto flag(auto) {}
 };
 
 template <auto N = 0, auto seed = [] {}>
@@ -252,12 +252,12 @@ int main() {
 ```cpp
 template <int N>
 struct reader {
-    friend auto flag(reader);
+    friend consteval auto flag(reader);
 };
 
 template <int N>
 struct setter {
-    friend auto flag(reader<N>) {}
+    friend consteval auto flag(reader<N>) {}
 };
 
 template <int N = 0, auto seed = [] {}>
