@@ -21,7 +21,9 @@ struct reader {
 
 template <meta_value value, typename T>
 struct setter {
-    friend consteval auto to_type(reader<value>) { return self<T>{}; }
+    friend consteval auto to_type(reader<value>) {
+        return self<T>{};
+    }
 };
 
 template <typename T>
@@ -34,8 +36,8 @@ consteval meta_value value_of() {
 template <meta_value value>
 using type_of = typename decltype(to_type(reader<value>{}))::type;
 
-#include <algorithm>
 #include <array>
+#include <algorithm>
 
 template <typename... Ts>
 struct type_list {};
@@ -55,8 +57,7 @@ template <typename... Ts>
 struct sort_list<type_list<Ts...>> {
     constexpr inline static std::array sorted_types = [] {
         std::array types{value_of<Ts>()...};
-        std::sort(types.begin(), types.end(),
-                  [](auto a, auto b) { return a->size < b->size; });
+        std::ranges::sort(types, [](auto lhs, auto rhs) { return lhs->size < rhs->size; });
         return types;
     }();
 
@@ -67,3 +68,4 @@ using list = type_list<int, char, int, double, char, char, double>;
 using sorted = typename sort_list<list>::result;
 using expected = type_list<char, char, char, int, int, double, double>;
 static_assert(std::is_same_v<sorted, expected>);
+
