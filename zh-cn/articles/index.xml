@@ -214,7 +214,7 @@
       <pubDate>Sun, 30 Jul 2023 01:29:27 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/646812253/</guid>
-      <description>前情提要： # C&amp;#43;&amp;#43; 禁忌黑魔法: STMP 什么是 STMP 多态 # struct Any{ void* data; std::size_t index; }; int main()</description>
+      <description>上一篇 文章 我们初步了解了 STMP 的原理，并且利用它实现了简单的一个</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/646812253/featured.png" />
     </item>
     

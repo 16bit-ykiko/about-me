@@ -66,7 +66,7 @@
   <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/646812253/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
   <meta property="og:title" content="C&#43;&#43; 禁忌黑魔法：STMP （下）">
-  <meta property="og:description" content="前情提要： # C&#43;&#43; 禁忌黑魔法: STMP 什么是 STMP 多态 # struct Any{ void* data; std::size_t index; }; int main()">
+  <meta property="og:description" content="上一篇 文章 我们初步了解了 STMP 的原理，并且利用它实现了简单的一个">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
@@ -78,7 +78,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/646812253/featured.png">
   <meta name="twitter:title" content="C&#43;&#43; 禁忌黑魔法：STMP （下）">
-  <meta name="twitter:description" content="前情提要： # C&#43;&#43; 禁忌黑魔法: STMP 什么是 STMP 多态 # struct Any{ void* data; std::size_t index; }; int main()">
+  <meta name="twitter:description" content="上一篇 文章 我们初步了解了 STMP 的原理，并且利用它实现了简单的一个">
 
   
   <script type="application/ld+json">
@@ -89,7 +89,7 @@
     "name": "C\u002b\u002b 禁忌黑魔法：STMP （下）",
     "headline": "C\u002b\u002b 禁忌黑魔法：STMP （下）",
     
-    "abstract": "前情提要： # C\u0026#43;\u0026#43; 禁忌黑魔法: STMP 什么是 STMP 多态 # struct Any{ void* data; std::size_t index; }; int main()",
+    "abstract": "上一篇 文章 我们初步了解了 STMP 的原理，并且利用它实现了简单的一个",
     "inLanguage": "zh-cn",
     "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/646812253\/",
     "author" : {
@@ -105,7 +105,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "2092"
+    "wordCount": "2529"
   }]
   </script>
 
@@ -580,7 +580,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-07-30 01:29:27 &#43;0000 UTC">July 30, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>2092 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2023-07-30 01:29:27 &#43;0000 UTC">July 30, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>2529 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">6 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -829,14 +829,9 @@
     class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#前情提要">前情提要：</a></li>
-    <li><a href="#什么是-stmp-多态">什么是 STMP 多态</a></li>
-    <li><a href="#书接上文">书接上文</a></li>
-    <li><a href="#type_list-工具箱">type_list 工具箱</a></li>
-    <li><a href="#返回不同的类型">返回不同的类型</a></li>
-    <li><a href="#编译期类型容器">编译期类型容器</a></li>
-    <li><a href="#挑战c的极限">挑战C++的极限</a></li>
-    <li><a href="#结语">结语</a></li>
+    <li><a href="#type--value">type &lt;=&gt; value</a></li>
+    <li><a href="#the-true-any">the true any</a></li>
+    <li><a href="#conclusion">conclusion</a></li>
   </ul>
 </nav>
   </div>
@@ -850,14 +845,9 @@
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#前情提要">前情提要：</a></li>
-    <li><a href="#什么是-stmp-多态">什么是 STMP 多态</a></li>
-    <li><a href="#书接上文">书接上文</a></li>
-    <li><a href="#type_list-工具箱">type_list 工具箱</a></li>
-    <li><a href="#返回不同的类型">返回不同的类型</a></li>
-    <li><a href="#编译期类型容器">编译期类型容器</a></li>
-    <li><a href="#挑战c的极限">挑战C++的极限</a></li>
-    <li><a href="#结语">结语</a></li>
+    <li><a href="#type--value">type &lt;=&gt; value</a></li>
+    <li><a href="#the-true-any">the true any</a></li>
+    <li><a href="#conclusion">conclusion</a></li>
   </ul>
 </nav>
   </div>
@@ -939,368 +929,265 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          
+          <p>上一篇 <a href="https://www.ykiko.me/zh-cn/articles/646752343" target="_blank">文章</a> 我们初步了解了 STMP 的原理，并且利用它实现了简单的一个编译期的计数器。然而，它的威力远不止如此，这篇文章就来讨论一些基于 STMP 的高级应用。</p>
 
-<h2 class="relative group">前情提要： 
-    <div id="%E5%89%8D%E6%83%85%E6%8F%90%E8%A6%81" class="anchor"></div>
+
+<h2 class="relative group">type &lt;=&gt; value 
+    <div id="type--value" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E5%89%8D%E6%83%85%E6%8F%90%E8%A6%81" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#type--value" aria-label="锚点">#</a>
     </span>        
     
 </h2>
-
-<div class="linkcard">
-    <a href="" target="_blank" class="linkcard-link">
-        <div class="linkcard-content">
-            <a class="linkcard-title">C&#43;&#43; 禁忌黑魔法: STMP</a>
-        </div>
-    </a>
-</div>
-
-<style>
-    .linkcard {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        overflow: hidden;
-        margin: auto;
-        transition: box-shadow 0.3s;
-        width: 75%;
-        height: 60%;
-        text-align: center;
-    }
-
-    .linkcard:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .linkcard-link {
-        text-decoration: none;
-        color: inherit;
-        display: block;
-    }
-
-    .linkcard-content {
-        padding: 16px;
-    }
-
-    .linkcard-title {
-        margin: 0;
-        color: black;
-        font-size: 1.5em;
-    }
-
-    .linkcard-description {
-        margin: 8px 0 0;
-        font-size: 1em;
-        color: #666;
-    }
-</style>
-
-
-<h2 class="relative group">什么是 STMP 多态 
-    <div id="%E4%BB%80%E4%B9%88%E6%98%AF-stmp-%E5%A4%9A%E6%80%81" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E4%BB%80%E4%B9%88%E6%98%AF-stmp-%E5%A4%9A%E6%80%81" aria-label="锚点">#</a>
-    </span>        
-    
-</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Any</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">index</span><span class="p">;</span>
+<p>在 C++ 中，对类型做计算的需求却一直存在，例如</p>
+<ul>
+<li><code>std::variant</code>要求其模板参数不能重复，那我们就需要对类型列表进行查重</li>
+<li>需要对<code>variant</code>类型列表进行排序，排序后相同的类型，例如<code>std::variant&lt;int, double&gt;</code>和<code>std::variant&lt;double, int&gt;</code>可以共用一份代码，减少二进制膨胀</li>
+<li>根据给定索引获取一个类型列表中的类型</li>
+<li>变序对函数参数进行映射</li>
+</ul>
+<p>等等等，这里就不一一列举了。但在 C++ 中，类型并不是一等公民，只能作为模板参数传递。为了对类型进行计算，我们往往不得不进行晦涩难懂的模板元编程。如果类型能像值一样传递给 cosntexpr 函数进行计算就好了，这样对类型的计算就会变得很简单了。直接传递肯定是不可能了，考虑建立类型和值之间的一一映射，在计算之前将类型映射到值，计算完之后再将值映射回类型，这样也能实现我们的需求。</p>
+<p>首先考虑将类型映射到值</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">identity</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">Set</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">meta_value</span> <span class="o">=</span> <span class="k">const</span> <span class="n">identity</span><span class="o">*</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Any</span><span class="o">&gt;</span> <span class="n">vec</span> <span class="o">=</span> <span class="n">make_any</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">),</span> <span class="mf">3.14</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="nl">any</span><span class="p">:</span> <span class="n">vec</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">visit</span><span class="p">([](</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> <span class="p">},</span> <span class="n">any</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">vec</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">make_any</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">(</span><span class="s">&#34;world&#34;</span><span class="p">)));</span>
-</span></span><span class="line"><span class="cl">    <span class="n">vec</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">make_any</span><span class="p">(</span><span class="n">A</span><span class="p">{}));</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;-----------------------&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="nl">any</span><span class="p">:</span> <span class="n">vec</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">visit</span><span class="p">([](</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> <span class="p">},</span> <span class="n">any</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p><code>STMP</code>多态把所有类型都擦成了<code>Any</code>类型，但是与<code>std::any</code>不同的是，<code>std::any</code>需要显示进行类型转换，非常麻烦，但是我们的<code>Any</code>可以方便的使用<code>visit</code>进行访问，不需要任何显示类型转换。这是因为我们利用了<code>STMP</code>，实现了类型的自动注册。</p>
-<p>相关的代码仍然放 <a href="https://godbolt.org/z/7W7c7P8n1" target="_blank">Compiler Explorer</a> 上。为了防止链接失效，同样放在 <a href="https://github.com/16bit-ykiko/blog/blob/main/code/stmp-polymorphic.cpp" target="_blank">Github</a>。</p>
-
-
-<h2 class="relative group">书接上文 
-    <div id="%E4%B9%A6%E6%8E%A5%E4%B8%8A%E6%96%87" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E4%B9%A6%E6%8E%A5%E4%B8%8A%E6%96%87" aria-label="锚点">#</a>
-    </span>        
-    
-</h2>
-<p>上一篇文章我们实现了一个简单编译期计数器。可以返回一个递增的序列。但是这还不够。我们这篇文章来实现编译器类型容器，可以在编译期动态的添加和删除类型。</p>
-
-
-<h2 class="relative group">type_list 工具箱 
-    <div id="type_list-%E5%B7%A5%E5%85%B7%E7%AE%B1" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#type_list-%E5%B7%A5%E5%85%B7%E7%AE%B1" aria-label="锚点">#</a>
-    </span>        
-    
-</h2>
-<p>由于我们要实现对类型列表的操作，所以一套称手的工具箱是必要的。我们简单写一些，不求多，只求够用就行。看不懂也没关系，看测试用例明白怎么用就行了。原理我就不讲解了，是非常基础的元编程知识。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// type_list
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Types</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_list</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="n">Types</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// push_back
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">List</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">list_push_back</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Types</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">list_push_back</span><span class="o">&lt;</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">Types</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="n">Types</span><span class="p">...,</span> <span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">List</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">list_push_back_t</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">list_push_back</span><span class="o">&lt;</span><span class="n">List</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// push_front
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">List</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">list_push_front</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Types</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">list_push_front</span><span class="o">&lt;</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">Types</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Types</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">List</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">list_push_front_t</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">list_push_front</span><span class="o">&lt;</span><span class="n">List</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// pop_back
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">List</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">list_pop_back</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Types</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">list_pop_back</span><span class="o">&lt;</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Types</span><span class="p">...</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">list_push_front_t</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">list_pop_back</span><span class="o">&lt;</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">Types</span><span class="p">...</span><span class="o">&gt;&gt;::</span><span class="n">type</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">storage</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="kr">inline</span> <span class="k">static</span> <span class="n">identity</span> <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">)};</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">list_pop_back</span><span class="o">&lt;</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">type_list</span><span class="o">&lt;&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">consteval</span> <span class="n">meta_value</span> <span class="n">value_of</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">&amp;</span><span class="n">storage</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>利用不同模板实例化的静态变量地址也不同的特性，我们可以轻松的把类型映射到唯一的值（地址）。反过来如何把值映射回类型呢？考虑使用朴素的模板特化</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">meta_value</span> <span class="n">value</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_of</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_of</span><span class="o">&lt;</span><span class="n">value_of</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">()</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="kt">int</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ...
+</span></span></span></code></pre></div><p>的确可以，但是这要求我们提前特化好所有要使用到的类型，对于绝大多数程序来说这是不现实的。有没有什么办法能在求值的时候添加这个特化呢？答案就是我们上一篇文章提到的 friend inject 了。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">self</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">T</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">meta_value</span> <span class="n">value</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">reader</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">to_type</span><span class="p">(</span><span class="n">reader</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">meta_value</span> <span class="n">value</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">setter</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">to_type</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">self</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">{};</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>然后我们只需在调用<code>value_of</code>实例化一个<code>setter</code>即可完成注册</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">consteval</span> <span class="n">meta_value</span> <span class="n">value_of</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">value</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">storage</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">setter</span><span class="o">&lt;</span><span class="n">value</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">setter</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>然后直接通过<code>reader</code>读取注册的结果即可实现<code>type_of</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">meta_value</span> <span class="n">value</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">type_of</span> <span class="o">=</span> <span class="k">typename</span> <span class="k">decltype</span><span class="p">(</span><span class="n">to_type</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span><span class="p">{}))</span><span class="o">::</span><span class="n">type</span><span class="p">;</span>
+</span></span></code></pre></div><p>话不多说，我们赶紧来试一下用<code>std::sort</code>一下对<code>type_list</code>进行排序</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;array&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_list</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">array</span> <span class="n">types</span><span class="p">,</span> <span class="k">typename</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="n">types</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&gt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">array_to_list</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">array</span> <span class="n">types</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">...</span> <span class="n">Is</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">array_to_list</span><span class="o">&lt;</span><span class="n">types</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">index_sequence</span><span class="o">&lt;</span><span class="n">Is</span><span class="p">...</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">result</span> <span class="o">=</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="n">type_of</span><span class="o">&lt;</span><span class="n">types</span><span class="p">[</span><span class="n">Is</span><span class="p">]</span><span class="o">&gt;</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">List</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">list_pop_back_t</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">list_pop_back</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
-</span></span></code></pre></div><p>测试用例如下</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">list0</span> <span class="o">=</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">sort_list</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">list1</span> <span class="o">=</span> <span class="n">list_push_back_t</span><span class="o">&lt;</span><span class="n">list0</span><span class="p">,</span> <span class="kt">bool</span><span class="o">&gt;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">list1</span><span class="p">,</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">bool</span><span class="o">&gt;&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">sort_list</span><span class="o">&lt;</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="kr">inline</span> <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span> <span class="n">sorted_types</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">array</span> <span class="n">types</span><span class="p">{</span><span class="n">value_of</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">()...};</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">types</span><span class="p">,</span> <span class="p">[](</span><span class="k">auto</span> <span class="n">lhs</span><span class="p">,</span> <span class="k">auto</span> <span class="n">rhs</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">lhs</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">&lt;</span> <span class="n">rhs</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">;</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">types</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}();</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">list2</span> <span class="o">=</span> <span class="n">list_push_front_t</span><span class="o">&lt;</span><span class="n">list1</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">list2</span><span class="p">,</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">bool</span><span class="o">&gt;&gt;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">list3</span> <span class="o">=</span> <span class="n">list_pop_back_t</span><span class="o">&lt;</span><span class="n">list2</span><span class="o">&gt;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">list3</span><span class="p">,</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;&gt;</span><span class="p">);</span>
-</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">result</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">array_to_list</span><span class="o">&lt;</span><span class="n">sorted_types</span><span class="o">&gt;::</span><span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p><code>type_list</code>就是一个类型容器，<code>array_to_list</code>用于将<code>std::array</code>中的类型映射回<code>type_list</code>，<code>sort_list</code>就是排序的具体实现，过程就是先把类型都映射到一个<code>std::array</code>中，然后用<code>std::ranges::sort</code>对这个数组排序，最后再将排序后的<code>std::array</code>映射回<code>type_list</code>。</p>
+<p>实验一下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">list</span> <span class="o">=</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">sorted</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">sort_list</span><span class="o">&lt;</span><span class="n">list</span><span class="o">&gt;::</span><span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">expected</span> <span class="o">=</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">sorted</span><span class="p">,</span> <span class="n">expected</span><span class="o">&gt;</span><span class="p">);</span>
+</span></span></code></pre></div><p>三大编译器 C++20 均编译通过！代码放在 <a href="https://godbolt.org/z/4qW7MhfWP" target="_blank">Compiler Explorer</a> 上了，为了防止链接失效。在 <a href="https://github.com/16bit-ykiko/about-me/blob/main/code/type-list-sort.cpp" target="_blank">Github</a> 上也放了一份。</p>
+<blockquote>
+<p>C++26 的反射，把这种映射一般化了</p>
+</blockquote>
 
-<h2 class="relative group">返回不同的类型 
-    <div id="%E8%BF%94%E5%9B%9E%E4%B8%8D%E5%90%8C%E7%9A%84%E7%B1%BB%E5%9E%8B" class="anchor"></div>
+
+<h2 class="relative group">the true any 
+    <div id="the-true-any" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E8%BF%94%E5%9B%9E%E4%B8%8D%E5%90%8C%E7%9A%84%E7%B1%BB%E5%9E%8B" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#the-true-any" aria-label="锚点">#</a>
     </span>        
     
 </h2>
-<p>先来看一个简单案例</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
+<p><code>std::any</code>常常用于类型擦除，可以把完全不同的类型擦除，并放在同一个容器里面。但是擦除容易，还原难，尤其是有些时候想把<code>any</code>里面存的对象打印出来看看，还得一个个类型去<code>cast</code>。有没有一种可能，能编写出一个真正的<code>any</code>类型呢？不需要我们去手动<code>cast</code>，直接就可以调用它里面的类型对应的成员函数呢？</p>
+<p>对于单个编译单元来说，这是完全可能的，因为单个编译单元内的构造为<code>any</code>的类型集合是编译时确定的，只需要记录下所有实例化的类型，然后使用模板元编程自动的对每个类型进行尝试即可。</p>
+<p>先考虑如何注册类型</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">self</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">T</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">reader</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">counted_flag</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">at</span><span class="p">(</span><span class="n">reader</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">setter</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">counted_flag</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">T</span><span class="p">{};</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">at</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">self</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">{};</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">setter</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">setter0</span><span class="p">;</span>  <span class="c1">// set
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="n">counted_flag</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">{});</span>  <span class="c1">// read
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">setter</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span> <span class="n">setter1</span><span class="p">;</span>  <span class="c1">// set
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">counted_flag</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">{});</span>  <span class="c1">// read
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">setter</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">setter2</span><span class="p">;</span>  <span class="c1">// set
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">auto</span> <span class="n">c</span> <span class="o">=</span> <span class="n">counted_flag</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">{});</span>  <span class="c1">// read
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>发现没有，可以在某一个位置注册信息。然后仅仅通过这个位置的序号就可以读取到对应的类型。就像一个数组一样，是不是非常神奇。原理就是很好理解，利用了类型推导以及友元函数的 ADL 查找。</p>
-
-
-<h2 class="relative group">编译期类型容器 
-    <div id="%E7%BC%96%E8%AF%91%E6%9C%9F%E7%B1%BB%E5%9E%8B%E5%AE%B9%E5%99%A8" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E7%BC%96%E8%AF%91%E6%9C%9F%E7%B1%BB%E5%9E%8B%E5%AE%B9%E5%99%A8" aria-label="锚点">#</a>
-    </span>        
-    
-</h2>
-<p>让我们结合把这个特性和程序计数器结合起来，神奇的事情就发生了。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// counter
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">reader</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">counted_flag</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">setter</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">counted_flag</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">T</span><span class="p">{};</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">tag</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{},</span>
-</span></span><span class="line"><span class="cl">          <span class="k">auto</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="kt">bool</span> <span class="n">condition</span> <span class="o">=</span> <span class="k">requires</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span> <span class="n">red</span><span class="p">)</span> <span class="p">{</span> <span class="n">counted_flag</span><span class="p">(</span><span class="n">red</span><span class="p">);</span> <span class="p">}</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">consteval</span> <span class="k">auto</span> <span class="n">count</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="o">!</span><span class="n">condition</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">consteval</span> <span class="kt">int</span> <span class="n">lookup</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">exist</span> <span class="o">=</span> <span class="k">requires</span> <span class="p">{</span> <span class="n">at</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span><span class="p">{});</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="n">exist</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="k">decltype</span><span class="p">(</span><span class="n">at</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span><span class="p">{}))</span><span class="o">::</span><span class="n">type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="k">constexpr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">type</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">N</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">lookup</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">count</span><span class="o">&lt;</span><span class="n">tag</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">setter</span><span class="o">&lt;</span><span class="n">N</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">setter</span><span class="p">{};</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">N</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">consteval</span> <span class="kt">void</span> <span class="n">Set</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">setter</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&gt;</span> <span class="n">s</span> <span class="na">[[maybe_unused]]</span><span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="k">auto</span> <span class="n">seed</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">consteval</span> <span class="kt">int</span> <span class="n">count</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">exist</span> <span class="o">=</span> <span class="k">requires</span> <span class="p">{</span> <span class="n">at</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span><span class="p">{});</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="n">exist</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">count</span><span class="o">&lt;</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">seed</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">N</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">tag</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">value</span> <span class="o">=</span> <span class="k">decltype</span><span class="p">(</span><span class="n">counted_flag</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">count</span><span class="o">&lt;</span><span class="n">tag</span><span class="o">&gt;</span><span class="p">()</span><span class="o">&gt;</span><span class="p">{}));</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">auto</span> <span class="n">tag</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">consteval</span> <span class="kt">void</span> <span class="n">push</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">len</span> <span class="o">=</span> <span class="n">count</span><span class="o">&lt;</span><span class="n">tag</span><span class="o">&gt;</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="n">setter</span><span class="o">&lt;</span><span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">list_push_back_t</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&lt;</span><span class="n">tag</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">s</span> <span class="na">[[maybe_unused]]</span><span class="p">{};</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">tag</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">consteval</span> <span class="kt">void</span> <span class="n">pop</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">len</span> <span class="o">=</span> <span class="n">count</span><span class="o">&lt;</span><span class="n">tag</span><span class="o">&gt;</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">last</span> <span class="o">=</span> <span class="n">value</span><span class="o">&lt;</span><span class="n">tag</span><span class="o">&gt;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">setter</span><span class="o">&lt;</span><span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">list_pop_back_t</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&lt;</span><span class="n">tag</span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="na">[[maybe_unused]]</span><span class="p">{};</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">Set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">push</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;&gt;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">push</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;&gt;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">pop</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;&gt;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>这里我们实现了一个<code>count</code>函数，它的原理是前面的<code>next</code>类似，不同的是，<code>next</code>每次会进行递增，而<code>count</code>仅仅是返回实例化的目标模板数量。</p>
-<p>剩下的逻辑就很简单了：</p>
-<ul>
-<li><code>Set</code>函数用来初始化一个<code>setter</code>，这个<code>setter</code>里面包含了一个类型列表，这个列表表示初始值。</li>
-<li><code>value</code>用<code>count</code>取出最后一个状态。</li>
-<li><code>push</code>用<code>count</code>取出最后一个状态的<code>index</code>，取出对应的<code>type_list</code>，然后对这个<code>type_list</code>进行操作。通过实例化一个新的模板，添加一个新的状态，把新得到的<code>type_list</code>存进去。</li>
-<li><code>pop</code>与<code>push</code>类似，只不过对<code>type_list</code>的操作变成了删除。</li>
-</ul>
-<p>按照这个原理，可以轻松的扩展很多类似的操作，其实只要对<code>type_list</code>进行操作就行了。</p>
-
-
-<h2 class="relative group">挑战C++的极限 
-    <div id="%E6%8C%91%E6%88%98c%E7%9A%84%E6%9E%81%E9%99%90" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E6%8C%91%E6%88%98c%E7%9A%84%E6%9E%81%E9%99%90" aria-label="锚点">#</a>
-    </span>        
-    
-</h2>
-<p>好了时候到了最终实现的时候了，让我们看看C++的极限在哪里。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Any
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">Any</span> <span class="p">{</span>
+</span></span></code></pre></div><p>仍然使用<code>setter</code>来注册类型。<code>lookup</code>用于查找某个类型在类型集合中的索引，原理就是遍历这个集合，然后一个个<code>is_same_v</code>比较，找到了就返回对应的索引。如果到最后都没有找到，就注册一个新的类型。<code>count</code>用于计算类型集合的大小。</p>
+<p>接下来我们定义一个简单的<code>any</code>类型，并定义一个<code>make_any</code>函数，用于构造<code>any</code>对象</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">any</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">destructor</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">index</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="nf">any</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">,</span> <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">destructor</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">index</span><span class="p">)</span> <span class="k">noexcept</span> <span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">data</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">destructor</span><span class="p">(</span><span class="n">destructor</span><span class="p">),</span> <span class="n">index</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="nf">any</span><span class="p">(</span><span class="n">any</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="k">noexcept</span> <span class="o">:</span> <span class="n">data</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">data</span><span class="p">),</span> <span class="n">destructor</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">destructor</span><span class="p">),</span> <span class="n">index</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">index</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">other</span><span class="p">.</span><span class="n">data</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">other</span><span class="p">.</span><span class="n">destructor</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="o">~</span><span class="n">any</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">data</span> <span class="o">&amp;&amp;</span> <span class="n">destructor</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">destructor</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">auto</span> <span class="n">tag</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">make_any</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">ls</span> <span class="o">=</span> <span class="n">push</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">tag</span><span class="o">&gt;</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Any</span><span class="p">{</span><span class="k">new</span> <span class="nf">auto</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">)),</span> <span class="n">count</span><span class="o">&lt;</span><span class="n">tag</span><span class="o">&gt;</span><span class="p">()};</span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Decay</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">make_any</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">lookup</span><span class="o">&lt;</span><span class="n">Decay</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Decay</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">destructor</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span> <span class="k">delete</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Decay</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">data</span><span class="p">);</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">any</span><span class="p">{</span><span class="n">data</span><span class="p">,</span> <span class="n">destructor</span><span class="p">,</span> <span class="n">index</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">requires</span> <span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">make_any</span><span class="p">(</span><span class="n">Ts</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">ts</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="p">{</span><span class="n">make_any</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ts</span><span class="p">))...};</span>
+</span></span></code></pre></div><blockquote>
+<p>为什么要额外写一个 make_any，而不是直接写一个模板构造函数呢？这是因为再我实际尝试之后，发现三大编译器对于模板构造函数实例化的位置都不一样，并且有些奇怪，导致求值结果不同。但对于普通的模板函数，实例化位置都是一样的，所以写成了一个单独的函数。</p>
+</blockquote>
+<p>重头戏来了，我们可以实现一个类似<code>std::visit</code>的函数，用于访问<code>any</code>对象。它接受一个回调函数，然后遍历<code>any</code>对象的类型集合，如果找到了对应的类型，把<code>any</code>转换成对应的类型，然后调用回调函数。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Callback</span><span class="p">,</span> <span class="k">auto</span> <span class="n">seed</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">void</span> <span class="n">visit</span><span class="p">(</span><span class="n">any</span><span class="o">&amp;</span> <span class="n">any</span><span class="p">,</span> <span class="n">Callback</span><span class="o">&amp;&amp;</span> <span class="n">callback</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="n">count</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="n">seed</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="o">&amp;</span><span class="p">]</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">...</span> <span class="n">Is</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">index_sequence</span><span class="o">&lt;</span><span class="n">Is</span><span class="p">...</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">auto</span> <span class="n">for_each</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">]</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">I</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">any</span><span class="p">.</span><span class="n">index</span> <span class="o">==</span> <span class="n">I</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">callback</span><span class="p">(</span><span class="o">*</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">type_at</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;*&gt;</span><span class="p">(</span><span class="n">any</span><span class="p">.</span><span class="n">data</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="n">for_each</span><span class="p">.</span><span class="k">template</span> <span class="k">operator</span><span class="p">()</span><span class="o">&lt;</span><span class="n">Is</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">||</span> <span class="p">...);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}(</span><span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="n">n</span><span class="o">&gt;</span><span class="p">{});</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>然后让我们尝试一下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">String</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Fn</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">auto</span> <span class="n">tag</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">wrap</span><span class="p">(</span><span class="n">Fn</span><span class="o">&amp;&amp;</span> <span class="n">fn</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">auto</span><span class="o">&amp;</span> <span class="n">value</span> <span class="o">=</span> <span class="o">*</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">ret</span> <span class="o">=</span> <span class="k">decltype</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">value</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">ret</span><span class="p">,</span> <span class="kt">void</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">fn</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">Any</span><span class="p">{</span><span class="k">nullptr</span><span class="p">,</span> <span class="mi">0</span><span class="p">};</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">push</span><span class="o">&lt;</span><span class="n">ret</span><span class="p">,</span> <span class="n">tag</span><span class="o">&gt;</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">Any</span><span class="p">{</span><span class="k">new</span> <span class="nf">auto</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="n">value</span><span class="p">)),</span> <span class="n">count</span><span class="o">&lt;</span><span class="n">tag</span><span class="o">&gt;</span><span class="p">()};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">os</span><span class="p">,</span> <span class="k">const</span> <span class="n">String</span><span class="o">&amp;</span> <span class="n">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">string</span><span class="p">.</span><span class="n">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">any</span><span class="o">&gt;</span> <span class="n">vec</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vec</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">make_any</span><span class="p">(</span><span class="mi">42</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vec</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">make_any</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">{</span><span class="s">&#34;Hello world&#34;</span><span class="p">}));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vec</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">make_any</span><span class="p">(</span><span class="mf">3.14</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">any</span><span class="p">:</span> <span class="n">vec</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">visit</span><span class="p">(</span><span class="n">any</span><span class="p">,</span> <span class="p">[](</span><span class="k">auto</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// =&gt; 42 Hello world 3.14
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">-----------------------------------------------------</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vec</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">make_any</span><span class="p">(</span><span class="n">String</span><span class="p">{</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Powerful Stateful Template Metaprogramming!!!&#34;</span><span class="p">}));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">any</span><span class="p">:</span> <span class="n">vec</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">visit</span><span class="p">(</span><span class="n">any</span><span class="p">,</span> <span class="p">[](</span><span class="k">auto</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// =&gt; 42 Hello world 3.14
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// =&gt; Powerful Stateful Template Metaprogramming!!!
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Fn</span><span class="p">,</span> <span class="k">auto</span> <span class="n">tag</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">visit</span><span class="p">(</span><span class="n">Fn</span><span class="o">&amp;&amp;</span> <span class="n">fn</span><span class="p">,</span> <span class="n">Any</span> <span class="n">any</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">size</span> <span class="o">=</span> <span class="n">count</span><span class="o">&lt;</span><span class="n">tag</span><span class="o">&gt;</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">Wrapper</span> <span class="o">=</span> <span class="n">Any</span> <span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="n">Fn</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">wrappers</span> <span class="o">=</span> <span class="p">[]</span><span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">Wrapper</span><span class="p">,</span> <span class="n">size</span><span class="o">&gt;</span><span class="p">{</span><span class="n">wrap</span><span class="o">&lt;</span><span class="n">Fn</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;</span><span class="p">...};</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}(</span><span class="n">value</span><span class="o">&lt;</span><span class="n">tag</span><span class="o">&gt;</span><span class="p">());</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">wrappers</span><span class="p">[</span><span class="n">any</span><span class="p">.</span><span class="n">index</span><span class="p">](</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Fn</span><span class="o">&gt;</span><span class="p">(</span><span class="n">fn</span><span class="p">),</span> <span class="n">any</span><span class="p">.</span><span class="n">data</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>到这里实现了对<code>Any</code>的自动注册。每次当你调用<code>make_any</code>的时候，就会自动注册一个新的类型，到全局的状态表里。然后<code>visit</code>的时候，其实我们是生成了一些<code>Wrapper</code>函数，打了一个表，然后通过<code>index</code>去调用对应的函数。这样就实现了对<code>Any</code>的自动访问。这里的关键步骤就是，向全局的状态表里面自动注册信息。其余的步骤都和<code>std::visit</code>实现类似。感兴趣的可以去看看<code>std::visit</code>的实现。</p>
+</span></span></code></pre></div><p>三大编译器都按照我们的预期输出了结果！代码同样放在 <a href="https://godbolt.org/z/aP3zs7479" target="_blank">Compiler Explorer</a> 和 <a href="https://github.com/16bit-ykiko/about-me/blob/main/code/the-true-any.cpp" target="_blank">Github</a> 上了。</p>
 
 
-<h2 class="relative group">结语 
-    <div id="%E7%BB%93%E8%AF%AD" class="anchor"></div>
+<h2 class="relative group">conclusion 
+    <div id="conclusion" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E7%BB%93%E8%AF%AD" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#conclusion" aria-label="锚点">#</a>
     </span>        
     
 </h2>
-<p>事实上，这个系列算是了解了笔者一直以来的心愿。经常听到有人调侃，男人两大爱好是：拉良家妇女下水 劝风尘女子从良。程序员，也有两大爱好：让静态类型的语言变的更动态，为动态语言加上类型检查。事实上自从我学<code>C++</code>以来，一直有这样的心愿，想要实现类型的自动注册。很遗憾，网络上相关的讨论很少。在那之后，我尝试了各种方法，包括但不限于，使用宏元编程，采用<code>libclang</code>等库<code>parse</code>对<code>C++</code>的源码进行解析，但是效果都不如<code>STMP</code>好。当我了解<code>STMP</code>，并且意识到它所能达到的高度之后。我立马通宵写完了文章和案例，毕竟它是如此的令人着迷。在这里，我不想讨论什么可读性，可维护性。由于<code>STMP</code>尚未被标准认可，所以运用到实际项目的编程里，事实上是很困难的。再一次强调，用到实际项目里面并不现实（具体可以看一下评论区讨论）。但是就像当初模板元编程的意外发现一样，这再一次证明了，一门语言能够能多么疯狂的超过它所预期的能力。本文实现的<code>STMP</code>多态，在其它任何一门语言里面都是不可能出现的，这就是<code>C++</code>的魅力所在！</p>
+<p>这两篇关于 STMP 的文章，算是了却了我一直以来的心愿。在这之前，我一直在思考，如何像上面的代码这样，实现一个真的<code>any</code>类型，无需使用者提前注册。我尝试了很多方法，最后都未能如愿。但是 STMP 的出现，让我看到了希望。再意识到它所能到达的高度之后，我立马通宵写完了文章和案例。</p>
+<p>当然了，不推荐以任何形式在实际的项目中使用这种技术。由于这种代码十分依赖于模板实例化的位置，非常容易造成 ODR 违背，并且多次重复实例化会大大增长编译时间。对于这种需要有状态的代码需求，我们往往可以将其改成无状态的代码，当然，纯手写工作量可能十分巨大，更推荐使用代码生成器进行额外的代码生成来完成这项需求。比如我们可以用 libclang 收集所有编译单元中 any 的实例化信息，然后打一个对应的表就行了。</p>
+<p>最后，感谢大家的阅读，希望这两篇文章能让你对 C++ 的模板有更深刻的理解。</p>
 
         </div>
         
