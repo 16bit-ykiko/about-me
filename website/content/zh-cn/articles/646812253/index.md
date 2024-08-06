@@ -1,7 +1,7 @@
 ---
 title: 'C++ 禁忌黑魔法：STMP （下）'
 date: 2023-07-30 01:29:27
-updated: 2024-08-04 17:56:08
+updated: 2024-08-05 02:47:15
 ---
 
 上一篇 [文章](https://www.ykiko.me/zh-cn/articles/646752343) 我们初步了解了 STMP 的原理，并且利用它实现了简单的一个编译期的计数器。然而，它的威力远不止如此，这篇文章就来讨论一些基于 STMP 的高级应用。
@@ -17,6 +17,8 @@ updated: 2024-08-04 17:56:08
 
 
 等等等，这里就不一一列举了。但在 C++ 中，类型并不是一等公民，只能作为模板参数传递。为了对类型进行计算，我们往往不得不进行晦涩难懂的模板元编程。如果类型能像值一样传递给 cosntexpr 函数进行计算就好了，这样对类型的计算就会变得很简单了。直接传递肯定是不可能了，考虑建立类型和值之间的一一映射，在计算之前将类型映射到值，计算完之后再将值映射回类型，这样也能实现我们的需求。
+
+### type -> value 
 
 首先考虑将类型映射到值
 
@@ -38,7 +40,11 @@ consteval meta_value value_of() {
 }
 ```
 
-利用不同模板实例化的静态变量地址也不同的特性，我们可以轻松的把类型映射到唯一的值（地址）。反过来如何把值映射回类型呢？考虑使用朴素的模板特化
+利用不同模板实例化的静态变量地址也不同的特性，我们可以轻松的把类型映射到唯一的值（地址）。
+
+### value -> type 
+
+反过来如何把值映射回类型呢？考虑使用朴素的模板特化
 
 ```cpp
 template <meta_value value>
@@ -73,7 +79,7 @@ struct setter {
 };
 ```
 
-然后我们只需在调用`value_of`实例化一个`setter`即可完成注册
+然后我们只需在实例化`value_of`的同时实例化一个`setter`即可完成注册
 
 ```cpp
 template <typename T>
@@ -84,12 +90,14 @@ consteval meta_value value_of() {
 }
 ```
 
-然后直接通过`reader`读取注册的结果即可实现`type_of`
+最后直接通过`reader`读取注册的结果即可实现`type_of`
 
 ```cpp
 template <meta_value value>
 using type_of = typename decltype(to_type(reader<value>{}))::type;
 ```
+
+### sort types! 
 
 话不多说，我们赶紧来试一下用`std::sort`一下对`type_list`进行排序
 
@@ -123,7 +131,7 @@ struct sort_list<type_list<Ts...>> {
 };
 ```
 
-`type_list`就是一个类型容器，`array_to_list`用于将`std::array`中的类型映射回`type_list`，`sort_list`就是排序的具体实现，过程就是先把类型都映射到一个`std::array`中，然后用`std::ranges::sort`对这个数组排序，最后再将排序后的`std::array`映射回`type_list`。
+`type_list`是一个简单的类型容器，`array_to_list`用于将`std::array`中的类型映射回`type_list`，`sort_list`就是排序的具体实现，过程就是先把类型都映射到一个`std::array`中，然后用`std::ranges::sort`对这个数组排序，最后再将排序后的`std::array`映射回`type_list`。
 
 实验一下
 
@@ -136,13 +144,15 @@ static_assert(std::is_same_v<sorted, expected>);
 
 三大编译器 C++20 均编译通过！代码放在 [Compiler Explorer](https://godbolt.org/z/4qW7MhfWP) 上了，为了防止链接失效。在 [Github](https://github.com/16bit-ykiko/about-me/blob/main/code/type-list-sort.cpp) 上也放了一份。
 
->  C++26 的反射，把这种映射一般化了 
+> 非常值得一提的是，这种类型和值的双向映射在 Reflection for C++26 中已经成为语言内置的功能。我们不再需要去利用 friend injection 这种奇淫巧技，直接使用`^`和`[: :]`运算符即可完成映射。更多内容详见 [C++26 静态反射提案解析](https://www.ykiko.me/zh-cn/articles/661692275)。  
 
 ## the true any 
 
 `std::any`常常用于类型擦除，可以把完全不同的类型擦除，并放在同一个容器里面。但是擦除容易，还原难，尤其是有些时候想把`any`里面存的对象打印出来看看，还得一个个类型去`cast`。有没有一种可能，能编写出一个真正的`any`类型呢？不需要我们去手动`cast`，直接就可以调用它里面的类型对应的成员函数呢？
 
 对于单个编译单元来说，这是完全可能的，因为单个编译单元内的构造为`any`的类型集合是编译时确定的，只需要记录下所有实例化的类型，然后使用模板元编程自动的对每个类型进行尝试即可。
+
+### type register 
 
 先考虑如何注册类型
 
@@ -193,6 +203,8 @@ consteval int count() {
 
 仍然使用`setter`来注册类型。`lookup`用于查找某个类型在类型集合中的索引，原理就是遍历这个集合，然后一个个`is_same_v`比较，找到了就返回对应的索引。如果到最后都没有找到，就注册一个新的类型。`count`用于计算类型集合的大小。
 
+### any type 
+
 接下来我们定义一个简单的`any`类型，并定义一个`make_any`函数，用于构造`any`对象
 
 ```cpp
@@ -226,6 +238,8 @@ auto make_any(T&& value) {
 ```
 
 >  为什么要额外写一个 make_any，而不是直接写一个模板构造函数呢？这是因为再我实际尝试之后，发现三大编译器对于模板构造函数实例化的位置都不一样，并且有些奇怪，导致求值结果不同。但对于普通的模板函数，实例化位置都是一样的，所以写成了一个单独的函数。 
+
+### visit it! 
 
 重头戏来了，我们可以实现一个类似`std::visit`的函数，用于访问`any`对象。它接受一个回调函数，然后遍历`any`对象的类型集合，如果找到了对应的类型，把`any`转换成对应的类型，然后调用回调函数。
 
