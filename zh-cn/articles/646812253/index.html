@@ -105,7 +105,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "2529"
+    "wordCount": "2632"
   }]
   </script>
 
@@ -580,7 +580,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-07-30 01:29:27 &#43;0000 UTC">July 30, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>2529 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">6 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2023-07-30 01:29:27 &#43;0000 UTC">July 30, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>2632 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">6 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -829,8 +829,20 @@
     class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#type--value">type &lt;=&gt; value</a></li>
-    <li><a href="#the-true-any">the true any</a></li>
+    <li><a href="#type--value">type &lt;=&gt; value</a>
+      <ul>
+        <li><a href="#type---value">type -&gt; value</a></li>
+        <li><a href="#value---type">value -&gt; type</a></li>
+        <li><a href="#sort-types">sort types!</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-true-any">the true any</a>
+      <ul>
+        <li><a href="#type-register">type register</a></li>
+        <li><a href="#any-type">any type</a></li>
+        <li><a href="#visit-it">visit it!</a></li>
+      </ul>
+    </li>
     <li><a href="#conclusion">conclusion</a></li>
   </ul>
 </nav>
@@ -845,8 +857,20 @@
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#type--value">type &lt;=&gt; value</a></li>
-    <li><a href="#the-true-any">the true any</a></li>
+    <li><a href="#type--value">type &lt;=&gt; value</a>
+      <ul>
+        <li><a href="#type---value">type -&gt; value</a></li>
+        <li><a href="#value---type">value -&gt; type</a></li>
+        <li><a href="#sort-types">sort types!</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-true-any">the true any</a>
+      <ul>
+        <li><a href="#type-register">type register</a></li>
+        <li><a href="#any-type">any type</a></li>
+        <li><a href="#visit-it">visit it!</a></li>
+      </ul>
+    </li>
     <li><a href="#conclusion">conclusion</a></li>
   </ul>
 </nav>
@@ -950,6 +974,18 @@
 <li>变序对函数参数进行映射</li>
 </ul>
 <p>等等等，这里就不一一列举了。但在 C++ 中，类型并不是一等公民，只能作为模板参数传递。为了对类型进行计算，我们往往不得不进行晦涩难懂的模板元编程。如果类型能像值一样传递给 cosntexpr 函数进行计算就好了，这样对类型的计算就会变得很简单了。直接传递肯定是不可能了，考虑建立类型和值之间的一一映射，在计算之前将类型映射到值，计算完之后再将值映射回类型，这样也能实现我们的需求。</p>
+
+
+<h3 class="relative group">type -&gt; value 
+    <div id="type---value" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#type---value" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
 <p>首先考虑将类型映射到值</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">identity</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>
@@ -966,7 +1002,20 @@
 </span></span><span class="line"><span class="cl"><span class="k">consteval</span> <span class="n">meta_value</span> <span class="n">value_of</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">&amp;</span><span class="n">storage</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>利用不同模板实例化的静态变量地址也不同的特性，我们可以轻松的把类型映射到唯一的值（地址）。反过来如何把值映射回类型呢？考虑使用朴素的模板特化</p>
+</span></span></code></pre></div><p>利用不同模板实例化的静态变量地址也不同的特性，我们可以轻松的把类型映射到唯一的值（地址）。</p>
+
+
+<h3 class="relative group">value -&gt; type 
+    <div id="value---type" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#value---type" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>反过来如何把值映射回类型呢？考虑使用朴素的模板特化</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">meta_value</span> <span class="n">value</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_of</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -993,17 +1042,29 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">self</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">{};</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>然后我们只需在调用<code>value_of</code>实例化一个<code>setter</code>即可完成注册</p>
+</span></span></code></pre></div><p>然后我们只需在实例化<code>value_of</code>的同时实例化一个<code>setter</code>即可完成注册</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">consteval</span> <span class="n">meta_value</span> <span class="n">value_of</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">value</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">storage</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">setter</span><span class="o">&lt;</span><span class="n">value</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">setter</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>然后直接通过<code>reader</code>读取注册的结果即可实现<code>type_of</code></p>
+</span></span></code></pre></div><p>最后直接通过<code>reader</code>读取注册的结果即可实现<code>type_of</code></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">meta_value</span> <span class="n">value</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">type_of</span> <span class="o">=</span> <span class="k">typename</span> <span class="k">decltype</span><span class="p">(</span><span class="n">to_type</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span><span class="p">{}))</span><span class="o">::</span><span class="n">type</span><span class="p">;</span>
-</span></span></code></pre></div><p>话不多说，我们赶紧来试一下用<code>std::sort</code>一下对<code>type_list</code>进行排序</p>
+</span></span></code></pre></div>
+
+<h3 class="relative group">sort types! 
+    <div id="sort-types" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#sort-types" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>话不多说，我们赶紧来试一下用<code>std::sort</code>一下对<code>type_list</code>进行排序</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;array&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
@@ -1031,7 +1092,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">result</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">array_to_list</span><span class="o">&lt;</span><span class="n">sorted_types</span><span class="o">&gt;::</span><span class="n">result</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p><code>type_list</code>就是一个类型容器，<code>array_to_list</code>用于将<code>std::array</code>中的类型映射回<code>type_list</code>，<code>sort_list</code>就是排序的具体实现，过程就是先把类型都映射到一个<code>std::array</code>中，然后用<code>std::ranges::sort</code>对这个数组排序，最后再将排序后的<code>std::array</code>映射回<code>type_list</code>。</p>
+</span></span></code></pre></div><p><code>type_list</code>是一个简单的类型容器，<code>array_to_list</code>用于将<code>std::array</code>中的类型映射回<code>type_list</code>，<code>sort_list</code>就是排序的具体实现，过程就是先把类型都映射到一个<code>std::array</code>中，然后用<code>std::ranges::sort</code>对这个数组排序，最后再将排序后的<code>std::array</code>映射回<code>type_list</code>。</p>
 <p>实验一下</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">list</span> <span class="o">=</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">sorted</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">sort_list</span><span class="o">&lt;</span><span class="n">list</span><span class="o">&gt;::</span><span class="n">result</span><span class="p">;</span>
@@ -1039,7 +1100,7 @@
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">sorted</span><span class="p">,</span> <span class="n">expected</span><span class="o">&gt;</span><span class="p">);</span>
 </span></span></code></pre></div><p>三大编译器 C++20 均编译通过！代码放在 <a href="https://godbolt.org/z/4qW7MhfWP" target="_blank">Compiler Explorer</a> 上了，为了防止链接失效。在 <a href="https://github.com/16bit-ykiko/about-me/blob/main/code/type-list-sort.cpp" target="_blank">Github</a> 上也放了一份。</p>
 <blockquote>
-<p>C++26 的反射，把这种映射一般化了</p>
+<p>非常值得一提的是，这种类型和值的双向映射在 Reflection for C++26 中已经成为语言内置的功能。我们不再需要去利用 friend injection 这种奇淫巧技，直接使用<code>^</code>和<code>[: :]</code>运算符即可完成映射。更多内容详见 <a href="https://www.ykiko.me/zh-cn/articles/661692275" target="_blank">C++26 静态反射提案解析</a>。</p>
 </blockquote>
 
 
@@ -1055,6 +1116,18 @@
 </h2>
 <p><code>std::any</code>常常用于类型擦除，可以把完全不同的类型擦除，并放在同一个容器里面。但是擦除容易，还原难，尤其是有些时候想把<code>any</code>里面存的对象打印出来看看，还得一个个类型去<code>cast</code>。有没有一种可能，能编写出一个真正的<code>any</code>类型呢？不需要我们去手动<code>cast</code>，直接就可以调用它里面的类型对应的成员函数呢？</p>
 <p>对于单个编译单元来说，这是完全可能的，因为单个编译单元内的构造为<code>any</code>的类型集合是编译时确定的，只需要记录下所有实例化的类型，然后使用模板元编程自动的对每个类型进行尝试即可。</p>
+
+
+<h3 class="relative group">type register 
+    <div id="type-register" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#type-register" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
 <p>先考虑如何注册类型</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">self</span> <span class="p">{</span>
@@ -1099,6 +1172,18 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>仍然使用<code>setter</code>来注册类型。<code>lookup</code>用于查找某个类型在类型集合中的索引，原理就是遍历这个集合，然后一个个<code>is_same_v</code>比较，找到了就返回对应的索引。如果到最后都没有找到，就注册一个新的类型。<code>count</code>用于计算类型集合的大小。</p>
+
+
+<h3 class="relative group">any type 
+    <div id="any-type" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#any-type" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
 <p>接下来我们定义一个简单的<code>any</code>类型，并定义一个<code>make_any</code>函数，用于构造<code>any</code>对象</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">any</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">;</span>
@@ -1130,6 +1215,18 @@
 </span></span></code></pre></div><blockquote>
 <p>为什么要额外写一个 make_any，而不是直接写一个模板构造函数呢？这是因为再我实际尝试之后，发现三大编译器对于模板构造函数实例化的位置都不一样，并且有些奇怪，导致求值结果不同。但对于普通的模板函数，实例化位置都是一样的，所以写成了一个单独的函数。</p>
 </blockquote>
+
+
+<h3 class="relative group">visit it! 
+    <div id="visit-it" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#visit-it" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
 <p>重头戏来了，我们可以实现一个类似<code>std::visit</code>的函数，用于访问<code>any</code>对象。它接受一个回调函数，然后遍历<code>any</code>对象的类型集合，如果找到了对应的类型，把<code>any</code>转换成对应的类型，然后调用回调函数。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Callback</span><span class="p">,</span> <span class="k">auto</span> <span class="n">seed</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">void</span> <span class="n">visit</span><span class="p">(</span><span class="n">any</span><span class="o">&amp;</span> <span class="n">any</span><span class="p">,</span> <span class="n">Callback</span><span class="o">&amp;&amp;</span> <span class="n">callback</span><span class="p">)</span> <span class="p">{</span>
