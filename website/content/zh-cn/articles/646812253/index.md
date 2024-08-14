@@ -2,6 +2,8 @@
 title: 'C++ 禁忌黑魔法：STMP （下）'
 date: 2023-07-30 01:29:27
 updated: 2024-08-05 02:47:15
+series: ['STMP']
+series_order: 2
 ---
 
 上一篇 [文章](https://www.ykiko.me/zh-cn/articles/646752343) 我们初步了解了 STMP 的原理，并且利用它实现了简单的一个编译期的计数器。然而，它的威力远不止如此，这篇文章就来讨论一些基于 STMP 的高级应用。
