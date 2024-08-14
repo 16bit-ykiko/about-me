@@ -1,6 +1,6 @@
 <!-- layouts/shortcodes/linkcard.html -->
 <div class="linkcard">
-    <a target="_blank" href='{{ .Get "url" }}' data-draft-node="block" data-draft-type="link-card" data-text="{{ .Get "
+    <a target="_blank" href="{{ .Get "url" }}" data-draft-node="block" data-draft-type="link-card" data-text="{{ .Get "
         title" }}" class="LinkCard new">
         <span class="LinkCard-contents">
             <span class="LinkCard-title">{{ .Get "title" | default "Loading..." }}</span>
