@@ -1,7 +1,7 @@
 ---
 title: 'C++26 静态反射提案解析'
 date: 2023-10-16 18:38:26
-updated: 2024-07-01 18:56:48
+updated: 2024-08-14 05:36:29
 series: ['Reflection']
 series_order: 6
 ---
@@ -428,7 +428,7 @@ constexpr std::string enum_to_string(E value)
 
 为了让静态反射能早点进入标准，作者团队特地选了原本提案的一部分核心子集。希望如作者所愿，静态反射能在 C++26 进入标准！当然，核心部分先进入，之后再补充更多更加有用的功能，所以这绝不是反射的全部内容。本文只是对该提案的粗略解读和翻译，想要详细了解的还请阅读下方链接中的提案，相关进展持续更新中：
 
-{{< linkcard url="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r0.html#ref-P2670R1" title="Reflection for C++26 - P2996R0" >}}
+{{< linkcard url="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r0.html" title="Reflection for C++26 - P2996R0" >}}
 
 {{< linkcard url="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r1.html" title="Reflection for C++26 - P2996R1" >}}
 
