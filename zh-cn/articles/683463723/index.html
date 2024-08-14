@@ -67,19 +67,20 @@
   <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/683463723/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
   <meta property="og:title" content="The History of constexpr in C&#43;&#43;! (Part Two)">
-  <meta property="og:description" content="前情提要： # 2015-2016：模板的语法糖 # 在 C&#43;&#43; 中支持 全特">
+  <meta property="og:description" content="前情提要： # Loading... Loading description... 2015-2016：模板的语法糖 # 在 C&#43;&#43; 中支">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
     <meta property="article:published_time" content="2024-02-22T14:15:32+00:00">
     <meta property="article:modified_time" content="2024-02-22T14:15:32+00:00">
     <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/683463723/featured.png">
+      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/682031684/">
 
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/683463723/featured.png">
   <meta name="twitter:title" content="The History of constexpr in C&#43;&#43;! (Part Two)">
-  <meta name="twitter:description" content="前情提要： # 2015-2016：模板的语法糖 # 在 C&#43;&#43; 中支持 全特">
+  <meta name="twitter:description" content="前情提要： # Loading... Loading description... 2015-2016：模板的语法糖 # 在 C&#43;&#43; 中支">
 
   
   <script type="application/ld+json">
@@ -90,7 +91,7 @@
     "name": "The History of constexpr in C\u002b\u002b! (Part Two)",
     "headline": "The History of constexpr in C\u002b\u002b! (Part Two)",
     
-    "abstract": "前情提要： # 2015-2016：模板的语法糖 # 在 C\u002b\u002b 中支持 全特",
+    "abstract": "前情提要： # Loading... Loading description... 2015-2016：模板的语法糖 # 在 C\u002b\u002b 中支",
     "inLanguage": "zh-cn",
     "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/683463723\/",
     "author" : {
@@ -106,7 +107,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "7136"
+    "wordCount": "7139"
   }]
   </script>
 
@@ -583,7 +584,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-02-22 14:15:32 &#43;0000 UTC">February 22, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>7136 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">15 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2024-02-22 14:15:32 &#43;0000 UTC">February 22, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>7139 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">15 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -955,6 +956,34 @@
       <div class="min-w-0 min-h-0 max-w-fit">
         
         
+<details style="margin-left:0px" class="mt-2 mb-5 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5" >
+    
+    <summary
+        class="py-1 text-lg font-semibold cursor-pointer bg-primary-200 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-primary-800 dark:text-neutral-100">
+        Constexpr - 这篇文章属于一个选集。
+    </summary>
+    
+    
+    
+    <div
+        class="py-1 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+        <a href="https://www.ykiko.me/zh-cn/articles/682031684/">
+            § 1: The History of constexpr in C&#43;&#43;! (Part One)
+        </a>
+    </div>
+    
+    
+    
+    <div
+        class="py-1 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+        § 2: 本文
+    </div>
+    
+    
+
+
+</details>
+
 
 
         <div class="article-content max-w-prose mb-20">
@@ -972,49 +1001,54 @@
 </h2>
 
 <div class="linkcard">
-    <a href="" target="_blank" class="linkcard-link">
-        <div class="linkcard-content">
-            <a class="linkcard-title"></a>
-        </div>
+    <a target="_blank" href="" class="LinkCard">
+        <span class="LinkCard-contents">
+            <span class="LinkCard-title">Loading...</span>
+            <span class="LinkCard-desc">Loading description...</span>
+        </span>
+        <span class="LinkCard-image"></span>
     </a>
 </div>
 
 <style>
-    .linkcard {
+    .LinkCard {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
         border: 1px solid #ddd;
         border-radius: 8px;
-        overflow: hidden;
-        margin: auto;
-        transition: box-shadow 0.3s;
-        width: 75%;
-        height: 60%;
-        text-align: center;
+        padding: 10px;
+        margin: 10px 0;
+        transition: box-shadow 0.3s ease;
     }
 
-    .linkcard:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    .LinkCard:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .linkcard-link {
-        text-decoration: none;
-        color: inherit;
-        display: block;
+    .LinkCard-contents {
+        flex-grow: 1;
+        padding-right: 10px;
     }
 
-    .linkcard-content {
-        padding: 16px;
+    .LinkCard-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
     }
 
-    .linkcard-title {
-        margin: 0;
-        color: black;
-        font-size: 1.5em;
-    }
-
-    .linkcard-description {
-        margin: 8px 0 0;
-        font-size: 1em;
+    .LinkCard-desc {
+        font-size: 14px;
         color: #666;
+    }
+
+    .LinkCard-image {
+        width: 50px;
+        height: 50px;
+        background-color: #eee;
+        border-radius: 50%;
+        flex-shrink: 0;
     }
 </style>
 
@@ -1502,6 +1536,34 @@
         
 
         
+<details style="margin-left:0px" class="mt-2 mb-5 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5">
+    
+    <summary
+        class="py-1 text-lg font-semibold cursor-pointer bg-primary-200 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-primary-800 dark:text-neutral-100">
+        Constexpr - 这篇文章属于一个选集。
+    </summary>
+    
+    
+    
+    <div
+        class="py-1 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+        <a href="https://www.ykiko.me/zh-cn/articles/682031684/">
+            § 1: The History of constexpr in C&#43;&#43;! (Part One)
+        </a>
+    </div>
+    
+    
+    
+    <div
+        class="py-1 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+        § 2: 本文
+    </div>
+    
+    
+
+
+</details>
+
         
   
   <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">

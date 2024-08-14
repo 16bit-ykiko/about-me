@@ -106,7 +106,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "7480"
+    "wordCount": "7482"
   }]
   </script>
 
@@ -583,7 +583,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-03-11 01:33:37 &#43;0000 UTC">March 11, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>7480 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">15 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2024-03-11 01:33:37 &#43;0000 UTC">March 11, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>7482 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">15 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1342,49 +1342,54 @@
 <p>那对于<code>vector</code>来说，如果 T 里面的元素类型不同，扩容逻辑还能相同吗？考虑到构造函数调用，似乎没任何办法。关键点来了，这里需要介绍一个<code>trivially_relocatable</code>的概念，具体的讨论可以参考</p>
 
 <div class="linkcard">
-    <a href="" target="_blank" class="linkcard-link">
-        <div class="linkcard-content">
-            <a class="linkcard-title">全新的构造函数，C&#43;&#43; 中的 relocate 构造函数</a>
-        </div>
+    <a target="_blank" href="" class="LinkCard">
+        <span class="LinkCard-contents">
+            <span class="LinkCard-title">全新的构造函数，C&#43;&#43; 中的 relocate 构造函数</span>
+            <span class="LinkCard-desc">Loading description...</span>
+        </span>
+        <span class="LinkCard-image"></span>
     </a>
 </div>
 
 <style>
-    .linkcard {
+    .LinkCard {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
         border: 1px solid #ddd;
         border-radius: 8px;
-        overflow: hidden;
-        margin: auto;
-        transition: box-shadow 0.3s;
-        width: 75%;
-        height: 60%;
-        text-align: center;
+        padding: 10px;
+        margin: 10px 0;
+        transition: box-shadow 0.3s ease;
     }
 
-    .linkcard:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    .LinkCard:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .linkcard-link {
-        text-decoration: none;
-        color: inherit;
-        display: block;
+    .LinkCard-contents {
+        flex-grow: 1;
+        padding-right: 10px;
     }
 
-    .linkcard-content {
-        padding: 16px;
+    .LinkCard-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
     }
 
-    .linkcard-title {
-        margin: 0;
-        color: black;
-        font-size: 1.5em;
-    }
-
-    .linkcard-description {
-        margin: 8px 0 0;
-        font-size: 1em;
+    .LinkCard-desc {
+        font-size: 14px;
         color: #666;
+    }
+
+    .LinkCard-image {
+        width: 50px;
+        height: 50px;
+        background-color: #eee;
+        border-radius: 50%;
+        flex-shrink: 0;
     }
 </style>
 <p>我们这里只说结果，如果一个类型是<code>trivially_relocatable</code>的，那么可以使用<code>memcpy</code>把它从旧内存移动到新内存，不需要调用构造函数了。</p>

@@ -61,6 +61,28 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://www.ykiko.me/zh-cn/series/constexpr/</loc>
+    <lastmod>2024-02-22T14:15:32+00:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.ykiko.me/zh-cn/series/</loc>
+    <lastmod>2024-02-22T14:15:32+00:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+      rel="alternate"
+      hreflang="en-us"
+      href="https://www.ykiko.me/en-us/series/"
+    />
+    <xhtml:link
+      rel="alternate"
+      hreflang="zh-cn"
+      href="https://www.ykiko.me/zh-cn/series/"
+    />
+  </url>
+  <url>
     <loc>https://www.ykiko.me/zh-cn/articles/683463723/</loc>
     <lastmod>2024-02-22T14:15:32+00:00</lastmod>
     <changefreq>always</changefreq>
@@ -101,22 +123,6 @@
     <lastmod>2023-12-03T15:40:52+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.ykiko.me/zh-cn/series/</loc>
-    <lastmod>2023-12-03T15:40:52+00:00</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-      rel="alternate"
-      hreflang="en-us"
-      href="https://www.ykiko.me/en-us/series/"
-    />
-    <xhtml:link
-      rel="alternate"
-      hreflang="zh-cn"
-      href="https://www.ykiko.me/zh-cn/series/"
-    />
   </url>
   <url>
     <loc>https://www.ykiko.me/zh-cn/articles/670191053/</loc>
