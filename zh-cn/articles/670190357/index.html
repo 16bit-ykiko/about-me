@@ -111,7 +111,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "3351"
+    "wordCount": "3347"
   }]
   </script>
 
@@ -588,7 +588,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-12-03 15:37:51 &#43;0000 UTC">December 3, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3351 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2023-12-03 15:37:51 &#43;0000 UTC">December 3, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3347 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1259,54 +1259,96 @@
 </span></span></code></pre></div><p>或者如果你的<code>vscode</code>装了<code>clangd</code>这个插件，可以右键选择一块代码，然后右键<code>show AST</code>来看这块代码片段的<code>ast</code>。可以发现上面的确是把源码内容以树的方式呈现给我们了，既然是一颗树，我们就可以自由的遍历树的节点，然后筛选获取我们想要的信息。上面两例都是可视化的输出，通常情况下也会有直接的代码接口来直接获取。比如<code>python</code>内置就有<code>ast</code>模块来获取，<code>C++</code>一般是通过<code>clang</code>相关的工具来获取这些内容。如果想知道具体该如何使用<code>clang</code>工具，可以参考这篇文章</p>
 
 <div class="linkcard">
-    <a target="_blank" href="" class="LinkCard">
+    <a target="_blank" href="" data-draft-node="block"
+        data-draft-type="link-card" data-text="" class="LinkCard new">
         <span class="LinkCard-contents">
             <span class="LinkCard-title">使用 clang 工具自由的支配 C&#43;&#43; 代码吧！</span>
-            <span class="LinkCard-desc">Loading description...</span>
         </span>
-        <span class="LinkCard-image"></span>
+        <span class="LinkCard-image LinkCard-image--default">
+            
+        </span>
     </a>
 </div>
 
+
 <style>
-    .LinkCard {
+    .linkcard .LinkCard.new {
+        position: relative;
+        display: flex;
+        box-sizing: border-box;
+        flex-direction: row;
+        align-items: center;
+        width: 390px;
+        min-height: 84px;
+        border-radius: 8px;
+        max-width: 100%;
+        overflow: hidden;
+        margin: 16px auto;
+        padding: 12px 12px 9px 12px;
+        background-color: #f8f8fa;
+    }
+
+    .linkcard .LinkCard.new,
+    .linkcard .LinkCard.new:hover {
+        text-decoration: none;
+        border: none !important;
+        color: inherit !important;
+    }
+
+    .linkcard .LinkCard.new .LinkCard-contents {
+        display: block;
+        flex: 1 1 auto;
+        position: relative;
+    }
+
+    .linkcard .LinkCard.new .LinkCard-title {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.4;
+        margin-bottom: 2px;
+        color: #191B1F;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        -moz-box-orient: vertical;
+        -moz-line-clamp: 1;
+        -ms-box-orient: vertical;
+        -ms-line-clamp: 1;
+        box-orient: vertical;
+        line-clamp: 1;
+    }
+
+    .linkcard .LinkCard.new .LinkCard-image {
+        flex: 0 0 auto;
+        background-color: #ebeced;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        width: 60px;
+        height: 60px;
+        margin-left: 20px;
+        object-fit: cover;
+        border-radius: inherit;
+        overflow: hidden;
+    }
+
+    .linkcard .LinkCard.new .LinkCard-image.LinkCard-image--default {
         display: flex;
         align-items: center;
-        text-decoration: none;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 10px;
-        margin: 10px 0;
-        transition: box-shadow 0.3s ease;
+        justify-content: center;
+        background-color: #ebeced;
+        color: #c4c7ce;
     }
 
-    .LinkCard:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .LinkCard-contents {
-        flex-grow: 1;
-        padding-right: 10px;
-    }
-
-    .LinkCard-title {
-        font-size: 18px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 5px;
-    }
-
-    .LinkCard-desc {
-        font-size: 14px;
-        color: #666;
-    }
-
-    .LinkCard-image {
-        width: 50px;
-        height: 50px;
-        background-color: #eee;
-        border-radius: 50%;
-        flex-shrink: 0;
+    .linkcard .LinkCard.new .LinkCard-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 </style>
 <p>如果你好奇编译器究竟是如何把源代码变成<code>ast</code>的，你可以去学习一下编译原理前端的内容。</p>
@@ -1355,54 +1397,96 @@
 </span></span></code></pre></div><p>这样无疑给了我们更大的操作空间，那么有了这些信息之后，下一步该做些什么？事实上我们可以选择基于这部分信息进行代码生成，相关的内容可以浏览系列文章中的其它小节。总目录的链接在下方：</p>
 
 <div class="linkcard">
-    <a target="_blank" href="" class="LinkCard">
+    <a target="_blank" href="" data-draft-node="block"
+        data-draft-type="link-card" data-text="" class="LinkCard new">
         <span class="LinkCard-contents">
             <span class="LinkCard-title">写给 C&#43;&#43; 程序员的反射教程</span>
-            <span class="LinkCard-desc">Loading description...</span>
         </span>
-        <span class="LinkCard-image"></span>
+        <span class="LinkCard-image LinkCard-image--default">
+            
+        </span>
     </a>
 </div>
 
+
 <style>
-    .LinkCard {
+    .linkcard .LinkCard.new {
+        position: relative;
+        display: flex;
+        box-sizing: border-box;
+        flex-direction: row;
+        align-items: center;
+        width: 390px;
+        min-height: 84px;
+        border-radius: 8px;
+        max-width: 100%;
+        overflow: hidden;
+        margin: 16px auto;
+        padding: 12px 12px 9px 12px;
+        background-color: #f8f8fa;
+    }
+
+    .linkcard .LinkCard.new,
+    .linkcard .LinkCard.new:hover {
+        text-decoration: none;
+        border: none !important;
+        color: inherit !important;
+    }
+
+    .linkcard .LinkCard.new .LinkCard-contents {
+        display: block;
+        flex: 1 1 auto;
+        position: relative;
+    }
+
+    .linkcard .LinkCard.new .LinkCard-title {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.4;
+        margin-bottom: 2px;
+        color: #191B1F;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        -moz-box-orient: vertical;
+        -moz-line-clamp: 1;
+        -ms-box-orient: vertical;
+        -ms-line-clamp: 1;
+        box-orient: vertical;
+        line-clamp: 1;
+    }
+
+    .linkcard .LinkCard.new .LinkCard-image {
+        flex: 0 0 auto;
+        background-color: #ebeced;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        width: 60px;
+        height: 60px;
+        margin-left: 20px;
+        object-fit: cover;
+        border-radius: inherit;
+        overflow: hidden;
+    }
+
+    .linkcard .LinkCard.new .LinkCard-image.LinkCard-image--default {
         display: flex;
         align-items: center;
-        text-decoration: none;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 10px;
-        margin: 10px 0;
-        transition: box-shadow 0.3s ease;
+        justify-content: center;
+        background-color: #ebeced;
+        color: #c4c7ce;
     }
 
-    .LinkCard:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .LinkCard-contents {
-        flex-grow: 1;
-        padding-right: 10px;
-    }
-
-    .LinkCard-title {
-        font-size: 18px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 5px;
-    }
-
-    .LinkCard-desc {
-        font-size: 14px;
-        color: #666;
-    }
-
-    .LinkCard-image {
-        width: 50px;
-        height: 50px;
-        background-color: #eee;
-        border-radius: 50%;
-        flex-shrink: 0;
+    .linkcard .LinkCard.new .LinkCard-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 </style>
 

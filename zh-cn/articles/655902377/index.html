@@ -106,7 +106,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "7796"
+    "wordCount": "7794"
   }]
   </script>
 
@@ -583,7 +583,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-09-12 15:46:11 &#43;0000 UTC">September 12, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>7796 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">16 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2023-09-12 15:46:11 &#43;0000 UTC">September 12, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>7794 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">16 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1355,54 +1355,96 @@
 </span></span></code></pre></div><p>在 C++23 之后也可以直接用typeid实现映射，而不使用字符串映射。但是类型映射到值简单，把值映射到类型回去可一点都不简单，除非你利用 <a href="https://www.ykiko.me/zh-cn/articles/646752343" target="_blank">STMP</a> 这种黑魔法，才能方便的把值映射回类型。但是，如果静态反射将来被引入，那么这种从类型和值的双向映射会非常简单。这样的话虽然不能直接支持把类型当成值来进行操作，但是也基本差不多了。不过还有很长一段路要走，具体什么时候能加入标准，还是个未知数。如果对静态反射感兴趣，可以下面这篇文章</p>
 
 <div class="linkcard">
-    <a target="_blank" href="" class="LinkCard">
+    <a target="_blank" href="" data-draft-node="block"
+        data-draft-type="link-card" data-text="" class="LinkCard new">
         <span class="LinkCard-contents">
             <span class="LinkCard-title">C&#43;&#43;26 静态反射提案解析</span>
-            <span class="LinkCard-desc">Loading description...</span>
         </span>
-        <span class="LinkCard-image"></span>
+        <span class="LinkCard-image LinkCard-image--default">
+            
+        </span>
     </a>
 </div>
 
+
 <style>
-    .LinkCard {
+    .linkcard .LinkCard.new {
+        position: relative;
+        display: flex;
+        box-sizing: border-box;
+        flex-direction: row;
+        align-items: center;
+        width: 390px;
+        min-height: 84px;
+        border-radius: 8px;
+        max-width: 100%;
+        overflow: hidden;
+        margin: 16px auto;
+        padding: 12px 12px 9px 12px;
+        background-color: #f8f8fa;
+    }
+
+    .linkcard .LinkCard.new,
+    .linkcard .LinkCard.new:hover {
+        text-decoration: none;
+        border: none !important;
+        color: inherit !important;
+    }
+
+    .linkcard .LinkCard.new .LinkCard-contents {
+        display: block;
+        flex: 1 1 auto;
+        position: relative;
+    }
+
+    .linkcard .LinkCard.new .LinkCard-title {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.4;
+        margin-bottom: 2px;
+        color: #191B1F;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        -moz-box-orient: vertical;
+        -moz-line-clamp: 1;
+        -ms-box-orient: vertical;
+        -ms-line-clamp: 1;
+        box-orient: vertical;
+        line-clamp: 1;
+    }
+
+    .linkcard .LinkCard.new .LinkCard-image {
+        flex: 0 0 auto;
+        background-color: #ebeced;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        width: 60px;
+        height: 60px;
+        margin-left: 20px;
+        object-fit: cover;
+        border-radius: inherit;
+        overflow: hidden;
+    }
+
+    .linkcard .LinkCard.new .LinkCard-image.LinkCard-image--default {
         display: flex;
         align-items: center;
-        text-decoration: none;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 10px;
-        margin: 10px 0;
-        transition: box-shadow 0.3s ease;
+        justify-content: center;
+        background-color: #ebeced;
+        color: #c4c7ce;
     }
 
-    .LinkCard:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .LinkCard-contents {
-        flex-grow: 1;
-        padding-right: 10px;
-    }
-
-    .LinkCard-title {
-        font-size: 18px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 5px;
-    }
-
-    .LinkCard-desc {
-        font-size: 14px;
-        color: #666;
-    }
-
-    .LinkCard-image {
-        width: 50px;
-        height: 50px;
-        background-color: #eee;
-        border-radius: 50%;
-        flex-shrink: 0;
+    .linkcard .LinkCard.new .LinkCard-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 </style>
 
