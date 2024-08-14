@@ -1,56 +1,96 @@
 <!-- layouts/shortcodes/linkcard.html -->
 <div class="linkcard">
-    <a target="_blank" href="{{ .Get "url" }}" data-draft-node="block" data-draft-type="link-card" data-text="{{ .Get "
-        title" }}" class="LinkCard new">
+    <a target="{{ .Get " target" | default "_blank" }}" href="{{ .Get " url" }}" data-draft-node="block"
+        data-draft-type="link-card" data-text="{{ .Get " title" }}" class="LinkCard new">
         <span class="LinkCard-contents">
             <span class="LinkCard-title">{{ .Get "title" | default "Loading..." }}</span>
         </span>
-        <span class="LinkCard-image LinkCard-image--default"></span>
+        <span class="LinkCard-image LinkCard-image--default">
+            {{ if .Get "image" }}
+            <img src="{{ .Get " image" }}" alt="{{ .Get " title" }}">
+            {{ end }}
+        </span>
     </a>
 </div>
 
+
 <style>
-    .linkcard {
-        margin: 20px 0;
+    .linkcard .LinkCard.new {
+        position: relative;
+        display: flex;
+        box-sizing: border-box;
+        flex-direction: row;
+        align-items: center;
+        width: 390px;
+        min-height: 84px;
+        border-radius: 8px;
+        max-width: 100%;
+        overflow: hidden;
+        margin: 16px auto;
+        padding: 12px 12px 9px 12px;
+        background-color: #f8f8fa;
     }
 
-    .LinkCard {
+    .linkcard .LinkCard.new,
+    .linkcard .LinkCard.new:hover {
+        text-decoration: none;
+        border: none !important;
+        color: inherit !important;
+    }
+
+    .linkcard .LinkCard.new .LinkCard-contents {
+        display: block;
+        flex: 1 1 auto;
+        position: relative;
+    }
+
+    .linkcard .LinkCard.new .LinkCard-title {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.4;
+        margin-bottom: 2px;
+        color: #191B1F;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        -moz-box-orient: vertical;
+        -moz-line-clamp: 1;
+        -ms-box-orient: vertical;
+        -ms-line-clamp: 1;
+        box-orient: vertical;
+        line-clamp: 1;
+    }
+
+    .linkcard .LinkCard.new .LinkCard-image {
+        flex: 0 0 auto;
+        background-color: #ebeced;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        width: 60px;
+        height: 60px;
+        margin-left: 20px;
+        object-fit: cover;
+        border-radius: inherit;
+        overflow: hidden;
+    }
+
+    .linkcard .LinkCard.new .LinkCard-image.LinkCard-image--default {
         display: flex;
         align-items: center;
-        text-decoration: none;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 10px;
-        transition: box-shadow 0.3s ease;
-        background-color: #f9f9f9;
+        justify-content: center;
+        background-color: #ebeced;
+        color: #c4c7ce;
     }
 
-    .LinkCard:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .LinkCard-contents {
-        flex-grow: 1;
-        padding-right: 10px;
-    }
-
-    .LinkCard-title {
-        font-size: 18px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 5px;
-    }
-
-    .LinkCard-desc {
-        font-size: 14px;
-        color: #666;
-    }
-
-    .LinkCard-image {
-        width: 50px;
-        height: 50px;
-        background-color: #eee;
-        border-radius: 50%;
-        flex-shrink: 0;
+    .linkcard .LinkCard.new .LinkCard-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 </style>
