@@ -1,13 +1,13 @@
 <!-- layouts/shortcodes/linkcard.html -->
 <div class="linkcard">
-    <a target="{{ .Get " target" | default "_blank" }}" href="{{ .Get " url" }}" data-draft-node="block"
-        data-draft-type="link-card" data-text="{{ .Get " title" }}" class="LinkCard new">
+    <a target="{{ .Get "target" | default "_blank" }}" href="{{ .Get "url" }}" data-draft-node="block"
+        data-draft-type="link-card" data-text="{{ .Get "title" }}" class="LinkCard new">
         <span class="LinkCard-contents">
             <span class="LinkCard-title">{{ .Get "title" | default "Loading..." }}</span>
         </span>
         <span class="LinkCard-image LinkCard-image--default">
             {{ if .Get "image" }}
-            <img src="{{ .Get " image" }}" alt="{{ .Get " title" }}">
+            <img src="{{ .Get "image" }}" alt="{{ .Get "title" }}">
             {{ end }}
         </span>
     </a>
