@@ -1,15 +1,19 @@
 <!-- layouts/shortcodes/linkcard.html -->
 <div class="linkcard">
-    <a target="{{ .Get " target" | default "_blank" }}" href="{{ .Get " url" }}" class="LinkCard">
+    <a target="_blank" href='{{ .Get "url" }}' data-draft-node="block" data-draft-type="link-card" data-text="{{ .Get "
+        title" }}" class="LinkCard new">
         <span class="LinkCard-contents">
             <span class="LinkCard-title">{{ .Get "title" | default "Loading..." }}</span>
-            <span class="LinkCard-desc">{{ .Get "desc" | default "Loading description..." }}</span>
         </span>
-        <span class="LinkCard-image"></span>
+        <span class="LinkCard-image LinkCard-image--default"></span>
     </a>
 </div>
 
 <style>
+    .linkcard {
+        margin: 20px 0;
+    }
+
     .LinkCard {
         display: flex;
         align-items: center;
@@ -17,8 +21,8 @@
         border: 1px solid #ddd;
         border-radius: 8px;
         padding: 10px;
-        margin: 10px 0;
         transition: box-shadow 0.3s ease;
+        background-color: #f9f9f9;
     }
 
     .LinkCard:hover {
