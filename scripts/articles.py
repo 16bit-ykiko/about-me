@@ -11,9 +11,9 @@ class Article:
 
 Article("https://zhuanlan.zhihu.com/p/645810896", ["C++", "STL", "Template"])
 Article("https://zhuanlan.zhihu.com/p/646752343",
-        ["C++", "STL", "Template", "STMP"])
+        ["C++", "STL", "Template", "STMP"], series=("STMP", 1))
 Article("https://zhuanlan.zhihu.com/p/646812253",
-        ["C++", "STL", "Template", "STMP"])
+        ["C++", "STL", "Template", "STMP"], series=("STMP", 2))
 Article("https://zhuanlan.zhihu.com/p/655902377",
         ["C++", "Template, Overview"])
 Article("https://zhuanlan.zhihu.com/p/659510753", ["C++", "Language Feature"])
