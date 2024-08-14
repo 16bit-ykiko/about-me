@@ -2,6 +2,8 @@
 title: 'The History of constexpr in C++! (Part Two)'
 date: 2024-02-22 14:15:32
 updated: 2024-08-03 11:12:44
+series: ['Constexpr']
+series_order: 2
 ---
 
 ## 前情提要： 
