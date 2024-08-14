@@ -10,10 +10,13 @@ class Article:
 
 
 Article("https://zhuanlan.zhihu.com/p/645810896", ["C++", "STL", "Template"])
+
+# STMP Series
 Article("https://zhuanlan.zhihu.com/p/646752343",
         ["C++", "STL", "Template", "STMP"], series=("STMP", 1))
 Article("https://zhuanlan.zhihu.com/p/646812253",
         ["C++", "STL", "Template", "STMP"], series=("STMP", 2))
+
 Article("https://zhuanlan.zhihu.com/p/655902377",
         ["C++", "Template, Overview"])
 Article("https://zhuanlan.zhihu.com/p/659510753", ["C++", "Language Feature"])
@@ -33,13 +36,18 @@ Article("https://zhuanlan.zhihu.com/p/670191053",
         tags=["C++", "Reflection", "Type Ensure"], series=("Reflection", 3))
 
 Article("https://zhuanlan.zhihu.com/p/673852429",
-        ["C++", "Constexpr", "Compiler", "CLang"])
+        ["C++", "Constexpr", "Compiler", "Clang"])
 Article("https://zhuanlan.zhihu.com/p/674157958", ["C++", "Template"])
 Article("https://zhuanlan.zhihu.com/p/679782886",
         ["C++", "Relocatable", "STL"])
 Article("https://zhuanlan.zhihu.com/p/680412313", ["C++", "Template"])
-Article("https://zhuanlan.zhihu.com/p/682031684", ["C++", "Constexpr"])
-Article("https://zhuanlan.zhihu.com/p/683463723", ["C++", "Constexpr"])
+
+# Constexpr Series
+Article("https://zhuanlan.zhihu.com/p/682031684",
+        ["C++", "Constexpr"], series=("Constexpr", 1))
+Article("https://zhuanlan.zhihu.com/p/683463723",
+        ["C++", "Constexpr"], series=("Constexpr", 2))
+
 Article("https://zhuanlan.zhihu.com/p/686296374",
         ["C++", "Template", "Binary inflation"])
 Article("https://zhuanlan.zhihu.com/p/692886292", ["C++", "ABI", "OS"])
