@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>STMP on ykiko&#39;s blog</title>
+    <link>https://www.ykiko.me/zh-cn/series/stmp/</link>
+    <description>Recent content in STMP on ykiko&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>© 2024 ykiko</copyright>
+    <lastBuildDate>Sun, 30 Jul 2023 01:29:27 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/zh-cn/series/stmp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43; 禁忌黑魔法：STMP （下）</title>
+      <link>https://www.ykiko.me/zh-cn/articles/646812253/</link>
+      <pubDate>Sun, 30 Jul 2023 01:29:27 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/646812253/</guid>
+      <description>上一篇 文章 我们初步了解了 STMP 的原理，并且利用它实现了简单的一个</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/646812253/featured.png" />
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; 禁忌黑魔法：STMP （上）</title>
+      <link>https://www.ykiko.me/zh-cn/articles/646752343/</link>
+      <pubDate>Sat, 29 Jul 2023 10:20:50 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/646752343/</guid>
+      <description>众所周知，传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/646752343/featured.png" />
+    </item>
+    
+  </channel>
+</rss>

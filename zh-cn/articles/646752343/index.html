@@ -74,6 +74,7 @@
     <meta property="article:published_time" content="2023-07-29T10:20:50+00:00">
     <meta property="article:modified_time" content="2023-07-29T10:20:50+00:00">
     <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/646752343/featured.png">
+      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/646812253/">
 
   
   <meta name="twitter:card" content="summary_large_image">
@@ -106,7 +107,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "3666"
+    "wordCount": "3646"
   }]
   </script>
 
@@ -583,7 +584,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-07-29 10:20:50 &#43;0000 UTC">July 29, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3666 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2023-07-29 10:20:50 &#43;0000 UTC">July 29, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3646 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">8 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -933,6 +934,34 @@
       <div class="min-w-0 min-h-0 max-w-fit">
         
         
+<details style="margin-left:0px" class="mt-2 mb-5 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5" >
+    
+    <summary
+        class="py-1 text-lg font-semibold cursor-pointer bg-primary-200 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-primary-800 dark:text-neutral-100">
+        STMP - 这篇文章属于一个选集。
+    </summary>
+    
+    
+    
+    <div
+        class="py-1 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+        § 1: 本文
+    </div>
+    
+    
+    
+    <div
+        class="py-1 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+        <a href="https://www.ykiko.me/zh-cn/articles/646812253/">
+            § 2: C&#43;&#43; 禁忌黑魔法：STMP （下）
+        </a>
+    </div>
+    
+    
+
+
+</details>
+
 
 
         <div class="article-content max-w-prose mb-20">
@@ -1003,18 +1032,14 @@
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// second time
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">X</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span>
-</span></span></code></pre></div><p>分开试发现都行，但是放一起就不行了，究竟为什么会这样呢？还记得文章开头说的那段话吗？</p>
-<blockquote>
-<p>传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的状态。对于任意相同的输入，它的输出结果总是相同的。</p>
-</blockquote>
-<p>不仅 C++ 标准这么认为，编译器也这么认为。为了提高编译速度，编译器会把模板实例化的结果缓存起来，也就是会把在第一个位置实例化的结果记录下来，之后再遇到相同的模板会直接复用这个结果。所以在上面的代码中，第二个<code>is_complete_v&lt;X&gt;</code>仍然使用第一次实例化的模板，导致求值为<code>false</code>，于是静态断言失败了。</p>
-<p>如何解决呢？答案是加一个模板参数作为种子，每次求值的时候填入不同的参数，从而让编译器实例化新的模板</p>
+</span></span></code></pre></div><p>分开试发现都行，但是放一起就不行了，究竟为什么会这样呢？这其实是因为编译器会缓存模板第一次实例化的结果，之后再遇到相同的模板就会直接使用第一次实例化的结果。在最开始的那个例子中，第二个<code>is_complete_v&lt;X&gt;</code>仍然使用了第一次模板实例化的结果，所以仍然求值为<code>false</code>导致编译失败。<br><br>编译器这样做合理吗？是合理的，因为模板是会生成对应的外部链接的符号的，如果两次实例化的结果不同，在链接的时候选哪一个呢。但这确实影响到了我们去观测编译期的状态，如何解决呢？答案是加一个模板参数作为种子，每次求值的时候填入不同的参数，从而让编译器实例化新的模板</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="kt">int</span> <span class="n">seed</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">is_complete_v</span> <span class="o">=</span> <span class="k">requires</span> <span class="p">{</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">);</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">
@@ -1233,6 +1258,34 @@
         
 
         
+<details style="margin-left:0px" class="mt-2 mb-5 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5">
+    
+    <summary
+        class="py-1 text-lg font-semibold cursor-pointer bg-primary-200 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-primary-800 dark:text-neutral-100">
+        STMP - 这篇文章属于一个选集。
+    </summary>
+    
+    
+    
+    <div
+        class="py-1 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+        § 1: 本文
+    </div>
+    
+    
+    
+    <div
+        class="py-1 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+        <a href="https://www.ykiko.me/zh-cn/articles/646812253/">
+            § 2: C&#43;&#43; 禁忌黑魔法：STMP （下）
+        </a>
+    </div>
+    
+    
+
+
+</details>
+
         
   
   <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
