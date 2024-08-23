@@ -96,8 +96,10 @@ class Parser:
                     nodes.append(markdown.NewLine())
                 case 'hr':
                     nodes.append(markdown.HorizontalRule())
-                case None:
-                    nodes.append(markdown.Text(child))
+                case None | 'span':
+                    # span 对应知乎新加的可以点击的标签，例如：
+                    # <span data-search-entity="7">五月一号</span>
+                    nodes.append(markdown.Text(child.text))
                 case _:
                     raise ValueError(f"Unknown element: {child}")
 
