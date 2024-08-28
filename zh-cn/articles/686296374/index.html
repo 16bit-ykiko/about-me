@@ -1042,7 +1042,7 @@
 </span></span></code></pre></div><p>结果如下图所示</p>
 <p>
   <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pic3.zhimg.com/v2-90853d7ae94867f68e8130b835c8f832_r.jpg" alt="" />
+    <img class="my-0 rounded-md" loading="lazy" src="https://pic1.zhimg.com/v2-90853d7ae94867f68e8130b835c8f832_r.jpg" alt="" />
     
   </figure>
 </p>
@@ -1172,7 +1172,7 @@
 <p>可以看见就像被 inline 标记的函数那样，这两个编译单元都实例化了<code>add&lt;int, int&gt;</code>和<code>add&lt;double, double&gt;</code>，各有一份代码。然后在最终链接的时候，链接器只为每个模板实例化保留了一份代码。那我们尝试打开<code>-O2</code>，然后再看看情况。<a href="https://godbolt.org/z/edEd8Tvo4" target="_blank">结果</a> 如下</p>
 <p>
   <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pic2.zhimg.com/v2-5e915f5cb7b7fc25e00a5f6c8ae2fa95_r.jpg" alt="" />
+    <img class="my-0 rounded-md" loading="lazy" src="https://picx.zhimg.com/v2-5e915f5cb7b7fc25e00a5f6c8ae2fa95_r.jpg" alt="" />
     
   </figure>
 </p>
@@ -1246,7 +1246,7 @@
 </span></span></code></pre></div><p>实例化三种类型的函数模板，那么其中必然有两个实例化是相同的代码。编译器会把函数类型不同，但是最后生成的二进制代码相同的两个函数合并吗？尝试一下，<a href="https://godbolt.org/z/KncEh3z5n" target="_blank">结果</a> 如下</p>
 <p>
   <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pic3.zhimg.com/v2-5c57236015036328a7e0f321aadf513a_r.jpg" alt="" />
+    <img class="my-0 rounded-md" loading="lazy" src="https://pica.zhimg.com/v2-5c57236015036328a7e0f321aadf513a_r.jpg" alt="" />
     
   </figure>
 </p>
@@ -1254,7 +1254,7 @@
 <p>现在问题来了，如果函数没被没有内联呢？假设模板函数比较复杂，函数体较大。为了方便演示，我们暂时使用 GCC 的一个 attribute <code>[[gnu::noinline]]</code>来实现这种效果，然后打开 O2，再次编译上面的 <a href="https://godbolt.org/z/Exff5cnfj" target="_blank">代码</a></p>
 <p>
   <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pic3.zhimg.com/v2-37da15bf141999c1bc8d6f7b07575f36_r.jpg" alt="" />
+    <img class="my-0 rounded-md" loading="lazy" src="https://pic1.zhimg.com/v2-37da15bf141999c1bc8d6f7b07575f36_r.jpg" alt="" />
     
   </figure>
 </p>
@@ -1471,7 +1471,7 @@
 <p>目前主要的异常实现有两种，一种是 Itanium ABI 的实现，另一种则是 MS ABI 的实现。简单来说 MS ABI 采用运行时查找的办法，这样会导致异常在 Happy Path 执行也有的额外运行时开销，但是优点是最终生成的二进制代码相对较小。而 Itanium ABI 则是我们今天的主角，它号称零开销异常，Happy 路径没有任何额外的运行时开销。那古尔丹，代价是什么？代价就是非常严重的二进制膨胀。为什么会产生膨胀呢？简单来说，就是如果不想完全等到运行时去查找，那就得预先打表。由于异常的隐式传播特性，会导致表占用空间很大。具体实现细节非常复杂，不是本文的主题，放张图，大概感受一下</p>
 <p>
   <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pic2.zhimg.com/v2-35106aada3a2e1e089d6aa685a2ad145_r.jpg" alt="" />
+    <img class="my-0 rounded-md" loading="lazy" src="https://pic4.zhimg.com/v2-35106aada3a2e1e089d6aa685a2ad145_r.jpg" alt="" />
     
   </figure>
 </p>
