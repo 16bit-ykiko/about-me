@@ -8,19 +8,19 @@ updated: 2024-05-04 08:48:53
 
 现在你可以在 VSCode 插件市场搜索到这个插件
 
-![](https://pic4.zhimg.com/v2-ebff5a9177bf7dbab863e321db8f05f3_r.jpg)
+![](https://picx.zhimg.com/v2-ebff5a9177bf7dbab863e321db8f05f3_r.jpg)
 
 ### 效果展示 
 
-![](https://pic4.zhimg.com/v2-4d92bdc32a6479e20a8b54b776b4618f_r.jpg)
+![](https://pic2.zhimg.com/v2-4d92bdc32a6479e20a8b54b776b4618f_r.jpg)
 
 ### 单文件支持 
 
-![](https://pic4.zhimg.com/v2-f8b679e187c025f49cac898d60a66653_r.jpg)
+![](https://picx.zhimg.com/v2-f8b679e187c025f49cac898d60a66653_r.jpg)
 
 让我们从上往下以此介绍 
 
-![](https://pic3.zhimg.com/v2-702bddfa45a016fdad36c70cc95d88fa_r.jpg)
+![](https://pic1.zhimg.com/v2-702bddfa45a016fdad36c70cc95d88fa_r.jpg)
 
 这个三个按钮的功能依次是： 
 
@@ -39,7 +39,7 @@ updated: 2024-05-04 08:48:53
 - `Remove All`：删除所有的编译器实例
 
 
-![](https://pic3.zhimg.com/v2-4563375d43c5084354585cec8dc1c692_r.jpg)
+![](https://pic1.zhimg.com/v2-4563375d43c5084354585cec8dc1c692_r.jpg)
 
  这个三个按钮的功能依次是： 
 
@@ -63,7 +63,7 @@ updated: 2024-05-04 08:48:53
 
 使用`Add CMake`按钮可以添加一个 CMake 编译器实例，这个实例可以用于编译多个文件。
 
-![](https://pic4.zhimg.com/v2-e22f7b14430ce8bfb84ad9be28f2e55f_r.jpg)
+![](https://picx.zhimg.com/v2-e22f7b14430ce8bfb84ad9be28f2e55f_r.jpg)
 
 <br>
 
@@ -136,5 +136,5 @@ updated: 2024-05-04 08:48:53
 
 另外 Output 窗口可能会提供一些有用的信息，可以注意检索
 
-![](https://pic2.zhimg.com/v2-6164a9cf19c1c1e4fc1d44809c726441_r.jpg)
+![](https://picx.zhimg.com/v2-6164a9cf19c1c1e4fc1d44809c726441_r.jpg)
 

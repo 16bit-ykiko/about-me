@@ -8,7 +8,7 @@ series_order: 1
 
 众所周知，传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的状态。对于任意相同的输入，它的输出结果总是相同的，被认为是**纯函数式 (purely functional)** 的。**模板元编程 (Template Meta Programming)** 作为常量求值的一个子集，也应该遵守这个规则。 
 
-![](https://pic3.zhimg.com/v2-310046d2ded45ca99cb74d992a94a51e_r.jpg)
+![](https://pica.zhimg.com/v2-310046d2ded45ca99cb74d992a94a51e_r.jpg)
 
  但事实真的如此吗？在不违背 C++ 标准的情况下，下面的代码可能通过编译吗？
 

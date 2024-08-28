@@ -22,7 +22,7 @@ updated: 2024-07-01 19:35:56
 
 为了之后方便介绍会议进展，先简单介绍一下 C++ 委员会的运作方式。
 
-![](https://pic4.zhimg.com/v2-a137c1b90d4aaa8058e217cd136d736f_r.jpg)
+![](https://picx.zhimg.com/v2-a137c1b90d4aaa8058e217cd136d736f_r.jpg)
 
 C++ 有 SG1~SG23 一共 23 个研究小组，分别负责讨论不同的主题。例如编译时元编程就是由 SG7 小组负责讨论的。
 
