@@ -1,5 +1,4 @@
 baseURL = 'https://www.ykiko.me'
-languageCode = 'en-us'
 
 theme = "blowfish"
 defaultContentLanguage = "zh-cn"
@@ -34,11 +33,7 @@ priority = 0.5
 [outputs]
 home = ["HTML", "RSS", "JSON"]
 
-[languages]
-[languages.en-us]
-title = "Blog"
-contentDir = "content/en-us"
+[languages.en]
+contentDir = "content/en"
 [languages.zh-cn]
 contentDir = "content/zh-cn"
-
-

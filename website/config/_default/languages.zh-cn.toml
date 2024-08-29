@@ -1,9 +1,12 @@
 languageCode = "zh-cn"
 languageName = "简体中文"
 weight = 1
-
 title = "ykiko's blog"
-# description = "My personal website"
+
+[params]
+displayName = "简体中文"
+isoCode = "zh-cn"
+description = "mainly about computer science and mathematics"
 # copyright = "Copy, _right?_ :thinking_face:"
 copyright = "©2024 ykiko"
 

@@ -1,9 +1,12 @@
-languageCode = "en-us"
+languageCode = "en"
 languageName = "English"
 weight = 1
-
 title = "ykiko's blog"
-# description = "My personal website"
+
+[params]
+displayName = "English"
+isoCode = "en"
+description = "mainly about computer science and mathematics"
 # copyright = "Copy, _right?_ :thinking_face:"
 copyright = "©2024 ykiko"
 
