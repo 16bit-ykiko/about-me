@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Series on ykiko&#39;s blog</title>
+    <link>https://www.ykiko.me/en/series/</link>
+    <description>Recent content in Series on ykiko&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>©2024 ykiko</copyright>
+    <lastBuildDate>Thu, 22 Feb 2024 14:15:32 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/en/series/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Constexpr</title>
+      <link>https://www.ykiko.me/en/series/constexpr/</link>
+      <pubDate>Thu, 22 Feb 2024 14:15:32 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/series/constexpr/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Reflection</title>
+      <link>https://www.ykiko.me/en/series/reflection/</link>
+      <pubDate>Sun, 03 Dec 2023 15:40:52 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/series/reflection/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>STMP</title>
+      <link>https://www.ykiko.me/en/series/stmp/</link>
+      <pubDate>Sun, 30 Jul 2023 01:29:27 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/series/stmp/</guid>
+      <description></description>
+      
+    </item>
+    
+  </channel>
+</rss>

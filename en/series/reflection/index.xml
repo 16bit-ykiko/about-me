@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reflection on ykiko&#39;s blog</title>
+    <link>https://www.ykiko.me/en/series/reflection/</link>
+    <description>Recent content in Reflection on ykiko&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>©2024 ykiko</copyright>
+    <lastBuildDate>Sun, 03 Dec 2023 15:40:52 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/en/series/reflection/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在 C&#43;&#43; 中实现 Object!</title>
+      <link>https://www.ykiko.me/en/articles/670191053/</link>
+      <pubDate>Sun, 03 Dec 2023 15:40:52 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/670191053/</guid>
+      <description>静态与动态 # 静态类型和动态类型这两个词语相信大家都不陌生了，</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/670191053/featured.png" />
+    </item>
+    
+    <item>
+      <title>为什么说 C/C&#43;&#43; 编译器不保留元信息？</title>
+      <link>https://www.ykiko.me/en/articles/670190357/</link>
+      <pubDate>Sun, 03 Dec 2023 15:37:51 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/670190357/</guid>
+      <description>首先什么是元信息？ # 来看下面一段python代码，我们希望能</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/670190357/featured.png" />
+    </item>
+    
+    <item>
+      <title>使用 Clang 工具自由的支配 C&#43;&#43; 代码吧</title>
+      <link>https://www.ykiko.me/en/articles/669360731/</link>
+      <pubDate>Wed, 29 Nov 2023 01:14:27 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/669360731/</guid>
+      <description>Clang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最初开发的目的</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/669360731/featured.png" />
+    </item>
+    
+    <item>
+      <title>各种姿势进行代码生成</title>
+      <link>https://www.ykiko.me/en/articles/669359855/</link>
+      <pubDate>Wed, 29 Nov 2023 01:14:16 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/669359855/</guid>
+      <description>引入 # 刚好拿最近的一个需求作为引入吧。我们都知道 markdown 可以用la</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/669359855/featured.png" />
+    </item>
+    
+    <item>
+      <title>写给 C&#43;&#43; 程序员的反射教程</title>
+      <link>https://www.ykiko.me/en/articles/669358870/</link>
+      <pubDate>Wed, 29 Nov 2023 01:14:02 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/669358870/</guid>
+      <description>What is Reflection? # 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/669358870/featured.png" />
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;26 静态反射提案解析</title>
+      <link>https://www.ykiko.me/en/articles/661692275/</link>
+      <pubDate>Mon, 16 Oct 2023 18:38:26 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/661692275/</guid>
+      <description>最近打算写一个系列文章详细讨论反射（reflection）这</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/661692275/featured.png" />
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Constexpr on ykiko&#39;s blog</title>
+    <link>https://www.ykiko.me/en/series/constexpr/</link>
+    <description>Recent content in Constexpr on ykiko&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>©2024 ykiko</copyright>
+    <lastBuildDate>Thu, 22 Feb 2024 14:15:32 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/en/series/constexpr/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The History of constexpr in C&#43;&#43;! (Part Two)</title>
+      <link>https://www.ykiko.me/en/articles/683463723/</link>
+      <pubDate>Thu, 22 Feb 2024 14:15:32 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/683463723/</guid>
+      <description>前情提要： # Loading... 2015-2016：模板的语法糖 # 在 C++ 中支持 全</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/683463723/featured.png" />
+    </item>
+    
+    <item>
+      <title>The History of constexpr in C&#43;&#43;! (Part One)</title>
+      <link>https://www.ykiko.me/en/articles/682031684/</link>
+      <pubDate>Sat, 10 Feb 2024 15:15:47 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/682031684/</guid>
+      <description>几个月前，我写了一篇介绍 C++ 模板的文章 雾里看花：真正意义上的理</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/682031684/featured.png" />
+    </item>
+    
+  </channel>
+</rss>
