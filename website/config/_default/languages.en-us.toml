@@ -7,7 +7,7 @@ title = "ykiko's blog"
 # copyright = "Copy, _right?_ :thinking_face:"
 copyright = "©2024 ykiko"
 
-[author]
+[params.author]
 name = "ykiko"
 image = "img/author.jpg"
 headline = "understand the trade-offs"
