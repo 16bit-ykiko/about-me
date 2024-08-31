@@ -1,5 +1,5 @@
 import os
-import json
+import time
 import requests
 from zhihu import Parser
 from datetime import datetime
@@ -97,6 +97,8 @@ def main():
         if cover:
             with open(os.path.join(dir, 'featured.png'), 'wb') as f:
                 f.write(download(cover))
+
+        time.sleep(2)
 
         print(f"Done: {name}")
 
