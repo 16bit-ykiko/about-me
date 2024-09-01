@@ -63,13 +63,11 @@ def download(url: str):
             response = requests.get(
                 url, timeout=30, headers=headers)
             response.raise_for_status()
-            break
+            return response.content
         except Exception as e:
             print(e)
             time.sleep(random.choice([1, 2, 3, 4]))
             n += 1
-
-    return response.content
 
 
 def main():
