@@ -33,28 +33,27 @@ def request(url: str, series: tuple[str, int] | None = None):
             response = requests.get(
                 url, timeout=10, headers=headers, cookies=cookies)
             response.raise_for_status()
-            break
+
+            parser = Parser()
+            article = parser.parse_article(response.text)
+            created = datetime.fromtimestamp(article.created)
+            updated = datetime.fromtimestamp(article.updated)
+
+            result = (f"---\n"
+                      f"title: '{article.title}'\n"
+                      f"date: {created}\n"
+                      f"updated: {updated}\n")
+
+            if series is not None:
+                result += (f"series: ['{series[0]}']\n"
+                           f"series_order: {series[1]}\n")
+
+            result += f"---\n\n" + article.content.dump()
+            return result, article.cover
         except Exception as e:
             print(e)
+            time.sleep(random.choice([1, 2, 3, 4]))
             n += 1
-
-    parser = Parser()
-    article = parser.parse_article(response.text)
-    created = datetime.fromtimestamp(article.created)
-    updated = datetime.fromtimestamp(article.updated)
-
-    result = (f"---\n"
-              f"title: '{article.title}'\n"
-              f"date: {created}\n"
-              f"updated: {updated}\n")
-
-    if series is not None:
-        result += (f"series: ['{series[0]}']\n"
-                   f"series_order: {series[1]}\n")
-
-    result += f"---\n\n" + article.content.dump()
-
-    return result, article.cover
 
 
 def download(url: str):
