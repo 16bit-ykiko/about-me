@@ -1,5 +1,6 @@
 import os
 import time
+import random
 import requests
 from zhihu import Parser
 from datetime import datetime
@@ -61,11 +62,12 @@ def download(url: str):
     while n < 5:
         try:
             response = requests.get(
-                url, timeout=10, headers=headers)
+                url, timeout=30, headers=headers)
             response.raise_for_status()
             break
         except Exception as e:
             print(e)
+            time.sleep(random.choice([1, 2, 3, 4]))
             n += 1
 
     return response.content
@@ -98,7 +100,7 @@ def main():
             with open(os.path.join(dir, 'featured.png'), 'wb') as f:
                 f.write(download(cover))
 
-        time.sleep(5)
+        time.sleep(random.choice([1, 2, 3, 4]))
 
         print(f"Done: {name}")
 
