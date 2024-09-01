@@ -59,7 +59,7 @@ def request(url: str, series: tuple[str, int] | None = None):
 
 def download(url: str):
     n = 0
-    while n < 5:
+    while n < 10:
         try:
             response = requests.get(
                 url, timeout=30, headers=headers)
