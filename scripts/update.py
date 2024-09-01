@@ -98,7 +98,7 @@ def main():
             with open(os.path.join(dir, 'featured.png'), 'wb') as f:
                 f.write(download(cover))
 
-        time.sleep(2)
+        time.sleep(5)
 
         print(f"Done: {name}")
 
