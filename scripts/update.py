@@ -28,7 +28,7 @@ def load_cookies():
 
 def request(url: str, series: tuple[str, int] | None = None):
     n = 0
-    while n < 5:
+    while n < 20:
         try:
             response = requests.get(
                 url, timeout=10, headers=headers, cookies=cookies)
