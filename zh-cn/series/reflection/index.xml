@@ -14,7 +14,17 @@
       <pubDate>Sun, 03 Dec 2023 15:40:52 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/670191053/</guid>
-      <description>静态与动态 # 静态类型和动态类型这两个词语相信大家都不陌生了，</description>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;静态与动态 
+    &lt;div id=&#34;%E9%9D%99%E6%80%81%E4%B8%8E%E5%8A%A8%E6%80%81&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700&#34;
+            style=&#34;text-decoration-line: none !important;&#34; href=&#34;#%E9%9D%99%E6%80%81%E4%B8%8E%E5%8A%A8%E6%80%81&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h2&gt;
+&lt;p&gt;静态类型和动态类型这两个词语相信大家都不陌生了，区分二者的关键在于类型检查的时机。什么意思呢？&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/670191053/featured.png" />
     </item>
     
@@ -24,7 +34,17 @@
       <pubDate>Sun, 03 Dec 2023 15:37:51 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/670190357/</guid>
-      <description>首先什么是元信息？ # 来看下面一段python代码，我们希望能</description>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;首先什么是元信息？ 
+    &lt;div id=&#34;%E9%A6%96%E5%85%88%E4%BB%80%E4%B9%88%E6%98%AF%E5%85%83%E4%BF%A1%E6%81%AF&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700&#34;
+            style=&#34;text-decoration-line: none !important;&#34; href=&#34;#%E9%A6%96%E5%85%88%E4%BB%80%E4%B9%88%E6%98%AF%E5%85%83%E4%BF%A1%E6%81%AF&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h2&gt;
+&lt;p&gt;来看下面一段&lt;code&gt;python&lt;/code&gt;代码，我们希望能够根据传入的字符串来自动修改对应的字段值&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/670190357/featured.png" />
     </item>
     
@@ -34,7 +54,7 @@
       <pubDate>Wed, 29 Nov 2023 01:14:27 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/669360731/</guid>
-      <description>Clang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最初开发的目的</description>
+      <description>&lt;p&gt;Clang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最初开发的目的是替代 GNU Compiler Collection (GCC) 的 C 语言前端，目标是提供更快的编译速度、更好的诊断信息和更灵活的架构。Clang 包含一个 C、C++ 和 Objective-C 编译器前端，这些前端设计为可以嵌入到其他项目中。Clang 的一个重要特点是其模块化架构，使开发者能够更轻松地扩展和定制编译器的功能。Clang 被广泛应用于许多项目，包括 LLVM 自身、一些操作系统内核的开发以及一些编程语言的编译器实现。&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/669360731/featured.png" />
     </item>
     
@@ -44,7 +64,17 @@
       <pubDate>Wed, 29 Nov 2023 01:14:16 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/669359855/</guid>
-      <description>引入 # 刚好拿最近的一个需求作为引入吧。我们都知道 markdown 可以用la</description>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;引入 
+    &lt;div id=&#34;%E5%BC%95%E5%85%A5&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700&#34;
+            style=&#34;text-decoration-line: none !important;&#34; href=&#34;#%E5%BC%95%E5%85%A5&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h2&gt;
+&lt;p&gt;刚好拿最近的一个需求作为引入吧。我们都知道 markdown 可以用&lt;code&gt;lang&lt;/code&gt;来填入代码块，并支持代码高亮。可是我想支持自己定义的代码高亮规则，遇到了如下问题：&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/669359855/featured.png" />
     </item>
     
@@ -54,7 +84,17 @@
       <pubDate>Wed, 29 Nov 2023 01:14:02 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/669358870/</guid>
-      <description>What is Reflection? # 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一</description>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;What is Reflection? 
+    &lt;div id=&#34;what-is-reflection&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700&#34;
+            style=&#34;text-decoration-line: none !important;&#34; href=&#34;#what-is-reflection&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h2&gt;
+&lt;p&gt;反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的&lt;strong&gt;惯用词&lt;/strong&gt;一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 &lt;a href=&#34;https://doc.rust-lang.org/stable/std/any/index.html&#34; target=&#34;_blank&#34;&gt;std::Any 模块&lt;/a&gt; 的介绍。里面提到了&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/669358870/featured.png" />
     </item>
     
@@ -64,7 +104,7 @@
       <pubDate>Mon, 16 Oct 2023 18:38:26 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/661692275/</guid>
-      <description>最近打算写一个系列文章详细讨论反射（reflection）这</description>
+      <description>&lt;p&gt;最近打算写一个系列文章详细讨论反射（reflection）这一概念，刚好 C++26 有了新的反射提案，发现知乎上又没有相关的文章，而这个话题又经常被讨论。所以借此机会来聊一聊属于 C++ 的静态反射（static reflection），作为系列预热了。&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/661692275/featured.png" />
     </item>
     

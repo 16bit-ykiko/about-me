@@ -14,7 +14,7 @@
       <pubDate>Sun, 30 Jul 2023 01:29:27 +0000</pubDate>
       
       <guid>https://www.ykiko.me/en/articles/646812253/</guid>
-      <description>上一篇 文章 我们初步了解了 STMP 的原理，并且利用它实现了简单的一个</description>
+      <description>&lt;p&gt;上一篇 &lt;a href=&#34;https://www.ykiko.me/zh-cn/articles/646752343&#34; target=&#34;_blank&#34;&gt;文章&lt;/a&gt; 我们初步了解了 STMP 的原理，并且利用它实现了简单的一个编译期的计数器。然而，它的威力远不止如此，这篇文章就来讨论一些基于 STMP 的高级应用。&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/646812253/featured.png" />
     </item>
     
@@ -24,7 +24,7 @@
       <pubDate>Sat, 29 Jul 2023 10:20:50 +0000</pubDate>
       
       <guid>https://www.ykiko.me/en/articles/646752343/</guid>
-      <description>众所周知，传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的</description>
+      <description>&lt;p&gt;众所周知，传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的状态。对于任意相同的输入，它的输出结果总是相同的，被认为是&lt;strong&gt;纯函数式 (purely functional)&lt;/strong&gt; 的。&lt;strong&gt;模板元编程 (Template Meta Programming)&lt;/strong&gt; 作为常量求值的一个子集，也应该遵守这个规则。&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/646752343/featured.png" />
     </item>
     
