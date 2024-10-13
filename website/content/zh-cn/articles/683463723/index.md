@@ -1,7 +1,7 @@
 ---
 title: 'The History of constexpr in C++! (Part Two)'
 date: 2024-02-22 14:15:32
-updated: 2024-08-03 11:12:44
+updated: 2024-09-29 12:19:33
 series: ['Constexpr']
 series_order: 2
 ---
@@ -321,7 +321,7 @@ consteval int bar(int x){ return x; }
 foo(bar(1)); // ensure evaluation at compile time
 ```
 
-`consteval`函数不能获取指针或引用，编译器后端根本不需要（也不应该）知道这些函数的存在，也不需要将它们放入符号表中等等。事实上该提案也为未来可能引入的 static reflection 做了铺垫，未来将会有大量只在编译期执行的函数进入标准。
+`consteval`函数不能在常量求值上下文外获取指针或引用，编译器后端既不需要，也不应该知道这些函数的存在。事实上该提案也为未来打算加入标准的 static reflection 做了铺垫，它将会添加非常多的只能在编译期执行的函数。
 
 ## 2018：默认 constexpr ？ 
 
