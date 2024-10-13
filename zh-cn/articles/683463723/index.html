@@ -109,7 +109,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "7137"
+    "wordCount": "7129"
   }]
   </script>
 
@@ -655,7 +655,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-02-22T14:15:32&#43;00:00">February 22, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>7137 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">15 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2024-02-22T14:15:32&#43;00:00">February 22, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>7129 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">15 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1456,7 +1456,7 @@
 </span></span><span class="line"><span class="cl"><span class="k">consteval</span> <span class="kt">int</span> <span class="nf">bar</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">foo</span><span class="p">(</span><span class="n">bar</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span> <span class="c1">// ensure evaluation at compile time
-</span></span></span></code></pre></div><p><code>consteval</code>函数不能获取指针或引用，编译器后端根本不需要（也不应该）知道这些函数的存在，也不需要将它们放入符号表中等等。事实上该提案也为未来可能引入的 static reflection 做了铺垫，未来将会有大量只在编译期执行的函数进入标准。</p>
+</span></span></span></code></pre></div><p><code>consteval</code>函数不能在常量求值上下文外获取指针或引用，编译器后端既不需要，也不应该知道这些函数的存在。事实上该提案也为未来打算加入标准的 static reflection 做了铺垫，它将会添加非常多的只能在编译期执行的函数。</p>
 
 
 <h2 class="relative group">2018：默认 constexpr ？ 

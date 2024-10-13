@@ -108,7 +108,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "3449"
+    "wordCount": "3421"
   }]
   </script>
 
@@ -654,7 +654,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-10-04T06:50:12&#43;00:00">October 4, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3449 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2023-10-04T06:50:12&#43;00:00">October 4, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3421 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1328,11 +1328,11 @@
 </span></span></code></pre></div><p>这个实现依赖于一些大多数平台的假定：</p>
 <ul>
 <li>考虑到地址对齐，<strong>非静态成员函数的地址</strong>最低位几乎总是 0</li>
-<li>空的函数指针是 0，所以<strong>空函数指针可以和虚表偏移区分开来</strong></li>
-<li>体系结构是字节寻址，并且指针大小是偶数，所以<strong>虚表偏移量是偶数</strong>，</li>
-<li>只要知道虚表的地址，虚表索引和函数类型就可以进行函数调用。大多数平台上，虚表指针位于<code>this</code>处，虚表索引和函数类型（调用约定）则由编译器根据 ABI 来决定</li>
+<li>空的函数指针是 0，所以<strong>空函数指针</strong>可以和<strong>虚表偏移量</strong>区分开来</li>
+<li>体系结构是字节寻址，并且指针大小是偶数，所以<strong>虚表偏移量是偶数</strong></li>
+<li>只要知道虚表的地址，虚表偏移量和函数类型就可以进行函数调用，具体的实现细节由编译器根据 ABI 来决定</li>
 </ul>
-<p>当然也有一些平台不满足上述假设，例如 ARM32 平台的某些情况，这时候它的实现方式就和我们刚才说的不同了。<strong>所以你现在应该能更加理解什么叫实现定义的行为了。即使编译器相同，目标平台不同，相关的实现都有可能不同。</strong></p>
+<p>当然也有一些平台不满足上述假设，例如 ARM32 平台的某些情况，这时候它的实现方式就和我们刚才说的不同了。所以你现在应该能更加理解什么叫实现定义的行为了，即使编译器相同，但是目标平台不同，实现都有可能不同。</p>
 <p>在我的环境 x64 windows 上，符合主流实现的要求。于是对着这个 ABI，进行了&quot;解糖&quot;。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">member_func_pointer</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">ptr</span><span class="p">;</span>
