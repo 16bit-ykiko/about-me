@@ -7,11 +7,11 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2024 ykiko</copyright>
-    <lastBuildDate>Sun, 03 Dec 2023 15:40:52 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/zh-cn/series/reflection/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 03 Dec 2023 23:40:52 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/zh-cn/series/reflection/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>在 C&#43;&#43; 中实现 Object!</title>
       <link>https://www.ykiko.me/zh-cn/articles/670191053/</link>
-      <pubDate>Sun, 03 Dec 2023 15:40:52 +0000</pubDate>
+      <pubDate>Sun, 03 Dec 2023 23:40:52 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/670191053/</guid>
       <description>&lt;h2 class=&#34;relative group&#34;&gt;静态与动态 
@@ -31,7 +31,7 @@
     <item>
       <title>为什么说 C/C&#43;&#43; 编译器不保留元信息？</title>
       <link>https://www.ykiko.me/zh-cn/articles/670190357/</link>
-      <pubDate>Sun, 03 Dec 2023 15:37:51 +0000</pubDate>
+      <pubDate>Sun, 03 Dec 2023 23:37:51 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/670190357/</guid>
       <description>&lt;h2 class=&#34;relative group&#34;&gt;首先什么是元信息？ 
@@ -51,7 +51,7 @@
     <item>
       <title>使用 Clang 工具自由的支配 C&#43;&#43; 代码吧</title>
       <link>https://www.ykiko.me/zh-cn/articles/669360731/</link>
-      <pubDate>Wed, 29 Nov 2023 01:14:27 +0000</pubDate>
+      <pubDate>Wed, 29 Nov 2023 09:14:27 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/669360731/</guid>
       <description>&lt;p&gt;Clang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最初开发的目的是替代 GNU Compiler Collection (GCC) 的 C 语言前端，目标是提供更快的编译速度、更好的诊断信息和更灵活的架构。Clang 包含一个 C、C++ 和 Objective-C 编译器前端，这些前端设计为可以嵌入到其他项目中。Clang 的一个重要特点是其模块化架构，使开发者能够更轻松地扩展和定制编译器的功能。Clang 被广泛应用于许多项目，包括 LLVM 自身、一些操作系统内核的开发以及一些编程语言的编译器实现。&lt;/p&gt;</description>
@@ -61,7 +61,7 @@
     <item>
       <title>各种姿势进行代码生成</title>
       <link>https://www.ykiko.me/zh-cn/articles/669359855/</link>
-      <pubDate>Wed, 29 Nov 2023 01:14:16 +0000</pubDate>
+      <pubDate>Wed, 29 Nov 2023 09:14:16 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/669359855/</guid>
       <description>&lt;h2 class=&#34;relative group&#34;&gt;引入 
@@ -81,7 +81,7 @@
     <item>
       <title>写给 C&#43;&#43; 程序员的反射教程</title>
       <link>https://www.ykiko.me/zh-cn/articles/669358870/</link>
-      <pubDate>Wed, 29 Nov 2023 01:14:02 +0000</pubDate>
+      <pubDate>Wed, 29 Nov 2023 09:14:02 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/669358870/</guid>
       <description>&lt;h2 class=&#34;relative group&#34;&gt;What is Reflection? 
@@ -101,7 +101,7 @@
     <item>
       <title>C&#43;&#43;26 静态反射提案解析</title>
       <link>https://www.ykiko.me/zh-cn/articles/661692275/</link>
-      <pubDate>Mon, 16 Oct 2023 18:38:26 +0000</pubDate>
+      <pubDate>Tue, 17 Oct 2023 02:38:26 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/661692275/</guid>
       <description>&lt;p&gt;最近打算写一个系列文章详细讨论反射（reflection）这一概念，刚好 C++26 有了新的反射提案，发现知乎上又没有相关的文章，而这个话题又经常被讨论。所以借此机会来聊一聊属于 C++ 的静态反射（static reflection），作为系列预热了。&lt;/p&gt;</description>

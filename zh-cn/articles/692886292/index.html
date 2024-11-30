@@ -26,8 +26,8 @@
   
   
   
-  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.67eb0befb1fb57e6528684f3a2ff6e0606a82100504705b66488d54a9f3fda9c2605c9bf3b70163208427288637a7b4d1a168384c1115e417458eae6b44b329c.css"
-    integrity="sha512-Z&#43;sL77H7V&#43;ZShoTzov9uBgaoIQBQRwW2ZIjVSp8/2pwmBcm/O3AWMghCcohjentNGhaDhMERXkF0WOrmtEsynA==" />
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.4e2716d77ddb668a7c0d68157cff2048cbdf59d43ac1a9de02fd1a04ed3047a1829f54a8b18c01b94597aac05a30d1933f930e6c59382c3e25501049c92fc230.css"
+    integrity="sha512-TicW133bZop8DWgVfP8gSMvfWdQ6waneAv0aBO0wR6GCn1SosYwBuUWXqsBaMNGTP5MObFk4LD4lUBBJyS/CMA==" />
   
   
   <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
@@ -46,8 +46,8 @@
   
   
   
-  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.efbf3b6b987689fffaf2d7b73173d2690c0279a04d444b0537a77d7f4ff6e6d493445400cb0cf56bc0f0f123e19f15394e63cae34e67f069bd013dd5c73df56e.js"
-    integrity="sha512-7787a5h2if/68te3MXPSaQwCeaBNREsFN6d9f0/25tSTRFQAywz1a8Dw8SPhnxU5TmPK405n8Gm9AT3Vxz31bg==" data-copy="" data-copied=""></script>
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.a2d78d78672e549fbfc972ece871725b5478ba0b65708dda20cb97ab80a865eae6d247e1b05a4aec6ebbf78647ec3233bad8b2609ed98eee53cd58aa17128bc7.js"
+    integrity="sha512-oteNeGcuVJ&#43;/yXLs6HFyW1R4ugtlcI3aIMuXq4CoZerm0kfhsFpK7G6794ZH7DIzutiyYJ7Zju5TzViqFxKLxw==" data-copy="" data-copied=""></script>
   
   
   
@@ -66,22 +66,23 @@
   
   
   
+  
   <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/692886292/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
   <meta property="og:title" content="彻底理解 C&#43;&#43; ABI">
-  <meta property="og:description" content="Application Binary Interface 也就是我们常说的 ABI，是个让人感觉到既熟悉又陌生的概念。熟悉在哪里？讨论问题的时候经常会讨论到它，看文章的时候经常会提到它，有时候又要处理它导致的兼容性。陌生在哪里？如果有人问你什么是 ABI，你会发现你知道它是怎么一回事，但是要用严谨的语言去描述它有些困难。最后只好照着 WIKI 说：ABI 就是两个二进制程序模块之间的接口。有问题吗？没有问题，作为一个概括性的描述，已经足够了。但是让人感觉到有些空洞。">
+  <meta property="og:description" content="Application Binary Interface，也就是我们常说的 ABI，是个让人感觉到既熟悉又陌生的概念。熟悉在哪里？讨论问题的时候经常会讨论到它，看文章的时候经常会提到它，有时候又要处理它导致的兼容性。陌生在哪里？如果有人问你什么是 ABI，你会发现你知道它是怎么一回事，但是要用严谨的语言去描述它有些困难。最后只好照着 WIKI 说：ABI 就是两个二进制程序模块之间的接口。有问题吗？没有问题，作为一个概括性的描述，已经足够了。但是让人感觉到有些空洞。">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2024-04-16T18:19:38+00:00">
-    <meta property="article:modified_time" content="2024-04-16T18:19:38+00:00">
+    <meta property="article:published_time" content="2024-04-17T02:19:38+00:00">
+    <meta property="article:modified_time" content="2024-04-17T02:19:38+00:00">
     <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/692886292/featured.png">
 
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/692886292/featured.png">
   <meta name="twitter:title" content="彻底理解 C&#43;&#43; ABI">
-  <meta name="twitter:description" content="Application Binary Interface 也就是我们常说的 ABI，是个让人感觉到既熟悉又陌生的概念。熟悉在哪里？讨论问题的时候经常会讨论到它，看文章的时候经常会提到它，有时候又要处理它导致的兼容性。陌生在哪里？如果有人问你什么是 ABI，你会发现你知道它是怎么一回事，但是要用严谨的语言去描述它有些困难。最后只好照着 WIKI 说：ABI 就是两个二进制程序模块之间的接口。有问题吗？没有问题，作为一个概括性的描述，已经足够了。但是让人感觉到有些空洞。">
+  <meta name="twitter:description" content="Application Binary Interface，也就是我们常说的 ABI，是个让人感觉到既熟悉又陌生的概念。熟悉在哪里？讨论问题的时候经常会讨论到它，看文章的时候经常会提到它，有时候又要处理它导致的兼容性。陌生在哪里？如果有人问你什么是 ABI，你会发现你知道它是怎么一回事，但是要用严谨的语言去描述它有些困难。最后只好照着 WIKI 说：ABI 就是两个二进制程序模块之间的接口。有问题吗？没有问题，作为一个概括性的描述，已经足够了。但是让人感觉到有些空洞。">
 
   
   <script type="application/ld+json">
@@ -92,7 +93,7 @@
     "name": "彻底理解 C\u002b\u002b ABI",
     "headline": "彻底理解 C\u002b\u002b ABI",
     
-    "abstract": "\u003cp\u003eApplication Binary Interface 也就是我们常说的 ABI，是个让人感觉到既熟悉又陌生的概念。熟悉在哪里？讨论问题的时候经常会讨论到它，看文章的时候经常会提到它，有时候又要处理它导致的兼容性。陌生在哪里？如果有人问你什么是 ABI，你会发现你知道它是怎么一回事，但是要用严谨的语言去描述它有些困难。最后只好照着 \u003ca href=\u0022https:\/\/en.wikipedia.org\/wiki\/Application_binary_interface\u0022 target=\u0022_blank\u0022\u003eWIKI\u003c\/a\u003e 说：ABI 就是两个二进制程序模块之间的接口。有问题吗？没有问题，作为一个概括性的描述，已经足够了。但是让人感觉到有些空洞。\u003c\/p\u003e",
+    "abstract": "\u003cp\u003eApplication Binary Interface，也就是我们常说的 ABI，是个让人感觉到既熟悉又陌生的概念。熟悉在哪里？讨论问题的时候经常会讨论到它，看文章的时候经常会提到它，有时候又要处理它导致的兼容性。陌生在哪里？如果有人问你什么是 ABI，你会发现你知道它是怎么一回事，但是要用严谨的语言去描述它有些困难。最后只好照着 \u003ca href=\u0022https:\/\/en.wikipedia.org\/wiki\/Application_binary_interface\u0022 target=\u0022_blank\u0022\u003eWIKI\u003c\/a\u003e 说：ABI 就是两个二进制程序模块之间的接口。有问题吗？没有问题，作为一个概括性的描述，已经足够了。但是让人感觉到有些空洞。\u003c\/p\u003e",
     "inLanguage": "zh-cn",
     "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/692886292\/",
     "author" : {
@@ -100,15 +101,15 @@
       "name": "ykiko"
     },
     "copyrightYear": "2024",
-    "dateCreated": "2024-04-16T18:19:38\u002b00:00",
-    "datePublished": "2024-04-16T18:19:38\u002b00:00",
+    "dateCreated": "2024-04-17T02:19:38\u002b00:00",
+    "datePublished": "2024-04-17T02:19:38\u002b00:00",
     
-    "dateModified": "2024-04-16T18:19:38\u002b00:00",
+    "dateModified": "2024-04-17T02:19:38\u002b00:00",
     
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "9709"
+    "wordCount": "10492"
   }]
   </script>
 
@@ -262,15 +263,15 @@
     <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
       <div class="flex flex-col space-y-3">
         
-        <a href="/en/articles/692886292/" class="flex items-center">
-          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="彻底理解 C&#43;&#43; ABI">
-            English
-          </p>
-        </a>
-        
         <a href="/zh-cn/articles/692886292/" class="flex items-center">
           <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="彻底理解 C&#43;&#43; ABI">
             简体中文
+          </p>
+        </a>
+        
+        <a href="/en/articles/692886292/" class="flex items-center">
+          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="彻底理解 C&#43;&#43; ABI">
+            English
           </p>
         </a>
         
@@ -349,15 +350,15 @@
     <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
       <div class="flex flex-col space-y-3">
         
-        <a href="/en/articles/692886292/" class="flex items-center">
-          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="彻底理解 C&#43;&#43; ABI">
-            English
-          </p>
-        </a>
-        
         <a href="/zh-cn/articles/692886292/" class="flex items-center">
           <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="彻底理解 C&#43;&#43; ABI">
             简体中文
+          </p>
+        </a>
+        
+        <a href="/en/articles/692886292/" class="flex items-center">
+          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="彻底理解 C&#43;&#43; ABI">
+            English
           </p>
         </a>
         
@@ -542,7 +543,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/zh-cn/articles/692886292/featured_hu2013419622690216817.png);">
+    style="background-image:url(/zh-cn/articles/692886292/featured_hu17291722780256311232.png);">
     
 
 
@@ -654,7 +655,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-04-16T18:19:38&#43;00:00">April 16, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>9709 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">20 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2024-04-17T02:19:38&#43;00:00">April 17, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>10492 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">21 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1052,9 +1053,24 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          <p>Application Binary Interface 也就是我们常说的 ABI，是个让人感觉到既熟悉又陌生的概念。熟悉在哪里？讨论问题的时候经常会讨论到它，看文章的时候经常会提到它，有时候又要处理它导致的兼容性。陌生在哪里？如果有人问你什么是 ABI，你会发现你知道它是怎么一回事，但是要用严谨的语言去描述它有些困难。最后只好照着 <a href="https://en.wikipedia.org/wiki/Application_binary_interface" target="_blank">WIKI</a> 说：ABI 就是两个二进制程序模块之间的接口。有问题吗？没有问题，作为一个概括性的描述，已经足够了。但是让人感觉到有些空洞。</p>
+          <p>Application Binary Interface，也就是我们常说的 ABI，是个让人感觉到既熟悉又陌生的概念。熟悉在哪里？讨论问题的时候经常会讨论到它，看文章的时候经常会提到它，有时候又要处理它导致的兼容性。陌生在哪里？如果有人问你什么是 ABI，你会发现你知道它是怎么一回事，但是要用严谨的语言去描述它有些困难。最后只好照着 <a href="https://en.wikipedia.org/wiki/Application_binary_interface" target="_blank">WIKI</a> 说：ABI 就是两个二进制程序模块之间的接口。有问题吗？没有问题，作为一个概括性的描述，已经足够了。但是让人感觉到有些空洞。</p>
 <p>这一情况在 CS 领域并不少见，笔者之前写的讨论 <a href="https://www.ykiko.me/zh-cn/articles/669358870" target="_blank">反射</a> 的文章也遇到完全相同的情况。究其根本，CS 本来就不是一门力求严谨性的学科，很多概念都没有严格的定义，更多的是约定俗成的说法。所以我们就不去纠结定义，而是就实际出发，来看看这些所谓的二进制接口究竟有哪些，又有哪些因素会影响它们的稳定性。</p>
-<p>软件工程讲究分层，对于一个 C++ 程序的 ABI 来说，我们也可以从下面这五个层次来看待。</p>
+<p>一个 ABI（应用二进制接口）是一种标准，它定义了高级语言中的低级概念与特定硬件/操作系统平台的机器码能力之间的映射关系。其中包括以下内容：</p>
+<ul>
+<li>C/C++/Fortran/&hellip;  数据类型在内存中的布局方式（数据大小/对齐方式）</li>
+<li>嵌套函数调用的工作方式（如何存储如何返回到函数调用者的信息，CPU 寄存器和/或内存中传递函数参数的位置和方式）</li>
+<li>程序启动/初始化的工作方式（可执行文件具有什么样的数据格式，代码/数据如何从中加载，DLL 的工作方式等）</li>
+</ul>
+<p>对于这些问题的答案是：</p>
+<ul>
+<li>特定于编程语言（因此你有 C ABI、C++ ABI、Fortran ABI、Pascal ABI、&hellip; 甚至 Java 字节码规范，尽管针对的是虚拟处理器而不是真实硬件，但也是一种 ABI）</li>
+<li>特定于操作系统（同一硬件上的 MS Windows 和 Linux 使用不同的 ABI）</li>
+<li>特定于硬件/CPU（ARM 和 x64 ABI 是不同的）</li>
+<li>长时间演变（现有的 ABI 经常被更新/修订，以便利用新的 CPU 特性，比如，规定应用程序如何使用 x86 SSE 寄存器当然只有在 CPU 有了这些寄存器之后才可能，因此现有的 ABI 需要澄清）</li>
+</ul>
+<p>如果没有某种标准化，由不同编译器创建的（机器）代码将无法使用相同类型的库（你怎么知道库代码期望函数参数或数据结构以何种方式传递？）。  每个平台（特定硬件、操作系统软件和用特定编程语言编写/用特定编译器编译的代码的组合）都定义了一整套 ABI，以实现互操作性。</p>
+<p>在这个领域的术语并不清晰，有时人们只是谈论 ABI，其他时候称之为 平台补充，或者提及编程语言并说例 C++ ABI。请记住，并不存在这样的一个东西。  你在问题中提到的文件都是这种（语言/操作系统/硬件特定的 ABI）的具体示例。</p>
+<p>即使在特定平台上，也没有必要只有一个 ABI（集） ，因为不同的约定可能具有不同的优点（因此可能提供更好的性能/更小的代码/更好的内存使用率/&hellip; - 取决于程序），系统设计者通常试图灵活/宽容。例如，在 32 位 Microsoft Windows 上，函数调用约定部分有多种 ABI（fastcall、stdcall、pascal 等）。</p>
 
 
 <h2 class="relative group">CPU &amp; OS 
@@ -1800,7 +1816,7 @@
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2024-03-11T01:33:37&#43;00:00">March 11, 2024</time>
+                    <time datetime="2024-03-11T09:33:37&#43;00:00">March 11, 2024</time>
                   
                 </span>
               </span>
@@ -1817,7 +1833,7 @@
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2024-04-24T13:35:41&#43;00:00">April 24, 2024</time>
+                    <time datetime="2024-04-24T21:35:41&#43;00:00">April 24, 2024</time>
                   
                 </span>
               </span>

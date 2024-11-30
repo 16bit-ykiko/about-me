@@ -7,117 +7,14 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2024 ykiko</copyright>
-    <lastBuildDate>Thu, 22 Feb 2024 14:15:32 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/zh-cn/series/constexpr/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 Feb 2024 22:15:32 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/zh-cn/series/constexpr/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The History of constexpr in C&#43;&#43;! (Part Two)</title>
       <link>https://www.ykiko.me/zh-cn/articles/683463723/</link>
-      <pubDate>Thu, 22 Feb 2024 14:15:32 +0000</pubDate>
+      <pubDate>Thu, 22 Feb 2024 22:15:32 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/683463723/</guid>
-      <description>&lt;h2 class=&#34;relative group&#34;&gt;前情提要： 
-    &lt;div id=&#34;%E5%89%8D%E6%83%85%E6%8F%90%E8%A6%81&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
-    
-    &lt;span
-        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100&#34;&gt;
-        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700&#34;
-            style=&#34;text-decoration-line: none !important;&#34; href=&#34;#%E5%89%8D%E6%83%85%E6%8F%90%E8%A6%81&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
-    &lt;/span&gt;        
-    
-&lt;/h2&gt;
-
-&lt;div class=&#34;linkcard&#34;&gt;
-    &lt;a target=&#34;_blank&#34; href=&#34;https://www.ykiko.me/zh-cn/articles/682031684&#34; data-draft-node=&#34;block&#34;
-        data-draft-type=&#34;link-card&#34; data-text=&#34;&#34; class=&#34;LinkCard new&#34;&gt;
-        &lt;span class=&#34;LinkCard-contents&#34;&gt;
-            &lt;span class=&#34;LinkCard-title&#34;&gt;Loading...&lt;/span&gt;
-        &lt;/span&gt;
-        &lt;span class=&#34;LinkCard-image LinkCard-image--default&#34;&gt;
-            
-        &lt;/span&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-
-
-&lt;style&gt;
-    .linkcard .LinkCard.new {
-        position: relative;
-        display: flex;
-        box-sizing: border-box;
-        flex-direction: row;
-        align-items: center;
-        width: 390px;
-        min-height: 84px;
-        border-radius: 8px;
-        max-width: 100%;
-        overflow: hidden;
-        margin: 16px auto;
-        padding: 12px 12px 9px 12px;
-        background-color: #f8f8fa;
-    }
-
-    .linkcard .LinkCard.new,
-    .linkcard .LinkCard.new:hover {
-        text-decoration: none;
-        border: none !important;
-        color: inherit !important;
-    }
-
-    .linkcard .LinkCard.new .LinkCard-contents {
-        display: block;
-        flex: 1 1 auto;
-        position: relative;
-    }
-
-    .linkcard .LinkCard.new .LinkCard-title {
-        display: -webkit-box;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: flex;
-        font-size: 15px;
-        font-weight: 500;
-        line-height: 1.4;
-        margin-bottom: 2px;
-        color: #191B1F;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 1;
-        -moz-box-orient: vertical;
-        -moz-line-clamp: 1;
-        -ms-box-orient: vertical;
-        -ms-line-clamp: 1;
-        box-orient: vertical;
-        line-clamp: 1;
-    }
-
-    .linkcard .LinkCard.new .LinkCard-image {
-        flex: 0 0 auto;
-        background-color: #ebeced;
-        background-size: cover;
-        background-position: center;
-        position: relative;
-        width: 60px;
-        height: 60px;
-        margin-left: 20px;
-        object-fit: cover;
-        border-radius: inherit;
-        overflow: hidden;
-    }
-
-    .linkcard .LinkCard.new .LinkCard-image.LinkCard-image--default {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #ebeced;
-        color: #c4c7ce;
-    }
-
-    .linkcard .LinkCard.new .LinkCard-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-&lt;/style&gt;
+      <description>&lt;p&gt;前情提要：&lt;a href=&#34;https://www.ykiko.me/zh-cn/articles/682031684&#34; target=&#34;_blank&#34;&gt;The History of constexpr in C++! (Part One)&lt;/a&gt;&lt;/p&gt;
 
 
 &lt;h2 class=&#34;relative group&#34;&gt;2015-2016：模板的语法糖 
@@ -137,104 +34,10 @@
     <item>
       <title>The History of constexpr in C&#43;&#43;! (Part One)</title>
       <link>https://www.ykiko.me/zh-cn/articles/682031684/</link>
-      <pubDate>Sat, 10 Feb 2024 15:15:47 +0000</pubDate>
+      <pubDate>Sat, 10 Feb 2024 23:15:47 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/682031684/</guid>
-      <description>&lt;p&gt;几个月前，我写了一篇介绍 C++ 模板的文章&lt;/p&gt;
-
-&lt;div class=&#34;linkcard&#34;&gt;
-    &lt;a target=&#34;_blank&#34; href=&#34;https://www.ykiko.me/zh-cn/articles/655902377&#34; data-draft-node=&#34;block&#34;
-        data-draft-type=&#34;link-card&#34; data-text=&#34;雾里看花：真正意义上的理解 C&amp;#43;&amp;#43; 模板&#34; class=&#34;LinkCard new&#34;&gt;
-        &lt;span class=&#34;LinkCard-contents&#34;&gt;
-            &lt;span class=&#34;LinkCard-title&#34;&gt;雾里看花：真正意义上的理解 C&amp;#43;&amp;#43; 模板&lt;/span&gt;
-        &lt;/span&gt;
-        &lt;span class=&#34;LinkCard-image LinkCard-image--default&#34;&gt;
-            
-        &lt;/span&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-
-
-&lt;style&gt;
-    .linkcard .LinkCard.new {
-        position: relative;
-        display: flex;
-        box-sizing: border-box;
-        flex-direction: row;
-        align-items: center;
-        width: 390px;
-        min-height: 84px;
-        border-radius: 8px;
-        max-width: 100%;
-        overflow: hidden;
-        margin: 16px auto;
-        padding: 12px 12px 9px 12px;
-        background-color: #f8f8fa;
-    }
-
-    .linkcard .LinkCard.new,
-    .linkcard .LinkCard.new:hover {
-        text-decoration: none;
-        border: none !important;
-        color: inherit !important;
-    }
-
-    .linkcard .LinkCard.new .LinkCard-contents {
-        display: block;
-        flex: 1 1 auto;
-        position: relative;
-    }
-
-    .linkcard .LinkCard.new .LinkCard-title {
-        display: -webkit-box;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: flex;
-        font-size: 15px;
-        font-weight: 500;
-        line-height: 1.4;
-        margin-bottom: 2px;
-        color: #191B1F;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 1;
-        -moz-box-orient: vertical;
-        -moz-line-clamp: 1;
-        -ms-box-orient: vertical;
-        -ms-line-clamp: 1;
-        box-orient: vertical;
-        line-clamp: 1;
-    }
-
-    .linkcard .LinkCard.new .LinkCard-image {
-        flex: 0 0 auto;
-        background-color: #ebeced;
-        background-size: cover;
-        background-position: center;
-        position: relative;
-        width: 60px;
-        height: 60px;
-        margin-left: 20px;
-        object-fit: cover;
-        border-radius: inherit;
-        overflow: hidden;
-    }
-
-    .linkcard .LinkCard.new .LinkCard-image.LinkCard-image--default {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #ebeced;
-        color: #c4c7ce;
-    }
-
-    .linkcard .LinkCard.new .LinkCard-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-&lt;/style&gt;
+      <description>&lt;p&gt;几个月前，我写了一篇介绍 C++ 模板的文章：&lt;a href=&#34;https://www.ykiko.me/zh-cn/articles/655902377&#34; target=&#34;_blank&#34;&gt;雾里看花：真正意义上的理解 C++ 模板&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;理清了现代 C++ 中模板的地位。其中用 constexpr function 替代模板进行编译期计算可以说是现代 C++ 最重要的改进之一了。 constexpr 本身其实并不难以理解，非常直观。但是由于几乎每个 C++ 版本都在改进它，所以不同的 C++ 版本可以使用的内容差别很大，有时候可能给人一种&lt;code&gt;inconsistency&lt;/code&gt;的感觉。&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/682031684/featured.png" />
     </item>

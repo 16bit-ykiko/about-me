@@ -26,8 +26,8 @@
   
   
   
-  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.67eb0befb1fb57e6528684f3a2ff6e0606a82100504705b66488d54a9f3fda9c2605c9bf3b70163208427288637a7b4d1a168384c1115e417458eae6b44b329c.css"
-    integrity="sha512-Z&#43;sL77H7V&#43;ZShoTzov9uBgaoIQBQRwW2ZIjVSp8/2pwmBcm/O3AWMghCcohjentNGhaDhMERXkF0WOrmtEsynA==" />
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.4e2716d77ddb668a7c0d68157cff2048cbdf59d43ac1a9de02fd1a04ed3047a1829f54a8b18c01b94597aac05a30d1933f930e6c59382c3e25501049c92fc230.css"
+    integrity="sha512-TicW133bZop8DWgVfP8gSMvfWdQ6waneAv0aBO0wR6GCn1SosYwBuUWXqsBaMNGTP5MObFk4LD4lUBBJyS/CMA==" />
   
   
   <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
@@ -46,8 +46,8 @@
   
   
   
-  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.efbf3b6b987689fffaf2d7b73173d2690c0279a04d444b0537a77d7f4ff6e6d493445400cb0cf56bc0f0f123e19f15394e63cae34e67f069bd013dd5c73df56e.js"
-    integrity="sha512-7787a5h2if/68te3MXPSaQwCeaBNREsFN6d9f0/25tSTRFQAywz1a8Dw8SPhnxU5TmPK405n8Gm9AT3Vxz31bg==" data-copy="" data-copied=""></script>
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.a2d78d78672e549fbfc972ece871725b5478ba0b65708dda20cb97ab80a865eae6d247e1b05a4aec6ebbf78647ec3233bad8b2609ed98eee53cd58aa17128bc7.js"
+    integrity="sha512-oteNeGcuVJ&#43;/yXLs6HFyW1R4ugtlcI3aIMuXq4CoZerm0kfhsFpK7G6794ZH7DIzutiyYJ7Zju5TzViqFxKLxw==" data-copy="" data-copied=""></script>
   
   
   
@@ -66,22 +66,23 @@
   
   
   
+  
   <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/655902377/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
   <meta property="og:title" content="雾里看花：真正意义上的理解 C&#43;&#43; 模板">
-  <meta property="og:description" content="在 C&#43;&#43; 中，模板（Template）这个概念已经存在二十多年了。作为 C&#43;&#43; 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入的有价值的讨论很少，尤其是提供多个视角看待这一技术。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了一大堆，但却不得其要领，反倒容易把不同的概念混淆在一起。">
+  <meta property="og:description" content="在 C&#43;&#43; 中，模板（Template）这个概念已经存在二十多年了。作为 C&#43;&#43; 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2023-09-12T15:46:11+00:00">
-    <meta property="article:modified_time" content="2023-09-12T15:46:11+00:00">
+    <meta property="article:published_time" content="2023-09-12T23:46:11+00:00">
+    <meta property="article:modified_time" content="2023-09-12T23:46:11+00:00">
     <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/655902377/featured.png">
 
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/655902377/featured.png">
   <meta name="twitter:title" content="雾里看花：真正意义上的理解 C&#43;&#43; 模板">
-  <meta name="twitter:description" content="在 C&#43;&#43; 中，模板（Template）这个概念已经存在二十多年了。作为 C&#43;&#43; 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入的有价值的讨论很少，尤其是提供多个视角看待这一技术。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了一大堆，但却不得其要领，反倒容易把不同的概念混淆在一起。">
+  <meta name="twitter:description" content="在 C&#43;&#43; 中，模板（Template）这个概念已经存在二十多年了。作为 C&#43;&#43; 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。">
 
   
   <script type="application/ld+json">
@@ -92,7 +93,7 @@
     "name": "雾里看花：真正意义上的理解 C\u002b\u002b 模板",
     "headline": "雾里看花：真正意义上的理解 C\u002b\u002b 模板",
     
-    "abstract": "\u003cp\u003e在 C\u002b\u002b 中，模板（Template）这个概念已经存在二十多年了。作为 C\u002b\u002b 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入的有价值的讨论很少，尤其是提供多个视角看待这一技术。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了一大堆，但却不得其要领，反倒容易把不同的概念混淆在一起。\u003c\/p\u003e",
+    "abstract": "\u003cp\u003e在 C\u002b\u002b 中，模板（Template）这个概念已经存在二十多年了。作为 C\u002b\u002b 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。\u003c\/p\u003e",
     "inLanguage": "zh-cn",
     "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/655902377\/",
     "author" : {
@@ -100,10 +101,10 @@
       "name": "ykiko"
     },
     "copyrightYear": "2023",
-    "dateCreated": "2023-09-12T15:46:11\u002b00:00",
-    "datePublished": "2023-09-12T15:46:11\u002b00:00",
+    "dateCreated": "2023-09-12T23:46:11\u002b00:00",
+    "datePublished": "2023-09-12T23:46:11\u002b00:00",
     
-    "dateModified": "2023-09-12T15:46:11\u002b00:00",
+    "dateModified": "2023-09-12T23:46:11\u002b00:00",
     
     
     
@@ -262,15 +263,15 @@
     <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
       <div class="flex flex-col space-y-3">
         
-        <a href="/en/articles/655902377/" class="flex items-center">
-          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="雾里看花：真正意义上的理解 C&#43;&#43; 模板">
-            English
-          </p>
-        </a>
-        
         <a href="/zh-cn/articles/655902377/" class="flex items-center">
           <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="雾里看花：真正意义上的理解 C&#43;&#43; 模板">
             简体中文
+          </p>
+        </a>
+        
+        <a href="/en/articles/655902377/" class="flex items-center">
+          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="雾里看花：真正意义上的理解 C&#43;&#43; 模板">
+            English
           </p>
         </a>
         
@@ -349,15 +350,15 @@
     <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
       <div class="flex flex-col space-y-3">
         
-        <a href="/en/articles/655902377/" class="flex items-center">
-          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="雾里看花：真正意义上的理解 C&#43;&#43; 模板">
-            English
-          </p>
-        </a>
-        
         <a href="/zh-cn/articles/655902377/" class="flex items-center">
           <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="雾里看花：真正意义上的理解 C&#43;&#43; 模板">
             简体中文
+          </p>
+        </a>
+        
+        <a href="/en/articles/655902377/" class="flex items-center">
+          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="雾里看花：真正意义上的理解 C&#43;&#43; 模板">
+            English
           </p>
         </a>
         
@@ -654,7 +655,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2023-09-12T15:46:11&#43;00:00">September 12, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>8209 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">17 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2023-09-12T23:46:11&#43;00:00">September 12, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>8209 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">17 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1052,8 +1053,8 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          <p>在 C++ 中，模板（Template）这个概念已经存在二十多年了。作为 C++ 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入的有价值的讨论很少，尤其是提供多个视角看待这一技术。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了一大堆，但却不得其要领，反倒容易把不同的概念混淆在一起。</p>
-<p>就我个人而言，讨论一个问题喜欢多层次，多角度的去讨论，而不仅限某一特定的方面。这样一来，既能更好的理解问题本身，也不至于让自己的视野太狭隘。故，本文将尝试从模板诞生之初开始，以四个角度来观察，理清模板这一技术在 C++ 中的发展脉络。注意，本文并不是教学文章，不会深入语法细节。更多的谈论设计哲学和 trade-off 。掌握一点点模板的基础知识就能看懂，请放心食用。当然这样可能严谨性有所缺失，如有错误欢迎评论区讨论。</p>
+          <p>在 C++ 中，模板（Template）这个概念已经存在二十多年了。作为 C++ 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。</p>
+<p>就我个人而言，讨论一个问题喜欢多层次，多角度的去讨论，而不仅限于某一特定的方面。这样一来，既能更好的理解问题本身，也不至于让自己的视野太狭隘。故本文将尝试从模板诞生之初开始，以四个角度来观察，理清模板这一特性在 C++ 中的发展脉络。注意，本文并不是教学文章，不会深入语法细节。更多的谈论设计哲学和 trade-off 。掌握一些模板的基础知识就能看懂，请放心阅读。当然，这样可能严谨性有所缺失，如有错误欢迎评论区讨论。</p>
 <p><strong>我们主要讨论四个主题：</strong></p>
 <ul>
 <li>代码生成 (Code Generation)</li>
@@ -1590,7 +1591,7 @@
     </span>        
     
 </h2>
-<p>可以发现，在一开始模板承担了太多角色，而且根本不是当初设计它的时候的用法，是通过一些 trick 的手段来弥补语言能力的不足。随着 C++ 的不断发展，这些额外的角色渐渐地被更简单，更直接，更易懂的语法所取代。类型约束由<code>concept</code>和<code>requires</code>来完成，编译器计算由<code>constexpr</code>来完成，对类型做计算则由未来的<code>static reflection</code>来完成。模板逐渐回到了它最初的使命，负责代码生成，那些晦涩难懂的 workaround 也逐渐被淘汰。这是一个好的信号，虽然我们往往还是不得不和老代码打交道。但是至少我们知道，未来会更好！</p>
+<p>可以发现，在一开始模板承担了太多角色，而且根本不是当初设计它的时候所期望的用法，是通过一些 trick 来弥补语言表达能力的不足。随着 C++ 的不断发展，这些额外的角色渐渐地被更简单，更直接，更易懂的语法所取代。类型约束由<code>concept</code>和<code>requires</code>来完成，编译期计算由<code>constexpr</code>来完成，操作类型则由未来的<code>static reflection</code>来完成。模板逐渐回到了它最初的模样，负责代码生成。那些晦涩难懂的 workaround 也逐渐被淘汰，这是一个好的信号，虽然我们往往还是不得不和老代码打交道。但是至少我们知道，未来会更好！</p>
 
           
           
@@ -1812,7 +1813,7 @@
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2023-07-30T01:29:27&#43;00:00">July 30, 2023</time>
+                    <time datetime="2023-07-30T09:29:27&#43;00:00">July 30, 2023</time>
                   
                 </span>
               </span>
@@ -1829,7 +1830,7 @@
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2023-10-04T06:50:12&#43;00:00">October 4, 2023</time>
+                    <time datetime="2023-10-04T14:50:12&#43;00:00">October 4, 2023</time>
                   
                 </span>
               </span>
