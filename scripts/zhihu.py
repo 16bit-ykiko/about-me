@@ -55,28 +55,31 @@ class Parser:
 
     def parse_body(self, element: Tag) -> markdown.Document:
         nodes = []
-        for child in element.children:
-            match child.name:
+        for node in element.children:
+            match node.name:
                 case 'h2':
-                    nodes.append(markdown.Header(2, child.text))
+                    nodes.append(markdown.Header(2, node.text))
                 case 'h3':
-                    nodes.append(markdown.Header(3, child.text))
+                    nodes.append(markdown.Header(3, node.text))
                 case 'hr':
                     nodes.append(markdown.HorizontalRule())
                 case 'p':
-                    nodes.append(self.parse_paragraph(child))
+                    nodes.append(self.parse_paragraph(node))
                 case 'a':
-                    nodes.append(self.parse_linkcard(child))
+                    nodes.append(self.parse_linkcard(node))
                 case 'ul' | 'ol':
-                    nodes.append(self.parse_list(child))
+                    nodes.append(self.parse_list(node))
                 case 'div':
-                    nodes.append(self.parse_div(child))
+                    if 'highlight' in node.get('class'):
+                        nodes.append(self.parse_code_block(node))
+                    else:
+                        raise ValueError(f"Unknown element: {node}")
                 case 'blockquote':
-                    nodes.append(self.parse_blockquote(child))
+                    nodes.append(self.parse_blockquote(node))
                 case 'figure':
-                    nodes.append(self.parse_image(child))
+                    nodes.append(self.parse_image(node))
                 case _:
-                    raise ValueError(f"Unknown element: {child}")
+                    raise ValueError(f"Unknown element: {node}")
 
         return markdown.Document(nodes)
 
@@ -119,8 +122,10 @@ class Parser:
         return markdown.LinkCard(title if title else "", url)
 
     def parse_image(self, element: Tag) -> markdown.Image:
-        noscript = element.find('noscript')
-        img = noscript.find('img')
+        img = element.find('img')
+        if img is None:
+            img = element.find('noscript').find('img')
+
         attributes = ["data-original", "data-default-watermark-src", "src"]
         src = None
 
@@ -152,7 +157,7 @@ class Parser:
         else:
             return markdown.List(True, nodes)
 
-    def parse_div(self, element: Tag) -> markdown.BlockCode:
+    def parse_code_block(self, element: Tag) -> markdown.BlockCode:
         pre = element.find('pre')
         code = pre.find('code')
         text = code.text.removesuffix('\n')

@@ -24,11 +24,26 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install beautifulsoup4 requests
+          pip install beautifulsoup4 requests opencv-python numpy selenium
+
+      - name: Install Chrome
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y wget
+          sudo apt-get install -y curl
+          sudo apt-get install -y unzip
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb
+          sudo apt-get -f install -y
+
+      - name: Start Chrome in headless mode with remote debugging
+        run: |
+          nohup google-chrome-stable --headless --disable-gpu --no-sandbox --remote-debugging-port=9222
+          sleep 5
 
       - name: Update pages
         env:
-          COOKIE_TEXT: ${{ secrets.COOKIE_TEXT }}
+          PASSWORD: ${{ secrets.PASSWORD }}
         run: |
           python scripts/update.py
 
@@ -55,7 +70,7 @@ jobs:
           hugo-version: "latest"
 
       - name: Build
-        run: | 
+        run: |
           cd website
           git clone https://github.com/nunocoracao/blowfish.git themes/blowfish --depth=1
           hugo
