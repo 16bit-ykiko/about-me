@@ -2,6 +2,7 @@ import os
 import time
 import random
 import requests
+
 from zhihu import Parser
 from datetime import datetime
 
@@ -24,6 +25,20 @@ headers = {
 #        cookies[key] = value
 #
 #    print("Cookies loaded successfully")
+
+# download image from url
+def download(url: str):
+    n = 0
+    while n < 10:
+        try:
+            response = requests.get(
+                url, timeout=10, headers=headers)
+            response.raise_for_status()
+            return response.content
+        except Exception as e:
+            print(e)
+            time.sleep(random.choice([1, 2, 3, 4]))
+            n += 1
 
 
 def request(url: str, series: tuple[str, int] | None = None):
@@ -56,20 +71,6 @@ def request(url: str, series: tuple[str, int] | None = None):
             n += 10
 
 
-def download(url: str):
-    n = 0
-    while n < 10:
-        try:
-            response = requests.get(
-                url, timeout=30, headers=headers)
-            response.raise_for_status()
-            return response.content
-        except Exception as e:
-            print(e)
-            time.sleep(random.choice([1, 2, 3, 4]))
-            n += 1
-
-
 def main():
     # load_cookies()
     path = os.path.dirname(__file__)
@@ -90,14 +91,16 @@ def main():
         if not os.path.exists(dir):
             os.makedirs(dir)
 
+        # write markdown file
         with open(os.path.join(dir, 'index.md'), 'w', encoding="utf-8") as f:
             f.write(markdown)
 
+        # write cover image
         if cover:
             with open(os.path.join(dir, 'featured.png'), 'wb') as f:
                 f.write(download(cover))
 
-        # time.sleep(random.choice([1, 2, 3, 4]))
+        time.sleep(random.choice([1, 2, 3, 4]))
 
         print(f"Done: {hash}")
 
