@@ -1,14 +1,12 @@
 ---
 title: 'The History of constexpr in C++! (Part One)'
 date: 2024-02-10 15:15:47
-updated: 2024-08-03 11:11:30
+updated: 2024-11-30 10:28:05
 series: ['Constexpr']
 series_order: 1
 ---
 
-几个月前，我写了一篇介绍 C++ 模板的文章
-
-{{< linkcard url="https://www.ykiko.me/zh-cn/articles/655902377" title="雾里看花：真正意义上的理解 C++ 模板" >}}
+几个月前，我写了一篇介绍 C++ 模板的文章：[雾里看花：真正意义上的理解 C++ 模板](https://www.ykiko.me/zh-cn/articles/655902377)。
 
 理清了现代 C++ 中模板的地位。其中用 constexpr function 替代模板进行编译期计算可以说是现代 C++ 最重要的改进之一了。 constexpr 本身其实并不难以理解，非常直观。但是由于几乎每个 C++ 版本都在改进它，所以不同的 C++ 版本可以使用的内容差别很大，有时候可能给人一种`inconsistency`的感觉。
 
@@ -539,7 +537,4 @@ struct B{
 
 ---
 
-下篇在这里
-
-{{< linkcard url="https://www.ykiko.me/zh-cn/articles/683463723" title="C++ 中 constexpr 的发展史（下）" >}}
-
+下篇在这里：[C++ 中 constexpr 的发展史（下）](https://www.ykiko.me/zh-cn/articles/683463723)。

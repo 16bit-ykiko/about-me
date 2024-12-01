@@ -1,7 +1,7 @@
 ---
 title: 'C++26 静态反射提案解析'
 date: 2023-10-16 18:38:26
-updated: 2024-08-14 05:36:29
+updated: 2024-11-30 09:59:18
 series: ['Reflection']
 series_order: 6
 ---
@@ -428,15 +428,12 @@ constexpr std::string enum_to_string(E value)
 
 为了让静态反射能早点进入标准，作者团队特地选了原本提案的一部分核心子集。希望如作者所愿，静态反射能在 C++26 进入标准！当然，核心部分先进入，之后再补充更多更加有用的功能，所以这绝不是反射的全部内容。本文只是对该提案的粗略解读和翻译，想要详细了解的还请阅读下方链接中的提案，相关进展持续更新中：
 
-{{< linkcard url="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r0.html" title="Reflection for C++26 - P2996R0" >}}
+- [Reflection for C++26 - P2996R0](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r0.html)
+- [Reflection for C++26 - P2996R1](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r1.html)
+- [Reflection for C++26 - P2996R2](https://www.open-std.org/JTC1/SC22/WG21/docs/papers/2024/p2996r2.html)
+- [Reflection for C++26 - P2996R3](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2996r3.html)
+- [Reflection for C++26 - P2996R4](https://wg21.link/P2996R4)
 
-{{< linkcard url="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r1.html" title="Reflection for C++26 - P2996R1" >}}
-
-{{< linkcard url="https://www.open-std.org/JTC1/SC22/WG21/docs/papers/2024/p2996r2.html" title="Reflection for C++26 - P2996R2" >}}
-
-{{< linkcard url="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2996r3.html" title="Reflection for C++26 - P2996R3" >}}
-
-{{< linkcard url="https://wg21.link/P2996R4" title="Reflection for C++26 - P2996R4" >}}
 
 实验编译器：
 
@@ -444,7 +441,4 @@ constexpr std::string enum_to_string(E value)
 - 本地构建： [clang-p2996](https://github.com/bloomberg/clang-p2996.git)
 
 
-反射系列文章：
-
-{{< linkcard url="https://www.ykiko.me/zh-cn/articles/669358870" title="写给 C++ 程序员的反射教程" >}}
-
+反射系列文章：[写给 C++ 程序员的反射教程](https://www.ykiko.me/zh-cn/articles/669358870)

@@ -1,7 +1,7 @@
 ---
 title: 'C++ 中如何优雅进行 enum 到 string 的转换 ？'
 date: 2024-01-29 09:03:28
-updated: 2024-05-04 08:49:15
+updated: 2024-11-30 10:25:39
 ---
 
 ## 拒绝硬编码 
@@ -277,11 +277,4 @@ std::string_view color_to_string(Color value){
 - 侵入式，可以直接使用宏
 
 
-年年月月盼反射，还是不知道什么时候才能进入标准呢。想要提前了解 C++ 静态反射的小伙伴，可以看
-
-{{< linkcard url="https://www.ykiko.me/zh-cn/articles/661692275" title="C++26 静态反射提案解析" >}}
-
-或者还不知道反射是什么的小伙伴，可以参考这篇文章的内容
-
-{{< linkcard url="https://www.ykiko.me/zh-cn/articles/669358870" title="写给 C++ 程序员的反射教程" >}}
-
+年年月月盼反射，还是不知道什么时候才能进入标准呢。想要提前了解 C++ 静态反射的小伙伴，可以看 [C++26 静态反射提案解析](https://www.ykiko.me/zh-cn/articles/661692275)。或者还不知道反射是什么的小伙伴，可以参考这篇文章的内容：[写给 C++ 程序员的反射教程](https://www.ykiko.me/zh-cn/articles/669358870)。

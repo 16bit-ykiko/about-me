@@ -1,14 +1,12 @@
 ---
 title: 'The History of constexpr in C++! (Part Two)'
 date: 2024-02-22 14:15:32
-updated: 2024-09-29 12:19:33
+updated: 2024-11-30 10:28:59
 series: ['Constexpr']
 series_order: 2
 ---
 
-## 前情提要： 
-
-{{< linkcard url="https://www.ykiko.me/zh-cn/articles/682031684" title="" >}}
+前情提要：[The History of constexpr in C++! (Part One)](https://www.ykiko.me/zh-cn/articles/682031684)
 
 ## 2015-2016：模板的语法糖 
 
