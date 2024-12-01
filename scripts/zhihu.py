@@ -29,7 +29,7 @@ class Parser:
         "text": "bash"
     }
 
-    def parse_article(self, text: str) -> Article:
+    def parse_article_from_html(self, text: str) -> Article:
         soup = BeautifulSoup(text, 'html.parser')
 
         # 这里存放的是正文
@@ -45,6 +45,18 @@ class Parser:
 
         title = inner["title"]  # 标题
         cover = inner["imageUrl"]  # 封面
+        created = inner["created"]  # 创建时间
+        updated = inner["updated"]  # 更新时间
+
+        return Article(content, title, cover, created, updated)
+
+    def parse_article_from_json(self, text: str) -> Article:
+        inner = json.loads(text)
+
+        soup = BeautifulSoup(inner["content"], 'html.parser')
+        content = self.parse_body(soup)  # 正文
+        title = inner["title"]  # 标题
+        cover = inner["image_url"]  # 封面
         created = inner["created"]  # 创建时间
         updated = inner["updated"]  # 更新时间
 
@@ -119,8 +131,12 @@ class Parser:
         return markdown.LinkCard(title if title else "", url)
 
     def parse_image(self, element: Tag) -> markdown.Image:
-        noscript = element.find('noscript')
-        img = noscript.find('img')
+        img = element.find('img')
+        if img is None:
+            img = element.find('noscript').find('img')
+        if img is None:
+            raise ValueError("Image not found")
+        
         attributes = ["data-original", "data-default-watermark-src", "src"]
         src = None
 

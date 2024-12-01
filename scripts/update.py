@@ -11,19 +11,19 @@ headers = {
 }
 
 
-def load_cookies():
-    cookie_text = None
-
-    if 'COOKIE_TEXT' in os.environ:
-        cookie_text = os.environ['COOKIE_TEXT']
-    else:
-        raise Exception("COOKIE_TEXT not found")
-
-    for item in cookie_text.split('; '):
-        key, value = item.split('=', 1)
-        cookies[key] = value
-
-    print("Cookies loaded successfully")
+# def load_cookies():
+#    cookie_text = None
+#
+#    if 'COOKIE_TEXT' in os.environ:
+#        cookie_text = os.environ['COOKIE_TEXT']
+#    else:
+#        raise Exception("COOKIE_TEXT not found")
+#
+#    for item in cookie_text.split('; '):
+#        key, value = item.split('=', 1)
+#        cookies[key] = value
+#
+#    print("Cookies loaded successfully")
 
 
 def request(url: str, series: tuple[str, int] | None = None):
@@ -31,11 +31,11 @@ def request(url: str, series: tuple[str, int] | None = None):
     while n < 20:
         try:
             response = requests.get(
-                url, timeout=10, headers=headers, cookies=cookies)
+                url, timeout=10, headers=headers)
             response.raise_for_status()
 
             parser = Parser()
-            article = parser.parse_article(response.text)
+            article = parser.parse_article_from_json(response.text)
             created = datetime.fromtimestamp(article.created)
             updated = datetime.fromtimestamp(article.updated)
 
@@ -53,7 +53,7 @@ def request(url: str, series: tuple[str, int] | None = None):
         except Exception as e:
             print(e)
             time.sleep(random.choice([1, 2, 3, 4]))
-            n += 1
+            n += 10
 
 
 def download(url: str):
@@ -71,7 +71,7 @@ def download(url: str):
 
 
 def main():
-    load_cookies()
+    # load_cookies()
     path = os.path.dirname(__file__)
     import articles
 
@@ -82,11 +82,11 @@ def main():
     Parser.urls_map = urls
 
     for article in articles.all:
-        url = article.url
-        name = url.split('/')[-1]
-        markdown, cover = request(url, article.series)
+        hash = article.url.split('/')[-1]
+        markdown, cover = request(
+            f"https://api.zhihu.com/article/{hash}", article.series)
 
-        dir = os.path.join(path, f'../website/content/zh-cn/articles/{name}')
+        dir = os.path.join(path, f'../website/content/zh-cn/articles/{hash}')
         if not os.path.exists(dir):
             os.makedirs(dir)
 
@@ -97,9 +97,9 @@ def main():
             with open(os.path.join(dir, 'featured.png'), 'wb') as f:
                 f.write(download(cover))
 
-        time.sleep(random.choice([1, 2, 3, 4]))
+        # time.sleep(random.choice([1, 2, 3, 4]))
 
-        print(f"Done: {name}")
+        print(f"Done: {hash}")
 
 
 if __name__ == "__main__":

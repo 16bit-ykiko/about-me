@@ -35,8 +35,6 @@ Article("https://zhuanlan.zhihu.com/p/670190357",
 Article("https://zhuanlan.zhihu.com/p/670191053",
         tags=["C++", "Reflection", "Type Ensure"], series=("Reflection", 3))
 
-Article("https://zhuanlan.zhihu.com/p/673852429",
-        ["C++", "Constexpr", "Compiler", "Clang"])
 Article("https://zhuanlan.zhihu.com/p/674157958", ["C++", "Template"])
 Article("https://zhuanlan.zhihu.com/p/679782886",
         ["C++", "Relocatable", "STL"])
