@@ -1,15 +1,14 @@
-<script src="https://giscus.app/client.js"
-        data-repo="16bit-ykiko/about-me"
-        data-repo-id="R_kgDOLNvUfQ"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOLNvUfc4Ckzfl"
-        data-mapping="title"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        crossorigin="anonymous"
-        async>
+{{ $lang := .Lang }}
+<script src="https://giscus.app/client.js" 
+    data-repo="16bit-ykiko/about-me" 
+    data-repo-id="R_kgDOLNvUfQ"
+    data-category="Announcements" 
+    data-category-id="DIC_kwDOLNvUfc4Ckzfl" 
+    data-mapping="title" data-strict="0"
+    data-reactions-enabled="1" 
+    data-emit-metadata="0" 
+    data-input-position="top" 
+    data-theme="noborder_gray"
+    data-lang="{{ if eq $lang "zh-cn" }}zh-CN{{ else }}en{{ end }}" 
+    crossorigin="anonymous" async>
 </script>

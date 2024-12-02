@@ -71,6 +71,7 @@ showTableOfContents = true
 showRelatedContent = true
 relatedContentLimit = 6
 showTaxonomies = true
+showComments = true
 showAuthorsBadges = true
 showWordCount = true
 sharingLinks = [
