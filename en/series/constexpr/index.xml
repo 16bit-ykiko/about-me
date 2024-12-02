@@ -8,6 +8,7 @@
     <language>en</language>
     <copyright>©2024 ykiko</copyright>
     <lastBuildDate>Thu, 22 Feb 2024 14:15:32 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/en/series/constexpr/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>The History of constexpr in C&#43;&#43;! (Part Two)</title>
       <link>https://www.ykiko.me/en/articles/683463723/</link>
