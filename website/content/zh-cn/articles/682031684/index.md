@@ -1,7 +1,7 @@
 ---
 title: 'The History of constexpr in C++! (Part One)'
 date: 2024-02-10 15:15:47
-updated: 2024-12-11 01:26:40
+updated: 2024-12-18 03:21:51
 series: ['Constexpr']
 series_order: 1
 ---
@@ -160,7 +160,7 @@ lambda-expr
 - **代码生成**：根据给定的 AST 生成 LLVM IR
 
 
-因此，常量表达式的计算（以及相关的事情，如模板实例化）严格发生在 C++ 编译器的前端，而 LLVM 不涉及此类工作。这种处理常量表达式（从 C++98 的简单表达式到 C++23 的复杂表达式）的工具被称为*常量求值器 (constant evaluator)* 。
+因此，常量表达式的计算（以及相关的事情，如模板实例化）严格发生在 C++ 编译器的前端，而 LLVM 不涉及此类工作。这种处理常量表达式（从 C++98 的简单表达式到 C++23 的复杂表达式）的工具被称为**常量求值器 (constant evaluator)**。
 
 多年来，对常量表达式的限制一直在不断放宽，而 Clang 的常量求值器相应地变得越来越复杂，直到管理 memory model（内存模型）。有一份旧的 [文档](https://clang.llvm.org/docs/InternalsManual.html#constant-folding-in-the-clang-ast)，描述 C++98/03 的常量求值。由于当时的常量表达式非常简单，它们是通过分析语法树进行 *constant folding* （常量折叠）来进行的。由于在语法树中，所有的算术表达式都已经被解析为子树的形式，因此计算常量就是简单地遍历子树。
 
@@ -199,7 +199,7 @@ INT_MAX
 // 被迫使用宏代替
 ```
 
-因此，建议引入*常值 (constant-valued)*  函数的概念，允许在常量表达式中使用这些函数。如果希望一个函数是常值函数，那么它必须满足
+因此，建议引入**常值 (constant-valued)** 函数的概念，允许在常量表达式中使用这些函数。如果希望一个函数是常值函数，那么它必须满足
 
 - inline ，non-recursive，并且返回类型不是 void
 - 仅由单一的 return expr 语句组成，并且在把 expr 里面的函数参数替换为常量表达式之后，得到的仍然是一个常量表达式
