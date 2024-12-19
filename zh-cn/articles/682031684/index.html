@@ -112,7 +112,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "7672"
+    "wordCount": "7681"
   }]
   </script>
 
@@ -588,7 +588,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-02-10T15:15:47&#43;00:00">February 10, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>7672 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">16 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2024-02-10T15:15:47&#43;00:00">February 10, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>7681 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">16 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1130,7 +1130,7 @@
 </span></span></code></pre></div><ul>
 <li><strong>代码生成</strong>：根据给定的 AST 生成 LLVM IR</li>
 </ul>
-<p>因此，常量表达式的计算（以及相关的事情，如模板实例化）严格发生在 C++ 编译器的前端，而 LLVM 不涉及此类工作。这种处理常量表达式（从 C++98 的简单表达式到 C++23 的复杂表达式）的工具被称为<em>常量求值器 (constant evaluator)</em> 。</p>
+<p>因此，常量表达式的计算（以及相关的事情，如模板实例化）严格发生在 C++ 编译器的前端，而 LLVM 不涉及此类工作。这种处理常量表达式（从 C++98 的简单表达式到 C++23 的复杂表达式）的工具被称为<strong>常量求值器 (constant evaluator)</strong>。</p>
 <p>多年来，对常量表达式的限制一直在不断放宽，而 Clang 的常量求值器相应地变得越来越复杂，直到管理 memory model（内存模型）。有一份旧的 <a href="https://clang.llvm.org/docs/InternalsManual.html#constant-folding-in-the-clang-ast" target="_blank">文档</a>，描述 C++98/03 的常量求值。由于当时的常量表达式非常简单，它们是通过分析语法树进行 <em>constant folding</em> （常量折叠）来进行的。由于在语法树中，所有的算术表达式都已经被解析为子树的形式，因此计算常量就是简单地遍历子树。</p>
 <p>常量计算器的源代码位于 <a href="https://clang.llvm.org/doxygen/ExprConstant_8cpp_source.html" target="_blank">lib/AST/ExprConstant.cpp</a>，在撰写本文时已经扩展到将近 17000 行。随着时间的推移，它学会了解释许多内容，例如循环（<code>EvaluateLoopBody</code>），所有这些都是在语法树上进行的。</p>
 <p>常量表达式与运行时代码有一个重要的区别：它们必须不引发 undefined behavior（未定义行为）。如果常量计算器遇到未定义行为，编译将失败。</p>
@@ -1167,7 +1167,7 @@
 </span></span><span class="line"><span class="cl"><span class="n">SQUARE</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">INT_MAX</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 被迫使用宏代替
-</span></span></span></code></pre></div><p>因此，建议引入<em>常值 (constant-valued)</em>  函数的概念，允许在常量表达式中使用这些函数。如果希望一个函数是常值函数，那么它必须满足</p>
+</span></span></span></code></pre></div><p>因此，建议引入<strong>常值 (constant-valued)</strong> 函数的概念，允许在常量表达式中使用这些函数。如果希望一个函数是常值函数，那么它必须满足</p>
 <ul>
 <li>inline ，non-recursive，并且返回类型不是 void</li>
 <li>仅由单一的 return expr 语句组成，并且在把 expr 里面的函数参数替换为常量表达式之后，得到的仍然是一个常量表达式</li>
