@@ -8,14 +8,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   
-  <title>St. Louis WG21 会议回顾 &middot; ykiko&#39;s blog</title>
-  <meta name="title" content="St. Louis WG21 会议回顾 &middot; ykiko&#39;s blog" />
+  <title>一个新 C&#43;&#43; language server 的设计与实现 &middot; ykiko&#39;s blog</title>
+  <meta name="title" content="一个新 C&#43;&#43; language server 的设计与实现 &middot; ykiko&#39;s blog" />
   
   <meta name="description" content="mainly about computer science and mathematics" />
   
   
   
-  <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/706509748/" />
+  <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/13394352064/" />
   
   
   
@@ -67,22 +67,22 @@
   
   
   
-  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/706509748/">
+  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/13394352064/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="St. Louis WG21 会议回顾">
-  <meta property="og:description" content="因为某些机缘巧合参与了上周的 WG21 会议（C&#43;&#43; 标准委员会会议）。虽然我经常浏览 C&#43;&#43; 标准的新提案，但是确实没想到有一天真的能参加 WG21 会议，实时了解 C&#43;&#43; 标准的最新进展。当然，这也是第一次参加，非常激动，在这里记录一下自己的感受和会议的进展。">
+  <meta property="og:title" content="一个新 C&#43;&#43; language server 的设计与实现">
+  <meta property="og:description" content="距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 clice —— 一个全新的 C&#43;&#43; 语言服务器 (language server)。">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2024-07-01T18:46:56+00:00">
-    <meta property="article:modified_time" content="2024-07-01T18:46:56+00:00">
-    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/706509748/featured.png">
+    <meta property="article:published_time" content="2024-12-18T13:46:01+00:00">
+    <meta property="article:modified_time" content="2024-12-18T13:46:01+00:00">
+    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/13394352064/featured.png">
 
   
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/706509748/featured.png">
-  <meta name="twitter:title" content="St. Louis WG21 会议回顾">
-  <meta name="twitter:description" content="因为某些机缘巧合参与了上周的 WG21 会议（C&#43;&#43; 标准委员会会议）。虽然我经常浏览 C&#43;&#43; 标准的新提案，但是确实没想到有一天真的能参加 WG21 会议，实时了解 C&#43;&#43; 标准的最新进展。当然，这也是第一次参加，非常激动，在这里记录一下自己的感受和会议的进展。">
+  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/13394352064/featured.png">
+  <meta name="twitter:title" content="一个新 C&#43;&#43; language server 的设计与实现">
+  <meta name="twitter:description" content="距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 clice —— 一个全新的 C&#43;&#43; 语言服务器 (language server)。">
 
   
   <script type="application/ld+json">
@@ -90,26 +90,26 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Articles",
-    "name": "St. Louis WG21 会议回顾",
-    "headline": "St. Louis WG21 会议回顾",
+    "name": "一个新 C\u002b\u002b language server 的设计与实现",
+    "headline": "一个新 C\u002b\u002b language server 的设计与实现",
     
-    "abstract": "\u003cp\u003e因为某些机缘巧合参与了上周的 WG21 会议（C\u002b\u002b 标准委员会会议）。虽然我经常浏览 C\u002b\u002b 标准的新提案，但是确实没想到有一天真的能参加 WG21 会议，实时了解 C\u002b\u002b 标准的最新进展。当然，这也是第一次参加，非常激动，在这里记录一下自己的感受和会议的进展。\u003c\/p\u003e",
+    "abstract": "\u003cp\u003e距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 \u003ca href=\u0022https:\/\/github.com\/clice-project\/clice\u0022 target=\u0022_blank\u0022\u003eclice\u003c\/a\u003e —— 一个全新的 C\u002b\u002b 语言服务器 (language server)。\u003c\/p\u003e",
     "inLanguage": "zh-cn",
-    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/706509748\/",
+    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/13394352064\/",
     "author" : {
       "@type": "Person",
       "name": "ykiko"
     },
     "copyrightYear": "2024",
-    "dateCreated": "2024-07-01T18:46:56\u002b00:00",
-    "datePublished": "2024-07-01T18:46:56\u002b00:00",
+    "dateCreated": "2024-12-18T13:46:01\u002b00:00",
+    "datePublished": "2024-12-18T13:46:01\u002b00:00",
     
-    "dateModified": "2024-07-01T18:46:56\u002b00:00",
+    "dateModified": "2024-12-18T13:46:01\u002b00:00",
     
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "3282"
+    "wordCount": "6950"
   }]
   </script>
 
@@ -473,7 +473,7 @@
 
     
     <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/zh-cn/articles/706509748/featured_hu14214859907618148850.png);">
+    style="background-image:url(/zh-cn/articles/13394352064/featured_hu12690283705806268358.png);">
     
 
 
@@ -526,8 +526,8 @@
   <li class="inline hidden">
     <a
       class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
-      href="/zh-cn/articles/706509748/"
-      >St. Louis WG21 会议回顾</a
+      href="/zh-cn/articles/13394352064/"
+      >一个新 C&#43;&#43; language server 的设计与实现</a
     ><span class="px-1 text-primary-500">/</span>
   </li>
 
@@ -536,7 +536,7 @@
 
     
     <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-      St. Louis WG21 会议回顾
+      一个新 C++ language server 的设计与实现
     </h1>
     <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
@@ -585,7 +585,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-07-01T18:46:56&#43;00:00">July 1, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>3282 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2024-12-18T13:46:01&#43;00:00">December 18, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>6950 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">14 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -595,7 +595,7 @@
 
 <span class="mb-[2px]">
   <a
-    href="#/articles/706509748/index.md"
+    href="#/articles/13394352064/index.md"
     class="text-lg hover:text-primary-500"
     rel="noopener noreferrer"
     target="_blank"
@@ -835,12 +835,23 @@
     class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#起因">起因</a></li>
-    <li><a href="#c-标准演进方式">C++ 标准演进方式</a></li>
-    <li><a href="#会议进展">会议进展</a></li>
-    <li><a href="#通过的提案">通过的提案</a></li>
-    <li><a href="#有重大进展的提案">有重大进展的提案</a></li>
-    <li><a href="#一些感受">一些感受</a></li>
+    <li><a href="#why-a-new-language-server">Why a new language server?</a></li>
+    <li><a href="#important-improvement">Important improvement</a>
+      <ul>
+        <li><a href="#better-template-support">Better template support</a></li>
+        <li><a href="#header-context">Header context</a></li>
+        <li><a href="#fully-c20-module-support">Fully C++20 module support</a></li>
+        <li><a href="#better-index-format">Better index format</a></li>
+      </ul>
+    </li>
+    <li><a href="#design">Design</a>
+      <ul>
+        <li><a href="#server">Server</a></li>
+        <li><a href="#how-it-works">How it works?</a></li>
+        <li><a href="#incremental-compilation">Incremental compilation</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
   </div>
@@ -854,12 +865,23 @@
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#起因">起因</a></li>
-    <li><a href="#c-标准演进方式">C++ 标准演进方式</a></li>
-    <li><a href="#会议进展">会议进展</a></li>
-    <li><a href="#通过的提案">通过的提案</a></li>
-    <li><a href="#有重大进展的提案">有重大进展的提案</a></li>
-    <li><a href="#一些感受">一些感受</a></li>
+    <li><a href="#why-a-new-language-server">Why a new language server?</a></li>
+    <li><a href="#important-improvement">Important improvement</a>
+      <ul>
+        <li><a href="#better-template-support">Better template support</a></li>
+        <li><a href="#header-context">Header context</a></li>
+        <li><a href="#fully-c20-module-support">Fully C++20 module support</a></li>
+        <li><a href="#better-index-format">Better index format</a></li>
+      </ul>
+    </li>
+    <li><a href="#design">Design</a>
+      <ul>
+        <li><a href="#server">Server</a></li>
+        <li><a href="#how-it-works">How it works?</a></li>
+        <li><a href="#incremental-compilation">Incremental compilation</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
   </div>
@@ -938,147 +960,273 @@
       <div class="min-w-0 min-h-0 max-w-fit">
         
         
+<details style="margin-left:0px" class="mt-2 mb-5 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5" >
+    
+    <summary
+        class="py-1 text-lg font-semibold cursor-pointer bg-primary-200 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-primary-800 dark:text-neutral-100">
+        clice dev diary - 这篇文章属于一个选集。
+    </summary>
+    
+    
+    
+    <div
+        class="py-1 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+        § 1: 本文
+    </div>
+    
+    
+
+
+</details>
+
 
 
         <div class="article-content max-w-prose mb-20">
-          <p>因为某些机缘巧合参与了上周的 WG21 会议（C++ 标准委员会会议）。虽然我经常浏览 C++ 标准的新提案，但是确实没想到有一天真的能参加 WG21 会议，实时了解 C++ 标准的最新进展。当然，这也是第一次参加，非常激动，在这里记录一下自己的感受和会议的进展。</p>
+          <p>距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 <a href="https://github.com/clice-project/clice" target="_blank">clice</a> —— 一个全新的 C++ 语言服务器 (language server)。</p>
+<p>可能有的读者对语言服务器这个概念有些陌生。不过你肯定使用过 IDE，比如 Visual Studio 或者 CLion，体验过这些 IDE 提供的代码补全、跳转、重构等功能。在传统的 IDE 中，上述特性是由 IDE 的插件或者内置功能实现的，这种方式导致每种语言需要为每个编辑器单独开发支持，维护成本很高。而当初微软在发布 Visual Studio Code 时，希望能解决这个问题，于是提出了 <a href="https://microsoft.github.io/language-server-protocol/" target="_blank">LSP(Language Server Protocol)</a> 这个概念。LSP 提出了标准的客户端-服务器模型。语言功能由一个独立的语言服务器提供，VSCode 只需要实现一个通用的客户端，与语言服务器通信即可。这种方法解耦了编辑器和语言支持，使得 VSCode 能轻松支持多种语言。例如，你想要查看一个<code>method</code>的<code>implementation</code>，那么你的编辑器就会向语言服务器发送一个<code>go to implementation</code>的请求，请求的具体内容呢，可能就是文件的路径和当前光标在源文件中的位置。语言服务器会对这个请求进行处理，同样返回给你一个文件位置一个坐标，编辑器从而根据这个结果打开对应的文件进行跳转。</p>
+<p>clice 就是这样一个语言服务器，用于处理 C/C++ 相关代码的请求。这个名字来源于我的头像 alice，把首字母替换为代表 C/C++ 的 c 就得到了 clice。</p>
+<p>经过了几个月的设计和开发，项目已经颇具雏形，但是预计离投入使用还需要几个月的时间来进行完善。这篇文章的主要内容是对 clice 的设计和实现进行介绍，也是我个人对于当前开发的一个阶段性总结。虽然是语言服务器相关的内容，但其实涉及到大量 C/C++ 编译相关知识的科普，感兴趣的读者可以继续往下阅读。</p>
+<p>同时，如果你有任何功能上的请求/建议，欢迎评论区留言讨论。在下一阶段的开发中，我会尽可能考虑它们。</p>
 
 
-<h2 class="relative group">起因 
-    <div id="%E8%B5%B7%E5%9B%A0" class="anchor"></div>
+<h2 class="relative group">Why a new language server? 
+    <div id="why-a-new-language-server" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E8%B5%B7%E5%9B%A0" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#why-a-new-language-server" aria-label="锚点">#</a>
     </span>        
     
 </h2>
-<p>事情的起因是，今年一月份，当时我正在琢磨怎么写一个高效的<code>small_vector</code>。去参考了下 llvm 的源码，发现里面对满足 trivially destructible 的类型特化了实现，采用 bitwise copy 进行扩容之类的操作。当时不太理解为什么呢能这么做呢。后来了解到 trivially copyable 这个概念，进一步了解到了 relocatable 的概念。又阅读了几篇相关的提案，于是就有了这篇讨论 trivially relocatable 的 <a href="https://www.ykiko.me/zh-cn/articles/679782886" target="_blank">文章</a>。</p>
-<p>没过几天，我的的一个好友 <a href="https://github.com/blueloveTH" target="_blank">blueloveTH</a> ，他就问我能不能帮他的项目写一个轻量级的<code>small_vector</code>呢？这个项目就是 <a href="https://github.com/pocketpy/pocketpy" target="_blank">pocketpy</a>，一个轻量级的 Python 解释器。那我一想，这不巧了吗，我前几天刚刚研究过这个东西，于是花了几个小时就写好了一个支持 trivially relocatable 优化的非常轻量的 <a href="https://github.com/pocketpy/pocketpy/pull/208" target="_blank">small_vector</a>。很巧的是，这个项目也是我今年 GSoC 申请参加的项目。</p>
-<p>五月一号那天，我收到了两封邮件，一份是 GSoC 委员会告知申请通过的邮件。另一份就是来自 P1144(trivially relocatable) 作者 Arthur O&rsquo;Dwyer 的邮件。我当时很困惑，他怎么突然给我发邮件呢，我和他并不认识啊。原来他会在 Github 上定期使用 trivially relocatable 作为关键字搜索相关的 C++ 项目，并和项目的作者交流一些想法。因为搜索到了 pocketpy 里面的代码，所以就给我们发了邮件，他好像也搜到了我个人博客中那篇讨论 trivially relocatable <a href="https://www.ykiko.me/zh-cn/articles/679782886/" target="_blank">文章</a>。一开始通过邮件简单的交流了一下，后来我们又在 slack 上讨论了提案里面的一些内容。</p>
-<p>在讨论结束的时候，他邀请我参加这次的 WG21 会议。原因是当时 C++ 中关于 trivially relocatable 现状是，委员会打算采用一个不靠谱的提案 P2786，而不是更完整的提案 P1144。Arthur O&rsquo;Dwyer 希望我们这些 P1144 的支持者，能表达一些赞成。后来我就写了一封邮件给 ISO 申请作为游客 (guest) 线上参与会议，过了三个星期都没回复，我本来都快以为参加不了了。结果在会议开始前三天，Hurb Sutter 终于给我回复了一封邮件说：他以为所有的邮件都已经回复了，但不知怎么的忘记了我的，然后说我的申请通过了，欢迎参与会议。</p>
+<p>那么第一个问题，为什么要去开发一个新的语言服务器？重复造轮子有必要吗？</p>
+<p>这个问题值得去认真回答。在这个项目之前，我自己也编写过或大或小的很多项目。但它们绝大多数都是 toy project，只是为了验证某个想法或者个人学习而编写的，并没有解决任何的实际问题。clice 并不是这样的，它确实打算解决现有的问题（具体的问题后面再说），而不是为了重写而重写。</p>
+<p>在今年年初，我想参与到 llvm 项目的开发中。我想从我较为熟悉的地方，C++，也就是 clang 开始。但是，没需求的话，总不能干瞪源码吧。一般这种时候的正常流程是从一些 first issue 开始，一点点熟悉项目。但是我觉得这样很无聊，一上来我就想来干点大的，比如实现某个 C++ 新标准的特性。但是，我发现这里几乎没有我能插手的地方，新特性的实现几乎总是由几位 clang 的核心开发者完成。好吧，既然这里没什么机会，那就看看别的地方吧。注意力自然而然的转移到了 clangd 身上去了，毕竟我主要使用 vscode 进行开发，而 vscode 上最好用的 C++ 语言服务器就是 clangd 了。</p>
+<p>当时我对 clangd 一无所知，只是发现它似乎对关键字的高亮渲染并不正确。然后呢我就开始一边阅读 clangd 的源码，一边翻翻 clangd 数量众多的 issue 看看有没有什么我能解决的。在翻了几百个 issue 过后，我发现这里的问题还真不少。当时我特别感兴趣的是一个有关模板内代码补全的 <a href="https://github.com/clangd/clangd/issues/443" target="_blank">issue</a>，为什么我对这个感兴趣呢？熟悉我的读者可能知道，我算是一个资深的元编程玩家了，在这之前也写过很多相关的文章。那很自然的，我不仅仅好奇模板元它本身是如何运作的，也好奇 clang 作为一个编译器是如何实现相关的特性的，这个 issue 对我来说是一个很好的切入点。在花了几个星期摸索原型实现后，我初步解决了那个 issue，<strong>但是，这时我发现根本没有人可以 review 相关的代码</strong>！</p>
+<p>一番调查过后，我发现 clangd 目前的情况很糟糕。让我们来捋一捋时间线，clangd 最初只是 llvm 内部一个简单的小项目，在功能性和易用性上都不出色。正如 MaskRay 在 <a href="https://maskray.me/blog/2017-12-03-c&#43;&#43;-language-server-cquery" target="_blank">ccls</a> 中的这篇博客中所说，clangd 在当时只能处理单个编译单元，跨编译单元的请求无法处理。这篇博客发布的时间是 2017 年，这也是为什么 MaskRay 选择编写 ccls 的一个原因。ccls 也是一个 C/C++ 语言服务器，在当时那个节点上是强于 clangd 的。但是，后来，Google 开始派人对 clangd 进行改进以满足他们内部的大型代码库需求。与此同时，LSP 标准的内容也在不断地扩充，clangd 在不断地跟进新标准的内容，但是 ccls 的作者似乎逐渐忙于其它事情没有太多的时间去维护 ccls。于是最后，总体上 clangd 已经超越了 ccls。事情的转折发生在大概 2023 年，clangd 对 Google 内部来说，似乎已经达到了一个高度可用的状态，原先负责 clangd 的几位员工也被调离去做其他事情了。目前来说，clangd 的 issue 主要只有  <a href="https://github.com/HighCommander4" target="_blank">HighCommander4</a> 一个人在负责处理，纯粹出于热爱，并没有被任何人雇佣。由于并没有被专门雇佣来维护 clangd，所以他只能在有限的空闲时间来处理 issue，而且也仅限于答疑和十分有限的 review。正如他在这条 <a href="https://github.com/clangd/clangd/issues/1690#issuecomment-1619735578" target="_blank">评论</a> 中提到的一样：</p>
 <blockquote>
-<p>这里有一点小乌龙，后来在开幕活动的时候 Hurb Sutter 在统计参与的国家个数。具体方式就是一个个国家喊，有参与的话就举个手。喊到 China 的时候，我有点激动，一直没找到举手键。最后，他发现没有人举手的时候还说，他明明记得这次会议有中国人参与的。</p>
+<p>The other part of the reason is lack of resources to pursue the ideas we do have, such as the idea mentioned above of trying to shift more of the burden to disk usage through more aggressive preamble caching. I&rsquo;m a casual contributor, and the limited time I have to spend on clangd is mostly taken up by answering questions, some code reviews, and the occasional small fix / improvement; I haven&rsquo;t had the bandwidth to drive this type of performance-related experimentation.<br><br>另一部分原因是缺乏资源去实践我们已有的一些想法，例如上面提到的通过更积极的预编译缓存，将更多的负担转移到磁盘使用上的想法。我只是一个非正式的贡献者，我能投入到 clangd 上的时间非常有限，主要用于回答问题、进行一些代码审查以及偶尔的小修复或改进；我没有足够的精力来推动这种与性能相关的实验。</p>
 </blockquote>
+<p>既然如此，那么像为 clangd <a href="https://github.com/llvm/llvm-project/pull/66462" target="_blank">初步支持 C++20 module</a> 这样的大型 PR 被拖了将近一年也就不奇怪了。意识到这个现状之后，我萌生了自己编写一个语言服务器的想法。我估计了一下项目大小，去除测试代码，大概 2w 行就能完成，是一个人花一段时间能完成的工作量，而且也有先例，例如 ccls 和 rust analyzer。另外一点就是 clangd 的代码已经上了年代了，尽管有非常多的注释，但是相关的逻辑仍然很绕，进行大范围修改所花费的时间可能还不如重写来得快。</p>
+<p>于是说干就干，我对 clangd 的几百个 issue 进行了分类，看看有没有一些问题是因为 clangd 一开始的架构设计错误而导致很难解决，然后被搁置的。如果有的话，是否能在重新设计的时候就考虑这个问题来解决呢？我发现，确实有一些！于是接下来的时间里，我花了大概两个月的时间来学习研究 clang 里面相关的机制，摸索相关问题的解决方法，探索原型实现，在确定相关的问题基本都可以解决之后，正式开始了 clice 的开发。</p>
 
 
-<h2 class="relative group">C++ 标准演进方式 
-    <div id="c-%E6%A0%87%E5%87%86%E6%BC%94%E8%BF%9B%E6%96%B9%E5%BC%8F" class="anchor"></div>
+<h2 class="relative group">Important improvement 
+    <div id="important-improvement" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#c-%E6%A0%87%E5%87%86%E6%BC%94%E8%BF%9B%E6%96%B9%E5%BC%8F" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#important-improvement" aria-label="锚点">#</a>
     </span>        
     
 </h2>
-<p>为了之后方便介绍会议进展，先简单介绍一下 C++ 委员会的运作方式。</p>
-<p>
-  <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://picx.zhimg.com/v2-a137c1b90d4aaa8058e217cd136d736f_r.jpg" alt="" />
-    
-  </figure>
-</p>
-<p>C++ 有 SG1~SG23 一共 23 个研究小组，分别负责讨论不同的主题。例如编译时元编程就是由 SG7 小组负责讨论的。</p>
-<p>在小组讨论通过之后，根据提案内容是有关语言特性还是标准库特性，分别交给 EWG(Evolution Working Group) 和 LEWG(Library Evolution Working Group) 进行审核。如果审核通过，再进一步提交给 CWG(Core Working Group) 和 LWG(Library Working Group) 来修正提案中的相关措辞，使得其能纳入到 C++ 标准中。</p>
-<p>最后，通过 CWG 或 LWG 的提案会在全体会议上 (plenary) 进行投票，如果投票通过，就会正式加入到 C++ 标准中。</p>
-<blockquote>
-<p>这次 St. Louis 会议的流程是，周一早上开幕活动。下午的时候，各小组就开始分别讨论自己的议程了，都是同时进行的。而我主要待在 EWG 会议室里面，然后 guest 是可以参与小组投票的，但是不能参与最后的全体会议投票。</p>
-</blockquote>
+<p>前面说了那么多，还是先来看看 clice 到底解决了 clangd 中现存的哪些重大问题。主要侧重于功能介绍，至于实现原理会放在 Design 小节。除了这些重要的改进之外，当然也还有很多小功能上的的改进，这里就不一一列出了。</p>
 
 
-<h2 class="relative group">会议进展 
-    <div id="%E4%BC%9A%E8%AE%AE%E8%BF%9B%E5%B1%95" class="anchor"></div>
+<h3 class="relative group">Better template support 
+    <div id="better-template-support" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E4%BC%9A%E8%AE%AE%E8%BF%9B%E5%B1%95" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#better-template-support" aria-label="锚点">#</a>
     </span>        
     
-</h2>
-<p>先简单说说确定通过的提案，然后谈谈一些重要提案现在的进展。</p>
+</h3>
+<p>那首先，就是更好的模板支持，这也是我最开始想要 clangd 支持的特性。具体来说目前在处理模板上有什么问题呢？</p>
+<p>以代码补全为例，考虑如下的代码，<code>^</code>代表光标位置：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">vec</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vec</span><span class="p">.</span><span class="o">^</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>在 C++ 中，如果一个类型依赖于模板参数，那么在模板实例化之前，我们并不能对它做出任何准确的假设。例如这里的<code>vector</code>即可能是主模板也可能是<code>vector&lt;bool&gt;</code>的偏特化，选哪一个呢？对于代码编译来说，准确性永远是最重要的，不能使用任何可能导致错误的结果。但是对于语言服务器来说，提供更多可能的结果往往比什么都不提供更好，我们可以假设用户在更多时候使用主模板而不是偏特化，从而基于主模板来提供代码补全的结果。目前 clangd 也确实是这么做的，在上述情况下它会根据<code>vector</code>的主模板为你提供代码补全。</p>
+<p>再考虑一个更加复杂的例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">vec2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vec2</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="o">^</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>从用户的角度来说，这里也应该提供补全，毕竟<code>vec2[0]</code>的类型不也是<code>vector&lt;T&gt;</code>吗？和前面一个例子一样。但是 clangd 在这里却不会为你提供任何补全，问题出在哪里？根据 C++ 标准，<code>std::vector&lt;T&gt;</code>的<code>operator[]</code>返回的类型是<code>std::vector&lt;T&gt;::reference</code>，这其实是一个 <a href="https://en.cppreference.com/w/cpp/language/dependent_name" target="_blank">dependent name</a>，它的结果似乎相当直接，就是<code>T&amp;</code>。但是 libstdc++ 中它的定义却嵌套了十几层模板，似乎是为了兼容旧标准？那为什么 clangd 不能处理这种情况呢？</p>
+<ol>
+<li>它基于主模板假设，不考虑偏特化可能会使查找无法进行下去</li>
+<li>它只进行名称查找而不进行模板实例化，就算找到了最后的结果，也没法把它和最初的模板参数映射起来</li>
+<li>不考虑默认模板参数，无法处理由默认模板参数导致的依赖名</li>
+</ol>
+<p>尽管我们可以对标准库的类型开洞来提供相关的支持，但是我希望用户的代码能和标准库的代码有相同的地位，那么我们就需要一种通用的算法来处理依赖类型。为了解决这个问题，我编写了一个伪实例化器（pseudo instantiator）。它能在没有具体类型的前提下对依赖类型进行实例化，从而达到化简的目的。比如上面这个例子里面的<code>std::vector&lt;std::vector&lt;T&gt;::reference</code>就能被化简为<code>std::vector&lt;T&gt;&amp;</code>，进一步就能为用户提供代码补全选项。</p>
 
 
-<h2 class="relative group">通过的提案 
-    <div id="%E9%80%9A%E8%BF%87%E7%9A%84%E6%8F%90%E6%A1%88" class="anchor"></div>
+<h3 class="relative group">Header context 
+    <div id="header-context" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E9%80%9A%E8%BF%87%E7%9A%84%E6%8F%90%E6%A1%88" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#header-context" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>为了让 clangd 正常工作，用户往往需要提供一份<code>compile_commands.json</code>文件（后文简称 CDB 文件）。C++ 的传统编译模型的基本编译单元是一个源文件（例如<code>.c</code>和<code>.cpp</code>文件），<code>#include</code>只是把头文件的内容粘贴复制到源文件中对应的位置。而上述 CDB 文件里面就储存了各个源文件对应编译命令，当你打开一个源文件的时候，clangd 会使用其在 CDB 中对应的编译命令来编译这个文件。</p>
+<p>那很自然的就有一个疑问，如果 CDB 文件里面只有源文件的编译命令，没有头文件的，那么 clangd 是如何处理头文件的呢？clangd 会把头文件当做一个源文件进行处理，然后呢，根据一些规则，比如使用对应目录下的源文件的编译命令作为该头文件的编译命令。这样的模型简单有效，但是却忽略了一些情况。</p>
+<p>由于头文件是源文件的一部分，那么就会出现它的内容根据它在源文件中前面的内容不同而不同的情况。例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// a.h
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#ifdef TEST
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span> <span class="p">...</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#else
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">struct</span> <span class="nc">Y</span> <span class="p">{</span> <span class="p">...</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// b.cpp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define TEST
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;a.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// c.cpp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&#34;a.h&#34;</span><span class="cp">
+</span></span></span></code></pre></div><p>显然，<code>a.h</code>在<code>b.cpp</code>和<code>c.cpp</code>中具有不同的状态，一个定义了<code>X</code>，一个定义了<code>Y</code>，如果简单的把<code>a.h</code>当做一个源文件进行处理，那么就只能看得到<code>Y</code>。</p>
+<p>一个更极端的情况是 non-self-contained 头文件，例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// a.h
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">Y</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">X</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// b.cpp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">X</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;a.h&#34;</span><span class="cp">
+</span></span></span></code></pre></div><p><code>a.h</code>自身不能被编译，但是嵌入到<code>b.cpp</code>中的时候就编译正常了。这种情况下 clangd 会在<code>a.h</code>中报错，找不到<code>X</code>的定义。显然这是因为它把<code>a.h</code>当成一个独立的源文件了。在 libstdc++ 中的代码中就有很多这样的头文件，现在流行的一些 C++ 的 header-only 的库也有些有这样的代码，clangd 目前无法处理它们。</p>
+<p>clice 将会支持<strong>头文件上下文 (header context)</strong>，支持自动和用户主动切换头文件的状态，当然也会支持非自包含的头文件。我们想要实现如下的效果，以最开始那份代码为例。当你从<code>b.cpp</code>跳转到<code>a.h</code>的时候使用<code>b.cpp</code>作为<code>a.h</code>的上下文。同理，当你从<code>c.cpp</code>跳转到<code>a.h</code>的时候则使用<code>c.cpp</code>作为<code>a.h</code>的上下文。</p>
+
+
+<h3 class="relative group">Fully C++20 module support 
+    <div id="fully-c20-module-support" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#fully-c20-module-support" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>C++20 引入了 <a href="https://en.cppreference.com/w/cpp/language/modules" target="_blank">module</a> 这个新特性，用于加速编译。与传统的编译模型不同，模块单元之间可能具有依赖关系。这要求我们进行一些额外的处理，尽管为 clangd 初步支持<code>module</code>的 PR 已经合并了，但它处于相当早期的状态。</p>
+<ol>
+<li>不同文件之间不会共享预编译的模块，这导致了模块的重复编译</li>
+<li>其它配套的 LSP 设施没有及时跟进，比如为模块名提供高亮和跳转，还有提供类似头文件的补全</li>
+<li>只支持 clang 不支持其它的编译器</li>
+</ol>
+<p>clice 将会提供编译器和构建系统无关的 C++20 module 支持，项目本身之后也会完全迁移到 module 上。</p>
+
+
+<h3 class="relative group">Better index format 
+    <div id="better-index-format" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#better-index-format" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>有一些 ccls 的用户可能会抱怨，明明同样是预先索引整个项目。ccls 可以在打开文件的瞬间进行跳转，但是 clangd 仍需要等待文件解析完成才行。为什么会造成这种结果？这其实是 clangd 的索引格式设计缺陷导致的。什么是索引？由于 C/C++ 支持向前声明，于是声明和定义可能在不同的源文件，于是我们需要处理跨编译单元的符号关系。</p>
+<p>但是解析文件是一个相当耗时的操作，如果等到需要查询的时候再去解析文件，那么查询的时间将会是一个天文数字。为了支持快速查找符号关系，language server 一般会索引整个项目。但是究竟采用何种格式储存相关的数据？这个并没有标准规定。</p>
+<p>clice 充分参考了现有的索引设计，设计了一种更加高效的索引格式。也可以达到 ccls 的效果，如果预先索引了项目，不需要等待就能立马获取响应。</p>
+
+
+<h2 class="relative group">Design 
+    <div id="design" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#design" aria-label="锚点">#</a>
     </span>        
     
 </h2>
-<p>核心语言方面主要通过了下面这几个提案：</p>
+<p>这一小节将会更加具体的谈谈 clice 的设计与实现。</p>
+
+
+<h3 class="relative group">Server 
+    <div id="server" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#server" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>首先 language server 也是一个 server，在这方面和一个传统的服务器没什么区别。使用事件驱动的编程模型，接受服务器的请求并进行处理。由于可以使用 C++20，那当然要体验一下使用无栈协程来进行异步编程了。clangd 的代码中有大量的回调函数，这部分代码可读性相当差。使用无栈协程可以避免类似的回调地狱出现。</p>
+<p>比较值得注意的是，在库的选取方面，并没有选择现成的协程库，而是自己使用 C++20 的协程设施对 libuv 封装出了一个简单的协程库。原因有以下几点：</p>
 <ul>
-<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2747r2.html" target="_blank">constexpr placement new</a> 支持在常量求值中直接使用 placement new 来调用对象的构造函数，在此之前只能使用<code>std::construct_at</code>，而它相当于于 placement new 的一个小括号特化版本。关于这一点的详细讨论，可以阅读一下我这篇介绍 constexpr 发展史的 <a href="https://www.ykiko.me/zh-cn/articles/683463723" target="_blank">博客</a></li>
-<li><a href="https://wg21.link/P3144R2" target="_blank">deleting a pointer to an incomplete type should be ill-formed</a> 现在 delete 一个不完整类型的指针会直接编译错误，而不是导致未定义行为</li>
-<li><a href="https://isocpp.org/files/papers/P2963R3.pdf" target="_blank">ordering of constraints involving fold expressions</a> 明确了涉及到折叠表达式的约束的偏序规则</li>
-<li><a href="https://wg21.link/P0963R3" target="_blank">structured binding declaration as a condition</a> 结构化绑定现在可以用于 if 语句的条件中</li>
+<li>llvm 项目是不使用异常的，我们尽量和它保证一致，直接封装 C 语言的库可以让我们更好的控制这一点</li>
+<li>language server 的事件模型相当简单，一对一连接。在主线程处理 IO 相关的请求，线程池负责耗时任务执行就完全足够了。在这个模型下，甚至不需要使用任何锁这样的同步原语来进行线程间通信。所以一般的网络库的模型对于 clice 来说过于复杂了</li>
 </ul>
-<p>标准库方面主要通过了下面这几个提案：</p>
-<ul>
-<li><a href="https://isocpp.org/files/papers/P0843R14.html" target="_blank">inplace_vector</a> 注意 inplace_vector 与 small_vector 不同，后者在 SBO 的容量不足的时候会进行动态内存分配，而前者则不会。它相当于一个 dynamic array，可以方便的当做 buffer 使用。</li>
-<li><a href="https://wg21.link/P2985R0" target="_blank">std::is_virtual_base_of</a> 用于判断一个类是否是另一个类的虚基类</li>
-<li><a href="https://wg21.link/P3168R2" target="_blank">std::optional range support</a> 支持 optional 的 range 操作</li>
-<li><a href="https://isocpp.org/files/papers/P2300R10.html" target="_blank">std::execution</a> 争论了很久的 std::execution 终于进入标准</li>
-</ul>
+<p>最后也成功在 C++ 中复刻类似 Python 和 JS 中的异步编程体验，非常的愉快和轻松。</p>
 
 
-<h2 class="relative group">有重大进展的提案 
-    <div id="%E6%9C%89%E9%87%8D%E5%A4%A7%E8%BF%9B%E5%B1%95%E7%9A%84%E6%8F%90%E6%A1%88" class="anchor"></div>
+<h3 class="relative group">How it works? 
+    <div id="how-it-works" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E6%9C%89%E9%87%8D%E5%A4%A7%E8%BF%9B%E5%B1%95%E7%9A%84%E6%8F%90%E6%A1%88" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#how-it-works" aria-label="锚点">#</a>
     </span>        
     
-</h2>
-<p>这几天我基本上一直待在 EWG 会议室，所以就主要说说核心语言方面的一些进展。</p>
-<p>周一下午和周二一整天，EWG 都在讨论 Contract。相比于上次的 Tokyo 会议，就 Contract 的某些争论达成了一些共识，但是仍然还有没有达成共识的地方。我个人认为加入 C++26 的希望仍然不大。</p>
-<p>周三上午，EWG 在讨论 Reflection for C++26。最后以 0 票反对的结果（其中也有我的一票 super favor）通过，移交给 CWG 进行措辞的修改以纳入 C++ 标准。周四和周五 CWG 已经 review 了一部分内容，但是提案内容太多了，没有 review 完。如果一切顺利的话，预计再过两到三次会议可以正式加入 C++26。从投票结果可以看出，所有人都认为 C++ 需要反射，反射非常有希望加入 C++26。</p>
-<p>周五上午，EWG 主要在讨论 trivially relocatable。在之前的会议中 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2786r6.pdf" target="_blank">P2786</a> 已经通过了 EWG 投票被移交给 CWG 了。然而，它并不完善，有很多问题，这样的提案加入标准无疑是对 C++ 发展有害的。自上次 Tokyo 会议之后，出现几份新的讨论 trivially relocatable 的提案：</p>
-<ul>
-<li><a href="https://wg21.link/p3233r0" target="_blank">Issues with P2786</a></li>
-<li><a href="https://wg21.link/p3236r1" target="_blank">Please reject P2786 and adopt P1144 </a></li>
-<li><a href="https://wg21.link/p3278r0" target="_blank">Analysis of interaction between relocation, assignment, and swap</a></li>
-</ul>
-<p>显然，它们都把矛头指向了 P2786。在这几份提案作者演讲结束后，需要投票来决定是否要将 P2786 从 CWG 返回到 EWG，也就是重新考虑 C++26 将会采用的 trivially relocatable 模型。最后以压倒性的优势，P2786 被返回到了 EWG，当然我投的是 super favor，毕竟这就是我参加这次会议的主要目的。至于 P1144，可能要等下次会议了，这次会议并没有讨论它。</p>
-<p>剩下的就是一些小的提案进展了，值得一提的是有许多有关 constexpr 的提案都通过了 EWG，它们分别是：</p>
-<ul>
-<li><a href="https://wg21.link/p3032r2" target="_blank">Less transient constexpr allocation</a></li>
-<li><a href="https://wg21.link/p3068r2" target="_blank">Allowing exception throwing in constant-evaluation</a></li>
-<li><a href="https://wg21.link/p2758r3" target="_blank">Emitting messages at compile time</a></li>
-</ul>
-<p>但是之后通过 CWG 的希望有多大还不好说。如果对某个提案的最新进展感兴趣的话，直接在 ISO C++ Github 的 <a href="https://github.com/cplusplus/papers/issues" target="_blank">issues</a> 里面搜索提案号就可以了，里面会详细记录对应提案的最新进展。</p>
+</h3>
+<p>接下来我们来详细谈谈，clice 是如何处理某些特定的请求的。</p>
+<p>首先当用户在编辑器中打开或者更新某个文件的时候，编辑器会发送相关的通知给 clice。clice 在收到请求后，会 parse 该文件。更具体的来说，会将该文件 parse 成 AST(Abstract Syntax Tree)。由于 C++ 的语法相当复杂，靠自己手写一个 parser 是不现实的，我们和 clangd 一样选择使用 clang 提供的接口来 parse 源文件。</p>
+<p>在获取 AST 之后，对 AST 进行遍历收集我们感兴趣的信息即可。以<code>SemanticTokens</code>为例，我们需要遍历 AST 去为源码中的每个 token 添加语义信息，是<code>variable</code>还是<code>function</code>？是不是<code>const</code>？是不是<code>static</code>？等等。总之一切这些信息都可以从 AST 中获取。想要对这个有更深入理解的话，可以阅读我之前写过的一个关于 clang AST 的入门 <a href="https://www.ykiko.me/zh-cn/articles/669360731" target="_blank">文章</a>。</p>
+<p>绝大多数请求都可以通过类似上述的方式实现，比较特殊的是代码补全（CodeCompletion）和签名帮助（SignatureHelper）。由于补全点的语法可能并不完整，在常规的编译流程中，如果语法节点不完整，clang 可能会直接把它当做一个错误节点，甚至整个丢掉，又或者直接 fatal error 终止编译。无论如何，都是我们不能接受的。一般来说，为了实现代码补全的功能，需要 parser 开洞进行特殊的处理。clang 也不例外，它提供了一个特殊的 code completion 模式，通过继承<code>CodeCompleteConsumer</code>并重写其中相关的方法来获取相关的信息。</p>
+<p>可以通过一个特殊的编译选项来体验这一功能：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">-std<span class="o">=</span>c++20  -fsyntax-only -Xclang -code-completion-at<span class="o">=</span><span class="s2">&#34;example.cpp:1:3&#34;</span>
+</span></span></code></pre></div><p>假设源文件是</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">con</span>
+</span></span></code></pre></div><p>则预期输出是</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="nl">COMPLETION</span><span class="p">:</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="nl">COMPLETION</span><span class="p">:</span> <span class="k">consteval</span>
+</span></span><span class="line"><span class="cl"><span class="nl">COMPLETION</span><span class="p">:</span> <span class="k">constexpr</span>
+</span></span><span class="line"><span class="cl"><span class="nl">COMPLETION</span><span class="p">:</span> <span class="n">constinit</span>
+</span></span></code></pre></div><p>可以发现结果就是四个 C++ 关键字的补全，并且没有任何的错误警告。</p>
+<p>嗯，这就是整个流程了，是不是听起来相当简单。的确，这部分遍历 AST 的逻辑是相当清晰的。只是有很多 corner case 需要考虑，只需要慢慢堆时间实现功能然后慢慢迭代修 BUG 就行了。</p>
 
 
-<h2 class="relative group">一些感受 
-    <div id="%E4%B8%80%E4%BA%9B%E6%84%9F%E5%8F%97" class="anchor"></div>
+<h3 class="relative group">Incremental compilation 
+    <div id="incremental-compilation" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E4%B8%80%E4%BA%9B%E6%84%9F%E5%8F%97" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#incremental-compilation" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>由于用户可能频繁变更文件，如果每次都需要重新 parse 整个文件，当文件非常大的时候，parse 时间会非常慢，响应请求时间会非常长（考虑到<code>#include</code>就是粘贴复制，很容易就可以造出一个巨大的文件）。想象一下，如果写按下一个字母，过了几秒钟代码补全结果才出来，那么体验将会多么糟糕！</p>
+<p>怎么办呢？答案就是增量编译 (Incremental Compilation)。也许你在学习 cmake 等构建工具的时候听说过这个词，但是它们是有一些区别的。构建工具所指的增量编译粒度是一个文件，只重新编译有变更的文件。但显然这对我们来说是不够的，LSP 的最基本请求单位就是文件，我们需要更细粒度的增量编译。</p>
+<p>clang 提供了一种叫做 <a href="https://clang.llvm.org/docs/UsersManual.html#usersmanual-precompiled-headers" target="_blank">Precompiled Header(PCH)</a> 的机制，可以用于将某一段代码在编译成 AST 之后序列化到磁盘上，然后在之后编译的时候进行复用。</p>
+<p>例如</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">vec</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Hello, World!&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>我们可以将该文件代码的前三行编译成 PCH 缓存起来，这样即使用户频繁修改文件内容，但是只要不修改前三行，我们就可以直接复用 PCH 来进行编译，从而大大减少编译时间，这部分代码就叫 preamble。如果变更了 preamble 则需要重新生成一个新的 PCH 文件。现在你应该理解为什么在第一次打开文件的时候 clangd 会需要反应很久，但是之后的响应就会非常快了，正是这种 preamble 的优化在起作用。如果你希望优化项目的构建时间，也可以考虑使用 PCM，不仅 Clang，GCC 和 MSVC 也都支持类似的机制来进行细粒度的增量编译。</p>
+<p>PCH 好是好，但是呢，它的依赖关系只能是线性的。你可以用一个 PCH 去构建一个新的 PCH，只要它位于另外一个文件的前面几行。但是你不能说，用两个 PCH 去构建一个新的 PCH。那如果有这种有向无环图的依赖关系怎么办呢？答案就是 C++20 加入的 module。C++20 加入的 module 基本就是 PCH Pro 版，实现原理是完全类似的，只是放开了依赖链的限制，允许一个 module 依赖其它几个 module。</p>
+<p>至于关于如何支持 C++20 的 module 呢？话题有些大，值得单独开一个文章讨论，这里就不详细展开了。</p>
+
+
+<h2 class="relative group">Conclusion 
+    <div id="conclusion" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#conclusion" aria-label="锚点">#</a>
     </span>        
     
 </h2>
-<p>会议进展说完了，现在来说说个人的一些感受。</p>
-<p>首先就是关于 trivially relocatable 的投票，其实在投完之后，我突然有一种负罪感。原因是，在最后的投票之前 P2786 的作者说：</p>
-<blockquote>
-<p>if other people want to make modifications and bring forward their own paper, you know, as an author, I am not going to say, &lsquo;No, don&rsquo;t; it&rsquo;s my paper.&rsquo; If it&rsquo;s a good change, you know, that&rsquo;s good.</p>
-</blockquote>
-<p>我可以明显听出他说这段话的时候是带着哭腔的。换位思考一下，我想我也可以理解他的心情，他肯定倾注了很多心血在这份提案上，以如此不光彩的方式撤回提案实在是让人难以接受。但其实 P1144 的作者付出了更多心血，提案版本都已经出到了 R11，内容本身也更完善，但却一直被忽视。我很难理解为什么会出现这样的局面。</p>
-<p>另外就是全体会议投票上的一些情况，<a href="https://wg21.link/p1061r8" target="_blank">Structured Bindings can introduce a Pack</a> 这个提案，也就是支持结构化绑定的时候引入参数包</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="p">...</span><span class="n">pack</span><span class="p">]</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
-</span></span></code></pre></div><p>本来它都通过 CWG 了，但在全体会议上，一位编译器供应商临时指出了措辞中的某些示例在该提案中的参考实现会导致编译器崩溃。于是最后全体会议投票就没有通过。</p>
-<p>类似的情况发生在 std::execution 上，在全体会议投票之前，有人指出 std::execution 不应该加入 C++26，它过于复杂且不够成熟，作者们只是在空谈，没有考虑过实际的应用场景。此外，重度使用模板导致编译速度十分缓慢，经常造成编译器 internal compiler error。虽然最后投票的结果是赞同大于反对，但是 C++ 委员会强调的是达成<strong>共识 (consensus)</strong>，而不是少数服从多数，比例要达到一定程度才算通过，所以按理说该提案这次会议是不该通过的，但是最后由于<strong>某些原因</strong>还是通过了。具体咋回事，我当时没太注意听，也不太好说。</p>
-<p>说实话，这次参会，知识性的收获不多，见识倒是涨了不少。有些争论我感觉和平常网络上对线也没啥区别，从各自的角度来看，双方的观点都是对的，这也很合理，不是所有的事情都有绝对的对与错，很多问题都没有一个完美的解决方案，在软件工程领域尤其如此。那为了加入标准，总要做出一些妥协，究竟在哪些地方妥协，谁向谁妥协呢？往往伴随着一些激烈的争论，甚至由一些其它的场外（问题本身之外）的因素决定。</p>
-<p>之后如果有机会的话可能还会继续参加，最好能线下参加一次。不过肯定不会像这次会议一样，几乎每天都准时准点的出席每一场会议了（第一次参加有点激动）。可能主要听听感兴趣的部分，我实在太想看到反射进入 C++26 的那一刻了</p>
-<p>好了，到这里文章就结束了，感谢阅读。</p>
+<p>嗯，暂时就先写到这里吧。其实还有很多话题没有谈到，但是细想过后，发现每个单独展开都能写一篇长文出来了。就留到日后慢慢补充吧，这篇文章就当开个头。我在项目的 issue 中也会定期更新一些进展，感兴趣的读者可以关注一下。</p>
 
           
           
@@ -1088,6 +1236,25 @@
         
 
         
+<details style="margin-left:0px" class="mt-2 mb-5 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5">
+    
+    <summary
+        class="py-1 text-lg font-semibold cursor-pointer bg-primary-200 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-primary-800 dark:text-neutral-100">
+        clice dev diary - 这篇文章属于一个选集。
+    </summary>
+    
+    
+    
+    <div
+        class="py-1 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+        § 1: 本文
+    </div>
+    
+    
+
+
+</details>
+
         
   
   <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
@@ -1096,7 +1263,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/zh-cn/articles/706509748/&amp;title=St.%20Louis%20WG21%20%e4%bc%9a%e8%ae%ae%e5%9b%9e%e9%a1%be"
+      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/zh-cn/articles/13394352064/&amp;title=%e4%b8%80%e4%b8%aa%e6%96%b0%20C&#43;&#43;%20language%20server%20%e7%9a%84%e8%ae%be%e8%ae%a1%e4%b8%8e%e5%ae%9e%e7%8e%b0"
       title="分享到 LinkedIn"
       aria-label="分享到 LinkedIn"
       >
@@ -1115,7 +1282,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/zh-cn/articles/706509748/&amp;text=St.%20Louis%20WG21%20%e4%bc%9a%e8%ae%ae%e5%9b%9e%e9%a1%be"
+      href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/zh-cn/articles/13394352064/&amp;text=%e4%b8%80%e4%b8%aa%e6%96%b0%20C&#43;&#43;%20language%20server%20%e7%9a%84%e8%ae%be%e8%ae%a1%e4%b8%8e%e5%ae%9e%e7%8e%b0"
       title="分享到 Twitter"
       aria-label="分享到 Twitter"
       >
@@ -1133,7 +1300,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://reddit.com/submit/?url=https://www.ykiko.me/zh-cn/articles/706509748/&amp;resubmit=true&amp;title=St.%20Louis%20WG21%20%e4%bc%9a%e8%ae%ae%e5%9b%9e%e9%a1%be"
+      href="https://reddit.com/submit/?url=https://www.ykiko.me/zh-cn/articles/13394352064/&amp;resubmit=true&amp;title=%e4%b8%80%e4%b8%aa%e6%96%b0%20C&#43;&#43;%20language%20server%20%e7%9a%84%e8%ae%be%e8%ae%a1%e4%b8%8e%e5%ae%9e%e7%8e%b0"
       title="提交到 Reddit"
       aria-label="提交到 Reddit"
       >
@@ -1152,7 +1319,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://api.whatsapp.com/send?text=https://www.ykiko.me/zh-cn/articles/706509748/&amp;resubmit=true&amp;title=St.%20Louis%20WG21%20%e4%bc%9a%e8%ae%ae%e5%9b%9e%e9%a1%be"
+      href="https://api.whatsapp.com/send?text=https://www.ykiko.me/zh-cn/articles/13394352064/&amp;resubmit=true&amp;title=%e4%b8%80%e4%b8%aa%e6%96%b0%20C&#43;&#43;%20language%20server%20%e7%9a%84%e8%ae%be%e8%ae%a1%e4%b8%8e%e5%ae%9e%e7%8e%b0"
       title=""
       aria-label=""
       >
@@ -1171,7 +1338,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://t.me/share/url?url=https://www.ykiko.me/zh-cn/articles/706509748/&amp;resubmit=true&amp;title=St.%20Louis%20WG21%20%e4%bc%9a%e8%ae%ae%e5%9b%9e%e9%a1%be"
+      href="https://t.me/share/url?url=https://www.ykiko.me/zh-cn/articles/13394352064/&amp;resubmit=true&amp;title=%e4%b8%80%e4%b8%aa%e6%96%b0%20C&#43;&#43;%20language%20server%20%e7%9a%84%e8%ae%be%e8%ae%a1%e4%b8%8e%e5%ae%9e%e7%8e%b0"
       title=""
       aria-label=""
       >
@@ -1190,7 +1357,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/zh-cn/articles/706509748/&amp;description=St.%20Louis%20WG21%20%e4%bc%9a%e8%ae%ae%e5%9b%9e%e9%a1%be"
+      href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/zh-cn/articles/13394352064/&amp;description=%e4%b8%80%e4%b8%aa%e6%96%b0%20C&#43;&#43;%20language%20server%20%e7%9a%84%e8%ae%be%e8%ae%a1%e4%b8%8e%e5%ae%9e%e7%8e%b0"
       title="钉到 Pinterest"
       aria-label="钉到 Pinterest"
       >
@@ -1209,7 +1376,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/zh-cn/articles/706509748/&amp;quote=St.%20Louis%20WG21%20%e4%bc%9a%e8%ae%ae%e5%9b%9e%e9%a1%be"
+      href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/zh-cn/articles/13394352064/&amp;quote=%e4%b8%80%e4%b8%aa%e6%96%b0%20C&#43;&#43;%20language%20server%20%e7%9a%84%e8%ae%be%e8%ae%a1%e4%b8%8e%e5%ae%9e%e7%8e%b0"
       title="分享到 Facebook"
       aria-label="分享到 Facebook"
       >
@@ -1228,7 +1395,7 @@
       <a
       target="_blank"
       class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="mailto:?body=https://www.ykiko.me/zh-cn/articles/706509748/&amp;subject=St.%20Louis%20WG21%20%e4%bc%9a%e8%ae%ae%e5%9b%9e%e9%a1%be"
+      href="mailto:?body=https://www.ykiko.me/zh-cn/articles/13394352064/&amp;subject=%e4%b8%80%e4%b8%aa%e6%96%b0%20C&#43;&#43;%20language%20server%20%e7%9a%84%e8%ae%be%e8%ae%a1%e4%b8%8e%e5%ae%9e%e7%8e%b0"
       title="通过电子邮件发送"
       aria-label="通过电子邮件发送"
       >
@@ -1260,8 +1427,8 @@
           
         
       <script>
-        var oid = "views_articles\/706509748\/index.md"
-        var oid_likes = "likes_articles\/706509748\/index.md"
+        var oid = "views_articles\/13394352064\/index.md"
+        var oid_likes = "likes_articles\/13394352064\/index.md"
       </script>
       
       
@@ -1281,7 +1448,7 @@
       <div class="flex justify-between pt-3">
         <span>
           
-            <a class="flex group mr-3" href="/zh-cn/articles/702197261/">
+            <a class="flex group mr-3" href="/zh-cn/articles/706509748/">
               <span
                 class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
                 >&larr;</span
@@ -1293,11 +1460,11 @@
               <span class="flex flex-col">
                 <span
                   class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >Python 与 C++ 的完美结合：pybind11 中的对象设计</span
+                  >St. Louis WG21 会议回顾</span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
                   
-                    <time datetime="2024-06-07T07:28:11&#43;00:00">June 7, 2024</time>
+                    <time datetime="2024-07-01T18:46:56&#43;00:00">July 1, 2024</time>
                   
                 </span>
               </span>
@@ -1305,28 +1472,6 @@
           
         </span>
         <span>
-          
-            <a class="flex text-right group ml-3" href="/zh-cn/articles/13394352064/">
-              <span class="flex flex-col">
-                <span
-                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >一个新 C++ language server 的设计与实现</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2024-12-18T13:46:01&#43;00:00">December 18, 2024</time>
-                  
-                </span>
-              </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-            </a>
           
         </span>
       </div>

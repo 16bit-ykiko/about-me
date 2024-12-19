@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2024 ykiko</copyright>
-    <lastBuildDate>Mon, 01 Jul 2024 18:46:56 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/zh-cn/articles/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 Dec 2024 13:46:01 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/zh-cn/articles/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>一个新 C&#43;&#43; language server 的设计与实现</title>
+      <link>https://www.ykiko.me/zh-cn/articles/13394352064/</link>
+      <pubDate>Wed, 18 Dec 2024 13:46:01 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/zh-cn/articles/13394352064/</guid>
+      <description>&lt;p&gt;距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 &lt;a href=&#34;https://github.com/clice-project/clice&#34; target=&#34;_blank&#34;&gt;clice&lt;/a&gt; —— 一个全新的 C++ 语言服务器 (language server)。&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/13394352064/featured.png" />
+    </item>
     
     <item>
       <title>St. Louis WG21 会议回顾</title>
