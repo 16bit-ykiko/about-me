@@ -53,3 +53,7 @@ Article("https://zhuanlan.zhihu.com/p/694365783", ["C++", "Tool"])
 Article("https://zhuanlan.zhihu.com/p/696878184", ["C++", "STL"])
 Article("https://zhuanlan.zhihu.com/p/702197261", ["C++", "STL", "Python"])
 Article("https://zhuanlan.zhihu.com/p/706509748", ["C++"])
+
+# Clice Series
+Article("https://zhuanlan.zhihu.com/p/13394352064",
+        ["C++", "clice"], series=("clice dev diary", 1))
