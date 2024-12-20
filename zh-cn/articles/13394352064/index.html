@@ -109,7 +109,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "6950"
+    "wordCount": "6952"
   }]
   </script>
 
@@ -585,7 +585,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-12-18T13:46:01&#43;00:00">December 18, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>6950 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">14 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2024-12-18T13:46:01&#43;00:00">December 18, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>6952 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">14 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1125,7 +1125,7 @@
     
 </h3>
 <p>有一些 ccls 的用户可能会抱怨，明明同样是预先索引整个项目。ccls 可以在打开文件的瞬间进行跳转，但是 clangd 仍需要等待文件解析完成才行。为什么会造成这种结果？这其实是 clangd 的索引格式设计缺陷导致的。什么是索引？由于 C/C++ 支持向前声明，于是声明和定义可能在不同的源文件，于是我们需要处理跨编译单元的符号关系。</p>
-<p>但是解析文件是一个相当耗时的操作，如果等到需要查询的时候再去解析文件，那么查询的时间将会是一个天文数字。为了支持快速查找符号关系，language server 一般会索引整个项目。但是究竟采用何种格式储存相关的数据？这个并没有标准规定。</p>
+<p>但是解析文件是一个相当耗时的操作，如果等到需要查询的时候再去解析文件，那么查询的时间将会是一个天文数字。为了支持快速查找符号关系，language server 一般会预先索引整个项目。但是究竟采用何种格式储存相关的数据？这个并没有标准规定。</p>
 <p>clice 充分参考了现有的索引设计，设计了一种更加高效的索引格式。也可以达到 ccls 的效果，如果预先索引了项目，不需要等待就能立马获取响应。</p>
 
 
