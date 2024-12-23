@@ -109,7 +109,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "10492"
+    "wordCount": "9680"
   }]
   </script>
 
@@ -585,7 +585,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-04-16T18:19:38&#43;00:00">April 16, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>10492 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">21 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2024-04-16T18:19:38&#43;00:00">April 16, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>9680 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">20 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -985,22 +985,6 @@
         <div class="article-content max-w-prose mb-20">
           <p>Application Binary Interface，也就是我们常说的 ABI，是个让人感觉到既熟悉又陌生的概念。熟悉在哪里？讨论问题的时候经常会讨论到它，看文章的时候经常会提到它，有时候又要处理它导致的兼容性。陌生在哪里？如果有人问你什么是 ABI，你会发现你知道它是怎么一回事，但是要用严谨的语言去描述它有些困难。最后只好照着 <a href="https://en.wikipedia.org/wiki/Application_binary_interface" target="_blank">WIKI</a> 说：ABI 就是两个二进制程序模块之间的接口。有问题吗？没有问题，作为一个概括性的描述，已经足够了。但是让人感觉到有些空洞。</p>
 <p>这一情况在 CS 领域并不少见，笔者之前写的讨论 <a href="https://www.ykiko.me/zh-cn/articles/669358870" target="_blank">反射</a> 的文章也遇到完全相同的情况。究其根本，CS 本来就不是一门力求严谨性的学科，很多概念都没有严格的定义，更多的是约定俗成的说法。所以我们就不去纠结定义，而是就实际出发，来看看这些所谓的二进制接口究竟有哪些，又有哪些因素会影响它们的稳定性。</p>
-<p>一个 ABI（应用二进制接口）是一种标准，它定义了高级语言中的低级概念与特定硬件/操作系统平台的机器码能力之间的映射关系。其中包括以下内容：</p>
-<ul>
-<li>C/C++/Fortran/&hellip;  数据类型在内存中的布局方式（数据大小/对齐方式）</li>
-<li>嵌套函数调用的工作方式（如何存储如何返回到函数调用者的信息，CPU 寄存器和/或内存中传递函数参数的位置和方式）</li>
-<li>程序启动/初始化的工作方式（可执行文件具有什么样的数据格式，代码/数据如何从中加载，DLL 的工作方式等）</li>
-</ul>
-<p>对于这些问题的答案是：</p>
-<ul>
-<li>特定于编程语言（因此你有 C ABI、C++ ABI、Fortran ABI、Pascal ABI、&hellip; 甚至 Java 字节码规范，尽管针对的是虚拟处理器而不是真实硬件，但也是一种 ABI）</li>
-<li>特定于操作系统（同一硬件上的 MS Windows 和 Linux 使用不同的 ABI）</li>
-<li>特定于硬件/CPU（ARM 和 x64 ABI 是不同的）</li>
-<li>长时间演变（现有的 ABI 经常被更新/修订，以便利用新的 CPU 特性，比如，规定应用程序如何使用 x86 SSE 寄存器当然只有在 CPU 有了这些寄存器之后才可能，因此现有的 ABI 需要澄清）</li>
-</ul>
-<p>如果没有某种标准化，由不同编译器创建的（机器）代码将无法使用相同类型的库（你怎么知道库代码期望函数参数或数据结构以何种方式传递？）。  每个平台（特定硬件、操作系统软件和用特定编程语言编写/用特定编译器编译的代码的组合）都定义了一整套 ABI，以实现互操作性。</p>
-<p>在这个领域的术语并不清晰，有时人们只是谈论 ABI，其他时候称之为 平台补充，或者提及编程语言并说例 C++ ABI。请记住，并不存在这样的一个东西。  你在问题中提到的文件都是这种（语言/操作系统/硬件特定的 ABI）的具体示例。</p>
-<p>即使在特定平台上，也没有必要只有一个 ABI（集） ，因为不同的约定可能具有不同的优点（因此可能提供更好的性能/更小的代码/更好的内存使用率/&hellip; - 取决于程序），系统设计者通常试图灵活/宽容。例如，在 32 位 Microsoft Windows 上，函数调用约定部分有多种 ABI（fastcall、stdcall、pascal 等）。</p>
 
 
 <h2 class="relative group">CPU &amp; OS 

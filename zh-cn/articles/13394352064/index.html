@@ -109,7 +109,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "6952"
+    "wordCount": "6956"
   }]
   </script>
 
@@ -585,7 +585,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-12-18T13:46:01&#43;00:00">December 18, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>6952 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">14 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+  <time datetime="2024-12-18T13:46:01&#43;00:00">December 18, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>6956 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">14 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1052,7 +1052,7 @@
 <li>它只进行名称查找而不进行模板实例化，就算找到了最后的结果，也没法把它和最初的模板参数映射起来</li>
 <li>不考虑默认模板参数，无法处理由默认模板参数导致的依赖名</li>
 </ol>
-<p>尽管我们可以对标准库的类型开洞来提供相关的支持，但是我希望用户的代码能和标准库的代码有相同的地位，那么我们就需要一种通用的算法来处理依赖类型。为了解决这个问题，我编写了一个伪实例化器（pseudo instantiator）。它能在没有具体类型的前提下对依赖类型进行实例化，从而达到化简的目的。比如上面这个例子里面的<code>std::vector&lt;std::vector&lt;T&gt;::reference</code>就能被化简为<code>std::vector&lt;T&gt;&amp;</code>，进一步就能为用户提供代码补全选项。</p>
+<p>尽管我们可以对标准库的类型开洞来提供相关的支持，但是我希望用户的代码能和标准库的代码有相同的地位，那么我们就需要一种通用的算法来处理依赖类型。为了解决这个问题，我编写了一个伪实例化器（pseudo instantiator）。它能在没有具体类型的前提下对依赖类型进行实例化，从而达到化简的目的。比如上面这个例子里面的<code>std::vector&lt;std::vector&lt;T&gt;&gt;::reference</code>就能被化简为<code>std::vector&lt;T&gt;&amp;</code>，进一步就能为用户提供代码补全选项。</p>
 
 
 <h3 class="relative group">Header context 
