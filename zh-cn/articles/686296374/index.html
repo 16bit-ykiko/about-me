@@ -1070,7 +1070,7 @@
   </figure>
 </p>
 <p>可能让人有点吃惊，打开<code>-O2</code>优化之后，<code>add</code>调用被完全内联。编译器最后连符号都没有给<code>add</code>生成，链接的时候自然也没有<code>add</code>。按照我们之前的定义来看，这种函数内联不属于代码膨胀，所以是没有<strong>额外的</strong>二进制膨胀开销的。</p>
-<p>稍微偏个题，既然这两个文件都不生成<code>add</code>这个符号，那万一有别的文件引用了<code>add</code>这个符号，不就会导致编译失败吗？</p>
+<p>稍微偏个题，既然这两个文件都不生成<code>add</code>这个符号，那万一有别的文件引用了<code>add</code>这个符号，不就会导致链接失败吗？</p>
 <p>考虑如下代码</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src1.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
