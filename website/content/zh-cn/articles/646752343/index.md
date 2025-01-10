@@ -1,7 +1,7 @@
 ---
 title: 'C++ 禁忌黑魔法：STMP （上）'
-date: 2023-07-29 10:20:50
-updated: 2024-08-14 03:43:33
+date: 2023-07-29 18:20:50
+updated: 2025-01-01 13:53:54
 series: ['STMP']
 series_order: 1
 ---
@@ -98,7 +98,7 @@ struct X {};
 static_assert(is_complete_v<X>);
 ```
 
-分开试发现都行，但是放一起就不行了，究竟为什么会这样呢？这其实是因为编译器会缓存模板第一次实例化的结果，之后再遇到相同的模板就会直接使用第一次实例化的结果。在最开始的那个例子中，第二个`is_complete_v<X>`仍然使用了第一次模板实例化的结果，所以仍然求值为`false`导致编译失败。<br><br>编译器这样做合理吗？是合理的，因为模板是会生成对应的外部链接的符号的，如果两次实例化的结果不同，在链接的时候选哪一个呢。但这确实影响到了我们去观测编译期的状态，如何解决呢？答案是加一个模板参数作为种子，每次求值的时候填入不同的参数，从而让编译器实例化新的模板
+分开试发现都行，但是放一起就不行了，究竟为什么会这样呢？这其实是因为编译器会缓存模板第一次实例化的结果，之后再遇到相同的模板就会直接使用第一次实例化的结果。在最开始的那个例子中，第二个`is_complete_v<X>`仍然使用了第一次模板实例化的结果，所以仍然求值为`false`导致编译失败。<br><br>编译器这样做合理吗？是合理的。因为模板最终可能会产生外部链接的符号，如果两次实例化的结果不同，在链接的时候选哪一个呢。但这确实影响到了我们去观测编译期的状态，如何解决呢？答案是加一个模板参数作为种子，每次求值的时候填入不同的参数，从而让编译器实例化新的模板
 
 ```cpp
 template <typename T, int seed = 0>
@@ -181,11 +181,11 @@ static_assert(is_complete_v<>);
 
 ```cpp
 struct X {
-    friend consteval auto foo(X);
+    friend auto foo(X);
 };
 
 struct Y {
-    friend consteval auto foo(X) { return 42; }
+    friend auto foo(X) { return 42; }
 };
 
 int x = foo(X{});
@@ -198,7 +198,7 @@ auto foo(auto);
 
 template <typename T>
 struct X {
-    friend consteval auto foo(auto value) { return sizeof(value); }
+    friend auto foo(auto value) { return sizeof(value); }
 };
 
 static_assert(!is_complete_v<>); // #1
@@ -219,7 +219,7 @@ auto flag(auto);
 
 template <auto value>
 struct setter {
-    friend consteval auto flag(auto) {}
+    friend auto flag(auto) {}
 };
 
 template <auto N = 0, auto seed = [] {}>
@@ -249,12 +249,12 @@ int main() {
 ```cpp
 template <int N>
 struct reader {
-    friend consteval auto flag(reader);
+    friend auto flag(reader);
 };
 
 template <int N>
 struct setter {
-    friend consteval auto flag(reader<N>) {}
+    friend auto flag(reader<N>) {}
 };
 
 template <int N = 0, auto seed = [] {}>
