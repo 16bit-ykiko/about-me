@@ -7,12 +7,12 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>©2024 ykiko</copyright>
-    <lastBuildDate>Wed, 18 Dec 2024 13:46:01 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/zh-cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 Dec 2024 21:46:01 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/zh-cn/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>一个新 C&#43;&#43; language server 的设计与实现</title>
       <link>https://www.ykiko.me/zh-cn/articles/13394352064/</link>
-      <pubDate>Wed, 18 Dec 2024 13:46:01 +0000</pubDate>
+      <pubDate>Wed, 18 Dec 2024 21:46:01 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/13394352064/</guid>
       <description>&lt;p&gt;距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 &lt;a href=&#34;https://github.com/clice-project/clice&#34; target=&#34;_blank&#34;&gt;clice&lt;/a&gt; —— 一个全新的 C++ 语言服务器 (language server)。&lt;/p&gt;</description>
@@ -22,7 +22,7 @@
     <item>
       <title>St. Louis WG21 会议回顾</title>
       <link>https://www.ykiko.me/zh-cn/articles/706509748/</link>
-      <pubDate>Mon, 01 Jul 2024 18:46:56 +0000</pubDate>
+      <pubDate>Tue, 02 Jul 2024 02:46:56 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/706509748/</guid>
       <description>&lt;p&gt;因为某些机缘巧合参与了上周的 WG21 会议（C++ 标准委员会会议）。虽然我经常浏览 C++ 标准的新提案，但是确实没想到有一天真的能参加 WG21 会议，实时了解 C++ 标准的最新进展。当然，这也是第一次参加，非常激动，在这里记录一下自己的感受和会议的进展。&lt;/p&gt;</description>
@@ -32,7 +32,7 @@
     <item>
       <title>Python 与 C&#43;&#43; 的完美结合：pybind11 中的对象设计</title>
       <link>https://www.ykiko.me/zh-cn/articles/702197261/</link>
-      <pubDate>Fri, 07 Jun 2024 07:28:11 +0000</pubDate>
+      <pubDate>Fri, 07 Jun 2024 15:28:11 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/702197261/</guid>
       <description>&lt;p&gt;参加了 &lt;a href=&#34;https://summerofcode.withgoogle.com/programs/2024/projects/Ji2Mi97o&#34; target=&#34;_blank&#34;&gt;Google Summer of Code 2024&lt;/a&gt;，主要的任务就是为一个 &lt;a href=&#34;https://pocketpy.dev/&#34; target=&#34;_blank&#34;&gt;Python 解释器&lt;/a&gt; 实现 &lt;a href=&#34;https://github.com/pybind/pybind11&#34; target=&#34;_blank&#34;&gt;pybind11&lt;/a&gt; 的兼容性接口。说是实现兼容性接口，实际上相当于重写 pybind11 了，所以最近一直在读它的源码。&lt;/p&gt;</description>
@@ -42,7 +42,7 @@
     <item>
       <title>C&#43;&#43; 中的单例模式真的“单例”吗？</title>
       <link>https://www.ykiko.me/zh-cn/articles/696878184/</link>
-      <pubDate>Thu, 09 May 2024 18:08:28 +0000</pubDate>
+      <pubDate>Fri, 10 May 2024 02:08:28 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/696878184/</guid>
       <description>&lt;p&gt;&lt;strong&gt;单例模式 (Singleton Pattern)&lt;/strong&gt; 是一种常见的设计模式，往往应用于配置系统，日志系统，数据库连接池等需要确保对象唯一性的场景。但是单例模式真的能保证单例吗？如果唯一性得不到保证会产生什么后果呢？&lt;/p&gt;</description>
@@ -52,7 +52,7 @@
     <item>
       <title>超好用的 C&#43;&#43; 在线编译器（VSCode 版）</title>
       <link>https://www.ykiko.me/zh-cn/articles/694365783/</link>
-      <pubDate>Wed, 24 Apr 2024 13:35:41 +0000</pubDate>
+      <pubDate>Wed, 24 Apr 2024 21:35:41 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/694365783/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://godbolt.org/&#34; target=&#34;_blank&#34;&gt;Compiler Explorer&lt;/a&gt; 是一个非常流行的 C++ 在线编译器，可用于测试不同的编译执行环境，或者分享代码。作为一个 C++ 爱好者，我几乎每天都要和它打交道，使用频率之高远超我的想象。同时，我也是一个重度 VSCode 用户，几乎所有的事情都在 VSCode 中完成。考虑到经常在本地写代码然后拷贝到 Compiler Explorer 上去，总觉得不太舒服，有时候直接就在它的网页编辑器上改了，但是又没有代码补全，也不舒服。所以我和 &lt;a href=&#34;https://www.zhihu.com/people/32ffceca937677f7950b64e5186bb998&#34; target=&#34;_blank&#34;&gt;@iiirhe&lt;/a&gt; 合作编写了这个插件 &lt;a href=&#34;https://marketplace.visualstudio.com/items?itemName=ykiko.vscode-compiler-explorer&#34; target=&#34;_blank&#34;&gt;Compiler Explorer for VSCode&lt;/a&gt;，基于 Compiler Explorer 提供的 &lt;a href=&#34;https://github.com/compiler-explorer/compiler-explorer/blob/main/docs/API.md&#34; target=&#34;_blank&#34;&gt;API&lt;/a&gt; 将 Compiler Explorer 集成到 VSCode 中，使得用户可以在 VSCode 中直接使用 Compiler Explorer 的功能。&lt;/p&gt;</description>
@@ -62,7 +62,7 @@
     <item>
       <title>彻底理解 C&#43;&#43; ABI</title>
       <link>https://www.ykiko.me/zh-cn/articles/692886292/</link>
-      <pubDate>Tue, 16 Apr 2024 18:19:38 +0000</pubDate>
+      <pubDate>Wed, 17 Apr 2024 02:19:38 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/692886292/</guid>
       <description>&lt;p&gt;Application Binary Interface，也就是我们常说的 ABI，是个让人感觉到既熟悉又陌生的概念。熟悉在哪里？讨论问题的时候经常会讨论到它，看文章的时候经常会提到它，有时候又要处理它导致的兼容性。陌生在哪里？如果有人问你什么是 ABI，你会发现你知道它是怎么一回事，但是要用严谨的语言去描述它有些困难。最后只好照着 &lt;a href=&#34;https://en.wikipedia.org/wiki/Application_binary_interface&#34; target=&#34;_blank&#34;&gt;WIKI&lt;/a&gt; 说：ABI 就是两个二进制程序模块之间的接口。有问题吗？没有问题，作为一个概括性的描述，已经足够了。但是让人感觉到有些空洞。&lt;/p&gt;</description>
@@ -72,7 +72,7 @@
     <item>
       <title>C&#43;&#43; 究竟代码膨胀在哪里？</title>
       <link>https://www.ykiko.me/zh-cn/articles/686296374/</link>
-      <pubDate>Mon, 11 Mar 2024 01:33:37 +0000</pubDate>
+      <pubDate>Mon, 11 Mar 2024 09:33:37 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/686296374/</guid>
       <description>&lt;p&gt;相信读者经常能听见有人说 C++ 代码二进制膨胀严重，但是一般很少会有人指出具体的原因。在网络上一番搜索过后，发现深入讨论这个问题的文章的并不多。上面那句话更像是八股文的一部分，被口口相传，但是没什么人能说出个所以然。今天小编 ykiko 就带大家一起来探秘 C++ 代码膨胀那些事  (^ω^)&lt;/p&gt;</description>
@@ -82,7 +82,7 @@
     <item>
       <title>The History of constexpr in C&#43;&#43;! (Part Two)</title>
       <link>https://www.ykiko.me/zh-cn/articles/683463723/</link>
-      <pubDate>Thu, 22 Feb 2024 14:15:32 +0000</pubDate>
+      <pubDate>Thu, 22 Feb 2024 22:15:32 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/683463723/</guid>
       <description>&lt;p&gt;前情提要：&lt;a href=&#34;https://www.ykiko.me/zh-cn/articles/682031684&#34; target=&#34;_blank&#34;&gt;The History of constexpr in C++! (Part One)&lt;/a&gt;&lt;/p&gt;
@@ -105,7 +105,7 @@
     <item>
       <title>The History of constexpr in C&#43;&#43;! (Part One)</title>
       <link>https://www.ykiko.me/zh-cn/articles/682031684/</link>
-      <pubDate>Sat, 10 Feb 2024 15:15:47 +0000</pubDate>
+      <pubDate>Sat, 10 Feb 2024 23:15:47 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/682031684/</guid>
       <description>&lt;p&gt;几个月前，我写了一篇介绍 C++ 模板的文章：&lt;a href=&#34;https://www.ykiko.me/zh-cn/articles/655902377&#34; target=&#34;_blank&#34;&gt;雾里看花：真正意义上的理解 C++ 模板&lt;/a&gt;。&lt;/p&gt;
@@ -116,7 +116,7 @@
     <item>
       <title>C&#43;&#43; 中如何优雅进行 enum 到 string 的转换 ？</title>
       <link>https://www.ykiko.me/zh-cn/articles/680412313/</link>
-      <pubDate>Mon, 29 Jan 2024 09:03:28 +0000</pubDate>
+      <pubDate>Mon, 29 Jan 2024 17:03:28 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/680412313/</guid>
       <description>&lt;h2 class=&#34;relative group&#34;&gt;拒绝硬编码 
@@ -136,7 +136,7 @@
     <item>
       <title>C&#43;&#43; 中的 relocate 语义</title>
       <link>https://www.ykiko.me/zh-cn/articles/679782886/</link>
-      <pubDate>Thu, 25 Jan 2024 09:22:29 +0000</pubDate>
+      <pubDate>Thu, 25 Jan 2024 17:22:29 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/679782886/</guid>
       <description>&lt;p&gt;众所周知，现在 C++ 里面有两种特殊的构造函数，即 copy constructor 和 move constructor&lt;/p&gt;
@@ -147,7 +147,7 @@
     <item>
       <title>跨越 7 年的接力赛：获取 C&#43;&#43; 结构体字段数量</title>
       <link>https://www.ykiko.me/zh-cn/articles/674157958/</link>
-      <pubDate>Mon, 25 Dec 2023 20:45:30 +0000</pubDate>
+      <pubDate>Tue, 26 Dec 2023 04:45:30 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/674157958/</guid>
       <description>&lt;h2 class=&#34;relative group&#34;&gt;引子 
@@ -167,7 +167,7 @@
     <item>
       <title>在 C&#43;&#43; 中实现 Object!</title>
       <link>https://www.ykiko.me/zh-cn/articles/670191053/</link>
-      <pubDate>Sun, 03 Dec 2023 15:40:52 +0000</pubDate>
+      <pubDate>Sun, 03 Dec 2023 23:40:52 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/670191053/</guid>
       <description>&lt;h2 class=&#34;relative group&#34;&gt;静态与动态 
@@ -187,7 +187,7 @@
     <item>
       <title>为什么说 C/C&#43;&#43; 编译器不保留元信息？</title>
       <link>https://www.ykiko.me/zh-cn/articles/670190357/</link>
-      <pubDate>Sun, 03 Dec 2023 15:37:51 +0000</pubDate>
+      <pubDate>Sun, 03 Dec 2023 23:37:51 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/670190357/</guid>
       <description>&lt;h2 class=&#34;relative group&#34;&gt;首先什么是元信息？ 
@@ -207,7 +207,7 @@
     <item>
       <title>使用 Clang 工具自由的支配 C&#43;&#43; 代码吧</title>
       <link>https://www.ykiko.me/zh-cn/articles/669360731/</link>
-      <pubDate>Wed, 29 Nov 2023 01:14:27 +0000</pubDate>
+      <pubDate>Wed, 29 Nov 2023 09:14:27 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/669360731/</guid>
       <description>&lt;p&gt;Clang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最初开发的目的是替代 GNU Compiler Collection (GCC) 的 C 语言前端，目标是提供更快的编译速度、更好的诊断信息和更灵活的架构。Clang 包含一个 C、C++ 和 Objective-C 编译器前端，这些前端设计为可以嵌入到其他项目中。Clang 的一个重要特点是其模块化架构，使开发者能够更轻松地扩展和定制编译器的功能。Clang 被广泛应用于许多项目，包括 LLVM 自身、一些操作系统内核的开发以及一些编程语言的编译器实现。&lt;/p&gt;</description>
@@ -217,7 +217,7 @@
     <item>
       <title>各种姿势进行代码生成</title>
       <link>https://www.ykiko.me/zh-cn/articles/669359855/</link>
-      <pubDate>Wed, 29 Nov 2023 01:14:16 +0000</pubDate>
+      <pubDate>Wed, 29 Nov 2023 09:14:16 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/669359855/</guid>
       <description>&lt;h2 class=&#34;relative group&#34;&gt;引入 
@@ -237,7 +237,7 @@
     <item>
       <title>写给 C&#43;&#43; 程序员的反射教程</title>
       <link>https://www.ykiko.me/zh-cn/articles/669358870/</link>
-      <pubDate>Wed, 29 Nov 2023 01:14:02 +0000</pubDate>
+      <pubDate>Wed, 29 Nov 2023 09:14:02 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/669358870/</guid>
       <description>&lt;h2 class=&#34;relative group&#34;&gt;What is Reflection? 
@@ -257,7 +257,7 @@
     <item>
       <title>C&#43;&#43;26 静态反射提案解析</title>
       <link>https://www.ykiko.me/zh-cn/articles/661692275/</link>
-      <pubDate>Mon, 16 Oct 2023 18:38:26 +0000</pubDate>
+      <pubDate>Tue, 17 Oct 2023 02:38:26 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/661692275/</guid>
       <description>&lt;p&gt;最近打算写一个系列文章详细讨论反射（reflection）这一概念，刚好 C++26 有了新的反射提案，发现知乎上又没有相关的文章，而这个话题又经常被讨论。所以借此机会来聊一聊属于 C++ 的静态反射（static reflection），作为系列预热了。&lt;/p&gt;</description>
@@ -267,7 +267,7 @@
     <item>
       <title>C&#43;&#43; 成员指针完全解析</title>
       <link>https://www.ykiko.me/zh-cn/articles/659510753/</link>
-      <pubDate>Wed, 04 Oct 2023 06:50:12 +0000</pubDate>
+      <pubDate>Wed, 04 Oct 2023 14:50:12 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/659510753/</guid>
       <description>&lt;h2 class=&#34;relative group&#34;&gt;Introduction 
@@ -287,7 +287,7 @@
     <item>
       <title>雾里看花：真正意义上的理解 C&#43;&#43; 模板</title>
       <link>https://www.ykiko.me/zh-cn/articles/655902377/</link>
-      <pubDate>Tue, 12 Sep 2023 15:46:11 +0000</pubDate>
+      <pubDate>Tue, 12 Sep 2023 23:46:11 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/655902377/</guid>
       <description>&lt;p&gt;在 C++ 中，模板（Template）这个概念已经存在二十多年了。作为 C++ 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。&lt;/p&gt;</description>
@@ -297,7 +297,7 @@
     <item>
       <title>C&#43;&#43; 禁忌黑魔法：STMP （下）</title>
       <link>https://www.ykiko.me/zh-cn/articles/646812253/</link>
-      <pubDate>Sun, 30 Jul 2023 01:29:27 +0000</pubDate>
+      <pubDate>Sun, 30 Jul 2023 09:29:27 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/646812253/</guid>
       <description>&lt;p&gt;上一篇 &lt;a href=&#34;https://www.ykiko.me/zh-cn/articles/646752343&#34; target=&#34;_blank&#34;&gt;文章&lt;/a&gt; 我们初步了解了 STMP 的原理，并且利用它实现了简单的一个编译期的计数器。然而，它的威力远不止如此，这篇文章就来讨论一些基于 STMP 的高级应用。&lt;/p&gt;</description>
@@ -307,7 +307,7 @@
     <item>
       <title>C&#43;&#43; 禁忌黑魔法：STMP （上）</title>
       <link>https://www.ykiko.me/zh-cn/articles/646752343/</link>
-      <pubDate>Sat, 29 Jul 2023 10:20:50 +0000</pubDate>
+      <pubDate>Sat, 29 Jul 2023 18:20:50 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/646752343/</guid>
       <description>&lt;p&gt;众所周知，传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的状态。对于任意相同的输入，它的输出结果总是相同的，被认为是&lt;strong&gt;纯函数式 (purely functional)&lt;/strong&gt; 的。&lt;strong&gt;模板元编程 (Template Meta Programming)&lt;/strong&gt; 作为常量求值的一个子集，也应该遵守这个规则。&lt;/p&gt;</description>
@@ -317,7 +317,7 @@
     <item>
       <title>std::variant 很难用！</title>
       <link>https://www.ykiko.me/zh-cn/articles/645810896/</link>
-      <pubDate>Tue, 25 Jul 2023 07:19:25 +0000</pubDate>
+      <pubDate>Tue, 25 Jul 2023 15:19:25 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/645810896/</guid>
       <description>&lt;p&gt;&lt;code&gt;std::variant&lt;/code&gt;于 C++17 加入标准库，本文将讨论其加入标准的背景，以及一些使用上的问题。&lt;/p&gt;</description>

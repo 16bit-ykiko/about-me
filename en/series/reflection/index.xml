@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reflection on ykiko&#39;s blog</title>
+    <link>https://www.ykiko.me/en/series/reflection/</link>
+    <description>Recent content in Reflection on ykiko&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>©2024 ykiko</copyright>
+    <lastBuildDate>Sun, 03 Dec 2023 23:40:52 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/en/series/reflection/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Implementing Object in C&#43;&#43;!</title>
+      <link>https://www.ykiko.me/en/articles/670191053/</link>
+      <pubDate>Sun, 03 Dec 2023 23:40:52 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/670191053/</guid>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;Static vs Dynamic 
+    &lt;div id=&#34;static-vs-dynamic&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700&#34;
+            style=&#34;text-decoration-line: none !important;&#34; href=&#34;#static-vs-dynamic&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h2&gt;
+&lt;p&gt;The terms static typing and dynamic typing are familiar to many. The key distinction lies in the timing of type checking. What does this mean?&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/670191053/featured.png" />
+    </item>
+    
+    <item>
+      <title>Why Do C/C&#43;&#43; Compilers Not Retain Metadata?</title>
+      <link>https://www.ykiko.me/en/articles/670190357/</link>
+      <pubDate>Sun, 03 Dec 2023 23:37:51 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/670190357/</guid>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;What is Metadata? 
+    &lt;div id=&#34;what-is-metadata&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700&#34;
+            style=&#34;text-decoration-line: none !important;&#34; href=&#34;#what-is-metadata&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h2&gt;
+&lt;p&gt;Consider the following &lt;code&gt;Python&lt;/code&gt; code, where we aim to automatically modify the corresponding field values based on the input string:&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/670190357/featured.png" />
+    </item>
+    
+    <item>
+      <title>Harness the Power of C&#43;&#43; Code with Clang Tools</title>
+      <link>https://www.ykiko.me/en/articles/669360731/</link>
+      <pubDate>Wed, 29 Nov 2023 09:14:27 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/669360731/</guid>
+      <description>&lt;p&gt;Clang is a compiler front-end for the C family of languages provided by the LLVM project. It was initially developed to replace the C front-end of the GNU Compiler Collection (GCC), aiming to offer faster compilation, better diagnostic information, and a more flexible architecture. Clang includes front-ends for C, C++, and Objective-C, designed to be embeddable in other projects. A key feature of Clang is its modular architecture, which allows developers to easily extend and customize the compiler&amp;rsquo;s functionality. Clang is widely used in many projects, including LLVM itself, the development of some operating system kernels, and the implementation of compilers for some programming languages.&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/669360731/featured.png" />
+    </item>
+    
+    <item>
+      <title>Various Approaches to Code Generation</title>
+      <link>https://www.ykiko.me/en/articles/669359855/</link>
+      <pubDate>Wed, 29 Nov 2023 09:14:16 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/669359855/</guid>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;Introduction 
+    &lt;div id=&#34;introduction&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700&#34;
+            style=&#34;text-decoration-line: none !important;&#34; href=&#34;#introduction&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s start with a recent requirement as an introduction. We all know that markdown can use &lt;code&gt;lang&lt;/code&gt; to insert code blocks and supports syntax highlighting. However, I wanted to support custom syntax highlighting rules and encountered the following issues:&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/669359855/featured.png" />
+    </item>
+    
+    <item>
+      <title>A Reflection Tutorial for C&#43;&#43; Programmers</title>
+      <link>https://www.ykiko.me/en/articles/669358870/</link>
+      <pubDate>Wed, 29 Nov 2023 09:14:02 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/669358870/</guid>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;What is Reflection? 
+    &lt;div id=&#34;what-is-reflection&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700&#34;
+            style=&#34;text-decoration-line: none !important;&#34; href=&#34;#what-is-reflection&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h2&gt;
+&lt;p&gt;The term &amp;ldquo;Reflection&amp;rdquo; is likely familiar to many, even if you haven&amp;rsquo;t used it, you&amp;rsquo;ve probably heard of it. However, like many other &lt;strong&gt;jargon&lt;/strong&gt; in the field of computer science, there isn&amp;rsquo;t a clear and precise definition for reflection. This leads to situations where, for languages like C#, Java, and Python that have reflection, discussing reflection naturally brings to mind the corresponding facilities, APIs, and code examples in those languages, making it very concrete. However, for languages like C, C++, and Rust that lack reflection, when people talk about reflection, there&amp;rsquo;s often uncertainty about what exactly is being referred to, making it very abstract. For example, someone once told me that Rust has reflection, citing the official Rust documentation&amp;rsquo;s introduction to the &lt;a href=&#34;https://doc.rust-lang.org/stable/std/any/index.html&#34; target=&#34;_blank&#34;&gt;std::Any module&lt;/a&gt;, which mentions:&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/669358870/featured.png" />
+    </item>
+    
+    <item>
+      <title>Analysis of the C&#43;&#43;26 Static Reflection Proposal</title>
+      <link>https://www.ykiko.me/en/articles/661692275/</link>
+      <pubDate>Tue, 17 Oct 2023 02:38:26 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/661692275/</guid>
+      <description>&lt;p&gt;I recently planned to write a series of articles discussing the concept of reflection in detail. Coincidentally, C++26 has introduced a new reflection proposal, and I noticed that there are no related articles on Zhihu, even though this topic is frequently discussed. Therefore, I decided to take this opportunity to talk about static reflection in C++, serving as a warm-up for the series.&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/661692275/featured.png" />
+    </item>
+    
+  </channel>
+</rss>

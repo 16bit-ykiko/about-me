@@ -7,16 +7,344 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>©2024 ykiko</copyright>
-    <atom:link href="https://www.ykiko.me/en/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 Dec 2024 21:46:01 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/en/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title></title>
-      <link>https://www.ykiko.me/en/articles/test/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>Design and Implementation of a New C&#43;&#43; Language Server</title>
+      <link>https://www.ykiko.me/en/articles/13394352064/</link>
+      <pubDate>Wed, 18 Dec 2024 21:46:01 +0000</pubDate>
       
-      <guid>https://www.ykiko.me/en/articles/test/</guid>
-      <description></description>
+      <guid>https://www.ykiko.me/en/articles/13394352064/</guid>
+      <description>&lt;p&gt;It has been several months since the last blog post. The reason for the long hiatus is that I have been busy working on &lt;a href=&#34;https://github.com/clice-project/clice&#34; target=&#34;_blank&#34;&gt;clice&lt;/a&gt; — a brand-new C++ language server.&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/13394352064/featured.png" />
+    </item>
+    
+    <item>
+      <title>Recap of the St. Louis WG21 Meeting</title>
+      <link>https://www.ykiko.me/en/articles/706509748/</link>
+      <pubDate>Tue, 02 Jul 2024 02:46:56 +0000</pubDate>
       
+      <guid>https://www.ykiko.me/en/articles/706509748/</guid>
+      <description>&lt;p&gt;Due to a series of coincidences, I had the opportunity to attend last week&amp;rsquo;s WG21 meeting (the C++ Standards Committee meeting). Although I frequently browse new proposals for the C++ standard, I never imagined that one day I would actually participate in a WG21 meeting and get real-time updates on the latest developments in the C++ standard. Of course, this was my first time attending, and I was very excited. Here, I’ll document my impressions and the progress of the meeting.&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/706509748/featured.png" />
+    </item>
+    
+    <item>
+      <title>The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11</title>
+      <link>https://www.ykiko.me/en/articles/702197261/</link>
+      <pubDate>Fri, 07 Jun 2024 15:28:11 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/702197261/</guid>
+      <description>&lt;p&gt;I participated in &lt;a href=&#34;https://summerofcode.withgoogle.com/programs/2024/projects/Ji2Mi97o&#34; target=&#34;_blank&#34;&gt;Google Summer of Code 2024&lt;/a&gt;, where my main task was to implement a &lt;a href=&#34;https://github.com/pybind/pybind11&#34; target=&#34;_blank&#34;&gt;pybind11&lt;/a&gt; compatibility interface for a &lt;a href=&#34;https://pocketpy.dev/&#34; target=&#34;_blank&#34;&gt;Python interpreter&lt;/a&gt;. While it&amp;rsquo;s called implementing a compatibility interface, it essentially amounts to rewriting pybind11, so I&amp;rsquo;ve been diving deep into its source code recently.&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/702197261/featured.png" />
+    </item>
+    
+    <item>
+      <title>Is the Singleton Pattern in C&#43;&#43; Truly &#34;Singleton&#34;?</title>
+      <link>https://www.ykiko.me/en/articles/696878184/</link>
+      <pubDate>Fri, 10 May 2024 02:08:28 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/696878184/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Singleton Pattern&lt;/strong&gt; is a common design pattern often used in scenarios requiring object uniqueness, such as configuration systems, logging systems, and database connection pools. But does the Singleton Pattern truly guarantee a singleton? What consequences might arise if uniqueness is not ensured?&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/696878184/featured.png" />
+    </item>
+    
+    <item>
+      <title>Super Useful C&#43;&#43; Online Compiler (VSCode Edition)</title>
+      <link>https://www.ykiko.me/en/articles/694365783/</link>
+      <pubDate>Wed, 24 Apr 2024 21:35:41 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/694365783/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://godbolt.org/&#34; target=&#34;_blank&#34;&gt;Compiler Explorer&lt;/a&gt; is a highly popular online C++ compiler that can be used to test different compilation and execution environments or to share code. As a C++ enthusiast, I interact with it almost daily, far more frequently than I initially imagined. Additionally, I am a heavy VSCode user, handling almost all tasks within VSCode. Considering the frequent need to write code locally and then copy it to Compiler Explorer, it often feels cumbersome. Sometimes, I directly modify the code in its web editor, but without code completion, it&amp;rsquo;s equally uncomfortable. Therefore, in collaboration with &lt;a href=&#34;https://www.zhihu.com/people/32ffceca937677f7950b64e5186bb998&#34; target=&#34;_blank&#34;&gt;@iiirhe&lt;/a&gt;, we developed this plugin &lt;a href=&#34;https://marketplace.visualstudio.com/items?itemName=ykiko.vscode-compiler-explorer&#34; target=&#34;_blank&#34;&gt;Compiler Explorer for VSCode&lt;/a&gt;, which integrates Compiler Explorer into VSCode using the &lt;a href=&#34;https://github.com/compiler-explorer/compiler-explorer/blob/main/docs/API.md&#34; target=&#34;_blank&#34;&gt;API&lt;/a&gt; provided by Compiler Explorer, allowing users to directly utilize Compiler Explorer&amp;rsquo;s functionalities within VSCode.&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/694365783/featured.png" />
+    </item>
+    
+    <item>
+      <title>Understanding C&#43;&#43; ABI in Depth</title>
+      <link>https://www.ykiko.me/en/articles/692886292/</link>
+      <pubDate>Wed, 17 Apr 2024 02:19:38 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/692886292/</guid>
+      <description>&lt;p&gt;The Application Binary Interface, commonly referred to as ABI, is a concept that feels both familiar and alien. Familiar because it often comes up in discussions and articles, and sometimes we have to deal with compatibility issues it causes. Alien because if someone asks you what ABI is, you might find it hard to describe it in precise terms. Eventually, you might resort to quoting &lt;a href=&#34;https://en.wikipedia.org/wiki/Application_binary_interface&#34; target=&#34;_blank&#34;&gt;WIKI&lt;/a&gt;: ABI is the interface between two binary program modules. Is there a problem with this definition? Not really, as a general description, it suffices. But it feels somewhat hollow.&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/692886292/featured.png" />
+    </item>
+    
+    <item>
+      <title>Where Exactly Does C&#43;&#43; Code Bloat Occur?</title>
+      <link>https://www.ykiko.me/en/articles/686296374/</link>
+      <pubDate>Mon, 11 Mar 2024 09:33:37 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/686296374/</guid>
+      <description>&lt;p&gt;Readers often hear that C++ code suffers from severe binary bloat, but few can pinpoint the exact reasons. After some online research, it becomes clear that there are not many in-depth discussions on this topic. The statement seems more like a cliché, passed down through word of mouth, with few able to explain it thoroughly. Today, ykiko will take you on a journey to uncover the mysteries of C++ code bloat (^ω^)&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/686296374/featured.png" />
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;中constexpr的历史！（第二部分）</title>
+      <link>https://www.ykiko.me/en/articles/683463723/</link>
+      <pubDate>Thu, 22 Feb 2024 22:15:32 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/683463723/</guid>
+      <description>&lt;p&gt;前情提要：&lt;a href=&#34;https://www.ykiko.me/zh-cn/articles/682031684&#34; target=&#34;_blank&#34;&gt;C++中constexpr的历史！（第一部分）&lt;/a&gt;&lt;/p&gt;
+
+
+&lt;h2 class=&#34;relative group&#34;&gt;2015-2016：模板的语法糖 
+    &lt;div id=&#34;2015-2016%E6%A8%A1%E6%9D%BF%E7%9A%84%E8%AF%AD%E6%B3%95%E7%B3%96&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700&#34;
+            style=&#34;text-decoration-line: none !important;&#34; href=&#34;#2015-2016%E6%A8%A1%E6%9D%BF%E7%9A%84%E8%AF%AD%E6%B3%95%E7%B3%96&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h2&gt;
+&lt;p&gt;在C++中，支持&lt;a href=&#34;https://en.cppreference.com/w/cpp/language/template_specialization&#34; target=&#34;_blank&#34;&gt;全特化（full specialization）&lt;/a&gt;的模板很多，但支持&lt;a href=&#34;https://en.cppreference.com/w/cpp/language/partial_specialization&#34; target=&#34;_blank&#34;&gt;偏特化（partial specialization）&lt;/a&gt;的模板并不多。事实上，只有类模板（class template）和变量模板（variable template）支持偏特化，而变量模板可以看作是类模板的语法糖，因此实际上只有类模板支持偏特化。不支持偏特化会导致某些代码难以编写。&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/683463723/featured.png" />
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; 中 constexpr 的发展史！（上篇）</title>
+      <link>https://www.ykiko.me/en/articles/682031684/</link>
+      <pubDate>Sat, 10 Feb 2024 23:15:47 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/682031684/</guid>
+      <description>&lt;p&gt;几个月前，我写了一篇介绍 C++ 模板的文章：&lt;a href=&#34;https://www.ykiko.me/zh-cn/articles/655902377&#34; target=&#34;_blank&#34;&gt;雾里看花：真正意义上的理解 C++ 模板&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;文章梳理了现代 C++ 中模板的地位。其中，使用 constexpr 函数替代模板进行编译期计算可以说是现代 C++ 最重要的改进之一。constexpr 本身其实并不难理解，非常直观。但由于几乎每个 C++ 版本都在改进它，不同 C++ 版本中可用的内容差异很大，有时可能会给人一种“不一致”的感觉。&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/682031684/featured.png" />
+    </item>
+    
+    <item>
+      <title>How to Elegantly Convert Enum to String in C&#43;&#43;?</title>
+      <link>https://www.ykiko.me/en/articles/680412313/</link>
+      <pubDate>Mon, 29 Jan 2024 17:03:28 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/680412313/</guid>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;Avoid Hardcoding 
+    &lt;div id=&#34;avoid-hardcoding&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700&#34;
+            style=&#34;text-decoration-line: none !important;&#34; href=&#34;#avoid-hardcoding&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h2&gt;
+&lt;p&gt;Define an &lt;code&gt;enum&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;enum&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Color&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;RED&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;GREEN&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;BLUE&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Attempt to print&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Color&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;color&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;RED&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;color&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;endl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// output =&amp;gt; 0
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If we need to output enums as logs, we don&amp;rsquo;t want to manually look up the corresponding strings based on the enum values when reviewing the logs, as it is cumbersome and unintuitive. We hope to directly output the strings corresponding to the enum values, such as &lt;code&gt;RED&lt;/code&gt;, &lt;code&gt;GREEN&lt;/code&gt;, &lt;code&gt;BLUE&lt;/code&gt;.&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/680412313/featured.png" />
+    </item>
+    
+    <item>
+      <title>Relocation Semantics in C&#43;&#43;</title>
+      <link>https://www.ykiko.me/en/articles/679782886/</link>
+      <pubDate>Thu, 25 Jan 2024 17:22:29 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/679782886/</guid>
+      <description>&lt;p&gt;As is well known, there are two special constructors in C++: the copy constructor and the move constructor.&lt;/p&gt;
+&lt;p&gt;The copy constructor was introduced as early as C++98 to copy an object. For types like &lt;code&gt;vector&lt;/code&gt; that own resources, copying will also duplicate the resources it owns.&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/679782886/featured.png" />
+    </item>
+    
+    <item>
+      <title>A 7-Year Relay Race: Obtaining the Number of Fields in a C&#43;&#43; Struct</title>
+      <link>https://www.ykiko.me/en/articles/674157958/</link>
+      <pubDate>Tue, 26 Dec 2023 04:45:30 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/674157958/</guid>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;Introduction 
+    &lt;div id=&#34;introduction&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700&#34;
+            style=&#34;text-decoration-line: none !important;&#34; href=&#34;#introduction&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h2&gt;
+&lt;p&gt;In &lt;code&gt;C++17&lt;/code&gt;, a feature called &lt;strong&gt;structured binding&lt;/strong&gt; was introduced, also known as &lt;code&gt;Struct Bind&lt;/code&gt;. This feature is similar to pattern matching in other languages, allowing us to conveniently access the members of a structure.&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/674157958/featured.png" />
+    </item>
+    
+    <item>
+      <title>Implementing Object in C&#43;&#43;!</title>
+      <link>https://www.ykiko.me/en/articles/670191053/</link>
+      <pubDate>Sun, 03 Dec 2023 23:40:52 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/670191053/</guid>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;Static vs Dynamic 
+    &lt;div id=&#34;static-vs-dynamic&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700&#34;
+            style=&#34;text-decoration-line: none !important;&#34; href=&#34;#static-vs-dynamic&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h2&gt;
+&lt;p&gt;The terms static typing and dynamic typing are familiar to many. The key distinction lies in the timing of type checking. What does this mean?&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/670191053/featured.png" />
+    </item>
+    
+    <item>
+      <title>Why Do C/C&#43;&#43; Compilers Not Retain Metadata?</title>
+      <link>https://www.ykiko.me/en/articles/670190357/</link>
+      <pubDate>Sun, 03 Dec 2023 23:37:51 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/670190357/</guid>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;What is Metadata? 
+    &lt;div id=&#34;what-is-metadata&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700&#34;
+            style=&#34;text-decoration-line: none !important;&#34; href=&#34;#what-is-metadata&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h2&gt;
+&lt;p&gt;Consider the following &lt;code&gt;Python&lt;/code&gt; code, where we aim to automatically modify the corresponding field values based on the input string:&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/670190357/featured.png" />
+    </item>
+    
+    <item>
+      <title>Harness the Power of C&#43;&#43; Code with Clang Tools</title>
+      <link>https://www.ykiko.me/en/articles/669360731/</link>
+      <pubDate>Wed, 29 Nov 2023 09:14:27 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/669360731/</guid>
+      <description>&lt;p&gt;Clang is a compiler front-end for the C family of languages provided by the LLVM project. It was initially developed to replace the C front-end of the GNU Compiler Collection (GCC), aiming to offer faster compilation, better diagnostic information, and a more flexible architecture. Clang includes front-ends for C, C++, and Objective-C, designed to be embeddable in other projects. A key feature of Clang is its modular architecture, which allows developers to easily extend and customize the compiler&amp;rsquo;s functionality. Clang is widely used in many projects, including LLVM itself, the development of some operating system kernels, and the implementation of compilers for some programming languages.&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/669360731/featured.png" />
+    </item>
+    
+    <item>
+      <title>Various Approaches to Code Generation</title>
+      <link>https://www.ykiko.me/en/articles/669359855/</link>
+      <pubDate>Wed, 29 Nov 2023 09:14:16 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/669359855/</guid>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;Introduction 
+    &lt;div id=&#34;introduction&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700&#34;
+            style=&#34;text-decoration-line: none !important;&#34; href=&#34;#introduction&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s start with a recent requirement as an introduction. We all know that markdown can use &lt;code&gt;lang&lt;/code&gt; to insert code blocks and supports syntax highlighting. However, I wanted to support custom syntax highlighting rules and encountered the following issues:&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/669359855/featured.png" />
+    </item>
+    
+    <item>
+      <title>A Reflection Tutorial for C&#43;&#43; Programmers</title>
+      <link>https://www.ykiko.me/en/articles/669358870/</link>
+      <pubDate>Wed, 29 Nov 2023 09:14:02 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/669358870/</guid>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;What is Reflection? 
+    &lt;div id=&#34;what-is-reflection&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700&#34;
+            style=&#34;text-decoration-line: none !important;&#34; href=&#34;#what-is-reflection&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h2&gt;
+&lt;p&gt;The term &amp;ldquo;Reflection&amp;rdquo; is likely familiar to many, even if you haven&amp;rsquo;t used it, you&amp;rsquo;ve probably heard of it. However, like many other &lt;strong&gt;jargon&lt;/strong&gt; in the field of computer science, there isn&amp;rsquo;t a clear and precise definition for reflection. This leads to situations where, for languages like C#, Java, and Python that have reflection, discussing reflection naturally brings to mind the corresponding facilities, APIs, and code examples in those languages, making it very concrete. However, for languages like C, C++, and Rust that lack reflection, when people talk about reflection, there&amp;rsquo;s often uncertainty about what exactly is being referred to, making it very abstract. For example, someone once told me that Rust has reflection, citing the official Rust documentation&amp;rsquo;s introduction to the &lt;a href=&#34;https://doc.rust-lang.org/stable/std/any/index.html&#34; target=&#34;_blank&#34;&gt;std::Any module&lt;/a&gt;, which mentions:&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/669358870/featured.png" />
+    </item>
+    
+    <item>
+      <title>Analysis of the C&#43;&#43;26 Static Reflection Proposal</title>
+      <link>https://www.ykiko.me/en/articles/661692275/</link>
+      <pubDate>Tue, 17 Oct 2023 02:38:26 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/661692275/</guid>
+      <description>&lt;p&gt;I recently planned to write a series of articles discussing the concept of reflection in detail. Coincidentally, C++26 has introduced a new reflection proposal, and I noticed that there are no related articles on Zhihu, even though this topic is frequently discussed. Therefore, I decided to take this opportunity to talk about static reflection in C++, serving as a warm-up for the series.&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/661692275/featured.png" />
+    </item>
+    
+    <item>
+      <title>Comprehensive Analysis of C&#43;&#43; Member Pointers</title>
+      <link>https://www.ykiko.me/en/articles/659510753/</link>
+      <pubDate>Wed, 04 Oct 2023 14:50:12 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/659510753/</guid>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;引言 
+    &lt;div id=&#34;%E5%BC%95%E8%A8%80&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700&#34;
+            style=&#34;text-decoration-line: none !important;&#34; href=&#34;#%E5%BC%95%E8%A8%80&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h2&gt;
+&lt;p&gt;在 C++ 中，形如&lt;code&gt;&amp;amp;T::name&lt;/code&gt;的表达式返回的结果就是成员指针。写代码的时候偶尔会用到，但是这个概念可能很多人都并不熟悉。考虑如下代码&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/659510753/featured.png" />
+    </item>
+    
+    <item>
+      <title>Seeing Through the Fog: A True Understanding of C&#43;&#43; Templates</title>
+      <link>https://www.ykiko.me/en/articles/655902377/</link>
+      <pubDate>Tue, 12 Sep 2023 23:46:11 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/655902377/</guid>
+      <description>&lt;p&gt;In C++, the concept of templates has existed for over two decades. As one of the most important language constructs in C++, discussions about templates are countless. Unfortunately, deep and valuable discussions are rare, especially those that view this feature from multiple perspectives. Many articles often intertwine templates with various syntactic details, making it easy to leave readers feeling lost in a fog. Similar examples occur in other topics, such as introducing coroutines while mixing them with various I/O discussions, or discussing reflection as if it were limited to Java or C#. While this approach is not without reason, it often makes it difficult to grasp the essence. After reading a lot of content, one may still fail to grasp the key points and instead end up confusing different concepts.&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/655902377/featured.png" />
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; Forbidden Dark Magic: STMP (Part 2)</title>
+      <link>https://www.ykiko.me/en/articles/646812253/</link>
+      <pubDate>Sun, 30 Jul 2023 09:29:27 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/646812253/</guid>
+      <description>&lt;p&gt;In the previous &lt;a href=&#34;https://www.ykiko.me/zh-cn/articles/646752343&#34; target=&#34;_blank&#34;&gt;article&lt;/a&gt;, we gained a preliminary understanding of the principles of STMP and used it to implement a simple compile-time counter. However, its power extends far beyond that. This article will discuss some advanced applications based on STMP.&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/646812253/featured.png" />
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; Forbidden Dark Arts: STMP (Part 1)</title>
+      <link>https://www.ykiko.me/en/articles/646752343/</link>
+      <pubDate>Sat, 29 Jul 2023 18:20:50 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/646752343/</guid>
+      <description>&lt;p&gt;As is well known, traditional C++ constant expression evaluation neither depends on nor alters the global state of the program. For any identical input, its output is always the same, making it considered &lt;strong&gt;purely functional&lt;/strong&gt;. &lt;strong&gt;Template Meta Programming (TMP)&lt;/strong&gt;, as a subset of constant evaluation, should also adhere to this rule.&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/646752343/featured.png" />
+    </item>
+    
+    <item>
+      <title>std::variant is Hard to Use!</title>
+      <link>https://www.ykiko.me/en/articles/645810896/</link>
+      <pubDate>Tue, 25 Jul 2023 15:19:25 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/645810896/</guid>
+      <description>&lt;p&gt;&lt;code&gt;std::variant&lt;/code&gt; was introduced into the C++ standard library in C++17. This article will discuss the background of its inclusion in the standard and some issues with its usage.&lt;/p&gt;
+
+
+&lt;h2 class=&#34;relative group&#34;&gt;Sum Type 
+    &lt;div id=&#34;sum-type&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700&#34;
+            style=&#34;text-decoration-line: none !important;&#34; href=&#34;#sum-type&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h2&gt;
+&lt;p&gt;First, let&amp;rsquo;s discuss &lt;strong&gt;sum types&lt;/strong&gt;, also known as &lt;a href=&#34;https://en.wikipedia.org/wiki/Tagged_union&#34; target=&#34;_blank&#34;&gt;tagged unions&lt;/a&gt;. A sum type is a type that can hold one of several possible types.&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/645810896/featured.png" />
     </item>
     
   </channel>

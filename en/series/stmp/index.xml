@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>STMP on ykiko&#39;s blog</title>
+    <link>https://www.ykiko.me/en/series/stmp/</link>
+    <description>Recent content in STMP on ykiko&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>©2024 ykiko</copyright>
+    <lastBuildDate>Sun, 30 Jul 2023 09:29:27 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/en/series/stmp/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>C&#43;&#43; Forbidden Dark Magic: STMP (Part 2)</title>
+      <link>https://www.ykiko.me/en/articles/646812253/</link>
+      <pubDate>Sun, 30 Jul 2023 09:29:27 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/646812253/</guid>
+      <description>&lt;p&gt;In the previous &lt;a href=&#34;https://www.ykiko.me/zh-cn/articles/646752343&#34; target=&#34;_blank&#34;&gt;article&lt;/a&gt;, we gained a preliminary understanding of the principles of STMP and used it to implement a simple compile-time counter. However, its power extends far beyond that. This article will discuss some advanced applications based on STMP.&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/646812253/featured.png" />
+    </item>
+    
+    <item>
+      <title>C&#43;&#43; Forbidden Dark Arts: STMP (Part 1)</title>
+      <link>https://www.ykiko.me/en/articles/646752343/</link>
+      <pubDate>Sat, 29 Jul 2023 18:20:50 +0000</pubDate>
+      
+      <guid>https://www.ykiko.me/en/articles/646752343/</guid>
+      <description>&lt;p&gt;As is well known, traditional C++ constant expression evaluation neither depends on nor alters the global state of the program. For any identical input, its output is always the same, making it considered &lt;strong&gt;purely functional&lt;/strong&gt;. &lt;strong&gt;Template Meta Programming (TMP)&lt;/strong&gt;, as a subset of constant evaluation, should also adhere to this rule.&lt;/p&gt;</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/646752343/featured.png" />
+    </item>
+    
+  </channel>
+</rss>
