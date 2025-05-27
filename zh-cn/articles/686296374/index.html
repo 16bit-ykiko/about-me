@@ -26,8 +26,8 @@
   
   
   
-  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.36c3cd7950e4533fa7da3150d972e3edf34d07f83c0264ff04cad0969dfdb3b8a7065b0ed6c730c6d34a7bad516cfc6f6a5917ab1fdb10b25f481f8a17b54c16.css"
-    integrity="sha512-NsPNeVDkUz&#43;n2jFQ2XLj7fNNB/g8AmT/BMrQlp39s7inBlsO1scwxtNKe61RbPxvalkXqx/bELJfSB&#43;KF7VMFg==" />
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.29653ed199b7a749016920bb9715d240156e67049c90f12ffede5bb7f952606ecd8b0dd0c3f01d75af648960eddb25a879915d6e24858a75d11d9eed0607d9c6.css"
+    integrity="sha512-KWU&#43;0Zm3p0kBaSC7lxXSQBVuZwSckPEv/t5bt/lSYG7Niw3Qw/Adda9kiWDt2yWoeZFdbiSFinXRHZ7tBgfZxg==" />
   
   
   <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
@@ -46,8 +46,8 @@
   
   
   
-  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
-    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="复制" data-copied="已复制"></script>
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.461c44800ee64aced53547ac575043247d94bd065e67a4918d19a1a1da0a1cff73de01305bf70a1d34d48c4ba7d12ff03613dd007345827c4d07ab5129974e68.js"
+    integrity="sha512-RhxEgA7mSs7VNUesV1BDJH2UvQZeZ6SRjRmhodoKHP9z3gEwW/cKHTTUjEun0S/wNhPdAHNFgnxNB6tRKZdOaA==" data-copy="复制" data-copied="已复制"></script>
   
   
   
@@ -184,6 +184,8 @@
 
 
 
+  
+  
   
   
   <meta name="theme-color"/>
@@ -690,7 +692,7 @@
 </span><span class="px-2 text-primary-500">&middot;</span>
 
 
-<script type="text/javascript" src="/js/zen-mode.min.eea5245cf9244ecbdf2c150d1c8833226c1541cadf6e98f63a7c9192b1a3676df2c3ec603b14f4cfaaa53971fd9d8955640c0f405bf3de2b43ee7a5fb29ae721.js" integrity="sha512-7qUkXPkkTsvfLBUNHIgzImwVQcrfbpj2OnyRkrGjZ23yw&#43;xgOxT0z6qlOXH9nYlVZAwPQFvz3itD7npfsprnIQ=="></script>
+<script type="text/javascript" src="/js/zen-mode.min.2a0a1375509c03daf41c53a9831aa2d560895b7a2528c3eb3b56e7b11a135c7529e49727162a053b6193be8340270a8342f42c69f3d7e262ae54bc248eaac8f5.js" integrity="sha512-KgoTdVCcA9r0HFOpgxqi1WCJW3olKMPrO1bnsRoTXHUp5JcnFioFO2GTvoNAJwqDQvQsafPX4mKuVLwkjqrI9Q=="></script>
 
 <span class="mb-[2px]">
     <span id="zen-mode-button"
@@ -748,6 +750,9 @@
   
   
 </div>
+
+
+
 
 
 
@@ -904,8 +909,7 @@
       class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
       <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
 
-         <details open id="TOCView"
-  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+         <details open id="TOCView" class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
   <summary
     class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
     目录
@@ -976,31 +980,6 @@
 
 <script>
 
-  var margin = 200;
-  var marginError = 50;
-
-  (function () {
-    var $window = $(window);
-    var $toc = $('#TOCView');
-    var tocHeight = $toc.height();
-
-    function onResize() {
-      var windowAndMarginHeight = $window.height() - margin;
-      if(tocHeight >= windowAndMarginHeight) {
-        $toc.css("overflow-y", "scroll")
-        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
-      } else {
-        $toc.css("overflow-y", "hidden")
-        $toc.css("max-height", "9999999px")
-      }
-    }
-
-    $window.on('resize', onResize);
-    $(document).ready(onResize);
-  })();
-
-
-
   (function () {
     var $toc = $('#TableOfContents');
     if ($toc.length > 0) {
@@ -1024,7 +1003,7 @@
             $(e).removeClass('active');
           
         });
-        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').addClass('active');
         $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
           $(e).children('a').parents('ul').show();          
         });
@@ -1037,7 +1016,6 @@
       });
     }
   })();
-
 
 </script>
    </div>
@@ -1053,27 +1031,25 @@
           <p>相信读者经常能听见有人说 C++ 代码二进制膨胀严重，但是一般很少会有人指出具体的原因。在网络上一番搜索过后，发现深入讨论这个问题的文章的并不多。上面那句话更像是八股文的一部分，被口口相传，但是没什么人能说出个所以然。今天小编 ykiko 就带大家一起来探秘 C++ 代码膨胀那些事  (^ω^)</p>
 <p>首先要讨论的是，什么叫做代码膨胀？如果一个函数被大量内联，那相比于不被内联，最终生成的可执行文件是更大了对吧。那这样算膨胀吗？我认为不算，这是我们预期范围内的，可接受的，正常行为。那反过来，不在我们预期范围内的，理论上能消除，但迫于现有的实现却没有消除的代码膨胀，我把它叫做&quot;真正的代码膨胀&quot;。后文所讨论的膨胀都是这个意思。</p>
 
-
 <h2 class="relative group">用 inline 标记函数会导致膨胀吗？ 
-    <div id="%E7%94%A8-inline-%E6%A0%87%E8%AE%B0%E5%87%BD%E6%95%B0%E4%BC%9A%E5%AF%BC%E8%87%B4%E8%86%A8%E8%83%80%E5%90%97" class="anchor"></div>
+    <div id="用-inline-标记函数会导致膨胀吗" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E7%94%A8-inline-%E6%A0%87%E8%AE%B0%E5%87%BD%E6%95%B0%E4%BC%9A%E5%AF%BC%E8%87%B4%E8%86%A8%E8%83%80%E5%90%97" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%e7%94%a8-inline-%e6%a0%87%e8%ae%b0%e5%87%bd%e6%95%b0%e4%bc%9a%e5%af%bc%e8%87%b4%e8%86%a8%e8%83%80%e5%90%97" aria-label="锚点">#</a>
     </span>        
     
 </h2>
 <p>首先要明确，这里的<code>inline</code>是 C++ 中的<code>inline</code>，标准中规定的语义是，<strong>允许一个函数的在多个源文件中定义</strong>。被<code>inline</code>标记的函数可以直接定义在头文件中，即使被多个源文件<code>#include</code>，也不会导致链接错误，这样可以方便的支持 header-only 的库。</p>
 
-
 <h3 class="relative group">多份实例的情况 
-    <div id="%E5%A4%9A%E4%BB%BD%E5%AE%9E%E4%BE%8B%E7%9A%84%E6%83%85%E5%86%B5" class="anchor"></div>
+    <div id="多份实例的情况" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E5%A4%9A%E4%BB%BD%E5%AE%9E%E4%BE%8B%E7%9A%84%E6%83%85%E5%86%B5" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%e5%a4%9a%e4%bb%bd%e5%ae%9e%e4%be%8b%e7%9a%84%e6%83%85%e5%86%b5" aria-label="锚点">#</a>
     </span>        
     
 </h3>
@@ -1113,40 +1089,57 @@
 </span></span><span class="line"><span class="cl">$ objdump -d src2.o <span class="p">|</span> c++filt
 </span></span></code></pre></div><p>本地验证都通过上述命令直接查看符号表进行。但是为了方便展示，我会把 godbolt 对应的链接和截图放上来，它把很多影响阅读的不关键符号都省略了，看起来更加清晰。</p>
 <p>
-  <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pic4.zhimg.com/v2-0f8338487557d14a675e82276a73b9a3_r.jpg" alt="" />
-    
-  </figure>
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="" src="https://pic4.zhimg.com/v2-0f8338487557d14a675e82276a73b9a3_r.jpg" />
+
+  
+</figure>
 </p>
 <p>可以看到这两个 <a href="https://godbolt.org/z/xoW8TTvP7" target="_blank">源文件</a> 分别保留了一份，<code>add</code>函数的实例。然后我们将它们链接成可执行文件</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ main.o src1.o src2.o -o main.exe
 </span></span><span class="line"><span class="cl">$ objdump -d main.exe <span class="p">|</span> c++filt
 </span></span></code></pre></div><p>结果如下图所示</p>
 <p>
-  <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pic1.zhimg.com/v2-90853d7ae94867f68e8130b835c8f832_r.jpg" alt="" />
-    
-  </figure>
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="" src="https://pic1.zhimg.com/v2-90853d7ae94867f68e8130b835c8f832_r.jpg" />
+
+  
+</figure>
 </p>
 <p>发现链接器只保留了两份<code>add</code>实例中的一份，所以并没有<strong>额外的代码膨胀</strong>。并且 C++ 标准要求，内联函数在不同编译单元的定义必须相同，所以无论选哪一份代码保留都没区别。但是如果你问：万一定义不同呢？那就会导致 ODR 违反，严格意义来说算 undefined behavior，究竟保留哪一个可能就看具体实现了，甚至和链接顺序有关。关于 ODR 违反相关的内容，我最近可能会单独写一个文章介绍，这里就不说太多了。<strong>只需要知道 C++ 标准保证 inline 函数在不同编译单元定义相同就行了</strong>。</p>
 
-
 <h3 class="relative group">完全内联的情况 
-    <div id="%E5%AE%8C%E5%85%A8%E5%86%85%E8%81%94%E7%9A%84%E6%83%85%E5%86%B5" class="anchor"></div>
+    <div id="完全内联的情况" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E5%AE%8C%E5%85%A8%E5%86%85%E8%81%94%E7%9A%84%E6%83%85%E5%86%B5" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%e5%ae%8c%e5%85%a8%e5%86%85%e8%81%94%e7%9a%84%e6%83%85%e5%86%b5" aria-label="锚点">#</a>
     </span>        
     
 </h3>
 <p>前面我特意强调了，不打开优化，如果打开了优化会怎么样呢？仍然是上面的代码，我们尝试打开<code>O2</code>优化。最后的 <a href="https://godbolt.org/z/jfx8jrnzf" target="_blank">结果</a> 如下图所示</p>
 <p>
-  <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pic1.zhimg.com/v2-ef6dc326331416c2a20e98a632a87150_r.jpg" alt="" />
-    
-  </figure>
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="" src="https://pic1.zhimg.com/v2-ef6dc326331416c2a20e98a632a87150_r.jpg" />
+
+  
+</figure>
 </p>
 <p>可能让人有点吃惊，打开<code>-O2</code>优化之后，<code>add</code>调用被完全内联。编译器最后连符号都没有给<code>add</code>生成，链接的时候自然也没有<code>add</code>。按照我们之前的定义来看，这种函数内联不属于代码膨胀，所以是没有<strong>额外的</strong>二进制膨胀开销的。</p>
 <p>稍微偏个题，既然这两个文件都不生成<code>add</code>这个符号，那万一有别的文件引用了<code>add</code>这个符号，不就会导致链接失败吗？</p>
@@ -1176,14 +1169,13 @@
 <p>两句话啥意思呢？意思就是，一个 inline 函数，如果在某个编译单元被 <a href="https://en.cppreference.com/w/cpp/language/definition#ODR-use" target="_blank">odr-used</a> 了，那么这个编译单元必须要有该函数的定义。啥情况是 odr-used 呢？后面一句话就是在解释，如果<strong>函数被调用</strong>或者<strong>取函数的地址</strong>就算是 odr-used。</p>
 <p>那我们看看之前的代码，在 main.cpp 中调用一个 inline 函数，但是却没有定义，所以其实是违背了 C++ 标准的约定的。到这里，算是松了一口气了。虽然有点反直觉，但是事实的确如此，三大编译器都没错！</p>
 
-
 <h3 class="relative group">其它情况 
-    <div id="%E5%85%B6%E5%AE%83%E6%83%85%E5%86%B5" class="anchor"></div>
+    <div id="其它情况" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E5%85%B6%E5%AE%83%E6%83%85%E5%86%B5" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%e5%85%b6%e5%ae%83%e6%83%85%e5%86%b5" aria-label="锚点">#</a>
     </span>        
     
 </h3>
@@ -1196,27 +1188,25 @@
 <p>另外， inline 虽然标准层面没有强制内联的语义了，但是实际上它会给编译器一些 hint，使得这个函数更容易被内联。这个 hint 是如何作用的呢？前面提到了，标准的措辞表明 inline 函数可以不生成符号。那相比之下，没有任何说明符限定的函数，则默认被标记为 extern ，必须要生成符号。<strong>编译器肯定是更愿意内联可以不生成符号的函数的</strong>。从这个角度出发，你可能会猜测 static 也会有类似的 hint 效果，实际情况的确如此。当然了，这些只是一个方面，实际上，判断函数是否被内联的计算会复杂的多。</p>
 <p>注意：本小节，只讨论了仅被<code>inline</code>标记的函数，除此之外还有<code>inline static</code>和<code>inline extern</code>这样的组合，感兴趣的读者可以阅读官方文档或者自行尝试效果如何。</p>
 
-
 <h2 class="relative group">模板导致代码膨胀的真正原因？ 
-    <div id="%E6%A8%A1%E6%9D%BF%E5%AF%BC%E8%87%B4%E4%BB%A3%E7%A0%81%E8%86%A8%E8%83%80%E7%9A%84%E7%9C%9F%E6%AD%A3%E5%8E%9F%E5%9B%A0" class="anchor"></div>
+    <div id="模板导致代码膨胀的真正原因" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E6%A8%A1%E6%9D%BF%E5%AF%BC%E8%87%B4%E4%BB%A3%E7%A0%81%E8%86%A8%E8%83%80%E7%9A%84%E7%9C%9F%E6%AD%A3%E5%8E%9F%E5%9B%A0" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%e6%a8%a1%e6%9d%bf%e5%af%bc%e8%87%b4%e4%bb%a3%e7%a0%81%e8%86%a8%e8%83%80%e7%9a%84%e7%9c%9f%e6%ad%a3%e5%8e%9f%e5%9b%a0" aria-label="锚点">#</a>
     </span>        
     
 </h2>
 <p>如果有人给出 C++ 二进制膨胀的理由，那么几乎它的答案一定是模板。果真如此吗？模板究竟是怎么导致二进制膨胀的？在什么情况导致的？难道我用了就导致吗？</p>
 
-
 <h3 class="relative group">隐式实例化如同 inline 标记 
-    <div id="%E9%9A%90%E5%BC%8F%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%A6%82%E5%90%8C-inline-%E6%A0%87%E8%AE%B0" class="anchor"></div>
+    <div id="隐式实例化如同-inline-标记" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E9%9A%90%E5%BC%8F%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%A6%82%E5%90%8C-inline-%E6%A0%87%E8%AE%B0" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%e9%9a%90%e5%bc%8f%e5%ae%9e%e4%be%8b%e5%8c%96%e5%a6%82%e5%90%8c-inline-%e6%a0%87%e8%ae%b0" aria-label="锚点">#</a>
     </span>        
     
 </h3>
@@ -1246,28 +1236,39 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>仍然不开优化，尝试编译 <a href="https://godbolt.org/z/aTxMsnK5n" target="_blank">编译结果</a> 如下</p>
 <p>
-  <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pic4.zhimg.com/v2-5de99e270f381ff7f77f012ed72836bb_r.jpg" alt="" />
-    
-  </figure>
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="" src="https://pic4.zhimg.com/v2-5de99e270f381ff7f77f012ed72836bb_r.jpg" />
+
+  
+</figure>
 </p>
 <p>可以看见就像被 inline 标记的函数那样，这两个编译单元都实例化了<code>add&lt;int, int&gt;</code>和<code>add&lt;double, double&gt;</code>，各有一份代码。然后在最终链接的时候，链接器只为每个模板实例化保留了一份代码。那我们尝试打开<code>-O2</code>，然后再看看情况。<a href="https://godbolt.org/z/edEd8Tvo4" target="_blank">结果</a> 如下</p>
 <p>
-  <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://picx.zhimg.com/v2-5e915f5cb7b7fc25e00a5f6c8ae2fa95_r.jpg" alt="" />
-    
-  </figure>
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="" src="https://picx.zhimg.com/v2-5e915f5cb7b7fc25e00a5f6c8ae2fa95_r.jpg" />
+
+  
+</figure>
 </p>
 <p>也和 inline 标记的效果一样，编译器直接把函数内联了，然后实例化出的函数的符号都扔了。那这样的话，要么内联了符号都没生成，要么生成了符号，最后函数合并了。和 inline 一样，这种情况似乎没有额外的膨胀啊，那经常说的模板膨胀，究竟膨胀在哪呢？</p>
 
-
 <h3 class="relative group">显式实例化和 extern 模板 
-    <div id="%E6%98%BE%E5%BC%8F%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%92%8C-extern-%E6%A8%A1%E6%9D%BF" class="anchor"></div>
+    <div id="显式实例化和-extern-模板" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E6%98%BE%E5%BC%8F%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%92%8C-extern-%E6%A8%A1%E6%9D%BF" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%e6%98%be%e5%bc%8f%e5%ae%9e%e4%be%8b%e5%8c%96%e5%92%8c-extern-%e6%a8%a1%e6%9d%bf" aria-label="锚点">#</a>
     </span>        
     
 </h3>
@@ -1300,14 +1301,13 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1">// 注意不加 extern 就会显式实例化一个定义了
 </span></span></span></code></pre></div><p>这两种都能正确引用到上面那个函数<code>f</code>，这样就可以调用其它文件的模板实例化了！</p>
 
-
 <h3 class="relative group">真正的模板膨胀开销 
-    <div id="%E7%9C%9F%E6%AD%A3%E7%9A%84%E6%A8%A1%E6%9D%BF%E8%86%A8%E8%83%80%E5%BC%80%E9%94%80" class="anchor"></div>
+    <div id="真正的模板膨胀开销" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E7%9C%9F%E6%AD%A3%E7%9A%84%E6%A8%A1%E6%9D%BF%E8%86%A8%E8%83%80%E5%BC%80%E9%94%80" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%e7%9c%9f%e6%ad%a3%e7%9a%84%e6%a8%a1%e6%9d%bf%e8%86%a8%e8%83%80%e5%bc%80%e9%94%80" aria-label="锚点">#</a>
     </span>        
     
 </h3>
@@ -1327,18 +1327,30 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>实例化三种类型的函数模板，那么其中必然有两个实例化是相同的代码。编译器会把函数类型不同，但是最后生成的二进制代码相同的两个函数合并吗？尝试一下，<a href="https://godbolt.org/z/KncEh3z5n" target="_blank">结果</a> 如下</p>
 <p>
-  <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pica.zhimg.com/v2-5c57236015036328a7e0f321aadf513a_r.jpg" alt="" />
-    
-  </figure>
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="" src="https://pica.zhimg.com/v2-5c57236015036328a7e0f321aadf513a_r.jpg" />
+
+  
+</figure>
 </p>
 <p>可以看到这里生成了两个完全一样的函数，但是并没有合并。当然，如果我们打开<code>-O2</code>优化，这样短的函数就会被内联掉了，也不会生成最终符号。就和第一小节说的那样，也就没有所谓的&quot;模板膨胀开销&quot;。实际代码编写中有很多这样的短小的模板函数，比如<code>vector</code>这种容器的<code>end</code>,<code>begin</code>,<code>operator[]</code>等等，它们大概率会被完全内联，从而没有&quot;额外的膨胀&quot;开销。</p>
 <p>现在问题来了，如果函数没被没有内联呢？假设模板函数比较复杂，函数体较大。为了方便演示，我们暂时使用 GCC 的一个 attribute <code>[[gnu::noinline]]</code>来实现这种效果，然后打开 O2，再次编译上面的 <a href="https://godbolt.org/z/Exff5cnfj" target="_blank">代码</a></p>
 <p>
-  <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pic1.zhimg.com/v2-37da15bf141999c1bc8d6f7b07575f36_r.jpg" alt="" />
-    
-  </figure>
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="" src="https://pic1.zhimg.com/v2-37da15bf141999c1bc8d6f7b07575f36_r.jpg" />
+
+  
+</figure>
 </p>
 <p>可以看到虽然被优化的只剩一条指令，但是编译器还是生成了三份函数。实际上，真的不被编译器内联的函数体积可能比较大，情况可能比这个“伪装的大函数”糟糕的多。于是，这样的话就产生了所谓的&quot;模板膨胀&quot;。<strong>本来能合并的代码却没有合并，这就是真正的模板膨胀开销所在</strong>。</p>
 <p>如果非常希望编译器/链接器合并这些相同的二进制代码怎么办呢？很遗憾，主流的工具链 ld / lld / ms linker 都不会做这种合并。目前唯一支持这个特性的链接器是 <a href="https://www.gnu.org/software/binutils/" target="_blank">gold</a>，但是它只能用于链接 elf 格式的可执行文件，所以没法在 Windows 上面使用了。下面我展示一下：如何使用它合并相同的二进制代码</p>
@@ -1387,14 +1399,13 @@
 </span></span></code></pre></div><p>对输出内容进行了一些筛选，可以发现，gold 把二进制完全相同的 100 个模板函数合并成一个了，所谓的&quot;模板膨胀&quot;消失了。相比之下，前面那些那些不做这种合并的链接器，就自然就有额外的开销了。</p>
 <p>但是 gold 并不是万能的，有些情况不能很好的处理。假设这 100 个函数，前<code>90%</code>的代码相同，但是最后<code>10%</code>的代码不相同，那么它就无能为力了。它只是简单的对比最终生成的二进制，然后合并完全相同的函数。那么还有其他的解决办法吗？**自动挡没有，咱们还有手动挡呢，咱写 C++ 的没什么别的擅长的，就擅长开手动挡。 **</p>
 
-
 <h3 class="relative group">手动优化模板膨胀问题 
-    <div id="%E6%89%8B%E5%8A%A8%E4%BC%98%E5%8C%96%E6%A8%A1%E6%9D%BF%E8%86%A8%E8%83%80%E9%97%AE%E9%A2%98" class="anchor"></div>
+    <div id="手动优化模板膨胀问题" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E6%89%8B%E5%8A%A8%E4%BC%98%E5%8C%96%E6%A8%A1%E6%9D%BF%E8%86%A8%E8%83%80%E9%97%AE%E9%A2%98" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96%e6%a8%a1%e6%9d%bf%e8%86%a8%e8%83%80%e9%97%ae%e9%a2%98" aria-label="锚点">#</a>
     </span>        
     
 </h3>
@@ -1444,24 +1455,29 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>这样就完成了抽取公共逻辑。于是所有的<code>T</code>只要满足<code>trivially_relocatable</code>，就可以全都这共享一份代码了。而几乎所有不含有自引用的类型都符合这个条件，于是<code>99%</code>的类型都使用同一套扩容逻辑！这样的优化效果是非常显著的！实际上 LLVM 很多容器的源码，比如 <code>SmallVector</code>,<code>StringMap</code>等等，都使用了这样的技巧。另外如果你觉得上面的<code>reinterpret_cast</code>破坏了严格别名，用起来有点害怕，你可以通过继承来实现相同的效果（基类成员用<code>void*</code>），具体的代码就不展示了。</p>
 
-
 <h2 class="relative group">异常导致的代码膨胀！ 
-    <div id="%E5%BC%82%E5%B8%B8%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%A3%E7%A0%81%E8%86%A8%E8%83%80" class="anchor"></div>
+    <div id="异常导致的代码膨胀" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E5%BC%82%E5%B8%B8%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%A3%E7%A0%81%E8%86%A8%E8%83%80" aria-label="锚点">#</a>
+            style="text-decoration-line: none !important;" href="#%e5%bc%82%e5%b8%b8%e5%af%bc%e8%87%b4%e7%9a%84%e4%bb%a3%e7%a0%81%e8%86%a8%e8%83%80" aria-label="锚点">#</a>
     </span>        
     
 </h2>
 <p>为什么 LLVM 源码禁用异常？很多人可能会下意识的认为，原因是异常很慢，效率很低。但其实，根据 <a href="https://llvm.org/docs/CodingStandards.html#do-not-use-rtti-or-exceptions" target="_blank">LLVM Coding Standard</a> 里面的内容，关闭异常和<code>RTTI</code>的主要目的是为了减少二进制大小。据说，打开异常和<code>RTTI</code>会导致 LLVM 的编译结果膨胀<code>10%-15%</code>，那么实际情况究竟如何？</p>
 <p>目前主要的异常实现有两种，一种是 Itanium ABI 的实现，另一种则是 MS ABI 的实现。简单来说 MS ABI 采用运行时查找的办法，这样会导致异常在 Happy Path 执行也有的额外运行时开销，但是优点是最终生成的二进制代码相对较小。而 Itanium ABI 则是我们今天的主角，它号称零开销异常，Happy 路径没有任何额外的运行时开销。那古尔丹，代价是什么？代价就是非常严重的二进制膨胀。为什么会产生膨胀呢？简单来说，就是如果不想完全等到运行时去查找，那就得预先打表。由于异常的隐式传播特性，会导致表占用空间很大。具体实现细节非常复杂，不是本文的主题，放张图，大概感受一下</p>
 <p>
-  <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pic4.zhimg.com/v2-35106aada3a2e1e089d6aa685a2ad145_r.jpg" alt="" />
-    
-  </figure>
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="" src="https://pic4.zhimg.com/v2-35106aada3a2e1e089d6aa685a2ad145_r.jpg" />
+
+  
+</figure>
 </p>
 <p>那我们主要讨论什么呢？异常会导致二进制膨胀，这个没什么好怀疑的。我们主要看看如何减少异常产生的二进制膨胀，以 Itanium ABI 为例</p>
 <p>先来看下面这段示例代码</p>
@@ -1501,7 +1517,6 @@
 </span></span><span class="line"><span class="cl">        jmp     operator delete<span class="o">(</span>void*, unsigned long<span class="o">)</span>
 </span></span></code></pre></div><p>可以发现没有生成清理栈的代码了，很合理。原因很简单，如果<code>foo</code>抛出异常，控制流直接跳转走了，那<code>vector</code>都没构造呢，自然也不需要析构了。通过简单的调整调用顺序就减少了二进制大小！但是，只有这种特别简单的情况下，依赖关系才比较明显。如果实际抛出异常的函数很多的话，就很难分析了。</p>
 
-
 <h3 class="relative group">noexcept 
     <div id="noexcept" class="anchor"></div>
     
@@ -1524,7 +1539,6 @@
 </span></span><span class="line"><span class="cl">        ...
 </span></span><span class="line"><span class="cl">        jmp     operator delete<span class="o">(</span>void*, unsigned long<span class="o">)</span>
 </span></span></code></pre></div><p>可以发现，用于异常处理的代码路径，同样没有了，这就是<code>noexpect</code>的功劳。</p>
-
 
 <h3 class="relative group">fno-exceptions 
     <div id="fno-exceptions" class="anchor"></div>

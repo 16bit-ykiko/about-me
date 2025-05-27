@@ -26,8 +26,8 @@
   
   
   
-  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.36c3cd7950e4533fa7da3150d972e3edf34d07f83c0264ff04cad0969dfdb3b8a7065b0ed6c730c6d34a7bad516cfc6f6a5917ab1fdb10b25f481f8a17b54c16.css"
-    integrity="sha512-NsPNeVDkUz&#43;n2jFQ2XLj7fNNB/g8AmT/BMrQlp39s7inBlsO1scwxtNKe61RbPxvalkXqx/bELJfSB&#43;KF7VMFg==" />
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.29653ed199b7a749016920bb9715d240156e67049c90f12ffede5bb7f952606ecd8b0dd0c3f01d75af648960eddb25a879915d6e24858a75d11d9eed0607d9c6.css"
+    integrity="sha512-KWU&#43;0Zm3p0kBaSC7lxXSQBVuZwSckPEv/t5bt/lSYG7Niw3Qw/Adda9kiWDt2yWoeZFdbiSFinXRHZ7tBgfZxg==" />
   
   
   <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
@@ -46,8 +46,8 @@
   
   
   
-  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
-    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="Copy" data-copied="Copied"></script>
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.461c44800ee64aced53547ac575043247d94bd065e67a4918d19a1a1da0a1cff73de01305bf70a1d34d48c4ba7d12ff03613dd007345827c4d07ab5129974e68.js"
+    integrity="sha512-RhxEgA7mSs7VNUesV1BDJH2UvQZeZ6SRjRmhodoKHP9z3gEwW/cKHTTUjEun0S/wNhPdAHNFgnxNB6tRKZdOaA==" data-copy="Copy" data-copied="Copied"></script>
   
   
   
@@ -189,6 +189,8 @@
 
 
 
+  
+  
   
   
   <meta name="theme-color"/>
@@ -695,7 +697,7 @@
 </span><span class="px-2 text-primary-500">&middot;</span>
 
 
-<script type="text/javascript" src="/js/zen-mode.min.eea5245cf9244ecbdf2c150d1c8833226c1541cadf6e98f63a7c9192b1a3676df2c3ec603b14f4cfaaa53971fd9d8955640c0f405bf3de2b43ee7a5fb29ae721.js" integrity="sha512-7qUkXPkkTsvfLBUNHIgzImwVQcrfbpj2OnyRkrGjZ23yw&#43;xgOxT0z6qlOXH9nYlVZAwPQFvz3itD7npfsprnIQ=="></script>
+<script type="text/javascript" src="/js/zen-mode.min.2a0a1375509c03daf41c53a9831aa2d560895b7a2528c3eb3b56e7b11a135c7529e49727162a053b6193be8340270a8342f42c69f3d7e262ae54bc248eaac8f5.js" integrity="sha512-KgoTdVCcA9r0HFOpgxqi1WCJW3olKMPrO1bnsRoTXHUp5JcnFioFO2GTvoNAJwqDQvQsafPX4mKuVLwkjqrI9Q=="></script>
 
 <span class="mb-[2px]">
     <span id="zen-mode-button"
@@ -753,6 +755,9 @@
   
   
 </div>
+
+
+
 
 
 
@@ -909,8 +914,7 @@
       class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
       <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
 
-         <details open id="TOCView"
-  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+         <details open id="TOCView" class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
   <summary
     class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
     Table of Contents
@@ -965,31 +969,6 @@
 
 <script>
 
-  var margin = 200;
-  var marginError = 50;
-
-  (function () {
-    var $window = $(window);
-    var $toc = $('#TOCView');
-    var tocHeight = $toc.height();
-
-    function onResize() {
-      var windowAndMarginHeight = $window.height() - margin;
-      if(tocHeight >= windowAndMarginHeight) {
-        $toc.css("overflow-y", "scroll")
-        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
-      } else {
-        $toc.css("overflow-y", "hidden")
-        $toc.css("max-height", "9999999px")
-      }
-    }
-
-    $window.on('resize', onResize);
-    $(document).ready(onResize);
-  })();
-
-
-
   (function () {
     var $toc = $('#TableOfContents');
     if ($toc.length > 0) {
@@ -1013,7 +992,7 @@
             $(e).removeClass('active');
           
         });
-        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').addClass('active');
         $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
           $(e).children('a').parents('ul').show();          
         });
@@ -1026,7 +1005,6 @@
       });
     }
   })();
-
 
 </script>
    </div>
@@ -1104,7 +1082,6 @@
 
         <div class="article-content max-w-prose mb-20">
           
-
 <h2 class="relative group">What is Metadata? 
     <div id="what-is-metadata" class="anchor"></div>
     
@@ -1162,7 +1139,6 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></div><p>We have essentially implemented the <code>setattr</code> function ourselves, and this implementation seems to be generic. As long as we provide the <code>fieldInfo</code> for a specific type, it will work. The <code>fieldInfo</code> contains the field name, field offset, and field type size. This can be considered <strong>metadata</strong>. Additionally, metadata might include variable names, function names, etc. <strong>These pieces of information do not directly participate in the program&rsquo;s execution but provide additional information about the program&rsquo;s structure, data, types, etc.</strong> The content of metadata seems to be fixed and known to us since it exists in the program&rsquo;s source code. Does the <code>C/C++</code> compiler provide this functionality? The answer is: For programs in <code>debug</code> mode, some metadata might be retained for debugging purposes, but in <code>release</code> mode, nothing is retained. The benefit of this is obvious: since this information is not necessary for the program to run, not retaining it can significantly reduce the size of the binary executable.</p>
 
-
 <h2 class="relative group">Why is this Information Unnecessary, and When is it Needed? 
     <div id="why-is-this-information-unnecessary-and-when-is-it-needed" class="anchor"></div>
     
@@ -1174,7 +1150,6 @@
     
 </h2>
 <p>Next, I will use the <code>C</code> language as an example to correlate its source code with its binary representation. Let&rsquo;s see what information is actually needed for code execution.</p>
-
 
 <h3 class="relative group">Variable Definition 
     <div id="variable-definition" class="anchor"></div>
@@ -1207,7 +1182,6 @@
 </span></span><span class="line"><span class="cl"><span class="p">};</span> <span class="c1">// ok
 </span></span></span></code></pre></div><p>You might think this is somewhat similar to <code>malloc</code>, and indeed it is. The difference is that <code>malloc</code> allocates memory on the heap at runtime, whereas direct variable declarations typically allocate memory in the data segment or on the stack. The compiler might internally maintain a symbol table that maps variable names to their addresses. When you later operate on this variable, you are actually operating on this memory region.</p>
 
-
 <h3 class="relative group">Built-in Operators 
     <div id="built-in-operators" class="anchor"></div>
     
@@ -1235,7 +1209,6 @@
 </span></span></code></pre></div><p>Assignment is likely accomplished through the <code>mov</code> instruction, for example:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// mov [addressof(a)] 3
 </span></span></span></code></pre></div>
-
 <h3 class="relative group">Structures 
     <div id="structures" class="anchor"></div>
     
@@ -1268,7 +1241,6 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></div><p>The compiler might also maintain a symbol table for field names to offsets, and field names will eventually be replaced by <code>offset</code>. There is no need to retain them in the program.</p>
 
-
 <h3 class="relative group">Function Calls 
     <div id="function-calls" class="anchor"></div>
     
@@ -1280,7 +1252,6 @@
     
 </h3>
 <p>Function calls are generally implemented through the function call stack, which is too common to elaborate on. Function names are eventually replaced by function addresses.</p>
-
 
 <h3 class="relative group">Summary 
     <div id="summary" class="anchor"></div>
@@ -1295,7 +1266,6 @@
 <p>Through the above analysis, you may have noticed that in <code>C</code>, symbol names, type names, variable names, function names, structure field names, etc., are all replaced by numbers, addresses, offsets, etc. Losing them does not affect the program&rsquo;s execution. Therefore, they are discarded to reduce the size of the binary file. For <code>C++</code>, the situation is largely similar. <code>C++</code> only retains some metadata in special cases, such as <code>type_info</code>, and you can manually disable <code>RTTI</code> to ensure that such information is not generated.</p>
 <p>When do we need to use this information? Obviously, the <code>setattr</code> introduced at the beginning requires it. When debugging a program, we need to know the variable names, function names, member names, etc., corresponding to an address to facilitate debugging, and we need this information at that time. When serializing a structure into <code>json</code>, we need to know its field names, and we need this information. When type erasure is performed to <code>void*</code>, we still need to know the actual type it corresponds to, and we need this information at that time. In summary, when we need to distinguish what a piece of binary content originally was at runtime, we need this information (of course, we also need it when we want to use this information for code generation at compile time).</p>
 
-
 <h2 class="relative group">How to Obtain This Information? 
     <div id="how-to-obtain-this-information" class="anchor"></div>
     
@@ -1307,7 +1277,6 @@
     
 </h2>
 <p>The <code>C/C++</code> compiler does not provide us with an interface to obtain this information, but as mentioned earlier, this information is clearly in the source code. Variable names, function names, type names, field names. We can choose to manually understand the code and then manually store the metadata. For thousands of classes and dozens of member functions, it might take a few months to write. Just kidding, or we can write some programs, such as regular expression matching, to help us obtain this information? However, we have a better choice to obtain this information, and that is through the <code>AST</code>.</p>
-
 
 <h2 class="relative group">AST (Abstract Syntax Tree) 
     <div id="ast-abstract-syntax-tree" class="anchor"></div>
@@ -1340,7 +1309,6 @@
 </span></span><span class="line"><span class="cl">      <span class="err">`</span><span class="o">-</span><span class="n">IntegerLiteral</span> <span class="mh">0x2103e866c28</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">15</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="mi">2</span>
 </span></span></code></pre></div><p>Alternatively, if you have the <code>clangd</code> plugin installed in <code>vscode</code>, you can right-click on a block of code and select <code>show AST</code> to view the <code>ast</code> of that code snippet. You can see that the source code content is indeed presented to us in a tree structure. Since it is a tree, we can freely traverse the tree nodes and filter to obtain the information we want. The above two examples are visual outputs. Typically, there are also direct code interfaces to obtain this information. For example, <code>Python</code> has a built-in <code>ast</code> module to obtain it, and <code>C++</code> generally uses <code>clang</code>-related tools to obtain this content. If you want to know how to use <code>clang</code> tools specifically, you can refer to the article: <a href="https://www.ykiko.me/zh-cn/articles/669360731" target="_blank">Use clang tools to freely control C++ code!</a></p>
 <p>If you are curious about how the compiler transforms source code into an <code>ast</code>, you can learn about the front-end content of compilation principles.</p>
-
 
 <h2 class="relative group">How to Store This Information? 
     <div id="how-to-store-this-information" class="anchor"></div>

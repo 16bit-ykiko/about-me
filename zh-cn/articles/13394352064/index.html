@@ -26,8 +26,8 @@
   
   
   
-  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.36c3cd7950e4533fa7da3150d972e3edf34d07f83c0264ff04cad0969dfdb3b8a7065b0ed6c730c6d34a7bad516cfc6f6a5917ab1fdb10b25f481f8a17b54c16.css"
-    integrity="sha512-NsPNeVDkUz&#43;n2jFQ2XLj7fNNB/g8AmT/BMrQlp39s7inBlsO1scwxtNKe61RbPxvalkXqx/bELJfSB&#43;KF7VMFg==" />
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.29653ed199b7a749016920bb9715d240156e67049c90f12ffede5bb7f952606ecd8b0dd0c3f01d75af648960eddb25a879915d6e24858a75d11d9eed0607d9c6.css"
+    integrity="sha512-KWU&#43;0Zm3p0kBaSC7lxXSQBVuZwSckPEv/t5bt/lSYG7Niw3Qw/Adda9kiWDt2yWoeZFdbiSFinXRHZ7tBgfZxg==" />
   
   
   <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
@@ -46,8 +46,8 @@
   
   
   
-  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
-    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="复制" data-copied="已复制"></script>
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.461c44800ee64aced53547ac575043247d94bd065e67a4918d19a1a1da0a1cff73de01305bf70a1d34d48c4ba7d12ff03613dd007345827c4d07ab5129974e68.js"
+    integrity="sha512-RhxEgA7mSs7VNUesV1BDJH2UvQZeZ6SRjRmhodoKHP9z3gEwW/cKHTTUjEun0S/wNhPdAHNFgnxNB6tRKZdOaA==" data-copy="复制" data-copied="已复制"></script>
   
   
   
@@ -184,6 +184,8 @@
 
 
 
+  
+  
   
   
   <meta name="theme-color"/>
@@ -690,7 +692,7 @@
 </span><span class="px-2 text-primary-500">&middot;</span>
 
 
-<script type="text/javascript" src="/js/zen-mode.min.eea5245cf9244ecbdf2c150d1c8833226c1541cadf6e98f63a7c9192b1a3676df2c3ec603b14f4cfaaa53971fd9d8955640c0f405bf3de2b43ee7a5fb29ae721.js" integrity="sha512-7qUkXPkkTsvfLBUNHIgzImwVQcrfbpj2OnyRkrGjZ23yw&#43;xgOxT0z6qlOXH9nYlVZAwPQFvz3itD7npfsprnIQ=="></script>
+<script type="text/javascript" src="/js/zen-mode.min.2a0a1375509c03daf41c53a9831aa2d560895b7a2528c3eb3b56e7b11a135c7529e49727162a053b6193be8340270a8342f42c69f3d7e262ae54bc248eaac8f5.js" integrity="sha512-KgoTdVCcA9r0HFOpgxqi1WCJW3olKMPrO1bnsRoTXHUp5JcnFioFO2GTvoNAJwqDQvQsafPX4mKuVLwkjqrI9Q=="></script>
 
 <span class="mb-[2px]">
     <span id="zen-mode-button"
@@ -748,6 +750,9 @@
   
   
 </div>
+
+
+
 
 
 
@@ -904,8 +909,7 @@
       class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
       <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
 
-         <details open id="TOCView"
-  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+         <details open id="TOCView" class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
   <summary
     class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
     目录
@@ -968,31 +972,6 @@
 
 <script>
 
-  var margin = 200;
-  var marginError = 50;
-
-  (function () {
-    var $window = $(window);
-    var $toc = $('#TOCView');
-    var tocHeight = $toc.height();
-
-    function onResize() {
-      var windowAndMarginHeight = $window.height() - margin;
-      if(tocHeight >= windowAndMarginHeight) {
-        $toc.css("overflow-y", "scroll")
-        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
-      } else {
-        $toc.css("overflow-y", "hidden")
-        $toc.css("max-height", "9999999px")
-      }
-    }
-
-    $window.on('resize', onResize);
-    $(document).ready(onResize);
-  })();
-
-
-
   (function () {
     var $toc = $('#TableOfContents');
     if ($toc.length > 0) {
@@ -1016,7 +995,7 @@
             $(e).removeClass('active');
           
         });
-        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').addClass('active');
         $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
           $(e).children('a').parents('ul').show();          
         });
@@ -1029,7 +1008,6 @@
       });
     }
   })();
-
 
 </script>
    </div>
@@ -1067,7 +1045,6 @@
 <p>经过了几个月的设计和开发，项目已经颇具雏形，但是预计离投入使用还需要几个月的时间来进行完善。这篇文章的主要内容是对 clice 的设计和实现进行介绍，也是我个人对于当前开发的一个阶段性总结。虽然是语言服务器相关的内容，但其实涉及到大量 C/C++ 编译相关知识的科普，感兴趣的读者可以继续往下阅读。</p>
 <p>同时，如果你有任何功能上的请求/建议，欢迎评论区留言讨论。在下一阶段的开发中，我会尽可能考虑它们。</p>
 
-
 <h2 class="relative group">Why a new language server? 
     <div id="why-a-new-language-server" class="anchor"></div>
     
@@ -1089,7 +1066,6 @@
 <p>既然如此，那么像为 clangd <a href="https://github.com/llvm/llvm-project/pull/66462" target="_blank">初步支持 C++20 module</a> 这样的大型 PR 被拖了将近一年也就不奇怪了。意识到这个现状之后，我萌生了自己编写一个语言服务器的想法。我估计了一下项目大小，去除测试代码，大概 2w 行就能完成，是一个人花一段时间能完成的工作量，而且也有先例，例如 ccls 和 rust analyzer。另外一点就是 clangd 的代码已经上了年代了，尽管有非常多的注释，但是相关的逻辑仍然很绕，进行大范围修改所花费的时间可能还不如重写来得快。</p>
 <p>于是说干就干，我对 clangd 的几百个 issue 进行了分类，看看有没有一些问题是因为 clangd 一开始的架构设计错误而导致很难解决，然后被搁置的。如果有的话，是否能在重新设计的时候就考虑这个问题来解决呢？我发现，确实有一些！于是接下来的时间里，我花了大概两个月的时间来学习研究 clang 里面相关的机制，摸索相关问题的解决方法，探索原型实现，在确定相关的问题基本都可以解决之后，正式开始了 clice 的开发。</p>
 
-
 <h2 class="relative group">Important improvement 
     <div id="important-improvement" class="anchor"></div>
     
@@ -1101,7 +1077,6 @@
     
 </h2>
 <p>前面说了那么多，还是先来看看 clice 到底解决了 clangd 中现存的哪些重大问题。主要侧重于功能介绍，至于实现原理会放在 Design 小节。除了这些重要的改进之外，当然也还有很多小功能上的的改进，这里就不一一列出了。</p>
-
 
 <h3 class="relative group">Better template support 
     <div id="better-template-support" class="anchor"></div>
@@ -1132,7 +1107,6 @@
 <li>不考虑默认模板参数，无法处理由默认模板参数导致的依赖名</li>
 </ol>
 <p>尽管我们可以对标准库的类型开洞来提供相关的支持，但是我希望用户的代码能和标准库的代码有相同的地位，那么我们就需要一种通用的算法来处理依赖类型。为了解决这个问题，我编写了一个伪实例化器（pseudo instantiator）。它能在没有具体类型的前提下对依赖类型进行实例化，从而达到化简的目的。比如上面这个例子里面的<code>std::vector&lt;std::vector&lt;T&gt;&gt;::reference</code>就能被化简为<code>std::vector&lt;T&gt;&amp;</code>，进一步就能为用户提供代码补全选项。</p>
-
 
 <h3 class="relative group">Header context 
     <div id="header-context" class="anchor"></div>
@@ -1173,7 +1147,6 @@
 </span></span></span></code></pre></div><p><code>a.h</code>自身不能被编译，但是嵌入到<code>b.cpp</code>中的时候就编译正常了。这种情况下 clangd 会在<code>a.h</code>中报错，找不到<code>X</code>的定义。显然这是因为它把<code>a.h</code>当成一个独立的源文件了。在 libstdc++ 中的代码中就有很多这样的头文件，现在流行的一些 C++ 的 header-only 的库也有些有这样的代码，clangd 目前无法处理它们。</p>
 <p>clice 将会支持<strong>头文件上下文 (header context)</strong>，支持自动和用户主动切换头文件的状态，当然也会支持非自包含的头文件。我们想要实现如下的效果，以最开始那份代码为例。当你从<code>b.cpp</code>跳转到<code>a.h</code>的时候使用<code>b.cpp</code>作为<code>a.h</code>的上下文。同理，当你从<code>c.cpp</code>跳转到<code>a.h</code>的时候则使用<code>c.cpp</code>作为<code>a.h</code>的上下文。</p>
 
-
 <h3 class="relative group">Fully C++20 module support 
     <div id="fully-c20-module-support" class="anchor"></div>
     
@@ -1192,7 +1165,6 @@
 </ol>
 <p>clice 将会提供编译器和构建系统无关的 C++20 module 支持，项目本身之后也会完全迁移到 module 上。</p>
 
-
 <h3 class="relative group">Better index format 
     <div id="better-index-format" class="anchor"></div>
     
@@ -1207,7 +1179,6 @@
 <p>但是解析文件是一个相当耗时的操作，如果等到需要查询的时候再去解析文件，那么查询的时间将会是一个天文数字。为了支持快速查找符号关系，language server 一般会预先索引整个项目。但是究竟采用何种格式储存相关的数据？这个并没有标准规定。</p>
 <p>clice 充分参考了现有的索引设计，设计了一种更加高效的索引格式。也可以达到 ccls 的效果，如果预先索引了项目，不需要等待就能立马获取响应。</p>
 
-
 <h2 class="relative group">Design 
     <div id="design" class="anchor"></div>
     
@@ -1219,7 +1190,6 @@
     
 </h2>
 <p>这一小节将会更加具体的谈谈 clice 的设计与实现。</p>
-
 
 <h3 class="relative group">Server 
     <div id="server" class="anchor"></div>
@@ -1238,7 +1208,6 @@
 <li>language server 的事件模型相当简单，一对一连接。在主线程处理 IO 相关的请求，线程池负责耗时任务执行就完全足够了。在这个模型下，甚至不需要使用任何锁这样的同步原语来进行线程间通信。所以一般的网络库的模型对于 clice 来说过于复杂了</li>
 </ul>
 <p>最后也成功在 C++ 中复刻类似 Python 和 JS 中的异步编程体验，非常的愉快和轻松。</p>
-
 
 <h3 class="relative group">How it works? 
     <div id="how-it-works" class="anchor"></div>
@@ -1266,7 +1235,6 @@
 </span></span></code></pre></div><p>可以发现结果就是四个 C++ 关键字的补全，并且没有任何的错误警告。</p>
 <p>嗯，这就是整个流程了，是不是听起来相当简单。的确，这部分遍历 AST 的逻辑是相当清晰的。只是有很多 corner case 需要考虑，只需要慢慢堆时间实现功能然后慢慢迭代修 BUG 就行了。</p>
 
-
 <h3 class="relative group">Incremental compilation 
     <div id="incremental-compilation" class="anchor"></div>
     
@@ -1293,7 +1261,6 @@
 </span></span></code></pre></div><p>我们可以将该文件代码的前三行编译成 PCH 缓存起来，这样即使用户频繁修改文件内容，但是只要不修改前三行，我们就可以直接复用 PCH 来进行编译，从而大大减少编译时间，这部分代码就叫 preamble。如果变更了 preamble 则需要重新生成一个新的 PCH 文件。现在你应该理解为什么在第一次打开文件的时候 clangd 会需要反应很久，但是之后的响应就会非常快了，正是这种 preamble 的优化在起作用。如果你希望优化项目的构建时间，也可以考虑使用 PCM，不仅 Clang，GCC 和 MSVC 也都支持类似的机制来进行细粒度的增量编译。</p>
 <p>PCH 好是好，但是呢，它的依赖关系只能是线性的。你可以用一个 PCH 去构建一个新的 PCH，只要它位于另外一个文件的前面几行。但是你不能说，用两个 PCH 去构建一个新的 PCH。那如果有这种有向无环图的依赖关系怎么办呢？答案就是 C++20 加入的 module。C++20 加入的 module 基本就是 PCH Pro 版，实现原理是完全类似的，只是放开了依赖链的限制，允许一个 module 依赖其它几个 module。</p>
 <p>至于关于如何支持 C++20 的 module 呢？话题有些大，值得单独开一个文章讨论，这里就不详细展开了。</p>
-
 
 <h2 class="relative group">Conclusion 
     <div id="conclusion" class="anchor"></div>

@@ -26,8 +26,8 @@
   
   
   
-  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.36c3cd7950e4533fa7da3150d972e3edf34d07f83c0264ff04cad0969dfdb3b8a7065b0ed6c730c6d34a7bad516cfc6f6a5917ab1fdb10b25f481f8a17b54c16.css"
-    integrity="sha512-NsPNeVDkUz&#43;n2jFQ2XLj7fNNB/g8AmT/BMrQlp39s7inBlsO1scwxtNKe61RbPxvalkXqx/bELJfSB&#43;KF7VMFg==" />
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.29653ed199b7a749016920bb9715d240156e67049c90f12ffede5bb7f952606ecd8b0dd0c3f01d75af648960eddb25a879915d6e24858a75d11d9eed0607d9c6.css"
+    integrity="sha512-KWU&#43;0Zm3p0kBaSC7lxXSQBVuZwSckPEv/t5bt/lSYG7Niw3Qw/Adda9kiWDt2yWoeZFdbiSFinXRHZ7tBgfZxg==" />
   
   
   <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
@@ -46,8 +46,8 @@
   
   
   
-  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
-    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="Copy" data-copied="Copied"></script>
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.461c44800ee64aced53547ac575043247d94bd065e67a4918d19a1a1da0a1cff73de01305bf70a1d34d48c4ba7d12ff03613dd007345827c4d07ab5129974e68.js"
+    integrity="sha512-RhxEgA7mSs7VNUesV1BDJH2UvQZeZ6SRjRmhodoKHP9z3gEwW/cKHTTUjEun0S/wNhPdAHNFgnxNB6tRKZdOaA==" data-copy="Copy" data-copied="Copied"></script>
   
   
   
@@ -189,6 +189,8 @@
 
 
 
+  
+  
   
   
   <meta name="theme-color"/>
@@ -695,7 +697,7 @@
 </span><span class="px-2 text-primary-500">&middot;</span>
 
 
-<script type="text/javascript" src="/js/zen-mode.min.eea5245cf9244ecbdf2c150d1c8833226c1541cadf6e98f63a7c9192b1a3676df2c3ec603b14f4cfaaa53971fd9d8955640c0f405bf3de2b43ee7a5fb29ae721.js" integrity="sha512-7qUkXPkkTsvfLBUNHIgzImwVQcrfbpj2OnyRkrGjZ23yw&#43;xgOxT0z6qlOXH9nYlVZAwPQFvz3itD7npfsprnIQ=="></script>
+<script type="text/javascript" src="/js/zen-mode.min.2a0a1375509c03daf41c53a9831aa2d560895b7a2528c3eb3b56e7b11a135c7529e49727162a053b6193be8340270a8342f42c69f3d7e262ae54bc248eaac8f5.js" integrity="sha512-KgoTdVCcA9r0HFOpgxqi1WCJW3olKMPrO1bnsRoTXHUp5JcnFioFO2GTvoNAJwqDQvQsafPX4mKuVLwkjqrI9Q=="></script>
 
 <span class="mb-[2px]">
     <span id="zen-mode-button"
@@ -753,6 +755,9 @@
   
   
 </div>
+
+
+
 
 
 
@@ -909,8 +914,7 @@
       class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
       <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
 
-         <details open id="TOCView"
-  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+         <details open id="TOCView" class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
   <summary
     class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
     Table of Contents
@@ -957,31 +961,6 @@
 
 <script>
 
-  var margin = 200;
-  var marginError = 50;
-
-  (function () {
-    var $window = $(window);
-    var $toc = $('#TOCView');
-    var tocHeight = $toc.height();
-
-    function onResize() {
-      var windowAndMarginHeight = $window.height() - margin;
-      if(tocHeight >= windowAndMarginHeight) {
-        $toc.css("overflow-y", "scroll")
-        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
-      } else {
-        $toc.css("overflow-y", "hidden")
-        $toc.css("max-height", "9999999px")
-      }
-    }
-
-    $window.on('resize', onResize);
-    $(document).ready(onResize);
-  })();
-
-
-
   (function () {
     var $toc = $('#TableOfContents');
     if ($toc.length > 0) {
@@ -1005,7 +984,7 @@
             $(e).removeClass('active');
           
         });
-        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').addClass('active');
         $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
           $(e).children('a').parents('ul').show();          
         });
@@ -1018,7 +997,6 @@
       });
     }
   })();
-
 
 </script>
    </div>
@@ -1096,7 +1074,6 @@
 
         <div class="article-content max-w-prose mb-20">
           
-
 <h2 class="relative group">What is Reflection? 
     <div id="what-is-reflection" class="anchor"></div>
     
@@ -1126,7 +1103,6 @@
 </blockquote>
 <p>First, Wikipedia is written by people and isn&rsquo;t absolutely authoritative; if you&rsquo;re dissatisfied with this definition, you can modify it yourself. Second, the wording here is quite vague. What does introspection (introspect) mean? Self-reflection, but what does that mean in the context of computer science? So this definition is also quite awkward. What to do then? I choose to break it down into several processes for explanation, so we don&rsquo;t have to struggle with the conceptual question of &ldquo;<strong>what exactly is reflection</strong>.&rdquo; Instead, by understanding these processes, you&rsquo;ll naturally grasp what reflection is doing.</p>
 
-
 <h2 class="relative group">How to Understand Reflection? 
     <div id="how-to-understand-reflection" class="anchor"></div>
     
@@ -1138,7 +1114,6 @@
     
 </h2>
 <p>Reflection in all languages can be seen as the following three steps:</p>
-
 
 <h3 class="relative group">Generate Metadata 
     <div id="generate-metadata" class="anchor"></div>
@@ -1154,7 +1129,6 @@
 <p>But gradually, we found that in some cases, we need this data. For example, when serializing a struct into <code>json</code>, we need the struct field names, or when printing logs, we don&rsquo;t want to print enum values but the corresponding enum names. What to do? Early on, the only way was through hard coding, i.e., writing it manually, or using macros for more advanced cases. This was quite inconvenient and not conducive to future code maintenance.</p>
 <p>Later, some languages, like Java and C#, their compilers would retain a lot of data, including these names, during compilation. This data is called metadata (Metadata). Additionally, there are ways for programmers to attach metadata to certain structures themselves, such as C#&rsquo;s <code>attribute</code> and Java&rsquo;s <code>annotation</code>.</p>
 <p>What about C++? Currently, C++ compilers only retain type names for implementing RTTI, i.e., facilities related to <code>std::type_info</code> in the standard. Other information is stripped away by the compiler. What to do? Manually writing metadata is acceptable for a small number of classes, but as the project scale increases, such as having dozens or hundreds of classes, it becomes very tedious and error-prone. In fact, we can run a script before actual compilation to generate this data, known as code generation (Code Generation). For related content, see <a href="https://www.ykiko.me/zh-cn/articles/669360731" target="_blank">Using Clang Tools to Freely Manipulate C++ Code</a>.</p>
-
 
 <h3 class="relative group">Query Metadata 
     <div id="query-metadata" class="anchor"></div>
@@ -1172,7 +1146,6 @@
 <p>However, you can generate metadata yourself as described in the previous section, mark them as constexpr, and then query them at compile time. In fact, C++26&rsquo;s static reflection follows this approach, with the compiler generating metadata and exposing some interfaces for users to query. For related content, see <a href="https://www.ykiko.me/zh-cn/articles/661692275" target="_blank">C++26 Static Reflection Proposal Analysis</a>. The timing of the query is what distinguishes <strong>dynamic reflection</strong> from <strong>static reflection</strong>.</p>
 <p>Of course, what can be done at compile time is certainly less than what can be done at runtime. For example, creating a class instance based on a runtime type name is something that can&rsquo;t be done at compile time. But you can build dynamic reflection based on these static metadata. For related content, see <a href="https://www.ykiko.me/zh-cn/articles/670191053" target="_blank">Implementing Object in C++</a>.</p>
 
-
 <h3 class="relative group">Operate Metadata 
     <div id="operate-metadata" class="anchor"></div>
     
@@ -1184,7 +1157,6 @@
     
 </h3>
 <p>Then, based on the metadata, further operations can be performed, such as code generation. In C++, this can be understood as compile-time code generation, while in Java and C#, it can be considered runtime code generation. For details, see <a href="https://www.ykiko.me/zh-cn/articles/669359855" target="_blank">Various Ways to Generate Code</a>.</p>
-
 
 <h2 class="relative group">Conclusion 
     <div id="conclusion" class="anchor"></div>

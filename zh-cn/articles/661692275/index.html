@@ -26,8 +26,8 @@
   
   
   
-  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.36c3cd7950e4533fa7da3150d972e3edf34d07f83c0264ff04cad0969dfdb3b8a7065b0ed6c730c6d34a7bad516cfc6f6a5917ab1fdb10b25f481f8a17b54c16.css"
-    integrity="sha512-NsPNeVDkUz&#43;n2jFQ2XLj7fNNB/g8AmT/BMrQlp39s7inBlsO1scwxtNKe61RbPxvalkXqx/bELJfSB&#43;KF7VMFg==" />
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.29653ed199b7a749016920bb9715d240156e67049c90f12ffede5bb7f952606ecd8b0dd0c3f01d75af648960eddb25a879915d6e24858a75d11d9eed0607d9c6.css"
+    integrity="sha512-KWU&#43;0Zm3p0kBaSC7lxXSQBVuZwSckPEv/t5bt/lSYG7Niw3Qw/Adda9kiWDt2yWoeZFdbiSFinXRHZ7tBgfZxg==" />
   
   
   <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
@@ -46,8 +46,8 @@
   
   
   
-  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
-    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="复制" data-copied="已复制"></script>
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.461c44800ee64aced53547ac575043247d94bd065e67a4918d19a1a1da0a1cff73de01305bf70a1d34d48c4ba7d12ff03613dd007345827c4d07ab5129974e68.js"
+    integrity="sha512-RhxEgA7mSs7VNUesV1BDJH2UvQZeZ6SRjRmhodoKHP9z3gEwW/cKHTTUjEun0S/wNhPdAHNFgnxNB6tRKZdOaA==" data-copy="复制" data-copied="已复制"></script>
   
   
   
@@ -189,6 +189,8 @@
 
 
 
+  
+  
   
   
   <meta name="theme-color"/>
@@ -695,7 +697,7 @@
 </span><span class="px-2 text-primary-500">&middot;</span>
 
 
-<script type="text/javascript" src="/js/zen-mode.min.eea5245cf9244ecbdf2c150d1c8833226c1541cadf6e98f63a7c9192b1a3676df2c3ec603b14f4cfaaa53971fd9d8955640c0f405bf3de2b43ee7a5fb29ae721.js" integrity="sha512-7qUkXPkkTsvfLBUNHIgzImwVQcrfbpj2OnyRkrGjZ23yw&#43;xgOxT0z6qlOXH9nYlVZAwPQFvz3itD7npfsprnIQ=="></script>
+<script type="text/javascript" src="/js/zen-mode.min.2a0a1375509c03daf41c53a9831aa2d560895b7a2528c3eb3b56e7b11a135c7529e49727162a053b6193be8340270a8342f42c69f3d7e262ae54bc248eaac8f5.js" integrity="sha512-KgoTdVCcA9r0HFOpgxqi1WCJW3olKMPrO1bnsRoTXHUp5JcnFioFO2GTvoNAJwqDQvQsafPX4mKuVLwkjqrI9Q=="></script>
 
 <span class="mb-[2px]">
     <span id="zen-mode-button"
@@ -753,6 +755,9 @@
   
   
 </div>
+
+
+
 
 
 
@@ -909,8 +914,7 @@
       class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
       <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
 
-         <details open id="TOCView"
-  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+         <details open id="TOCView" class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
   <summary
     class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
     目录
@@ -979,31 +983,6 @@
 
 <script>
 
-  var margin = 200;
-  var marginError = 50;
-
-  (function () {
-    var $window = $(window);
-    var $toc = $('#TOCView');
-    var tocHeight = $toc.height();
-
-    function onResize() {
-      var windowAndMarginHeight = $window.height() - margin;
-      if(tocHeight >= windowAndMarginHeight) {
-        $toc.css("overflow-y", "scroll")
-        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
-      } else {
-        $toc.css("overflow-y", "hidden")
-        $toc.css("max-height", "9999999px")
-      }
-    }
-
-    $window.on('resize', onResize);
-    $(document).ready(onResize);
-  })();
-
-
-
   (function () {
     var $toc = $('#TableOfContents');
     if ($toc.length > 0) {
@@ -1027,7 +1006,7 @@
             $(e).removeClass('active');
           
         });
-        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').addClass('active');
         $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
           $(e).children('a').parents('ul').show();          
         });
@@ -1040,7 +1019,6 @@
       });
     }
   })();
-
 
 </script>
    </div>
@@ -1119,7 +1097,6 @@
         <div class="article-content max-w-prose mb-20">
           <p>最近打算写一个系列文章详细讨论反射（reflection）这一概念，刚好 C++26 有了新的反射提案，发现知乎上又没有相关的文章，而这个话题又经常被讨论。所以借此机会来聊一聊属于 C++ 的静态反射（static reflection），作为系列预热了。</p>
 
-
 <h2 class="relative group">what is static reflection? 
     <div id="what-is-static-reflection" class="anchor"></div>
     
@@ -1132,7 +1109,6 @@
 </h2>
 <p>首先反射是指什么呢？这个词就像计算机科学领域很多其他的惯用词一样，并没有详细而准确的定义。关于这个问题，我不打算在这个文章讨论，后续的文章我会详细的解释。本文的重点是 C++ 的 static reflection，为什么强调 static 呢？主要是因为平常我们谈论到反射的时候几乎总是指 Java，C#，Python 这些语言中的反射，而它们的实现方式无一不是把类型擦除，在运行期进行信息的查询。这种方式当然有不可避免的运行时开销，而这种开销显然是违背了 C++ zero cost abstraction 的原则的。为了和它们的反射区分开来，故加上 static 作为限定词，也指示了 C++ 的反射是在编译期完成的。当然，这种说法仍然缺乏一些严谨性。详细的讨论在后续的文章给出，你只需要知道 C++ 的静态反射和 Java，C#，Python 的反射不同，并且主要是在编译期完成的就行了。</p>
 
-
 <h2 class="relative group">what can static reflection do? 
     <div id="what-can-static-reflection-do" class="anchor"></div>
     
@@ -1143,7 +1119,6 @@
     </span>        
     
 </h2>
-
 
 <h3 class="relative group">type as value 
     <div id="type-as-value" class="anchor"></div>
@@ -1278,7 +1253,6 @@
 </span></span></code></pre></div><p>如果还原的东西和原本储存的不一样，则会编译错误</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typename</span><span class="p">[</span><span class="o">:</span> <span class="o">^::</span> <span class="o">:</span><span class="p">]</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// Error
 </span></span></span></code></pre></div>
-
 <h3 class="relative group">metainfo 
     <div id="metainfo" class="anchor"></div>
     
@@ -1343,7 +1317,6 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>待会用这个我们就可以实现遍历结构体，枚举等功能。进一步就可以实现序列化，反序列化等高级功能。后文会有一些示例。除此之外，还有一些其它的功能的编译期函数，上面只展示了一部分内容，更多的 API 可以参考提案中的内容。由于提供了直接获取高级模板里面参数的函数，再也不用用模板去进行类型萃取了！用于类型萃取的模板元也可以退出历史舞台了。</p>
 
-
 <h2 class="relative group">better compile facilities 
     <div id="better-compile-facilities" class="anchor"></div>
     
@@ -1355,7 +1328,6 @@
     
 </h2>
 <p>反射的主题部分大致已经介绍完了，现在来聊聊其它的。虽然这部分是其它提案的内容，但是他们可以使代码写起来更见轻松，让代码有更强的表达能力。</p>
-
 
 <h3 class="relative group">template for 
     <div id="template-for" class="anchor"></div>
@@ -1422,7 +1394,6 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>可以认为<code>template for</code>是 lambda 展开的语法糖加强版，反正非常好用就是了。如果这个加入了，利用模板元生成函数（代码）就可以退休了。</p>
 
-
 <h3 class="relative group">non-transient constexpr allocation 
     <div id="non-transient-constexpr-allocation" class="anchor"></div>
     
@@ -1465,7 +1436,6 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span> <span class="c1">// 全局的
 </span></span></span></code></pre></div><p>主要难点是，在数据段分配的内存不像在堆上的内存一样有所有权，不需要<code>delete</code>。只要解决了这个问题，就能使用编译期的<code>std::map</code>，<code>std::vector</code>并且保留到运行期。这个作者的做法是进行标记。具体的细节这里就不说了。如果这个加入了，利用模板元打常量表也可以退出了。</p>
 
-
 <h2 class="relative group">some examples 
     <div id="some-examples" class="anchor"></div>
     
@@ -1477,7 +1447,6 @@
     
 </h2>
 <p>好了，上面说了那么多，让我们看看用反射我们都能干些什么</p>
-
 
 <h3 class="relative group">print any type 
     <div id="print-any-type" class="anchor"></div>
@@ -1508,7 +1477,6 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
-
 <h3 class="relative group">enum to string 
     <div id="enum-to-string" class="anchor"></div>
     
@@ -1532,7 +1500,6 @@
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;&lt;unnamed&gt;&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
-
 <h2 class="relative group">conclusion 
     <div id="conclusion" class="anchor"></div>
     

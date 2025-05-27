@@ -26,8 +26,8 @@
   
   
   
-  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.36c3cd7950e4533fa7da3150d972e3edf34d07f83c0264ff04cad0969dfdb3b8a7065b0ed6c730c6d34a7bad516cfc6f6a5917ab1fdb10b25f481f8a17b54c16.css"
-    integrity="sha512-NsPNeVDkUz&#43;n2jFQ2XLj7fNNB/g8AmT/BMrQlp39s7inBlsO1scwxtNKe61RbPxvalkXqx/bELJfSB&#43;KF7VMFg==" />
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.29653ed199b7a749016920bb9715d240156e67049c90f12ffede5bb7f952606ecd8b0dd0c3f01d75af648960eddb25a879915d6e24858a75d11d9eed0607d9c6.css"
+    integrity="sha512-KWU&#43;0Zm3p0kBaSC7lxXSQBVuZwSckPEv/t5bt/lSYG7Niw3Qw/Adda9kiWDt2yWoeZFdbiSFinXRHZ7tBgfZxg==" />
   
   
   <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
@@ -46,8 +46,8 @@
   
   
   
-  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
-    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="Copy" data-copied="Copied"></script>
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.461c44800ee64aced53547ac575043247d94bd065e67a4918d19a1a1da0a1cff73de01305bf70a1d34d48c4ba7d12ff03613dd007345827c4d07ab5129974e68.js"
+    integrity="sha512-RhxEgA7mSs7VNUesV1BDJH2UvQZeZ6SRjRmhodoKHP9z3gEwW/cKHTTUjEun0S/wNhPdAHNFgnxNB6tRKZdOaA==" data-copy="Copy" data-copied="Copied"></script>
   
   
   
@@ -187,6 +187,8 @@
 
 
 
+  
+  
   
   
   <meta name="theme-color"/>
@@ -693,7 +695,7 @@
 </span><span class="px-2 text-primary-500">&middot;</span>
 
 
-<script type="text/javascript" src="/js/zen-mode.min.eea5245cf9244ecbdf2c150d1c8833226c1541cadf6e98f63a7c9192b1a3676df2c3ec603b14f4cfaaa53971fd9d8955640c0f405bf3de2b43ee7a5fb29ae721.js" integrity="sha512-7qUkXPkkTsvfLBUNHIgzImwVQcrfbpj2OnyRkrGjZ23yw&#43;xgOxT0z6qlOXH9nYlVZAwPQFvz3itD7npfsprnIQ=="></script>
+<script type="text/javascript" src="/js/zen-mode.min.2a0a1375509c03daf41c53a9831aa2d560895b7a2528c3eb3b56e7b11a135c7529e49727162a053b6193be8340270a8342f42c69f3d7e262ae54bc248eaac8f5.js" integrity="sha512-KgoTdVCcA9r0HFOpgxqi1WCJW3olKMPrO1bnsRoTXHUp5JcnFioFO2GTvoNAJwqDQvQsafPX4mKuVLwkjqrI9Q=="></script>
 
 <span class="mb-[2px]">
     <span id="zen-mode-button"
@@ -751,6 +753,9 @@
   
   
 </div>
+
+
+
 
 
 
@@ -907,8 +912,7 @@
       class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
       <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
 
-         <details open id="TOCView"
-  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+         <details open id="TOCView" class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
   <summary
     class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
     Table of Contents
@@ -947,31 +951,6 @@
 
 <script>
 
-  var margin = 200;
-  var marginError = 50;
-
-  (function () {
-    var $window = $(window);
-    var $toc = $('#TOCView');
-    var tocHeight = $toc.height();
-
-    function onResize() {
-      var windowAndMarginHeight = $window.height() - margin;
-      if(tocHeight >= windowAndMarginHeight) {
-        $toc.css("overflow-y", "scroll")
-        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
-      } else {
-        $toc.css("overflow-y", "hidden")
-        $toc.css("max-height", "9999999px")
-      }
-    }
-
-    $window.on('resize', onResize);
-    $(document).ready(onResize);
-  })();
-
-
-
   (function () {
     var $toc = $('#TableOfContents');
     if ($toc.length > 0) {
@@ -995,7 +974,7 @@
             $(e).removeClass('active');
           
         });
-        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').addClass('active');
         $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
           $(e).children('a').parents('ul').show();          
         });
@@ -1008,7 +987,6 @@
       });
     }
   })();
-
 
 </script>
    </div>
@@ -1059,14 +1037,13 @@
 <p>也就是允许翻译了。不过我不懂俄文，所以主要参考了原文的结构，而主体部分基本都是我重新叙述的。</p>
 <p>原文内容较长，故分为上下两篇，这是上篇。</p>
 
-
 <h2 class="relative group">很神奇吗？ 
-    <div id="%E5%BE%88%E7%A5%9E%E5%A5%87%E5%90%97" class="anchor"></div>
+    <div id="很神奇吗" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E5%BE%88%E7%A5%9E%E5%A5%87%E5%90%97" aria-label="Anchor">#</a>
+            style="text-decoration-line: none !important;" href="#%e5%be%88%e7%a5%9e%e5%a5%87%e5%90%97" aria-label="Anchor">#</a>
     </span>        
     
 </h2>
@@ -1075,14 +1052,13 @@
 <p>constexpr 的发展历史可以追溯到早期版本的 C++。通过研究标准提案和编译器源代码，我们可以了解这一语言特性是如何一步步地构建起来的，为什么会以这样的形式存在，实际上 constexpr 表达式是如何计算的，未来有哪些可能的功能，以及哪些功能可能会存在但没有被纳入标准。</p>
 <p>本文适合任何人，无论你是否了解 constexpr！</p>
 
-
 <h2 class="relative group">C++98/03：我比你更 const 
-    <div id="c9803%E6%88%91%E6%AF%94%E4%BD%A0%E6%9B%B4-const" class="anchor"></div>
+    <div id="c9803我比你更-const" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#c9803%E6%88%91%E6%AF%94%E4%BD%A0%E6%9B%B4-const" aria-label="Anchor">#</a>
+            style="text-decoration-line: none !important;" href="#c9803%e6%88%91%e6%af%94%e4%bd%a0%e6%9b%b4-const" aria-label="Anchor">#</a>
     </span>        
     
 </h2>
@@ -1162,14 +1138,13 @@
 </span></span></code></pre></div><p>可以发现在我的 GCC 14 上，零初始化的变量<code>v3</code>和<code>v4</code>被放在<code>.bss</code>段，而常量初始化的变量<code>v1</code>, <code>v2</code>,<code>v5</code>被放在<code>.rdata</code>段。操作系统会对<code>.rdata</code>段进行保护，使其处于只读模式，尝试写入会导致段错误。</p>
 <p>从上述的差异可以看出，一些<code>const</code>变量比其它的更加<code>const</code>。但是在当时我们并没有办法检测出这种差异（后来的 C++20 引入了<a href="https://en.cppreference.com/w/cpp/language/constinit" target="_blank">constinit</a>来确保一个变量进行常量初始化）。</p>
 
-
 <h2 class="relative group">0-∞：编译器中的常量求值器 
-    <div id="0-%E7%BC%96%E8%AF%91%E5%99%A8%E4%B8%AD%E7%9A%84%E5%B8%B8%E9%87%8F%E6%B1%82%E5%80%BC%E5%99%A8" class="anchor"></div>
+    <div id="0-编译器中的常量求值器" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#0-%E7%BC%96%E8%AF%91%E5%99%A8%E4%B8%AD%E7%9A%84%E5%B8%B8%E9%87%8F%E6%B1%82%E5%80%BC%E5%99%A8" aria-label="Anchor">#</a>
+            style="text-decoration-line: none !important;" href="#0-%e7%bc%96%e8%af%91%e5%99%a8%e4%b8%ad%e7%9a%84%e5%b8%b8%e9%87%8f%e6%b1%82%e5%80%bc%e5%99%a8" aria-label="Anchor">#</a>
     </span>        
     
 </h2>
@@ -1206,14 +1181,13 @@
 </span></span><span class="line"><span class="cl">    <span class="mi">2</span> <span class="o">|</span> <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">foo</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">+</span> <span class="mi">2147483647</span><span class="p">;</span>
 </span></span></code></pre></div><p>因此在有些时候可以用它们来检测程序中的潜在错误。</p>
 
-
 <h2 class="relative group">2003：真的能 macro free 吗？ 
-    <div id="2003%E7%9C%9F%E7%9A%84%E8%83%BD-macro-free-%E5%90%97" class="anchor"></div>
+    <div id="2003真的能-macro-free-吗" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#2003%E7%9C%9F%E7%9A%84%E8%83%BD-macro-free-%E5%90%97" aria-label="Anchor">#</a>
+            style="text-decoration-line: none !important;" href="#2003%e7%9c%9f%e7%9a%84%e8%83%bd-macro-free-%e5%90%97" aria-label="Anchor">#</a>
     </span>        
     
 </h2>
@@ -1264,14 +1238,13 @@
 <p>提案通常不会深入到编译器实现它们的细节。上述提案表示，实现它不应该有任何困难，只需要稍微改变大多数编译器中存在的常量折叠即可。然而，提案与编译器实现密切相关。如果提案无法在合理时间内实现，很可能不会被采纳。从后来的视角来看，许多大的提案最后被分成了多个小的提案逐步实现。</p>
 </blockquote>
 
-
 <h2 class="relative group">2006-2007：当一切浮出水面 
-    <div id="2006-2007%E5%BD%93%E4%B8%80%E5%88%87%E6%B5%AE%E5%87%BA%E6%B0%B4%E9%9D%A2" class="anchor"></div>
+    <div id="2006-2007当一切浮出水面" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#2006-2007%E5%BD%93%E4%B8%80%E5%88%87%E6%B5%AE%E5%87%BA%E6%B0%B4%E9%9D%A2" aria-label="Anchor">#</a>
+            style="text-decoration-line: none !important;" href="#2006-2007%e5%bd%93%e4%b8%80%e5%88%87%e6%b5%ae%e5%87%ba%e6%b0%b4%e9%9d%a2" aria-label="Anchor">#</a>
     </span>        
     
 </h2>

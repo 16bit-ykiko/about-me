@@ -26,8 +26,8 @@
   
   
   
-  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.36c3cd7950e4533fa7da3150d972e3edf34d07f83c0264ff04cad0969dfdb3b8a7065b0ed6c730c6d34a7bad516cfc6f6a5917ab1fdb10b25f481f8a17b54c16.css"
-    integrity="sha512-NsPNeVDkUz&#43;n2jFQ2XLj7fNNB/g8AmT/BMrQlp39s7inBlsO1scwxtNKe61RbPxvalkXqx/bELJfSB&#43;KF7VMFg==" />
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.29653ed199b7a749016920bb9715d240156e67049c90f12ffede5bb7f952606ecd8b0dd0c3f01d75af648960eddb25a879915d6e24858a75d11d9eed0607d9c6.css"
+    integrity="sha512-KWU&#43;0Zm3p0kBaSC7lxXSQBVuZwSckPEv/t5bt/lSYG7Niw3Qw/Adda9kiWDt2yWoeZFdbiSFinXRHZ7tBgfZxg==" />
   
   
   <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
@@ -46,8 +46,8 @@
   
   
   
-  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
-    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="复制" data-copied="已复制"></script>
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.461c44800ee64aced53547ac575043247d94bd065e67a4918d19a1a1da0a1cff73de01305bf70a1d34d48c4ba7d12ff03613dd007345827c4d07ab5129974e68.js"
+    integrity="sha512-RhxEgA7mSs7VNUesV1BDJH2UvQZeZ6SRjRmhodoKHP9z3gEwW/cKHTTUjEun0S/wNhPdAHNFgnxNB6tRKZdOaA==" data-copy="复制" data-copied="已复制"></script>
   
   
   
@@ -185,6 +185,8 @@
 
 
 
+  
+  
   
   
   <meta name="theme-color"/>
@@ -691,7 +693,7 @@
 </span><span class="px-2 text-primary-500">&middot;</span>
 
 
-<script type="text/javascript" src="/js/zen-mode.min.eea5245cf9244ecbdf2c150d1c8833226c1541cadf6e98f63a7c9192b1a3676df2c3ec603b14f4cfaaa53971fd9d8955640c0f405bf3de2b43ee7a5fb29ae721.js" integrity="sha512-7qUkXPkkTsvfLBUNHIgzImwVQcrfbpj2OnyRkrGjZ23yw&#43;xgOxT0z6qlOXH9nYlVZAwPQFvz3itD7npfsprnIQ=="></script>
+<script type="text/javascript" src="/js/zen-mode.min.2a0a1375509c03daf41c53a9831aa2d560895b7a2528c3eb3b56e7b11a135c7529e49727162a053b6193be8340270a8342f42c69f3d7e262ae54bc248eaac8f5.js" integrity="sha512-KgoTdVCcA9r0HFOpgxqi1WCJW3olKMPrO1bnsRoTXHUp5JcnFioFO2GTvoNAJwqDQvQsafPX4mKuVLwkjqrI9Q=="></script>
 
 <span class="mb-[2px]">
     <span id="zen-mode-button"
@@ -749,6 +751,9 @@
   
   
 </div>
+
+
+
 
 
 
@@ -905,8 +910,7 @@
       class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
       <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
 
-         <details open id="TOCView"
-  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+         <details open id="TOCView" class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
   <summary
     class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
     目录
@@ -945,31 +949,6 @@
 
 <script>
 
-  var margin = 200;
-  var marginError = 50;
-
-  (function () {
-    var $window = $(window);
-    var $toc = $('#TOCView');
-    var tocHeight = $toc.height();
-
-    function onResize() {
-      var windowAndMarginHeight = $window.height() - margin;
-      if(tocHeight >= windowAndMarginHeight) {
-        $toc.css("overflow-y", "scroll")
-        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
-      } else {
-        $toc.css("overflow-y", "hidden")
-        $toc.css("max-height", "9999999px")
-      }
-    }
-
-    $window.on('resize', onResize);
-    $(document).ready(onResize);
-  })();
-
-
-
   (function () {
     var $toc = $('#TableOfContents');
     if ($toc.length > 0) {
@@ -993,7 +972,7 @@
             $(e).removeClass('active');
           
         });
-        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').addClass('active');
         $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
           $(e).children('a').parents('ul').show();          
         });
@@ -1006,7 +985,6 @@
       });
     }
   })();
-
 
 </script>
    </div>
@@ -1049,10 +1027,16 @@
         <div class="article-content max-w-prose mb-20">
           <p>众所周知，传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的状态。对于任意相同的输入，它的输出结果总是相同的，被认为是<strong>纯函数式 (purely functional)</strong> 的。<strong>模板元编程 (Template Meta Programming)</strong> 作为常量求值的一个子集，也应该遵守这个规则。</p>
 <p>
-  <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pica.zhimg.com/v2-310046d2ded45ca99cb74d992a94a51e_r.jpg" alt="" />
-    
-  </figure>
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="" src="https://pica.zhimg.com/v2-310046d2ded45ca99cb74d992a94a51e_r.jpg" />
+
+  
+</figure>
 </p>
 <p>但事实真的如此吗？在不违背 C++ 标准的情况下，下面的代码可能通过编译吗？</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="n">value</span><span class="p">();</span>
@@ -1080,7 +1064,6 @@
 <blockquote>
 <p>注意：本文仅仅是技术讨论，请不要将相关的代码运用于实际生产中。根据 <a href="https://cplusplus.github.io/CWG/issues/2118.html" target="_blank">CWG 2118</a>，相关的代码似乎被认为是非良构的 (ill formed)。并且 STMP 较为容易造成 ODR 违背，需要十分谨慎。</p>
 </blockquote>
-
 
 <h2 class="relative group">observable state 
     <div id="observable-state" class="anchor"></div>
@@ -1160,7 +1143,6 @@
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span>
 </span></span></code></pre></div><p>编译通过！至此，我们成功观察到了编译期全局状态的变化。</p>
 
-
 <h2 class="relative group">modifiable state 
     <div id="modifiable-state" class="anchor"></div>
     
@@ -1210,7 +1192,6 @@
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;&gt;</span><span class="p">);</span> <span class="c1">// #3
 </span></span></span></code></pre></div><p>注意到 #1 处模板<code>X</code>没有任何的实例化，故此时<code>foo</code>函数还未有定义，于是<code>is_complete_v</code>返回<code>false</code>。而在 #2 处，我们实例化了一个<code>X&lt;void&gt;</code>，进而导致<code>X</code>内的<code>foo</code>函数被实例化，给<code>foo</code>添加了一个定义，于是 #3 处的<code>is_complete_v</code>返回<code>true</code>。当然了，函数定义最多只能有一个，如果你再尝试实例化一个<code>X&lt;int&gt;</code>，这时候编译器就会报<code>foo</code>被重定义的错误了。</p>
 
-
 <h2 class="relative group">constant switch 
     <div id="constant-switch" class="anchor"></div>
     
@@ -1247,7 +1228,6 @@
 <blockquote>
 <p>注意，这里的 N 的类型必须写成 auto，而不能使用 std::size_t。只有这样<code>flag(N)</code>才是 <a href="https://en.cppreference.com/w/cpp/language/dependent_name" target="_blank">dependent name</a>，才能被 requires 检测表达式合法性。由于模板的 <a href="https://en.cppreference.com/w/cpp/language/two-phase_lookup" target="_blank">two phase lookup</a>，如果写成<code>flag(0)</code>，会在第一阶段就进行查找，然后发现调用失败，产生一个 hard error，导致编译错误。</p>
 </blockquote>
-
 
 <h2 class="relative group">constant counter 
     <div id="constant-counter" class="anchor"></div>
@@ -1288,7 +1268,6 @@
 </span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>它的逻辑是，从<code>N</code>为 0 开始，检测<code>flag(reader&lt;N&gt;)</code>是否有定义，如果没有定义就实例化一个<code>setter&lt;N&gt;</code>，也就是给<code>flag(reader&lt;N&gt;)</code>添加定义，并返回<code>N</code>。否则递归调用<code>next&lt;N + 1&gt;()</code>，检测<code>N+1</code>的情况。所以这个计数器记录的实际上是<code>setter</code>的实例化次数。</p>
-
 
 <h2 class="relative group">§: access private 
     <div id="-access-private" class="anchor"></div>

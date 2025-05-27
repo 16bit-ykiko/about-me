@@ -26,8 +26,8 @@
   
   
   
-  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.36c3cd7950e4533fa7da3150d972e3edf34d07f83c0264ff04cad0969dfdb3b8a7065b0ed6c730c6d34a7bad516cfc6f6a5917ab1fdb10b25f481f8a17b54c16.css"
-    integrity="sha512-NsPNeVDkUz&#43;n2jFQ2XLj7fNNB/g8AmT/BMrQlp39s7inBlsO1scwxtNKe61RbPxvalkXqx/bELJfSB&#43;KF7VMFg==" />
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.29653ed199b7a749016920bb9715d240156e67049c90f12ffede5bb7f952606ecd8b0dd0c3f01d75af648960eddb25a879915d6e24858a75d11d9eed0607d9c6.css"
+    integrity="sha512-KWU&#43;0Zm3p0kBaSC7lxXSQBVuZwSckPEv/t5bt/lSYG7Niw3Qw/Adda9kiWDt2yWoeZFdbiSFinXRHZ7tBgfZxg==" />
   
   
   <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
@@ -46,8 +46,8 @@
   
   
   
-  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
-    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="Copy" data-copied="Copied"></script>
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.461c44800ee64aced53547ac575043247d94bd065e67a4918d19a1a1da0a1cff73de01305bf70a1d34d48c4ba7d12ff03613dd007345827c4d07ab5129974e68.js"
+    integrity="sha512-RhxEgA7mSs7VNUesV1BDJH2UvQZeZ6SRjRmhodoKHP9z3gEwW/cKHTTUjEun0S/wNhPdAHNFgnxNB6tRKZdOaA==" data-copy="Copy" data-copied="Copied"></script>
   
   
   
@@ -184,6 +184,8 @@
 
 
 
+  
+  
   
   
   <meta name="theme-color"/>
@@ -690,7 +692,7 @@
 </span><span class="px-2 text-primary-500">&middot;</span>
 
 
-<script type="text/javascript" src="/js/zen-mode.min.eea5245cf9244ecbdf2c150d1c8833226c1541cadf6e98f63a7c9192b1a3676df2c3ec603b14f4cfaaa53971fd9d8955640c0f405bf3de2b43ee7a5fb29ae721.js" integrity="sha512-7qUkXPkkTsvfLBUNHIgzImwVQcrfbpj2OnyRkrGjZ23yw&#43;xgOxT0z6qlOXH9nYlVZAwPQFvz3itD7npfsprnIQ=="></script>
+<script type="text/javascript" src="/js/zen-mode.min.2a0a1375509c03daf41c53a9831aa2d560895b7a2528c3eb3b56e7b11a135c7529e49727162a053b6193be8340270a8342f42c69f3d7e262ae54bc248eaac8f5.js" integrity="sha512-KgoTdVCcA9r0HFOpgxqi1WCJW3olKMPrO1bnsRoTXHUp5JcnFioFO2GTvoNAJwqDQvQsafPX4mKuVLwkjqrI9Q=="></script>
 
 <span class="mb-[2px]">
     <span id="zen-mode-button"
@@ -748,6 +750,9 @@
   
   
 </div>
+
+
+
 
 
 
@@ -904,8 +909,7 @@
       class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
       <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
 
-         <details open id="TOCView"
-  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+         <details open id="TOCView" class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
   <summary
     class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
     Table of Contents
@@ -964,31 +968,6 @@
 
 <script>
 
-  var margin = 200;
-  var marginError = 50;
-
-  (function () {
-    var $window = $(window);
-    var $toc = $('#TOCView');
-    var tocHeight = $toc.height();
-
-    function onResize() {
-      var windowAndMarginHeight = $window.height() - margin;
-      if(tocHeight >= windowAndMarginHeight) {
-        $toc.css("overflow-y", "scroll")
-        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
-      } else {
-        $toc.css("overflow-y", "hidden")
-        $toc.css("max-height", "9999999px")
-      }
-    }
-
-    $window.on('resize', onResize);
-    $(document).ready(onResize);
-  })();
-
-
-
   (function () {
     var $toc = $('#TableOfContents');
     if ($toc.length > 0) {
@@ -1012,7 +991,7 @@
             $(e).removeClass('active');
           
         });
-        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').addClass('active');
         $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
           $(e).children('a').parents('ul').show();          
         });
@@ -1025,7 +1004,6 @@
       });
     }
   })();
-
 
 </script>
    </div>
@@ -1063,7 +1041,6 @@
 <p>After several months of design and development, the project has taken shape, but it will likely take a few more months to refine before it can be put into use. This article primarily introduces the design and implementation of clice, serving as a personal summary of the current development stage. While the content is related to language servers, it also involves a lot of C/C++ compilation knowledge, so interested readers are encouraged to continue reading.</p>
 <p>Additionally, if you have any feature requests or suggestions, feel free to leave a comment. I will do my best to consider them in the next phase of development.</p>
 
-
 <h2 class="relative group">Why a New Language Server? 
     <div id="why-a-new-language-server" class="anchor"></div>
     
@@ -1085,7 +1062,6 @@
 <p>Given this situation, it&rsquo;s no surprise that large PRs like <a href="https://github.com/llvm/llvm-project/pull/66462" target="_blank">preliminary support for C++20 modules in clangd</a> have been delayed for nearly a year. Realizing this, I began to consider developing my own language server. I estimated the project size to be around 20,000 lines of code (excluding tests), which is manageable for one person over a period of time, and there are precedents like ccls and rust-analyzer. Another point is that clangd&rsquo;s codebase is quite dated. Despite having extensive comments, the logic is still convoluted, and making large-scale modifications might take longer than rewriting from scratch.</p>
 <p>So, I decided to proceed. I categorized clangd&rsquo;s hundreds of issues to see if some problems were due to clangd&rsquo;s initial architectural design flaws, making them difficult to resolve and thus left unresolved. If so, could these issues be addressed by redesigning from the start? I found that indeed, some issues fit this description! Over the next few months, I spent time studying Clang&rsquo;s related mechanisms, exploring solutions to these problems, and prototyping implementations. After confirming that these issues could be resolved, I officially began developing clice.</p>
 
-
 <h2 class="relative group">Important Improvements 
     <div id="important-improvements" class="anchor"></div>
     
@@ -1097,7 +1073,6 @@
     
 </h2>
 <p>After all that, let&rsquo;s take a look at the major issues in clangd that clice aims to solve. This section focuses on feature introductions, while the implementation details will be covered in the Design section. In addition to these significant improvements, there are also many smaller feature enhancements, which won&rsquo;t be listed here.</p>
-
 
 <h3 class="relative group">Better Template Support 
     <div id="better-template-support" class="anchor"></div>
@@ -1128,7 +1103,6 @@
 <li>It does not consider default template parameters, making it unable to handle dependent names caused by default template parameters.</li>
 </ol>
 <p>Although we could hack support for standard library types, I wanted user code to have the same status as standard library code, so we needed a generic algorithm to handle dependent types. To solve this, I developed a pseudo-instantiation mechanism. It can instantiate dependent types without specific types, thereby simplifying them. For example, in the above case, <code>std::vector&lt;std::vector&lt;T&gt;&gt;::reference</code> can be simplified to <code>std::vector&lt;T&gt;&amp;</code>, allowing us to provide code completion options to the user.</p>
-
 
 <h3 class="relative group">Header Context 
     <div id="header-context" class="anchor"></div>
@@ -1169,7 +1143,6 @@
 </span></span></span></code></pre></div><p><code>a.h</code> cannot be compiled on its own, but when embedded in <code>b.cpp</code>, it compiles correctly. In this case, clangd will report an error in <code>a.h</code>, stating that <code>X</code> is undefined. This is because it treats <code>a.h</code> as an independent source file. There are many such header files in libstdc++, and some popular C++ header-only libraries also contain such code, which clangd currently cannot handle.</p>
 <p>clice will support <strong>header context</strong>, allowing automatic and user-initiated switching of header file states, and will also support non-self-contained header files. We aim to achieve the following effect, using the initial code as an example. When you navigate from <code>b.cpp</code> to <code>a.h</code>, <code>b.cpp</code> will be used as the context for <code>a.h</code>. Similarly, when navigating from <code>c.cpp</code> to <code>a.h</code>, <code>c.cpp</code> will be used as the context for <code>a.h</code>.</p>
 
-
 <h3 class="relative group">Full C++20 Module Support 
     <div id="full-c20-module-support" class="anchor"></div>
     
@@ -1188,7 +1161,6 @@
 </ol>
 <p>clice will provide compiler and build-system-agnostic C++20 module support, and the project itself will eventually fully migrate to modules.</p>
 
-
 <h3 class="relative group">Better Index Format 
     <div id="better-index-format" class="anchor"></div>
     
@@ -1203,7 +1175,6 @@
 <p>However, parsing files is a time-consuming operation. If we wait until a query is needed to parse the file, the query time would be astronomical. To support fast symbol relationship lookup, language servers generally pre-index the entire project. But what format should be used to store this data? There is no standard.</p>
 <p>clice has thoroughly studied existing index designs and developed a more efficient index format. It can achieve the same effect as ccls: if the project is pre-indexed, responses can be obtained immediately without waiting.</p>
 
-
 <h2 class="relative group">Design 
     <div id="design" class="anchor"></div>
     
@@ -1215,7 +1186,6 @@
     
 </h2>
 <p>This section will delve deeper into the design and implementation of clice.</p>
-
 
 <h3 class="relative group">Server 
     <div id="server" class="anchor"></div>
@@ -1234,7 +1204,6 @@
 <li>The event model of a language server is quite simple, with one-to-one connections. Handling IO-related requests in the main thread and delegating time-consuming tasks to a thread pool is entirely sufficient. In this model, no synchronization primitives like locks are needed for inter-thread communication. Thus, the model of general network libraries is overly complex for clice.</li>
 </ul>
 <p>Finally, I successfully replicated the asynchronous programming experience similar to Python and JS in C++, which was very pleasant and straightforward.</p>
-
 
 <h3 class="relative group">How It Works 
     <div id="how-it-works" class="anchor"></div>

@@ -26,8 +26,8 @@
   
   
   
-  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.36c3cd7950e4533fa7da3150d972e3edf34d07f83c0264ff04cad0969dfdb3b8a7065b0ed6c730c6d34a7bad516cfc6f6a5917ab1fdb10b25f481f8a17b54c16.css"
-    integrity="sha512-NsPNeVDkUz&#43;n2jFQ2XLj7fNNB/g8AmT/BMrQlp39s7inBlsO1scwxtNKe61RbPxvalkXqx/bELJfSB&#43;KF7VMFg==" />
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.29653ed199b7a749016920bb9715d240156e67049c90f12ffede5bb7f952606ecd8b0dd0c3f01d75af648960eddb25a879915d6e24858a75d11d9eed0607d9c6.css"
+    integrity="sha512-KWU&#43;0Zm3p0kBaSC7lxXSQBVuZwSckPEv/t5bt/lSYG7Niw3Qw/Adda9kiWDt2yWoeZFdbiSFinXRHZ7tBgfZxg==" />
   
   
   <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
@@ -46,8 +46,8 @@
   
   
   
-  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
-    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="复制" data-copied="已复制"></script>
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.461c44800ee64aced53547ac575043247d94bd065e67a4918d19a1a1da0a1cff73de01305bf70a1d34d48c4ba7d12ff03613dd007345827c4d07ab5129974e68.js"
+    integrity="sha512-RhxEgA7mSs7VNUesV1BDJH2UvQZeZ6SRjRmhodoKHP9z3gEwW/cKHTTUjEun0S/wNhPdAHNFgnxNB6tRKZdOaA==" data-copy="复制" data-copied="已复制"></script>
   
   
   
@@ -185,6 +185,8 @@
 
 
 
+  
+  
   
   
   <meta name="theme-color"/>
@@ -691,7 +693,7 @@
 </span><span class="px-2 text-primary-500">&middot;</span>
 
 
-<script type="text/javascript" src="/js/zen-mode.min.eea5245cf9244ecbdf2c150d1c8833226c1541cadf6e98f63a7c9192b1a3676df2c3ec603b14f4cfaaa53971fd9d8955640c0f405bf3de2b43ee7a5fb29ae721.js" integrity="sha512-7qUkXPkkTsvfLBUNHIgzImwVQcrfbpj2OnyRkrGjZ23yw&#43;xgOxT0z6qlOXH9nYlVZAwPQFvz3itD7npfsprnIQ=="></script>
+<script type="text/javascript" src="/js/zen-mode.min.2a0a1375509c03daf41c53a9831aa2d560895b7a2528c3eb3b56e7b11a135c7529e49727162a053b6193be8340270a8342f42c69f3d7e262ae54bc248eaac8f5.js" integrity="sha512-KgoTdVCcA9r0HFOpgxqi1WCJW3olKMPrO1bnsRoTXHUp5JcnFioFO2GTvoNAJwqDQvQsafPX4mKuVLwkjqrI9Q=="></script>
 
 <span class="mb-[2px]">
     <span id="zen-mode-button"
@@ -749,6 +751,9 @@
   
   
 </div>
+
+
+
 
 
 
@@ -905,8 +910,7 @@
       class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
       <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
 
-         <details open id="TOCView"
-  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+         <details open id="TOCView" class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
   <summary
     class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
     目录
@@ -965,31 +969,6 @@
 
 <script>
 
-  var margin = 200;
-  var marginError = 50;
-
-  (function () {
-    var $window = $(window);
-    var $toc = $('#TOCView');
-    var tocHeight = $toc.height();
-
-    function onResize() {
-      var windowAndMarginHeight = $window.height() - margin;
-      if(tocHeight >= windowAndMarginHeight) {
-        $toc.css("overflow-y", "scroll")
-        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
-      } else {
-        $toc.css("overflow-y", "hidden")
-        $toc.css("max-height", "9999999px")
-      }
-    }
-
-    $window.on('resize', onResize);
-    $(document).ready(onResize);
-  })();
-
-
-
   (function () {
     var $toc = $('#TableOfContents');
     if ($toc.length > 0) {
@@ -1013,7 +992,7 @@
             $(e).removeClass('active');
           
         });
-        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').addClass('active');
         $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
           $(e).children('a').parents('ul').show();          
         });
@@ -1026,7 +1005,6 @@
       });
     }
   })();
-
 
 </script>
    </div>
@@ -1069,7 +1047,6 @@
         <div class="article-content max-w-prose mb-20">
           <p>上一篇 <a href="https://www.ykiko.me/zh-cn/articles/646752343" target="_blank">文章</a> 我们初步了解了 STMP 的原理，并且利用它实现了简单的一个编译期的计数器。然而，它的威力远不止如此，这篇文章就来讨论一些基于 STMP 的高级应用。</p>
 
-
 <h2 class="relative group">type &lt;=&gt; value 
     <div id="type--value" class="anchor"></div>
     
@@ -1088,7 +1065,6 @@
 <li>变序对函数参数进行映射</li>
 </ul>
 <p>等等等，这里就不一一列举了。但在 C++ 中，类型并不是一等公民，只能作为模板参数传递。为了对类型进行计算，我们往往不得不进行晦涩难懂的模板元编程。如果类型能像值一样传递给 cosntexpr 函数进行计算就好了，这样对类型的计算就会变得很简单了。直接传递肯定是不可能了，考虑建立类型和值之间的一一映射，在计算之前将类型映射到值，计算完之后再将值映射回类型，这样也能实现我们的需求。</p>
-
 
 <h3 class="relative group">type -&gt; value 
     <div id="type---value" class="anchor"></div>
@@ -1117,7 +1093,6 @@
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">&amp;</span><span class="n">storage</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>利用不同模板实例化的静态变量地址也不同的特性，我们可以轻松的把类型映射到唯一的值（地址）。</p>
-
 
 <h3 class="relative group">value -&gt; type 
     <div id="value---type" class="anchor"></div>
@@ -1167,7 +1142,6 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">meta_value</span> <span class="n">value</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">type_of</span> <span class="o">=</span> <span class="k">typename</span> <span class="k">decltype</span><span class="p">(</span><span class="n">to_type</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span><span class="p">{}))</span><span class="o">::</span><span class="n">type</span><span class="p">;</span>
 </span></span></code></pre></div>
-
 <h3 class="relative group">sort types! 
     <div id="sort-types" class="anchor"></div>
     
@@ -1217,7 +1191,6 @@
 <p>非常值得一提的是，这种类型和值的双向映射在 Reflection for C++26 中已经成为语言内置的功能。我们不再需要去利用 friend injection 这种奇淫巧技，直接使用<code>^</code>和<code>[: :]</code>运算符即可完成映射。更多内容详见 <a href="https://www.ykiko.me/zh-cn/articles/661692275" target="_blank">C++26 静态反射提案解析</a>。</p>
 </blockquote>
 
-
 <h2 class="relative group">the true any 
     <div id="the-true-any" class="anchor"></div>
     
@@ -1230,7 +1203,6 @@
 </h2>
 <p><code>std::any</code>常常用于类型擦除，可以把完全不同的类型擦除，并放在同一个容器里面。但是擦除容易，还原难，尤其是有些时候想把<code>any</code>里面存的对象打印出来看看，还得一个个类型去<code>cast</code>。有没有一种可能，能编写出一个真正的<code>any</code>类型呢？不需要我们去手动<code>cast</code>，直接就可以调用它里面的类型对应的成员函数呢？</p>
 <p>对于单个编译单元来说，这是完全可能的，因为单个编译单元内的构造为<code>any</code>的类型集合是编译时确定的，只需要记录下所有实例化的类型，然后使用模板元编程自动的对每个类型进行尝试即可。</p>
-
 
 <h3 class="relative group">type register 
     <div id="type-register" class="anchor"></div>
@@ -1287,7 +1259,6 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>仍然使用<code>setter</code>来注册类型。<code>lookup</code>用于查找某个类型在类型集合中的索引，原理就是遍历这个集合，然后一个个<code>is_same_v</code>比较，找到了就返回对应的索引。如果到最后都没有找到，就注册一个新的类型。<code>count</code>用于计算类型集合的大小。</p>
 
-
 <h3 class="relative group">any type 
     <div id="any-type" class="anchor"></div>
     
@@ -1329,7 +1300,6 @@
 </span></span></code></pre></div><blockquote>
 <p>为什么要额外写一个 make_any，而不是直接写一个模板构造函数呢？这是因为再我实际尝试之后，发现三大编译器对于模板构造函数实例化的位置都不一样，并且有些奇怪，导致求值结果不同。但对于普通的模板函数，实例化位置都是一样的，所以写成了一个单独的函数。</p>
 </blockquote>
-
 
 <h3 class="relative group">visit it! 
     <div id="visit-it" class="anchor"></div>
@@ -1384,7 +1354,6 @@
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>三大编译器都按照我们的预期输出了结果！代码同样放在 <a href="https://godbolt.org/z/aP3zs7479" target="_blank">Compiler Explorer</a> 和 <a href="https://github.com/16bit-ykiko/about-me/blob/main/code/the-true-any.cpp" target="_blank">Github</a> 上了。</p>
-
 
 <h2 class="relative group">conclusion 
     <div id="conclusion" class="anchor"></div>

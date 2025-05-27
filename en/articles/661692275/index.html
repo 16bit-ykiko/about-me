@@ -26,8 +26,8 @@
   
   
   
-  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.36c3cd7950e4533fa7da3150d972e3edf34d07f83c0264ff04cad0969dfdb3b8a7065b0ed6c730c6d34a7bad516cfc6f6a5917ab1fdb10b25f481f8a17b54c16.css"
-    integrity="sha512-NsPNeVDkUz&#43;n2jFQ2XLj7fNNB/g8AmT/BMrQlp39s7inBlsO1scwxtNKe61RbPxvalkXqx/bELJfSB&#43;KF7VMFg==" />
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.29653ed199b7a749016920bb9715d240156e67049c90f12ffede5bb7f952606ecd8b0dd0c3f01d75af648960eddb25a879915d6e24858a75d11d9eed0607d9c6.css"
+    integrity="sha512-KWU&#43;0Zm3p0kBaSC7lxXSQBVuZwSckPEv/t5bt/lSYG7Niw3Qw/Adda9kiWDt2yWoeZFdbiSFinXRHZ7tBgfZxg==" />
   
   
   <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
@@ -46,8 +46,8 @@
   
   
   
-  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
-    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="Copy" data-copied="Copied"></script>
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.461c44800ee64aced53547ac575043247d94bd065e67a4918d19a1a1da0a1cff73de01305bf70a1d34d48c4ba7d12ff03613dd007345827c4d07ab5129974e68.js"
+    integrity="sha512-RhxEgA7mSs7VNUesV1BDJH2UvQZeZ6SRjRmhodoKHP9z3gEwW/cKHTTUjEun0S/wNhPdAHNFgnxNB6tRKZdOaA==" data-copy="Copy" data-copied="Copied"></script>
   
   
   
@@ -189,6 +189,8 @@
 
 
 
+  
+  
   
   
   <meta name="theme-color"/>
@@ -695,7 +697,7 @@
 </span><span class="px-2 text-primary-500">&middot;</span>
 
 
-<script type="text/javascript" src="/js/zen-mode.min.eea5245cf9244ecbdf2c150d1c8833226c1541cadf6e98f63a7c9192b1a3676df2c3ec603b14f4cfaaa53971fd9d8955640c0f405bf3de2b43ee7a5fb29ae721.js" integrity="sha512-7qUkXPkkTsvfLBUNHIgzImwVQcrfbpj2OnyRkrGjZ23yw&#43;xgOxT0z6qlOXH9nYlVZAwPQFvz3itD7npfsprnIQ=="></script>
+<script type="text/javascript" src="/js/zen-mode.min.2a0a1375509c03daf41c53a9831aa2d560895b7a2528c3eb3b56e7b11a135c7529e49727162a053b6193be8340270a8342f42c69f3d7e262ae54bc248eaac8f5.js" integrity="sha512-KgoTdVCcA9r0HFOpgxqi1WCJW3olKMPrO1bnsRoTXHUp5JcnFioFO2GTvoNAJwqDQvQsafPX4mKuVLwkjqrI9Q=="></script>
 
 <span class="mb-[2px]">
     <span id="zen-mode-button"
@@ -753,6 +755,9 @@
   
   
 </div>
+
+
+
 
 
 
@@ -909,8 +914,7 @@
       class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
       <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
 
-         <details open id="TOCView"
-  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+         <details open id="TOCView" class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
   <summary
     class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
     Table of Contents
@@ -979,31 +983,6 @@
 
 <script>
 
-  var margin = 200;
-  var marginError = 50;
-
-  (function () {
-    var $window = $(window);
-    var $toc = $('#TOCView');
-    var tocHeight = $toc.height();
-
-    function onResize() {
-      var windowAndMarginHeight = $window.height() - margin;
-      if(tocHeight >= windowAndMarginHeight) {
-        $toc.css("overflow-y", "scroll")
-        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
-      } else {
-        $toc.css("overflow-y", "hidden")
-        $toc.css("max-height", "9999999px")
-      }
-    }
-
-    $window.on('resize', onResize);
-    $(document).ready(onResize);
-  })();
-
-
-
   (function () {
     var $toc = $('#TableOfContents');
     if ($toc.length > 0) {
@@ -1027,7 +1006,7 @@
             $(e).removeClass('active');
           
         });
-        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').addClass('active');
         $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
           $(e).children('a').parents('ul').show();          
         });
@@ -1040,7 +1019,6 @@
       });
     }
   })();
-
 
 </script>
    </div>
@@ -1119,7 +1097,6 @@
         <div class="article-content max-w-prose mb-20">
           <p>I recently planned to write a series of articles discussing the concept of reflection in detail. Coincidentally, C++26 has introduced a new reflection proposal, and I noticed that there are no related articles on Zhihu, even though this topic is frequently discussed. Therefore, I decided to take this opportunity to talk about static reflection in C++, serving as a warm-up for the series.</p>
 
-
 <h2 class="relative group">What is Static Reflection? 
     <div id="what-is-static-reflection" class="anchor"></div>
     
@@ -1132,7 +1109,6 @@
 </h2>
 <p>First, what is reflection? Like many other terms in computer science, it doesn&rsquo;t have a detailed and precise definition. I won&rsquo;t delve into this question in this article, as I will explain it in detail in subsequent articles. The focus of this article is on C++&rsquo;s static reflection. Why emphasize &ldquo;static&rdquo;? Mainly because when we talk about reflection, we almost always refer to reflection in languages like Java, C#, and Python, where the implementation involves type erasure and runtime information querying. This approach inevitably incurs runtime overhead, which clearly violates C++&rsquo;s principle of zero-cost abstraction. To distinguish it from their reflection, we add &ldquo;static&rdquo; as a qualifier, indicating that C++&rsquo;s reflection is done at compile time. Of course, this statement still lacks some rigor. A detailed discussion will be provided in subsequent articles. For now, you just need to know that C++&rsquo;s static reflection is different from Java, C#, and Python&rsquo;s reflection and is primarily done at compile time.</p>
 
-
 <h2 class="relative group">What Can Static Reflection Do? 
     <div id="what-can-static-reflection-do" class="anchor"></div>
     
@@ -1143,7 +1119,6 @@
     </span>        
     
 </h2>
-
 
 <h3 class="relative group">Type as Value 
     <div id="type-as-value" class="anchor"></div>
@@ -1277,7 +1252,6 @@
 </span></span></code></pre></div><p>If the restored entity does not match the originally stored one, a compilation error will occur.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typename</span><span class="p">[</span><span class="o">:</span> <span class="o">^::</span> <span class="o">:</span><span class="p">]</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// Error
 </span></span></span></code></pre></div>
-
 <h3 class="relative group">Meta Info 
     <div id="meta-info" class="anchor"></div>
     
@@ -1342,7 +1316,6 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>Later, we can use this to implement features like traversing structures and enums. Further, we can implement advanced features like serialization and deserialization. Some examples will be provided later. In addition, there are other compile-time functions, and only a part of the content is shown above. For more APIs, refer to the proposal. Since functions for directly obtaining parameters from higher-order templates are provided, we no longer need to use templates for type extraction! Template metaprogramming for type extraction can also retire.</p>
 
-
 <h2 class="relative group">Better Compile Facilities 
     <div id="better-compile-facilities" class="anchor"></div>
     
@@ -1354,7 +1327,6 @@
     
 </h2>
 <p>The main part of reflection has been introduced. Now let&rsquo;s talk about other things. Although this part is from other proposals, they can make writing code easier and give code stronger expressiveness.</p>
-
 
 <h3 class="relative group">Template For 
     <div id="template-for" class="anchor"></div>
@@ -1421,7 +1393,6 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>You can think of <code>template for</code> as a syntax sugar-enhanced version of lambda expansion. It&rsquo;s very useful. If this is added, using template metaprogramming to generate functions (code) can retire.</p>
 
-
 <h3 class="relative group">Non-Transient Constexpr Allocation 
     <div id="non-transient-constexpr-allocation" class="anchor"></div>
     
@@ -1464,7 +1435,6 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span> <span class="c1">// Global
 </span></span></span></code></pre></div><p>The main difficulty is that memory allocated in the data segment, unlike memory on the heap, has no ownership and doesn&rsquo;t need to be <code>delete</code>d. Once this problem is solved, we can use compile-time <code>std::map</code>, <code>std::vector</code> and retain them until runtime. The author&rsquo;s approach is to mark them. The specific details won&rsquo;t be discussed here. If this is added, using template metaprogramming to create constant tables can also retire.</p>
 
-
 <h2 class="relative group">Some Examples 
     <div id="some-examples" class="anchor"></div>
     
@@ -1476,7 +1446,6 @@
     
 </h2>
 <p>Alright, after all that, let&rsquo;s see what we can do with reflection.</p>
-
 
 <h3 class="relative group">Print Any Type 
     <div id="print-any-type" class="anchor"></div>
@@ -1507,7 +1476,6 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
-
 <h3 class="relative group">Enum to String 
     <div id="enum-to-string" class="anchor"></div>
     
@@ -1531,7 +1499,6 @@
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;&lt;unnamed&gt;&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
-
 <h2 class="relative group">Conclusion 
     <div id="conclusion" class="anchor"></div>
     

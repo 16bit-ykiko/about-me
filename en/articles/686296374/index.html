@@ -26,8 +26,8 @@
   
   
   
-  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.36c3cd7950e4533fa7da3150d972e3edf34d07f83c0264ff04cad0969dfdb3b8a7065b0ed6c730c6d34a7bad516cfc6f6a5917ab1fdb10b25f481f8a17b54c16.css"
-    integrity="sha512-NsPNeVDkUz&#43;n2jFQ2XLj7fNNB/g8AmT/BMrQlp39s7inBlsO1scwxtNKe61RbPxvalkXqx/bELJfSB&#43;KF7VMFg==" />
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.29653ed199b7a749016920bb9715d240156e67049c90f12ffede5bb7f952606ecd8b0dd0c3f01d75af648960eddb25a879915d6e24858a75d11d9eed0607d9c6.css"
+    integrity="sha512-KWU&#43;0Zm3p0kBaSC7lxXSQBVuZwSckPEv/t5bt/lSYG7Niw3Qw/Adda9kiWDt2yWoeZFdbiSFinXRHZ7tBgfZxg==" />
   
   
   <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
@@ -46,8 +46,8 @@
   
   
   
-  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.65b5de43825ad54a420102c9ddccece1f1015665fe76e5b399ba259e1de29f6c83ac1b3cf77beed3d29e26604dfebf561a8e1db523cb6add0d6acccc9e8f1307.js"
-    integrity="sha512-ZbXeQ4Ja1UpCAQLJ3czs4fEBVmX&#43;duWzmbolnh3in2yDrBs893vu09KeJmBN/r9WGo4dtSPLat0NaszMno8TBw==" data-copy="Copy" data-copied="Copied"></script>
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.461c44800ee64aced53547ac575043247d94bd065e67a4918d19a1a1da0a1cff73de01305bf70a1d34d48c4ba7d12ff03613dd007345827c4d07ab5129974e68.js"
+    integrity="sha512-RhxEgA7mSs7VNUesV1BDJH2UvQZeZ6SRjRmhodoKHP9z3gEwW/cKHTTUjEun0S/wNhPdAHNFgnxNB6tRKZdOaA==" data-copy="Copy" data-copied="Copied"></script>
   
   
   
@@ -184,6 +184,8 @@
 
 
 
+  
+  
   
   
   <meta name="theme-color"/>
@@ -690,7 +692,7 @@
 </span><span class="px-2 text-primary-500">&middot;</span>
 
 
-<script type="text/javascript" src="/js/zen-mode.min.eea5245cf9244ecbdf2c150d1c8833226c1541cadf6e98f63a7c9192b1a3676df2c3ec603b14f4cfaaa53971fd9d8955640c0f405bf3de2b43ee7a5fb29ae721.js" integrity="sha512-7qUkXPkkTsvfLBUNHIgzImwVQcrfbpj2OnyRkrGjZ23yw&#43;xgOxT0z6qlOXH9nYlVZAwPQFvz3itD7npfsprnIQ=="></script>
+<script type="text/javascript" src="/js/zen-mode.min.2a0a1375509c03daf41c53a9831aa2d560895b7a2528c3eb3b56e7b11a135c7529e49727162a053b6193be8340270a8342f42c69f3d7e262ae54bc248eaac8f5.js" integrity="sha512-KgoTdVCcA9r0HFOpgxqi1WCJW3olKMPrO1bnsRoTXHUp5JcnFioFO2GTvoNAJwqDQvQsafPX4mKuVLwkjqrI9Q=="></script>
 
 <span class="mb-[2px]">
     <span id="zen-mode-button"
@@ -748,6 +750,9 @@
   
   
 </div>
+
+
+
 
 
 
@@ -904,8 +909,7 @@
       class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
       <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
 
-         <details open id="TOCView"
-  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+         <details open id="TOCView" class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
   <summary
     class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
     Table of Contents
@@ -962,31 +966,6 @@
 
 <script>
 
-  var margin = 200;
-  var marginError = 50;
-
-  (function () {
-    var $window = $(window);
-    var $toc = $('#TOCView');
-    var tocHeight = $toc.height();
-
-    function onResize() {
-      var windowAndMarginHeight = $window.height() - margin;
-      if(tocHeight >= windowAndMarginHeight) {
-        $toc.css("overflow-y", "scroll")
-        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
-      } else {
-        $toc.css("overflow-y", "hidden")
-        $toc.css("max-height", "9999999px")
-      }
-    }
-
-    $window.on('resize', onResize);
-    $(document).ready(onResize);
-  })();
-
-
-
   (function () {
     var $toc = $('#TableOfContents');
     if ($toc.length > 0) {
@@ -1010,7 +989,7 @@
             $(e).removeClass('active');
           
         });
-        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').addClass('active');
         $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
           $(e).children('a').parents('ul').show();          
         });
@@ -1023,7 +1002,6 @@
       });
     }
   })();
-
 
 </script>
    </div>
@@ -1039,7 +1017,6 @@
           <p>Readers often hear that C++ code suffers from severe binary bloat, but few can pinpoint the exact reasons. After some online research, it becomes clear that there are not many in-depth discussions on this topic. The statement seems more like a cliché, passed down through word of mouth, with few able to explain it thoroughly. Today, ykiko will take you on a journey to uncover the mysteries of C++ code bloat (^ω^)</p>
 <p>First, let&rsquo;s discuss what code bloat actually means. If a function is heavily inlined, the resulting executable file will be larger compared to when it is not inlined. Does this count as bloat? I argue that it does not, as this is within our expectations and is considered normal behavior. Conversely, code bloat that is not within our expectations, theoretically avoidable but not eliminated due to current implementations, is what I call &ldquo;true code bloat.&rdquo; The bloat discussed later in this article refers to this type.</p>
 
-
 <h2 class="relative group">Does Marking Functions with <code>inline</code> Cause Bloat? 
     <div id="does-marking-functions-with-inline-cause-bloat" class="anchor"></div>
     
@@ -1051,7 +1028,6 @@
     
 </h2>
 <p>First, it&rsquo;s important to clarify that the <code>inline</code> keyword in C++ has a specific semantic meaning: <strong>it allows a function to be defined in multiple source files</strong>. Functions marked with <code>inline</code> can be defined directly in header files, and even if they are included by multiple source files, it won&rsquo;t cause linking errors. This facilitates the creation of header-only libraries.</p>
-
 
 <h3 class="relative group">Multiple Instances 
     <div id="multiple-instances" class="anchor"></div>
@@ -1099,23 +1075,34 @@
 </span></span><span class="line"><span class="cl">$ objdump -d src2.o <span class="p">|</span> c++filt
 </span></span></code></pre></div><p>For convenience, I&rsquo;ll provide the corresponding links and screenshots from Godbolt, which omits many non-essential symbols for clarity.</p>
 <p>
-  <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pic4.zhimg.com/v2-0f8338487557d14a675e82276a73b9a3_r.jpg" alt="" />
-    
-  </figure>
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="" src="https://pic4.zhimg.com/v2-0f8338487557d14a675e82276a73b9a3_r.jpg" />
+
+  
+</figure>
 </p>
 <p>As you can see, both <a href="https://godbolt.org/z/xoW8TTvP7" target="_blank">source files</a> retain their own instances of the <code>add</code> function. Now, let&rsquo;s link them into an executable:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ main.o src1.o src2.o -o main.exe
 </span></span><span class="line"><span class="cl">$ objdump -d main.exe <span class="p">|</span> c++filt
 </span></span></code></pre></div><p>The result is shown below:</p>
 <p>
-  <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pic1.zhimg.com/v2-90853d7ae94867f68e8130b835c8f832_r.jpg" alt="" />
-    
-  </figure>
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="" src="https://pic1.zhimg.com/v2-90853d7ae94867f68e8130b835c8f832_r.jpg" />
+
+  
+</figure>
 </p>
 <p>The linker retains only one instance of the <code>add</code> function, so there is <strong>no additional code bloat</strong>. The C++ standard requires that inline functions have identical definitions across different translation units, so it doesn&rsquo;t matter which instance is retained. But what if the definitions differ? This would violate the One Definition Rule (ODR), leading to undefined behavior. The specific instance retained may depend on the implementation or even the linking order. I might write a separate article on ODR violations in the future, so I won&rsquo;t delve too deep here. <strong>Just know that the C++ standard guarantees that inline functions have identical definitions across translation units.</strong></p>
-
 
 <h3 class="relative group">Full Inlining 
     <div id="full-inlining" class="anchor"></div>
@@ -1129,10 +1116,16 @@
 </h3>
 <p>Earlier, I specifically emphasized compiling without optimization. What happens if we enable optimization? Using the same code, let&rsquo;s try compiling with <code>-O2</code> optimization. The <a href="https://godbolt.org/z/jfx8jrnzf" target="_blank">result</a> is shown below:</p>
 <p>
-  <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pic1.zhimg.com/v2-ef6dc326331416c2a20e98a632a87150_r.jpg" alt="" />
-    
-  </figure>
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="" src="https://pic1.zhimg.com/v2-ef6dc326331416c2a20e98a632a87150_r.jpg" />
+
+  
+</figure>
 </p>
 <p>Surprisingly, with <code>-O2</code> optimization, the <code>add</code> function is completely inlined. The compiler doesn&rsquo;t even generate a symbol for <code>add</code>, so there&rsquo;s nothing to link. According to our earlier definition, this type of function inlining doesn&rsquo;t count as code bloat, so there&rsquo;s <strong>no additional binary bloat</strong>.</p>
 <p>As a side note, if neither file generates the <code>add</code> symbol, what happens if another file references <code>add</code>? Wouldn&rsquo;t that cause a linking error?</p>
@@ -1162,7 +1155,6 @@
 <p>What does this mean? It means that if an inline function is <a href="https://en.cppreference.com/w/cpp/language/definition#ODR-use" target="_blank">odr-used</a> in a translation unit, that unit must have a definition of the function. What counts as odr-used? The second point explains that if <strong>a function is called</strong> or <strong>its address is taken</strong>, it is odr-used.</p>
 <p>In our earlier code, <code>main.cpp</code> calls an inline function but doesn&rsquo;t define it, which violates the C++ standard. This is a bit counterintuitive, but it&rsquo;s the reality, and all three major compilers are correct!</p>
 
-
 <h3 class="relative group">Other Cases 
     <div id="other-cases" class="anchor"></div>
     
@@ -1182,7 +1174,6 @@
 <p>Additionally, while the <code>inline</code> keyword no longer enforces inlining at the standard level, it does provide a hint to the compiler that makes the function more likely to be inlined. How does this hint work? As mentioned earlier, the standard&rsquo;s wording allows inline functions to avoid generating symbols. In contrast, functions without any specifier are marked as <code>extern</code> by default and must generate symbols. <strong>The compiler is more willing to inline functions that don&rsquo;t need to generate symbols.</strong> From this perspective, you might guess that <code>static</code> has a similar hinting effect, and indeed it does. Of course, this is just one aspect; in reality, the decision to inline a function is much more complex.</p>
 <p>Note: This section only discusses functions marked with <code>inline</code>. There are also combinations like <code>inline static</code> and <code>inline extern</code>, which interested readers can explore in the official documentation or by experimenting.</p>
 
-
 <h2 class="relative group">What Really Causes Template Code Bloat? 
     <div id="what-really-causes-template-code-bloat" class="anchor"></div>
     
@@ -1194,7 +1185,6 @@
     
 </h2>
 <p>If someone gives a reason for C++ binary bloat, it&rsquo;s almost always templates. Is this really the case? How exactly do templates cause binary bloat? Under what circumstances? Does using templates always cause bloat?</p>
-
 
 <h3 class="relative group">Implicit Instantiation is Like <code>inline</code> 
     <div id="implicit-instantiation-is-like-inline" class="anchor"></div>
@@ -1232,20 +1222,31 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>Compile without optimization and check the <a href="https://godbolt.org/z/aTxMsnK5n" target="_blank">compilation result</a>:</p>
 <p>
-  <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pic4.zhimg.com/v2-5de99e270f381ff7f77f012ed72836bb_r.jpg" alt="" />
-    
-  </figure>
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="" src="https://pic4.zhimg.com/v2-5de99e270f381ff7f77f012ed72836bb_r.jpg" />
+
+  
+</figure>
 </p>
 <p>As with inline functions, both translation units instantiate <code>add&lt;int, int&gt;</code> and <code>add&lt;double, double&gt;</code>, each with its own copy. During linking, the linker retains only one instance of each template instantiation. Now, let&rsquo;s try compiling with <code>-O2</code> and see what happens. The <a href="https://godbolt.org/z/edEd8Tvo4" target="_blank">result</a> is as follows:</p>
 <p>
-  <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://picx.zhimg.com/v2-5e915f5cb7b7fc25e00a5f6c8ae2fa95_r.jpg" alt="" />
-    
-  </figure>
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="" src="https://picx.zhimg.com/v2-5e915f5cb7b7fc25e00a5f6c8ae2fa95_r.jpg" />
+
+  
+</figure>
 </p>
 <p>Similar to inline functions, the compiler inlines the function and discards the symbols of the instantiated functions. In this case, either the function is inlined and no symbol is generated, or a symbol is generated and the function is merged during linking. Like inline functions, this doesn&rsquo;t seem to cause additional bloat. So, where does the often-mentioned template bloat come from?</p>
-
 
 <h3 class="relative group">Explicit Instantiation and <code>extern</code> Templates 
     <div id="explicit-instantiation-and-extern-templates" class="anchor"></div>
@@ -1286,7 +1287,6 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1">// Note: Without extern, this would explicitly instantiate a definition
 </span></span></span></code></pre></div><p>Both methods correctly reference the <code>f</code> function defined earlier, allowing calls to template instantiations in other files!</p>
 
-
 <h3 class="relative group">The Real Cause of Template Bloat 
     <div id="the-real-cause-of-template-bloat" class="anchor"></div>
     
@@ -1313,18 +1313,30 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>Instantiating the template for these three types means that two of the instantiations will generate identical code. Will the compiler merge functions that have different types but generate identical binary code? Let&rsquo;s try it out. The <a href="https://godbolt.org/z/KncEh3z5n" target="_blank">result</a> is as follows:</p>
 <p>
-  <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pica.zhimg.com/v2-5c57236015036328a7e0f321aadf513a_r.jpg" alt="" />
-    
-  </figure>
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="" src="https://pica.zhimg.com/v2-5c57236015036328a7e0f321aadf513a_r.jpg" />
+
+  
+</figure>
 </p>
 <p>As you can see, two identical functions are generated but not merged. Of course, if we enable <code>-O2</code> optimization, such short functions will be inlined, and no symbols will be generated. As mentioned earlier, this means there&rsquo;s no &ldquo;additional template bloat.&rdquo; In practice, many small template functions, like <code>vector</code>&rsquo;s <code>end</code>, <code>begin</code>, and <code>operator[]</code>, are likely to be fully inlined, avoiding &ldquo;additional bloat.&rdquo;</p>
 <p>Now, the question is: what if the function isn&rsquo;t inlined? Suppose the template function is complex and has a large body. For demonstration purposes, we&rsquo;ll use GCC&rsquo;s <code>[[gnu::noinline]]</code> attribute to simulate this effect, then compile the <a href="https://godbolt.org/z/Exff5cnfj" target="_blank">code</a> with <code>-O2</code>:</p>
 <p>
-  <figure>
-    <img class="my-0 rounded-md" loading="lazy" src="https://pic1.zhimg.com/v2-37da15bf141999c1bc8d6f7b07575f36_r.jpg" alt="" />
-    
-  </figure>
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="" src="https://pic1.zhimg.com/v2-37da15bf141999c1bc8d6f7b07575f36_r.jpg" />
+
+  
+</figure>
 </p>
 <p>Even though the function is optimized down to a single instruction, the compiler still generates three copies. In reality, functions that aren&rsquo;t inlined by the compiler might be much larger, making the situation worse than this &ldquo;pseudo-large function.&rdquo; This is where the so-called &ldquo;template bloat&rdquo; comes from. <strong>Code that could be merged isn&rsquo;t merged, and this is the real cause of template bloat.</strong></p>
 <p>If you really want the compiler/linker to merge identical binary code, what can you do? Unfortunately, mainstream toolchains like ld, lld, and MS linker don&rsquo;t perform this merging. The only linker that supports this feature is <a href="https://www.gnu.org/software/binutils/" target="_blank">gold</a>, but it only works with ELF format executables, so it can&rsquo;t be used on Windows. Here&rsquo;s how to use gold to merge identical binary code:</p>
