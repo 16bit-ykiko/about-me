@@ -1,5 +1,9 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" class="scroll-smooth" data-default-appearance="dark"
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="dark"
   data-auto-appearance="true"><head>
   <meta charset="utf-8" />
   
@@ -26,8 +30,8 @@
   
   
   
-  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.29653ed199b7a749016920bb9715d240156e67049c90f12ffede5bb7f952606ecd8b0dd0c3f01d75af648960eddb25a879915d6e24858a75d11d9eed0607d9c6.css"
-    integrity="sha512-KWU&#43;0Zm3p0kBaSC7lxXSQBVuZwSckPEv/t5bt/lSYG7Niw3Qw/Adda9kiWDt2yWoeZFdbiSFinXRHZ7tBgfZxg==" />
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.75efbde0b99ff286fae6f03226990076e6f98602b18d149b71f05e113f0fc7184122892266ac783102fe78fdbd53798b33201d9f3b7e00286104f2b671d240e7.css"
+    integrity="sha512-de&#43;94Lmf8ob65vAyJpkAdub5hgKxjRSbcfBeET8PxxhBIokiZqx4MQL&#43;eP29U3mLMyAdnzt&#43;AChhBPK2cdJA5w==" />
   
   
   <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
@@ -46,8 +50,8 @@
   
   
   
-  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.461c44800ee64aced53547ac575043247d94bd065e67a4918d19a1a1da0a1cff73de01305bf70a1d34d48c4ba7d12ff03613dd007345827c4d07ab5129974e68.js"
-    integrity="sha512-RhxEgA7mSs7VNUesV1BDJH2UvQZeZ6SRjRmhodoKHP9z3gEwW/cKHTTUjEun0S/wNhPdAHNFgnxNB6tRKZdOaA==" data-copy="Copy" data-copied="Copied"></script>
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.ad1683837cd67d72f5cfc4b3c167aaf215774df45509753a181b9a150cb581a45205da15b9053f035d4579c1669ea6eb974971d0a25115b3b549a3567c00d41a.js"
+    integrity="sha512-rRaDg3zWfXL1z8SzwWeq8hV3TfRVCXU6GBuaFQy1gaRSBdoVuQU/A11FecFmnqbrl0lx0KJRFbO1SaNWfADUGg==" data-copy="Copy" data-copied="Copied"></script>
   
   
   
@@ -70,8 +74,7 @@
   <meta property="og:url" content="https://www.ykiko.me/en/articles/683463723/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
   <meta property="og:title" content="C&#43;&#43;中constexpr的历史！（第二部分）">
-  <meta property="og:description" content="前情提要：C&#43;&#43;中constexpr的历史！（第一部分）
-2015-2016：模板的语法糖 # 在C&#43;&#43;中，支持全特化（full specialization）的模板很多，但支持偏特化（partial specialization）的模板并不多。事实上，只有类模板（class template）和变量模板（variable template）支持偏特化，而变量模板可以看作是类模板的语法糖，因此实际上只有类模板支持偏特化。不支持偏特化会导致某些代码难以编写。">
+  <meta property="og:description" content="前情提要：C&#43;&#43;中constexpr的历史！（第一部分） 2015-2016：模板的语法糖 # 在C&#43;&#43;中，支持全特化（full specialization） 的模板很多，但支持偏特化（partial specialization） 的模板并不多。事实上，只有类模板（class template）和变量模板（variable template）支持偏特化，而变量模板可以看作是类模板的语法糖，因此实际上只有类模板支持偏特化。不支持偏特化会导致某些代码难以编写。">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
@@ -84,8 +87,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/en/articles/683463723/featured.png">
   <meta name="twitter:title" content="C&#43;&#43;中constexpr的历史！（第二部分）">
-  <meta name="twitter:description" content="前情提要：C&#43;&#43;中constexpr的历史！（第一部分）
-2015-2016：模板的语法糖 # 在C&#43;&#43;中，支持全特化（full specialization）的模板很多，但支持偏特化（partial specialization）的模板并不多。事实上，只有类模板（class template）和变量模板（variable template）支持偏特化，而变量模板可以看作是类模板的语法糖，因此实际上只有类模板支持偏特化。不支持偏特化会导致某些代码难以编写。">
+  <meta name="twitter:description" content="前情提要：C&#43;&#43;中constexpr的历史！（第一部分） 2015-2016：模板的语法糖 # 在C&#43;&#43;中，支持全特化（full specialization） 的模板很多，但支持偏特化（partial specialization） 的模板并不多。事实上，只有类模板（class template）和变量模板（variable template）支持偏特化，而变量模板可以看作是类模板的语法糖，因此实际上只有类模板支持偏特化。不支持偏特化会导致某些代码难以编写。">
 
   
   <script type="application/ld+json">
@@ -96,7 +98,7 @@
     "name": "C\u002b\u002b中constexpr的历史！（第二部分）",
     "headline": "C\u002b\u002b中constexpr的历史！（第二部分）",
     
-    "abstract": "\u003cp\u003e前情提要：\u003ca href=\u0022https:\/\/www.ykiko.me\/zh-cn\/articles\/682031684\u0022 target=\u0022_blank\u0022\u003eC\u002b\u002b中constexpr的历史！（第一部分）\u003c\/a\u003e\u003c\/p\u003e\n\n\u003ch2 class=\u0022relative group\u0022\u003e2015-2016：模板的语法糖 \n    \u003cdiv id=\u00222015-2016模板的语法糖\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100\u0022\u003e\n        \u003ca class=\u0022group-hover:text-primary-300 dark:group-hover:text-neutral-700\u0022\n            style=\u0022text-decoration-line: none !important;\u0022 href=\u0022#2015-2016%e6%a8%a1%e6%9d%bf%e7%9a%84%e8%af%ad%e6%b3%95%e7%b3%96\u0022 aria-label=\u0022Anchor\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e        \n    \n\u003c\/h2\u003e\n\u003cp\u003e在C\u002b\u002b中，支持\u003ca href=\u0022https:\/\/en.cppreference.com\/w\/cpp\/language\/template_specialization\u0022 target=\u0022_blank\u0022\u003e全特化（full specialization）\u003c\/a\u003e的模板很多，但支持\u003ca href=\u0022https:\/\/en.cppreference.com\/w\/cpp\/language\/partial_specialization\u0022 target=\u0022_blank\u0022\u003e偏特化（partial specialization）\u003c\/a\u003e的模板并不多。事实上，只有类模板（class template）和变量模板（variable template）支持偏特化，而变量模板可以看作是类模板的语法糖，因此实际上只有类模板支持偏特化。不支持偏特化会导致某些代码难以编写。\u003c\/p\u003e",
+    "abstract": "\u003cp\u003e前情提要：\u003ca\n  href=\u0022https:\/\/www.ykiko.me\/zh-cn\/articles\/682031684\u0022\n    target=\u0022_blank\u0022\n  \u003eC\u002b\u002b中constexpr的历史！（第一部分）\u003c\/a\u003e\n\u003c\/p\u003e\n\n\u003ch2 class=\u0022relative group\u0022\u003e2015-2016：模板的语法糖 \n    \u003cdiv id=\u00222015-2016模板的语法糖\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100\u0022\u003e\n        \u003ca class=\u0022group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline\u0022 href=\u0022#2015-2016%e6%a8%a1%e6%9d%bf%e7%9a%84%e8%af%ad%e6%b3%95%e7%b3%96\u0022 aria-label=\u0022Anchor\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e        \n    \n\u003c\/h2\u003e\n\u003cp\u003e在C\u002b\u002b中，支持\u003ca\n  href=\u0022https:\/\/en.cppreference.com\/w\/cpp\/language\/template_specialization\u0022\n    target=\u0022_blank\u0022\n  \u003e全特化（full specialization）\u003c\/a\u003e\n的模板很多，但支持\u003ca\n  href=\u0022https:\/\/en.cppreference.com\/w\/cpp\/language\/partial_specialization\u0022\n    target=\u0022_blank\u0022\n  \u003e偏特化（partial specialization）\u003c\/a\u003e\n的模板并不多。事实上，只有类模板（class template）和变量模板（variable template）支持偏特化，而变量模板可以看作是类模板的语法糖，因此实际上只有类模板支持偏特化。不支持偏特化会导致某些代码难以编写。\u003c\/p\u003e",
     "inLanguage": "en",
     "url" : "https:\/\/www.ykiko.me\/en\/articles\/683463723\/",
     "author" : {
@@ -112,7 +114,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "5110"
+    "wordCount": "5090"
   }]
   </script>
 
@@ -176,7 +178,9 @@
   
   
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PEDMYR1V0K"></script>
+  <script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=G-PEDMYR1V0K"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -187,6 +191,8 @@
 
 
 
+
+
   
   
   
@@ -194,22 +200,28 @@
   <meta name="theme-color"/>
   
   
+
+  
+  
 </head>
 <body
-  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
-  <div id="the-top" class="absolute flex self-center">
-    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
-      href="#main-content"><span
-        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
-  </div>
-  
-  
-  <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 pl-[24px] pr-[24px]" style="z-index:100">
-  <div id="menu-blur" class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
+    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a
+      >
+    </div>
+    
+    
+      <div class="min-h-[148px]"></div>
+<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-index-100">
+  <div
+    id="menu-blur"
+    class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
   <div class="relative max-w-[64rem] ml-auto mr-auto">
-    <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
-    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3">
+    <div class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 padding-main-menu">
     
     <div class="flex flex-1 items-center justify-between">
         <nav class="flex space-x-3">
@@ -224,33 +236,42 @@
             
             
             
-  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
-    
-    <p class="text-base font-medium" title="">
-        about
-    </p>
+  <a
+  href=""
+  
+  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="">
+    about
+  </p>
 </a>
 
 
 
             
             
-  <a href="/en/articles/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
-    
-    <p class="text-base font-medium" title="">
-        articles
-    </p>
+  <a
+  href="/en/articles/"
+  
+  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="">
+    articles
+  </p>
 </a>
 
 
 
             
             
-  <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
-    
-    <p class="text-base font-medium" title="">
-        research
-    </p>
+  <a
+  href=""
+  
+  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="">
+    research
+  </p>
 </a>
 
 
@@ -259,10 +280,10 @@
             
 
             
-<div>
-  <div class="cursor-pointer flex items-center nested-menu">
-    <span class="ltr:mr-1 rtl:ml-1">
-      
+  <div>
+    <div class="cursor-pointer flex items-center nested-menu">
+      <span class="ltr:mr-1 rtl:ml-1">
+        
 
   <span class="relative block icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
@@ -270,29 +291,35 @@
   </span>
 
 
-    </span>
-    <div class="text-sm font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="C&#43;&#43;中constexpr的历史！（第二部分）">EN</div>
-  </div>
-  <div class="absolute menuhide">
-    <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
-      <div class="flex flex-col space-y-3">
-        
-        <a href="/en/articles/683463723/" class="flex items-center">
-          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="C&#43;&#43;中constexpr的历史！（第二部分）">
-            English
-          </p>
-        </a>
-        
-        <a href="/zh-cn/articles/683463723/" class="flex items-center">
-          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="The History of constexpr in C&#43;&#43;! (Part Two)">
-            简体中文
-          </p>
-        </a>
-        
+      </span>
+      <div
+        class="text-sm font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400"
+        title="C&#43;&#43;中constexpr的历史！（第二部分）">EN</div>
+    </div>
+    <div class="absolute menuhide">
+      <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
+        <div class="flex flex-col space-y-3">
+          
+            <a href="/en/articles/683463723/" class="flex items-center">
+              <p
+                class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400"
+                title="C&#43;&#43;中constexpr的历史！（第二部分）">
+                English
+              </p>
+            </a>
+          
+            <a href="/zh-cn/articles/683463723/" class="flex items-center">
+              <p
+                class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400"
+                title="The History of constexpr in C&#43;&#43;! (Part Two)">
+                简体中文
+              </p>
+            </a>
+          
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
 
@@ -346,10 +373,10 @@
             <span></span>
 
             
-<div>
-  <div class="cursor-pointer flex items-center nested-menu">
-    <span class="ltr:mr-1 rtl:ml-1">
-      
+  <div>
+    <div class="cursor-pointer flex items-center nested-menu">
+      <span class="ltr:mr-1 rtl:ml-1">
+        
 
   <span class="relative block icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
@@ -357,29 +384,35 @@
   </span>
 
 
-    </span>
-    <div class="text-sm font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="C&#43;&#43;中constexpr的历史！（第二部分）">EN</div>
-  </div>
-  <div class="absolute menuhide">
-    <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
-      <div class="flex flex-col space-y-3">
-        
-        <a href="/en/articles/683463723/" class="flex items-center">
-          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="C&#43;&#43;中constexpr的历史！（第二部分）">
-            English
-          </p>
-        </a>
-        
-        <a href="/zh-cn/articles/683463723/" class="flex items-center">
-          <p class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400" title="The History of constexpr in C&#43;&#43;! (Part Two)">
-            简体中文
-          </p>
-        </a>
-        
+      </span>
+      <div
+        class="text-sm font-medium text-gray-500 hover:text-primary-600 dark:hover:text-primary-400"
+        title="C&#43;&#43;中constexpr的历史！（第二部分）">EN</div>
+    </div>
+    <div class="absolute menuhide">
+      <div class="pt-2 p-5 mt-2 rounded-xl backdrop-blur shadow-2xl">
+        <div class="flex flex-col space-y-3">
+          
+            <a href="/en/articles/683463723/" class="flex items-center">
+              <p
+                class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400"
+                title="C&#43;&#43;中constexpr的历史！（第二部分）">
+                English
+              </p>
+            </a>
+          
+            <a href="/zh-cn/articles/683463723/" class="flex items-center">
+              <p
+                class="text-sm font-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400"
+                title="The History of constexpr in C&#43;&#43;! (Part Two)">
+                简体中文
+              </p>
+            </a>
+          
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
 
@@ -439,8 +472,7 @@
 
 
             </div>
-            <div id="menu-wrapper" style="padding-top:5px;"
-                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+            <div id="menu-wrapper" class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50 padding-top-[5px]">
                 <ul
                     class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
 
@@ -460,12 +492,15 @@
 
                     
   <li class="mt-1">
-    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
-        
-        <p class="text-bg font-bg" title="">
-            about
-        </p>
-    </a>
+  <a
+    href=""
+    
+    class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="">
+      about
+    </p>
+  </a>
 </li>
 
 
@@ -475,12 +510,15 @@
 
                     
   <li class="mt-1">
-    <a href="/en/articles/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
-        
-        <p class="text-bg font-bg" title="">
-            articles
-        </p>
-    </a>
+  <a
+    href="/en/articles/"
+    
+    class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="">
+      articles
+    </p>
+  </a>
 </li>
 
 
@@ -490,12 +528,15 @@
 
                     
   <li class="mt-1">
-    <a href=""  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
-        
-        <p class="text-bg font-bg" title="">
-            research
-        </p>
-    </a>
+  <a
+    href=""
+    
+    class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="">
+      research
+    </p>
+  </a>
 </li>
 
 
@@ -528,27 +569,28 @@
 
   </div>
 </div>
-<script>
-  window.addEventListener('scroll', function (e) {
-    var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    var background_blur = document.getElementById('menu-blur');
-    background_blur.style.opacity = (scroll / 300);
-  });
-</script>
 
+
+<script
+  type="text/javascript"
+  src="/js/background-blur.min.4812321520cc2e4cd52bf9137015a55bb6c0b5e66a6b2c96b8654c0ec99be59e8e6425dd838a6fd9bac54000586f37f4a9680bbefaa2aee4601a69e188005cf6.js"
+  integrity="sha512-SBIyFSDMLkzVK/kTcBWlW7bAteZqayyWuGVMDsmb5Z6OZCXdg4pv2brFQABYbzf0qWgLvvqiruRgGmnhiABc9g=="
+  data-target-id="menu-blur"></script>
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
   
-  <div class="relative flex flex-col grow">
-    <main id="main-content" class="grow">
+
+
+  <article>
+    
       
-
-
-<article>
-  
-  
-  
-  
-  
-  
+      
+      
+      
+        
 
 
 <div id="hero" class="h-[150px] md:h-[200px]"></div>
@@ -569,20 +611,17 @@
 </div>
 
 <div id="background-blur" class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
-<script>
-    window.addEventListener('scroll', function (e) {
-        var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-        var background_blur = document.getElementById('background-blur');
-        background_blur.style.opacity = (scroll / 300)
-    });
-</script>
 
-  
-  
 
-  <header id="single_header" class="mt-5 max-w-prose">
+<script type="text/javascript" src="/js/background-blur.min.4812321520cc2e4cd52bf9137015a55bb6c0b5e66a6b2c96b8654c0ec99be59e8e6425dd838a6fd9bac54000586f37f4a9680bbefaa2aee4601a69e188005cf6.js" integrity="sha512-SBIyFSDMLkzVK/kTcBWlW7bAteZqayyWuGVMDsmb5Z6OZCXdg4pv2brFQABYbzf0qWgLvvqiruRgGmnhiABc9g==" data-target-id="background-blur"></script>
+
+      
     
-    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+
+
+    <header id="single_header" class="mt-5 max-w-prose">
+      
+        <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
   
   
     
@@ -590,27 +629,21 @@
     
   
   <li class="hidden">
-    <a
-      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
-      href="/en/"
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/en/"
       >ykiko&#39;s blog</a
     ><span class="px-1 text-primary-500">/</span>
   </li>
 
   
   <li class="inline">
-    <a
-      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
-      href="/en/articles/"
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/en/articles/"
       >Articles</a
     ><span class="px-1 text-primary-500">/</span>
   </li>
 
   
   <li class="hidden">
-    <a
-      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
-      href="/en/articles/683463723/"
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/en/articles/683463723/"
       >C&#43;&#43;中constexpr的历史！（第二部分）</a
     ><span class="px-1 text-primary-500">/</span>
   </li>
@@ -618,12 +651,12 @@
 </ol>
 
 
-    
-    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-      C++中constexpr的历史！（第二部分）
-    </h1>
-    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        C++中constexpr的历史！（第二部分）
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
 
 
 
@@ -634,42 +667,50 @@
 
 
 
+  
 
+  
+  
+  
 
+  
+  
+    
+  
 
+  
+    
+  
 
   
 
+  
+    
+  
 
-
-
+  
+    
+  
 
   
 
-
+  
 
   
 
+  
+    
+  
 
-
-
-
-
-
-
-
+  
+    
   
 
 
-
-  
-
-
-
-<div class="flex flex-row flex-wrap items-center">
-  
-  
-  <time datetime="2024-02-22T22:15:32&#43;00:00">22 February 2024</time><span class="px-2 text-primary-500">&middot;</span><span>5110 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">11 mins</span><span class="px-2 text-primary-500">&middot;</span>
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2024-02-22T22:15:32&#43;00:00">22 February 2024</time><span class="px-2 text-primary-500">&middot;</span><span>5090 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">11 mins</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -695,15 +736,20 @@
 </span><span class="px-2 text-primary-500">&middot;</span>
 
 
-<script type="text/javascript" src="/js/zen-mode.min.2a0a1375509c03daf41c53a9831aa2d560895b7a2528c3eb3b56e7b11a135c7529e49727162a053b6193be8340270a8342f42c69f3d7e262ae54bc248eaac8f5.js" integrity="sha512-KgoTdVCcA9r0HFOpgxqi1WCJW3olKMPrO1bnsRoTXHUp5JcnFioFO2GTvoNAJwqDQvQsafPX4mKuVLwkjqrI9Q=="></script>
+
+<script
+  type="text/javascript"
+  src="/js/zen-mode.min.2a0a1375509c03daf41c53a9831aa2d560895b7a2528c3eb3b56e7b11a135c7529e49727162a053b6193be8340270a8342f42c69f3d7e262ae54bc248eaac8f5.js"
+  integrity="sha512-KgoTdVCcA9r0HFOpgxqi1WCJW3olKMPrO1bnsRoTXHUp5JcnFioFO2GTvoNAJwqDQvQsafPX4mKuVLwkjqrI9Q=="></script>
 
 <span class="mb-[2px]">
-    <span id="zen-mode-button"
-          class="text-lg hover:text-primary-500"
-          title="Enable zen mode"
-          data-title-i18n-disable="Enable zen mode"
-          data-title-i18n-enable="Disable zen mode">
-        <span class="inline-block align-text-bottom">
+  <span
+    id="zen-mode-button"
+    class="text-lg hover:text-primary-500"
+    title="Enable zen mode"
+    data-title-i18n-disable="Enable zen mode"
+    data-title-i18n-enable="Disable zen mode">
+    <span class="inline-block align-text-bottom">
 
   <span class="relative block icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
@@ -712,69 +758,70 @@
   </span>
 
 </span>
-    </span>
+  </span>
 </span>
-  
+
+    
+
+    
+    
+  </div>
 
   
-  
-</div>
-
-
-<div class="flex flex-row flex-wrap items-center">
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-</div>
-
-
-
-
-<div class="flex flex-row flex-wrap items-center">
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-</div>
-
-
-
-
-
-
-
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
     </div>
+  
 
-    
-    
-    
-    
-    
-
-    
-
-    
-      
+  
+  
+    <div class="flex flex-row flex-wrap items-center">
       
         
+      
         
+          
+        
+      
+        
+      
+        
+          
+        
+      
+    </div>
+  
+
+  
+  
+
+
+
+      </div>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+        
+          
+          
 <div class="flex author">
   
     
@@ -785,18 +832,22 @@
       
         
       
-      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
-      alt="ykiko" src="/img/author_hu12645359616066712621.jpg" />
+      <img
+        class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4"
+        width="96"
+        height="96"
+        alt="ykiko"
+        src="/img/author_hu12645359616066712621.jpg">
     
   
   <div class="place-self-center">
     
-    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
-      Author
-    </div>
-    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
-      ykiko
-    </div>
+      <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+        Author
+      </div>
+      <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+        ykiko
+      </div>
     
     
     <div class="text-2xl sm:text-lg">
@@ -894,25 +945,30 @@
   </div>
 </div>
 
-      
+        
+
+        
+
+        
+          <div class="mb-5"></div>
+        
 
       
 
+    </header>
+
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
       
-      <div class="mb-5"></div>
-      
-
-    
-
-  </header>
-  
-  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
-    
-     <div
-      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
-      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
-
-         <details open id="TOCView" class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+        <div class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+          <div
+            class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]
+            
+            ">
+            
+              <details
+  open
+  id="TOCView"
+  class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
   <summary
     class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
     Table of Contents
@@ -957,97 +1013,160 @@
   </div>
 </details>
 
+
 <script>
-
   (function () {
-    var $toc = $('#TableOfContents');
-    if ($toc.length > 0) {
-      var $window = $(window);
+    'use strict'
 
-      function onScroll() {
-        var currentScroll = $window.scrollTop();
-        var h = $('.anchor');
-        var id = "";
-        h.each(function (i, e) {
-          e = $(e);
-          if (e.offset().top - $(window).height()/3 <= currentScroll) {
-            id = decodeURIComponent(e.attr('id'));
-          }
-        });
-        var active = $toc.find('a.active');      
-        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+    const SCROLL_OFFSET_RATIO = 0.33
+    const TOC_SELECTOR = '#TableOfContents'
+    const ANCHOR_SELECTOR = '.anchor'
+    const TOC_LINK_SELECTOR = 'a[href^="#"]'
+    const NESTED_LIST_SELECTOR = 'li ul'
+    const ACTIVE_CLASS = 'active'
 
-        active.each(function (i, e) {
-          
-            $(e).removeClass('active');
-          
-        });
-        $toc.find('a[href="#' + id + '"]').addClass('active');
-        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
-          $(e).children('a').parents('ul').show();          
-        });
+    function getActiveAnchorId(anchors, offsetRatio) {
+      const threshold = window.scrollY + window.innerHeight * offsetRatio
+      const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
+      const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      for (let i = anchors.length - 1; i >= 0; i--) {
+        const top = anchors[i].getBoundingClientRect().top + window.scrollY
+        if (top <= threshold && tocIds.has(anchors[i].id)) {
+          return anchors[i].id
+        }
+      }
+      return anchors.find(anchor => tocIds.has(anchor.id))?.id || ''
+    }
+
+    function updateTOC({ toc, anchors, links, scrollOffset, collapseInactive }) {
+      const activeId = getActiveAnchorId(anchors, scrollOffset)
+      if (!activeId) return
+
+      links.forEach(link => {
+        const isActive = link.getAttribute('href') === `#${activeId}`
+        link.classList.toggle(ACTIVE_CLASS, isActive)
+
+        if (collapseInactive) {
+          const ul = link.closest('li')?.querySelector('ul')
+          if (ul) ul.style.display = isActive ? '' : 'none'
+        }
+      })
+
+      if (collapseInactive) {
+        const activeLink = toc.querySelector(`a[href="#${CSS.escape(activeId)}"]`)
+        let el = activeLink
+        while (el && el !== toc) {
+          if (el.tagName === 'UL') el.style.display = ''
+          if (el.tagName === 'LI') el.querySelector('ul')?.style.setProperty('display', '')
+          el = el.parentElement
+        }
+      }
+    }
+
+    function initTOC() {
+      const toc = document.querySelector(TOC_SELECTOR)
+      if (!toc) return
+
+      const collapseInactive = false
+      const anchors = [...document.querySelectorAll(ANCHOR_SELECTOR)]
+      const links = [...toc.querySelectorAll(TOC_LINK_SELECTOR)]
+
+      if (collapseInactive) {
+        toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
       }
 
-      $window.on('scroll', onScroll);
-      $(document).ready(function () {
-        
-        onScroll();
-      });
-    }
-  })();
+      const config = {
+        toc,
+        anchors,
+        links,
+        scrollOffset: SCROLL_OFFSET_RATIO,
+        collapseInactive
+      }
 
+      window.addEventListener('scroll', () => updateTOC(config), { passive: true })
+      window.addEventListener('hashchange', () => updateTOC(config), { passive: true })
+
+      updateTOC(config)
+    }
+
+    document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', initTOC)
+      : initTOC()
+  })()
 </script>
-   </div>
-      </div>
+
+
+            
+            
+          </div>
+        </div>
       
+
 
       <div class="min-w-0 min-h-0 max-w-fit">
         
-        
-<details style="margin-left:0px" class="mt-2 mb-5 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5" >
+  <details
+    class="mt-2 mb-5 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 margin-left-[0px]"
+    >
     
-    <summary
-        class="py-1 text-lg font-semibold cursor-pointer bg-primary-200 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-primary-800 dark:text-neutral-100">
-        Constexpr - This article is part of a series.
-    </summary>
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-primary-200 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-primary-800 dark:text-neutral-100">
+    Constexpr -
+    This article is part of a series.
+  </summary>
+  
+  
     
-    
-    
-    <div
+      <div
         class="py-1 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
         <a href="/en/articles/682031684/">
-            Part 1: C&#43;&#43; 中 constexpr 的发展史！（上篇）
+          Part 1:
+          C&#43;&#43; 中 constexpr 的发展史！（上篇）
         </a>
-    </div>
+      </div>
     
+  
     
-    
-    <div
+      <div
         class="py-1 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
-        Part 2: This Article
-    </div>
+        Part 2:
+        This Article
+      </div>
     
-    
+  
 
 
-</details>
+  </details>
+
 
 
 
         <div class="article-content max-w-prose mb-20">
-          <p>前情提要：<a href="https://www.ykiko.me/zh-cn/articles/682031684" target="_blank">C++中constexpr的历史！（第一部分）</a></p>
+          <p>前情提要：<a
+  href="https://www.ykiko.me/zh-cn/articles/682031684"
+    target="_blank"
+  >C++中constexpr的历史！（第一部分）</a>
+</p>
 
 <h2 class="relative group">2015-2016：模板的语法糖 
     <div id="2015-2016模板的语法糖" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#2015-2016%e6%a8%a1%e6%9d%bf%e7%9a%84%e8%af%ad%e6%b3%95%e7%b3%96" aria-label="Anchor">#</a>
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#2015-2016%e6%a8%a1%e6%9d%bf%e7%9a%84%e8%af%ad%e6%b3%95%e7%b3%96" aria-label="Anchor">#</a>
     </span>        
     
 </h2>
-<p>在C++中，支持<a href="https://en.cppreference.com/w/cpp/language/template_specialization" target="_blank">全特化（full specialization）</a>的模板很多，但支持<a href="https://en.cppreference.com/w/cpp/language/partial_specialization" target="_blank">偏特化（partial specialization）</a>的模板并不多。事实上，只有类模板（class template）和变量模板（variable template）支持偏特化，而变量模板可以看作是类模板的语法糖，因此实际上只有类模板支持偏特化。不支持偏特化会导致某些代码难以编写。</p>
+<p>在C++中，支持<a
+  href="https://en.cppreference.com/w/cpp/language/template_specialization"
+    target="_blank"
+  >全特化（full specialization）</a>
+的模板很多，但支持<a
+  href="https://en.cppreference.com/w/cpp/language/partial_specialization"
+    target="_blank"
+  >偏特化（partial specialization）</a>
+的模板并不多。事实上，只有类模板（class template）和变量模板（variable template）支持偏特化，而变量模板可以看作是类模板的语法糖，因此实际上只有类模板支持偏特化。不支持偏特化会导致某些代码难以编写。</p>
 <p>假设我们想实现一个<code>destroy_at</code>函数，其作用是调用对象的析构函数。特别地，如果析构函数是trivial的，我们就省去这次无意义的析构函数调用。</p>
 <p>直觉上，我们可以写出如下代码：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">value</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">is_trivially_destructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
@@ -1063,14 +1182,22 @@
 </span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_trivially_destructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;*</span> <span class="o">=</span> <span class="k">nullptr</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">destroy_at</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">p</span><span class="p">)</span> <span class="p">{}</span>
 </span></span></code></pre></div><p>具体的原理这里就不赘述了，虽然少了一层包装，但仍然有很多与代码逻辑无关的东西出现。这里的<code>std::enable_if_t</code>就是典型例子，严重影响了代码的可读性。</p>
-<p>提案<a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2015/n4461.html" target="_blank">N4461</a>希望引入<code>static_if</code>（借鉴自D语言），用于在编译期控制代码生成，只会把实际用到的分支编译进最终的二进制代码。这样就可以写出如下代码，其中<code>static_if</code>的条件必须是常量表达式：</p>
+<p>提案<a
+  href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2015/n4461.html"
+    target="_blank"
+  >N4461</a>
+希望引入<code>static_if</code>（借鉴自D语言），用于在编译期控制代码生成，只会把实际用到的分支编译进最终的二进制代码。这样就可以写出如下代码，其中<code>static_if</code>的条件必须是常量表达式：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">destroy_at</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">p</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">static_if</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_trivially_destructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">        <span class="n">p</span><span class="o">-&gt;~</span><span class="n">T</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>可以发现逻辑非常清晰，但委员会一般对新增关键字比较谨慎。后来<code>static_if</code>被重命名为<code>constexpr_if</code>，再后来变成了我们今天熟悉的这种形式，并进入了<a href="https://en.cppreference.com/w/cpp/language/if#Constexpr_if" target="_blank">C++17</a>：</p>
+</span></span></code></pre></div><p>可以发现逻辑非常清晰，但委员会一般对新增关键字比较谨慎。后来<code>static_if</code>被重命名为<code>constexpr_if</code>，再后来变成了我们今天熟悉的这种形式，并进入了<a
+  href="https://en.cppreference.com/w/cpp/language/if#Constexpr_if"
+    target="_blank"
+  >C++17</a>
+：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(...){...}</span>
 </span></span><span class="line"><span class="cl"><span class="k">else</span> <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(...){...}</span>
 </span></span><span class="line"><span class="cl"><span class="k">else</span> <span class="p">{...}</span>
@@ -1081,12 +1208,15 @@
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#2015constexpr-lambda" aria-label="Anchor">#</a>
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#2015constexpr-lambda" aria-label="Anchor">#</a>
     </span>        
     
 </h2>
-<p>提案<a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2015/n4487.pdf" target="_blank">N4487</a>讨论了支持constexpr lambda的可能性，尤其希望在constexpr计算中能够使用lambda表达式，并附带了一个实验性实现。</p>
+<p>提案<a
+  href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2015/n4487.pdf"
+    target="_blank"
+  >N4487</a>
+讨论了支持constexpr lambda的可能性，尤其希望在constexpr计算中能够使用lambda表达式，并附带了一个实验性实现。</p>
 <p>其实支持constexpr的lambda表达式并不困难，我们都知道lambda在C++中是很透明的，基本上完全就是一个匿名的函数对象。函数对象都能是constexpr的，那么支持constexpr的lambda也就是理所当然的事情了。</p>
 <p>唯一需要注意的是，lambda是可以进行捕获的，捕获constexpr的变量会怎么样呢？</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
@@ -1100,15 +1230,22 @@
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">foo</span> <span class="o">=</span> <span class="p">[</span><span class="o">=</span><span class="p">]()</span> <span class="p">{</span> <span class="k">return</span> <span class="o">&amp;</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>可以发现这种情况下，编译器不得不给<code>x</code>分配内存。实际上的判断规则更复杂一些，感兴趣的可以自行参考<a href="https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture" target="_blank">lambda capture</a>。最终这个提案被接受，进入了<a href="https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture:~:text=This%20function%20is%20constexpr%20if%20the%20function%20call%20operator%20%28or%20specialization%2C%20for%20generic%20lambdas%29%20is%20constexpr." target="_blank">C++17</a>。</p>
+</span></span></code></pre></div><p>可以发现这种情况下，编译器不得不给<code>x</code>分配内存。实际上的判断规则更复杂一些，感兴趣的可以自行参考<a
+  href="https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture"
+    target="_blank"
+  >lambda capture</a>
+。最终这个提案被接受，进入了<a
+  href="https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture:~:text=This%20function%20is%20constexpr%20if%20the%20function%20call%20operator%20%28or%20specialization%2C%20for%20generic%20lambdas%29%20is%20constexpr."
+    target="_blank"
+  >C++17</a>
+。</p>
 
 <h2 class="relative group">2017-2019：编译期和运行期&hellip;不同？ 
     <div id="2017-2019编译期和运行期不同" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#2017-2019%e7%bc%96%e8%af%91%e6%9c%9f%e5%92%8c%e8%bf%90%e8%a1%8c%e6%9c%9f%e4%b8%8d%e5%90%8c" aria-label="Anchor">#</a>
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#2017-2019%e7%bc%96%e8%af%91%e6%9c%9f%e5%92%8c%e8%bf%90%e8%a1%8c%e6%9c%9f%e4%b8%8d%e5%90%8c" aria-label="Anchor">#</a>
     </span>        
     
 </h2>
@@ -1122,7 +1259,11 @@
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">dest</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>虽然能在编译期用了，编译期执行效率倒是无所谓，但运行期效率肯定不如标准库的实现。如果能在编译期使用我的实现，运行期使用外部链接的标准库函数就好了。</p>
-<p>提案<a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0595r0.html" target="_blank">P0595</a>希望加入一个新的magic function，也就是<code>constexpr()</code>，用于判断当前函数是否在编译期执行，后来被更名为<code>is_constant_evaluated</code>并进入C++20。使用起来就像下面这样：</p>
+<p>提案<a
+  href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0595r0.html"
+    target="_blank"
+  >P0595</a>
+希望加入一个新的magic function，也就是<code>constexpr()</code>，用于判断当前函数是否在编译期执行，后来被更名为<code>is_constant_evaluated</code>并进入C++20。使用起来就像下面这样：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_constant_evaluated</span><span class="p">())</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
@@ -1137,7 +1278,11 @@
 </span></span><span class="line"><span class="cl">        <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>这种写法被认为是<strong>obviously incorrect</strong>，因为<code>if constexpr</code>的条件只能在编译期执行，所以这里<code>is_constant_evaluated</code>永远会返回<code>true</code>，这与我们最开始的目的相悖了。所以提案<a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p1938r3.html" target="_blank">P1938R3</a>提议加入新的语法来解决这个问题：</p>
+</span></span></code></pre></div><p>这种写法被认为是<strong>obviously incorrect</strong>，因为<code>if constexpr</code>的条件只能在编译期执行，所以这里<code>is_constant_evaluated</code>永远会返回<code>true</code>，这与我们最开始的目的相悖了。所以提案<a
+  href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p1938r3.html"
+    target="_blank"
+  >P1938R3</a>
+提议加入新的语法来解决这个问题：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">if</span> <span class="k">consteval</span> <span class="cm">/* !consteval */</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -1150,8 +1295,7 @@
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#2017-2019%e9%ab%98%e6%95%88%e7%9a%84%e8%b0%83%e8%af%95" aria-label="Anchor">#</a>
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#2017-2019%e9%ab%98%e6%95%88%e7%9a%84%e8%b0%83%e8%af%95" aria-label="Anchor">#</a>
     </span>        
     
 </h2>
@@ -1164,20 +1308,27 @@
 </span></span><span class="line"><span class="cl"><span class="n">in</span> <span class="err">&#39;</span><span class="k">constexpr</span><span class="err">&#39;</span> <span class="n">expansion</span> <span class="n">of</span> <span class="err">&#39;</span><span class="n">foo</span><span class="p">()</span><span class="err">&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="nl">error</span><span class="p">:</span> <span class="n">overflow</span> <span class="n">in</span> <span class="n">constant</span> <span class="n">expression</span> <span class="p">[</span><span class="o">-</span><span class="n">fpermissive</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">  <span class="mi">233</span> <span class="o">|</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">bar</span><span class="p">();</span>
-</span></span></code></pre></div><p>如果函数嵌套多了，报错信息也非常糟糕。不同于模板的地方在于，constexpr函数也可以在运行期运行。所以我们可以在运行期调试代码，最后在编译期执行就好了。但如果考虑到上一小节加的<code>is_constant_evaluated</code>，就会发现这种做法并不完全可行，因为编译期和运行期的代码逻辑可能不同。提案<a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0596r0.html" target="_blank">P0596</a>希望引入<code>constexpr_trace</code>和<code>constexpr_assert</code>来方便编译期调试代码，虽然投票一致赞成，但暂时未进入C++标准。</p>
+</span></span></code></pre></div><p>如果函数嵌套多了，报错信息也非常糟糕。不同于模板的地方在于，constexpr函数也可以在运行期运行。所以我们可以在运行期调试代码，最后在编译期执行就好了。但如果考虑到上一小节加的<code>is_constant_evaluated</code>，就会发现这种做法并不完全可行，因为编译期和运行期的代码逻辑可能不同。提案<a
+  href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0596r0.html"
+    target="_blank"
+  >P0596</a>
+希望引入<code>constexpr_trace</code>和<code>constexpr_assert</code>来方便编译期调试代码，虽然投票一致赞成，但暂时未进入C++标准。</p>
 
 <h2 class="relative group">2017：编译期可变容器 
     <div id="2017编译期可变容器" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#2017%e7%bc%96%e8%af%91%e6%9c%9f%e5%8f%af%e5%8f%98%e5%ae%b9%e5%99%a8" aria-label="Anchor">#</a>
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#2017%e7%bc%96%e8%af%91%e6%9c%9f%e5%8f%af%e5%8f%98%e5%ae%b9%e5%99%a8" aria-label="Anchor">#</a>
     </span>        
     
 </h2>
 <p>尽管在先前的提案中，允许了constexpr函数使用和修改变量，但动态内存分配还是不允许的。如果有未知长度的数据需要处理，一般就是在栈上开一个大数组，这没什么问题。但从实践上来说，有特别多的函数依赖于动态内存分配，支持constexpr函数中使用<code>vector</code>势在必得。</p>
-<p>在当时，直接允许在constexpr函数中使用<code>new</code>/<code>delete</code>似乎过于让人惊讶了，所以提案<a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0597r0.html" target="_blank">P0597</a>想了一个折中的办法，先提供一个magic container叫做<code>std::constexpr_vector</code>，它由编译器实现，并且支持在constexpr函数中使用和修改。</p>
+<p>在当时，直接允许在constexpr函数中使用<code>new</code>/<code>delete</code>似乎过于让人惊讶了，所以提案<a
+  href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0597r0.html"
+    target="_blank"
+  >P0597</a>
+想了一个折中的办法，先提供一个magic container叫做<code>std::constexpr_vector</code>，它由编译器实现，并且支持在constexpr函数中使用和修改。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">constexpr_vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">x</span><span class="p">;</span>  <span class="c1">// ok
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">constexpr</span> <span class="n">constexpr_vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">y</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">};</span>  <span class="c1">// ok
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
@@ -1195,12 +1346,15 @@
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#2018%e7%9c%9f%e6%ad%a3%e7%9a%84%e7%bc%96%e8%af%91%e6%9c%9f%e5%a4%9a%e6%80%81" aria-label="Anchor">#</a>
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#2018%e7%9c%9f%e6%ad%a3%e7%9a%84%e7%bc%96%e8%af%91%e6%9c%9f%e5%a4%9a%e6%80%81" aria-label="Anchor">#</a>
     </span>        
     
 </h2>
-<p>提案<a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1064r0.html" target="_blank">P1064R0</a>希望在常量求值中支持虚函数调用。哎，还不支持动态内存分配呢，咋就要支持虚函数调用了？其实不依赖动态内存分配也可以弄出来多态指针嘛，指向栈上的对象或者静态储存就可以了。</p>
+<p>提案<a
+  href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1064r0.html"
+    target="_blank"
+  >P1064R0</a>
+希望在常量求值中支持虚函数调用。哎，还不支持动态内存分配呢，咋就要支持虚函数调用了？其实不依赖动态内存分配也可以弄出来多态指针嘛，指向栈上的对象或者静态储存就可以了。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Base</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">virtual</span> <span class="kt">int</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
@@ -1215,19 +1369,30 @@
 </span></span><span class="line"><span class="cl">    <span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">foo</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>似乎没有任何理由拒绝上面这段代码编译通过。由于是在编译期执行，编译器当然能知道<code>p</code>指向的是<code>Derived</code>，然后调用<code>Derived::f</code>，实践上没有任何难度。的确如此，之后又有一个新的提案<a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1327r1.html" target="_blank">P1327R1</a>进一步希望<code>dynamic_cast</code>和<code>typeid</code>也能在常量求值中使用，最终它们都被接受并且加入了<a href="https://en.cppreference.com/w/cpp/language/constexpr#:~:text=it%20must%20not%20be%20virtual" target="_blank">C++20</a>，现在可以自由的在编译期使用这些特性了。</p>
+</span></span></code></pre></div><p>似乎没有任何理由拒绝上面这段代码编译通过。由于是在编译期执行，编译器当然能知道<code>p</code>指向的是<code>Derived</code>，然后调用<code>Derived::f</code>，实践上没有任何难度。的确如此，之后又有一个新的提案<a
+  href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1327r1.html"
+    target="_blank"
+  >P1327R1</a>
+进一步希望<code>dynamic_cast</code>和<code>typeid</code>也能在常量求值中使用，最终它们都被接受并且加入了<a
+  href="https://en.cppreference.com/w/cpp/language/constexpr#:~:text=it%20must%20not%20be%20virtual"
+    target="_blank"
+  >C++20</a>
+，现在可以自由的在编译期使用这些特性了。</p>
 
 <h2 class="relative group">2017-2019：真正的动态内存分配！ 
     <div id="2017-2019真正的动态内存分配" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#2017-2019%e7%9c%9f%e6%ad%a3%e7%9a%84%e5%8a%a8%e6%80%81%e5%86%85%e5%ad%98%e5%88%86%e9%85%8d" aria-label="Anchor">#</a>
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#2017-2019%e7%9c%9f%e6%ad%a3%e7%9a%84%e5%8a%a8%e6%80%81%e5%86%85%e5%ad%98%e5%88%86%e9%85%8d" aria-label="Anchor">#</a>
     </span>        
     
 </h2>
-<p>在<a href="https://www.youtube.com/watch?v=HMB9oXFobJc" target="_blank">constexpr everything</a>的这个演示视频中，展示了一个能在编译期处理<code>JSON</code>对象的例子：</p>
+<p>在<a
+  href="https://www.youtube.com/watch?v=HMB9oXFobJc"
+    target="_blank"
+  >constexpr everything</a>
+的这个演示视频中，展示了一个能在编译期处理<code>JSON</code>对象的例子：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">jsv</span><span class="o">=</span> <span class="n">R</span><span class="s">&#34;({</span>
 </span></span><span class="line"><span class="cl">    <span class="s">&#34;feature-x-enabled&#34;</span><span class="o">:</span> <span class="nb">true</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="s">&#34;value-of-y&#34;</span><span class="o">:</span> <span class="mi">1729</span><span class="p">,</span>
@@ -1242,19 +1407,39 @@
 </span></span><span class="line"><span class="cl">    <span class="c1">// feature y
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></div><p>希望能直接通过解析常量字符串起到配置文件的作用（字符串文本可以由<code>#include</code>引入）。作者们因为不能使用STL的容器受到了严重影响，并且自己编写了替代品。通过<code>std::array</code>来实现<code>std::vector</code>和<code>std::map</code>这样的容器，由于没有动态内存分配，只能预先计算出需要的大小（可能导致多次遍历）或者在栈上开块大内存。</p>
-<p>提案<a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2019/p0784r7.html" target="_blank">P0784R7</a>重新讨论了在常量求值中支持标准库容器的可能性。</p>
+<p>提案<a
+  href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2019/p0784r7.html"
+    target="_blank"
+  >P0784R7</a>
+重新讨论了在常量求值中支持标准库容器的可能性。</p>
 <p>主要有以下三个难点：</p>
 <ul>
 <li>析构函数不能被声明为constexpr（对于constexpr对象，它们必须是trivial的）</li>
 <li>无法进行动态内存分配/释放</li>
-<li>无法在常量求值中使用<a href="https://en.cppreference.com/w/cpp/language/new#Placement_new" target="_blank">placement new</a>来调用对象的构造函数</li>
+<li>无法在常量求值中使用<a
+  href="https://en.cppreference.com/w/cpp/language/new#Placement_new"
+    target="_blank"
+  >placement new</a>
+来调用对象的构造函数</li>
 </ul>
-<p>针对第一个问题，作者们与MSVC，GCC，Clang，EDG等前端开发人员快速讨论并解决了这个问题。C++20起，可以符合<a href="https://en.cppreference.com/w/cpp/named_req/LiteralType" target="_blank">literal type</a>要求的类型具有constexpr修饰的析构函数，而不是严格要求平凡的析构函数。</p>
+<p>针对第一个问题，作者们与MSVC，GCC，Clang，EDG等前端开发人员快速讨论并解决了这个问题。C++20起，可以符合<a
+  href="https://en.cppreference.com/w/cpp/named_req/LiteralType"
+    target="_blank"
+  >literal type</a>
+要求的类型具有constexpr修饰的析构函数，而不是严格要求平凡的析构函数。</p>
 <p>针对第二个问题，处理起来并不简单。C++有很多未定义行为都是由于错误的内存处理导致的，相比之下，不能直接操作内存的脚本语言则安全的多。但是为了复用代码，C++编译器中的常量求值器不得不直接操作内存，不过由于所有信息都是编译期已知的，理论上可以保证常量求值中不会出现内存错误（out of range, double free, memory leak, &hellip;），如果出现应该中止编译并报告错误。</p>
 <p>常量求值器需要跟踪许多对象的元信息，并找出这些错误：</p>
 <ul>
-<li>记录<code>union</code>哪个field是active的，访问unactive的成员导致未定义行为，这由<a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1330r0.pdf" target="_blank">P1330</a>阐明</li>
-<li>正确记录对象的<a href="https://en.cppreference.com/w/cpp/language/lifetime" target="_blank">lifetime</a>，访问未初始化的内存和已经析构的对象都是不允许的</li>
+<li>记录<code>union</code>哪个field是active的，访问unactive的成员导致未定义行为，这由<a
+  href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1330r0.pdf"
+    target="_blank"
+  >P1330</a>
+阐明</li>
+<li>正确记录对象的<a
+  href="https://en.cppreference.com/w/cpp/language/lifetime"
+    target="_blank"
+  >lifetime</a>
+，访问未初始化的内存和已经析构的对象都是不允许的</li>
 </ul>
 <p>当时还不允许在常量求值中把<code>void*</code>转换成<code>T*</code>，所以理所当然的：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">);</span>
@@ -1268,7 +1453,15 @@
 </span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">pb</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">.</span><span class="n">allocate</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">alloc</span><span class="p">.</span><span class="n">deallocate</span><span class="p">(</span><span class="n">pb</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 </span></span></code></pre></div><p>它们返回的都是<code>T*</code>，并且由编译器实现，这对于支持标准库容器来说已经足够了。</p>
-<p>对于第三个问题，则是添加了一个magic function即<a href="https://en.cppreference.com/w/cpp/memory/construct_at" target="_blank">std::construct_at</a>，它的作用是在指定的内存位置上调用对象的构造函数，用来在常量求值中取代<code>placement new</code>。这样的话我们就可以先通过<code>std::allocator</code>分配内存，再通过<code>std::construct_at</code>来构造对象了。该提案最终被接受，进入了<a href="https://en.cppreference.com/w/cpp/memory/construct_at" target="_blank">C++20</a>，同时使得<code>std::vector</code>，<code>std::string</code>在常量求值中可用（其它的容器理论上也行，但目前的实现还没支持，如果非常想要只能自己搓一个了）。</p>
+<p>对于第三个问题，则是添加了一个magic function即<a
+  href="https://en.cppreference.com/w/cpp/memory/construct_at"
+    target="_blank"
+  >std::construct_at</a>
+，它的作用是在指定的内存位置上调用对象的构造函数，用来在常量求值中取代<code>placement new</code>。这样的话我们就可以先通过<code>std::allocator</code>分配内存，再通过<code>std::construct_at</code>来构造对象了。该提案最终被接受，进入了<a
+  href="https://en.cppreference.com/w/cpp/memory/construct_at"
+    target="_blank"
+  >C++20</a>
+，同时使得<code>std::vector</code>，<code>std::string</code>在常量求值中可用（其它的容器理论上也行，但目前的实现还没支持，如果非常想要只能自己搓一个了）。</p>
 <p>虽然支持了动态内存分配，但并不是毫无限制。<strong>在一次常量求值中分配的内存必须要在这次常量求值结束之前释放完全，不能有内存泄漏，否则会导致编译错误</strong>。这种类型的内存分配被叫做<em>transient constexpr allocations（瞬态内存分配）</em>。该提案也讨论了<em>non-transient allocation（非瞬态内存分配）</em>，在编译期未被释放的内存，将被转为静态储存（其实就是存在数据区，就像全局变量那样）。但是，委员会认为这种可能性&quot;too brittle&quot;，出于多种原因，目前尚未采纳。</p>
 
 <h2 class="relative group">2018：更多的constexpr 
@@ -1276,12 +1469,15 @@
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#2018%e6%9b%b4%e5%a4%9a%e7%9a%84constexpr" aria-label="Anchor">#</a>
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#2018%e6%9b%b4%e5%a4%9a%e7%9a%84constexpr" aria-label="Anchor">#</a>
     </span>        
     
 </h2>
-<p>提案<a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1002r1.pdf" target="_blank">P1002</a>希望在constexpr函数中支持<code>try-catch</code>块。但不能<code>throw</code>，这样是为了能把更多的标准库容器的成员函数标记为<code>constexpr</code>。</p>
+<p>提案<a
+  href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1002r1.pdf"
+    target="_blank"
+  >P1002</a>
+希望在constexpr函数中支持<code>try-catch</code>块。但不能<code>throw</code>，这样是为了能把更多的标准库容器的成员函数标记为<code>constexpr</code>。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">foo</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
@@ -1298,8 +1494,7 @@
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#2018%e4%bf%9d%e8%af%81%e7%bc%96%e8%af%91%e6%9c%9f%e6%89%a7%e8%a1%8c" aria-label="Anchor">#</a>
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#2018%e4%bf%9d%e8%af%81%e7%bc%96%e8%af%91%e6%9c%9f%e6%89%a7%e8%a1%8c" aria-label="Anchor">#</a>
     </span>        
     
 </h2>
@@ -1312,57 +1507,68 @@
 </span></span></span></code></pre></div><p>事实上<code>g</code>无论是在编译期还是运行期执行，理论上都可以。为了保证它在编译期执行，我们需要多写一些代码：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">foo</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
-</span></span></code></pre></div><p>这样就保证了<code>g</code>在编译期执行，同样，这种没意义的局部变量实在是多余。提案<a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1073r0.html" target="_blank">P1073</a>希望增加一个标记<code>constexpr!</code>来确保一个函数在编译期执行，如果不满足则导致编译错误。最终该标记被更名为[consteval](<a href="https://en.cppreference.com/w" target="_blank">https://en.cppreference.com/w</a></p>
+</span></span></code></pre></div><p>这样就保证了<code>g</code>在编译期执行，同样，这种没意义的局部变量实在是多余。提案<a
+  href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1073r0.html"
+    target="_blank"
+  >P1073</a>
+希望增加一个标记<code>constexpr!</code>来确保一个函数在编译期执行，如果不满足则导致编译错误。最终该标记被更名为[consteval](<a
+  href="https://en.cppreference.com/w"
+    target="_blank"
+  >https://en.cppreference.com/w</a>
+</p>
 
           
           
           
         </div>
-        
+
         
 
         
-<details style="margin-left:0px" class="mt-2 mb-5 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5">
+  <details class="mt-2 mb-5 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 margin-left-[0px]">
     
-    <summary
-        class="py-1 text-lg font-semibold cursor-pointer bg-primary-200 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-primary-800 dark:text-neutral-100">
-        Constexpr - This article is part of a series.
-    </summary>
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-primary-200 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-primary-800 dark:text-neutral-100">
+    Constexpr -
+    This article is part of a series.
+  </summary>
+  
+  
     
-    
-    
-    <div
+      <div
         class="py-1 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
         <a href="/en/articles/682031684/">
-            Part 1: C&#43;&#43; 中 constexpr 的发展史！（上篇）
+          Part 1:
+          C&#43;&#43; 中 constexpr 的发展史！（上篇）
         </a>
-    </div>
+      </div>
     
+  
     
-    
-    <div
+      <div
         class="py-1 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
-        Part 2: This Article
-    </div>
+        Part 2:
+        This Article
+      </div>
     
-    
+  
 
 
-</details>
+  </details>
+
 
         
   
   <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
     
       
-      <a
-      target="_blank"
-      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/en/articles/683463723/&amp;title=C&#43;&#43;%e4%b8%adconstexpr%e7%9a%84%e5%8e%86%e5%8f%b2%ef%bc%81%ef%bc%88%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%ef%bc%89"
-      title="Share on LinkedIn"
-      aria-label="Share on LinkedIn"
-      >
-      
+        <a
+          target="_blank"
+          class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/en/articles/683463723/&amp;title=C&#43;&#43;%e4%b8%adconstexpr%e7%9a%84%e5%8e%86%e5%8f%b2%ef%bc%81%ef%bc%88%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%ef%bc%89"
+          title="Share on LinkedIn"
+          aria-label="Share on LinkedIn">
+          
 
   <span class="relative block icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
@@ -1370,36 +1576,34 @@
   </span>
 
 
-    </a>
+        </a>
       
     
       
-      <a
-      target="_blank"
-      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/en/articles/683463723/&amp;text=C&#43;&#43;%e4%b8%adconstexpr%e7%9a%84%e5%8e%86%e5%8f%b2%ef%bc%81%ef%bc%88%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%ef%bc%89"
-      title="Tweet on Twitter"
-      aria-label="Tweet on Twitter"
-      >
-      
+        <a
+          target="_blank"
+          class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/en/articles/683463723/&amp;text=C&#43;&#43;%e4%b8%adconstexpr%e7%9a%84%e5%8e%86%e5%8f%b2%ef%bc%81%ef%bc%88%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%ef%bc%89"
+          title="Tweet on Twitter"
+          aria-label="Tweet on Twitter">
+          
 
   <span class="relative block icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
   </span>
 
 
-    </a>
+        </a>
       
     
       
-      <a
-      target="_blank"
-      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://reddit.com/submit/?url=https://www.ykiko.me/en/articles/683463723/&amp;resubmit=true&amp;title=C&#43;&#43;%e4%b8%adconstexpr%e7%9a%84%e5%8e%86%e5%8f%b2%ef%bc%81%ef%bc%88%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%ef%bc%89"
-      title="Submit to Reddit"
-      aria-label="Submit to Reddit"
-      >
-      
+        <a
+          target="_blank"
+          class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://reddit.com/submit/?url=https://www.ykiko.me/en/articles/683463723/&amp;resubmit=true&amp;title=C&#43;&#43;%e4%b8%adconstexpr%e7%9a%84%e5%8e%86%e5%8f%b2%ef%bc%81%ef%bc%88%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%ef%bc%89"
+          title="Submit to Reddit"
+          aria-label="Submit to Reddit">
+          
 
   <span class="relative block icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z"/></svg>
@@ -1407,18 +1611,17 @@
   </span>
 
 
-    </a>
+        </a>
       
     
       
-      <a
-      target="_blank"
-      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://api.whatsapp.com/send?text=https://www.ykiko.me/en/articles/683463723/&amp;resubmit=true&amp;title=C&#43;&#43;%e4%b8%adconstexpr%e7%9a%84%e5%8e%86%e5%8f%b2%ef%bc%81%ef%bc%88%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%ef%bc%89"
-      title="Share via WhatsApp"
-      aria-label="Share via WhatsApp"
-      >
-      
+        <a
+          target="_blank"
+          class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://api.whatsapp.com/send?text=https://www.ykiko.me/en/articles/683463723/&amp;resubmit=true&amp;title=C&#43;&#43;%e4%b8%adconstexpr%e7%9a%84%e5%8e%86%e5%8f%b2%ef%bc%81%ef%bc%88%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%ef%bc%89"
+          title="Share via WhatsApp"
+          aria-label="Share via WhatsApp">
+          
 
   <span class="relative block icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
@@ -1426,18 +1629,17 @@
   </span>
 
 
-    </a>
+        </a>
       
     
       
-      <a
-      target="_blank"
-      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://t.me/share/url?url=https://www.ykiko.me/en/articles/683463723/&amp;resubmit=true&amp;title=C&#43;&#43;%e4%b8%adconstexpr%e7%9a%84%e5%8e%86%e5%8f%b2%ef%bc%81%ef%bc%88%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%ef%bc%89"
-      title="Share via Telegram"
-      aria-label="Share via Telegram"
-      >
-      
+        <a
+          target="_blank"
+          class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://t.me/share/url?url=https://www.ykiko.me/en/articles/683463723/&amp;resubmit=true&amp;title=C&#43;&#43;%e4%b8%adconstexpr%e7%9a%84%e5%8e%86%e5%8f%b2%ef%bc%81%ef%bc%88%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%ef%bc%89"
+          title="Share via Telegram"
+          aria-label="Share via Telegram">
+          
 
   <span class="relative block icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M248,8C111.033,8,0,119.033,0,256S111.033,504,248,504,496,392.967,496,256,384.967,8,248,8ZM362.952,176.66c-3.732,39.215-19.881,134.378-28.1,178.3-3.476,18.584-10.322,24.816-16.948,25.425-14.4,1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25,5.342-39.5,3.652-3.793,67.107-61.51,68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608,69.142-14.845,10.194-26.894,9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7,18.45-13.7,108.446-47.248,144.628-62.3c68.872-28.647,83.183-33.623,92.511-33.789,2.052-.034,6.639.474,9.61,2.885a10.452,10.452,0,0,1,3.53,6.716A43.765,43.765,0,0,1,362.952,176.66Z"/></svg>
@@ -1445,18 +1647,17 @@
   </span>
 
 
-    </a>
+        </a>
       
     
       
-      <a
-      target="_blank"
-      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/en/articles/683463723/&amp;description=C&#43;&#43;%e4%b8%adconstexpr%e7%9a%84%e5%8e%86%e5%8f%b2%ef%bc%81%ef%bc%88%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%ef%bc%89"
-      title="Pin on Pinterest"
-      aria-label="Pin on Pinterest"
-      >
-      
+        <a
+          target="_blank"
+          class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/en/articles/683463723/&amp;description=C&#43;&#43;%e4%b8%adconstexpr%e7%9a%84%e5%8e%86%e5%8f%b2%ef%bc%81%ef%bc%88%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%ef%bc%89"
+          title="Pin on Pinterest"
+          aria-label="Pin on Pinterest">
+          
 
   <span class="relative block icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"/></svg>
@@ -1464,18 +1665,17 @@
   </span>
 
 
-    </a>
+        </a>
       
     
       
-      <a
-      target="_blank"
-      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/en/articles/683463723/&amp;quote=C&#43;&#43;%e4%b8%adconstexpr%e7%9a%84%e5%8e%86%e5%8f%b2%ef%bc%81%ef%bc%88%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%ef%bc%89"
-      title="Share on Facebook"
-      aria-label="Share on Facebook"
-      >
-      
+        <a
+          target="_blank"
+          class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/en/articles/683463723/&amp;quote=C&#43;&#43;%e4%b8%adconstexpr%e7%9a%84%e5%8e%86%e5%8f%b2%ef%bc%81%ef%bc%88%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%ef%bc%89"
+          title="Share on Facebook"
+          aria-label="Share on Facebook">
+          
 
   <span class="relative block icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
@@ -1483,18 +1683,17 @@
   </span>
 
 
-    </a>
+        </a>
       
     
       
-      <a
-      target="_blank"
-      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-      href="mailto:?body=https://www.ykiko.me/en/articles/683463723/&amp;subject=C&#43;&#43;%e4%b8%adconstexpr%e7%9a%84%e5%8e%86%e5%8f%b2%ef%bc%81%ef%bc%88%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%ef%bc%89"
-      title="Send via email"
-      aria-label="Send via email"
-      >
-      
+        <a
+          target="_blank"
+          class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="mailto:?body=https://www.ykiko.me/en/articles/683463723/&amp;subject=C&#43;&#43;%e4%b8%adconstexpr%e7%9a%84%e5%8e%86%e5%8f%b2%ef%bc%81%ef%bc%88%e7%ac%ac%e4%ba%8c%e9%83%a8%e5%88%86%ef%bc%89"
+          title="Send via email"
+          aria-label="Send via email">
+          
 
   <span class="relative block icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
@@ -1502,47 +1701,48 @@
   </span>
 
 
-    </a>
+        </a>
       
     
   </section>
 
 
         
-
-
   
+  
+
+
       </div>
-     
-      
-      
-        
-        
-          
-          
-        
-          
-          
-        
-      <script>
-        var oid = "views_articles\/683463723\/index.md"
-        var oid_likes = "likes_articles\/683463723\/index.md"
-      </script>
-      
-      
-      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
-      
-  
-    </section>
-  <footer class="pt-8 max-w-prose print:hidden">
 
-    
+      
+      
+        
+        
+          
+          
+        
+          
+          
+        
+        
+        
+        <script
+          type="text/javascript"
+          src="/js/page.min.407e5b2727c1f241c95d53db24c776bea71bfc18e09511b815d669ad8caca6e9e18a53864ad364b1ccccfa2f2956768d33cfe193bfb64d3406f3b5ece354ba57.js"
+          integrity="sha512-QH5bJyfB8kHJXVPbJMd2vqcb/BjglRG4FdZprYyspunhilOGStNksczM&#43;i8pVnaNM8/hk7&#43;2TTQG87Xs41S6Vw=="
+          data-oid="views_articles/683463723/index.md"
+          data-oid-likes="likes_articles/683463723/index.md"></script>
+      
+
+    </section>
+    <footer class="pt-8 max-w-prose print:hidden">
+      
   
     
     
     
     <div class="pt-8">
-      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
       <div class="flex justify-between pt-3">
         <span>
           
@@ -1556,8 +1756,7 @@
                 >&rarr;</span
               >
               <span class="flex flex-col">
-                <span
-                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
                   >C++ 中 constexpr 的发展史！（上篇）</span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
@@ -1573,8 +1772,7 @@
           
             <a class="flex text-right group ml-3" href="/en/articles/686296374/">
               <span class="flex flex-col">
-                <span
-                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
                   >Where Exactly Does C++ Code Bloat Occur?</span
                 >
                 <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
@@ -1599,12 +1797,12 @@
   
 
 
-    
-    
-    <div class="pt-3">
-      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
-      <div class="pt-3">
+      
         
+          <div class="pt-3">
+            <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+            <div class="pt-3">
+              
 <script src="https://giscus.app/client.js" 
     data-repo="16bit-ykiko/about-me" 
     data-repo-id="R_kgDOLNvUfQ"
@@ -1618,21 +1816,24 @@
     data-lang="en" 
     crossorigin="anonymous" async>
 </script>
-      </div>
-    </div>
-    
-    
-  </footer>
-</article>
+            </div>
+          </div>
+        
+      
+    </footer>
+  </article>
 
-      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
-  <a href="#the-top"
+        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a
+    href="#the-top"
     class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
-    aria-label="Scroll to top" title="Scroll to top">
+    aria-label="Scroll to top"
+    title="Scroll to top">
     &uarr;
   </a>
 </div>
-    </main><footer id="site-footer" class="py-10 print:hidden">
+
+      </main><footer id="site-footer" class="py-10 print:hidden">
     <script src="/live2d/autoload.js"></script>
 
     
@@ -1676,14 +1877,11 @@
   </footer>
   <div
   id="search-wrapper"
-  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
-  data-url="https://www.ykiko.me/en/"
-  style="z-index:500"
->
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-index-500"
+  data-url="https://www.ykiko.me/en/">
   <div
     id="search-modal"
-    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
-  >
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
     <header class="relative z-10 flex items-center justify-between flex-none px-2">
       <form class="flex items-center flex-auto min-w-0">
         <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
@@ -1701,14 +1899,12 @@
           id="search-query"
           class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
           placeholder="Search"
-          tabindex="0"
-        />
+          tabindex="0">
       </form>
       <button
         id="close-search-button"
         class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
-        title="Close (Esc)"
-      >
+        title="Close (Esc)">
         
 
   <span class="relative block icon">
@@ -1727,7 +1923,7 @@
   </div>
 </div>
 
-  </div>
-</body>
-
+    </div>
+  </body>
+  
 </html>
