@@ -94,8 +94,7 @@
 &lt;p&gt;反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的&lt;strong&gt;惯用词&lt;/strong&gt;一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 &lt;a
   href=&#34;https://doc.rust-lang.org/stable/std/any/index.html&#34;
     target=&#34;_blank&#34;
-  &gt;std::Any 模块&lt;/a&gt;
- 的介绍。里面提到了&lt;/p&gt;</description>
+  &gt;std::Any 模块&lt;/a&gt; 的介绍。里面提到了&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/669358870/featured.png" />
     </item>
     

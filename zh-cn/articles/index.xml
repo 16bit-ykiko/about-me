@@ -18,8 +18,7 @@
       <description>&lt;p&gt;距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 &lt;a
   href=&#34;https://github.com/clice-project/clice&#34;
     target=&#34;_blank&#34;
-  &gt;clice&lt;/a&gt;
- —— 一个全新的 C++ 语言服务器 (language server)。&lt;/p&gt;</description>
+  &gt;clice&lt;/a&gt; —— 一个全新的 C++ 语言服务器 (language server)。&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/13394352064/featured.png" />
     </item>
     
@@ -42,16 +41,13 @@
       <description>&lt;p&gt;参加了 &lt;a
   href=&#34;https://summerofcode.withgoogle.com/programs/2024/projects/Ji2Mi97o&#34;
     target=&#34;_blank&#34;
-  &gt;Google Summer of Code 2024&lt;/a&gt;
-，主要的任务就是为一个 &lt;a
+  &gt;Google Summer of Code 2024&lt;/a&gt;，主要的任务就是为一个 &lt;a
   href=&#34;https://pocketpy.dev/&#34;
     target=&#34;_blank&#34;
-  &gt;Python 解释器&lt;/a&gt;
- 实现 &lt;a
+  &gt;Python 解释器&lt;/a&gt; 实现 &lt;a
   href=&#34;https://github.com/pybind/pybind11&#34;
     target=&#34;_blank&#34;
-  &gt;pybind11&lt;/a&gt;
- 的兼容性接口。说是实现兼容性接口，实际上相当于重写 pybind11 了，所以最近一直在读它的源码。&lt;/p&gt;</description>
+  &gt;pybind11&lt;/a&gt; 的兼容性接口。说是实现兼容性接口，实际上相当于重写 pybind11 了，所以最近一直在读它的源码。&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/702197261/featured.png" />
     </item>
     
@@ -74,20 +70,16 @@
       <description>&lt;p&gt;&lt;a
   href=&#34;https://godbolt.org/&#34;
     target=&#34;_blank&#34;
-  &gt;Compiler Explorer&lt;/a&gt;
- 是一个非常流行的 C++ 在线编译器，可用于测试不同的编译执行环境，或者分享代码。作为一个 C++ 爱好者，我几乎每天都要和它打交道，使用频率之高远超我的想象。同时，我也是一个重度 VSCode 用户，几乎所有的事情都在 VSCode 中完成。考虑到经常在本地写代码然后拷贝到 Compiler Explorer 上去，总觉得不太舒服，有时候直接就在它的网页编辑器上改了，但是又没有代码补全，也不舒服。所以我和 &lt;a
+  &gt;Compiler Explorer&lt;/a&gt; 是一个非常流行的 C++ 在线编译器，可用于测试不同的编译执行环境，或者分享代码。作为一个 C++ 爱好者，我几乎每天都要和它打交道，使用频率之高远超我的想象。同时，我也是一个重度 VSCode 用户，几乎所有的事情都在 VSCode 中完成。考虑到经常在本地写代码然后拷贝到 Compiler Explorer 上去，总觉得不太舒服，有时候直接就在它的网页编辑器上改了，但是又没有代码补全，也不舒服。所以我和 &lt;a
   href=&#34;https://www.zhihu.com/people/32ffceca937677f7950b64e5186bb998&#34;
     target=&#34;_blank&#34;
-  &gt;@iiirhe&lt;/a&gt;
- 合作编写了这个插件 &lt;a
+  &gt;@iiirhe&lt;/a&gt; 合作编写了这个插件 &lt;a
   href=&#34;https://marketplace.visualstudio.com/items?itemName=ykiko.vscode-compiler-explorer&#34;
     target=&#34;_blank&#34;
-  &gt;Compiler Explorer for VSCode&lt;/a&gt;
-，基于 Compiler Explorer 提供的 &lt;a
+  &gt;Compiler Explorer for VSCode&lt;/a&gt;，基于 Compiler Explorer 提供的 &lt;a
   href=&#34;https://github.com/compiler-explorer/compiler-explorer/blob/main/docs/API.md&#34;
     target=&#34;_blank&#34;
-  &gt;API&lt;/a&gt;
- 将 Compiler Explorer 集成到 VSCode 中，使得用户可以在 VSCode 中直接使用 Compiler Explorer 的功能。&lt;/p&gt;</description>
+  &gt;API&lt;/a&gt; 将 Compiler Explorer 集成到 VSCode 中，使得用户可以在 VSCode 中直接使用 Compiler Explorer 的功能。&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/694365783/featured.png" />
     </item>
     
@@ -100,8 +92,7 @@
       <description>&lt;p&gt;Application Binary Interface，也就是我们常说的 ABI，是个让人感觉到既熟悉又陌生的概念。熟悉在哪里？讨论问题的时候经常会讨论到它，看文章的时候经常会提到它，有时候又要处理它导致的兼容性。陌生在哪里？如果有人问你什么是 ABI，你会发现你知道它是怎么一回事，但是要用严谨的语言去描述它有些困难。最后只好照着 &lt;a
   href=&#34;https://en.wikipedia.org/wiki/Application_binary_interface&#34;
     target=&#34;_blank&#34;
-  &gt;WIKI&lt;/a&gt;
- 说：ABI 就是两个二进制程序模块之间的接口。有问题吗？没有问题，作为一个概括性的描述，已经足够了。但是让人感觉到有些空洞。&lt;/p&gt;</description>
+  &gt;WIKI&lt;/a&gt; 说：ABI 就是两个二进制程序模块之间的接口。有问题吗？没有问题，作为一个概括性的描述，已经足够了。但是让人感觉到有些空洞。&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/692886292/featured.png" />
     </item>
     
@@ -124,8 +115,7 @@
       <description>&lt;p&gt;前情提要：&lt;a
   href=&#34;https://www.ykiko.me/zh-cn/articles/682031684&#34;
     target=&#34;_blank&#34;
-  &gt;The History of constexpr in C++! (Part One)&lt;/a&gt;
-&lt;/p&gt;
+  &gt;The History of constexpr in C++! (Part One)&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 class=&#34;relative group&#34;&gt;2015-2016：模板的语法糖 
     &lt;div id=&#34;2015-2016模板的语法糖&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
@@ -139,12 +129,10 @@
 &lt;p&gt;在 C++ 中支持 &lt;a
   href=&#34;https://en.cppreference.com/w/cpp/language/template_specialization&#34;
     target=&#34;_blank&#34;
-  &gt;全特化 (full specialization)&lt;/a&gt;
- 的模板很多，但是支持 &lt;a
+  &gt;全特化 (full specialization)&lt;/a&gt; 的模板很多，但是支持 &lt;a
   href=&#34;https://en.cppreference.com/w/cpp/language/partial_specialization&#34;
     target=&#34;_blank&#34;
-  &gt;偏特化 (partial specialization)&lt;/a&gt;
- 的模板并不多，事实上其实只有类模板 (class template) 和变量模板 (variable template) 两种支持，而变量模板其实可以看做类模板的语法糖，四舍五入一下其实只有类模板支持偏特化。不支持偏特化会导致有些代码十分难写&lt;/p&gt;</description>
+  &gt;偏特化 (partial specialization)&lt;/a&gt; 的模板并不多，事实上其实只有类模板 (class template) 和变量模板 (variable template) 两种支持，而变量模板其实可以看做类模板的语法糖，四舍五入一下其实只有类模板支持偏特化。不支持偏特化会导致有些代码十分难写&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/683463723/featured.png" />
     </item>
     
@@ -157,8 +145,7 @@
       <description>&lt;p&gt;几个月前，我写了一篇介绍 C++ 模板的文章：&lt;a
   href=&#34;https://www.ykiko.me/zh-cn/articles/655902377&#34;
     target=&#34;_blank&#34;
-  &gt;雾里看花：真正意义上的理解 C++ 模板&lt;/a&gt;
-。&lt;/p&gt;</description>
+  &gt;雾里看花：真正意义上的理解 C++ 模板&lt;/a&gt;。&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/682031684/featured.png" />
     </item>
     
@@ -296,8 +283,7 @@
 &lt;p&gt;反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的&lt;strong&gt;惯用词&lt;/strong&gt;一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 &lt;a
   href=&#34;https://doc.rust-lang.org/stable/std/any/index.html&#34;
     target=&#34;_blank&#34;
-  &gt;std::Any 模块&lt;/a&gt;
- 的介绍。里面提到了&lt;/p&gt;</description>
+  &gt;std::Any 模块&lt;/a&gt; 的介绍。里面提到了&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/669358870/featured.png" />
     </item>
     
@@ -349,8 +335,7 @@
       <description>&lt;p&gt;上一篇 &lt;a
   href=&#34;https://www.ykiko.me/zh-cn/articles/646752343&#34;
     target=&#34;_blank&#34;
-  &gt;文章&lt;/a&gt;
- 我们初步了解了 STMP 的原理，并且利用它实现了简单的一个编译期的计数器。然而，它的威力远不止如此，这篇文章就来讨论一些基于 STMP 的高级应用。&lt;/p&gt;</description>
+  &gt;文章&lt;/a&gt; 我们初步了解了 STMP 的原理，并且利用它实现了简单的一个编译期的计数器。然而，它的威力远不止如此，这篇文章就来讨论一些基于 STMP 的高级应用。&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/646812253/featured.png" />
     </item>
     

@@ -94,8 +94,7 @@
 &lt;p&gt;The term &amp;ldquo;Reflection&amp;rdquo; is likely familiar to many, even if you haven&amp;rsquo;t used it, you&amp;rsquo;ve probably heard of it. However, like many other &lt;strong&gt;jargon&lt;/strong&gt; in the field of computer science, there isn&amp;rsquo;t a clear and precise definition for reflection. This leads to situations where, for languages like C#, Java, and Python that have reflection, discussing reflection naturally brings to mind the corresponding facilities, APIs, and code examples in those languages, making it very concrete. However, for languages like C, C++, and Rust that lack reflection, when people talk about reflection, there&amp;rsquo;s often uncertainty about what exactly is being referred to, making it very abstract. For example, someone once told me that Rust has reflection, citing the official Rust documentation&amp;rsquo;s introduction to the &lt;a
   href=&#34;https://doc.rust-lang.org/stable/std/any/index.html&#34;
     target=&#34;_blank&#34;
-  &gt;std::Any module&lt;/a&gt;
-, which mentions:&lt;/p&gt;</description>
+  &gt;std::Any module&lt;/a&gt;, which mentions:&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/669358870/featured.png" />
     </item>
     

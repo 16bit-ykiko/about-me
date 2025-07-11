@@ -18,8 +18,7 @@
       <description>&lt;p&gt;前情提要：&lt;a
   href=&#34;https://www.ykiko.me/zh-cn/articles/682031684&#34;
     target=&#34;_blank&#34;
-  &gt;The History of constexpr in C++! (Part One)&lt;/a&gt;
-&lt;/p&gt;
+  &gt;The History of constexpr in C++! (Part One)&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 class=&#34;relative group&#34;&gt;2015-2016：模板的语法糖 
     &lt;div id=&#34;2015-2016模板的语法糖&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
@@ -33,12 +32,10 @@
 &lt;p&gt;在 C++ 中支持 &lt;a
   href=&#34;https://en.cppreference.com/w/cpp/language/template_specialization&#34;
     target=&#34;_blank&#34;
-  &gt;全特化 (full specialization)&lt;/a&gt;
- 的模板很多，但是支持 &lt;a
+  &gt;全特化 (full specialization)&lt;/a&gt; 的模板很多，但是支持 &lt;a
   href=&#34;https://en.cppreference.com/w/cpp/language/partial_specialization&#34;
     target=&#34;_blank&#34;
-  &gt;偏特化 (partial specialization)&lt;/a&gt;
- 的模板并不多，事实上其实只有类模板 (class template) 和变量模板 (variable template) 两种支持，而变量模板其实可以看做类模板的语法糖，四舍五入一下其实只有类模板支持偏特化。不支持偏特化会导致有些代码十分难写&lt;/p&gt;</description>
+  &gt;偏特化 (partial specialization)&lt;/a&gt; 的模板并不多，事实上其实只有类模板 (class template) 和变量模板 (variable template) 两种支持，而变量模板其实可以看做类模板的语法糖，四舍五入一下其实只有类模板支持偏特化。不支持偏特化会导致有些代码十分难写&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/683463723/featured.png" />
     </item>
     
@@ -51,8 +48,7 @@
       <description>&lt;p&gt;几个月前，我写了一篇介绍 C++ 模板的文章：&lt;a
   href=&#34;https://www.ykiko.me/zh-cn/articles/655902377&#34;
     target=&#34;_blank&#34;
-  &gt;雾里看花：真正意义上的理解 C++ 模板&lt;/a&gt;
-。&lt;/p&gt;</description>
+  &gt;雾里看花：真正意义上的理解 C++ 模板&lt;/a&gt;。&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/zh-cn/articles/682031684/featured.png" />
     </item>
     

@@ -5,24 +5,24 @@
   class="scroll-smooth"
   data-default-appearance="dark"
   data-auto-appearance="true"><head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   
-  <meta http-equiv="content-language" content="zh-cn" />
+    <meta http-equiv="content-language" content="zh-cn">
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color">
+
   
   <title>The History of constexpr in C&#43;&#43;! (Part Two) &middot; ykiko&#39;s blog</title>
-  <meta name="title" content="The History of constexpr in C&#43;&#43;! (Part Two) &middot; ykiko&#39;s blog" />
+    <meta name="title" content="The History of constexpr in C&#43;&#43;! (Part Two) &middot; ykiko&#39;s blog">
+
   
-  <meta name="description" content="mainly about computer science and mathematics" />
-  
-  
-  
-  <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/683463723/" />
+  <meta name="description" content="mainly about computer science and mathematics">
   
   
   
+  <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/683463723/">
   
   
   
@@ -30,13 +30,573 @@
   
   
   
-  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.75efbde0b99ff286fae6f03226990076e6f98602b18d149b71f05e113f0fc7184122892266ac783102fe78fdbd53798b33201d9f3b7e00286104f2b671d240e7.css"
-    integrity="sha512-de&#43;94Lmf8ob65vAyJpkAdub5hgKxjRSbcfBeET8PxxhBIokiZqx4MQL&#43;eP29U3mLMyAdnzt&#43;AChhBPK2cdJA5w==" />
   
   
-  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+  
+    
+    
+  
+
+  
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+  
+  
+    
+      
+    
+  
+    
+      
+    
+  
+  
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+    
+    
+      
+      
+      
+      
+    
+  
+    
+    
+      
+      
+    
+    
+      
+      
+      
+      
+    
+      
+      
+      
+      
+    
+  
+
+  
+  
+  
+
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.134fe93564843895a739793a43308dcf256fd6344ebfdf90292975c756466c42487cdf8e129e25d94c0bf61c1e68ddddc879c28a64077d7a672078cf0db00b95.css"
+    integrity="sha512-E0/pNWSEOJWnOXk6QzCNzyVv1jROv9&#43;QKSl1x1ZGbEJIfN&#43;OEp4l2UwL9hweaN3dyHnCimQHfXpnIHjPDbALlQ==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
     integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
   
+    
+    
+    
+  
+  
+    
+    
   
   
   
@@ -46,35 +606,42 @@
   
   
   
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.b363d716a7ea4bad623779c04878b62e384759903bf0e247658d199ca391ca711253abc6e0b593fe91b9cc9b7e1b36fb85730691a0d891ae9a8cfee6a986e58f.js"
+      integrity="sha512-s2PXFqfqS61iN3nASHi2LjhHWZA78OJHZY0ZnKORynESU6vG4LWT/pG5zJt&#43;Gzb7hXMGkaDYka6ajP7mqYbljw=="
+      data-copy="复制"
+      data-copied="已复制"></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
   
   
   
   
-  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.ad1683837cd67d72f5cfc4b3c167aaf215774df45509753a181b9a150cb581a45205da15b9053f035d4579c1669ea6eb974971d0a25115b3b549a3567c00d41a.js"
-    integrity="sha512-rRaDg3zWfXL1z8SzwWeq8hV3TfRVCXU6GBuaFQy1gaRSBdoVuQU/A11FecFmnqbrl0lx0KJRFbO1SaNWfADUGg==" data-copy="复制" data-copied="已复制"></script>
   
   
-  
-  <script src="/lib/zoom/zoom.min.f592a181a15d2a5b042daa7f746c3721acf9063f8b6acd175d989129865a37d400ae0e85b640f9ad42cd98d1f8ad30931718cf8811abdcc5fcb264400d1a2b0c.js" integrity="sha512-9ZKhgaFdKlsELap/dGw3Iaz5Bj&#43;Las0XXZiRKYZaN9QArg6FtkD5rULNmNH4rTCTFxjPiBGr3MX8smRADRorDA=="></script>
-  
-  
-  
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-  <link rel="manifest" href="/site.webmanifest" />
-  
-  
-  
-  
-  
-  
-  
+
   
   <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/683463723/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
   <meta property="og:title" content="The History of constexpr in C&#43;&#43;! (Part Two)">
-  <meta property="og:description" content="前情提要：The History of constexpr in C&#43;&#43;! (Part One) 2015-2016：模板的语法糖 # 在 C&#43;&#43; 中支持 全特化 (full specialization) 的模板很多，但是支持 偏特化 (partial specialization) 的模板并不多，事实上其实只有类模板 (class template) 和变量模板 (variable template) 两种支持，而变量模板其实可以看做类模板的语法糖，四舍五入一下其实只有类模板支持偏特化。不支持偏特化会导致有些代码十分难写">
+  <meta property="og:description" content="前情提要：The History of constexpr in C&#43;&#43;! (Part One)
+2015-2016：模板的语法糖 # 在 C&#43;&#43; 中支持 全特化 (full specialization) 的模板很多，但是支持 偏特化 (partial specialization) 的模板并不多，事实上其实只有类模板 (class template) 和变量模板 (variable template) 两种支持，而变量模板其实可以看做类模板的语法糖，四舍五入一下其实只有类模板支持偏特化。不支持偏特化会导致有些代码十分难写">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
@@ -87,9 +654,10 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/683463723/featured.png">
   <meta name="twitter:title" content="The History of constexpr in C&#43;&#43;! (Part Two)">
-  <meta name="twitter:description" content="前情提要：The History of constexpr in C&#43;&#43;! (Part One) 2015-2016：模板的语法糖 # 在 C&#43;&#43; 中支持 全特化 (full specialization) 的模板很多，但是支持 偏特化 (partial specialization) 的模板并不多，事实上其实只有类模板 (class template) 和变量模板 (variable template) 两种支持，而变量模板其实可以看做类模板的语法糖，四舍五入一下其实只有类模板支持偏特化。不支持偏特化会导致有些代码十分难写">
-
-  
+  <meta name="twitter:description" content="前情提要：The History of constexpr in C&#43;&#43;! (Part One)
+2015-2016：模板的语法糖 # 在 C&#43;&#43; 中支持 全特化 (full specialization) 的模板很多，但是支持 偏特化 (partial specialization) 的模板并不多，事实上其实只有类模板 (class template) 和变量模板 (variable template) 两种支持，而变量模板其实可以看做类模板的语法糖，四舍五入一下其实只有类模板支持偏特化。不支持偏特化会导致有些代码十分难写">
+<meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/683463723/featured.png">
+    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/683463723/featured.png">
   <script type="application/ld+json">
   [{
     "@context": "https://schema.org",
@@ -98,7 +666,7 @@
     "name": "The History of constexpr in C\u002b\u002b! (Part Two)",
     "headline": "The History of constexpr in C\u002b\u002b! (Part Two)",
     
-    "abstract": "\u003cp\u003e前情提要：\u003ca\n  href=\u0022https:\/\/www.ykiko.me\/zh-cn\/articles\/682031684\u0022\n    target=\u0022_blank\u0022\n  \u003eThe History of constexpr in C\u002b\u002b! (Part One)\u003c\/a\u003e\n\u003c\/p\u003e\n\n\u003ch2 class=\u0022relative group\u0022\u003e2015-2016：模板的语法糖 \n    \u003cdiv id=\u00222015-2016模板的语法糖\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100\u0022\u003e\n        \u003ca class=\u0022group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline\u0022 href=\u0022#2015-2016%e6%a8%a1%e6%9d%bf%e7%9a%84%e8%af%ad%e6%b3%95%e7%b3%96\u0022 aria-label=\u0022锚点\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e        \n    \n\u003c\/h2\u003e\n\u003cp\u003e在 C\u002b\u002b 中支持 \u003ca\n  href=\u0022https:\/\/en.cppreference.com\/w\/cpp\/language\/template_specialization\u0022\n    target=\u0022_blank\u0022\n  \u003e全特化 (full specialization)\u003c\/a\u003e\n 的模板很多，但是支持 \u003ca\n  href=\u0022https:\/\/en.cppreference.com\/w\/cpp\/language\/partial_specialization\u0022\n    target=\u0022_blank\u0022\n  \u003e偏特化 (partial specialization)\u003c\/a\u003e\n 的模板并不多，事实上其实只有类模板 (class template) 和变量模板 (variable template) 两种支持，而变量模板其实可以看做类模板的语法糖，四舍五入一下其实只有类模板支持偏特化。不支持偏特化会导致有些代码十分难写\u003c\/p\u003e",
+    "abstract": "\u003cp\u003e前情提要：\u003ca\n  href=\u0022https:\/\/www.ykiko.me\/zh-cn\/articles\/682031684\u0022\n    target=\u0022_blank\u0022\n  \u003eThe History of constexpr in C\u002b\u002b! (Part One)\u003c\/a\u003e\u003c\/p\u003e\n\n\u003ch2 class=\u0022relative group\u0022\u003e2015-2016：模板的语法糖 \n    \u003cdiv id=\u00222015-2016模板的语法糖\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100\u0022\u003e\n        \u003ca class=\u0022group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline\u0022 href=\u0022#2015-2016%e6%a8%a1%e6%9d%bf%e7%9a%84%e8%af%ad%e6%b3%95%e7%b3%96\u0022 aria-label=\u0022锚点\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e        \n    \n\u003c\/h2\u003e\n\u003cp\u003e在 C\u002b\u002b 中支持 \u003ca\n  href=\u0022https:\/\/en.cppreference.com\/w\/cpp\/language\/template_specialization\u0022\n    target=\u0022_blank\u0022\n  \u003e全特化 (full specialization)\u003c\/a\u003e 的模板很多，但是支持 \u003ca\n  href=\u0022https:\/\/en.cppreference.com\/w\/cpp\/language\/partial_specialization\u0022\n    target=\u0022_blank\u0022\n  \u003e偏特化 (partial specialization)\u003c\/a\u003e 的模板并不多，事实上其实只有类模板 (class template) 和变量模板 (variable template) 两种支持，而变量模板其实可以看做类模板的语法糖，四舍五入一下其实只有类模板支持偏特化。不支持偏特化会导致有些代码十分难写\u003c\/p\u003e",
     "inLanguage": "zh-cn",
     "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/683463723\/",
     "author" : {
@@ -114,45 +682,53 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "7090"
+    "wordCount": "7137"
   }]
   </script>
 
 
+
   
   
-  <meta name="author" content="ykiko" />
+    <meta name="author" content="ykiko">
   
   
+    
+      
+        
+          <link href="https://github.com/16bit-ykiko" rel="me">
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <link href="https://www.zhihu.com/people/75-49-80-77" rel="me">
+        
+      
+    
+      
+        
+          <link href="https://space.bilibili.com/360835081" rel="me">
+        
+      
+    
+      
+        
+          <link href="https://bangumi.tv/user/857516" rel="me">
+        
+      
+    
   
-  
-  <link href="https://github.com/16bit-ykiko" rel="me" />
-  
-  
-  
-  
-  
-  
-  
-  
-  <link href="https://www.zhihu.com/people/75-49-80-77" rel="me" />
-  
-  
-  
-  
-  <link href="https://space.bilibili.com/360835081" rel="me" />
-  
-  
-  
-  
-  <link href="https://bangumi.tv/user/857516" rel="me" />
-  
-  
-  
+
   
   
 
 <script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
 
 
 
@@ -193,11 +769,13 @@
 
 
 
+
   
   
+
   
   
-  <meta name="theme-color"/>
+
   
   
 
@@ -216,26 +794,41 @@
     
     
       <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-index-100">
+<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-100">
   <div
     id="menu-blur"
     class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
   <div class="relative max-w-[64rem] ml-auto mr-auto">
-    <div class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 padding-main-menu">
     
-    <div class="flex flex-1 items-center justify-between">
-        <nav class="flex space-x-3">
 
-            
-            <a href="/zh-cn/" class="text-base font-medium text-gray-500 hover:text-gray-900">ykiko&rsquo;s blog</a>
-            
 
-        </nav>
-        <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
 
-            
-            
-            
+
+
+
+
+
+
+
+
+<div
+  class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0">
+  
+  
+
+  <div class="flex flex-1 items-center justify-between">
+    <nav class="flex space-x-3">
+      
+        <a href="/zh-cn/" class="text-base font-medium text-gray-500 hover:text-gray-900">
+          ykiko&rsquo;s blog
+        </a>
+      
+    </nav>
+    
+  <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+    
+      
+        
   <a
   href=""
   
@@ -248,8 +841,8 @@
 
 
 
-            
-            
+      
+        
   <a
   href="/zh-cn/articles/"
   
@@ -262,8 +855,8 @@
 
 
 
-            
-            
+      
+        
   <a
   href=""
   
@@ -276,10 +869,10 @@
 
 
 
-            
-            
+      
+    
 
-            
+    
   <div>
     <div class="cursor-pointer flex items-center nested-menu">
       <span class="ltr:mr-1 rtl:ml-1">
@@ -323,10 +916,13 @@
 
 
 
-            
-            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
-                title="">
-                
+    
+      <button
+        id="search-button"
+        aria-label="Search"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+        title="搜索 (/)">
+        
 
   <span class="relative block icon">
     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
@@ -334,17 +930,18 @@
   </span>
 
 
-            </button>
-            
+      </button>
+    
 
-
+    
+      <div class=" flex items-center">
+        <button
+          id="appearance-switcher"
+          aria-label="Dark mode switcher"
+          type="button"
+          class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+          <div class="flex items-center justify-center dark:hidden">
             
-            
-            <div
-                class=" flex items-center">
-                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
-                    <div class="flex items-center justify-center dark:hidden">
-                        
 
   <span class="relative block icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
@@ -352,9 +949,9 @@
   </span>
 
 
-                    </div>
-                    <div class="items-center justify-center hidden dark:flex">
-                        
+          </div>
+          <div class="items-center justify-center hidden dark:flex">
+            
 
   <span class="relative block icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
@@ -362,17 +959,17 @@
   </span>
 
 
-                    </div>
-                </button>
-            </div>
-            
+          </div>
+        </button>
+      </div>
+    
+  </nav>
 
-        </nav>
-        <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+    
+  <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+    <span></span>
 
-            <span></span>
-
-            
+    
   <div>
     <div class="cursor-pointer flex items-center nested-menu">
       <span class="ltr:mr-1 rtl:ml-1">
@@ -415,11 +1012,13 @@
   </div>
 
 
-
-            
-            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
-                title="">
-                
+    
+      <button
+        id="search-button-mobile"
+        aria-label="Search"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+        title="搜索 (/)">
+        
 
   <span class="relative block icon">
     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
@@ -427,14 +1026,17 @@
   </span>
 
 
-            </button>
-            
+      </button>
+    
 
-            
-            
-            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
-                <div class="flex items-center justify-center dark:hidden">
-                    
+    
+      <button
+        id="appearance-switcher-mobile"
+        aria-label="Dark mode switcher"
+        type="button"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400 ltr:mr-1 rtl:ml-1">
+        <div class="flex items-center justify-center dark:hidden">
+          
 
   <span class="relative block icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
@@ -442,9 +1044,9 @@
   </span>
 
 
-                </div>
-                <div class="items-center justify-center hidden dark:flex">
-                    
+        </div>
+        <div class="items-center justify-center hidden dark:flex">
+          
 
   <span class="relative block icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
@@ -452,18 +1054,18 @@
   </span>
 
 
-                </div>
-            </button>
-            
-
         </div>
-    </div>
-    <div class="-my-2 md:hidden">
+      </button>
+    
+  </div>
 
-        <label id="menu-button" class="block">
-            
-            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
-                
+  </div>
+  
+  <div class="-my-2 md:hidden">
+    <div id="menu-button" class="block">
+      
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          
 
   <span class="relative block icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
@@ -471,26 +1073,28 @@
   </span>
 
 
-            </div>
-            <div id="menu-wrapper" class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50 padding-top-[5px]">
-                <ul
-                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
-
-                    <li id="menu-close-button">
-                        <span
-                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+        </div>
+        <div
+          id="menu-wrapper"
+          class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50 pt-[5px]">
+          <ul
+            class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+            <li id="menu-close-button">
+              <span
+                class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+                
 
   <span class="relative block icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
 
   </span>
 
-</span>
-                    </li>
 
-                    
+              </span>
+            </li>
 
-                    
+            
+              
   <li class="mt-1">
   <a
     href=""
@@ -505,10 +1109,8 @@
 
 
 
-
-                    
-
-                    
+            
+              
   <li class="mt-1">
   <a
     href="/zh-cn/articles/"
@@ -523,10 +1125,8 @@
 
 
 
-
-                    
-
-                    
+            
+              
   <li class="mt-1">
   <a
     href=""
@@ -541,30 +1141,29 @@
 
 
 
+            
 
-                    
-
-                </ul>
-                
-                
-
-            </div>
-        </label>
+          </ul>
+          
+        </div>
+      
     </div>
+  </div>
+
 </div>
 
 
 
 
-<script>
+  <script>
     (function () {
-        var $mainmenu = $('.main-menu');
-        var path = window.location.pathname;
-        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
-            $(e).children('p').addClass('active');
-        });
+      var $mainmenu = $(".main-menu");
+      var path = window.location.pathname;
+      $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+        $(e).children("p").addClass("active");
+      });
     })();
-</script>
+  </script>
 
 
   </div>
@@ -573,8 +1172,8 @@
 
 <script
   type="text/javascript"
-  src="/js/background-blur.min.4812321520cc2e4cd52bf9137015a55bb6c0b5e66a6b2c96b8654c0ec99be59e8e6425dd838a6fd9bac54000586f37f4a9680bbefaa2aee4601a69e188005cf6.js"
-  integrity="sha512-SBIyFSDMLkzVK/kTcBWlW7bAteZqayyWuGVMDsmb5Z6OZCXdg4pv2brFQABYbzf0qWgLvvqiruRgGmnhiABc9g=="
+  src="/js/background-blur.min.78ad5090e7c0c2533bac9dd23bdb1f723f834e5c3626627bd31017cc139ce0651b529877862129cee49e380ab2fdcd8baef28ae3e086bc54957fdaa7758775b2.js"
+  integrity="sha512-eK1QkOfAwlM7rJ3SO9sfcj&#43;DTlw2JmJ70xAXzBOc4GUbUph3hiEpzuSeOAqy/c2LrvKK4&#43;CGvFSVf9qndYd1sg=="
   data-target-id="menu-blur"></script>
 
     
@@ -593,27 +1192,40 @@
         
 
 
-<div id="hero" class="h-[150px] md:h-[200px]"></div>
+  
 
 
 
-    
-    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
-    style="background-image:url(/zh-cn/articles/683463723/featured_hu5079281762107412336.png);">
-    
 
 
-    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+
+  
+
+
+
+
+
+
+
+  
+    <div id="hero" class="h-[150px] md:h-[200px]"></div>
+  
+  
+  <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom background-image-e6c473442f86ce28d63b4c5292a7930b">
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
     </div>
     <div
-        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+      class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
     </div>
-</div>
+  </div>
+  
+    <div id="background-blur" class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+    
+    
+    <script type="text/javascript" src="/js/background-blur.min.78ad5090e7c0c2533bac9dd23bdb1f723f834e5c3626627bd31017cc139ce0651b529877862129cee49e380ab2fdcd8baef28ae3e086bc54957fdaa7758775b2.js" integrity="sha512-eK1QkOfAwlM7rJ3SO9sfcj&#43;DTlw2JmJ70xAXzBOc4GUbUph3hiEpzuSeOAqy/c2LrvKK4&#43;CGvFSVf9qndYd1sg==" data-target-id="background-blur"></script>
+  
 
-<div id="background-blur" class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
-
-
-<script type="text/javascript" src="/js/background-blur.min.4812321520cc2e4cd52bf9137015a55bb6c0b5e66a6b2c96b8654c0ec99be59e8e6425dd838a6fd9bac54000586f37f4a9680bbefaa2aee4601a69e188005cf6.js" integrity="sha512-SBIyFSDMLkzVK/kTcBWlW7bAteZqayyWuGVMDsmb5Z6OZCXdg4pv2brFQABYbzf0qWgLvvqiruRgGmnhiABc9g==" data-target-id="background-blur"></script>
 
       
     
@@ -710,7 +1322,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2024-02-22T22:15:32&#43;00:00">February 22, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>7090 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">15 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+      <time datetime="2024-02-22T22:15:32&#43;00:00">February 22, 2024</time><span class="px-2 text-primary-500">&middot;</span><span>7137 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">15 分钟</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1119,7 +1731,7 @@
       <div class="min-w-0 min-h-0 max-w-fit">
         
   <details
-    class="mt-2 mb-5 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 margin-left-[0px]"
+    class="mt-2 mb-5 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 ml-0"
     >
     
   <summary
@@ -1158,8 +1770,7 @@
           <p>前情提要：<a
   href="https://www.ykiko.me/zh-cn/articles/682031684"
     target="_blank"
-  >The History of constexpr in C++! (Part One)</a>
-</p>
+  >The History of constexpr in C++! (Part One)</a></p>
 
 <h2 class="relative group">2015-2016：模板的语法糖 
     <div id="2015-2016模板的语法糖" class="anchor"></div>
@@ -1173,12 +1784,10 @@
 <p>在 C++ 中支持 <a
   href="https://en.cppreference.com/w/cpp/language/template_specialization"
     target="_blank"
-  >全特化 (full specialization)</a>
- 的模板很多，但是支持 <a
+  >全特化 (full specialization)</a> 的模板很多，但是支持 <a
   href="https://en.cppreference.com/w/cpp/language/partial_specialization"
     target="_blank"
-  >偏特化 (partial specialization)</a>
- 的模板并不多，事实上其实只有类模板 (class template) 和变量模板 (variable template) 两种支持，而变量模板其实可以看做类模板的语法糖，四舍五入一下其实只有类模板支持偏特化。不支持偏特化会导致有些代码十分难写</p>
+  >偏特化 (partial specialization)</a> 的模板并不多，事实上其实只有类模板 (class template) 和变量模板 (variable template) 两种支持，而变量模板其实可以看做类模板的语法糖，四舍五入一下其实只有类模板支持偏特化。不支持偏特化会导致有些代码十分难写</p>
 <p>假设我们想实现一个<code>destroy_at</code>函数，效果就是调用对象的析构函数。特别的，如果析构函数是 trivial 的，那我们就省去这次无意义的析构函数调用。</p>
 <p>直觉上我们能写出下面这样的代码</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">value</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">is_trivially_destructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
@@ -1197,8 +1806,7 @@
 <p>提案 <a
   href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2015/n4461.html"
     target="_blank"
-  >N4461</a>
- 希望引入<code>static_if</code>（借鉴自 D 语言）可以用来编译期控制代码生成，只会把实际用到的分支编译进最终的二进制代码。这样就可以写出下面这样的代码，其中<code>static_if</code>的条件必须是常量表达式</p>
+  >N4461</a> 希望引入<code>static_if</code>（借鉴自 D 语言）可以用来编译期控制代码生成，只会把实际用到的分支编译进最终的二进制代码。这样就可以写出下面这样的代码，其中<code>static_if</code>的条件必须是常量表达式</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">destroy_at</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">p</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">static_if</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_trivially_destructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">){</span>
@@ -1208,8 +1816,7 @@
 </span></span></code></pre></div><p>可以发现逻辑非常清晰，但是委员会一般对于加新的关键字比较谨慎。后来<code>static_if</code>被重命名为<code>constexpr_if</code>，再后来变成了我们今天熟悉的这种形式并且进入 <a
   href="https://en.cppreference.com/w/cpp/language/if#Constexpr_if"
     target="_blank"
-  >C++17</a>
-</p>
+  >C++17</a></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(...){...}</span>
 </span></span><span class="line"><span class="cl"><span class="k">else</span> <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(...){...}</span>
 </span></span><span class="line"><span class="cl"><span class="k">else</span> <span class="p">{...}</span>
@@ -1227,8 +1834,7 @@
 <p>提案 <a
   href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2015/n4487.pdf"
     target="_blank"
-  >N4487</a>
- 讨论了支持 constexpr lambda 可能性，尤其希望能在 constexpr 计算中能够使用 lambda 表达式，并附带了一个实验性实现。</p>
+  >N4487</a> 讨论了支持 constexpr lambda 可能性，尤其希望能在 constexpr 计算中能够使用 lambda 表达式，并附带了一个实验性实现。</p>
 <p>其实支持 constexpr 的 lambda 表达式并不困难，我们都知道 lambda 在 C++ 里面是很透明的，基本上完全就是一个匿名的函数对象。函数对象都能是 constexpr 的，那么支持 constexpr 的 lambda 也就是理所当然的事情了。</p>
 <p>唯一需要注意的就是，lambda 是可以进行捕获的，捕获 constexpr 的变量会怎么样呢？</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
@@ -1245,12 +1851,10 @@
 </span></span></code></pre></div><p>可以发现这种情况下，编译器不得不给<code>x</code>分配内存。实际上的判断规则更复杂一些，感兴趣的可以自行参考 <a
   href="https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture"
     target="_blank"
-  >lambda capture</a>
-。最终这个提案被接受，进入了 <a
+  >lambda capture</a>。最终这个提案被接受，进入了 <a
   href="https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture:~:text=This%20function%20is%20constexpr%20if%20the%20function%20call%20operator%20%28or%20specialization%2C%20for%20generic%20lambdas%29%20is%20constexpr."
     target="_blank"
-  >C++17</a>
-。</p>
+  >C++17</a>。</p>
 
 <h2 class="relative group">2017-2019：编译期和运行期&hellip;不同? 
     <div id="2017-2019编译期和运行期不同" class="anchor"></div>
@@ -1274,8 +1878,7 @@
 <p>提案 <a
   href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0595r0.html"
     target="_blank"
-  >P0595</a>
- 希望加入一个新的 magic function 也就是 <code>constexpr()</code> 用来判断当前的函数是否在编译期执行，后来被更名为<code>is_constant_evaluated</code>并且进入 C++20。使用起来就像下面这样</p>
+  >P0595</a> 希望加入一个新的 magic function 也就是 <code>constexpr()</code> 用来判断当前的函数是否在编译期执行，后来被更名为<code>is_constant_evaluated</code>并且进入 C++20。使用起来就像下面这样</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_constant_evaluated</span><span class="p">())</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
@@ -1293,8 +1896,7 @@
 </span></span></code></pre></div><p>这种写法被认为是 <strong>obviously incorrect</strong>，因为<code>if constexpr</code>的条件只能在编译期执行，所以这里<code>is_constant_evaluated</code>永远会返回<code>true</code>，这与我们最开始的目的相悖了。 所以提案 <a
   href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p1938r3.html"
     target="_blank"
-  >P1938R3</a>
- 提议加入新的语法来解决这个问题</p>
+  >P1938R3</a> 提议加入新的语法来解决这个问题</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">if</span> <span class="k">consteval</span> <span class="cm">/* !consteval */</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -1323,8 +1925,7 @@
 </span></span></code></pre></div><p>如果函数嵌套多了，报错信息也非常糟糕。不同于模板的地方在于，constexpr 函数也可以在运行期运行。所以我们可以在运行期调试代码，最后在编译期执行就好了。但是如果考虑到上一小节加的<code>is_constant_evaluated</code>，就会发现这种做法并不完全可行，因为编译期和运行期的代码逻辑可能不同。提案 <a
   href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0596r0.html"
     target="_blank"
-  >P0596</a>
- 希望引入<code>constexpr_trace</code>和<code>constexpr_assert</code>来方便编译期调试代码，虽然投票一致赞成，但是暂时未进入 C++ 标准。</p>
+  >P0596</a> 希望引入<code>constexpr_trace</code>和<code>constexpr_assert</code>来方便编译期调试代码，虽然投票一致赞成，但是暂时未进入 C++ 标准。</p>
 
 <h2 class="relative group">2017： 编译期可变容器 
     <div id="2017-编译期可变容器" class="anchor"></div>
@@ -1339,8 +1940,7 @@
 <p>在当时，直接允许在 constexpr 函数中使用<code>new</code>/<code>delete</code>似乎过于让人惊讶了，所以提案 <a
   href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0597r0.html"
     target="_blank"
-  >P0597</a>
- 想了一个折中的办法，先提供一个 magic container 叫做<code>std::constexpr_vector</code>，它由编译器实现，并且支持在 constexpr 函数中使用和修改。</p>
+  >P0597</a> 想了一个折中的办法，先提供一个 magic container 叫做<code>std::constexpr_vector</code>，它由编译器实现，并且支持在 constexpr 函数中使用和修改。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">constexpr_vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">x</span><span class="p">;</span>  <span class="c1">// ok
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">constexpr</span> <span class="n">constexpr_vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">y</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">};</span>  <span class="c1">// ok
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
@@ -1365,8 +1965,7 @@
 <p>提案 <a
   href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1064r0.html"
     target="_blank"
-  >P1064R0</a>
- 希望在常量求值中支持虚函数调用。哎，还不支持动态内存分配呢，咋就要支持虚函数调用了？其实不依赖动态内存分配也可以弄出来多态指针嘛，指向栈上的对象或者静态储存就可以了。</p>
+  >P1064R0</a> 希望在常量求值中支持虚函数调用。哎，还不支持动态内存分配呢，咋就要支持虚函数调用了？其实不依赖动态内存分配也可以弄出来多态指针嘛，指向栈上的对象或者静态储存就可以了。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Base</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">virtual</span> <span class="kt">int</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
@@ -1384,12 +1983,10 @@
 </span></span></code></pre></div><p>似乎没有任何理由拒绝上面这段代码编译通过。由于是在编译期执行，编译器当然能知道<code>p</code>指向的是<code>Derived</code>，然后调用<code>Derived::f</code>，实践上没有任何难度。的确如此，之后又有一个新的提案 <a
   href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1327r1.html"
     target="_blank"
-  >P1327R1</a>
- 进一步希望<code>dynamic_cast</code>和<code>typeid</code>也能在常量求值中使用，最终它们都被接受并且加入了 <a
+  >P1327R1</a> 进一步希望<code>dynamic_cast</code>和<code>typeid</code>也能在常量求值中使用，最终它们都被接受并且加入了 <a
   href="https://en.cppreference.com/w/cpp/language/constexpr#:~:text=it%20must%20not%20be%20virtual"
     target="_blank"
-  >C++20</a>
-，现在可以自由的在编译期使用这些特性了。</p>
+  >C++20</a>，现在可以自由的在编译期使用这些特性了。</p>
 
 <h2 class="relative group">2017-2019： 真正的动态内存分配！ 
     <div id="2017-2019-真正的动态内存分配" class="anchor"></div>
@@ -1403,8 +2000,7 @@
 <p>在 <a
   href="https://www.youtube.com/watch?v=HMB9oXFobJc"
     target="_blank"
-  >constexpr everything</a>
- 的这个演示视频中，展示了一个能在编译期处理<code>JSON</code>对象的例子</p>
+  >constexpr everything</a> 的这个演示视频中，展示了一个能在编译期处理<code>JSON</code>对象的例子</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">jsv</span><span class="o">=</span> <span class="n">R</span><span class="s">&#34;({</span>
 </span></span><span class="line"><span class="cl">    <span class="s">&#34;feature-x-enabled&#34;</span><span class="o">:</span> <span class="nb">true</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="s">&#34;value-of-y&#34;</span><span class="o">:</span> <span class="mi">1729</span><span class="p">,</span>
@@ -1422,8 +2018,7 @@
 <p>提案 <a
   href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2019/p0784r7.html"
     target="_blank"
-  >P0784R7</a>
- 重新讨论了在常量求值中支持标准库容器的可能性</p>
+  >P0784R7</a> 重新讨论了在常量求值中支持标准库容器的可能性</p>
 <p>主要有以下三个难点：</p>
 <ul>
 <li>析构函数不能被声明为 constexpr（对于 constexpr 对象，它们必须是 trivial 的）</li>
@@ -1431,27 +2026,23 @@
 <li>无法在常量求值中使用 <a
   href="https://en.cppreference.com/w/cpp/language/new#Placement_new"
     target="_blank"
-  >placement new</a>
- 来调用对象的构造函数</li>
+  >placement new</a> 来调用对象的构造函数</li>
 </ul>
 <p>针对第一个问题，作者们与 MSVC，GCC，Clang，EDG 等前端开发人员快速讨论并解决了这个问题。C++20 起，可以符合 <a
   href="https://en.cppreference.com/w/cpp/named_req/LiteralType"
     target="_blank"
-  >literal type</a>
- 要求的类型具有 constexpr 修饰的析构函数，而不是严格要求平凡的析构函数。</p>
+  >literal type</a> 要求的类型具有 constexpr 修饰的析构函数，而不是严格要求平凡的析构函数。</p>
 <p>针对第二个问题，处理起来并不简单。C++ 有很多未定义行为都是由于错误的内存处理导致的，相比之下，不能直接操作内存的脚本语言则安全的多。但是为了复用代码，C++ 编译器中的常量求值器不得不直接操作内存，不过由于所有信息都是编译期已知的，理论上可以保证常量求值中不会出现内存错误 (out of range, double free, memory leak, &hellip;)，如果出现应该中止编译并报告错误。</p>
 <p>常量求值器需要跟踪许多对象的的元信息，并找出这些错误</p>
 <ul>
 <li>记录<code>union</code>哪个 field 是 active 的，访问 unactive 的成员导致未定义行为，这由 <a
   href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1330r0.pdf"
     target="_blank"
-  >P1330</a>
- 阐明</li>
+  >P1330</a> 阐明</li>
 <li>正确记录对象的 <a
   href="https://en.cppreference.com/w/cpp/language/lifetime"
     target="_blank"
-  >lifetime</a>
-，访问未初始化的内存和已经析构的对象都是不允许的</li>
+  >lifetime</a>，访问未初始化的内存和已经析构的对象都是不允许的</li>
 </ul>
 <p>当时还不允许在常量求值中把<code>void*</code>转换成<code>T*</code>，所以理所当然的</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">);</span>
@@ -1468,12 +2059,10 @@
 <p>对于第三个问题，则是添加了一个 magic function 即 <a
   href="https://en.cppreference.com/w/cpp/memory/construct_at"
     target="_blank"
-  >std::construct_at</a>
-，它的作用是在指定的内存位置上调用对象的构造函数，用来在常量求值中取代<code>placement new</code>。这样的话我们就可以先通过<code>std::allocator</code>分配内存，再通过<code>std::construct_at</code>来构造对象了。该提案最终被接受，进入了 <a
+  >std::construct_at</a>，它的作用是在指定的内存位置上调用对象的构造函数，用来在常量求值中取代<code>placement new</code>。这样的话我们就可以先通过<code>std::allocator</code>分配内存，再通过<code>std::construct_at</code>来构造对象了。该提案最终被接受，进入了 <a
   href="https://en.cppreference.com/w/cpp/memory/construct_at"
     target="_blank"
-  >C++20</a>
-，同时使得<code>std::vector</code>，<code>std::string</code>在常量求值中可用（其它的容器理论上也行，但是目前的实现还没支持，如果非常想要只能自己搓一个了）。</p>
+  >C++20</a>，同时使得<code>std::vector</code>，<code>std::string</code>在常量求值中可用（其它的容器理论上也行，但是目前的实现还没支持，如果非常想要只能自己搓一个了）。</p>
 <p>虽然支持了动态内存分配，但并不是毫无限制。<strong>在一次常量求值中分配的内存必须要在这次常量求值结束之前释放完全，不能有内存泄漏，否则会导致编译错误</strong>。这种类型的内存分配被叫做 <em>transient constexpr allocations（瞬态内存分配）</em> 。该提案也讨论了 <em>non-transient allocation（非瞬态内存分配）</em> ，在编译期未被释放的内存，将被转为静态储存（其实就是存在数据区，就像全局变量那样）。但是，委员会认为这种可能性 &ldquo;too brittle&rdquo;，出于多种原因，目前尚未采纳。</p>
 
 <h2 class="relative group">2018：更多的 constexpr 
@@ -1488,8 +2077,7 @@
 <p>提案 <a
   href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1002r1.pdf"
     target="_blank"
-  >P1002</a>
- 希望在 constexpr 函数中支持<code>try-catch</code>块。但是不能<code>throw</code>，这样是为了能把更多的标准库容器的成员函数标记为<code>constexpr</code>。</p>
+  >P1002</a> 希望在 constexpr 函数中支持<code>try-catch</code>块。但是不能<code>throw</code>，这样是为了能把更多的标准库容器的成员函数标记为<code>constexpr</code>。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">foo</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
@@ -1522,12 +2110,10 @@
 </span></span></code></pre></div><p>这样就保证了<code>g</code>在编译期执行，同样，这种没意义的局部变量实在是多余。提案 <a
   href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1073r0.html"
     target="_blank"
-  >P1073</a>
- 希望增加一个标记 <code>constexpr!</code>来确保一个函数在编译期执行，如果不满足则导致编译错误。最终该标记被更名为 <a
+  >P1073</a> 希望增加一个标记 <code>constexpr!</code>来确保一个函数在编译期执行，如果不满足则导致编译错误。最终该标记被更名为 <a
   href="https://en.cppreference.com/w/cpp/language/consteval"
     target="_blank"
-  >consteval</a>
- 并进入了 C++20。</p>
+  >consteval</a> 并进入了 C++20。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">extern</span> <span class="kt">int</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">consteval</span> <span class="kt">int</span> <span class="nf">bar</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
@@ -1548,8 +2134,7 @@
 <p>提案 <a
   href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1235r0.pdf"
     target="_blank"
-  >P1235</a>
- 希望把所有函数都标记为 implicit constexpr 的</p>
+  >P1235</a> 希望把所有函数都标记为 implicit constexpr 的</p>
 <ul>
 <li>non：如果可能，将方法标记为 constexpr。</li>
 <li>constexpr：与当前行为相同</li>
@@ -1584,8 +2169,7 @@
 </span></span></code></pre></div><p>提案 <a
   href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2020/p1974r0.pdf"
     target="_blank"
-  >P1974</a>
- 提议使用<code>propconst</code>来支持非瞬态内存分配，这样上述的额外的包装代码就不需要了。</p>
+  >P1974</a> 提议使用<code>propconst</code>来支持非瞬态内存分配，这样上述的额外的包装代码就不需要了。</p>
 <p>非瞬态内存分配的原理很简单</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span> <span class="n">vec</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
 </span></span></code></pre></div><p>编译器会将上述代码编译为类似下面这样</p>
@@ -1612,8 +2196,7 @@
 <p>可惜的的是暂时还未被标准接受，在那之后还有一些新的的提案希望能够支持这个特性比如 <a
   href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2670r1.html"
     target="_blank"
-  >P2670R1</a>
-，相关的讨论还在继续。</p>
+  >P2670R1</a>，相关的讨论还在继续。</p>
 
 <h2 class="relative group">2021：constexpr 类 
     <div id="2021constexpr-类" class="anchor"></div>
@@ -1628,8 +2211,7 @@
 <p>提案 <a
   href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2021/p2350r1.pdf"
     target="_blank"
-  >P2350</a>
- 希望支持这个特性，constexpr 标记的<code>class</code>中的所有方法都被隐式标记为 constexpr</p>
+  >P2350</a> 希望支持这个特性，constexpr 标记的<code>class</code>中的所有方法都被隐式标记为 constexpr</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// before
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">struct</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="kt">bool</span> <span class="nf">empty</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="cm">/* */</span> <span class="p">}</span>
@@ -1650,13 +2232,11 @@
 </span></span></code></pre></div><p>有一个有趣的故事与这个提案有关 - 在不知道它的存在之前，我（文章原作者）在 <a
   href="https://stdcpp.ru/"
     target="_blank"
-  >stdcpp.ru</a>
- 提出了同样的想法。</p>
+  >stdcpp.ru</a> 提出了同样的想法。</p>
 <p>在标准制定过程中，很多几乎相同的提案几乎可以同时出现。这证明了 <a
   href="https://en.wikipedia.org/wiki/Multiple_discovery"
     target="_blank"
-  >多重发现理论的正确性</a>
-：某些思想或概念会在不同的人群中独立地出现，就像它们在空气中漂浮一样，并且谁先发现的并不重要。如果社区的规模足够大，这些思想或概念自然会发生演变。</p>
+  >多重发现理论的正确性</a>：某些思想或概念会在不同的人群中独立地出现，就像它们在空气中漂浮一样，并且谁先发现的并不重要。如果社区的规模足够大，这些思想或概念自然会发生演变。</p>
 
 <h2 class="relative group">2023：编译期类型擦除！ 
     <div id="2023编译期类型擦除" class="anchor"></div>
@@ -1673,8 +2253,7 @@
 </span></span></code></pre></div><p>如果对<code>p1</code>解引用实际上是未定义的行为，所以禁止了这种转换（<strong>注意 reinterpret_cast 一直在常量求值中禁用</strong>）。但是显然这种做法已经误伤了正确的写法了，因为像<code>std::any</code>这种实现，显然不会把一个从<code>void*</code>转换成无关的类型，而是会把它转换回原来的类型，完全不允许这种转换是不合理的。提案 <a
   href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2738r0.pdf"
     target="_blank"
-  >P2738R0</a>
- 希望在常量求值中支持这种转换，编译器理论上能在编译期记录一个<code>void*</code>指针原本的类型，如果转换的不是原本的类型，就报错。</p>
+  >P2738R0</a> 希望在常量求值中支持这种转换，编译器理论上能在编译期记录一个<code>void*</code>指针原本的类型，如果转换的不是原本的类型，就报错。</p>
 <p>最终该提案被接受，并且加入 C++26，现在可以进行 <code>T*</code> -&gt; <code>void*</code> -&gt; <code>T*</code> 的转换了</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">void</span> <span class="nf">f</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
@@ -1719,8 +2298,7 @@
 </span></span></span></code></pre></div><p>提案 <a
   href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2747r1.html"
     target="_blank"
-  >P2747R1</a>
- 希望在常量求值中直接支持<code>placement new</code>。暂时还未被加入标准。</p>
+  >P2747R1</a> 希望在常量求值中直接支持<code>placement new</code>。暂时还未被加入标准。</p>
 
 <h2 class="relative group">2024-∞：未来无极限！ 
     <div id="2024-未来无极限" class="anchor"></div>
@@ -1734,8 +2312,7 @@
 <p>截止目前，C++ 的常量求值已经支持了非常丰富的功能，支持条件，变量，循环，虚函数调用，动态内存分配等等一系列特性。但是受限于日常开发使用的 C++ 版本，有很多功能可能暂时没法使用，可以在 <a
   href="https://en.cppreference.com/w/cpp/feature_test#:~:text=P2564R3-,__cpp_constexpr,-constexpr"
     target="_blank"
-  >这里</a>
- 方便的查看哪个版本支持了什么特性。</p>
+  >这里</a> 方便的查看哪个版本支持了什么特性。</p>
 <p>未来的 constexpr 中仍然有很多可能性，比如像<code>memcpy</code>这样的函数或许也能在常量求值中使用？又或者目前的<code>small_vector</code>的<strong>某些实现不能在不改动任何代码的前提</strong>下变成 constexpr 的，因为它们使用<code>char</code>数组为栈上的对象提供储存（为了避免默认构造）</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">void</span> <span class="nf">foo</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">byte</span> <span class="n">buf</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
@@ -1744,8 +2321,7 @@
 </span></span></code></pre></div><p>但是目前在常量求值中无法直接在<code>char</code>数组上构造对象。更进一步，在 C++20 加入的 <a
   href="https://en.cppreference.com/w/cpp/named_req/ImplicitLifetimeType"
     target="_blank"
-  >implicit lifetime</a>
- 是否可能在常量求值中表现出来呢？这些理论上都是可能实现的，只是要求编译器记录更多的元信息。而在未来，一切皆有可能！最终我们或许真的能 constexpr everything！</p>
+  >implicit lifetime</a> 是否可能在常量求值中表现出来呢？这些理论上都是可能实现的，只是要求编译器记录更多的元信息。而在未来，一切皆有可能！最终我们或许真的能 constexpr everything！</p>
 
           
           
@@ -1755,7 +2331,7 @@
         
 
         
-  <details class="mt-2 mb-5 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 margin-left-[0px]">
+  <details class="mt-2 mb-5 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 ml-0">
     
   <summary
     class="py-1 text-lg font-semibold cursor-pointer bg-primary-200 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-primary-800 dark:text-neutral-100">
@@ -1958,8 +2534,8 @@
         
         <script
           type="text/javascript"
-          src="/js/page.min.407e5b2727c1f241c95d53db24c776bea71bfc18e09511b815d669ad8caca6e9e18a53864ad364b1ccccfa2f2956768d33cfe193bfb64d3406f3b5ece354ba57.js"
-          integrity="sha512-QH5bJyfB8kHJXVPbJMd2vqcb/BjglRG4FdZprYyspunhilOGStNksczM&#43;i8pVnaNM8/hk7&#43;2TTQG87Xs41S6Vw=="
+          src="/js/page.min.54b6f4371722649edbe871e431d8670d670878c22be8f36e229fe53cc9b786fe25a834def5e6de621f7a3e37b72bc8cd73839aa5ed907ed6cbd45cd3e1b0fa20.js"
+          integrity="sha512-VLb0NxciZJ7b6HHkMdhnDWcIeMIr6PNuIp/lPMm3hv4lqDTe9ebeYh96Pje3K8jNc4Oape2QftbL1FzT4bD6IA=="
           data-oid="views_articles/683463723/index.md"
           data-oid-likes="likes_articles/683463723/index.md"></script>
       
@@ -2107,7 +2683,7 @@
   </footer>
   <div
   id="search-wrapper"
-  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-index-500"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-500"
   data-url="https://www.ykiko.me/zh-cn/">
   <div
     id="search-modal"
