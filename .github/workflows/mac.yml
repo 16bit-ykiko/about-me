@@ -1,21 +1,20 @@
-name: CI Debug Session
+name: CI Debug via tmate
+
 on:
-  pull_request:
-    branches: [main]
+  pull_request: # 您可以根据需要修改触发条件
 
 jobs:
-  build:
-    # 使用 GitHub 当前支持的最新 macOS 版本
+  debug_session:
     runs-on: macos-latest
 
     steps:
-      # 1. 更新 checkout action 到最新的 v4 版本
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. 将 upterm 步骤放在最后，并添加 if: always() 以确保它总能运行
-      - name: Setup upterm session
-        if: always() # 确保无论前面步骤成功与否，此步骤都会执行
-        uses: lhotari/action-upterm@v1
-        with:
-          limit-access-to-actor: false
+      # 如果您的项目需要特定环境，请将相关设置步骤放在这里
+      # 例如: actions/setup-node, actions/setup-java 等
+
+      - name: Start tmate debug session
+        # 使用 if: always() 确保无论如何都能启动调试
+        if: always()
+        uses: mxschmitt/action-tmate@v3
