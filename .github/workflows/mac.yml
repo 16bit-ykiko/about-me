@@ -1,7 +1,7 @@
 name: CI Debug via tmate
 
 on:
-  pull_request: # 您可以根据需要修改触发条件
+  pull_request:
 
 jobs:
   debug_session:
@@ -9,12 +9,21 @@ jobs:
 
     steps:
       - name: Checkout code
+
         uses: actions/checkout@v4
 
-      # 如果您的项目需要特定环境，请将相关设置步骤放在这里
-      # 例如: actions/setup-node, actions/setup-java 等
+      # The tmate step starts the session
 
       - name: Start tmate debug session
-        # 使用 if: always() 确保无论如何都能启动调试
+
         if: always()
+
         uses: mxschmitt/action-tmate@v3
+
+      # This new step forces the job to wait for 20 minutes
+
+      - name: Keep session alive
+
+        if: always()
+
+        run: sleep 1200 # 1200 seconds = 20 minutes
