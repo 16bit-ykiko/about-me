@@ -2,10 +2,12 @@ name: Ultimate Manual Debug Session
 
 on:
   pull_request:
+    branches: [main]
 
 jobs:
-  manual_debug:
-    runs-on: macos-latest
+  vm:
+    runs-on: [macos-latest]
 
-  steps:
-    uses: fawazahmed0/action-debug-vscode@main
+    steps:
+      - uses: actions/checkout@v4
+      - uses: fawazahmed0/action-debug-vscode@main
