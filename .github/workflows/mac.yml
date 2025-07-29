@@ -7,39 +7,5 @@ jobs:
   manual_debug:
     runs-on: macos-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # 如果您的项目需要特定环境，请将相关设置步骤放在这里
-      # 例如: - uses: actions/setup-node@v4
-
-      - name: Manually Install and Run tmate for Debugging
-        # 确保此步骤总能运行
-        if: always()
-        run: |
-          # 第一步：手动安装 tmate
-          echo "Installing tmate via Homebrew..."
-          brew install tmate
-
-          # 第二步：在后台启动 tmate 会话
-          echo "Starting tmate session in the background..."
-          tmate -S /tmp/tmate.sock new-session -d
-
-          # 第三步：等待会话准备就绪
-          echo "Waiting for tmate session to be ready..."
-          sleep 5 # 等待5秒，确保 tmate 服务完全启动
-
-          # 第四步：从后台会话中提取并打印出 SSH 连接地址
-          echo "Fetching connection string..."
-          TMATE_SSH_COMMAND=$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}')
-          echo "================================================================================"
-          echo "COPY THE FOLLOWING SSH COMMAND TO CONNECT:"
-          echo ""
-          echo "    ${TMATE_SSH_COMMAND}"
-          echo ""
-          echo "================================================================================"
-
-          # 第五步 (关键！)：强制让 Runner 存活 20 分钟，为您提供调试时间
-          echo "Runner will stay alive for 20 minutes. The job will automatically cancel after that."
-          sleep 1200
+  steps:
+    uses: fawazahmed0/action-debug-vscode@main
