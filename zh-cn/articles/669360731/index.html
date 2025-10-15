@@ -14,151 +14,20 @@
   <meta name="theme-color">
 
   
-  <title>使用 Clang 工具自由的支配 C&#43;&#43; 代码吧 &middot; ykiko&#39;s blog</title>
+  
+    <title>使用 Clang 工具自由的支配 C&#43;&#43; 代码吧 &middot; ykiko&#39;s blog</title>
     <meta name="title" content="使用 Clang 工具自由的支配 C&#43;&#43; 代码吧 &middot; ykiko&#39;s blog">
+  
 
   
-  <meta name="description" content="mainly about computer science and mathematics">
+  
+    <meta name="description" content="mainly about computer science and mathematics">
+  
   
   
   
   <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/669360731/">
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    
-  
-  
-  <link
-    type="text/css"
-    rel="stylesheet"
-    href="/css/main.bundle.min.41ccf158e8b20af093f904e765d07015a786fdc35677cfc16ffff96a6b5235a45e9ce5dc22b59be2c7ec2ae5e4f302e565ca1e75c2439c5c81d44f4c70102851.css"
-    integrity="sha512-QczxWOiyCvCT&#43;QTnZdBwFaeG/cNWd8/Bb//5amtSNaRenOXcIrWb4sfsKuXk8wLlZcoedcJDnFyB1E9McBAoUQ==">
-
-  
-  
-  <script
-    type="text/javascript"
-    src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
-    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
-  
-  
-  
-    
-    
-    <script
-      type="text/javascript"
-      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
-      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
-  
-  
-    
-    
-    
-  
-  
-    
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    <script
-      defer
-      type="text/javascript"
-      id="script-bundle"
-      src="/js/main.bundle.min.04bad31d5c94d6e5ef0c1717be7fb1c389eab84cd88b53910a2d9a97ad49bb75aa257c221e9720df4735fe9ea5cb94e569d8a43682df4f5e66a260d3c2bb68ec.js"
-      integrity="sha512-BLrTHVyU1uXvDBcXvn&#43;xw4nquEzYi1ORCi2al61Ju3WqJXwiHpcg30c1/p6ly5TladikNoLfT15momDTwrto7A=="
-      data-copy="复制"
-      data-copied="已复制"></script>
-  
-  
-    
-    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
-  
-
-  
-  
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/669360731/">
-  <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="使用 Clang 工具自由的支配 C&#43;&#43; 代码吧">
-  <meta property="og:description" content="Clang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最初开发的目的是替代 GNU Compiler Collection (GCC) 的 C 语言前端，目标是提供更快的编译速度、更好的诊断信息和更灵活的架构。Clang 包含一个 C、C&#43;&#43; 和 Objective-C 编译器前端，这些前端设计为可以嵌入到其他项目中。Clang 的一个重要特点是其模块化架构，使开发者能够更轻松地扩展和定制编译器的功能。Clang 被广泛应用于许多项目，包括 LLVM 自身、一些操作系统内核的开发以及一些编程语言的编译器实现。">
-  <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2023-11-29T09:14:27+00:00">
-    <meta property="article:modified_time" content="2023-11-29T09:14:27+00:00">
-    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/669360731/featured.png">
-      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/670191053/">
-      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/670190357/">
-      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/669359855/">
-      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/669358870/">
-      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/661692275/">
-
-  
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/669360731/featured.png">
-  <meta name="twitter:title" content="使用 Clang 工具自由的支配 C&#43;&#43; 代码吧">
-  <meta name="twitter:description" content="Clang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最初开发的目的是替代 GNU Compiler Collection (GCC) 的 C 语言前端，目标是提供更快的编译速度、更好的诊断信息和更灵活的架构。Clang 包含一个 C、C&#43;&#43; 和 Objective-C 编译器前端，这些前端设计为可以嵌入到其他项目中。Clang 的一个重要特点是其模块化架构，使开发者能够更轻松地扩展和定制编译器的功能。Clang 被广泛应用于许多项目，包括 LLVM 自身、一些操作系统内核的开发以及一些编程语言的编译器实现。">
-<meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/669360731/featured.png">
-    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/669360731/featured.png">
-  <script type="application/ld+json">
-  [{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "articleSection": "Articles",
-    "name": "使用 Clang 工具自由的支配 C\u002b\u002b 代码吧",
-    "headline": "使用 Clang 工具自由的支配 C\u002b\u002b 代码吧",
-    
-    "abstract": "\u003cp\u003eClang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最初开发的目的是替代 GNU Compiler Collection (GCC) 的 C 语言前端，目标是提供更快的编译速度、更好的诊断信息和更灵活的架构。Clang 包含一个 C、C\u002b\u002b 和 Objective-C 编译器前端，这些前端设计为可以嵌入到其他项目中。Clang 的一个重要特点是其模块化架构，使开发者能够更轻松地扩展和定制编译器的功能。Clang 被广泛应用于许多项目，包括 LLVM 自身、一些操作系统内核的开发以及一些编程语言的编译器实现。\u003c\/p\u003e",
-    "inLanguage": "zh-cn",
-    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/669360731\/",
-    "author" : {
-      "@type": "Person",
-      "name": "ykiko"
-    },
-    "copyrightYear": "2023",
-    "dateCreated": "2023-11-29T09:14:27\u002b00:00",
-    "datePublished": "2023-11-29T09:14:27\u002b00:00",
-    
-    "dateModified": "2023-11-29T09:14:27\u002b00:00",
-    
-    
-    
-    "mainEntityOfPage": "true",
-    "wordCount": "5333"
-  }]
-  </script>
-
-
 
   
   
@@ -194,6 +63,118 @@
         
       
     
+  
+
+  
+  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/669360731/">
+  <meta property="og:site_name" content="ykiko&#39;s blog">
+  <meta property="og:title" content="使用 Clang 工具自由的支配 C&#43;&#43; 代码吧">
+  <meta property="og:description" content="Clang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最初开发的目的是替代 GNU Compiler Collection (GCC) 的 C 语言前端，目标是提供更快的编译速度、更好的诊断信息和更灵活的架构。Clang 包含一个 C、C&#43;&#43; 和 Objective-C 编译器前端，这些前端设计为可以嵌入到其他项目中。Clang 的一个重要特点是其模块化架构，使开发者能够更轻松地扩展和定制编译器的功能。Clang 被广泛应用于许多项目，包括 LLVM 自身、一些操作系统内核的开发以及一些编程语言的编译器实现。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2023-11-29T09:14:27+00:00">
+    <meta property="article:modified_time" content="2023-11-29T09:14:27+00:00">
+    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/669360731/featured.png">
+      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/670191053/">
+      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/670190357/">
+      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/669359855/">
+      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/669358870/">
+      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/661692275/">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/669360731/featured.png">
+  <meta name="twitter:title" content="使用 Clang 工具自由的支配 C&#43;&#43; 代码吧">
+  <meta name="twitter:description" content="Clang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最初开发的目的是替代 GNU Compiler Collection (GCC) 的 C 语言前端，目标是提供更快的编译速度、更好的诊断信息和更灵活的架构。Clang 包含一个 C、C&#43;&#43; 和 Objective-C 编译器前端，这些前端设计为可以嵌入到其他项目中。Clang 的一个重要特点是其模块化架构，使开发者能够更轻松地扩展和定制编译器的功能。Clang 被广泛应用于许多项目，包括 LLVM 自身、一些操作系统内核的开发以及一些编程语言的编译器实现。">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+    
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.2431d6175642aa3406b26d8aeaf714be755f476e2ff745dfec768b775cc5a9e4153b208bf3568ebb5ad57562ca0fa91428c9bdc23bf0f9fcffc6a316955ac885.css"
+    integrity="sha512-JDHWF1ZCqjQGsm2K6vcUvnVfR24v90Xf7HaLd1zFqeQVOyCL81aOu1rVdWLKD6kUKMm9wjvw&#43;fz/xqMWlVrIhQ==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
+      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      data-copy="复制"
+      data-copied="已复制"></script>
   
 
   
@@ -242,6 +223,46 @@
 
   
   
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Articles",
+    "name": "使用 Clang 工具自由的支配 C\u002b\u002b 代码吧",
+    "headline": "使用 Clang 工具自由的支配 C\u002b\u002b 代码吧",
+    
+    "abstract": "\u003cp\u003eClang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最初开发的目的是替代 GNU Compiler Collection (GCC) 的 C 语言前端，目标是提供更快的编译速度、更好的诊断信息和更灵活的架构。Clang 包含一个 C、C\u002b\u002b 和 Objective-C 编译器前端，这些前端设计为可以嵌入到其他项目中。Clang 的一个重要特点是其模块化架构，使开发者能够更轻松地扩展和定制编译器的功能。Clang 被广泛应用于许多项目，包括 LLVM 自身、一些操作系统内核的开发以及一些编程语言的编译器实现。\u003c\/p\u003e",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/669360731\/",
+    "author" : {
+      "@type": "Person",
+      "name": "ykiko"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-11-29T09:14:27\u002b00:00",
+    "datePublished": "2023-11-29T09:14:27\u002b00:00",
+    
+    "dateModified": "2023-11-29T09:14:27\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "5333"
+  }]
+  </script>
+
+
+
+  
+  
+    
 
   <script
   async
@@ -258,6 +279,7 @@
 
 
 
+  
 
   
   
@@ -271,8 +293,35 @@
   
   
 </head>
-<body
-    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
     <div id="the-top" class="absolute flex self-center">
       <a
         class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
@@ -284,11 +333,11 @@
     
     
       <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-100">
+<div class="fixed inset-x-0 z-100">
   <div
     id="menu-blur"
     class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
-  <div class="relative max-w-[64rem] ml-auto mr-auto">
+  <div class="relative m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32">
     
 
 
@@ -304,7 +353,7 @@
 
 
 <div
-  class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0">
+  class="main-menu flex items-center justify-between py-6 md:justify-start gap-x-3 pt-[2px] pr-2 md:pr-4 pb-[3px] pl-0">
   
   
 
@@ -324,11 +373,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="关于我"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    关于我
-  </p>
+  
+    <p class="text-base font-medium">
+      关于我
+    </p>
+  
 </a>
 
 
@@ -338,11 +391,15 @@
   <a
   href="/zh-cn/articles/"
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="文章"
+  title="Articles">
   
-  <p class="text-base font-medium" title="Articles">
-    文章
-  </p>
+  
+    <p class="text-base font-medium">
+      文章
+    </p>
+  
 </a>
 
 
@@ -352,11 +409,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="研究"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    研究
-  </p>
+  
+    <p class="text-base font-medium">
+      研究
+    </p>
+  
 </a>
 
 
@@ -534,11 +595,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="关于我"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      关于我
-    </p>
+    
+      <p class="text-bg font-bg">
+        关于我
+      </p>
+    
   </a>
 </li>
 
@@ -550,11 +615,15 @@
   <a
     href="/zh-cn/articles/"
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="文章"
+    title="Articles">
     
-    <p class="text-bg font-bg" title="Articles">
-      文章
-    </p>
+    
+      <p class="text-bg font-bg">
+        文章
+      </p>
+    
   </a>
 </li>
 
@@ -566,11 +635,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="研究"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      研究
-    </p>
+    
+      <p class="text-bg font-bg">
+        研究
+      </p>
+    
   </a>
 </li>
 
@@ -626,18 +699,54 @@
         
 
 
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+  
+
+
+
+
+
     <div id="hero" class="h-[150px] md:h-[200px]"></div>
   
   <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
     
     
-      
     
     <img
       id="background-image"
       src="/zh-cn/articles/669360731/featured_hu8866568825491117517.png"
-      alt="Background Image"
-      class="absolute inset-0 w-full h-full object-cover">
+      alt="使用 Clang 工具自由的支配 C&#43;&#43; 代码吧"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
     <div
       class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
     <div
@@ -656,7 +765,7 @@
       integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
       data-blur-id="background-blur"
       data-image-id="background-image"
-      data-image-url="/zh-cn/articles/669360731/featured.png"></script>
+      data-image-url="/zh-cn/articles/669360731/featured_hu8866568825491117517.png"></script>
   
       
     
@@ -852,6 +961,7 @@
     
     
       
+      
         
       
       <img
@@ -859,7 +969,8 @@
         width="96"
         height="96"
         alt="ykiko"
-        src="/img/author_hu12645359616066712621.jpg">
+        src="/img/author_hu12645359616066712621.jpg"
+        data-zoom-src="/img/author.jpg">
     
   
   <div class="place-self-center">
@@ -960,8 +1071,7 @@
       
       
       
-      
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8">
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
             
               <details
@@ -1049,11 +1159,23 @@
     const TOC_LINK_SELECTOR = 'a[href^="#"]'
     const NESTED_LIST_SELECTOR = 'li ul'
     const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
 
     function getActiveAnchorId(anchors, offsetRatio) {
       const threshold = window.scrollY + window.innerHeight * offsetRatio
       const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
       const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
 
       for (let i = anchors.length - 1; i >= 0; i--) {
         const top = anchors[i].getBoundingClientRect().top + window.scrollY
@@ -1101,6 +1223,12 @@
         toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
       }
 
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
       const config = {
         toc,
         anchors,
@@ -1122,7 +1250,6 @@
 </script>
 
 
-            
             
           </div>
         </div>
@@ -1209,13 +1336,13 @@
           <p>Clang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最初开发的目的是替代 GNU Compiler Collection (GCC) 的 C 语言前端，目标是提供更快的编译速度、更好的诊断信息和更灵活的架构。Clang 包含一个 C、C++ 和 Objective-C 编译器前端，这些前端设计为可以嵌入到其他项目中。Clang 的一个重要特点是其模块化架构，使开发者能够更轻松地扩展和定制编译器的功能。Clang 被广泛应用于许多项目，包括 LLVM 自身、一些操作系统内核的开发以及一些编程语言的编译器实现。</p>
 <p>除了作为编译器使用之外，Clang 还可以作为一个库提供，使开发者能够在其应用程序中利用编译器的功能，例如源代码分析和生成。Clang 可以用来获取 C++ 源文件的抽象语法树 (AST)，以便进一步处理这些信息。本文将介绍如何使用 Clang 工具。</p>
 
-<h2 class="relative group">Installation &amp; Usage 
+<h2 class="relative group">Installation &amp; Usage
     <div id="installation--usage" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#installation--usage" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#installation--usage" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>目前，Clang 被划分为以下库和工具：libsupport、libsystem、libbasic、libast、liblex、libparse、libsema、libcodegen、librewrite、libanalysis。由于 Clang 本身是用 C++ 编写的，所以相关的接口都是 C++ 的。然而，由于 C++ 接口本身的复杂性和不稳定性（例如：在 Windows 上由 GCC 编译出来的 DLL 无法给 MSVC 使用，或者 Clang 自身版本升级导致 API 变动，从而出现不兼容性），官方并不推荐优先使用 C++ 接口。</p>
@@ -1244,13 +1371,13 @@
     target="_blank"
   >cindex.pyi</a>，下载下来之后直接和 放在同一文件夹内就能有代码提示了。</p>
 
-<h2 class="relative group">Quick Start 
+<h2 class="relative group">Quick Start
     <div id="quick-start" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#quick-start" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#quick-start" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>示例的 C++ 源文件代码如下</p>
@@ -1303,13 +1430,13 @@
 </span></span><span class="line"><span class="cl">            └── INTEGER_LITERAL: <span class="m">0</span>
 </span></span></code></pre></div><p>前面的是语法树节点类型，后面是节点的内容。可以发现还是非常清晰的，几乎能和源代码一一对应。</p>
 
-<h2 class="relative group">Basic Types 
+<h2 class="relative group">Basic Types
     <div id="basic-types" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#basic-types" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#basic-types" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>注意，本文假定读者对语法树有一定的认识，不在这里做过多介绍了。如果不知道语法树是什么的话，可以看一下 <a
@@ -1317,13 +1444,13 @@
     target="_blank"
   >为什么说 C/C++ 编译器不保留元信息</a>。下面对 cindex 中的一些常用类型做一些介绍</p>
 
-<h3 class="relative group">Cursor 
+<h3 class="relative group">Cursor
     <div id="cursor" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#cursor" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#cursor" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>相当于语法树的基本节点，整个语法树都是由<code>Cursor</code>组成的。通过<code>kind</code>属性返回一个<code>CursorKind</code>类型枚举值，就代表了这个节点实际对应的类型。</p>
@@ -1373,13 +1500,13 @@
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">is_scoped_enum</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 </span></span></code></pre></div><p>这些函数基本就见名知意了，例如<code>is_definition</code>就是判断该节点是否是一个定义，<code>is_const_method</code>就是判断该节点是否是一个<code>const</code>方法。</p>
 
-<h3 class="relative group">Type 
+<h3 class="relative group">Type
     <div id="type" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#type" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#type" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>如果该节点有类型的话，代表该节点的类型。常用的属性有</p>
@@ -1395,13 +1522,13 @@
 </span></span></code></pre></div><p>获取类型的对齐，大小，字段偏移量等等。</p>
 <p>以及一些<code>is</code>开头的函数，例如<code>is_const_qualified</code>, <code>is_function_variadic</code>, <code>is_pod</code>等等。这里也就不多说了。</p>
 
-<h3 class="relative group">TranslationUnit 
+<h3 class="relative group">TranslationUnit
     <div id="translationunit" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#translationunit" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#translationunit" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>一般来说一个 C++ 源文件就代表一个<code>TranslationUnit</code>，也就是我们常说的编译单元。</p>
@@ -1421,13 +1548,13 @@
 </span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">include</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </span></span></code></pre></div><p>这样就会打印出所有直接使用的头文件了。</p>
 
-<h3 class="relative group">Index 
+<h3 class="relative group">Index
     <div id="index" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#index" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#index" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>一个<code>Index</code>就是一个<code>TranslationUnit</code>的集合，并且最终被链接到一起，形成一个可执行文件或者库。</p>
@@ -1438,23 +1565,23 @@
 </span></span><span class="line"><span class="cl">                <span class="n">options</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TranslationUnit</span><span class="p">:</span>
 </span></span></code></pre></div><p><code>path</code>是源文件路径，<code>args</code>是编译参数，<code>unsaved_files</code>是未保存的文件，<code>options</code>是一些定义在<code>TranslationUnit.PARSE_XXX</code>中的参数，例如<code>PARSE_SKIP_FUNCTION_BODIES</code>和<code>PARSE_INCOMPLETE</code>。可以用来定制化解析过程，加快解析速度，或者保留宏信息等。</p>
 
-<h2 class="relative group">Examples 
+<h2 class="relative group">Examples
     <div id="examples" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#examples" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#examples" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 
-<h3 class="relative group">Namespace 
+<h3 class="relative group">Namespace
     <div id="namespace" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#namespace" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#namespace" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>由于 clang 在解析的时候会把所有的头文件都展开，全部输出内容太多了。但是我们主要可能只是想要我们自己代码的信息，这时候就可以利用命名空间进行筛选了。示例如下：</p>
@@ -1482,13 +1609,13 @@
 </span></span><span class="line"><span class="cl"><span class="n">traverse_my</span><span class="p">(</span><span class="n">tu</span><span class="o">.</span><span class="n">cursor</span><span class="p">)</span>
 </span></span></code></pre></div><p>写一个函数对类型空间名进行筛选，然后转发到我们之前那个函数就行，这样就只会输出我们想要的的命名空间里面的内容了。</p>
 
-<h3 class="relative group">Class &amp; Struct 
+<h3 class="relative group">Class &amp; Struct
     <div id="class--struct" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#class--struct" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#class--struct" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>我们主要是获取它们里面的字段名，类型，方法名，类型等，示例如下：</p>
@@ -1520,13 +1647,13 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#         Param: a: int</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#         Param: b: char</span>
 </span></span></code></pre></div>
-<h3 class="relative group">Comment 
+<h3 class="relative group">Comment
     <div id="comment" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#comment" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#comment" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>可以获取 Doxygen 风格的注释</p>
@@ -1560,13 +1687,13 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#  * @return int</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#  */</span>
 </span></span></code></pre></div>
-<h3 class="relative group">Enum 
+<h3 class="relative group">Enum
     <div id="enum" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#enum" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#enum" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>获取枚举名以及对应的枚举常量值，还有它的底层类型</p>
@@ -1591,13 +1718,13 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#     enum_value: GREEN: 1</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#     enum_value: BLUE: 2</span>
 </span></span></code></pre></div>
-<h3 class="relative group">Attribute 
+<h3 class="relative group">Attribute
     <div id="attribute" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#attribute" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#attribute" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>C++11 加入了新的 attribute 语法：<code>[[ ... ]]</code>，可以用来给函数或者变量添加额外的信息。例如<code>[[nodiscard]]</code>和<code>[[deprecated]]</code>。但是我们有时候在自己定义一些标记来给我们的与预处理工具使用，比如标记一个类型需要不需要生成元信息，我们也希望这些标记也能被 libclang 识别出来。但是遗憾的是如果直接写不被标准支持的属性会被 libclang 忽略，也就是最终的 AST 中是没有它的</p>
@@ -1609,13 +1736,13 @@
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="na">[[Reflect]]</span> <span class="nc">A</span> <span class="p">{};</span>
 </span></span></code></pre></div><p>这样对于<code>A</code>这个<code>Cursor</code>来说，它的子节点中就会有一个<code>ANNOTATE_ATTR</code>的类型的<code>Cursor</code>，而<code>spelling</code>就是里面存的信息，这里就是<code>reflect</code>。这样我们就可以很方便的获取到我们自定义的属性了。而且 C++ 标准规定了，当编译器遇到一个不认识的 attribute 的时候，它会忽略这个 attribute，而不是报错。这样的话，这个属性它就只作用于我们的预处理器，不会影响到正常编译。</p>
 
-<h3 class="relative group">Macro 
+<h3 class="relative group">Macro
     <div id="macro" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#macro" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#macro" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>clang 在实际解析语法树之前，会把所有的预处理指令都替换成实际的代码。所以最后的语法树信息中就没有它们了。但是有些时候我们的确想要获取到这些信息，比如我们想要获取到<code>#define</code>的信息，这里需要把<code>parse</code>的<code>options</code>参数设为<code>TranslationUnit.PARSE_DETAILED_PROCESSING_RECORD</code>。如果想要获取宏的内容就用<code>get_tokens</code>就行了。</p>
@@ -1639,13 +1766,13 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># MACRO_INSTANTIATION: CONCAT</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># [&#39;CONCAT&#39;, &#39;(&#39;, &#39;1&#39;, &#39;,&#39;, &#39;2&#39;, &#39;)&#39;]</span>
 </span></span></code></pre></div>
-<h2 class="relative group">Rewrite 
+<h2 class="relative group">Rewrite
     <div id="rewrite" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#rewrite" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#rewrite" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>有时候我们希望对源代码进行一些简单的修改，在某个位置插入一段代码或者删除一段代码。这时候我们可以使用<code>Rewriter</code>这个类。示例如下：</p>
@@ -1680,13 +1807,13 @@
 </span></span><span class="line"><span class="cl">    <span class="na">[[maybe_unused]]</span> <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
-<h2 class="relative group">Conclusion 
+<h2 class="relative group">Conclusion
     <div id="conclusion" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#conclusion" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#conclusion" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>如果要获取类型的<code>size</code>, <code>align</code>, <code>offset</code>等 ABI 相关的内容，需要注意 platform。不同 ABI 的情况下它们的值可能不同，例如 MSVC 和 GCC 一般关于这些内容就不同，可以通过在编译参数中指定<code>-target</code>来指定目标平台。如果需要和 MSVC 一致的结果，可以使用<code>--target=x86_64-pc-windows-msvc</code>。如果是 GCC 的话，可以使用<code>--target=x86_64-pc-linux-gnu</code>。</p>
@@ -1914,52 +2041,36 @@
     <div class="pt-8">
       <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
       <div class="flex justify-between pt-3">
-        <span>
+        <span class="flex flex-col">
           
-            <a class="flex group mr-3" href="/zh-cn/articles/669359855/">
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >各种姿势进行代码生成</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2023-11-29T09:14:16&#43;00:00">November 29, 2023</time>
-                  
-                </span>
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/zh-cn/articles/669359855/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;各种姿势进行代码生成
               </span>
             </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2023-11-29T09:14:16&#43;00:00">November 29, 2023</time>
+              </span>
+            
           
         </span>
-        <span>
+        <span class="flex flex-col items-end">
           
-            <a class="flex text-right group ml-3" href="/zh-cn/articles/670190357/">
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >为什么说 C/C++ 编译器不保留元信息？</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2023-12-03T23:37:51&#43;00:00">December 3, 2023</time>
-                  
-                </span>
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/zh-cn/articles/670190357/">
+              <span class="leading-6">
+                为什么说 C/C++ 编译器不保留元信息？&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
             </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2023-12-03T23:37:51&#43;00:00">December 3, 2023</time>
+              </span>
+            
           
         </span>
       </div>
@@ -1993,10 +2104,18 @@
     </footer>
   </article>
 
-        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0 z-10">
+        
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-24 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
   <a
     href="#the-top"
-    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
     aria-label="返回顶部"
     title="返回顶部">
     &uarr;

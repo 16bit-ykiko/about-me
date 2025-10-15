@@ -14,151 +14,20 @@
   <meta name="theme-color">
 
   
-  <title>Implementing Object in C&#43;&#43;! &middot; ykiko&#39;s blog</title>
+  
+    <title>Implementing Object in C&#43;&#43;! &middot; ykiko&#39;s blog</title>
     <meta name="title" content="Implementing Object in C&#43;&#43;! &middot; ykiko&#39;s blog">
+  
 
   
-  <meta name="description" content="mainly about computer science and mathematics">
+  
+    <meta name="description" content="mainly about computer science and mathematics">
+  
   
   
   
   <link rel="canonical" href="https://www.ykiko.me/en/articles/670191053/">
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    
-  
-  
-  <link
-    type="text/css"
-    rel="stylesheet"
-    href="/css/main.bundle.min.41ccf158e8b20af093f904e765d07015a786fdc35677cfc16ffff96a6b5235a45e9ce5dc22b59be2c7ec2ae5e4f302e565ca1e75c2439c5c81d44f4c70102851.css"
-    integrity="sha512-QczxWOiyCvCT&#43;QTnZdBwFaeG/cNWd8/Bb//5amtSNaRenOXcIrWb4sfsKuXk8wLlZcoedcJDnFyB1E9McBAoUQ==">
-
-  
-  
-  <script
-    type="text/javascript"
-    src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
-    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
-  
-  
-  
-    
-    
-    <script
-      type="text/javascript"
-      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
-      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
-  
-  
-    
-    
-    
-  
-  
-    
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    <script
-      defer
-      type="text/javascript"
-      id="script-bundle"
-      src="/js/main.bundle.min.04bad31d5c94d6e5ef0c1717be7fb1c389eab84cd88b53910a2d9a97ad49bb75aa257c221e9720df4735fe9ea5cb94e569d8a43682df4f5e66a260d3c2bb68ec.js"
-      integrity="sha512-BLrTHVyU1uXvDBcXvn&#43;xw4nquEzYi1ORCi2al61Ju3WqJXwiHpcg30c1/p6ly5TladikNoLfT15momDTwrto7A=="
-      data-copy="Copy"
-      data-copied="Copied"></script>
-  
-  
-    
-    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
-  
-
-  
-  
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-  <meta property="og:url" content="https://www.ykiko.me/en/articles/670191053/">
-  <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="Implementing Object in C&#43;&#43;!">
-  <meta property="og:description" content="Static vs Dynamic # The terms static typing and dynamic typing are familiar to many. The key distinction lies in the timing of type checking. What does this mean?">
-  <meta property="og:locale" content="en">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2023-12-03T23:40:52+00:00">
-    <meta property="article:modified_time" content="2023-12-03T23:40:52+00:00">
-    <meta property="og:image" content="https://www.ykiko.me/en/articles/670191053/featured.png">
-      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/670190357/">
-      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/669360731/">
-      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/669359855/">
-      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/669358870/">
-      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/661692275/">
-
-  
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://www.ykiko.me/en/articles/670191053/featured.png">
-  <meta name="twitter:title" content="Implementing Object in C&#43;&#43;!">
-  <meta name="twitter:description" content="Static vs Dynamic # The terms static typing and dynamic typing are familiar to many. The key distinction lies in the timing of type checking. What does this mean?">
-<meta name="twitter:image" content="https://www.ykiko.me/en/articles/670191053/featured.png">
-    <meta property="og:image" content="https://www.ykiko.me/en/articles/670191053/featured.png">
-  <script type="application/ld+json">
-  [{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "articleSection": "Articles",
-    "name": "Implementing Object in C\u002b\u002b!",
-    "headline": "Implementing Object in C\u002b\u002b!",
-    
-    "abstract": "\u003ch2 class=\u0022relative group\u0022\u003eStatic vs Dynamic \n    \u003cdiv id=\u0022static-vs-dynamic\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none\u0022\u003e\n        \u003ca class=\u0022group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline\u0022 href=\u0022#static-vs-dynamic\u0022 aria-label=\u0022Anchor\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e        \n    \n\u003c\/h2\u003e\n\u003cp\u003eThe terms static typing and dynamic typing are familiar to many. The key distinction lies in the timing of type checking. What does this mean?\u003c\/p\u003e",
-    "inLanguage": "en",
-    "url" : "https:\/\/www.ykiko.me\/en\/articles\/670191053\/",
-    "author" : {
-      "@type": "Person",
-      "name": "ykiko"
-    },
-    "copyrightYear": "2023",
-    "dateCreated": "2023-12-03T23:40:52\u002b00:00",
-    "datePublished": "2023-12-03T23:40:52\u002b00:00",
-    
-    "dateModified": "2023-12-03T23:40:52\u002b00:00",
-    
-    
-    
-    "mainEntityOfPage": "true",
-    "wordCount": "1759"
-  }]
-  </script>
-
-
 
   
   
@@ -194,6 +63,118 @@
         
       
     
+  
+
+  
+  <meta property="og:url" content="https://www.ykiko.me/en/articles/670191053/">
+  <meta property="og:site_name" content="ykiko&#39;s blog">
+  <meta property="og:title" content="Implementing Object in C&#43;&#43;!">
+  <meta property="og:description" content="Static vs Dynamic # The terms static typing and dynamic typing are familiar to many. The key distinction lies in the timing of type checking. What does this mean?">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2023-12-03T23:40:52+00:00">
+    <meta property="article:modified_time" content="2023-12-03T23:40:52+00:00">
+    <meta property="og:image" content="https://www.ykiko.me/en/articles/670191053/featured.png">
+      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/670190357/">
+      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/669360731/">
+      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/669359855/">
+      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/669358870/">
+      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/661692275/">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.ykiko.me/en/articles/670191053/featured.png">
+  <meta name="twitter:title" content="Implementing Object in C&#43;&#43;!">
+  <meta name="twitter:description" content="Static vs Dynamic # The terms static typing and dynamic typing are familiar to many. The key distinction lies in the timing of type checking. What does this mean?">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+    
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.2431d6175642aa3406b26d8aeaf714be755f476e2ff745dfec768b775cc5a9e4153b208bf3568ebb5ad57562ca0fa91428c9bdc23bf0f9fcffc6a316955ac885.css"
+    integrity="sha512-JDHWF1ZCqjQGsm2K6vcUvnVfR24v90Xf7HaLd1zFqeQVOyCL81aOu1rVdWLKD6kUKMm9wjvw&#43;fz/xqMWlVrIhQ==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
+      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      data-copy="Copy"
+      data-copied="Copied"></script>
   
 
   
@@ -242,6 +223,46 @@
 
   
   
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Articles",
+    "name": "Implementing Object in C\u002b\u002b!",
+    "headline": "Implementing Object in C\u002b\u002b!",
+    
+    "abstract": "\u003ch2 class=\u0022relative group\u0022\u003eStatic vs Dynamic\n    \u003cdiv id=\u0022static-vs-dynamic\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none\u0022\u003e\n        \u003ca class=\u0022text-primary-300 dark:text-neutral-700 !no-underline\u0022 href=\u0022#static-vs-dynamic\u0022 aria-label=\u0022Anchor\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e\n    \n\u003c\/h2\u003e\n\u003cp\u003eThe terms static typing and dynamic typing are familiar to many. The key distinction lies in the timing of type checking. What does this mean?\u003c\/p\u003e",
+    "inLanguage": "en",
+    "url" : "https:\/\/www.ykiko.me\/en\/articles\/670191053\/",
+    "author" : {
+      "@type": "Person",
+      "name": "ykiko"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-12-03T23:40:52\u002b00:00",
+    "datePublished": "2023-12-03T23:40:52\u002b00:00",
+    
+    "dateModified": "2023-12-03T23:40:52\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1759"
+  }]
+  </script>
+
+
+
+  
+  
+    
 
   <script
   async
@@ -258,6 +279,7 @@
 
 
 
+  
 
   
   
@@ -271,8 +293,35 @@
   
   
 </head>
-<body
-    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
     <div id="the-top" class="absolute flex self-center">
       <a
         class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
@@ -284,11 +333,11 @@
     
     
       <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-100">
+<div class="fixed inset-x-0 z-100">
   <div
     id="menu-blur"
     class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
-  <div class="relative max-w-[64rem] ml-auto mr-auto">
+  <div class="relative m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32">
     
 
 
@@ -304,7 +353,7 @@
 
 
 <div
-  class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0">
+  class="main-menu flex items-center justify-between py-6 md:justify-start gap-x-3 pt-[2px] pr-2 md:pr-4 pb-[3px] pl-0">
   
   
 
@@ -324,11 +373,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="about"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    about
-  </p>
+  
+    <p class="text-base font-medium">
+      about
+    </p>
+  
 </a>
 
 
@@ -338,11 +391,15 @@
   <a
   href="/en/articles/"
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="articles"
+  title="Articles">
   
-  <p class="text-base font-medium" title="Articles">
-    articles
-  </p>
+  
+    <p class="text-base font-medium">
+      articles
+    </p>
+  
 </a>
 
 
@@ -352,11 +409,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="research"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    research
-  </p>
+  
+    <p class="text-base font-medium">
+      research
+    </p>
+  
 </a>
 
 
@@ -534,11 +595,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="about"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      about
-    </p>
+    
+      <p class="text-bg font-bg">
+        about
+      </p>
+    
   </a>
 </li>
 
@@ -550,11 +615,15 @@
   <a
     href="/en/articles/"
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="articles"
+    title="Articles">
     
-    <p class="text-bg font-bg" title="Articles">
-      articles
-    </p>
+    
+      <p class="text-bg font-bg">
+        articles
+      </p>
+    
   </a>
 </li>
 
@@ -566,11 +635,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="research"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      research
-    </p>
+    
+      <p class="text-bg font-bg">
+        research
+      </p>
+    
   </a>
 </li>
 
@@ -626,18 +699,54 @@
         
 
 
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+  
+
+
+
+
+
     <div id="hero" class="h-[150px] md:h-[200px]"></div>
   
   <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
     
     
-      
     
     <img
       id="background-image"
       src="/en/articles/670191053/featured_hu14729570255897851859.png"
-      alt="Background Image"
-      class="absolute inset-0 w-full h-full object-cover">
+      alt="Implementing Object in C&#43;&#43;!"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
     <div
       class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
     <div
@@ -656,7 +765,7 @@
       integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
       data-blur-id="background-blur"
       data-image-id="background-image"
-      data-image-url="/en/articles/670191053/featured.png"></script>
+      data-image-url="/en/articles/670191053/featured_hu14729570255897851859.png"></script>
   
       
     
@@ -852,6 +961,7 @@
     
     
       
+      
         
       
       <img
@@ -859,7 +969,8 @@
         width="96"
         height="96"
         alt="ykiko"
-        src="/img/author_hu12645359616066712621.jpg">
+        src="/img/author_hu12645359616066712621.jpg"
+        data-zoom-src="/img/author.jpg">
     
   
   <div class="place-self-center">
@@ -960,8 +1071,7 @@
       
       
       
-      
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8">
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
             
               <details
@@ -1021,11 +1131,23 @@
     const TOC_LINK_SELECTOR = 'a[href^="#"]'
     const NESTED_LIST_SELECTOR = 'li ul'
     const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
 
     function getActiveAnchorId(anchors, offsetRatio) {
       const threshold = window.scrollY + window.innerHeight * offsetRatio
       const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
       const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
 
       for (let i = anchors.length - 1; i >= 0; i--) {
         const top = anchors[i].getBoundingClientRect().top + window.scrollY
@@ -1073,6 +1195,12 @@
         toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
       }
 
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
       const config = {
         toc,
         anchors,
@@ -1094,7 +1222,6 @@
 </script>
 
 
-            
             
           </div>
         </div>
@@ -1179,13 +1306,13 @@
 
         <div class="article-content max-w-prose mb-20">
           
-<h2 class="relative group">Static vs Dynamic 
+<h2 class="relative group">Static vs Dynamic
     <div id="static-vs-dynamic" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#static-vs-dynamic" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#static-vs-dynamic" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>The terms static typing and dynamic typing are familiar to many. The key distinction lies in the timing of type checking. What does this mean?</p>
@@ -1215,13 +1342,13 @@
 <p>However, this distinction is not absolute. The boundary between static and dynamic languages is not clear-cut. While C++, Java, C#, and TypeScript are statically typed, they provide various methods to bypass static type checking, such as <code>pointer</code> in C++, <code>Object</code> in Java/C#, and <code>Any</code> in TypeScript. Conversely, dynamically typed languages are increasingly incorporating static type checking, such as Python&rsquo;s <code>type hints</code> and JavaScript&rsquo;s TypeScript. Both paradigms are borrowing features from each other.</p>
 <p>Currently, C++ only provides <code>std::any</code> for type erasure, but it is often not flexible enough. We desire more advanced features, such as accessing members by <strong>field names</strong>, calling functions by <strong>function names</strong>, and creating class instances by <strong>type names</strong>. The goal of this article is to construct a dynamic type in C++ similar to Java/C#&rsquo;s <code>Object</code>.</p>
 
-<h2 class="relative group">Meta Types 
+<h2 class="relative group">Meta Types
     <div id="meta-types" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#meta-types" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#meta-types" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>Here, we do not adopt the intrusive design (inheritance) used in Java/C#&rsquo;s <code>Object</code>. Instead, we use a non-intrusive design called <strong>fat pointer</strong>. A fat pointer is essentially a structure containing a pointer to the actual data and a pointer to type information. In the case of inheritance, the virtual table pointer resides in the object&rsquo;s header.</p>
@@ -1253,13 +1380,13 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
 </span></span></code></pre></div><p>The member functions will be implemented in subsequent sections. First, let&rsquo;s consider what is stored in the <code>Type</code> type.</p>
 
-<h2 class="relative group">Meta Information 
+<h2 class="relative group">Meta Information
     <div id="meta-information" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#meta-information" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#meta-information" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Type</span> <span class="p">{</span>
@@ -1275,13 +1402,13 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
 </span></span></code></pre></div><p>The content here is straightforward. We store the type name, destructor, move constructor, copy constructor, field information, and method information in <code>Type</code>. Field information includes the field type and name, while method information includes the method name and function address. If further expansion is desired, information about parent classes and overloaded functions can also be included. Since this is just an example, we will not consider them for now.</p>
 
-<h2 class="relative group">Function Type Erasure 
+<h2 class="relative group">Function Type Erasure
     <div id="function-type-erasure" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#function-type-erasure" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#function-type-erasure" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>To store member functions of different types in the same container, we must perform type erasure on the functions. All types of functions are erased to the type <code>Any(*)(void*, std::span&lt;Any&gt;)</code>. Here, <code>Any</code> is the type we defined earlier, <code>void*</code> represents the <code>this</code> pointer, and <code>std::span&lt;Any&gt;</code> is the function&rsquo;s parameter list. Now, we need to consider how to perform this function type erasure.</p>
@@ -1346,13 +1473,13 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">f</span> <span class="o">=</span> <span class="n">type_ensure</span><span class="o">&lt;&amp;</span><span class="n">Person</span><span class="o">::</span><span class="n">say</span><span class="o">&gt;</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// decltype(f) =&gt; Any (*)(void*, std::span&lt;Any&gt;)
 </span></span></span></code></pre></div>
-<h2 class="relative group">Type Information Registration 
+<h2 class="relative group">Type Information Registration
     <div id="type-information-registration" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#type-information-registration" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#type-information-registration" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>In fact, we need to generate a corresponding <code>Type</code> structure for each type to store its information, so that it can be accessed correctly. This functionality is handled by the <code>type_of</code> function mentioned earlier.</p>
@@ -1384,13 +1511,13 @@
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></div><p>We provide a default implementation so that built-in basic types can automatically register some information. Then, we can specialize for custom types. Now, with this meta information, we can complete the implementation of <code>Any</code>&rsquo;s member functions.</p>
 
-<h2 class="relative group">Complete Implementation of Any 
+<h2 class="relative group">Complete Implementation of Any
     <div id="complete-implementation-of-any" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#complete-implementation-of-any" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#complete-implementation-of-any" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Any</span><span class="o">::</span><span class="n">Any</span><span class="p">(</span><span class="k">const</span> <span class="n">Any</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span>
@@ -1434,13 +1561,13 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>The implementation of <code>foreach</code> is to iterate over all <code>Field</code>s, get the offset and type, and then wrap it into an <code>Any</code> type. Note that this is just a simple wrapper; since we set the <code>flag</code>, this wrapper will not cause multiple destructions. <code>invoke</code> is to find the corresponding function from the member function list and call it.</p>
 
-<h2 class="relative group">Example Code 
+<h2 class="relative group">Example Code
     <div id="example-code" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#example-code" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#example-code" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
@@ -1467,13 +1594,13 @@
     target="_blank"
   >Github</a>. With this, we have implemented a highly dynamic, non-intrusive <code>Any</code>.</p>
 
-<h2 class="relative group">Extensions and Optimizations 
+<h2 class="relative group">Extensions and Optimizations
     <div id="extensions-and-optimizations" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#extensions-and-optimizations" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#extensions-and-optimizations" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>This article provides a very simple introduction to the principles, and the scenarios considered are also very simple. For example, inheritance and function overloading are not considered, and there are several areas where runtime efficiency can be optimized. Nevertheless, the functionality I&rsquo;ve implemented may still be more than you need. The main point of this article is to express that for a performance-focused language like C++, there are indeed scenarios where such dynamic features are needed. However, efficiency and generality are often contradictory. At the language level, because generality must be considered, efficiency often falls short. For example, <code>RTTI</code> and <code>dynamic_cast</code> are often complained about, but fortunately, compilers provide options to disable them. Similarly, my implementation may not fully fit your scenario, but understanding this not-too-difficult principle allows you to implement a version more suitable for your needs.</p>
@@ -1708,52 +1835,36 @@
     <div class="pt-8">
       <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
       <div class="flex justify-between pt-3">
-        <span>
+        <span class="flex flex-col">
           
-            <a class="flex group mr-3" href="/en/articles/670190357/">
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >Why Do C/C++ Compilers Not Retain Metadata?</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2023-12-03T23:37:51&#43;00:00">3 December 2023</time>
-                  
-                </span>
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/en/articles/670190357/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;Why Do C/C++ Compilers Not Retain Metadata?
               </span>
             </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2023-12-03T23:37:51&#43;00:00">3 December 2023</time>
+              </span>
+            
           
         </span>
-        <span>
+        <span class="flex flex-col items-end">
           
-            <a class="flex text-right group ml-3" href="/en/articles/674157958/">
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >A 7-Year Relay Race: Obtaining the Number of Fields in a C++ Struct</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2023-12-26T04:45:30&#43;00:00">26 December 2023</time>
-                  
-                </span>
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/en/articles/674157958/">
+              <span class="leading-6">
+                A 7-Year Relay Race: Obtaining the Number of Fields in a C++ Struct&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
             </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2023-12-26T04:45:30&#43;00:00">26 December 2023</time>
+              </span>
+            
           
         </span>
       </div>
@@ -1787,10 +1898,18 @@
     </footer>
   </article>
 
-        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0 z-10">
+        
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-24 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
   <a
     href="#the-top"
-    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
     aria-label="Scroll to top"
     title="Scroll to top">
     &uarr;

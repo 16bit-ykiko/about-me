@@ -14,146 +14,20 @@
   <meta name="theme-color">
 
   
-  <title>跨越 7 年的接力赛：获取 C&#43;&#43; 结构体字段数量 &middot; ykiko&#39;s blog</title>
+  
+    <title>跨越 7 年的接力赛：获取 C&#43;&#43; 结构体字段数量 &middot; ykiko&#39;s blog</title>
     <meta name="title" content="跨越 7 年的接力赛：获取 C&#43;&#43; 结构体字段数量 &middot; ykiko&#39;s blog">
+  
 
   
-  <meta name="description" content="mainly about computer science and mathematics">
+  
+    <meta name="description" content="mainly about computer science and mathematics">
+  
   
   
   
   <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/674157958/">
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    
-  
-  
-  <link
-    type="text/css"
-    rel="stylesheet"
-    href="/css/main.bundle.min.41ccf158e8b20af093f904e765d07015a786fdc35677cfc16ffff96a6b5235a45e9ce5dc22b59be2c7ec2ae5e4f302e565ca1e75c2439c5c81d44f4c70102851.css"
-    integrity="sha512-QczxWOiyCvCT&#43;QTnZdBwFaeG/cNWd8/Bb//5amtSNaRenOXcIrWb4sfsKuXk8wLlZcoedcJDnFyB1E9McBAoUQ==">
-
-  
-  
-  <script
-    type="text/javascript"
-    src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
-    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
-  
-  
-  
-    
-    
-    <script
-      type="text/javascript"
-      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
-      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
-  
-  
-    
-    
-    
-  
-  
-    
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    <script
-      defer
-      type="text/javascript"
-      id="script-bundle"
-      src="/js/main.bundle.min.04bad31d5c94d6e5ef0c1717be7fb1c389eab84cd88b53910a2d9a97ad49bb75aa257c221e9720df4735fe9ea5cb94e569d8a43682df4f5e66a260d3c2bb68ec.js"
-      integrity="sha512-BLrTHVyU1uXvDBcXvn&#43;xw4nquEzYi1ORCi2al61Ju3WqJXwiHpcg30c1/p6ly5TladikNoLfT15momDTwrto7A=="
-      data-copy="复制"
-      data-copied="已复制"></script>
-  
-  
-    
-    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
-  
-
-  
-  
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/674157958/">
-  <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="跨越 7 年的接力赛：获取 C&#43;&#43; 结构体字段数量">
-  <meta property="og:description" content="引子 # 在C&#43;&#43;17中引入了叫做「结构化绑定」的特性也就是Struct Bind，这一特性类似于别的语言中的模式匹配，可以让我们方便的对结构体的成员进行访问">
-  <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2023-12-26T04:45:30+00:00">
-    <meta property="article:modified_time" content="2023-12-26T04:45:30+00:00">
-    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/674157958/featured.png">
-
-  
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/674157958/featured.png">
-  <meta name="twitter:title" content="跨越 7 年的接力赛：获取 C&#43;&#43; 结构体字段数量">
-  <meta name="twitter:description" content="引子 # 在C&#43;&#43;17中引入了叫做「结构化绑定」的特性也就是Struct Bind，这一特性类似于别的语言中的模式匹配，可以让我们方便的对结构体的成员进行访问">
-<meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/674157958/featured.png">
-    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/674157958/featured.png">
-  <script type="application/ld+json">
-  [{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "articleSection": "Articles",
-    "name": "跨越 7 年的接力赛：获取 C\u002b\u002b 结构体字段数量",
-    "headline": "跨越 7 年的接力赛：获取 C\u002b\u002b 结构体字段数量",
-    
-    "abstract": "\u003ch2 class=\u0022relative group\u0022\u003e引子 \n    \u003cdiv id=\u0022引子\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none\u0022\u003e\n        \u003ca class=\u0022group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline\u0022 href=\u0022#%e5%bc%95%e5%ad%90\u0022 aria-label=\u0022锚点\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e        \n    \n\u003c\/h2\u003e\n\u003cp\u003e在\u003ccode\u003eC\u002b\u002b17\u003c\/code\u003e中引入了叫做「\u003cstrong\u003e结构化绑定\u003c\/strong\u003e」的特性也就是\u003ccode\u003eStruct Bind\u003c\/code\u003e，这一特性类似于别的语言中的模式匹配，可以让我们方便的对结构体的成员进行访问\u003c\/p\u003e",
-    "inLanguage": "zh-cn",
-    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/674157958\/",
-    "author" : {
-      "@type": "Person",
-      "name": "ykiko"
-    },
-    "copyrightYear": "2023",
-    "dateCreated": "2023-12-26T04:45:30\u002b00:00",
-    "datePublished": "2023-12-26T04:45:30\u002b00:00",
-    
-    "dateModified": "2023-12-26T04:45:30\u002b00:00",
-    
-    
-    
-    "mainEntityOfPage": "true",
-    "wordCount": "7834"
-  }]
-  </script>
-
-
 
   
   
@@ -189,6 +63,113 @@
         
       
     
+  
+
+  
+  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/674157958/">
+  <meta property="og:site_name" content="ykiko&#39;s blog">
+  <meta property="og:title" content="跨越 7 年的接力赛：获取 C&#43;&#43; 结构体字段数量">
+  <meta property="og:description" content="引子 # 在C&#43;&#43;17中引入了叫做「结构化绑定」的特性也就是Struct Bind，这一特性类似于别的语言中的模式匹配，可以让我们方便的对结构体的成员进行访问">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2023-12-26T04:45:30+00:00">
+    <meta property="article:modified_time" content="2023-12-26T04:45:30+00:00">
+    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/674157958/featured.png">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/674157958/featured.png">
+  <meta name="twitter:title" content="跨越 7 年的接力赛：获取 C&#43;&#43; 结构体字段数量">
+  <meta name="twitter:description" content="引子 # 在C&#43;&#43;17中引入了叫做「结构化绑定」的特性也就是Struct Bind，这一特性类似于别的语言中的模式匹配，可以让我们方便的对结构体的成员进行访问">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+    
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.2431d6175642aa3406b26d8aeaf714be755f476e2ff745dfec768b775cc5a9e4153b208bf3568ebb5ad57562ca0fa91428c9bdc23bf0f9fcffc6a316955ac885.css"
+    integrity="sha512-JDHWF1ZCqjQGsm2K6vcUvnVfR24v90Xf7HaLd1zFqeQVOyCL81aOu1rVdWLKD6kUKMm9wjvw&#43;fz/xqMWlVrIhQ==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
+      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      data-copy="复制"
+      data-copied="已复制"></script>
   
 
   
@@ -237,6 +218,46 @@
 
   
   
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Articles",
+    "name": "跨越 7 年的接力赛：获取 C\u002b\u002b 结构体字段数量",
+    "headline": "跨越 7 年的接力赛：获取 C\u002b\u002b 结构体字段数量",
+    
+    "abstract": "\u003ch2 class=\u0022relative group\u0022\u003e引子\n    \u003cdiv id=\u0022引子\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none\u0022\u003e\n        \u003ca class=\u0022text-primary-300 dark:text-neutral-700 !no-underline\u0022 href=\u0022#%e5%bc%95%e5%ad%90\u0022 aria-label=\u0022锚点\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e\n    \n\u003c\/h2\u003e\n\u003cp\u003e在\u003ccode\u003eC\u002b\u002b17\u003c\/code\u003e中引入了叫做「\u003cstrong\u003e结构化绑定\u003c\/strong\u003e」的特性也就是\u003ccode\u003eStruct Bind\u003c\/code\u003e，这一特性类似于别的语言中的模式匹配，可以让我们方便的对结构体的成员进行访问\u003c\/p\u003e",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/674157958\/",
+    "author" : {
+      "@type": "Person",
+      "name": "ykiko"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-12-26T04:45:30\u002b00:00",
+    "datePublished": "2023-12-26T04:45:30\u002b00:00",
+    
+    "dateModified": "2023-12-26T04:45:30\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "7834"
+  }]
+  </script>
+
+
+
+  
+  
+    
 
   <script
   async
@@ -253,6 +274,7 @@
 
 
 
+  
 
   
   
@@ -266,8 +288,35 @@
   
   
 </head>
-<body
-    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
     <div id="the-top" class="absolute flex self-center">
       <a
         class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
@@ -279,11 +328,11 @@
     
     
       <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-100">
+<div class="fixed inset-x-0 z-100">
   <div
     id="menu-blur"
     class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
-  <div class="relative max-w-[64rem] ml-auto mr-auto">
+  <div class="relative m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32">
     
 
 
@@ -299,7 +348,7 @@
 
 
 <div
-  class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0">
+  class="main-menu flex items-center justify-between py-6 md:justify-start gap-x-3 pt-[2px] pr-2 md:pr-4 pb-[3px] pl-0">
   
   
 
@@ -319,11 +368,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="关于我"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    关于我
-  </p>
+  
+    <p class="text-base font-medium">
+      关于我
+    </p>
+  
 </a>
 
 
@@ -333,11 +386,15 @@
   <a
   href="/zh-cn/articles/"
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="文章"
+  title="Articles">
   
-  <p class="text-base font-medium" title="Articles">
-    文章
-  </p>
+  
+    <p class="text-base font-medium">
+      文章
+    </p>
+  
 </a>
 
 
@@ -347,11 +404,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="研究"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    研究
-  </p>
+  
+    <p class="text-base font-medium">
+      研究
+    </p>
+  
 </a>
 
 
@@ -529,11 +590,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="关于我"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      关于我
-    </p>
+    
+      <p class="text-bg font-bg">
+        关于我
+      </p>
+    
   </a>
 </li>
 
@@ -545,11 +610,15 @@
   <a
     href="/zh-cn/articles/"
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="文章"
+    title="Articles">
     
-    <p class="text-bg font-bg" title="Articles">
-      文章
-    </p>
+    
+      <p class="text-bg font-bg">
+        文章
+      </p>
+    
   </a>
 </li>
 
@@ -561,11 +630,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="研究"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      研究
-    </p>
+    
+      <p class="text-bg font-bg">
+        研究
+      </p>
+    
   </a>
 </li>
 
@@ -621,18 +694,54 @@
         
 
 
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+  
+
+
+
+
+
     <div id="hero" class="h-[150px] md:h-[200px]"></div>
   
   <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
     
     
-      
     
     <img
       id="background-image"
       src="/zh-cn/articles/674157958/featured_hu9144655273198076991.png"
-      alt="Background Image"
-      class="absolute inset-0 w-full h-full object-cover">
+      alt="跨越 7 年的接力赛：获取 C&#43;&#43; 结构体字段数量"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
     <div
       class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
     <div
@@ -651,7 +760,7 @@
       integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
       data-blur-id="background-blur"
       data-image-id="background-image"
-      data-image-url="/zh-cn/articles/674157958/featured.png"></script>
+      data-image-url="/zh-cn/articles/674157958/featured_hu9144655273198076991.png"></script>
   
       
     
@@ -847,6 +956,7 @@
     
     
       
+      
         
       
       <img
@@ -854,7 +964,8 @@
         width="96"
         height="96"
         alt="ykiko"
-        src="/img/author_hu12645359616066712621.jpg">
+        src="/img/author_hu12645359616066712621.jpg"
+        data-zoom-src="/img/author.jpg">
     
   
   <div class="place-self-center">
@@ -955,8 +1066,7 @@
       
       
       
-      
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8">
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
             
               <details
@@ -1036,11 +1146,23 @@
     const TOC_LINK_SELECTOR = 'a[href^="#"]'
     const NESTED_LIST_SELECTOR = 'li ul'
     const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
 
     function getActiveAnchorId(anchors, offsetRatio) {
       const threshold = window.scrollY + window.innerHeight * offsetRatio
       const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
       const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
 
       for (let i = anchors.length - 1; i >= 0; i--) {
         const top = anchors[i].getBoundingClientRect().top + window.scrollY
@@ -1088,6 +1210,12 @@
         toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
       }
 
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
       const config = {
         toc,
         anchors,
@@ -1110,7 +1238,6 @@
 
 
             
-            
           </div>
         </div>
       
@@ -1121,13 +1248,13 @@
 
         <div class="article-content max-w-prose mb-20">
           
-<h2 class="relative group">引子 
+<h2 class="relative group">引子
     <div id="引子" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e5%bc%95%e5%ad%90" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%bc%95%e5%ad%90" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>在<code>C++17</code>中引入了叫做「<strong>结构化绑定</strong>」的特性也就是<code>Struct Bind</code>，这一特性类似于别的语言中的模式匹配，可以让我们方便的对结构体的成员进行访问</p>
@@ -1186,13 +1313,13 @@
 </span></span><span class="line"><span class="cl"><span class="c1">// ...
 </span></span></span></code></pre></div><p>你可以自由枚举到你想要支持的数量，这里面的<code>N</code>就是结构体字段数量了，你可能需要把它作为模板参数显式传入，或者给每个类型都特化一个模板，里面存上它的字段数量。但是这仍然很麻烦，那么有没有一种方法可以让编译器自动的帮我们计算出结构体的字段数量呢？</p>
 
-<h2 class="relative group">第一棒 Antony Polukhin 
+<h2 class="relative group">第一棒 Antony Polukhin
     <div id="第一棒-antony-polukhin" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e7%ac%ac%e4%b8%80%e6%a3%92-antony-polukhin" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%ac%ac%e4%b8%80%e6%a3%92-antony-polukhin" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>初步解决方案在 <a
@@ -1257,13 +1384,13 @@
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">member_count</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
 </span></span></code></pre></div><p>很好啊，大获成功！事情到这里就结束了吗？</p>
 
-<h2 class="relative group">第二棒 João Baptista 
+<h2 class="relative group">第二棒 João Baptista
     <div id="第二棒-joão-baptista" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e7%ac%ac%e4%ba%8c%e6%a3%92-jo%c3%a3o-baptista" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%ac%ac%e4%ba%8c%e6%a3%92-jo%c3%a3o-baptista" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>考虑下面这三个例子</p>
@@ -1297,13 +1424,13 @@
 </ul>
 <p>他总结了<code>boost/pfr</code>中的问题，并提出了解决方案，解决了上述提到的三个问题</p>
 
-<h3 class="relative group">左值引用的问题 
+<h3 class="relative group">左值引用的问题
     <div id="左值引用的问题" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e5%b7%a6%e5%80%bc%e5%bc%95%e7%94%a8%e7%9a%84%e9%97%ae%e9%a2%98" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%b7%a6%e5%80%bc%e5%bc%95%e7%94%a8%e7%9a%84%e9%97%ae%e9%a2%98" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>第一个问题相对比较好理解，主要就是因为<code>T()</code>类型产生的转换产生的都是纯右值，左值引用没法绑定到纯右值，如果是右值引用就可以了</p>
@@ -1327,13 +1454,13 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_constructible_v</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">int</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// true
 </span></span></span></code></pre></div><p>很好，这样的话第一个问题，解决！</p>
 
-<h3 class="relative group">默认构造函数的问题 
+<h3 class="relative group">默认构造函数的问题
     <div id="默认构造函数的问题" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e9%bb%98%e8%ae%a4%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%e7%9a%84%e9%97%ae%e9%a2%98" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e9%bb%98%e8%ae%a4%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%e7%9a%84%e9%97%ae%e9%a2%98" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>为什么把默认构造函数删了就不行了呢？还记得我们最开始的那个<code>Point</code>类型吗？</p>
@@ -1369,13 +1496,13 @@
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">member_count</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
 </span></span></code></pre></div><p><code>OK</code>，第二个问题也解决了，实在是太酷了！</p>
 
-<h3 class="relative group">数组的问题 
+<h3 class="relative group">数组的问题
     <div id="数组的问题" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e6%95%b0%e7%bb%84%e7%9a%84%e9%97%ae%e9%a2%98" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%95%b0%e7%bb%84%e7%9a%84%e9%97%ae%e9%a2%98" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>如果在结构体的成员里面有数组，那么计算的时候最终得到的结果就是把数组的每一个成员都当成一个字段来计算，其实就是因为对标准数组的聚合初始化开了后门</p>
@@ -1524,13 +1651,13 @@
 <p>他说，他遇到了<code>clang</code>和<code>gcc</code>的行为不一致的情况，而且完全没法让这种方法在<code>msvc</code>上工作。</p>
 <p><strong>看来事情远远没有结束！</strong></p>
 
-<h2 class="relative group">第三棒 YKIKO 
+<h2 class="relative group">第三棒 YKIKO
     <div id="第三棒-ykiko" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e7%ac%ac%e4%b8%89%e6%a3%92-ykiko" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%ac%ac%e4%b8%89%e6%a3%92-ykiko" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>我花了一些时间读懂了刚才这位作者的文章，说实话他的模板写的我很难读懂，他不喜欢用<code>if constexpr</code>来做分支选择，用了很多特化来做选择，给可读性造成了很大影响。所以刚才那些代码并不完全是原作者中的代码，是我用我认为的，更好阅读的形式进行转译的。</p>
@@ -1551,13 +1678,13 @@
 <li><code>MSVC</code>的<code>bug</code>和<code>GCC</code>的<code>bug</code></li>
 </ul>
 
-<h3 class="relative group">移动构造被删除的问题 
+<h3 class="relative group">移动构造被删除的问题
     <div id="移动构造被删除的问题" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e7%a7%bb%e5%8a%a8%e6%9e%84%e9%80%a0%e8%a2%ab%e5%88%a0%e9%99%a4%e7%9a%84%e9%97%ae%e9%a2%98" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%a7%bb%e5%8a%a8%e6%9e%84%e9%80%a0%e8%a2%ab%e5%88%a0%e9%99%a4%e7%9a%84%e9%97%ae%e9%a2%98" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>这一切都源于<code>C++17</code>加入的一条新规则，是关于 <a
@@ -1598,13 +1725,13 @@
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></div><p>注意到我们这里对类型做了约束，如果是不可移动的类型（移动构造被删除），那就对应到了最后一个类型转换函数。直接产生<code>prvalue</code>构造对象，这样就巧妙地解决了这个问题了。写拷贝构造的约束是为了防止重载决议歧义（同时在最后可以顺便修复<code>MSVC</code>的<code>bug</code>）。</p>
 
-<h3 class="relative group">结构体中含有其它结构体成员 
+<h3 class="relative group">结构体中含有其它结构体成员
     <div id="结构体中含有其它结构体成员" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e7%bb%93%e6%9e%84%e4%bd%93%e4%b8%ad%e5%90%ab%e6%9c%89%e5%85%b6%e5%ae%83%e7%bb%93%e6%9e%84%e4%bd%93%e6%88%90%e5%91%98" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%bb%93%e6%9e%84%e4%bd%93%e4%b8%ad%e5%90%ab%e6%9c%89%e5%85%b6%e5%ae%83%e7%bb%93%e6%9e%84%e4%bd%93%e6%88%90%e5%91%98" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>事实上作者原本的思路很好，但是忽略了一个问题，那就是<strong>不只有数组类型在可以使用二重</strong><code>{{ }}</code>初始化，结构体也是可以的</p>
@@ -1667,13 +1794,13 @@
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">true_member_count</span><span class="o">&lt;</span><span class="n">G</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// OK
 </span></span></span></code></pre></div><p><code>Nice</code>！！！太好了。</p>
 
-<h3 class="relative group">MSVC 的 bug 和 GCC 的 bug 
+<h3 class="relative group">MSVC 的 bug 和 GCC 的 bug
     <div id="msvc-的-bug-和-gcc-的-bug" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#msvc-%e7%9a%84-bug-%e5%92%8c-gcc-%e7%9a%84-bug" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#msvc-%e7%9a%84-bug-%e5%92%8c-gcc-%e7%9a%84-bug" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>作者在原文中提到的<code>GCC</code>和<code>MSVC</code>的问题我也一并找出来了，<code>MSVC</code>目前有一个<a
@@ -1716,13 +1843,13 @@
     target="_blank"
   >godbolt</a> 。<code>clang</code>没任何问题，但是<code>GCC 13</code>就直接内部编译器错误了。而<code>GCC 12</code>和<code>clang</code>的编译结果不一样<code>...</code>但是其实<code>clang</code>是对的。这也就是原作者文章里面说的<code>clang</code>和<code>gcc</code>不一致的地方。*注：后经评论区提醒，clang 15也会遇到类似的内部编译器错误。 *</p>
 
-<h2 class="relative group">后记 
+<h2 class="relative group">后记
     <div id="后记" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e5%90%8e%e8%ae%b0" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%90%8e%e8%ae%b0" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>后来又和评论区的各位讨论了一番，上面的处理仍然有些欠缺考虑。一个典型的例子是，当成员变量的构造函数是模板函数的时候就会出错，例如<code>std::any</code>，原因是不知道调用类型转换函数和模板构造函数中的哪一个（重载决议失败）</p>
@@ -1766,13 +1893,13 @@
 </span></span><span class="line"><span class="cl"><span class="n">Y</span> <span class="n">y</span><span class="p">{</span> <span class="n">Any</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">};</span> 
 </span></span></code></pre></div><p>在这两个聚合初始化里面，类型转换函数实例化的<code>T</code>都是<code>CanNotCopy</code>类型，但是如果想让<code>x</code>，<code>y</code>都良构，那么就意味对于同一个<code>T</code>要选择两个不同的重载函数，第一个选<code>operator T&amp;()</code>，第二个选<code>operator T()</code>，但是这两个函数之间并没有哪个更优先，<code>C++</code>也没法对返回值进行重载，所以这是做不到的。一个可能的解决方案是写三种<code>Any</code>,分别转化成<code>T&amp;</code>，<code>T&amp;&amp;</code>，<code>T</code>然后在每个位置使用这三种进行尝试，这样的话倒是可以解决这个问题，<strong>但是可能会导致模板实例化个数以3 ^ N次方的速度增长</strong>。这种实现比之前的遍历方式加起来开销都要大，所以这里我就不做展示了，理论可行，实践上会累跨编译器</p>
 
-<h2 class="relative group">结语 
+<h2 class="relative group">结语
     <div id="结语" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e7%bb%93%e8%af%ad" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%bb%93%e8%af%ad" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>本文的全部代码都在 <a
@@ -1933,52 +2060,36 @@
     <div class="pt-8">
       <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
       <div class="flex justify-between pt-3">
-        <span>
+        <span class="flex flex-col">
           
-            <a class="flex group mr-3" href="/zh-cn/articles/670191053/">
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >在 C++ 中实现 Object!</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2023-12-03T23:40:52&#43;00:00">December 3, 2023</time>
-                  
-                </span>
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/zh-cn/articles/670191053/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;在 C++ 中实现 Object!
               </span>
             </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2023-12-03T23:40:52&#43;00:00">December 3, 2023</time>
+              </span>
+            
           
         </span>
-        <span>
+        <span class="flex flex-col items-end">
           
-            <a class="flex text-right group ml-3" href="/zh-cn/articles/679782886/">
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >C++ 中的 relocate 语义</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2024-01-25T17:22:29&#43;00:00">January 25, 2024</time>
-                  
-                </span>
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/zh-cn/articles/679782886/">
+              <span class="leading-6">
+                C++ 中的 relocate 语义&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
             </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2024-01-25T17:22:29&#43;00:00">January 25, 2024</time>
+              </span>
+            
           
         </span>
       </div>
@@ -2012,10 +2123,18 @@
     </footer>
   </article>
 
-        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0 z-10">
+        
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-24 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
   <a
     href="#the-top"
-    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
     aria-label="返回顶部"
     title="返回顶部">
     &uarr;

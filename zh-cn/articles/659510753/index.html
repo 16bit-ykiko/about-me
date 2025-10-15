@@ -14,146 +14,20 @@
   <meta name="theme-color">
 
   
-  <title>C&#43;&#43; 成员指针完全解析 &middot; ykiko&#39;s blog</title>
+  
+    <title>C&#43;&#43; 成员指针完全解析 &middot; ykiko&#39;s blog</title>
     <meta name="title" content="C&#43;&#43; 成员指针完全解析 &middot; ykiko&#39;s blog">
+  
 
   
-  <meta name="description" content="mainly about computer science and mathematics">
+  
+    <meta name="description" content="mainly about computer science and mathematics">
+  
   
   
   
   <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/659510753/">
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    
-  
-  
-  <link
-    type="text/css"
-    rel="stylesheet"
-    href="/css/main.bundle.min.41ccf158e8b20af093f904e765d07015a786fdc35677cfc16ffff96a6b5235a45e9ce5dc22b59be2c7ec2ae5e4f302e565ca1e75c2439c5c81d44f4c70102851.css"
-    integrity="sha512-QczxWOiyCvCT&#43;QTnZdBwFaeG/cNWd8/Bb//5amtSNaRenOXcIrWb4sfsKuXk8wLlZcoedcJDnFyB1E9McBAoUQ==">
-
-  
-  
-  <script
-    type="text/javascript"
-    src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
-    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
-  
-  
-  
-    
-    
-    <script
-      type="text/javascript"
-      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
-      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
-  
-  
-    
-    
-    
-  
-  
-    
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    <script
-      defer
-      type="text/javascript"
-      id="script-bundle"
-      src="/js/main.bundle.min.04bad31d5c94d6e5ef0c1717be7fb1c389eab84cd88b53910a2d9a97ad49bb75aa257c221e9720df4735fe9ea5cb94e569d8a43682df4f5e66a260d3c2bb68ec.js"
-      integrity="sha512-BLrTHVyU1uXvDBcXvn&#43;xw4nquEzYi1ORCi2al61Ju3WqJXwiHpcg30c1/p6ly5TladikNoLfT15momDTwrto7A=="
-      data-copy="复制"
-      data-copied="已复制"></script>
-  
-  
-    
-    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
-  
-
-  
-  
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/659510753/">
-  <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="C&#43;&#43; 成员指针完全解析">
-  <meta property="og:description" content="Introduction # 在 C&#43;&#43; 中，形如&amp;T::name的表达式返回的结果就是成员指针。写代码的时候偶尔会用到，但是这个概念可能很多人都并不熟悉。考虑如下代码">
-  <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2023-10-04T14:50:12+00:00">
-    <meta property="article:modified_time" content="2023-10-04T14:50:12+00:00">
-    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/659510753/featured.png">
-
-  
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/659510753/featured.png">
-  <meta name="twitter:title" content="C&#43;&#43; 成员指针完全解析">
-  <meta name="twitter:description" content="Introduction # 在 C&#43;&#43; 中，形如&amp;T::name的表达式返回的结果就是成员指针。写代码的时候偶尔会用到，但是这个概念可能很多人都并不熟悉。考虑如下代码">
-<meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/659510753/featured.png">
-    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/659510753/featured.png">
-  <script type="application/ld+json">
-  [{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "articleSection": "Articles",
-    "name": "C\u002b\u002b 成员指针完全解析",
-    "headline": "C\u002b\u002b 成员指针完全解析",
-    
-    "abstract": "\u003ch2 class=\u0022relative group\u0022\u003eIntroduction \n    \u003cdiv id=\u0022introduction\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none\u0022\u003e\n        \u003ca class=\u0022group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline\u0022 href=\u0022#introduction\u0022 aria-label=\u0022锚点\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e        \n    \n\u003c\/h2\u003e\n\u003cp\u003e在 C\u002b\u002b 中，形如\u003ccode\u003e\u0026amp;T::name\u003c\/code\u003e的表达式返回的结果就是成员指针。写代码的时候偶尔会用到，但是这个概念可能很多人都并不熟悉。考虑如下代码\u003c\/p\u003e",
-    "inLanguage": "zh-cn",
-    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/659510753\/",
-    "author" : {
-      "@type": "Person",
-      "name": "ykiko"
-    },
-    "copyrightYear": "2023",
-    "dateCreated": "2023-10-04T14:50:12\u002b00:00",
-    "datePublished": "2023-10-04T14:50:12\u002b00:00",
-    
-    "dateModified": "2023-10-04T14:50:12\u002b00:00",
-    
-    
-    
-    "mainEntityOfPage": "true",
-    "wordCount": "3390"
-  }]
-  </script>
-
-
 
   
   
@@ -189,6 +63,113 @@
         
       
     
+  
+
+  
+  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/659510753/">
+  <meta property="og:site_name" content="ykiko&#39;s blog">
+  <meta property="og:title" content="C&#43;&#43; 成员指针完全解析">
+  <meta property="og:description" content="Introduction # 在 C&#43;&#43; 中，形如&amp;T::name的表达式返回的结果就是成员指针。写代码的时候偶尔会用到，但是这个概念可能很多人都并不熟悉。考虑如下代码">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2023-10-04T14:50:12+00:00">
+    <meta property="article:modified_time" content="2023-10-04T14:50:12+00:00">
+    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/659510753/featured.png">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/659510753/featured.png">
+  <meta name="twitter:title" content="C&#43;&#43; 成员指针完全解析">
+  <meta name="twitter:description" content="Introduction # 在 C&#43;&#43; 中，形如&amp;T::name的表达式返回的结果就是成员指针。写代码的时候偶尔会用到，但是这个概念可能很多人都并不熟悉。考虑如下代码">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+    
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.2431d6175642aa3406b26d8aeaf714be755f476e2ff745dfec768b775cc5a9e4153b208bf3568ebb5ad57562ca0fa91428c9bdc23bf0f9fcffc6a316955ac885.css"
+    integrity="sha512-JDHWF1ZCqjQGsm2K6vcUvnVfR24v90Xf7HaLd1zFqeQVOyCL81aOu1rVdWLKD6kUKMm9wjvw&#43;fz/xqMWlVrIhQ==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
+      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      data-copy="复制"
+      data-copied="已复制"></script>
   
 
   
@@ -237,6 +218,46 @@
 
   
   
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Articles",
+    "name": "C\u002b\u002b 成员指针完全解析",
+    "headline": "C\u002b\u002b 成员指针完全解析",
+    
+    "abstract": "\u003ch2 class=\u0022relative group\u0022\u003eIntroduction\n    \u003cdiv id=\u0022introduction\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none\u0022\u003e\n        \u003ca class=\u0022text-primary-300 dark:text-neutral-700 !no-underline\u0022 href=\u0022#introduction\u0022 aria-label=\u0022锚点\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e\n    \n\u003c\/h2\u003e\n\u003cp\u003e在 C\u002b\u002b 中，形如\u003ccode\u003e\u0026amp;T::name\u003c\/code\u003e的表达式返回的结果就是成员指针。写代码的时候偶尔会用到，但是这个概念可能很多人都并不熟悉。考虑如下代码\u003c\/p\u003e",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/659510753\/",
+    "author" : {
+      "@type": "Person",
+      "name": "ykiko"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-10-04T14:50:12\u002b00:00",
+    "datePublished": "2023-10-04T14:50:12\u002b00:00",
+    
+    "dateModified": "2023-10-04T14:50:12\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "3390"
+  }]
+  </script>
+
+
+
+  
+  
+    
 
   <script
   async
@@ -253,6 +274,7 @@
 
 
 
+  
 
   
   
@@ -266,8 +288,35 @@
   
   
 </head>
-<body
-    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
     <div id="the-top" class="absolute flex self-center">
       <a
         class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
@@ -279,11 +328,11 @@
     
     
       <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-100">
+<div class="fixed inset-x-0 z-100">
   <div
     id="menu-blur"
     class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
-  <div class="relative max-w-[64rem] ml-auto mr-auto">
+  <div class="relative m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32">
     
 
 
@@ -299,7 +348,7 @@
 
 
 <div
-  class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0">
+  class="main-menu flex items-center justify-between py-6 md:justify-start gap-x-3 pt-[2px] pr-2 md:pr-4 pb-[3px] pl-0">
   
   
 
@@ -319,11 +368,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="关于我"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    关于我
-  </p>
+  
+    <p class="text-base font-medium">
+      关于我
+    </p>
+  
 </a>
 
 
@@ -333,11 +386,15 @@
   <a
   href="/zh-cn/articles/"
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="文章"
+  title="Articles">
   
-  <p class="text-base font-medium" title="Articles">
-    文章
-  </p>
+  
+    <p class="text-base font-medium">
+      文章
+    </p>
+  
 </a>
 
 
@@ -347,11 +404,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="研究"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    研究
-  </p>
+  
+    <p class="text-base font-medium">
+      研究
+    </p>
+  
 </a>
 
 
@@ -529,11 +590,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="关于我"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      关于我
-    </p>
+    
+      <p class="text-bg font-bg">
+        关于我
+      </p>
+    
   </a>
 </li>
 
@@ -545,11 +610,15 @@
   <a
     href="/zh-cn/articles/"
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="文章"
+    title="Articles">
     
-    <p class="text-bg font-bg" title="Articles">
-      文章
-    </p>
+    
+      <p class="text-bg font-bg">
+        文章
+      </p>
+    
   </a>
 </li>
 
@@ -561,11 +630,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="研究"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      研究
-    </p>
+    
+      <p class="text-bg font-bg">
+        研究
+      </p>
+    
   </a>
 </li>
 
@@ -621,18 +694,54 @@
         
 
 
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+  
+
+
+
+
+
     <div id="hero" class="h-[150px] md:h-[200px]"></div>
   
   <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
     
     
-      
     
     <img
       id="background-image"
       src="/zh-cn/articles/659510753/featured_hu10113629041107342836.png"
-      alt="Background Image"
-      class="absolute inset-0 w-full h-full object-cover">
+      alt="C&#43;&#43; 成员指针完全解析"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
     <div
       class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
     <div
@@ -651,7 +760,7 @@
       integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
       data-blur-id="background-blur"
       data-image-id="background-image"
-      data-image-url="/zh-cn/articles/659510753/featured.png"></script>
+      data-image-url="/zh-cn/articles/659510753/featured_hu10113629041107342836.png"></script>
   
       
     
@@ -847,6 +956,7 @@
     
     
       
+      
         
       
       <img
@@ -854,7 +964,8 @@
         width="96"
         height="96"
         alt="ykiko"
-        src="/img/author_hu12645359616066712621.jpg">
+        src="/img/author_hu12645359616066712621.jpg"
+        data-zoom-src="/img/author.jpg">
     
   
   <div class="place-self-center">
@@ -955,8 +1066,7 @@
       
       
       
-      
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8">
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
             
               <details
@@ -1042,11 +1152,23 @@
     const TOC_LINK_SELECTOR = 'a[href^="#"]'
     const NESTED_LIST_SELECTOR = 'li ul'
     const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
 
     function getActiveAnchorId(anchors, offsetRatio) {
       const threshold = window.scrollY + window.innerHeight * offsetRatio
       const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
       const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
 
       for (let i = anchors.length - 1; i >= 0; i--) {
         const top = anchors[i].getBoundingClientRect().top + window.scrollY
@@ -1094,6 +1216,12 @@
         toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
       }
 
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
       const config = {
         toc,
         anchors,
@@ -1116,7 +1244,6 @@
 
 
             
-            
           </div>
         </div>
       
@@ -1127,13 +1254,13 @@
 
         <div class="article-content max-w-prose mb-20">
           
-<h2 class="relative group">Introduction 
+<h2 class="relative group">Introduction
     <div id="introduction" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#introduction" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#introduction" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>在 C++ 中，形如<code>&amp;T::name</code>的表达式返回的结果就是成员指针。写代码的时候偶尔会用到，但是这个概念可能很多人都并不熟悉。考虑如下代码</p>
@@ -1155,23 +1282,23 @@
     target="_blank"
   >pointers to members</a>，用来合法进行这样的操作。</p>
 
-<h2 class="relative group">Usage 
+<h2 class="relative group">Usage
     <div id="usage" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#usage" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#usage" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 
-<h3 class="relative group">pointer to data member 
+<h3 class="relative group">pointer to data member
     <div id="pointer-to-data-member" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#pointer-to-data-member" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#pointer-to-data-member" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>一个指向类<code>C</code>非静态成员<code>m</code>的成员指针可以用<code>&amp;C::m</code>进行初始化。当在<code>C</code>的成员函数里面使用<code>&amp;C::m</code>会出现二义性。即既可以指代对<code>m</code>成员取地址<code>&amp;this-&gt;m</code>，也可以指代成员指针。为此标准规定，<code>&amp;C::m</code>表示成员指针，<code>&amp;(C::m)</code>或者<code>&amp;m</code>表示对<code>m</code>成员取地址。可以通过运算符<code>.*</code>和<code>-&gt;*</code>来访问对应的成员。示例代码如下</p>
@@ -1234,13 +1361,13 @@
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">point</span><span class="p">.</span><span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">point</span><span class="p">.</span><span class="n">y</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>  <span class="c1">// 10 20
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}}</span>
 </span></span></code></pre></div>
-<h3 class="relative group">pointer to member function 
+<h3 class="relative group">pointer to member function
     <div id="pointer-to-member-function" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#pointer-to-member-function" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#pointer-to-member-function" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>一个指向非静态成员函数<code>f</code>的成员指针可以用<code>&amp;C::f</code>进行初始化。由于不能对非静态成员函数取地址，<code>&amp;(C::f)</code>和<code>&amp;f</code>什么都不表示。类似的可以通过运算符<code>.*</code>和<code>-&gt;*</code>来访问对应的成员函数。如果成员函数是重载函数，想要获取对应的成员函数指针，请参考 <a
@@ -1303,13 +1430,13 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">access</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">C</span><span class="o">::</span><span class="n">g</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 2
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></div>
-<h2 class="relative group">Implementation 
+<h2 class="relative group">Implementation
     <div id="implementation" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#implementation" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#implementation" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>首先要明确的是，C++ 标准并没有规定成员指针是什么实现的。在这一点上和虚函数一样，即标准没有规定虚函数是怎么实现的，只规定了虚函数的行为。所以成员指针相关的实现完全是 <strong>implementation defined</strong>。本来只需要了解怎么使用就足够了，不要关心底层实现。但是奈何网络上相关话题的错误文章太多了，已经严重的产生了误导，所以有必要进行澄清。</p>
@@ -1345,23 +1472,23 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></div><p>输出的结果都是<code>1</code>。鼠标移到<code>&lt;&lt;</code>就会发现，这是发生了到<code>bool</code>的隐式类型转换。<code>&lt;&lt;</code>并没有重载成员指针类型。我们只能通过一些手段查看它的二进制值表示。</p>
 
-<h2 class="relative group">Itanium C++ ABI 
+<h2 class="relative group">Itanium C++ ABI
     <div id="itanium-c-abi" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#itanium-c-abi" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#itanium-c-abi" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 
-<h3 class="relative group">pointer to data member 
+<h3 class="relative group">pointer to data member
     <div id="pointer-to-data-member-1" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#pointer-to-data-member-1" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#pointer-to-data-member-1" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>一般来说可以用下述结构体表示，数据成员指针。表示相对于对象首地址的偏移量。如果是<code>nullptr</code>则里面存的是<code>-1</code>。此时成员指针大小就是<code>sizeof(ptrdiff_t)</code>。</p>
@@ -1400,13 +1527,13 @@
 </span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="p">(</span><span class="n">c2</span><span class="p">);</span>  <span class="c1">// offset is 4
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></div>
-<h3 class="relative group">pointer to member function 
+<h3 class="relative group">pointer to member function
     <div id="pointer-to-member-function-1" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#pointer-to-member-function-1" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#pointer-to-member-function-1" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>在主流的平台上，一般来说可以用下述结构体表示，成员函数指针:</p>
@@ -1467,13 +1594,13 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">invoke</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">A</span><span class="o">::</span><span class="n">bar</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>  <span class="c1">// A::bar 43
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></div>
-<h2 class="relative group">MSVC C++ ABI 
+<h2 class="relative group">MSVC C++ ABI
     <div id="msvc-c-abi" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#msvc-c-abi" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#msvc-c-abi" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>MSVC 对于此的实现非常复杂，还对 C++ 标准进行了扩展。如果想要细致全面的了解，还是建议阅读上面那篇博客。</p>
@@ -1499,13 +1626,13 @@
   >C++中虚函数、虚继承内存模型</a> 这篇文章中的相关介绍。</p>
 </blockquote>
 
-<h3 class="relative group">pointer to data member 
+<h3 class="relative group">pointer to data member
     <div id="pointer-to-data-member-2" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#pointer-to-data-member-2" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#pointer-to-data-member-2" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>对于非虚继承的情况下，实现的和 GCC 类似。除了大小有点区别。<code>64</code>位程序中 GCC 是<code>8</code>字节，MSVC 是<code>4</code>字节。都是用<code>-1</code>表示<code>nullptr</code>。</p>
@@ -1545,13 +1672,13 @@
 </span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="p">(</span><span class="n">dp</span><span class="p">);</span>  <span class="c1">// offset is 4, voffset is 0
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></div>
-<h3 class="relative group">pointer to member function 
+<h3 class="relative group">pointer to member function
     <div id="pointer-to-member-function-2" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#pointer-to-member-function-2" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#pointer-to-member-function-2" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>对于成员函数指针就更复杂了，有四种情况：</p>
@@ -1587,13 +1714,13 @@
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></div><p>还要注意：<code>32</code>程序中成员函数的调用约定和普通函数不一样。所以如果希望转换成函数指针并调用，需要在函数指针里面把函数调用约定写上才行，不然会导致调用失败。</p>
 
-<h2 class="relative group">Conclusion 
+<h2 class="relative group">Conclusion
     <div id="conclusion" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#conclusion" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#conclusion" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>讨论 C++ 问题千万不要想当然，你在特定平台上的测试结果，不代表所有可能的实现。而且 MSVC 已经告诉你了，即使是同一个程序内，你的测试也可能没有覆盖到所有的 case。之前发现 MSVC 的成员函数指针大小变来变去的时候给我吓了一跳，以为是我的代码出了问题。如果希望自己写一个类似<code>std::function</code>的容器，并希望执行 SBO 优化，最好把 SBO 大小设置在<code>16</code>字节以上，这样能覆盖掉绝大部分的成员函数指针。</p>
@@ -1767,52 +1894,36 @@
     <div class="pt-8">
       <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
       <div class="flex justify-between pt-3">
-        <span>
+        <span class="flex flex-col">
           
-            <a class="flex group mr-3" href="/zh-cn/articles/655902377/">
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >雾里看花：真正意义上的理解 C++ 模板</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2023-09-12T23:46:11&#43;00:00">September 12, 2023</time>
-                  
-                </span>
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/zh-cn/articles/655902377/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;雾里看花：真正意义上的理解 C++ 模板
               </span>
             </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2023-09-12T23:46:11&#43;00:00">September 12, 2023</time>
+              </span>
+            
           
         </span>
-        <span>
+        <span class="flex flex-col items-end">
           
-            <a class="flex text-right group ml-3" href="/zh-cn/articles/661692275/">
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >C++26 静态反射提案解析</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2023-10-17T02:38:26&#43;00:00">October 17, 2023</time>
-                  
-                </span>
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/zh-cn/articles/661692275/">
+              <span class="leading-6">
+                C++26 静态反射提案解析&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
             </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2023-10-17T02:38:26&#43;00:00">October 17, 2023</time>
+              </span>
+            
           
         </span>
       </div>
@@ -1846,10 +1957,18 @@
     </footer>
   </article>
 
-        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0 z-10">
+        
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-24 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
   <a
     href="#the-top"
-    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
     aria-label="返回顶部"
     title="返回顶部">
     &uarr;

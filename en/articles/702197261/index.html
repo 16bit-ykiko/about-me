@@ -14,146 +14,20 @@
   <meta name="theme-color">
 
   
-  <title>The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11 &middot; ykiko&#39;s blog</title>
+  
+    <title>The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11 &middot; ykiko&#39;s blog</title>
     <meta name="title" content="The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11 &middot; ykiko&#39;s blog">
+  
 
   
-  <meta name="description" content="mainly about computer science and mathematics">
+  
+    <meta name="description" content="mainly about computer science and mathematics">
+  
   
   
   
   <link rel="canonical" href="https://www.ykiko.me/en/articles/702197261/">
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    
-  
-  
-  <link
-    type="text/css"
-    rel="stylesheet"
-    href="/css/main.bundle.min.41ccf158e8b20af093f904e765d07015a786fdc35677cfc16ffff96a6b5235a45e9ce5dc22b59be2c7ec2ae5e4f302e565ca1e75c2439c5c81d44f4c70102851.css"
-    integrity="sha512-QczxWOiyCvCT&#43;QTnZdBwFaeG/cNWd8/Bb//5amtSNaRenOXcIrWb4sfsKuXk8wLlZcoedcJDnFyB1E9McBAoUQ==">
-
-  
-  
-  <script
-    type="text/javascript"
-    src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
-    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
-  
-  
-  
-    
-    
-    <script
-      type="text/javascript"
-      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
-      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
-  
-  
-    
-    
-    
-  
-  
-    
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    <script
-      defer
-      type="text/javascript"
-      id="script-bundle"
-      src="/js/main.bundle.min.04bad31d5c94d6e5ef0c1717be7fb1c389eab84cd88b53910a2d9a97ad49bb75aa257c221e9720df4735fe9ea5cb94e569d8a43682df4f5e66a260d3c2bb68ec.js"
-      integrity="sha512-BLrTHVyU1uXvDBcXvn&#43;xw4nquEzYi1ORCi2al61Ju3WqJXwiHpcg30c1/p6ly5TladikNoLfT15momDTwrto7A=="
-      data-copy="Copy"
-      data-copied="Copied"></script>
-  
-  
-    
-    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
-  
-
-  
-  
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-  <meta property="og:url" content="https://www.ykiko.me/en/articles/702197261/">
-  <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11">
-  <meta property="og:description" content="I participated in Google Summer of Code 2024, where my main task was to implement a pybind11 compatibility interface for a Python interpreter. While it’s called implementing a compatibility interface, it essentially amounts to rewriting pybind11, so I’ve been diving deep into its source code recently.">
-  <meta property="og:locale" content="en">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2024-06-07T15:28:11+00:00">
-    <meta property="article:modified_time" content="2024-06-07T15:28:11+00:00">
-    <meta property="og:image" content="https://www.ykiko.me/en/articles/702197261/featured.png">
-
-  
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://www.ykiko.me/en/articles/702197261/featured.png">
-  <meta name="twitter:title" content="The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11">
-  <meta name="twitter:description" content="I participated in Google Summer of Code 2024, where my main task was to implement a pybind11 compatibility interface for a Python interpreter. While it’s called implementing a compatibility interface, it essentially amounts to rewriting pybind11, so I’ve been diving deep into its source code recently.">
-<meta name="twitter:image" content="https://www.ykiko.me/en/articles/702197261/featured.png">
-    <meta property="og:image" content="https://www.ykiko.me/en/articles/702197261/featured.png">
-  <script type="application/ld+json">
-  [{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "articleSection": "Articles",
-    "name": "The Perfect Integration of Python and C\u002b\u002b: Object Design in pybind11",
-    "headline": "The Perfect Integration of Python and C\u002b\u002b: Object Design in pybind11",
-    
-    "abstract": "\u003cp\u003eI participated in \u003ca\n  href=\u0022https:\/\/summerofcode.withgoogle.com\/programs\/2024\/projects\/Ji2Mi97o\u0022\n    target=\u0022_blank\u0022\n  \u003eGoogle Summer of Code 2024\u003c\/a\u003e, where my main task was to implement a \u003ca\n  href=\u0022https:\/\/github.com\/pybind\/pybind11\u0022\n    target=\u0022_blank\u0022\n  \u003epybind11\u003c\/a\u003e compatibility interface for a \u003ca\n  href=\u0022https:\/\/pocketpy.dev\/\u0022\n    target=\u0022_blank\u0022\n  \u003ePython interpreter\u003c\/a\u003e. While it\u0026rsquo;s called implementing a compatibility interface, it essentially amounts to rewriting pybind11, so I\u0026rsquo;ve been diving deep into its source code recently.\u003c\/p\u003e",
-    "inLanguage": "en",
-    "url" : "https:\/\/www.ykiko.me\/en\/articles\/702197261\/",
-    "author" : {
-      "@type": "Person",
-      "name": "ykiko"
-    },
-    "copyrightYear": "2024",
-    "dateCreated": "2024-06-07T15:28:11\u002b00:00",
-    "datePublished": "2024-06-07T15:28:11\u002b00:00",
-    
-    "dateModified": "2024-06-07T15:28:11\u002b00:00",
-    
-    
-    
-    "mainEntityOfPage": "true",
-    "wordCount": "1653"
-  }]
-  </script>
-
-
 
   
   
@@ -189,6 +63,113 @@
         
       
     
+  
+
+  
+  <meta property="og:url" content="https://www.ykiko.me/en/articles/702197261/">
+  <meta property="og:site_name" content="ykiko&#39;s blog">
+  <meta property="og:title" content="The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11">
+  <meta property="og:description" content="I participated in Google Summer of Code 2024, where my main task was to implement a pybind11 compatibility interface for a Python interpreter. While it’s called implementing a compatibility interface, it essentially amounts to rewriting pybind11, so I’ve been diving deep into its source code recently.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2024-06-07T15:28:11+00:00">
+    <meta property="article:modified_time" content="2024-06-07T15:28:11+00:00">
+    <meta property="og:image" content="https://www.ykiko.me/en/articles/702197261/featured.png">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.ykiko.me/en/articles/702197261/featured.png">
+  <meta name="twitter:title" content="The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11">
+  <meta name="twitter:description" content="I participated in Google Summer of Code 2024, where my main task was to implement a pybind11 compatibility interface for a Python interpreter. While it’s called implementing a compatibility interface, it essentially amounts to rewriting pybind11, so I’ve been diving deep into its source code recently.">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+    
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.2431d6175642aa3406b26d8aeaf714be755f476e2ff745dfec768b775cc5a9e4153b208bf3568ebb5ad57562ca0fa91428c9bdc23bf0f9fcffc6a316955ac885.css"
+    integrity="sha512-JDHWF1ZCqjQGsm2K6vcUvnVfR24v90Xf7HaLd1zFqeQVOyCL81aOu1rVdWLKD6kUKMm9wjvw&#43;fz/xqMWlVrIhQ==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
+      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      data-copy="Copy"
+      data-copied="Copied"></script>
   
 
   
@@ -237,6 +218,46 @@
 
   
   
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Articles",
+    "name": "The Perfect Integration of Python and C\u002b\u002b: Object Design in pybind11",
+    "headline": "The Perfect Integration of Python and C\u002b\u002b: Object Design in pybind11",
+    
+    "abstract": "\u003cp\u003eI participated in \u003ca\n  href=\u0022https:\/\/summerofcode.withgoogle.com\/programs\/2024\/projects\/Ji2Mi97o\u0022\n    target=\u0022_blank\u0022\n  \u003eGoogle Summer of Code 2024\u003c\/a\u003e, where my main task was to implement a \u003ca\n  href=\u0022https:\/\/github.com\/pybind\/pybind11\u0022\n    target=\u0022_blank\u0022\n  \u003epybind11\u003c\/a\u003e compatibility interface for a \u003ca\n  href=\u0022https:\/\/pocketpy.dev\/\u0022\n    target=\u0022_blank\u0022\n  \u003ePython interpreter\u003c\/a\u003e. While it\u0026rsquo;s called implementing a compatibility interface, it essentially amounts to rewriting pybind11, so I\u0026rsquo;ve been diving deep into its source code recently.\u003c\/p\u003e",
+    "inLanguage": "en",
+    "url" : "https:\/\/www.ykiko.me\/en\/articles\/702197261\/",
+    "author" : {
+      "@type": "Person",
+      "name": "ykiko"
+    },
+    "copyrightYear": "2024",
+    "dateCreated": "2024-06-07T15:28:11\u002b00:00",
+    "datePublished": "2024-06-07T15:28:11\u002b00:00",
+    
+    "dateModified": "2024-06-07T15:28:11\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1653"
+  }]
+  </script>
+
+
+
+  
+  
+    
 
   <script
   async
@@ -253,6 +274,7 @@
 
 
 
+  
 
   
   
@@ -266,8 +288,35 @@
   
   
 </head>
-<body
-    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
     <div id="the-top" class="absolute flex self-center">
       <a
         class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
@@ -279,11 +328,11 @@
     
     
       <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-100">
+<div class="fixed inset-x-0 z-100">
   <div
     id="menu-blur"
     class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
-  <div class="relative max-w-[64rem] ml-auto mr-auto">
+  <div class="relative m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32">
     
 
 
@@ -299,7 +348,7 @@
 
 
 <div
-  class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0">
+  class="main-menu flex items-center justify-between py-6 md:justify-start gap-x-3 pt-[2px] pr-2 md:pr-4 pb-[3px] pl-0">
   
   
 
@@ -319,11 +368,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="about"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    about
-  </p>
+  
+    <p class="text-base font-medium">
+      about
+    </p>
+  
 </a>
 
 
@@ -333,11 +386,15 @@
   <a
   href="/en/articles/"
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="articles"
+  title="Articles">
   
-  <p class="text-base font-medium" title="Articles">
-    articles
-  </p>
+  
+    <p class="text-base font-medium">
+      articles
+    </p>
+  
 </a>
 
 
@@ -347,11 +404,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="research"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    research
-  </p>
+  
+    <p class="text-base font-medium">
+      research
+    </p>
+  
 </a>
 
 
@@ -529,11 +590,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="about"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      about
-    </p>
+    
+      <p class="text-bg font-bg">
+        about
+      </p>
+    
   </a>
 </li>
 
@@ -545,11 +610,15 @@
   <a
     href="/en/articles/"
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="articles"
+    title="Articles">
     
-    <p class="text-bg font-bg" title="Articles">
-      articles
-    </p>
+    
+      <p class="text-bg font-bg">
+        articles
+      </p>
+    
   </a>
 </li>
 
@@ -561,11 +630,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="research"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      research
-    </p>
+    
+      <p class="text-bg font-bg">
+        research
+      </p>
+    
   </a>
 </li>
 
@@ -621,18 +694,54 @@
         
 
 
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+  
+
+
+
+
+
     <div id="hero" class="h-[150px] md:h-[200px]"></div>
   
   <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
     
     
-      
     
     <img
       id="background-image"
       src="/en/articles/702197261/featured_hu4370102388688331790.png"
-      alt="Background Image"
-      class="absolute inset-0 w-full h-full object-cover">
+      alt="The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
     <div
       class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
     <div
@@ -651,7 +760,7 @@
       integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
       data-blur-id="background-blur"
       data-image-id="background-image"
-      data-image-url="/en/articles/702197261/featured.png"></script>
+      data-image-url="/en/articles/702197261/featured_hu4370102388688331790.png"></script>
   
       
     
@@ -847,6 +956,7 @@
     
     
       
+      
         
       
       <img
@@ -854,7 +964,8 @@
         width="96"
         height="96"
         alt="ykiko"
-        src="/img/author_hu12645359616066712621.jpg">
+        src="/img/author_hu12645359616066712621.jpg"
+        data-zoom-src="/img/author.jpg">
     
   
   <div class="place-self-center">
@@ -955,8 +1066,7 @@
       
       
       
-      
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8">
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
             
               <details
@@ -1012,11 +1122,23 @@
     const TOC_LINK_SELECTOR = 'a[href^="#"]'
     const NESTED_LIST_SELECTOR = 'li ul'
     const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
 
     function getActiveAnchorId(anchors, offsetRatio) {
       const threshold = window.scrollY + window.innerHeight * offsetRatio
       const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
       const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
 
       for (let i = anchors.length - 1; i >= 0; i--) {
         const top = anchors[i].getBoundingClientRect().top + window.scrollY
@@ -1064,6 +1186,12 @@
         toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
       }
 
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
       const config = {
         toc,
         anchors,
@@ -1085,7 +1213,6 @@
 </script>
 
 
-            
             
           </div>
         </div>
@@ -1112,13 +1239,13 @@
 <p>I&rsquo;ve recently managed to grasp the overall operational logic of the framework. Looking back, pybind11 truly lives up to its reputation as the de facto standard for binding C++ and Python, with many ingenious designs. Its interaction logic can also be applied to interactions between C++ and other GC languages, such as JS and C# (though there are no equivalents like jsbind11 or csharpbind11 yet). I might write a series of articles on this topic, stripping away some of the intricate details to introduce some of the shared concepts.</p>
 <p>This article mainly discusses some interesting points about object design in pybind11.</p>
 
-<h2 class="relative group">PyObject 
+<h2 class="relative group">PyObject
     <div id="pyobject" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#pyobject" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#pyobject" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>We all know that in Python, everything is an object, all instances of <code>object</code>. However, pybind11 actually needs to interact with specific implementations of Python like CPython. So, how is &ldquo;everything is an object&rdquo; reflected in CPython? The answer is <code>PyObject*</code>. Let&rsquo;s &ldquo;see&rdquo; Python and understand how actual Python code operates within CPython.</p>
@@ -1147,13 +1274,13 @@
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">PyObject_DelItem</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">o</span><span class="p">,</span> <span class="n">PyObject</span> <span class="o">*</span><span class="n">key</span><span class="p">);</span>
 </span></span></code></pre></div><p>These functions generally have direct counterparts in Python, and their purposes are evident from their names.</p>
 
-<h2 class="relative group">handle 
+<h2 class="relative group">handle
     <div id="handle" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#handle" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#handle" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>Since pybind11 needs to support manipulating Python objects in C++, its primary task is to encapsulate these C-style APIs. This is specifically achieved by the <code>handle</code> type. <code>handle</code> is a simple wrapper around <code>PyObject*</code> and encapsulates some member functions, such as:</p>
@@ -1176,13 +1303,13 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
 </span></span></code></pre></div><p>Most functions are simply wrapped like above, but some functions are special.</p>
 
-<h2 class="relative group">get/set 
+<h2 class="relative group">get/set
     <div id="getset" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#getset" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#getset" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>According to Bjarne Stroustrup, the father of C++, in &ldquo;The Design and Evolution of C++&rdquo;, part of the reason for introducing reference (lvalue) types was to allow users to assign to return values, making the overloading of operators like <code>[]</code> more natural. For example:</p>
@@ -1230,13 +1357,13 @@
 </span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
 </span></span></code></pre></div>
-<h2 class="relative group">accessor 
+<h2 class="relative group">accessor
     <div id="accessor" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#accessor" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#accessor" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>Next, let&rsquo;s focus on how to achieve this effect. First, consider the return value of <code>operator[]</code>. Since it might need to call <code>__setitem__</code>, we return a proxy object here. It stores the <code>key</code> for subsequent calls.</p>
@@ -1299,13 +1426,13 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></div>
-<h2 class="relative group">lazy evaluation 
+<h2 class="relative group">lazy evaluation
     <div id="lazy-evaluation" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#lazy-evaluation" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#lazy-evaluation" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>Going further, we want this proxy object to behave just like a <code>handle</code>, able to use all methods of <code>handle</code>. This is simple; just inherit from <code>handle</code>.</p>
@@ -1388,13 +1515,13 @@
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></div><p>Thus, we&rsquo;ve lazy-evaluated the call to <code>__getitem__</code> without introducing additional runtime overhead.</p>
 
-<h2 class="relative group">Conclusion 
+<h2 class="relative group">Conclusion
     <div id="conclusion" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#conclusion" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#conclusion" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>We often say that C++ is too complex, with a dazzling array of features that often conflict with each other. But from another perspective, having many features means users have more choices, more design space, and can assemble brilliant designs like the one above. It&rsquo;s hard to imagine another language achieving such effects. Perhaps this is the charm of C++.</p>
@@ -1547,52 +1674,36 @@
     <div class="pt-8">
       <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
       <div class="flex justify-between pt-3">
-        <span>
+        <span class="flex flex-col">
           
-            <a class="flex group mr-3" href="/en/articles/696878184/">
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >Is the Singleton Pattern in C++ Truly "Singleton"?</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2024-05-10T02:08:28&#43;00:00">10 May 2024</time>
-                  
-                </span>
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/en/articles/696878184/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;Is the Singleton Pattern in C++ Truly "Singleton"?
               </span>
             </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2024-05-10T02:08:28&#43;00:00">10 May 2024</time>
+              </span>
+            
           
         </span>
-        <span>
+        <span class="flex flex-col items-end">
           
-            <a class="flex text-right group ml-3" href="/en/articles/706509748/">
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >Recap of the St. Louis WG21 Meeting</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2024-07-02T02:46:56&#43;00:00">2 July 2024</time>
-                  
-                </span>
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/en/articles/706509748/">
+              <span class="leading-6">
+                Recap of the St. Louis WG21 Meeting&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
             </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2024-07-02T02:46:56&#43;00:00">2 July 2024</time>
+              </span>
+            
           
         </span>
       </div>
@@ -1626,10 +1737,18 @@
     </footer>
   </article>
 
-        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0 z-10">
+        
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-24 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
   <a
     href="#the-top"
-    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
     aria-label="Scroll to top"
     title="Scroll to top">
     &uarr;

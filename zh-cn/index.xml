@@ -117,13 +117,13 @@
     target=&#34;_blank&#34;
   &gt;The History of constexpr in C++! (Part One)&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 class=&#34;relative group&#34;&gt;2015-2016：模板的语法糖 
+&lt;h2 class=&#34;relative group&#34;&gt;2015-2016：模板的语法糖
     &lt;div id=&#34;2015-2016模板的语法糖&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
     
     &lt;span
         class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
-        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#2015-2016%e6%a8%a1%e6%9d%bf%e7%9a%84%e8%af%ad%e6%b3%95%e7%b3%96&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
-    &lt;/span&gt;        
+        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#2015-2016%e6%a8%a1%e6%9d%bf%e7%9a%84%e8%af%ad%e6%b3%95%e7%b3%96&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;
     
 &lt;/h2&gt;
 &lt;p&gt;在 C++ 中支持 &lt;a
@@ -155,13 +155,13 @@
       <pubDate>Mon, 29 Jan 2024 17:03:28 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/680412313/</guid>
-      <description>&lt;h2 class=&#34;relative group&#34;&gt;拒绝硬编码 
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;拒绝硬编码
     &lt;div id=&#34;拒绝硬编码&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
     
     &lt;span
         class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
-        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#%e6%8b%92%e7%bb%9d%e7%a1%ac%e7%bc%96%e7%a0%81&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
-    &lt;/span&gt;        
+        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#%e6%8b%92%e7%bb%9d%e7%a1%ac%e7%bc%96%e7%a0%81&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;
     
 &lt;/h2&gt;
 &lt;p&gt;定义一个&lt;code&gt;enum&lt;/code&gt;&lt;/p&gt;</description>
@@ -185,13 +185,13 @@
       <pubDate>Tue, 26 Dec 2023 04:45:30 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/674157958/</guid>
-      <description>&lt;h2 class=&#34;relative group&#34;&gt;引子 
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;引子
     &lt;div id=&#34;引子&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
     
     &lt;span
         class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
-        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#%e5%bc%95%e5%ad%90&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
-    &lt;/span&gt;        
+        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#%e5%bc%95%e5%ad%90&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;
     
 &lt;/h2&gt;
 &lt;p&gt;在&lt;code&gt;C++17&lt;/code&gt;中引入了叫做「&lt;strong&gt;结构化绑定&lt;/strong&gt;」的特性也就是&lt;code&gt;Struct Bind&lt;/code&gt;，这一特性类似于别的语言中的模式匹配，可以让我们方便的对结构体的成员进行访问&lt;/p&gt;</description>
@@ -204,13 +204,13 @@
       <pubDate>Sun, 03 Dec 2023 23:40:52 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/670191053/</guid>
-      <description>&lt;h2 class=&#34;relative group&#34;&gt;静态与动态 
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;静态与动态
     &lt;div id=&#34;静态与动态&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
     
     &lt;span
         class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
-        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#%e9%9d%99%e6%80%81%e4%b8%8e%e5%8a%a8%e6%80%81&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
-    &lt;/span&gt;        
+        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#%e9%9d%99%e6%80%81%e4%b8%8e%e5%8a%a8%e6%80%81&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;
     
 &lt;/h2&gt;
 &lt;p&gt;静态类型和动态类型这两个词语相信大家都不陌生了，区分二者的关键在于类型检查的时机。什么意思呢？&lt;/p&gt;</description>
@@ -223,13 +223,13 @@
       <pubDate>Sun, 03 Dec 2023 23:37:51 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/670190357/</guid>
-      <description>&lt;h2 class=&#34;relative group&#34;&gt;首先什么是元信息？ 
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;首先什么是元信息？
     &lt;div id=&#34;首先什么是元信息&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
     
     &lt;span
         class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
-        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#%e9%a6%96%e5%85%88%e4%bb%80%e4%b9%88%e6%98%af%e5%85%83%e4%bf%a1%e6%81%af&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
-    &lt;/span&gt;        
+        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#%e9%a6%96%e5%85%88%e4%bb%80%e4%b9%88%e6%98%af%e5%85%83%e4%bf%a1%e6%81%af&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;
     
 &lt;/h2&gt;
 &lt;p&gt;来看下面一段&lt;code&gt;python&lt;/code&gt;代码，我们希望能够根据传入的字符串来自动修改对应的字段值&lt;/p&gt;</description>
@@ -252,13 +252,13 @@
       <pubDate>Wed, 29 Nov 2023 09:14:16 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/669359855/</guid>
-      <description>&lt;h2 class=&#34;relative group&#34;&gt;引入 
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;引入
     &lt;div id=&#34;引入&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
     
     &lt;span
         class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
-        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#%e5%bc%95%e5%85%a5&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
-    &lt;/span&gt;        
+        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#%e5%bc%95%e5%85%a5&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;
     
 &lt;/h2&gt;
 &lt;p&gt;刚好拿最近的一个需求作为引入吧。我们都知道 markdown 可以用&lt;code&gt;lang&lt;/code&gt;来填入代码块，并支持代码高亮。可是我想支持自己定义的代码高亮规则，遇到了如下问题：&lt;/p&gt;</description>
@@ -271,13 +271,13 @@
       <pubDate>Wed, 29 Nov 2023 09:14:02 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/669358870/</guid>
-      <description>&lt;h2 class=&#34;relative group&#34;&gt;What is Reflection? 
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;What is Reflection?
     &lt;div id=&#34;what-is-reflection&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
     
     &lt;span
         class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
-        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#what-is-reflection&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
-    &lt;/span&gt;        
+        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#what-is-reflection&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;
     
 &lt;/h2&gt;
 &lt;p&gt;反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的&lt;strong&gt;惯用词&lt;/strong&gt;一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 &lt;a
@@ -303,13 +303,13 @@
       <pubDate>Wed, 04 Oct 2023 14:50:12 +0000</pubDate>
       
       <guid>https://www.ykiko.me/zh-cn/articles/659510753/</guid>
-      <description>&lt;h2 class=&#34;relative group&#34;&gt;Introduction 
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;Introduction
     &lt;div id=&#34;introduction&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
     
     &lt;span
         class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
-        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#introduction&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
-    &lt;/span&gt;        
+        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#introduction&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;
     
 &lt;/h2&gt;
 &lt;p&gt;在 C++ 中，形如&lt;code&gt;&amp;amp;T::name&lt;/code&gt;的表达式返回的结果就是成员指针。写代码的时候偶尔会用到，但是这个概念可能很多人都并不熟悉。考虑如下代码&lt;/p&gt;</description>

@@ -14,151 +14,20 @@
   <meta name="theme-color">
 
   
-  <title>Various Approaches to Code Generation &middot; ykiko&#39;s blog</title>
+  
+    <title>Various Approaches to Code Generation &middot; ykiko&#39;s blog</title>
     <meta name="title" content="Various Approaches to Code Generation &middot; ykiko&#39;s blog">
+  
 
   
-  <meta name="description" content="mainly about computer science and mathematics">
+  
+    <meta name="description" content="mainly about computer science and mathematics">
+  
   
   
   
   <link rel="canonical" href="https://www.ykiko.me/en/articles/669359855/">
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    
-  
-  
-  <link
-    type="text/css"
-    rel="stylesheet"
-    href="/css/main.bundle.min.41ccf158e8b20af093f904e765d07015a786fdc35677cfc16ffff96a6b5235a45e9ce5dc22b59be2c7ec2ae5e4f302e565ca1e75c2439c5c81d44f4c70102851.css"
-    integrity="sha512-QczxWOiyCvCT&#43;QTnZdBwFaeG/cNWd8/Bb//5amtSNaRenOXcIrWb4sfsKuXk8wLlZcoedcJDnFyB1E9McBAoUQ==">
-
-  
-  
-  <script
-    type="text/javascript"
-    src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
-    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
-  
-  
-  
-    
-    
-    <script
-      type="text/javascript"
-      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
-      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
-  
-  
-    
-    
-    
-  
-  
-    
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    <script
-      defer
-      type="text/javascript"
-      id="script-bundle"
-      src="/js/main.bundle.min.04bad31d5c94d6e5ef0c1717be7fb1c389eab84cd88b53910a2d9a97ad49bb75aa257c221e9720df4735fe9ea5cb94e569d8a43682df4f5e66a260d3c2bb68ec.js"
-      integrity="sha512-BLrTHVyU1uXvDBcXvn&#43;xw4nquEzYi1ORCi2al61Ju3WqJXwiHpcg30c1/p6ly5TladikNoLfT15momDTwrto7A=="
-      data-copy="Copy"
-      data-copied="Copied"></script>
-  
-  
-    
-    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
-  
-
-  
-  
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-  <meta property="og:url" content="https://www.ykiko.me/en/articles/669359855/">
-  <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="Various Approaches to Code Generation">
-  <meta property="og:description" content="Introduction # Let’s start with a recent requirement as an introduction. We all know that markdown can use lang to insert code blocks and supports syntax highlighting. However, I wanted to support custom syntax highlighting rules and encountered the following issues:">
-  <meta property="og:locale" content="en">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2023-11-29T09:14:16+00:00">
-    <meta property="article:modified_time" content="2023-11-29T09:14:16+00:00">
-    <meta property="og:image" content="https://www.ykiko.me/en/articles/669359855/featured.png">
-      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/670191053/">
-      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/670190357/">
-      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/669360731/">
-      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/669358870/">
-      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/661692275/">
-
-  
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://www.ykiko.me/en/articles/669359855/featured.png">
-  <meta name="twitter:title" content="Various Approaches to Code Generation">
-  <meta name="twitter:description" content="Introduction # Let’s start with a recent requirement as an introduction. We all know that markdown can use lang to insert code blocks and supports syntax highlighting. However, I wanted to support custom syntax highlighting rules and encountered the following issues:">
-<meta name="twitter:image" content="https://www.ykiko.me/en/articles/669359855/featured.png">
-    <meta property="og:image" content="https://www.ykiko.me/en/articles/669359855/featured.png">
-  <script type="application/ld+json">
-  [{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "articleSection": "Articles",
-    "name": "Various Approaches to Code Generation",
-    "headline": "Various Approaches to Code Generation",
-    
-    "abstract": "\u003ch2 class=\u0022relative group\u0022\u003eIntroduction \n    \u003cdiv id=\u0022introduction\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none\u0022\u003e\n        \u003ca class=\u0022group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline\u0022 href=\u0022#introduction\u0022 aria-label=\u0022Anchor\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e        \n    \n\u003c\/h2\u003e\n\u003cp\u003eLet\u0026rsquo;s start with a recent requirement as an introduction. We all know that markdown can use \u003ccode\u003elang\u003c\/code\u003e to insert code blocks and supports syntax highlighting. However, I wanted to support custom syntax highlighting rules and encountered the following issues:\u003c\/p\u003e",
-    "inLanguage": "en",
-    "url" : "https:\/\/www.ykiko.me\/en\/articles\/669359855\/",
-    "author" : {
-      "@type": "Person",
-      "name": "ykiko"
-    },
-    "copyrightYear": "2023",
-    "dateCreated": "2023-11-29T09:14:16\u002b00:00",
-    "datePublished": "2023-11-29T09:14:16\u002b00:00",
-    
-    "dateModified": "2023-11-29T09:14:16\u002b00:00",
-    
-    
-    
-    "mainEntityOfPage": "true",
-    "wordCount": "1787"
-  }]
-  </script>
-
-
 
   
   
@@ -194,6 +63,118 @@
         
       
     
+  
+
+  
+  <meta property="og:url" content="https://www.ykiko.me/en/articles/669359855/">
+  <meta property="og:site_name" content="ykiko&#39;s blog">
+  <meta property="og:title" content="Various Approaches to Code Generation">
+  <meta property="og:description" content="Introduction # Let’s start with a recent requirement as an introduction. We all know that markdown can use lang to insert code blocks and supports syntax highlighting. However, I wanted to support custom syntax highlighting rules and encountered the following issues:">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2023-11-29T09:14:16+00:00">
+    <meta property="article:modified_time" content="2023-11-29T09:14:16+00:00">
+    <meta property="og:image" content="https://www.ykiko.me/en/articles/669359855/featured.png">
+      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/670191053/">
+      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/670190357/">
+      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/669360731/">
+      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/669358870/">
+      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/661692275/">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.ykiko.me/en/articles/669359855/featured.png">
+  <meta name="twitter:title" content="Various Approaches to Code Generation">
+  <meta name="twitter:description" content="Introduction # Let’s start with a recent requirement as an introduction. We all know that markdown can use lang to insert code blocks and supports syntax highlighting. However, I wanted to support custom syntax highlighting rules and encountered the following issues:">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+    
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.2431d6175642aa3406b26d8aeaf714be755f476e2ff745dfec768b775cc5a9e4153b208bf3568ebb5ad57562ca0fa91428c9bdc23bf0f9fcffc6a316955ac885.css"
+    integrity="sha512-JDHWF1ZCqjQGsm2K6vcUvnVfR24v90Xf7HaLd1zFqeQVOyCL81aOu1rVdWLKD6kUKMm9wjvw&#43;fz/xqMWlVrIhQ==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
+      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      data-copy="Copy"
+      data-copied="Copied"></script>
   
 
   
@@ -242,6 +223,46 @@
 
   
   
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Articles",
+    "name": "Various Approaches to Code Generation",
+    "headline": "Various Approaches to Code Generation",
+    
+    "abstract": "\u003ch2 class=\u0022relative group\u0022\u003eIntroduction\n    \u003cdiv id=\u0022introduction\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none\u0022\u003e\n        \u003ca class=\u0022text-primary-300 dark:text-neutral-700 !no-underline\u0022 href=\u0022#introduction\u0022 aria-label=\u0022Anchor\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e\n    \n\u003c\/h2\u003e\n\u003cp\u003eLet\u0026rsquo;s start with a recent requirement as an introduction. We all know that markdown can use \u003ccode\u003elang\u003c\/code\u003e to insert code blocks and supports syntax highlighting. However, I wanted to support custom syntax highlighting rules and encountered the following issues:\u003c\/p\u003e",
+    "inLanguage": "en",
+    "url" : "https:\/\/www.ykiko.me\/en\/articles\/669359855\/",
+    "author" : {
+      "@type": "Person",
+      "name": "ykiko"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-11-29T09:14:16\u002b00:00",
+    "datePublished": "2023-11-29T09:14:16\u002b00:00",
+    
+    "dateModified": "2023-11-29T09:14:16\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1787"
+  }]
+  </script>
+
+
+
+  
+  
+    
 
   <script
   async
@@ -258,6 +279,7 @@
 
 
 
+  
 
   
   
@@ -271,8 +293,35 @@
   
   
 </head>
-<body
-    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
     <div id="the-top" class="absolute flex self-center">
       <a
         class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
@@ -284,11 +333,11 @@
     
     
       <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-100">
+<div class="fixed inset-x-0 z-100">
   <div
     id="menu-blur"
     class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
-  <div class="relative max-w-[64rem] ml-auto mr-auto">
+  <div class="relative m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32">
     
 
 
@@ -304,7 +353,7 @@
 
 
 <div
-  class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0">
+  class="main-menu flex items-center justify-between py-6 md:justify-start gap-x-3 pt-[2px] pr-2 md:pr-4 pb-[3px] pl-0">
   
   
 
@@ -324,11 +373,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="about"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    about
-  </p>
+  
+    <p class="text-base font-medium">
+      about
+    </p>
+  
 </a>
 
 
@@ -338,11 +391,15 @@
   <a
   href="/en/articles/"
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="articles"
+  title="Articles">
   
-  <p class="text-base font-medium" title="Articles">
-    articles
-  </p>
+  
+    <p class="text-base font-medium">
+      articles
+    </p>
+  
 </a>
 
 
@@ -352,11 +409,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="research"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    research
-  </p>
+  
+    <p class="text-base font-medium">
+      research
+    </p>
+  
 </a>
 
 
@@ -534,11 +595,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="about"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      about
-    </p>
+    
+      <p class="text-bg font-bg">
+        about
+      </p>
+    
   </a>
 </li>
 
@@ -550,11 +615,15 @@
   <a
     href="/en/articles/"
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="articles"
+    title="Articles">
     
-    <p class="text-bg font-bg" title="Articles">
-      articles
-    </p>
+    
+      <p class="text-bg font-bg">
+        articles
+      </p>
+    
   </a>
 </li>
 
@@ -566,11 +635,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="research"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      research
-    </p>
+    
+      <p class="text-bg font-bg">
+        research
+      </p>
+    
   </a>
 </li>
 
@@ -626,18 +699,54 @@
         
 
 
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+  
+
+
+
+
+
     <div id="hero" class="h-[150px] md:h-[200px]"></div>
   
   <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
     
     
-      
     
     <img
       id="background-image"
       src="/en/articles/669359855/featured_hu15224311159986678503.png"
-      alt="Background Image"
-      class="absolute inset-0 w-full h-full object-cover">
+      alt="Various Approaches to Code Generation"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
     <div
       class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
     <div
@@ -656,7 +765,7 @@
       integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
       data-blur-id="background-blur"
       data-image-id="background-image"
-      data-image-url="/en/articles/669359855/featured.png"></script>
+      data-image-url="/en/articles/669359855/featured_hu15224311159986678503.png"></script>
   
       
     
@@ -852,6 +961,7 @@
     
     
       
+      
         
       
       <img
@@ -859,7 +969,8 @@
         width="96"
         height="96"
         alt="ykiko"
-        src="/img/author_hu12645359616066712621.jpg">
+        src="/img/author_hu12645359616066712621.jpg"
+        data-zoom-src="/img/author.jpg">
     
   
   <div class="place-self-center">
@@ -960,8 +1071,7 @@
       
       
       
-      
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8">
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
             
               <details
@@ -1037,11 +1147,23 @@
     const TOC_LINK_SELECTOR = 'a[href^="#"]'
     const NESTED_LIST_SELECTOR = 'li ul'
     const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
 
     function getActiveAnchorId(anchors, offsetRatio) {
       const threshold = window.scrollY + window.innerHeight * offsetRatio
       const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
       const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
 
       for (let i = anchors.length - 1; i >= 0; i--) {
         const top = anchors[i].getBoundingClientRect().top + window.scrollY
@@ -1089,6 +1211,12 @@
         toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
       }
 
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
       const config = {
         toc,
         anchors,
@@ -1110,7 +1238,6 @@
 </script>
 
 
-            
             
           </div>
         </div>
@@ -1195,13 +1322,13 @@
 
         <div class="article-content max-w-prose mb-20">
           
-<h2 class="relative group">Introduction 
+<h2 class="relative group">Introduction
     <div id="introduction" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#introduction" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#introduction" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>Let&rsquo;s start with a recent requirement as an introduction. We all know that markdown can use <code>lang</code> to insert code blocks and supports syntax highlighting. However, I wanted to support custom syntax highlighting rules and encountered the following issues:</p>
@@ -1216,13 +1343,13 @@
 </span></span></code></pre></div><p>This provides the possibility to add custom styles. However, we can&rsquo;t manually write such code in the markdown source file. If a statement has three different colors, such as <code>let a = 3;</code>, it means we have to write three different <code>&lt;span&gt;</code> tags for just one statement. It&rsquo;s very difficult to write and maintain.</p>
 <p>In fact, we can do this: read the markdown source file, write the source file in normal markdown syntax, and when we encounter <code>lang</code>, extract the text and pass it to a rendering library to render it into DOM text. I chose the <code>highlight.js</code> library. Then replace the original text and output it in a new folder, such as &lsquo;out&rsquo; for the new folder and &lsquo;src&rsquo; for the original. This way, the source file doesn&rsquo;t need any modification, and the actual rendering is done with the content in the &lsquo;out&rsquo; folder. Every time we change the source file, we just need to run this program to do the conversion.</p>
 
-<h2 class="relative group">What is Code Generation? 
+<h2 class="relative group">What is Code Generation?
     <div id="what-is-code-generation" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#what-is-code-generation" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#what-is-code-generation" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>The above case is a typical example of using &lsquo;code generation&rsquo; to solve problems. So what exactly is code generation? It is actually a very broad term. Generally speaking,</p>
@@ -1238,23 +1365,23 @@
 </ul>
 <p>Below are some specific examples for these points:</p>
 
-<h2 class="relative group">Compile-time Code Generation 
+<h2 class="relative group">Compile-time Code Generation
     <div id="compile-time-code-generation" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#compile-time-code-generation" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#compile-time-code-generation" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 
-<h3 class="relative group">Macros 
+<h3 class="relative group">Macros
     <div id="macros" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#macros" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#macros" aria-label="Anchor">#</a>
+    </span>
     
 </h3>
 <p>The <code>macro</code> in C language is one of the most classic and simplest compile-time code generation techniques. Pure text replacement, for example, if we want to repeat the string <code>&quot;Hello World&quot;</code> 100 times. What should we do? Obviously, we don&rsquo;t want to manually copy and paste. Consider using macros to accomplish this task.</p>
@@ -1270,13 +1397,13 @@
     target="_blank"
   >The Art of Macro Programming in C/C++</a>. Of course, macros are not unique to C language; other programming languages also have them and can support stronger features. For example, the flexibility of macros in Rust is much stronger than in C language, mainly because Rust allows you to analyze the input token stream, rather than simply performing replacements. You can generate different code based on different input tokens. Even more, macros in Lisp are super flexible.</p>
 
-<h3 class="relative group">Generics/Templates 
+<h3 class="relative group">Generics/Templates
     <div id="genericstemplates" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#genericstemplates" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#genericstemplates" aria-label="Anchor">#</a>
+    </span>
     
 </h3>
 <p>In some programming languages, <strong>generics (Generic)</strong> are also considered a code generation technique, generating actual different code based on different types. Of course, this is the most basic. Some programming languages support more powerful features, such as template metaprogramming in <code>C++</code> for some advanced code generation. A typical case is creating a function pointer table (jump table) at compile time.</p>
@@ -1304,13 +1431,13 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></div><p>This way, we achieve the effect of accessing elements in a <code>tuple</code> based on the runtime <code>index</code>. The specific principle is manually creating a function pointer table and dispatching based on the index.</p>
 
-<h3 class="relative group">Code Generators 
+<h3 class="relative group">Code Generators
     <div id="code-generators" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#code-generators" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#code-generators" aria-label="Anchor">#</a>
+    </span>
     
 </h3>
 <p>The above two points discuss language built-in features. However, in many scenarios, the built-in features of languages are not flexible enough to meet our needs. For example, in <code>C++</code>, if you want to generate functions and types in chunks, neither macros nor templates can do it.</p>
@@ -1333,23 +1460,23 @@
     target="_blank"
   >code generation</a>.</p>
 
-<h2 class="relative group">Runtime Code Generation 
+<h2 class="relative group">Runtime Code Generation
     <div id="runtime-code-generation" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#runtime-code-generation" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#runtime-code-generation" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 
-<h3 class="relative group">exec 
+<h3 class="relative group">exec
     <div id="exec" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#exec" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#exec" aria-label="Anchor">#</a>
+    </span>
     
 </h3>
 <p>Alright, we&rsquo;ve talked a lot about static language features. Now let&rsquo;s look at some sufficiently dynamic code generation. First, let&rsquo;s look at features like <code>eval</code> and <code>exec</code> in languages like <code>Python/JavaScript</code>, which allow us to load strings as code and execute them at runtime.</p>
@@ -1372,13 +1499,13 @@
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># Output: 20</span>
 </span></span></code></pre></div><p>Undoubtedly, generating code at runtime through string concatenation can easily meet some demanding requirements in appropriate scenarios.</p>
 
-<h3 class="relative group">Dynamic Compilation 
+<h3 class="relative group">Dynamic Compilation
     <div id="dynamic-compilation" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#dynamic-compilation" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#dynamic-compilation" aria-label="Anchor">#</a>
+    </span>
     
 </h3>
 <p>Now there is a question, can <code>C</code> language achieve the above dynamic compilation features? Of course, you might say we can implement a <code>C</code> language interpreter, then naturally it can be done. But actually, there is a simpler way.</p>
@@ -1439,13 +1566,13 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#  output: -1</span>
 </span></span></code></pre></div><p>Perfect implementation.</p>
 
-<h2 class="relative group">Conclusion 
+<h2 class="relative group">Conclusion
     <div id="conclusion" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#conclusion" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#conclusion" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>This article mainly introduces some basic concepts and examples of code generation, as well as some simple applications. Code generation is a very powerful technology. If we only focus on the built-in features of programming languages, we often cannot meet some complex requirements. If we broaden our perspective, we will unexpectedly discover a new world. This is one of the articles in the Reflection series, welcome to read other articles in the series!</p>
@@ -1668,52 +1795,36 @@
     <div class="pt-8">
       <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
       <div class="flex justify-between pt-3">
-        <span>
+        <span class="flex flex-col">
           
-            <a class="flex group mr-3" href="/en/articles/669358870/">
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >A Reflection Tutorial for C++ Programmers</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2023-11-29T09:14:02&#43;00:00">29 November 2023</time>
-                  
-                </span>
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/en/articles/669358870/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;A Reflection Tutorial for C++ Programmers
               </span>
             </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2023-11-29T09:14:02&#43;00:00">29 November 2023</time>
+              </span>
+            
           
         </span>
-        <span>
+        <span class="flex flex-col items-end">
           
-            <a class="flex text-right group ml-3" href="/en/articles/669360731/">
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >Harness the Power of C++ Code with Clang Tools</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2023-11-29T09:14:27&#43;00:00">29 November 2023</time>
-                  
-                </span>
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/en/articles/669360731/">
+              <span class="leading-6">
+                Harness the Power of C++ Code with Clang Tools&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
             </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2023-11-29T09:14:27&#43;00:00">29 November 2023</time>
+              </span>
+            
           
         </span>
       </div>
@@ -1747,10 +1858,18 @@
     </footer>
   </article>
 
-        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0 z-10">
+        
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-24 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
   <a
     href="#the-top"
-    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
     aria-label="Scroll to top"
     title="Scroll to top">
     &uarr;

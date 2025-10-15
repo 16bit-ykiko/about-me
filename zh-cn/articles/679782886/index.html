@@ -14,148 +14,20 @@
   <meta name="theme-color">
 
   
-  <title>C&#43;&#43; 中的 relocate 语义 &middot; ykiko&#39;s blog</title>
+  
+    <title>C&#43;&#43; 中的 relocate 语义 &middot; ykiko&#39;s blog</title>
     <meta name="title" content="C&#43;&#43; 中的 relocate 语义 &middot; ykiko&#39;s blog">
+  
 
   
-  <meta name="description" content="mainly about computer science and mathematics">
+  
+    <meta name="description" content="mainly about computer science and mathematics">
+  
   
   
   
   <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/679782886/">
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    
-  
-  
-  <link
-    type="text/css"
-    rel="stylesheet"
-    href="/css/main.bundle.min.41ccf158e8b20af093f904e765d07015a786fdc35677cfc16ffff96a6b5235a45e9ce5dc22b59be2c7ec2ae5e4f302e565ca1e75c2439c5c81d44f4c70102851.css"
-    integrity="sha512-QczxWOiyCvCT&#43;QTnZdBwFaeG/cNWd8/Bb//5amtSNaRenOXcIrWb4sfsKuXk8wLlZcoedcJDnFyB1E9McBAoUQ==">
-
-  
-  
-  <script
-    type="text/javascript"
-    src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
-    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
-  
-  
-  
-    
-    
-    <script
-      type="text/javascript"
-      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
-      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
-  
-  
-    
-    
-    
-  
-  
-    
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    <script
-      defer
-      type="text/javascript"
-      id="script-bundle"
-      src="/js/main.bundle.min.04bad31d5c94d6e5ef0c1717be7fb1c389eab84cd88b53910a2d9a97ad49bb75aa257c221e9720df4735fe9ea5cb94e569d8a43682df4f5e66a260d3c2bb68ec.js"
-      integrity="sha512-BLrTHVyU1uXvDBcXvn&#43;xw4nquEzYi1ORCi2al61Ju3WqJXwiHpcg30c1/p6ly5TladikNoLfT15momDTwrto7A=="
-      data-copy="复制"
-      data-copied="已复制"></script>
-  
-  
-    
-    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
-  
-
-  
-  
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/679782886/">
-  <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="C&#43;&#43; 中的 relocate 语义">
-  <meta property="og:description" content="众所周知，现在 C&#43;&#43; 里面有两种特殊的构造函数，即 copy constructor 和 move constructor
-copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个对象，像vector这种拥有资源的类型，拷贝的时候会把它拥有的资源也拷贝一份">
-  <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2024-01-25T17:22:29+00:00">
-    <meta property="article:modified_time" content="2024-01-25T17:22:29+00:00">
-    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/679782886/featured.png">
-
-  
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/679782886/featured.png">
-  <meta name="twitter:title" content="C&#43;&#43; 中的 relocate 语义">
-  <meta name="twitter:description" content="众所周知，现在 C&#43;&#43; 里面有两种特殊的构造函数，即 copy constructor 和 move constructor
-copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个对象，像vector这种拥有资源的类型，拷贝的时候会把它拥有的资源也拷贝一份">
-<meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/679782886/featured.png">
-    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/679782886/featured.png">
-  <script type="application/ld+json">
-  [{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "articleSection": "Articles",
-    "name": "C\u002b\u002b 中的 relocate 语义",
-    "headline": "C\u002b\u002b 中的 relocate 语义",
-    
-    "abstract": "\u003cp\u003e众所周知，现在 C\u002b\u002b 里面有两种特殊的构造函数，即 copy constructor 和 move constructor\u003c\/p\u003e\n\u003cp\u003ecopy constructor 早在 C\u002b\u002b98 的时候就加入了，用来拷贝一个对象，像\u003ccode\u003evector\u003c\/code\u003e这种拥有资源的类型，拷贝的时候会把它拥有的资源也拷贝一份\u003c\/p\u003e",
-    "inLanguage": "zh-cn",
-    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/679782886\/",
-    "author" : {
-      "@type": "Person",
-      "name": "ykiko"
-    },
-    "copyrightYear": "2024",
-    "dateCreated": "2024-01-25T17:22:29\u002b00:00",
-    "datePublished": "2024-01-25T17:22:29\u002b00:00",
-    
-    "dateModified": "2024-01-25T17:22:29\u002b00:00",
-    
-    
-    
-    "mainEntityOfPage": "true",
-    "wordCount": "4609"
-  }]
-  </script>
-
-
 
   
   
@@ -191,6 +63,115 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
         
       
     
+  
+
+  
+  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/679782886/">
+  <meta property="og:site_name" content="ykiko&#39;s blog">
+  <meta property="og:title" content="C&#43;&#43; 中的 relocate 语义">
+  <meta property="og:description" content="众所周知，现在 C&#43;&#43; 里面有两种特殊的构造函数，即 copy constructor 和 move constructor
+copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个对象，像vector这种拥有资源的类型，拷贝的时候会把它拥有的资源也拷贝一份">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2024-01-25T17:22:29+00:00">
+    <meta property="article:modified_time" content="2024-01-25T17:22:29+00:00">
+    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/679782886/featured.png">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/679782886/featured.png">
+  <meta name="twitter:title" content="C&#43;&#43; 中的 relocate 语义">
+  <meta name="twitter:description" content="众所周知，现在 C&#43;&#43; 里面有两种特殊的构造函数，即 copy constructor 和 move constructor
+copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个对象，像vector这种拥有资源的类型，拷贝的时候会把它拥有的资源也拷贝一份">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+    
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.2431d6175642aa3406b26d8aeaf714be755f476e2ff745dfec768b775cc5a9e4153b208bf3568ebb5ad57562ca0fa91428c9bdc23bf0f9fcffc6a316955ac885.css"
+    integrity="sha512-JDHWF1ZCqjQGsm2K6vcUvnVfR24v90Xf7HaLd1zFqeQVOyCL81aOu1rVdWLKD6kUKMm9wjvw&#43;fz/xqMWlVrIhQ==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
+      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      data-copy="复制"
+      data-copied="已复制"></script>
   
 
   
@@ -239,6 +220,46 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
 
   
   
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Articles",
+    "name": "C\u002b\u002b 中的 relocate 语义",
+    "headline": "C\u002b\u002b 中的 relocate 语义",
+    
+    "abstract": "\u003cp\u003e众所周知，现在 C\u002b\u002b 里面有两种特殊的构造函数，即 copy constructor 和 move constructor\u003c\/p\u003e\n\u003cp\u003ecopy constructor 早在 C\u002b\u002b98 的时候就加入了，用来拷贝一个对象，像\u003ccode\u003evector\u003c\/code\u003e这种拥有资源的类型，拷贝的时候会把它拥有的资源也拷贝一份\u003c\/p\u003e",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/679782886\/",
+    "author" : {
+      "@type": "Person",
+      "name": "ykiko"
+    },
+    "copyrightYear": "2024",
+    "dateCreated": "2024-01-25T17:22:29\u002b00:00",
+    "datePublished": "2024-01-25T17:22:29\u002b00:00",
+    
+    "dateModified": "2024-01-25T17:22:29\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "4609"
+  }]
+  </script>
+
+
+
+  
+  
+    
 
   <script
   async
@@ -255,6 +276,7 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
 
 
 
+  
 
   
   
@@ -268,8 +290,35 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
   
   
 </head>
-<body
-    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
     <div id="the-top" class="absolute flex self-center">
       <a
         class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
@@ -281,11 +330,11 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
     
     
       <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-100">
+<div class="fixed inset-x-0 z-100">
   <div
     id="menu-blur"
     class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
-  <div class="relative max-w-[64rem] ml-auto mr-auto">
+  <div class="relative m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32">
     
 
 
@@ -301,7 +350,7 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
 
 
 <div
-  class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0">
+  class="main-menu flex items-center justify-between py-6 md:justify-start gap-x-3 pt-[2px] pr-2 md:pr-4 pb-[3px] pl-0">
   
   
 
@@ -321,11 +370,15 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="关于我"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    关于我
-  </p>
+  
+    <p class="text-base font-medium">
+      关于我
+    </p>
+  
 </a>
 
 
@@ -335,11 +388,15 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
   <a
   href="/zh-cn/articles/"
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="文章"
+  title="Articles">
   
-  <p class="text-base font-medium" title="Articles">
-    文章
-  </p>
+  
+    <p class="text-base font-medium">
+      文章
+    </p>
+  
 </a>
 
 
@@ -349,11 +406,15 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="研究"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    研究
-  </p>
+  
+    <p class="text-base font-medium">
+      研究
+    </p>
+  
 </a>
 
 
@@ -531,11 +592,15 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="关于我"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      关于我
-    </p>
+    
+      <p class="text-bg font-bg">
+        关于我
+      </p>
+    
   </a>
 </li>
 
@@ -547,11 +612,15 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
   <a
     href="/zh-cn/articles/"
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="文章"
+    title="Articles">
     
-    <p class="text-bg font-bg" title="Articles">
-      文章
-    </p>
+    
+      <p class="text-bg font-bg">
+        文章
+      </p>
+    
   </a>
 </li>
 
@@ -563,11 +632,15 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="研究"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      研究
-    </p>
+    
+      <p class="text-bg font-bg">
+        研究
+      </p>
+    
   </a>
 </li>
 
@@ -623,18 +696,54 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
         
 
 
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+  
+
+
+
+
+
     <div id="hero" class="h-[150px] md:h-[200px]"></div>
   
   <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
     
     
-      
     
     <img
       id="background-image"
       src="/zh-cn/articles/679782886/featured_hu16741343795889543917.png"
-      alt="Background Image"
-      class="absolute inset-0 w-full h-full object-cover">
+      alt="C&#43;&#43; 中的 relocate 语义"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
     <div
       class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
     <div
@@ -653,7 +762,7 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
       integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
       data-blur-id="background-blur"
       data-image-id="background-image"
-      data-image-url="/zh-cn/articles/679782886/featured.png"></script>
+      data-image-url="/zh-cn/articles/679782886/featured_hu16741343795889543917.png"></script>
   
       
     
@@ -849,6 +958,7 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
     
     
       
+      
         
       
       <img
@@ -856,7 +966,8 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
         width="96"
         height="96"
         alt="ykiko"
-        src="/img/author_hu12645359616066712621.jpg">
+        src="/img/author_hu12645359616066712621.jpg"
+        data-zoom-src="/img/author.jpg">
     
   
   <div class="place-self-center">
@@ -957,8 +1068,7 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
       
       
       
-      
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8">
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
             
               <details
@@ -1032,11 +1142,23 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
     const TOC_LINK_SELECTOR = 'a[href^="#"]'
     const NESTED_LIST_SELECTOR = 'li ul'
     const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
 
     function getActiveAnchorId(anchors, offsetRatio) {
       const threshold = window.scrollY + window.innerHeight * offsetRatio
       const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
       const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
 
       for (let i = anchors.length - 1; i >= 0; i--) {
         const top = anchors[i].getBoundingClientRect().top + window.scrollY
@@ -1084,6 +1206,12 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
         toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
       }
 
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
       const config = {
         toc,
         anchors,
@@ -1106,7 +1234,6 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
 
 
             
-            
           </div>
         </div>
       
@@ -1125,13 +1252,13 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
 </span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span> <span class="c1">// move
 </span></span></span></code></pre></div><p>注意 C++ 中的 move 被叫做 <em>non-destructive move。</em> C++ 标准规定了，被移动过后的对象状态是一种 <em>valid state</em> ，实现需要保证它能够正常调用析构函数。<strong>被移动的对象仍然可能被再次使用</strong>（具体能否使用取决于实现）。</p>
 
-<h2 class="relative group">结束了？ 
+<h2 class="relative group">结束了？
     <div id="结束了" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e7%bb%93%e6%9d%9f%e4%ba%86" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%bb%93%e6%9d%9f%e4%ba%86" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>有这两个构造函数就足够了吗？当然没有。事实上还有另一种广泛使用的操作，可以把它叫做 <strong>relocate</strong> 操作。考虑如下场景</p>
@@ -1199,13 +1326,13 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>*注：也可以考虑直接使用 C++17 加入的 uninitialized_move_n 和 destroy_n 避免重新造轮子，这些函数已经进行过类似的优化了。不过由于指针 alisa 的问题，它们可能最多优化成memmove，而在这个vector扩容的场景，可以进一步优化成memcpy，所以还是自己优化效果更好。 *</p>
 
-<h2 class="relative group">大材小用 
+<h2 class="relative group">大材小用
     <div id="大材小用" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e5%a4%a7%e6%9d%90%e5%b0%8f%e7%94%a8" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%a4%a7%e6%9d%90%e5%b0%8f%e7%94%a8" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>这样总感觉怪怪的，我们主要的目的是把就旧内存上的对象全部移动到新内存上，但是用的居然是 <a
@@ -1238,13 +1365,13 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
 </ul>
 <p>通过对特定的类型进行标记，使得它们可以拥有这种优化。但是，上面的优化只是在我们逻辑上认为相等，严格来说目前这样写在 C++ 中算是 undefined behavior。那怎么办？只能想办法通过新提案，修改标准措辞，来支持上面的优化。</p>
 
-<h2 class="relative group">现状 
+<h2 class="relative group">现状
     <div id="现状" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e7%8e%b0%e7%8a%b6" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%8e%b0%e7%8a%b6" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>首先这个问题早就被发现了，例如知乎上很久之前就有相关的讨论：</p>
@@ -1280,13 +1407,13 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
 </ul>
 <p>大概可以分为两派，保守派和激进派</p>
 
-<h3 class="relative group">保守派 
+<h3 class="relative group">保守派
     <div id="保守派" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e4%bf%9d%e5%ae%88%e6%b4%be" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%bf%9d%e5%ae%88%e6%b4%be" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>保守派的解决方案是添加 relocatable 和 trivally-relocatable 的概念，以及用来判断的相关 trait。</p>
@@ -1323,13 +1450,13 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
 </span></span></code></pre></div><p>这些函数都是由编译器实现的，效果上等同于 move + destroy 原对象。并且允许编译器在满足 as-if 规则的前提下，把对 trivially_relocatable 的类型的操作优化成<code>memcpy</code>或者<code>memmove</code>。对于那些不能优化的结构，比如含有自引用的结构，就正常调用移动构造 + 析构函数就行了。这样在实现<code>vector</code>的时候，直接使用这些标准库提供的函数就可以享受优化了。</p>
 <p>该提案之所以被称作保守派，最大的原因就是它既不影响原来的 API，也不影响原来的 ABI，具有较强的兼容性，引入进来十分方便。</p>
 
-<h3 class="relative group">激进派 
+<h3 class="relative group">激进派
     <div id="激进派" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e6%bf%80%e8%bf%9b%e6%b4%be" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%bf%80%e8%bf%9b%e6%b4%be" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>更为激进的就是今天的主角了，它主张引入 relocate constructor，并且引入了新的关键字<code>reloc</code></p>
@@ -1369,13 +1496,13 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
 </ul>
 <p>有一种逻辑完全自洽的美感。提案中其它的细节，就比较琐碎了，这里就省略了。感兴趣的读者可以自己阅读。</p>
 
-<h2 class="relative group">为什么过多这么久还没进入标准 
+<h2 class="relative group">为什么过多这么久还没进入标准
     <div id="为什么过多这么久还没进入标准" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e8%bf%87%e5%a4%9a%e8%bf%99%e4%b9%88%e4%b9%85%e8%bf%98%e6%b2%a1%e8%bf%9b%e5%85%a5%e6%a0%87%e5%87%86" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e8%bf%87%e5%a4%9a%e8%bf%99%e4%b9%88%e4%b9%85%e8%bf%98%e6%b2%a1%e8%bf%9b%e5%85%a5%e6%a0%87%e5%87%86" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>关于为什么过了这么多年这个问题仍然没有解决，其实这是一段相当长的历史，是 C++ 的对象模型存在缺陷导致的。直到 C++20 的 <a
@@ -1384,24 +1511,24 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
   >隐式生存期提案</a> 被接受之前，在最开始的扩容函数实现中，连把 trivially-copyable 的类型优化为 memcpy 都是 undefined behavior。</p>
 <p>当然，不要听到 undefined behavior 就害怕，觉得心里面有道坎一样。事实上这一直被认为是标准的缺陷，这种优化早已经广泛实践各大代码库之中了，可靠性已经得到验证。只是 C++ 标准一直没有合适的措辞来描述这种情况，完全认为是 UB 肯定是不对的，不加限制的使用也是不对的，所以问题的关键就是如何在这两者之间如何找出一个合适的边界了。最近我会专门写一篇文章来介绍 C++ 对象模型相关的内容，这里就不展开了。</p>
 
-<h2 class="relative group">其它语言 
+<h2 class="relative group">其它语言
     <div id="其它语言" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e5%85%b6%e5%ae%83%e8%af%ad%e8%a8%80" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%85%b6%e5%ae%83%e8%af%ad%e8%a8%80" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>C++ 固然有各种不足，考虑到历史兼容性等因素，导致设计放不开手脚。那新语言呢？它们是如何解决这些问题的？</p>
 
-<h3 class="relative group">Rust 
+<h3 class="relative group">Rust
     <div id="rust" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#rust" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#rust" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>首先先看最近比较火热的 Rust。其实，只要结构中不含有自引用的成员，那么使用<code>memcpy</code>把旧的对象移动到新的内存上，几乎总是可行的。另外，Rust 并没有什么多继承虚函数（虚表结构复杂）啦，虚继承啦，这种比较奇怪的东西（并且实际用到的地方很少），所以几乎所有的类型都可以直接使用<code>memcpy</code>来从旧对象创建一个新对象。刚好 Safe Rust 中的 move 语义还是 destructive move，所以它的 move 的默认实现就是直接<code>memcpy</code>，是清爽很多。</p>
@@ -1428,13 +1555,13 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
     target="_blank"
   >Changing the rules of Rust</a>。</p>
 
-<h3 class="relative group">Mojo 
+<h3 class="relative group">Mojo
     <div id="mojo" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#mojo" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#mojo" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>这个语言前些日子也在知乎上也宣传过一波，但是目前还处于完全早期的状态，不过一开始人家就考虑提供四种构造函数</p>
@@ -1593,52 +1720,36 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
     <div class="pt-8">
       <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
       <div class="flex justify-between pt-3">
-        <span>
+        <span class="flex flex-col">
           
-            <a class="flex group mr-3" href="/zh-cn/articles/674157958/">
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >跨越 7 年的接力赛：获取 C++ 结构体字段数量</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2023-12-26T04:45:30&#43;00:00">December 26, 2023</time>
-                  
-                </span>
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/zh-cn/articles/674157958/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;跨越 7 年的接力赛：获取 C++ 结构体字段数量
               </span>
             </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2023-12-26T04:45:30&#43;00:00">December 26, 2023</time>
+              </span>
+            
           
         </span>
-        <span>
+        <span class="flex flex-col items-end">
           
-            <a class="flex text-right group ml-3" href="/zh-cn/articles/680412313/">
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >C++ 中如何优雅进行 enum 到 string 的转换 ？</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2024-01-29T17:03:28&#43;00:00">January 29, 2024</time>
-                  
-                </span>
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/zh-cn/articles/680412313/">
+              <span class="leading-6">
+                C++ 中如何优雅进行 enum 到 string 的转换 ？&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
             </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2024-01-29T17:03:28&#43;00:00">January 29, 2024</time>
+              </span>
+            
           
         </span>
       </div>
@@ -1672,10 +1783,18 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
     </footer>
   </article>
 
-        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0 z-10">
+        
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-24 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
   <a
     href="#the-top"
-    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
     aria-label="返回顶部"
     title="返回顶部">
     &uarr;

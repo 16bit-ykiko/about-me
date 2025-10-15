@@ -14,151 +14,20 @@
   <meta name="theme-color">
 
   
-  <title>写给 C&#43;&#43; 程序员的反射教程 &middot; ykiko&#39;s blog</title>
+  
+    <title>写给 C&#43;&#43; 程序员的反射教程 &middot; ykiko&#39;s blog</title>
     <meta name="title" content="写给 C&#43;&#43; 程序员的反射教程 &middot; ykiko&#39;s blog">
+  
 
   
-  <meta name="description" content="mainly about computer science and mathematics">
+  
+    <meta name="description" content="mainly about computer science and mathematics">
+  
   
   
   
   <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/669358870/">
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    
-  
-  
-  <link
-    type="text/css"
-    rel="stylesheet"
-    href="/css/main.bundle.min.41ccf158e8b20af093f904e765d07015a786fdc35677cfc16ffff96a6b5235a45e9ce5dc22b59be2c7ec2ae5e4f302e565ca1e75c2439c5c81d44f4c70102851.css"
-    integrity="sha512-QczxWOiyCvCT&#43;QTnZdBwFaeG/cNWd8/Bb//5amtSNaRenOXcIrWb4sfsKuXk8wLlZcoedcJDnFyB1E9McBAoUQ==">
-
-  
-  
-  <script
-    type="text/javascript"
-    src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
-    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
-  
-  
-  
-    
-    
-    <script
-      type="text/javascript"
-      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
-      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
-  
-  
-    
-    
-    
-  
-  
-    
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    <script
-      defer
-      type="text/javascript"
-      id="script-bundle"
-      src="/js/main.bundle.min.04bad31d5c94d6e5ef0c1717be7fb1c389eab84cd88b53910a2d9a97ad49bb75aa257c221e9720df4735fe9ea5cb94e569d8a43682df4f5e66a260d3c2bb68ec.js"
-      integrity="sha512-BLrTHVyU1uXvDBcXvn&#43;xw4nquEzYi1ORCi2al61Ju3WqJXwiHpcg30c1/p6ly5TladikNoLfT15momDTwrto7A=="
-      data-copy="复制"
-      data-copied="已复制"></script>
-  
-  
-    
-    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
-  
-
-  
-  
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/669358870/">
-  <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="写给 C&#43;&#43; 程序员的反射教程">
-  <meta property="og:description" content="What is Reflection? # 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的惯用词一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C&#43;&#43;, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 std::Any 模块 的介绍。里面提到了">
-  <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2023-11-29T09:14:02+00:00">
-    <meta property="article:modified_time" content="2023-11-29T09:14:02+00:00">
-    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/669358870/featured.png">
-      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/670191053/">
-      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/670190357/">
-      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/669360731/">
-      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/669359855/">
-      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/661692275/">
-
-  
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/669358870/featured.png">
-  <meta name="twitter:title" content="写给 C&#43;&#43; 程序员的反射教程">
-  <meta name="twitter:description" content="What is Reflection? # 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的惯用词一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C&#43;&#43;, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 std::Any 模块 的介绍。里面提到了">
-<meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/669358870/featured.png">
-    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/669358870/featured.png">
-  <script type="application/ld+json">
-  [{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "articleSection": "Articles",
-    "name": "写给 C\u002b\u002b 程序员的反射教程",
-    "headline": "写给 C\u002b\u002b 程序员的反射教程",
-    
-    "abstract": "\u003ch2 class=\u0022relative group\u0022\u003eWhat is Reflection? \n    \u003cdiv id=\u0022what-is-reflection\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none\u0022\u003e\n        \u003ca class=\u0022group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline\u0022 href=\u0022#what-is-reflection\u0022 aria-label=\u0022锚点\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e        \n    \n\u003c\/h2\u003e\n\u003cp\u003e反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的\u003cstrong\u003e惯用词\u003c\/strong\u003e一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C\u002b\u002b, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 \u003ca\n  href=\u0022https:\/\/doc.rust-lang.org\/stable\/std\/any\/index.html\u0022\n    target=\u0022_blank\u0022\n  \u003estd::Any 模块\u003c\/a\u003e 的介绍。里面提到了\u003c\/p\u003e",
-    "inLanguage": "zh-cn",
-    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/669358870\/",
-    "author" : {
-      "@type": "Person",
-      "name": "ykiko"
-    },
-    "copyrightYear": "2023",
-    "dateCreated": "2023-11-29T09:14:02\u002b00:00",
-    "datePublished": "2023-11-29T09:14:02\u002b00:00",
-    
-    "dateModified": "2023-11-29T09:14:02\u002b00:00",
-    
-    
-    
-    "mainEntityOfPage": "true",
-    "wordCount": "2346"
-  }]
-  </script>
-
-
 
   
   
@@ -194,6 +63,118 @@
         
       
     
+  
+
+  
+  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/669358870/">
+  <meta property="og:site_name" content="ykiko&#39;s blog">
+  <meta property="og:title" content="写给 C&#43;&#43; 程序员的反射教程">
+  <meta property="og:description" content="What is Reflection? # 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的惯用词一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C&#43;&#43;, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 std::Any 模块 的介绍。里面提到了">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2023-11-29T09:14:02+00:00">
+    <meta property="article:modified_time" content="2023-11-29T09:14:02+00:00">
+    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/669358870/featured.png">
+      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/670191053/">
+      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/670190357/">
+      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/669360731/">
+      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/669359855/">
+      <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/661692275/">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/669358870/featured.png">
+  <meta name="twitter:title" content="写给 C&#43;&#43; 程序员的反射教程">
+  <meta name="twitter:description" content="What is Reflection? # 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的惯用词一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C&#43;&#43;, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 std::Any 模块 的介绍。里面提到了">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+    
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.2431d6175642aa3406b26d8aeaf714be755f476e2ff745dfec768b775cc5a9e4153b208bf3568ebb5ad57562ca0fa91428c9bdc23bf0f9fcffc6a316955ac885.css"
+    integrity="sha512-JDHWF1ZCqjQGsm2K6vcUvnVfR24v90Xf7HaLd1zFqeQVOyCL81aOu1rVdWLKD6kUKMm9wjvw&#43;fz/xqMWlVrIhQ==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
+      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      data-copy="复制"
+      data-copied="已复制"></script>
   
 
   
@@ -242,6 +223,46 @@
 
   
   
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Articles",
+    "name": "写给 C\u002b\u002b 程序员的反射教程",
+    "headline": "写给 C\u002b\u002b 程序员的反射教程",
+    
+    "abstract": "\u003ch2 class=\u0022relative group\u0022\u003eWhat is Reflection?\n    \u003cdiv id=\u0022what-is-reflection\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none\u0022\u003e\n        \u003ca class=\u0022text-primary-300 dark:text-neutral-700 !no-underline\u0022 href=\u0022#what-is-reflection\u0022 aria-label=\u0022锚点\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e\n    \n\u003c\/h2\u003e\n\u003cp\u003e反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的\u003cstrong\u003e惯用词\u003c\/strong\u003e一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C\u002b\u002b, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 \u003ca\n  href=\u0022https:\/\/doc.rust-lang.org\/stable\/std\/any\/index.html\u0022\n    target=\u0022_blank\u0022\n  \u003estd::Any 模块\u003c\/a\u003e 的介绍。里面提到了\u003c\/p\u003e",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/669358870\/",
+    "author" : {
+      "@type": "Person",
+      "name": "ykiko"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-11-29T09:14:02\u002b00:00",
+    "datePublished": "2023-11-29T09:14:02\u002b00:00",
+    
+    "dateModified": "2023-11-29T09:14:02\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "2346"
+  }]
+  </script>
+
+
+
+  
+  
+    
 
   <script
   async
@@ -258,6 +279,7 @@
 
 
 
+  
 
   
   
@@ -271,8 +293,35 @@
   
   
 </head>
-<body
-    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
     <div id="the-top" class="absolute flex self-center">
       <a
         class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
@@ -284,11 +333,11 @@
     
     
       <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-100">
+<div class="fixed inset-x-0 z-100">
   <div
     id="menu-blur"
     class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
-  <div class="relative max-w-[64rem] ml-auto mr-auto">
+  <div class="relative m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32">
     
 
 
@@ -304,7 +353,7 @@
 
 
 <div
-  class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0">
+  class="main-menu flex items-center justify-between py-6 md:justify-start gap-x-3 pt-[2px] pr-2 md:pr-4 pb-[3px] pl-0">
   
   
 
@@ -324,11 +373,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="关于我"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    关于我
-  </p>
+  
+    <p class="text-base font-medium">
+      关于我
+    </p>
+  
 </a>
 
 
@@ -338,11 +391,15 @@
   <a
   href="/zh-cn/articles/"
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="文章"
+  title="Articles">
   
-  <p class="text-base font-medium" title="Articles">
-    文章
-  </p>
+  
+    <p class="text-base font-medium">
+      文章
+    </p>
+  
 </a>
 
 
@@ -352,11 +409,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="研究"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    研究
-  </p>
+  
+    <p class="text-base font-medium">
+      研究
+    </p>
+  
 </a>
 
 
@@ -534,11 +595,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="关于我"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      关于我
-    </p>
+    
+      <p class="text-bg font-bg">
+        关于我
+      </p>
+    
   </a>
 </li>
 
@@ -550,11 +615,15 @@
   <a
     href="/zh-cn/articles/"
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="文章"
+    title="Articles">
     
-    <p class="text-bg font-bg" title="Articles">
-      文章
-    </p>
+    
+      <p class="text-bg font-bg">
+        文章
+      </p>
+    
   </a>
 </li>
 
@@ -566,11 +635,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="研究"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      研究
-    </p>
+    
+      <p class="text-bg font-bg">
+        研究
+      </p>
+    
   </a>
 </li>
 
@@ -626,18 +699,54 @@
         
 
 
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+  
+
+
+
+
+
     <div id="hero" class="h-[150px] md:h-[200px]"></div>
   
   <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
     
     
-      
     
     <img
       id="background-image"
       src="/zh-cn/articles/669358870/featured_hu10567103265670201220.png"
-      alt="Background Image"
-      class="absolute inset-0 w-full h-full object-cover">
+      alt="写给 C&#43;&#43; 程序员的反射教程"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
     <div
       class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
     <div
@@ -656,7 +765,7 @@
       integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
       data-blur-id="background-blur"
       data-image-id="background-image"
-      data-image-url="/zh-cn/articles/669358870/featured.png"></script>
+      data-image-url="/zh-cn/articles/669358870/featured_hu10567103265670201220.png"></script>
   
       
     
@@ -852,6 +961,7 @@
     
     
       
+      
         
       
       <img
@@ -859,7 +969,8 @@
         width="96"
         height="96"
         alt="ykiko"
-        src="/img/author_hu12645359616066712621.jpg">
+        src="/img/author_hu12645359616066712621.jpg"
+        data-zoom-src="/img/author.jpg">
     
   
   <div class="place-self-center">
@@ -960,8 +1071,7 @@
       
       
       
-      
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8">
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
             
               <details
@@ -1023,11 +1133,23 @@
     const TOC_LINK_SELECTOR = 'a[href^="#"]'
     const NESTED_LIST_SELECTOR = 'li ul'
     const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
 
     function getActiveAnchorId(anchors, offsetRatio) {
       const threshold = window.scrollY + window.innerHeight * offsetRatio
       const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
       const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
 
       for (let i = anchors.length - 1; i >= 0; i--) {
         const top = anchors[i].getBoundingClientRect().top + window.scrollY
@@ -1075,6 +1197,12 @@
         toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
       }
 
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
       const config = {
         toc,
         anchors,
@@ -1096,7 +1224,6 @@
 </script>
 
 
-            
             
           </div>
         </div>
@@ -1181,13 +1308,13 @@
 
         <div class="article-content max-w-prose mb-20">
           
-<h2 class="relative group">What is Reflection? 
+<h2 class="relative group">What is Reflection?
     <div id="what-is-reflection" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#what-is-reflection" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#what-is-reflection" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的<strong>惯用词</strong>一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 <a
@@ -1215,24 +1342,24 @@
 </blockquote>
 <p>那首先，WIKI 也是人写的，不具有绝对的权威性，如果你对这个定义不满意，是可以自己修改的。其次这里的用词也是很模糊的，什么叫自省 (introspect)？自我反省，在 CS 中这个词又是什么意思呢？所以这个定义也是很尴尬的。那怎么办呢？我选择把它拆分成几个过程进行解释，这样我们就不用去纠结「<strong>反射究竟是什么</strong>」这个概念问题了。取而代之的是，弄明白了这几个过程，自然而然的你就明白反射是在做什么事情了。</p>
 
-<h2 class="relative group">How to Understand Reflection? 
+<h2 class="relative group">How to Understand Reflection?
     <div id="how-to-understand-reflection" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#how-to-understand-reflection" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#how-to-understand-reflection" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>所有语言的反射都可以看成下面这三步：</p>
 
-<h3 class="relative group">Generate Metadata 
+<h3 class="relative group">Generate Metadata
     <div id="generate-metadata" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#generate-metadata" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#generate-metadata" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>首先什么是元数据 (Metadata) 呢？我们在写代码的时候都会给变量，类型，结构体字段什么的取名字。这些名字主要是为了方便程序员理解和维护源代码。对于 C/C++ 来说，这些名字在编译之后通常会被丢弃，为了节省二进制空间嘛，可以理解。详细的讨论请见 <a
@@ -1246,13 +1373,13 @@
     target="_blank"
   >使用 clang 工具自由的支配 C++ 代码吧</a>。</p>
 
-<h3 class="relative group">Query Metadata 
+<h3 class="relative group">Query Metadata
     <div id="query-metadata" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#query-metadata" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#query-metadata" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>生成完之后，接下来就是查询元数据了。很多语言内置的反射模块，例如 Python 的<code>inspect</code>，Java 的<code>Reflection</code>，C# 的<code>System.Reflection</code>，其实就是封装了一些操作，使得用户不用直接接触原始的元数据，用起来更加方便。</p>
@@ -1267,13 +1394,13 @@
     target="_blank"
   >在 C++ 中实现 Object</a>。</p>
 
-<h3 class="relative group">Operate Metadata 
+<h3 class="relative group">Operate Metadata
     <div id="operate-metadata" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#operate-metadata" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#operate-metadata" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>然后，就是根据元数据进行进一步的操作，比如代码生成。这个在 C++ 中可以理解为编译期的代码生成，在 Java 和 C# 则可以认为是运行期的代码生成。详见 <a
@@ -1281,13 +1408,13 @@
     target="_blank"
   >各种姿势进行代码生成</a> 。</p>
 
-<h2 class="relative group">Conclusion 
+<h2 class="relative group">Conclusion
     <div id="conclusion" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#conclusion" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#conclusion" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>最后，我们来用上面三个步骤分解一下不同语言中的反射：</p>
@@ -1517,52 +1644,36 @@
     <div class="pt-8">
       <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
       <div class="flex justify-between pt-3">
-        <span>
+        <span class="flex flex-col">
           
-            <a class="flex group mr-3" href="/zh-cn/articles/661692275/">
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >C++26 静态反射提案解析</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2023-10-17T02:38:26&#43;00:00">October 17, 2023</time>
-                  
-                </span>
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/zh-cn/articles/661692275/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;C++26 静态反射提案解析
               </span>
             </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2023-10-17T02:38:26&#43;00:00">October 17, 2023</time>
+              </span>
+            
           
         </span>
-        <span>
+        <span class="flex flex-col items-end">
           
-            <a class="flex text-right group ml-3" href="/zh-cn/articles/669359855/">
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >各种姿势进行代码生成</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2023-11-29T09:14:16&#43;00:00">November 29, 2023</time>
-                  
-                </span>
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/zh-cn/articles/669359855/">
+              <span class="leading-6">
+                各种姿势进行代码生成&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
             </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2023-11-29T09:14:16&#43;00:00">November 29, 2023</time>
+              </span>
+            
           
         </span>
       </div>
@@ -1596,10 +1707,18 @@
     </footer>
   </article>
 
-        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0 z-10">
+        
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-24 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
   <a
     href="#the-top"
-    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
     aria-label="返回顶部"
     title="返回顶部">
     &uarr;

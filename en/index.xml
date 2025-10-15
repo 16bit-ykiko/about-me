@@ -138,13 +138,13 @@
       <pubDate>Mon, 29 Jan 2024 17:03:28 +0000</pubDate>
       
       <guid>https://www.ykiko.me/en/articles/680412313/</guid>
-      <description>&lt;h2 class=&#34;relative group&#34;&gt;Avoid Hardcoding 
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;Avoid Hardcoding
     &lt;div id=&#34;avoid-hardcoding&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
     
     &lt;span
         class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
-        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#avoid-hardcoding&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
-    &lt;/span&gt;        
+        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#avoid-hardcoding&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;
     
 &lt;/h2&gt;
 &lt;p&gt;Define an &lt;code&gt;enum&lt;/code&gt;&lt;/p&gt;
@@ -178,13 +178,13 @@
       <pubDate>Tue, 26 Dec 2023 04:45:30 +0000</pubDate>
       
       <guid>https://www.ykiko.me/en/articles/674157958/</guid>
-      <description>&lt;h2 class=&#34;relative group&#34;&gt;Introduction 
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;Introduction
     &lt;div id=&#34;introduction&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
     
     &lt;span
         class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
-        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#introduction&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
-    &lt;/span&gt;        
+        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#introduction&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;
     
 &lt;/h2&gt;
 &lt;p&gt;In &lt;code&gt;C++17&lt;/code&gt;, a feature called &lt;strong&gt;structured binding&lt;/strong&gt; was introduced, also known as &lt;code&gt;Struct Bind&lt;/code&gt;. This feature is similar to pattern matching in other languages, allowing us to conveniently access the members of a structure.&lt;/p&gt;</description>
@@ -197,13 +197,13 @@
       <pubDate>Sun, 03 Dec 2023 23:40:52 +0000</pubDate>
       
       <guid>https://www.ykiko.me/en/articles/670191053/</guid>
-      <description>&lt;h2 class=&#34;relative group&#34;&gt;Static vs Dynamic 
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;Static vs Dynamic
     &lt;div id=&#34;static-vs-dynamic&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
     
     &lt;span
         class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
-        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#static-vs-dynamic&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
-    &lt;/span&gt;        
+        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#static-vs-dynamic&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;
     
 &lt;/h2&gt;
 &lt;p&gt;The terms static typing and dynamic typing are familiar to many. The key distinction lies in the timing of type checking. What does this mean?&lt;/p&gt;</description>
@@ -216,13 +216,13 @@
       <pubDate>Sun, 03 Dec 2023 23:37:51 +0000</pubDate>
       
       <guid>https://www.ykiko.me/en/articles/670190357/</guid>
-      <description>&lt;h2 class=&#34;relative group&#34;&gt;What is Metadata? 
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;What is Metadata?
     &lt;div id=&#34;what-is-metadata&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
     
     &lt;span
         class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
-        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#what-is-metadata&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
-    &lt;/span&gt;        
+        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#what-is-metadata&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;
     
 &lt;/h2&gt;
 &lt;p&gt;Consider the following &lt;code&gt;Python&lt;/code&gt; code, where we aim to automatically modify the corresponding field values based on the input string:&lt;/p&gt;</description>
@@ -245,13 +245,13 @@
       <pubDate>Wed, 29 Nov 2023 09:14:16 +0000</pubDate>
       
       <guid>https://www.ykiko.me/en/articles/669359855/</guid>
-      <description>&lt;h2 class=&#34;relative group&#34;&gt;Introduction 
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;Introduction
     &lt;div id=&#34;introduction&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
     
     &lt;span
         class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
-        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#introduction&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
-    &lt;/span&gt;        
+        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#introduction&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;
     
 &lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s start with a recent requirement as an introduction. We all know that markdown can use &lt;code&gt;lang&lt;/code&gt; to insert code blocks and supports syntax highlighting. However, I wanted to support custom syntax highlighting rules and encountered the following issues:&lt;/p&gt;</description>
@@ -264,13 +264,13 @@
       <pubDate>Wed, 29 Nov 2023 09:14:02 +0000</pubDate>
       
       <guid>https://www.ykiko.me/en/articles/669358870/</guid>
-      <description>&lt;h2 class=&#34;relative group&#34;&gt;What is Reflection? 
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;What is Reflection?
     &lt;div id=&#34;what-is-reflection&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
     
     &lt;span
         class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
-        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#what-is-reflection&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
-    &lt;/span&gt;        
+        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#what-is-reflection&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;
     
 &lt;/h2&gt;
 &lt;p&gt;The term &amp;ldquo;Reflection&amp;rdquo; is likely familiar to many, even if you haven&amp;rsquo;t used it, you&amp;rsquo;ve probably heard of it. However, like many other &lt;strong&gt;jargon&lt;/strong&gt; in the field of computer science, there isn&amp;rsquo;t a clear and precise definition for reflection. This leads to situations where, for languages like C#, Java, and Python that have reflection, discussing reflection naturally brings to mind the corresponding facilities, APIs, and code examples in those languages, making it very concrete. However, for languages like C, C++, and Rust that lack reflection, when people talk about reflection, there&amp;rsquo;s often uncertainty about what exactly is being referred to, making it very abstract. For example, someone once told me that Rust has reflection, citing the official Rust documentation&amp;rsquo;s introduction to the &lt;a
@@ -296,13 +296,13 @@
       <pubDate>Wed, 04 Oct 2023 14:50:12 +0000</pubDate>
       
       <guid>https://www.ykiko.me/en/articles/659510753/</guid>
-      <description>&lt;h2 class=&#34;relative group&#34;&gt;引言 
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;引言
     &lt;div id=&#34;引言&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
     
     &lt;span
         class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
-        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#%e5%bc%95%e8%a8%80&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
-    &lt;/span&gt;        
+        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#%e5%bc%95%e8%a8%80&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;
     
 &lt;/h2&gt;
 &lt;p&gt;在 C++ 中，形如&lt;code&gt;&amp;amp;T::name&lt;/code&gt;的表达式返回的结果就是成员指针。写代码的时候偶尔会用到，但是这个概念可能很多人都并不熟悉。考虑如下代码&lt;/p&gt;</description>
@@ -350,13 +350,13 @@
       <guid>https://www.ykiko.me/en/articles/645810896/</guid>
       <description>&lt;p&gt;&lt;code&gt;std::variant&lt;/code&gt; was introduced into the C++ standard library in C++17. This article will discuss the background of its inclusion in the standard and some issues with its usage.&lt;/p&gt;
 
-&lt;h2 class=&#34;relative group&#34;&gt;Sum Type 
+&lt;h2 class=&#34;relative group&#34;&gt;Sum Type
     &lt;div id=&#34;sum-type&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
     
     &lt;span
         class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
-        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#sum-type&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
-    &lt;/span&gt;        
+        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#sum-type&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;
     
 &lt;/h2&gt;
 &lt;p&gt;First, let&amp;rsquo;s discuss &lt;strong&gt;sum types&lt;/strong&gt;, also known as &lt;a

@@ -14,151 +14,20 @@
   <meta name="theme-color">
 
   
-  <title>Analysis of the C&#43;&#43;26 Static Reflection Proposal &middot; ykiko&#39;s blog</title>
+  
+    <title>Analysis of the C&#43;&#43;26 Static Reflection Proposal &middot; ykiko&#39;s blog</title>
     <meta name="title" content="Analysis of the C&#43;&#43;26 Static Reflection Proposal &middot; ykiko&#39;s blog">
+  
 
   
-  <meta name="description" content="mainly about computer science and mathematics">
+  
+    <meta name="description" content="mainly about computer science and mathematics">
+  
   
   
   
   <link rel="canonical" href="https://www.ykiko.me/en/articles/661692275/">
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    
-  
-  
-  <link
-    type="text/css"
-    rel="stylesheet"
-    href="/css/main.bundle.min.41ccf158e8b20af093f904e765d07015a786fdc35677cfc16ffff96a6b5235a45e9ce5dc22b59be2c7ec2ae5e4f302e565ca1e75c2439c5c81d44f4c70102851.css"
-    integrity="sha512-QczxWOiyCvCT&#43;QTnZdBwFaeG/cNWd8/Bb//5amtSNaRenOXcIrWb4sfsKuXk8wLlZcoedcJDnFyB1E9McBAoUQ==">
-
-  
-  
-  <script
-    type="text/javascript"
-    src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
-    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
-  
-  
-  
-    
-    
-    <script
-      type="text/javascript"
-      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
-      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
-  
-  
-    
-    
-    
-  
-  
-    
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    <script
-      defer
-      type="text/javascript"
-      id="script-bundle"
-      src="/js/main.bundle.min.04bad31d5c94d6e5ef0c1717be7fb1c389eab84cd88b53910a2d9a97ad49bb75aa257c221e9720df4735fe9ea5cb94e569d8a43682df4f5e66a260d3c2bb68ec.js"
-      integrity="sha512-BLrTHVyU1uXvDBcXvn&#43;xw4nquEzYi1ORCi2al61Ju3WqJXwiHpcg30c1/p6ly5TladikNoLfT15momDTwrto7A=="
-      data-copy="Copy"
-      data-copied="Copied"></script>
-  
-  
-    
-    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
-  
-
-  
-  
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-  <meta property="og:url" content="https://www.ykiko.me/en/articles/661692275/">
-  <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="Analysis of the C&#43;&#43;26 Static Reflection Proposal">
-  <meta property="og:description" content="I recently planned to write a series of articles discussing the concept of reflection in detail. Coincidentally, C&#43;&#43;26 has introduced a new reflection proposal, and I noticed that there are no related articles on Zhihu, even though this topic is frequently discussed. Therefore, I decided to take this opportunity to talk about static reflection in C&#43;&#43;, serving as a warm-up for the series.">
-  <meta property="og:locale" content="en">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2023-10-17T02:38:26+00:00">
-    <meta property="article:modified_time" content="2023-10-17T02:38:26+00:00">
-    <meta property="og:image" content="https://www.ykiko.me/en/articles/661692275/featured.png">
-      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/670191053/">
-      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/670190357/">
-      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/669360731/">
-      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/669359855/">
-      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/669358870/">
-
-  
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://www.ykiko.me/en/articles/661692275/featured.png">
-  <meta name="twitter:title" content="Analysis of the C&#43;&#43;26 Static Reflection Proposal">
-  <meta name="twitter:description" content="I recently planned to write a series of articles discussing the concept of reflection in detail. Coincidentally, C&#43;&#43;26 has introduced a new reflection proposal, and I noticed that there are no related articles on Zhihu, even though this topic is frequently discussed. Therefore, I decided to take this opportunity to talk about static reflection in C&#43;&#43;, serving as a warm-up for the series.">
-<meta name="twitter:image" content="https://www.ykiko.me/en/articles/661692275/featured.png">
-    <meta property="og:image" content="https://www.ykiko.me/en/articles/661692275/featured.png">
-  <script type="application/ld+json">
-  [{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "articleSection": "Articles",
-    "name": "Analysis of the C\u002b\u002b26 Static Reflection Proposal",
-    "headline": "Analysis of the C\u002b\u002b26 Static Reflection Proposal",
-    
-    "abstract": "\u003cp\u003eI recently planned to write a series of articles discussing the concept of reflection in detail. Coincidentally, C\u002b\u002b26 has introduced a new reflection proposal, and I noticed that there are no related articles on Zhihu, even though this topic is frequently discussed. Therefore, I decided to take this opportunity to talk about static reflection in C\u002b\u002b, serving as a warm-up for the series.\u003c\/p\u003e",
-    "inLanguage": "en",
-    "url" : "https:\/\/www.ykiko.me\/en\/articles\/661692275\/",
-    "author" : {
-      "@type": "Person",
-      "name": "ykiko"
-    },
-    "copyrightYear": "2023",
-    "dateCreated": "2023-10-17T02:38:26\u002b00:00",
-    "datePublished": "2023-10-17T02:38:26\u002b00:00",
-    
-    "dateModified": "2023-10-17T02:38:26\u002b00:00",
-    
-    
-    
-    "mainEntityOfPage": "true",
-    "wordCount": "2317"
-  }]
-  </script>
-
-
 
   
   
@@ -194,6 +63,118 @@
         
       
     
+  
+
+  
+  <meta property="og:url" content="https://www.ykiko.me/en/articles/661692275/">
+  <meta property="og:site_name" content="ykiko&#39;s blog">
+  <meta property="og:title" content="Analysis of the C&#43;&#43;26 Static Reflection Proposal">
+  <meta property="og:description" content="I recently planned to write a series of articles discussing the concept of reflection in detail. Coincidentally, C&#43;&#43;26 has introduced a new reflection proposal, and I noticed that there are no related articles on Zhihu, even though this topic is frequently discussed. Therefore, I decided to take this opportunity to talk about static reflection in C&#43;&#43;, serving as a warm-up for the series.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2023-10-17T02:38:26+00:00">
+    <meta property="article:modified_time" content="2023-10-17T02:38:26+00:00">
+    <meta property="og:image" content="https://www.ykiko.me/en/articles/661692275/featured.png">
+      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/670191053/">
+      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/670190357/">
+      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/669360731/">
+      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/669359855/">
+      <meta property="og:see_also" content="https://www.ykiko.me/en/articles/669358870/">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.ykiko.me/en/articles/661692275/featured.png">
+  <meta name="twitter:title" content="Analysis of the C&#43;&#43;26 Static Reflection Proposal">
+  <meta name="twitter:description" content="I recently planned to write a series of articles discussing the concept of reflection in detail. Coincidentally, C&#43;&#43;26 has introduced a new reflection proposal, and I noticed that there are no related articles on Zhihu, even though this topic is frequently discussed. Therefore, I decided to take this opportunity to talk about static reflection in C&#43;&#43;, serving as a warm-up for the series.">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+    
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.2431d6175642aa3406b26d8aeaf714be755f476e2ff745dfec768b775cc5a9e4153b208bf3568ebb5ad57562ca0fa91428c9bdc23bf0f9fcffc6a316955ac885.css"
+    integrity="sha512-JDHWF1ZCqjQGsm2K6vcUvnVfR24v90Xf7HaLd1zFqeQVOyCL81aOu1rVdWLKD6kUKMm9wjvw&#43;fz/xqMWlVrIhQ==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
+      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      data-copy="Copy"
+      data-copied="Copied"></script>
   
 
   
@@ -242,6 +223,46 @@
 
   
   
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Articles",
+    "name": "Analysis of the C\u002b\u002b26 Static Reflection Proposal",
+    "headline": "Analysis of the C\u002b\u002b26 Static Reflection Proposal",
+    
+    "abstract": "\u003cp\u003eI recently planned to write a series of articles discussing the concept of reflection in detail. Coincidentally, C\u002b\u002b26 has introduced a new reflection proposal, and I noticed that there are no related articles on Zhihu, even though this topic is frequently discussed. Therefore, I decided to take this opportunity to talk about static reflection in C\u002b\u002b, serving as a warm-up for the series.\u003c\/p\u003e",
+    "inLanguage": "en",
+    "url" : "https:\/\/www.ykiko.me\/en\/articles\/661692275\/",
+    "author" : {
+      "@type": "Person",
+      "name": "ykiko"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-10-17T02:38:26\u002b00:00",
+    "datePublished": "2023-10-17T02:38:26\u002b00:00",
+    
+    "dateModified": "2023-10-17T02:38:26\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "2317"
+  }]
+  </script>
+
+
+
+  
+  
+    
 
   <script
   async
@@ -258,6 +279,7 @@
 
 
 
+  
 
   
   
@@ -271,8 +293,35 @@
   
   
 </head>
-<body
-    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
     <div id="the-top" class="absolute flex self-center">
       <a
         class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
@@ -284,11 +333,11 @@
     
     
       <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-100">
+<div class="fixed inset-x-0 z-100">
   <div
     id="menu-blur"
     class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
-  <div class="relative max-w-[64rem] ml-auto mr-auto">
+  <div class="relative m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32">
     
 
 
@@ -304,7 +353,7 @@
 
 
 <div
-  class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0">
+  class="main-menu flex items-center justify-between py-6 md:justify-start gap-x-3 pt-[2px] pr-2 md:pr-4 pb-[3px] pl-0">
   
   
 
@@ -324,11 +373,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="about"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    about
-  </p>
+  
+    <p class="text-base font-medium">
+      about
+    </p>
+  
 </a>
 
 
@@ -338,11 +391,15 @@
   <a
   href="/en/articles/"
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="articles"
+  title="Articles">
   
-  <p class="text-base font-medium" title="Articles">
-    articles
-  </p>
+  
+    <p class="text-base font-medium">
+      articles
+    </p>
+  
 </a>
 
 
@@ -352,11 +409,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="research"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    research
-  </p>
+  
+    <p class="text-base font-medium">
+      research
+    </p>
+  
 </a>
 
 
@@ -534,11 +595,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="about"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      about
-    </p>
+    
+      <p class="text-bg font-bg">
+        about
+      </p>
+    
   </a>
 </li>
 
@@ -550,11 +615,15 @@
   <a
     href="/en/articles/"
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="articles"
+    title="Articles">
     
-    <p class="text-bg font-bg" title="Articles">
-      articles
-    </p>
+    
+      <p class="text-bg font-bg">
+        articles
+      </p>
+    
   </a>
 </li>
 
@@ -566,11 +635,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="research"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      research
-    </p>
+    
+      <p class="text-bg font-bg">
+        research
+      </p>
+    
   </a>
 </li>
 
@@ -626,18 +699,54 @@
         
 
 
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+  
+
+
+
+
+
     <div id="hero" class="h-[150px] md:h-[200px]"></div>
   
   <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
     
     
-      
     
     <img
       id="background-image"
       src="/en/articles/661692275/featured_hu9568420036335256152.png"
-      alt="Background Image"
-      class="absolute inset-0 w-full h-full object-cover">
+      alt="Analysis of the C&#43;&#43;26 Static Reflection Proposal"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
     <div
       class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
     <div
@@ -656,7 +765,7 @@
       integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
       data-blur-id="background-blur"
       data-image-id="background-image"
-      data-image-url="/en/articles/661692275/featured.png"></script>
+      data-image-url="/en/articles/661692275/featured_hu9568420036335256152.png"></script>
   
       
     
@@ -852,6 +961,7 @@
     
     
       
+      
         
       
       <img
@@ -859,7 +969,8 @@
         width="96"
         height="96"
         alt="ykiko"
-        src="/img/author_hu12645359616066712621.jpg">
+        src="/img/author_hu12645359616066712621.jpg"
+        data-zoom-src="/img/author.jpg">
     
   
   <div class="place-self-center">
@@ -960,8 +1071,7 @@
       
       
       
-      
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8">
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
             
               <details
@@ -1045,11 +1155,23 @@
     const TOC_LINK_SELECTOR = 'a[href^="#"]'
     const NESTED_LIST_SELECTOR = 'li ul'
     const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
 
     function getActiveAnchorId(anchors, offsetRatio) {
       const threshold = window.scrollY + window.innerHeight * offsetRatio
       const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
       const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
 
       for (let i = anchors.length - 1; i >= 0; i--) {
         const top = anchors[i].getBoundingClientRect().top + window.scrollY
@@ -1097,6 +1219,12 @@
         toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
       }
 
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
       const config = {
         toc,
         anchors,
@@ -1118,7 +1246,6 @@
 </script>
 
 
-            
             
           </div>
         </div>
@@ -1204,34 +1331,34 @@
         <div class="article-content max-w-prose mb-20">
           <p>I recently planned to write a series of articles discussing the concept of reflection in detail. Coincidentally, C++26 has introduced a new reflection proposal, and I noticed that there are no related articles on Zhihu, even though this topic is frequently discussed. Therefore, I decided to take this opportunity to talk about static reflection in C++, serving as a warm-up for the series.</p>
 
-<h2 class="relative group">What is Static Reflection? 
+<h2 class="relative group">What is Static Reflection?
     <div id="what-is-static-reflection" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#what-is-static-reflection" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#what-is-static-reflection" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>First, what is reflection? Like many other terms in computer science, it doesn&rsquo;t have a detailed and precise definition. I won&rsquo;t delve into this question in this article, as I will explain it in detail in subsequent articles. The focus of this article is on C++&rsquo;s static reflection. Why emphasize &ldquo;static&rdquo;? Mainly because when we talk about reflection, we almost always refer to reflection in languages like Java, C#, and Python, where the implementation involves type erasure and runtime information querying. This approach inevitably incurs runtime overhead, which clearly violates C++&rsquo;s principle of zero-cost abstraction. To distinguish it from their reflection, we add &ldquo;static&rdquo; as a qualifier, indicating that C++&rsquo;s reflection is done at compile time. Of course, this statement still lacks some rigor. A detailed discussion will be provided in subsequent articles. For now, you just need to know that C++&rsquo;s static reflection is different from Java, C#, and Python&rsquo;s reflection and is primarily done at compile time.</p>
 
-<h2 class="relative group">What Can Static Reflection Do? 
+<h2 class="relative group">What Can Static Reflection Do?
     <div id="what-can-static-reflection-do" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#what-can-static-reflection-do" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#what-can-static-reflection-do" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 
-<h3 class="relative group">Type as Value 
+<h3 class="relative group">Type as Value
     <div id="type-as-value" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#type-as-value" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#type-as-value" aria-label="Anchor">#</a>
+    </span>
     
 </h3>
 <p>We all know that as C++ versions continue to update, the capabilities of compile-time computation are constantly improving. Through <code>constexpr/consteval</code> functions, we can largely reuse runtime code directly, making compile-time computation more convenient. This completely replaces the old method of using template metaprogramming for compile-time computation. Not only is it easier to write, but it also compiles faster.</p>
@@ -1359,13 +1486,13 @@
 </span></span></code></pre></div><p>If the restored entity does not match the originally stored one, a compilation error will occur.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typename</span><span class="p">[</span><span class="o">:</span> <span class="o">^::</span> <span class="o">:</span><span class="p">]</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// Error
 </span></span></span></code></pre></div>
-<h3 class="relative group">Meta Info 
+<h3 class="relative group">Meta Info
     <div id="meta-info" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#meta-info" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#meta-info" aria-label="Anchor">#</a>
+    </span>
     
 </h3>
 <p>The above feature alone is enough to be exciting. However, there&rsquo;s much more. The ability to obtain meta-information about entities like <code>class</code> has also been introduced.</p>
@@ -1422,24 +1549,24 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>Later, we can use this to implement features like traversing structures and enums. Further, we can implement advanced features like serialization and deserialization. Some examples will be provided later. In addition, there are other compile-time functions, and only a part of the content is shown above. For more APIs, refer to the proposal. Since functions for directly obtaining parameters from higher-order templates are provided, we no longer need to use templates for type extraction! Template metaprogramming for type extraction can also retire.</p>
 
-<h2 class="relative group">Better Compile Facilities 
+<h2 class="relative group">Better Compile Facilities
     <div id="better-compile-facilities" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#better-compile-facilities" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#better-compile-facilities" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>The main part of reflection has been introduced. Now let&rsquo;s talk about other things. Although this part is from other proposals, they can make writing code easier and give code stronger expressiveness.</p>
 
-<h3 class="relative group">Template For 
+<h3 class="relative group">Template For
     <div id="template-for" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#template-for" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#template-for" aria-label="Anchor">#</a>
+    </span>
     
 </h3>
 <p>In C++, generating a large number of code segments is a very difficult problem to solve. Thanks to C++&rsquo;s unique (or rather, bizarre) mechanisms, current code segment generation is almost entirely based on lambda expressions + variadic parameter pack expansion. See the example below.</p>
@@ -1497,13 +1624,13 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>You can think of <code>template for</code> as a syntax sugar-enhanced version of lambda expansion. It&rsquo;s very useful. If this is added, using template metaprogramming to generate functions (code) can retire.</p>
 
-<h3 class="relative group">Non-Transient Constexpr Allocation 
+<h3 class="relative group">Non-Transient Constexpr Allocation
     <div id="non-transient-constexpr-allocation" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#non-transient-constexpr-allocation" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#non-transient-constexpr-allocation" aria-label="Anchor">#</a>
+    </span>
     
 </h3>
 <p>This proposal mainly discusses two issues together.</p>
@@ -1538,24 +1665,24 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span> <span class="c1">// Global
 </span></span></span></code></pre></div><p>The main difficulty is that memory allocated in the data segment, unlike memory on the heap, has no ownership and doesn&rsquo;t need to be <code>delete</code>d. Once this problem is solved, we can use compile-time <code>std::map</code>, <code>std::vector</code> and retain them until runtime. The author&rsquo;s approach is to mark them. The specific details won&rsquo;t be discussed here. If this is added, using template metaprogramming to create constant tables can also retire.</p>
 
-<h2 class="relative group">Some Examples 
+<h2 class="relative group">Some Examples
     <div id="some-examples" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#some-examples" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#some-examples" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>Alright, after all that, let&rsquo;s see what we can do with reflection.</p>
 
-<h3 class="relative group">Print Any Type 
+<h3 class="relative group">Print Any Type
     <div id="print-any-type" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#print-any-type" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#print-any-type" aria-label="Anchor">#</a>
+    </span>
     
 </h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -1577,13 +1704,13 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
-<h3 class="relative group">Enum to String 
+<h3 class="relative group">Enum to String
     <div id="enum-to-string" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#enum-to-string" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#enum-to-string" aria-label="Anchor">#</a>
+    </span>
     
 </h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">E</span><span class="o">&gt;</span> <span class="k">requires</span> <span class="n">std</span><span class="o">::</span><span class="n">is_enum_v</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span>
@@ -1599,13 +1726,13 @@
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;&lt;unnamed&gt;&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
-<h2 class="relative group">Conclusion 
+<h2 class="relative group">Conclusion
     <div id="conclusion" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#conclusion" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#conclusion" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>I spent a long time introducing C++&rsquo;s static reflection. Actually, I really like C++&rsquo;s compile-time computation and am very interested in its development history. C++&rsquo;s compile-time computation has been developed step by step, with many wise masters proposing their unique ideas, turning the impossible into reality. From the perverse template metaprogramming of C++03, to <code>constexpr</code> variables in C++11, to the gradual relaxation of restrictions in <code>constexpr</code> functions from C++14 to C++23, moving more and more operations to compile time. To today&rsquo;s static reflection, C++ is gradually breaking free from the clutches of template metaprogramming. All those old template metaprogramming techniques can now be retired!!! If you haven&rsquo;t written old-style template metaprogramming code, you probably can&rsquo;t appreciate how terrifying it is.</p>
@@ -1829,52 +1956,36 @@
     <div class="pt-8">
       <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
       <div class="flex justify-between pt-3">
-        <span>
+        <span class="flex flex-col">
           
-            <a class="flex group mr-3" href="/en/articles/659510753/">
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >Comprehensive Analysis of C++ Member Pointers</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2023-10-04T14:50:12&#43;00:00">4 October 2023</time>
-                  
-                </span>
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/en/articles/659510753/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;Comprehensive Analysis of C++ Member Pointers
               </span>
             </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2023-10-04T14:50:12&#43;00:00">4 October 2023</time>
+              </span>
+            
           
         </span>
-        <span>
+        <span class="flex flex-col items-end">
           
-            <a class="flex text-right group ml-3" href="/en/articles/669358870/">
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >A Reflection Tutorial for C++ Programmers</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2023-11-29T09:14:02&#43;00:00">29 November 2023</time>
-                  
-                </span>
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/en/articles/669358870/">
+              <span class="leading-6">
+                A Reflection Tutorial for C++ Programmers&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
             </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2023-11-29T09:14:02&#43;00:00">29 November 2023</time>
+              </span>
+            
           
         </span>
       </div>
@@ -1908,10 +2019,18 @@
     </footer>
   </article>
 
-        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0 z-10">
+        
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-24 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
   <a
     href="#the-top"
-    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
     aria-label="Scroll to top"
     title="Scroll to top">
     &uarr;

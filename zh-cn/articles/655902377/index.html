@@ -14,146 +14,20 @@
   <meta name="theme-color">
 
   
-  <title>雾里看花：真正意义上的理解 C&#43;&#43; 模板 &middot; ykiko&#39;s blog</title>
+  
+    <title>雾里看花：真正意义上的理解 C&#43;&#43; 模板 &middot; ykiko&#39;s blog</title>
     <meta name="title" content="雾里看花：真正意义上的理解 C&#43;&#43; 模板 &middot; ykiko&#39;s blog">
+  
 
   
-  <meta name="description" content="mainly about computer science and mathematics">
+  
+    <meta name="description" content="mainly about computer science and mathematics">
+  
   
   
   
   <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/655902377/">
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    
-  
-  
-  <link
-    type="text/css"
-    rel="stylesheet"
-    href="/css/main.bundle.min.41ccf158e8b20af093f904e765d07015a786fdc35677cfc16ffff96a6b5235a45e9ce5dc22b59be2c7ec2ae5e4f302e565ca1e75c2439c5c81d44f4c70102851.css"
-    integrity="sha512-QczxWOiyCvCT&#43;QTnZdBwFaeG/cNWd8/Bb//5amtSNaRenOXcIrWb4sfsKuXk8wLlZcoedcJDnFyB1E9McBAoUQ==">
-
-  
-  
-  <script
-    type="text/javascript"
-    src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
-    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
-  
-  
-  
-    
-    
-    <script
-      type="text/javascript"
-      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
-      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
-  
-  
-    
-    
-    
-  
-  
-    
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    <script
-      defer
-      type="text/javascript"
-      id="script-bundle"
-      src="/js/main.bundle.min.04bad31d5c94d6e5ef0c1717be7fb1c389eab84cd88b53910a2d9a97ad49bb75aa257c221e9720df4735fe9ea5cb94e569d8a43682df4f5e66a260d3c2bb68ec.js"
-      integrity="sha512-BLrTHVyU1uXvDBcXvn&#43;xw4nquEzYi1ORCi2al61Ju3WqJXwiHpcg30c1/p6ly5TladikNoLfT15momDTwrto7A=="
-      data-copy="复制"
-      data-copied="已复制"></script>
-  
-  
-    
-    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
-  
-
-  
-  
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/655902377/">
-  <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="雾里看花：真正意义上的理解 C&#43;&#43; 模板">
-  <meta property="og:description" content="在 C&#43;&#43; 中，模板（Template）这个概念已经存在二十多年了。作为 C&#43;&#43; 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。">
-  <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2023-09-12T23:46:11+00:00">
-    <meta property="article:modified_time" content="2023-09-12T23:46:11+00:00">
-    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/655902377/featured.png">
-
-  
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/655902377/featured.png">
-  <meta name="twitter:title" content="雾里看花：真正意义上的理解 C&#43;&#43; 模板">
-  <meta name="twitter:description" content="在 C&#43;&#43; 中，模板（Template）这个概念已经存在二十多年了。作为 C&#43;&#43; 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。">
-<meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/655902377/featured.png">
-    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/655902377/featured.png">
-  <script type="application/ld+json">
-  [{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "articleSection": "Articles",
-    "name": "雾里看花：真正意义上的理解 C\u002b\u002b 模板",
-    "headline": "雾里看花：真正意义上的理解 C\u002b\u002b 模板",
-    
-    "abstract": "\u003cp\u003e在 C\u002b\u002b 中，模板（Template）这个概念已经存在二十多年了。作为 C\u002b\u002b 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。\u003c\/p\u003e",
-    "inLanguage": "zh-cn",
-    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/655902377\/",
-    "author" : {
-      "@type": "Person",
-      "name": "ykiko"
-    },
-    "copyrightYear": "2023",
-    "dateCreated": "2023-09-12T23:46:11\u002b00:00",
-    "datePublished": "2023-09-12T23:46:11\u002b00:00",
-    
-    "dateModified": "2023-09-12T23:46:11\u002b00:00",
-    
-    
-    
-    "mainEntityOfPage": "true",
-    "wordCount": "8209"
-  }]
-  </script>
-
-
 
   
   
@@ -189,6 +63,113 @@
         
       
     
+  
+
+  
+  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/655902377/">
+  <meta property="og:site_name" content="ykiko&#39;s blog">
+  <meta property="og:title" content="雾里看花：真正意义上的理解 C&#43;&#43; 模板">
+  <meta property="og:description" content="在 C&#43;&#43; 中，模板（Template）这个概念已经存在二十多年了。作为 C&#43;&#43; 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2023-09-12T23:46:11+00:00">
+    <meta property="article:modified_time" content="2023-09-12T23:46:11+00:00">
+    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/655902377/featured.png">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/655902377/featured.png">
+  <meta name="twitter:title" content="雾里看花：真正意义上的理解 C&#43;&#43; 模板">
+  <meta name="twitter:description" content="在 C&#43;&#43; 中，模板（Template）这个概念已经存在二十多年了。作为 C&#43;&#43; 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+    
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.2431d6175642aa3406b26d8aeaf714be755f476e2ff745dfec768b775cc5a9e4153b208bf3568ebb5ad57562ca0fa91428c9bdc23bf0f9fcffc6a316955ac885.css"
+    integrity="sha512-JDHWF1ZCqjQGsm2K6vcUvnVfR24v90Xf7HaLd1zFqeQVOyCL81aOu1rVdWLKD6kUKMm9wjvw&#43;fz/xqMWlVrIhQ==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
+      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      data-copy="复制"
+      data-copied="已复制"></script>
   
 
   
@@ -237,6 +218,46 @@
 
   
   
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Articles",
+    "name": "雾里看花：真正意义上的理解 C\u002b\u002b 模板",
+    "headline": "雾里看花：真正意义上的理解 C\u002b\u002b 模板",
+    
+    "abstract": "\u003cp\u003e在 C\u002b\u002b 中，模板（Template）这个概念已经存在二十多年了。作为 C\u002b\u002b 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。\u003c\/p\u003e",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/655902377\/",
+    "author" : {
+      "@type": "Person",
+      "name": "ykiko"
+    },
+    "copyrightYear": "2023",
+    "dateCreated": "2023-09-12T23:46:11\u002b00:00",
+    "datePublished": "2023-09-12T23:46:11\u002b00:00",
+    
+    "dateModified": "2023-09-12T23:46:11\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "8209"
+  }]
+  </script>
+
+
+
+  
+  
+    
 
   <script
   async
@@ -253,6 +274,7 @@
 
 
 
+  
 
   
   
@@ -266,8 +288,35 @@
   
   
 </head>
-<body
-    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
     <div id="the-top" class="absolute flex self-center">
       <a
         class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
@@ -279,11 +328,11 @@
     
     
       <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-100">
+<div class="fixed inset-x-0 z-100">
   <div
     id="menu-blur"
     class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
-  <div class="relative max-w-[64rem] ml-auto mr-auto">
+  <div class="relative m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32">
     
 
 
@@ -299,7 +348,7 @@
 
 
 <div
-  class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0">
+  class="main-menu flex items-center justify-between py-6 md:justify-start gap-x-3 pt-[2px] pr-2 md:pr-4 pb-[3px] pl-0">
   
   
 
@@ -319,11 +368,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="关于我"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    关于我
-  </p>
+  
+    <p class="text-base font-medium">
+      关于我
+    </p>
+  
 </a>
 
 
@@ -333,11 +386,15 @@
   <a
   href="/zh-cn/articles/"
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="文章"
+  title="Articles">
   
-  <p class="text-base font-medium" title="Articles">
-    文章
-  </p>
+  
+    <p class="text-base font-medium">
+      文章
+    </p>
+  
 </a>
 
 
@@ -347,11 +404,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="研究"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    研究
-  </p>
+  
+    <p class="text-base font-medium">
+      研究
+    </p>
+  
 </a>
 
 
@@ -529,11 +590,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="关于我"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      关于我
-    </p>
+    
+      <p class="text-bg font-bg">
+        关于我
+      </p>
+    
   </a>
 </li>
 
@@ -545,11 +610,15 @@
   <a
     href="/zh-cn/articles/"
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="文章"
+    title="Articles">
     
-    <p class="text-bg font-bg" title="Articles">
-      文章
-    </p>
+    
+      <p class="text-bg font-bg">
+        文章
+      </p>
+    
   </a>
 </li>
 
@@ -561,11 +630,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="研究"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      研究
-    </p>
+    
+      <p class="text-bg font-bg">
+        研究
+      </p>
+    
   </a>
 </li>
 
@@ -621,18 +694,54 @@
         
 
 
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+  
+
+
+
+
+
     <div id="hero" class="h-[150px] md:h-[200px]"></div>
   
   <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
     
     
-      
     
     <img
       id="background-image"
       src="/zh-cn/articles/655902377/featured_hu15210371870347363172.png"
-      alt="Background Image"
-      class="absolute inset-0 w-full h-full object-cover">
+      alt="雾里看花：真正意义上的理解 C&#43;&#43; 模板"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
     <div
       class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
     <div
@@ -651,7 +760,7 @@
       integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
       data-blur-id="background-blur"
       data-image-id="background-image"
-      data-image-url="/zh-cn/articles/655902377/featured.png"></script>
+      data-image-url="/zh-cn/articles/655902377/featured_hu15210371870347363172.png"></script>
   
       
     
@@ -847,6 +956,7 @@
     
     
       
+      
         
       
       <img
@@ -854,7 +964,8 @@
         width="96"
         height="96"
         alt="ykiko"
-        src="/img/author_hu12645359616066712621.jpg">
+        src="/img/author_hu12645359616066712621.jpg"
+        data-zoom-src="/img/author.jpg">
     
   
   <div class="place-self-center">
@@ -955,8 +1066,7 @@
       
       
       
-      
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8">
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
             
               <details
@@ -1054,11 +1164,23 @@
     const TOC_LINK_SELECTOR = 'a[href^="#"]'
     const NESTED_LIST_SELECTOR = 'li ul'
     const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
 
     function getActiveAnchorId(anchors, offsetRatio) {
       const threshold = window.scrollY + window.innerHeight * offsetRatio
       const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
       const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
 
       for (let i = anchors.length - 1; i >= 0; i--) {
         const top = anchors[i].getBoundingClientRect().top + window.scrollY
@@ -1106,6 +1228,12 @@
         toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
       }
 
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
       const config = {
         toc,
         anchors,
@@ -1128,7 +1256,6 @@
 
 
             
-            
           </div>
         </div>
       
@@ -1149,23 +1276,23 @@
 </ul>
 <p>其中第一个主题一般认为就是普通的 Template。而后三者一般被规划到 TMP 中去。TMP 即 Template meta programming 也就是模板元编程。因为模板设计之初的意图并不是实现后面这三个功能，但是最后却通过一些奇怪的 trick 实现了这些功能，代码写起来也比较晦涩难懂，所以一般叫做元编程。</p>
 
-<h2 class="relative group">Code Generation 
+<h2 class="relative group">Code Generation
     <div id="code-generation" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#code-generation" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#code-generation" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 
-<h3 class="relative group">Generic 
+<h3 class="relative group">Generic
     <div id="generic" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#generic" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#generic" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p><strong>泛型 (Generic)</strong> 编程，也就是为不同的类型编写相同的代码，实现代码复用。在加入模板之前，我们只能通过宏来模拟泛型。考虑下面这个简单的示例：</p>
@@ -1212,13 +1339,13 @@
 </ul>
 <p>除此之外，还有诸如<strong>偏特化 (partial specialization)</strong>，<strong>全特化 (full specialization)</strong>，<strong>可变模板参数 (variadic template)</strong>，<strong>变量模板 (variable template)</strong> 等等一系列特性，这些仅凭宏都是做不到的。正是由于模板的出现，才使用 STL 这样的泛型库的实现成为可能。</p>
 
-<h3 class="relative group">Table Gen 
+<h3 class="relative group">Table Gen
     <div id="table-gen" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#table-gen" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#table-gen" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>上面提到的泛型，可以看成模板最直接的用法。基于它们我们可以有一些更加高级的代码生成，例如在编译期生成一个确定的表以供运行期查询。标准库中<code>std::visit</code>的实现就利用了这种技巧，下面是它的一个简单模拟</p>
@@ -1259,25 +1386,25 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>利用逻辑运算符的短路特性，我们可以提前退出后续折叠表达式的求值，短的函数也更加有利于内联。</p>
 
-<h2 class="relative group">Type Constraint 
+<h2 class="relative group">Type Constraint
     <div id="type-constraint" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#type-constraint" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#type-constraint" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>别的我都同意，但是模版的报错信息明明一点都不好读啊。和宏比起来，难道不是五十步笑百步吗？甚至有过之而无不及。轻松产生几百，几千行的报错，我想只有 C++ 的模板能做到吧。</p>
 <p>这就是接下来要讨论的问题，为什么 C++ 的编译错误信息这么长？而且有时候非常难读懂。</p>
 
-<h3 class="relative group">Function Overload 
+<h3 class="relative group">Function Overload
     <div id="function-overload" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#function-overload" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#function-overload" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>考虑下面这个只有几行的简单示例</p>
@@ -1300,13 +1427,13 @@
 </span></span><span class="line"><span class="cl">    <span class="mi">9</span> <span class="o">|</span>     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="p">{}</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span></code></pre></div><p>意思就是尝试用<code>A</code>类型匹配<code>const char*</code>这个重载（通过隐式类型转换），结果失败了。标准库类似中这样的函数，都有非常多的重载，比如这个<code>operator&lt;&lt;</code>就重载了<code>int</code>,<code>bool</code>,<code>long</code>,<code>double</code> 等等，将近几十个函数。结果报错信息就是把所有重载函数尝试失败的原因都列出来，于是轻松就有几百行了，再加上标准库诡异的命名，看起来就像天书一样。</p>
 
-<h3 class="relative group">Instantiation Stack 
+<h3 class="relative group">Instantiation Stack
     <div id="instantiation-stack" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#instantiation-stack" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#instantiation-stack" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>函数重载是导致报错信息难以读懂的一部分原因，但不是全部。实际上如上所示，仅仅是把所有可能性枚举出来，不过几百行报错。要知道我们还能产出上千行呢，量级上的差距可不是能用数量轻松弥补的。况且本小节要说的是类型约束，和编译器报错有什么关系呢。 考虑下面这个示例：</p>
@@ -1355,13 +1482,13 @@
 </span></span></code></pre></div><p>意思就是<code>A</code>类型的实例<code>x</code>不满足<code>requires</code>语句<code>std::cout &lt;&lt; x</code>。事实上通过这样的语法，我们就可以把错误限制在类型推断的阶段，而不去进行实例化。于是相对的报错就会简洁很多了。</p>
 <p>也就是说通过<code>requires</code>我们能阻止编译错误的传播。 但是可惜的是，约束相关的语法是在 C++20 才加入的。那在这之前呢？</p>
 
-<h3 class="relative group">Before C++20 
+<h3 class="relative group">Before C++20
     <div id="before-c20" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#before-c20" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#before-c20" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>在 C++20 之前，我们并没有这么好用的方法。只能通过一种叫做 <a
@@ -1381,23 +1508,23 @@
     target="_blank"
   >自述</a>。</p>
 
-<h2 class="relative group">Compile-time Computing 
+<h2 class="relative group">Compile-time Computing
     <div id="compile-time-computing" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#compile-time-computing" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#compile-time-computing" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 
-<h3 class="relative group">Meaning 
+<h3 class="relative group">Meaning
     <div id="meaning" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#meaning" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#meaning" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>首先要肯定的一点是，编译期计算肯定是有用的。具体到特定场景，意义有多大，这肯定就不能一概而论了。有很多人谈编译期计算色变，什么代码难懂，屠龙技，没有价值云云。这样的确很容易误导初学者。事实上相关的需求的确存在。如果编程语言没有这个功能，但是确有需求，程序员也会想方设法的通过其它的办法来实现。</p>
@@ -1411,13 +1538,13 @@
 </ul>
 <p>C++ 的编译期计算有明确的语义保证，并且内嵌于语言之中，能和其它部分良好的交互。从这个角度来说，很好的解决了上面两点问题。当然很多人对它的讨伐并不无道理，通过模板元编程进行的编译期计算。代码丑陋且晦涩难懂，牵扯到的语法细节多，并且大大拖慢编译时间，增加二进制文件大小。无可否认的是，这些问题的确存在。但是随着 C++ 版本的不断更新，编译期计算现在已经非常容易理解了，不再需要去写那些复杂的模板元代码，新手也能很快学会。因为和运行期代码几乎一样了。接下来伴随着它的发展史，我们将逐步阐明。</p>
 
-<h3 class="relative group">History 
+<h3 class="relative group">History
     <div id="history" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#history" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#history" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>从历史上看，TMP 是一个偶然事件。在标准化 C++ 语言的过程中发现它的模板系统恰好是图灵完备的，即原则上能够计算任何可计算的东西。第一个具体演示是 Erwin Unruh 编写的一个程序，该程序计算素数，尽管它实际上并未完成编译：素数列表是编译器在尝试编译代码时生成的错误消息的一部分。具体的示例，请参考 <a
@@ -1482,23 +1609,23 @@
 <p>相信你已经充分见识到 C++ 在编译期计算方面所做的努力，编译期计算早就和模板元脱离关系了，在 C++ 中已经成为一种非常自然的特性，不需要特殊的语法，却能发挥强大的威力。所以以后千万不要一谈到 C++ 的编译期计算就十分恐慌，以为是什么屠龙之技。现在它早已经变得十分温柔美丽。</p>
 <p>尽管编译期计算已经脱离了模板元的魔爪，但是 C++ 并没有。还有两种情况，我们不得不编写蹩脚的模板元代码。</p>
 
-<h2 class="relative group">Type Manipulation 
+<h2 class="relative group">Type Manipulation
     <div id="type-manipulation" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#type-manipulation" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#type-manipulation" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 
-<h3 class="relative group">Match Type 
+<h3 class="relative group">Match Type
     <div id="match-type" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#match-type" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#match-type" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>如何判断两个类型相等呢，或者说判断两个变量的类型相等。可能有人会想，这不是多此一举吗，变量的类型都是编译期已知的，还需要判断吗？其实这个问题可以说是伴随着泛型编程而出现的，考虑下面的示例：</p>
@@ -1587,13 +1714,13 @@
     target="_blank"
   >C++26 静态反射提案解析</a>。</p>
 
-<h3 class="relative group">Comptime Variable 
+<h3 class="relative group">Comptime Variable
     <div id="comptime-variable" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#comptime-variable" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#comptime-variable" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>除了上面说的对类型做计算不得不用到模板元编程之外，如果需要在编译期计算的同时实例化模板，也不得不用模板元编程。</p>
@@ -1625,13 +1752,13 @@
     target="_blank"
   >STMP</a> 这种黑魔法做到，但是如前文所述，难以在日常的编程中真正使用它。</p>
 
-<h3 class="relative group">Type is Value 
+<h3 class="relative group">Type is Value
     <div id="type-is-value" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#type-is-value" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#type-is-value" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>非常值得一提的是，有一个比较新的语言叫 Zig。它解决了上述提到的问题，不仅支持编译期变量，还支持把把类型作为一等公民来进行操作。得益于 Zig 独特的<code>comptime</code>机制，被它标记的变量或代码块都是在编译期执行的。这样一来，我们就可以写出如下的代码：</p>
@@ -1661,13 +1788,13 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>写出了我们梦寐以求的代码，啊，实在是太优雅了！在对类型计算这方面 Zig 可以说是完胜目前的 C++，感兴趣的读者可以自己去 Zig 官网了解一下，不过在类型计算以外的其它方面，比如泛型和代码生成，Zig 其实做的并不好，这并不是本文的重点，所以就不讨论了。</p>
 
-<h2 class="relative group">Conclusion 
+<h2 class="relative group">Conclusion
     <div id="conclusion" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#conclusion" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#conclusion" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>可以发现，在一开始模板承担了太多角色，而且根本不是当初设计它的时候所期望的用法，是通过一些 trick 来弥补语言表达能力的不足。随着 C++ 的不断发展，这些额外的角色渐渐地被更简单，更直接，更易懂的语法所取代。类型约束由<code>concept</code>和<code>requires</code>来完成，编译期计算由<code>constexpr</code>来完成，操作类型则由未来的<code>static reflection</code>来完成。模板逐渐回到了它最初的模样，负责代码生成。那些晦涩难懂的 workaround 也逐渐被淘汰，这是一个好的信号，虽然我们往往还是不得不和老代码打交道。但是至少我们知道，未来会更好！</p>
@@ -1819,52 +1946,36 @@
     <div class="pt-8">
       <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
       <div class="flex justify-between pt-3">
-        <span>
+        <span class="flex flex-col">
           
-            <a class="flex group mr-3" href="/zh-cn/articles/646812253/">
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >C++ 禁忌黑魔法：STMP （下）</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2023-07-30T09:29:27&#43;00:00">July 30, 2023</time>
-                  
-                </span>
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/zh-cn/articles/646812253/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;C++ 禁忌黑魔法：STMP （下）
               </span>
             </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2023-07-30T09:29:27&#43;00:00">July 30, 2023</time>
+              </span>
+            
           
         </span>
-        <span>
+        <span class="flex flex-col items-end">
           
-            <a class="flex text-right group ml-3" href="/zh-cn/articles/659510753/">
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >C++ 成员指针完全解析</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2023-10-04T14:50:12&#43;00:00">October 4, 2023</time>
-                  
-                </span>
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/zh-cn/articles/659510753/">
+              <span class="leading-6">
+                C++ 成员指针完全解析&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
             </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2023-10-04T14:50:12&#43;00:00">October 4, 2023</time>
+              </span>
+            
           
         </span>
       </div>
@@ -1898,10 +2009,18 @@
     </footer>
   </article>
 
-        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0 z-10">
+        
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-24 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
   <a
     href="#the-top"
-    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
     aria-label="返回顶部"
     title="返回顶部">
     &uarr;

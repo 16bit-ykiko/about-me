@@ -14,148 +14,20 @@
   <meta name="theme-color">
 
   
-  <title>Relocation Semantics in C&#43;&#43; &middot; ykiko&#39;s blog</title>
+  
+    <title>Relocation Semantics in C&#43;&#43; &middot; ykiko&#39;s blog</title>
     <meta name="title" content="Relocation Semantics in C&#43;&#43; &middot; ykiko&#39;s blog">
+  
 
   
-  <meta name="description" content="mainly about computer science and mathematics">
+  
+    <meta name="description" content="mainly about computer science and mathematics">
+  
   
   
   
   <link rel="canonical" href="https://www.ykiko.me/en/articles/679782886/">
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    
-  
-  
-  <link
-    type="text/css"
-    rel="stylesheet"
-    href="/css/main.bundle.min.41ccf158e8b20af093f904e765d07015a786fdc35677cfc16ffff96a6b5235a45e9ce5dc22b59be2c7ec2ae5e4f302e565ca1e75c2439c5c81d44f4c70102851.css"
-    integrity="sha512-QczxWOiyCvCT&#43;QTnZdBwFaeG/cNWd8/Bb//5amtSNaRenOXcIrWb4sfsKuXk8wLlZcoedcJDnFyB1E9McBAoUQ==">
-
-  
-  
-  <script
-    type="text/javascript"
-    src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
-    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
-  
-  
-  
-    
-    
-    <script
-      type="text/javascript"
-      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
-      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
-  
-  
-    
-    
-    
-  
-  
-    
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    <script
-      defer
-      type="text/javascript"
-      id="script-bundle"
-      src="/js/main.bundle.min.04bad31d5c94d6e5ef0c1717be7fb1c389eab84cd88b53910a2d9a97ad49bb75aa257c221e9720df4735fe9ea5cb94e569d8a43682df4f5e66a260d3c2bb68ec.js"
-      integrity="sha512-BLrTHVyU1uXvDBcXvn&#43;xw4nquEzYi1ORCi2al61Ju3WqJXwiHpcg30c1/p6ly5TladikNoLfT15momDTwrto7A=="
-      data-copy="Copy"
-      data-copied="Copied"></script>
-  
-  
-    
-    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
-  
-
-  
-  
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-  <meta property="og:url" content="https://www.ykiko.me/en/articles/679782886/">
-  <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="Relocation Semantics in C&#43;&#43;">
-  <meta property="og:description" content="As is well known, there are two special constructors in C&#43;&#43;: the copy constructor and the move constructor.
-The copy constructor was introduced as early as C&#43;&#43;98 to copy an object. For types like vector that own resources, copying will also duplicate the resources it owns.">
-  <meta property="og:locale" content="en">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2024-01-25T17:22:29+00:00">
-    <meta property="article:modified_time" content="2024-01-25T17:22:29+00:00">
-    <meta property="og:image" content="https://www.ykiko.me/en/articles/679782886/featured.png">
-
-  
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://www.ykiko.me/en/articles/679782886/featured.png">
-  <meta name="twitter:title" content="Relocation Semantics in C&#43;&#43;">
-  <meta name="twitter:description" content="As is well known, there are two special constructors in C&#43;&#43;: the copy constructor and the move constructor.
-The copy constructor was introduced as early as C&#43;&#43;98 to copy an object. For types like vector that own resources, copying will also duplicate the resources it owns.">
-<meta name="twitter:image" content="https://www.ykiko.me/en/articles/679782886/featured.png">
-    <meta property="og:image" content="https://www.ykiko.me/en/articles/679782886/featured.png">
-  <script type="application/ld+json">
-  [{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "articleSection": "Articles",
-    "name": "Relocation Semantics in C\u002b\u002b",
-    "headline": "Relocation Semantics in C\u002b\u002b",
-    
-    "abstract": "\u003cp\u003eAs is well known, there are two special constructors in C\u002b\u002b: the copy constructor and the move constructor.\u003c\/p\u003e\n\u003cp\u003eThe copy constructor was introduced as early as C\u002b\u002b98 to copy an object. For types like \u003ccode\u003evector\u003c\/code\u003e that own resources, copying will also duplicate the resources it owns.\u003c\/p\u003e",
-    "inLanguage": "en",
-    "url" : "https:\/\/www.ykiko.me\/en\/articles\/679782886\/",
-    "author" : {
-      "@type": "Person",
-      "name": "ykiko"
-    },
-    "copyrightYear": "2024",
-    "dateCreated": "2024-01-25T17:22:29\u002b00:00",
-    "datePublished": "2024-01-25T17:22:29\u002b00:00",
-    
-    "dateModified": "2024-01-25T17:22:29\u002b00:00",
-    
-    
-    
-    "mainEntityOfPage": "true",
-    "wordCount": "2340"
-  }]
-  </script>
-
-
 
   
   
@@ -191,6 +63,115 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
         
       
     
+  
+
+  
+  <meta property="og:url" content="https://www.ykiko.me/en/articles/679782886/">
+  <meta property="og:site_name" content="ykiko&#39;s blog">
+  <meta property="og:title" content="Relocation Semantics in C&#43;&#43;">
+  <meta property="og:description" content="As is well known, there are two special constructors in C&#43;&#43;: the copy constructor and the move constructor.
+The copy constructor was introduced as early as C&#43;&#43;98 to copy an object. For types like vector that own resources, copying will also duplicate the resources it owns.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2024-01-25T17:22:29+00:00">
+    <meta property="article:modified_time" content="2024-01-25T17:22:29+00:00">
+    <meta property="og:image" content="https://www.ykiko.me/en/articles/679782886/featured.png">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.ykiko.me/en/articles/679782886/featured.png">
+  <meta name="twitter:title" content="Relocation Semantics in C&#43;&#43;">
+  <meta name="twitter:description" content="As is well known, there are two special constructors in C&#43;&#43;: the copy constructor and the move constructor.
+The copy constructor was introduced as early as C&#43;&#43;98 to copy an object. For types like vector that own resources, copying will also duplicate the resources it owns.">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+    
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.2431d6175642aa3406b26d8aeaf714be755f476e2ff745dfec768b775cc5a9e4153b208bf3568ebb5ad57562ca0fa91428c9bdc23bf0f9fcffc6a316955ac885.css"
+    integrity="sha512-JDHWF1ZCqjQGsm2K6vcUvnVfR24v90Xf7HaLd1zFqeQVOyCL81aOu1rVdWLKD6kUKMm9wjvw&#43;fz/xqMWlVrIhQ==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
+      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      data-copy="Copy"
+      data-copied="Copied"></script>
   
 
   
@@ -239,6 +220,46 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
 
   
   
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Articles",
+    "name": "Relocation Semantics in C\u002b\u002b",
+    "headline": "Relocation Semantics in C\u002b\u002b",
+    
+    "abstract": "\u003cp\u003eAs is well known, there are two special constructors in C\u002b\u002b: the copy constructor and the move constructor.\u003c\/p\u003e\n\u003cp\u003eThe copy constructor was introduced as early as C\u002b\u002b98 to copy an object. For types like \u003ccode\u003evector\u003c\/code\u003e that own resources, copying will also duplicate the resources it owns.\u003c\/p\u003e",
+    "inLanguage": "en",
+    "url" : "https:\/\/www.ykiko.me\/en\/articles\/679782886\/",
+    "author" : {
+      "@type": "Person",
+      "name": "ykiko"
+    },
+    "copyrightYear": "2024",
+    "dateCreated": "2024-01-25T17:22:29\u002b00:00",
+    "datePublished": "2024-01-25T17:22:29\u002b00:00",
+    
+    "dateModified": "2024-01-25T17:22:29\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "2340"
+  }]
+  </script>
+
+
+
+  
+  
+    
 
   <script
   async
@@ -255,6 +276,7 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
 
 
 
+  
 
   
   
@@ -268,8 +290,35 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
   
   
 </head>
-<body
-    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
     <div id="the-top" class="absolute flex self-center">
       <a
         class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
@@ -281,11 +330,11 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
     
     
       <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-100">
+<div class="fixed inset-x-0 z-100">
   <div
     id="menu-blur"
     class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
-  <div class="relative max-w-[64rem] ml-auto mr-auto">
+  <div class="relative m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32">
     
 
 
@@ -301,7 +350,7 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
 
 
 <div
-  class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0">
+  class="main-menu flex items-center justify-between py-6 md:justify-start gap-x-3 pt-[2px] pr-2 md:pr-4 pb-[3px] pl-0">
   
   
 
@@ -321,11 +370,15 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="about"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    about
-  </p>
+  
+    <p class="text-base font-medium">
+      about
+    </p>
+  
 </a>
 
 
@@ -335,11 +388,15 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
   <a
   href="/en/articles/"
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="articles"
+  title="Articles">
   
-  <p class="text-base font-medium" title="Articles">
-    articles
-  </p>
+  
+    <p class="text-base font-medium">
+      articles
+    </p>
+  
 </a>
 
 
@@ -349,11 +406,15 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="research"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    research
-  </p>
+  
+    <p class="text-base font-medium">
+      research
+    </p>
+  
 </a>
 
 
@@ -531,11 +592,15 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="about"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      about
-    </p>
+    
+      <p class="text-bg font-bg">
+        about
+      </p>
+    
   </a>
 </li>
 
@@ -547,11 +612,15 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
   <a
     href="/en/articles/"
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="articles"
+    title="Articles">
     
-    <p class="text-bg font-bg" title="Articles">
-      articles
-    </p>
+    
+      <p class="text-bg font-bg">
+        articles
+      </p>
+    
   </a>
 </li>
 
@@ -563,11 +632,15 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="research"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      research
-    </p>
+    
+      <p class="text-bg font-bg">
+        research
+      </p>
+    
   </a>
 </li>
 
@@ -623,18 +696,54 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
         
 
 
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+  
+
+
+
+
+
     <div id="hero" class="h-[150px] md:h-[200px]"></div>
   
   <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
     
     
-      
     
     <img
       id="background-image"
       src="/en/articles/679782886/featured_hu16741343795889543917.png"
-      alt="Background Image"
-      class="absolute inset-0 w-full h-full object-cover">
+      alt="Relocation Semantics in C&#43;&#43;"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
     <div
       class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
     <div
@@ -653,7 +762,7 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
       integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
       data-blur-id="background-blur"
       data-image-id="background-image"
-      data-image-url="/en/articles/679782886/featured.png"></script>
+      data-image-url="/en/articles/679782886/featured_hu16741343795889543917.png"></script>
   
       
     
@@ -849,6 +958,7 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
     
     
       
+      
         
       
       <img
@@ -856,7 +966,8 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
         width="96"
         height="96"
         alt="ykiko"
-        src="/img/author_hu12645359616066712621.jpg">
+        src="/img/author_hu12645359616066712621.jpg"
+        data-zoom-src="/img/author.jpg">
     
   
   <div class="place-self-center">
@@ -957,8 +1068,7 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
       
       
       
-      
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8">
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
             
               <details
@@ -1030,11 +1140,23 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
     const TOC_LINK_SELECTOR = 'a[href^="#"]'
     const NESTED_LIST_SELECTOR = 'li ul'
     const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
 
     function getActiveAnchorId(anchors, offsetRatio) {
       const threshold = window.scrollY + window.innerHeight * offsetRatio
       const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
       const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
 
       for (let i = anchors.length - 1; i >= 0; i--) {
         const top = anchors[i].getBoundingClientRect().top + window.scrollY
@@ -1082,6 +1204,12 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
         toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
       }
 
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
       const config = {
         toc,
         anchors,
@@ -1104,7 +1232,6 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
 
 
             
-            
           </div>
         </div>
       
@@ -1123,13 +1250,13 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
 </span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span> <span class="c1">// move
 </span></span></span></code></pre></div><p>Note that in C++, move is referred to as <em>non-destructive move</em>. The C++ standard specifies that the state of an object after being moved is a <em>valid state</em>, and the implementation must ensure that its destructor can be called normally. <strong>The moved object may still be used again</strong> (whether it can be used depends on the implementation).</p>
 
-<h2 class="relative group">Is That All? 
+<h2 class="relative group">Is That All?
     <div id="is-that-all" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#is-that-all" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#is-that-all" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>Are these two constructors sufficient? Of course not. In fact, there is another widely used operation that can be called the <strong>relocate</strong> operation. Consider the following scenario:</p>
@@ -1197,13 +1324,13 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p><em>Note: You can also consider directly using <code>uninitialized_move_n</code> and <code>destroy_n</code> added in C++17 to avoid reinventing the wheel. These functions have already undergone similar optimizations. However, due to pointer alias issues, they may at most optimize to <code>memmove</code>, whereas in this vector expansion scenario, it can be further optimized to <code>memcpy</code>, so self-optimization yields better results.</em></p>
 
-<h2 class="relative group">Overkill 
+<h2 class="relative group">Overkill
     <div id="overkill" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#overkill" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#overkill" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>This still feels a bit odd. Our main goal is to move all objects from the old memory to the new memory, but we are using the <a
@@ -1236,13 +1363,13 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
 </ul>
 <p>By marking specific types, they can benefit from this optimization. However, the above optimization is only logically equivalent; strictly speaking, writing it this way in C++ is considered undefined behavior. So what can we do? We can only try to propose new proposals to modify the standard wording to support the above optimization.</p>
 
-<h2 class="relative group">Current Status 
+<h2 class="relative group">Current Status
     <div id="current-status" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#current-status" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#current-status" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>This issue was discovered long ago, as evidenced by discussions on Zhihu:</p>
@@ -1278,13 +1405,13 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
 </ul>
 <p>They can be roughly divided into two factions: the conservative faction and the radical faction.</p>
 
-<h3 class="relative group">Conservative Faction 
+<h3 class="relative group">Conservative Faction
     <div id="conservative-faction" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#conservative-faction" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#conservative-faction" aria-label="Anchor">#</a>
+    </span>
     
 </h3>
 <p>The conservative faction&rsquo;s solution is to add the concepts of relocatable and trivially-relocatable, along with related traits for judgment.</p>
@@ -1320,13 +1447,13 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
 </span></span></code></pre></div><p>These functions are implemented by the compiler, and their effect is equivalent to move + destroy the original object. The compiler is allowed to optimize operations on trivially_relocatable types into <code>memcpy</code> or <code>memmove</code> under the as-if rule. For structures that cannot be optimized, such as those containing self-references, the move constructor + destructor will be called normally. This way, when implementing <code>vector</code>, you can directly use these standard library functions to enjoy the optimization.</p>
 <p>The reason this proposal is called conservative is that it neither affects the original API nor the original ABI, making it highly compatible and easy to introduce.</p>
 
-<h3 class="relative group">Radical Faction 
+<h3 class="relative group">Radical Faction
     <div id="radical-faction" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#radical-faction" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#radical-faction" aria-label="Anchor">#</a>
+    </span>
     
 </h3>
 <p>The more radical approach is the main topic today, which advocates introducing the relocate constructor and a new keyword, <code>reloc</code>.</p>
@@ -1366,13 +1493,13 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
 </ul>
 <p>There is a sense of logical self-consistency and beauty. Other details in the proposal are more trivial and are omitted here. Interested readers can read it themselves.</p>
 
-<h2 class="relative group">Why Hasn&rsquo;t It Entered the Standard After So Long? 
+<h2 class="relative group">Why Hasn&rsquo;t It Entered the Standard After So Long?
     <div id="why-hasnt-it-entered-the-standard-after-so-long" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#why-hasnt-it-entered-the-standard-after-so-long" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#why-hasnt-it-entered-the-standard-after-so-long" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>Regarding why this issue has not been resolved after so many years, it is actually a long history, caused by defects in C++&rsquo;s object model. Until the <a
@@ -1381,24 +1508,24 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
   >implicit lifetime proposal</a> was accepted in C++20, even optimizing trivially-copyable types into <code>memcpy</code> in the initial expansion function implementation was undefined behavior.</p>
 <p>Of course, don&rsquo;t be afraid when you hear undefined behavior, as if there is a psychological barrier. In fact, this has long been considered a defect in the standard, and this optimization has been widely practiced in various codebases, with its reliability already verified. It&rsquo;s just that the C++ standard has not had appropriate wording to describe this situation. Completely considering it as UB is certainly wrong, and using it without restrictions is also wrong. Therefore, the key issue is to find a suitable boundary between the two. I will write a dedicated article to introduce C++ object model-related content recently, so I won&rsquo;t expand on it here.</p>
 
-<h2 class="relative group">Other Languages 
+<h2 class="relative group">Other Languages
     <div id="other-languages" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#other-languages" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#other-languages" aria-label="Anchor">#</a>
+    </span>
     
 </h2>
 <p>C++ certainly has various shortcomings, and considering historical compatibility and other factors, the design cannot be too bold. What about new languages? How do they solve these problems?</p>
 
-<h3 class="relative group">Rust 
+<h3 class="relative group">Rust
     <div id="rust" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#rust" aria-label="Anchor">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#rust" aria-label="Anchor">#</a>
+    </span>
     
 </h3>
 <p>First, let&rsquo;s look at Rust, which has been quite popular recently. In fact, as long as the structure does not contain self-referential members, using <code>memcpy</code> to move the old object to new memory is almost always feasible. Additionally, Rust does not have multiple inheritance, virtual functions (complex virtual table structures), virtual inheritance, and other strange things (which are rarely used in practice), so almost all types can directly use <code>memcpy</code> to create a new object from the old one. Coincidentally, the move semantics in Safe Rust are destructive moves, so its default move implementation is directly <code>memcpy</code>, which is much cleaner.</p>
@@ -1569,52 +1696,36 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
     <div class="pt-8">
       <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
       <div class="flex justify-between pt-3">
-        <span>
+        <span class="flex flex-col">
           
-            <a class="flex group mr-3" href="/en/articles/674157958/">
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >A 7-Year Relay Race: Obtaining the Number of Fields in a C++ Struct</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2023-12-26T04:45:30&#43;00:00">26 December 2023</time>
-                  
-                </span>
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/en/articles/674157958/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;A 7-Year Relay Race: Obtaining the Number of Fields in a C++ Struct
               </span>
             </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2023-12-26T04:45:30&#43;00:00">26 December 2023</time>
+              </span>
+            
           
         </span>
-        <span>
+        <span class="flex flex-col items-end">
           
-            <a class="flex text-right group ml-3" href="/en/articles/680412313/">
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >How to Elegantly Convert Enum to String in C++?</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2024-01-29T17:03:28&#43;00:00">29 January 2024</time>
-                  
-                </span>
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/en/articles/680412313/">
+              <span class="leading-6">
+                How to Elegantly Convert Enum to String in C++?&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
             </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2024-01-29T17:03:28&#43;00:00">29 January 2024</time>
+              </span>
+            
           
         </span>
       </div>
@@ -1648,10 +1759,18 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
     </footer>
   </article>
 
-        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0 z-10">
+        
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-24 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
   <a
     href="#the-top"
-    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
     aria-label="Scroll to top"
     title="Scroll to top">
     &uarr;

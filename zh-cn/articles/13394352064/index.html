@@ -14,146 +14,20 @@
   <meta name="theme-color">
 
   
-  <title>一个新 C&#43;&#43; language server 的设计与实现 &middot; ykiko&#39;s blog</title>
+  
+    <title>一个新 C&#43;&#43; language server 的设计与实现 &middot; ykiko&#39;s blog</title>
     <meta name="title" content="一个新 C&#43;&#43; language server 的设计与实现 &middot; ykiko&#39;s blog">
+  
 
   
-  <meta name="description" content="mainly about computer science and mathematics">
+  
+    <meta name="description" content="mainly about computer science and mathematics">
+  
   
   
   
   <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/13394352064/">
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    
-  
-  
-  <link
-    type="text/css"
-    rel="stylesheet"
-    href="/css/main.bundle.min.41ccf158e8b20af093f904e765d07015a786fdc35677cfc16ffff96a6b5235a45e9ce5dc22b59be2c7ec2ae5e4f302e565ca1e75c2439c5c81d44f4c70102851.css"
-    integrity="sha512-QczxWOiyCvCT&#43;QTnZdBwFaeG/cNWd8/Bb//5amtSNaRenOXcIrWb4sfsKuXk8wLlZcoedcJDnFyB1E9McBAoUQ==">
-
-  
-  
-  <script
-    type="text/javascript"
-    src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
-    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
-  
-  
-  
-    
-    
-    <script
-      type="text/javascript"
-      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
-      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
-  
-  
-    
-    
-    
-  
-  
-    
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    <script
-      defer
-      type="text/javascript"
-      id="script-bundle"
-      src="/js/main.bundle.min.04bad31d5c94d6e5ef0c1717be7fb1c389eab84cd88b53910a2d9a97ad49bb75aa257c221e9720df4735fe9ea5cb94e569d8a43682df4f5e66a260d3c2bb68ec.js"
-      integrity="sha512-BLrTHVyU1uXvDBcXvn&#43;xw4nquEzYi1ORCi2al61Ju3WqJXwiHpcg30c1/p6ly5TladikNoLfT15momDTwrto7A=="
-      data-copy="复制"
-      data-copied="已复制"></script>
-  
-  
-    
-    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
-  
-
-  
-  
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/13394352064/">
-  <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="一个新 C&#43;&#43; language server 的设计与实现">
-  <meta property="og:description" content="距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 clice —— 一个全新的 C&#43;&#43; 语言服务器 (language server)。">
-  <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2024-12-18T21:46:01+00:00">
-    <meta property="article:modified_time" content="2024-12-18T21:46:01+00:00">
-    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/13394352064/featured.png">
-
-  
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/13394352064/featured.png">
-  <meta name="twitter:title" content="一个新 C&#43;&#43; language server 的设计与实现">
-  <meta name="twitter:description" content="距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 clice —— 一个全新的 C&#43;&#43; 语言服务器 (language server)。">
-<meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/13394352064/featured.png">
-    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/13394352064/featured.png">
-  <script type="application/ld+json">
-  [{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "articleSection": "Articles",
-    "name": "一个新 C\u002b\u002b language server 的设计与实现",
-    "headline": "一个新 C\u002b\u002b language server 的设计与实现",
-    
-    "abstract": "\u003cp\u003e距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 \u003ca\n  href=\u0022https:\/\/github.com\/clice-project\/clice\u0022\n    target=\u0022_blank\u0022\n  \u003eclice\u003c\/a\u003e —— 一个全新的 C\u002b\u002b 语言服务器 (language server)。\u003c\/p\u003e",
-    "inLanguage": "zh-cn",
-    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/13394352064\/",
-    "author" : {
-      "@type": "Person",
-      "name": "ykiko"
-    },
-    "copyrightYear": "2024",
-    "dateCreated": "2024-12-18T21:46:01\u002b00:00",
-    "datePublished": "2024-12-18T21:46:01\u002b00:00",
-    
-    "dateModified": "2024-12-18T21:46:01\u002b00:00",
-    
-    
-    
-    "mainEntityOfPage": "true",
-    "wordCount": "6956"
-  }]
-  </script>
-
-
 
   
   
@@ -189,6 +63,113 @@
         
       
     
+  
+
+  
+  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/13394352064/">
+  <meta property="og:site_name" content="ykiko&#39;s blog">
+  <meta property="og:title" content="一个新 C&#43;&#43; language server 的设计与实现">
+  <meta property="og:description" content="距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 clice —— 一个全新的 C&#43;&#43; 语言服务器 (language server)。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2024-12-18T21:46:01+00:00">
+    <meta property="article:modified_time" content="2024-12-18T21:46:01+00:00">
+    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/13394352064/featured.png">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/13394352064/featured.png">
+  <meta name="twitter:title" content="一个新 C&#43;&#43; language server 的设计与实现">
+  <meta name="twitter:description" content="距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 clice —— 一个全新的 C&#43;&#43; 语言服务器 (language server)。">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+    
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.2431d6175642aa3406b26d8aeaf714be755f476e2ff745dfec768b775cc5a9e4153b208bf3568ebb5ad57562ca0fa91428c9bdc23bf0f9fcffc6a316955ac885.css"
+    integrity="sha512-JDHWF1ZCqjQGsm2K6vcUvnVfR24v90Xf7HaLd1zFqeQVOyCL81aOu1rVdWLKD6kUKMm9wjvw&#43;fz/xqMWlVrIhQ==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
+      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      data-copy="复制"
+      data-copied="已复制"></script>
   
 
   
@@ -237,6 +218,46 @@
 
   
   
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Articles",
+    "name": "一个新 C\u002b\u002b language server 的设计与实现",
+    "headline": "一个新 C\u002b\u002b language server 的设计与实现",
+    
+    "abstract": "\u003cp\u003e距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 \u003ca\n  href=\u0022https:\/\/github.com\/clice-project\/clice\u0022\n    target=\u0022_blank\u0022\n  \u003eclice\u003c\/a\u003e —— 一个全新的 C\u002b\u002b 语言服务器 (language server)。\u003c\/p\u003e",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/13394352064\/",
+    "author" : {
+      "@type": "Person",
+      "name": "ykiko"
+    },
+    "copyrightYear": "2024",
+    "dateCreated": "2024-12-18T21:46:01\u002b00:00",
+    "datePublished": "2024-12-18T21:46:01\u002b00:00",
+    
+    "dateModified": "2024-12-18T21:46:01\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "6956"
+  }]
+  </script>
+
+
+
+  
+  
+    
 
   <script
   async
@@ -253,6 +274,7 @@
 
 
 
+  
 
   
   
@@ -266,8 +288,35 @@
   
   
 </head>
-<body
-    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
     <div id="the-top" class="absolute flex self-center">
       <a
         class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
@@ -279,11 +328,11 @@
     
     
       <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-100">
+<div class="fixed inset-x-0 z-100">
   <div
     id="menu-blur"
     class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
-  <div class="relative max-w-[64rem] ml-auto mr-auto">
+  <div class="relative m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32">
     
 
 
@@ -299,7 +348,7 @@
 
 
 <div
-  class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0">
+  class="main-menu flex items-center justify-between py-6 md:justify-start gap-x-3 pt-[2px] pr-2 md:pr-4 pb-[3px] pl-0">
   
   
 
@@ -319,11 +368,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="关于我"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    关于我
-  </p>
+  
+    <p class="text-base font-medium">
+      关于我
+    </p>
+  
 </a>
 
 
@@ -333,11 +386,15 @@
   <a
   href="/zh-cn/articles/"
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="文章"
+  title="Articles">
   
-  <p class="text-base font-medium" title="Articles">
-    文章
-  </p>
+  
+    <p class="text-base font-medium">
+      文章
+    </p>
+  
 </a>
 
 
@@ -347,11 +404,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="研究"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    研究
-  </p>
+  
+    <p class="text-base font-medium">
+      研究
+    </p>
+  
 </a>
 
 
@@ -529,11 +590,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="关于我"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      关于我
-    </p>
+    
+      <p class="text-bg font-bg">
+        关于我
+      </p>
+    
   </a>
 </li>
 
@@ -545,11 +610,15 @@
   <a
     href="/zh-cn/articles/"
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="文章"
+    title="Articles">
     
-    <p class="text-bg font-bg" title="Articles">
-      文章
-    </p>
+    
+      <p class="text-bg font-bg">
+        文章
+      </p>
+    
   </a>
 </li>
 
@@ -561,11 +630,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="研究"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      研究
-    </p>
+    
+      <p class="text-bg font-bg">
+        研究
+      </p>
+    
   </a>
 </li>
 
@@ -621,18 +694,54 @@
         
 
 
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+  
+
+
+
+
+
     <div id="hero" class="h-[150px] md:h-[200px]"></div>
   
   <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
     
     
-      
     
     <img
       id="background-image"
       src="/zh-cn/articles/13394352064/featured_hu12690283705806268358.png"
-      alt="Background Image"
-      class="absolute inset-0 w-full h-full object-cover">
+      alt="一个新 C&#43;&#43; language server 的设计与实现"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
     <div
       class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
     <div
@@ -651,7 +760,7 @@
       integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
       data-blur-id="background-blur"
       data-image-id="background-image"
-      data-image-url="/zh-cn/articles/13394352064/featured.png"></script>
+      data-image-url="/zh-cn/articles/13394352064/featured_hu12690283705806268358.png"></script>
   
       
     
@@ -847,6 +956,7 @@
     
     
       
+      
         
       
       <img
@@ -854,7 +964,8 @@
         width="96"
         height="96"
         alt="ykiko"
-        src="/img/author_hu12645359616066712621.jpg">
+        src="/img/author_hu12645359616066712621.jpg"
+        data-zoom-src="/img/author.jpg">
     
   
   <div class="place-self-center">
@@ -955,8 +1066,7 @@
       
       
       
-      
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8">
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
             
               <details
@@ -1034,11 +1144,23 @@
     const TOC_LINK_SELECTOR = 'a[href^="#"]'
     const NESTED_LIST_SELECTOR = 'li ul'
     const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
 
     function getActiveAnchorId(anchors, offsetRatio) {
       const threshold = window.scrollY + window.innerHeight * offsetRatio
       const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
       const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
 
       for (let i = anchors.length - 1; i >= 0; i--) {
         const top = anchors[i].getBoundingClientRect().top + window.scrollY
@@ -1086,6 +1208,12 @@
         toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
       }
 
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
       const config = {
         toc,
         anchors,
@@ -1107,7 +1235,6 @@
 </script>
 
 
-            
             
           </div>
         </div>
@@ -1153,13 +1280,13 @@
 <p>经过了几个月的设计和开发，项目已经颇具雏形，但是预计离投入使用还需要几个月的时间来进行完善。这篇文章的主要内容是对 clice 的设计和实现进行介绍，也是我个人对于当前开发的一个阶段性总结。虽然是语言服务器相关的内容，但其实涉及到大量 C/C++ 编译相关知识的科普，感兴趣的读者可以继续往下阅读。</p>
 <p>同时，如果你有任何功能上的请求/建议，欢迎评论区留言讨论。在下一阶段的开发中，我会尽可能考虑它们。</p>
 
-<h2 class="relative group">Why a new language server? 
+<h2 class="relative group">Why a new language server?
     <div id="why-a-new-language-server" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#why-a-new-language-server" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#why-a-new-language-server" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>那么第一个问题，为什么要去开发一个新的语言服务器？重复造轮子有必要吗？</p>
@@ -1188,24 +1315,24 @@
   >初步支持 C++20 module</a> 这样的大型 PR 被拖了将近一年也就不奇怪了。意识到这个现状之后，我萌生了自己编写一个语言服务器的想法。我估计了一下项目大小，去除测试代码，大概 2w 行就能完成，是一个人花一段时间能完成的工作量，而且也有先例，例如 ccls 和 rust analyzer。另外一点就是 clangd 的代码已经上了年代了，尽管有非常多的注释，但是相关的逻辑仍然很绕，进行大范围修改所花费的时间可能还不如重写来得快。</p>
 <p>于是说干就干，我对 clangd 的几百个 issue 进行了分类，看看有没有一些问题是因为 clangd 一开始的架构设计错误而导致很难解决，然后被搁置的。如果有的话，是否能在重新设计的时候就考虑这个问题来解决呢？我发现，确实有一些！于是接下来的时间里，我花了大概两个月的时间来学习研究 clang 里面相关的机制，摸索相关问题的解决方法，探索原型实现，在确定相关的问题基本都可以解决之后，正式开始了 clice 的开发。</p>
 
-<h2 class="relative group">Important improvement 
+<h2 class="relative group">Important improvement
     <div id="important-improvement" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#important-improvement" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#important-improvement" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>前面说了那么多，还是先来看看 clice 到底解决了 clangd 中现存的哪些重大问题。主要侧重于功能介绍，至于实现原理会放在 Design 小节。除了这些重要的改进之外，当然也还有很多小功能上的的改进，这里就不一一列出了。</p>
 
-<h3 class="relative group">Better template support 
+<h3 class="relative group">Better template support
     <div id="better-template-support" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#better-template-support" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#better-template-support" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>那首先，就是更好的模板支持，这也是我最开始想要 clangd 支持的特性。具体来说目前在处理模板上有什么问题呢？</p>
@@ -1231,13 +1358,13 @@
 </ol>
 <p>尽管我们可以对标准库的类型开洞来提供相关的支持，但是我希望用户的代码能和标准库的代码有相同的地位，那么我们就需要一种通用的算法来处理依赖类型。为了解决这个问题，我编写了一个伪实例化器（pseudo instantiator）。它能在没有具体类型的前提下对依赖类型进行实例化，从而达到化简的目的。比如上面这个例子里面的<code>std::vector&lt;std::vector&lt;T&gt;&gt;::reference</code>就能被化简为<code>std::vector&lt;T&gt;&amp;</code>，进一步就能为用户提供代码补全选项。</p>
 
-<h3 class="relative group">Header context 
+<h3 class="relative group">Header context
     <div id="header-context" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#header-context" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#header-context" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>为了让 clangd 正常工作，用户往往需要提供一份<code>compile_commands.json</code>文件（后文简称 CDB 文件）。C++ 的传统编译模型的基本编译单元是一个源文件（例如<code>.c</code>和<code>.cpp</code>文件），<code>#include</code>只是把头文件的内容粘贴复制到源文件中对应的位置。而上述 CDB 文件里面就储存了各个源文件对应编译命令，当你打开一个源文件的时候，clangd 会使用其在 CDB 中对应的编译命令来编译这个文件。</p>
@@ -1269,13 +1396,13 @@
 </span></span></span></code></pre></div><p><code>a.h</code>自身不能被编译，但是嵌入到<code>b.cpp</code>中的时候就编译正常了。这种情况下 clangd 会在<code>a.h</code>中报错，找不到<code>X</code>的定义。显然这是因为它把<code>a.h</code>当成一个独立的源文件了。在 libstdc++ 中的代码中就有很多这样的头文件，现在流行的一些 C++ 的 header-only 的库也有些有这样的代码，clangd 目前无法处理它们。</p>
 <p>clice 将会支持<strong>头文件上下文 (header context)</strong>，支持自动和用户主动切换头文件的状态，当然也会支持非自包含的头文件。我们想要实现如下的效果，以最开始那份代码为例。当你从<code>b.cpp</code>跳转到<code>a.h</code>的时候使用<code>b.cpp</code>作为<code>a.h</code>的上下文。同理，当你从<code>c.cpp</code>跳转到<code>a.h</code>的时候则使用<code>c.cpp</code>作为<code>a.h</code>的上下文。</p>
 
-<h3 class="relative group">Fully C++20 module support 
+<h3 class="relative group">Fully C++20 module support
     <div id="fully-c20-module-support" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#fully-c20-module-support" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#fully-c20-module-support" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>C++20 引入了 <a
@@ -1289,37 +1416,37 @@
 </ol>
 <p>clice 将会提供编译器和构建系统无关的 C++20 module 支持，项目本身之后也会完全迁移到 module 上。</p>
 
-<h3 class="relative group">Better index format 
+<h3 class="relative group">Better index format
     <div id="better-index-format" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#better-index-format" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#better-index-format" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>有一些 ccls 的用户可能会抱怨，明明同样是预先索引整个项目。ccls 可以在打开文件的瞬间进行跳转，但是 clangd 仍需要等待文件解析完成才行。为什么会造成这种结果？这其实是 clangd 的索引格式设计缺陷导致的。什么是索引？由于 C/C++ 支持向前声明，于是声明和定义可能在不同的源文件，于是我们需要处理跨编译单元的符号关系。</p>
 <p>但是解析文件是一个相当耗时的操作，如果等到需要查询的时候再去解析文件，那么查询的时间将会是一个天文数字。为了支持快速查找符号关系，language server 一般会预先索引整个项目。但是究竟采用何种格式储存相关的数据？这个并没有标准规定。</p>
 <p>clice 充分参考了现有的索引设计，设计了一种更加高效的索引格式。也可以达到 ccls 的效果，如果预先索引了项目，不需要等待就能立马获取响应。</p>
 
-<h2 class="relative group">Design 
+<h2 class="relative group">Design
     <div id="design" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#design" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#design" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>这一小节将会更加具体的谈谈 clice 的设计与实现。</p>
 
-<h3 class="relative group">Server 
+<h3 class="relative group">Server
     <div id="server" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#server" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#server" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>首先 language server 也是一个 server，在这方面和一个传统的服务器没什么区别。使用事件驱动的编程模型，接受服务器的请求并进行处理。由于可以使用 C++20，那当然要体验一下使用无栈协程来进行异步编程了。clangd 的代码中有大量的回调函数，这部分代码可读性相当差。使用无栈协程可以避免类似的回调地狱出现。</p>
@@ -1330,13 +1457,13 @@
 </ul>
 <p>最后也成功在 C++ 中复刻类似 Python 和 JS 中的异步编程体验，非常的愉快和轻松。</p>
 
-<h3 class="relative group">How it works? 
+<h3 class="relative group">How it works?
     <div id="how-it-works" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#how-it-works" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#how-it-works" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>接下来我们来详细谈谈，clice 是如何处理某些特定的请求的。</p>
@@ -1358,13 +1485,13 @@
 </span></span></code></pre></div><p>可以发现结果就是四个 C++ 关键字的补全，并且没有任何的错误警告。</p>
 <p>嗯，这就是整个流程了，是不是听起来相当简单。的确，这部分遍历 AST 的逻辑是相当清晰的。只是有很多 corner case 需要考虑，只需要慢慢堆时间实现功能然后慢慢迭代修 BUG 就行了。</p>
 
-<h3 class="relative group">Incremental compilation 
+<h3 class="relative group">Incremental compilation
     <div id="incremental-compilation" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#incremental-compilation" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#incremental-compilation" aria-label="锚点">#</a>
+    </span>
     
 </h3>
 <p>由于用户可能频繁变更文件，如果每次都需要重新 parse 整个文件，当文件非常大的时候，parse 时间会非常慢，响应请求时间会非常长（考虑到<code>#include</code>就是粘贴复制，很容易就可以造出一个巨大的文件）。想象一下，如果写按下一个字母，过了几秒钟代码补全结果才出来，那么体验将会多么糟糕！</p>
@@ -1387,13 +1514,13 @@
 <p>PCH 好是好，但是呢，它的依赖关系只能是线性的。你可以用一个 PCH 去构建一个新的 PCH，只要它位于另外一个文件的前面几行。但是你不能说，用两个 PCH 去构建一个新的 PCH。那如果有这种有向无环图的依赖关系怎么办呢？答案就是 C++20 加入的 module。C++20 加入的 module 基本就是 PCH Pro 版，实现原理是完全类似的，只是放开了依赖链的限制，允许一个 module 依赖其它几个 module。</p>
 <p>至于关于如何支持 C++20 的 module 呢？话题有些大，值得单独开一个文章讨论，这里就不详细展开了。</p>
 
-<h2 class="relative group">Conclusion 
+<h2 class="relative group">Conclusion
     <div id="conclusion" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#conclusion" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#conclusion" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>嗯，暂时就先写到这里吧。其实还有很多话题没有谈到，但是细想过后，发现每个单独展开都能写一篇长文出来了。就留到日后慢慢补充吧，这篇文章就当开个头。我在项目的 issue 中也会定期更新一些进展，感兴趣的读者可以关注一下。</p>
@@ -1566,31 +1693,23 @@
     <div class="pt-8">
       <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
       <div class="flex justify-between pt-3">
-        <span>
+        <span class="flex flex-col">
           
-            <a class="flex group mr-3" href="/zh-cn/articles/706509748/">
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >St. Louis WG21 会议回顾</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2024-07-02T02:46:56&#43;00:00">July 2, 2024</time>
-                  
-                </span>
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/zh-cn/articles/706509748/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;St. Louis WG21 会议回顾
               </span>
             </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2024-07-02T02:46:56&#43;00:00">July 2, 2024</time>
+              </span>
+            
           
         </span>
-        <span>
+        <span class="flex flex-col items-end">
           
         </span>
       </div>
@@ -1624,10 +1743,18 @@
     </footer>
   </article>
 
-        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0 z-10">
+        
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-24 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
   <a
     href="#the-top"
-    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
     aria-label="返回顶部"
     title="返回顶部">
     &uarr;

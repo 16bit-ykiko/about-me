@@ -14,146 +14,20 @@
   <meta name="theme-color">
 
   
-  <title>C&#43;&#43; 中的单例模式真的“单例”吗？ &middot; ykiko&#39;s blog</title>
+  
+    <title>C&#43;&#43; 中的单例模式真的“单例”吗？ &middot; ykiko&#39;s blog</title>
     <meta name="title" content="C&#43;&#43; 中的单例模式真的“单例”吗？ &middot; ykiko&#39;s blog">
+  
 
   
-  <meta name="description" content="mainly about computer science and mathematics">
+  
+    <meta name="description" content="mainly about computer science and mathematics">
+  
   
   
   
   <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/696878184/">
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    
-  
-  
-  <link
-    type="text/css"
-    rel="stylesheet"
-    href="/css/main.bundle.min.41ccf158e8b20af093f904e765d07015a786fdc35677cfc16ffff96a6b5235a45e9ce5dc22b59be2c7ec2ae5e4f302e565ca1e75c2439c5c81d44f4c70102851.css"
-    integrity="sha512-QczxWOiyCvCT&#43;QTnZdBwFaeG/cNWd8/Bb//5amtSNaRenOXcIrWb4sfsKuXk8wLlZcoedcJDnFyB1E9McBAoUQ==">
-
-  
-  
-  <script
-    type="text/javascript"
-    src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
-    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
-  
-  
-  
-    
-    
-    <script
-      type="text/javascript"
-      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
-      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
-  
-  
-    
-    
-    
-  
-  
-    
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-    <script
-      defer
-      type="text/javascript"
-      id="script-bundle"
-      src="/js/main.bundle.min.04bad31d5c94d6e5ef0c1717be7fb1c389eab84cd88b53910a2d9a97ad49bb75aa257c221e9720df4735fe9ea5cb94e569d8a43682df4f5e66a260d3c2bb68ec.js"
-      integrity="sha512-BLrTHVyU1uXvDBcXvn&#43;xw4nquEzYi1ORCi2al61Ju3WqJXwiHpcg30c1/p6ly5TladikNoLfT15momDTwrto7A=="
-      data-copy="复制"
-      data-copied="已复制"></script>
-  
-  
-    
-    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
-  
-
-  
-  
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/696878184/">
-  <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="C&#43;&#43; 中的单例模式真的“单例”吗？">
-  <meta property="og:description" content="单例模式 (Singleton Pattern) 是一种常见的设计模式，往往应用于配置系统，日志系统，数据库连接池等需要确保对象唯一性的场景。但是单例模式真的能保证单例吗？如果唯一性得不到保证会产生什么后果呢？">
-  <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2024-05-10T02:08:28+00:00">
-    <meta property="article:modified_time" content="2024-05-10T02:08:28+00:00">
-    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/696878184/featured.png">
-
-  
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/696878184/featured.png">
-  <meta name="twitter:title" content="C&#43;&#43; 中的单例模式真的“单例”吗？">
-  <meta name="twitter:description" content="单例模式 (Singleton Pattern) 是一种常见的设计模式，往往应用于配置系统，日志系统，数据库连接池等需要确保对象唯一性的场景。但是单例模式真的能保证单例吗？如果唯一性得不到保证会产生什么后果呢？">
-<meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/696878184/featured.png">
-    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/696878184/featured.png">
-  <script type="application/ld+json">
-  [{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "articleSection": "Articles",
-    "name": "C\u002b\u002b 中的单例模式真的“单例”吗？",
-    "headline": "C\u002b\u002b 中的单例模式真的“单例”吗？",
-    
-    "abstract": "\u003cp\u003e\u003cstrong\u003e单例模式 (Singleton Pattern)\u003c\/strong\u003e 是一种常见的设计模式，往往应用于配置系统，日志系统，数据库连接池等需要确保对象唯一性的场景。但是单例模式真的能保证单例吗？如果唯一性得不到保证会产生什么后果呢？\u003c\/p\u003e",
-    "inLanguage": "zh-cn",
-    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/696878184\/",
-    "author" : {
-      "@type": "Person",
-      "name": "ykiko"
-    },
-    "copyrightYear": "2024",
-    "dateCreated": "2024-05-10T02:08:28\u002b00:00",
-    "datePublished": "2024-05-10T02:08:28\u002b00:00",
-    
-    "dateModified": "2024-05-10T02:08:28\u002b00:00",
-    
-    
-    
-    "mainEntityOfPage": "true",
-    "wordCount": "3743"
-  }]
-  </script>
-
-
 
   
   
@@ -189,6 +63,113 @@
         
       
     
+  
+
+  
+  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/696878184/">
+  <meta property="og:site_name" content="ykiko&#39;s blog">
+  <meta property="og:title" content="C&#43;&#43; 中的单例模式真的“单例”吗？">
+  <meta property="og:description" content="单例模式 (Singleton Pattern) 是一种常见的设计模式，往往应用于配置系统，日志系统，数据库连接池等需要确保对象唯一性的场景。但是单例模式真的能保证单例吗？如果唯一性得不到保证会产生什么后果呢？">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2024-05-10T02:08:28+00:00">
+    <meta property="article:modified_time" content="2024-05-10T02:08:28+00:00">
+    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/696878184/featured.png">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/696878184/featured.png">
+  <meta name="twitter:title" content="C&#43;&#43; 中的单例模式真的“单例”吗？">
+  <meta name="twitter:description" content="单例模式 (Singleton Pattern) 是一种常见的设计模式，往往应用于配置系统，日志系统，数据库连接池等需要确保对象唯一性的场景。但是单例模式真的能保证单例吗？如果唯一性得不到保证会产生什么后果呢？">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+    
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.2431d6175642aa3406b26d8aeaf714be755f476e2ff745dfec768b775cc5a9e4153b208bf3568ebb5ad57562ca0fa91428c9bdc23bf0f9fcffc6a316955ac885.css"
+    integrity="sha512-JDHWF1ZCqjQGsm2K6vcUvnVfR24v90Xf7HaLd1zFqeQVOyCL81aOu1rVdWLKD6kUKMm9wjvw&#43;fz/xqMWlVrIhQ==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
+      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      data-copy="复制"
+      data-copied="已复制"></script>
   
 
   
@@ -237,6 +218,46 @@
 
   
   
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Articles",
+    "name": "C\u002b\u002b 中的单例模式真的“单例”吗？",
+    "headline": "C\u002b\u002b 中的单例模式真的“单例”吗？",
+    
+    "abstract": "\u003cp\u003e\u003cstrong\u003e单例模式 (Singleton Pattern)\u003c\/strong\u003e 是一种常见的设计模式，往往应用于配置系统，日志系统，数据库连接池等需要确保对象唯一性的场景。但是单例模式真的能保证单例吗？如果唯一性得不到保证会产生什么后果呢？\u003c\/p\u003e",
+    "inLanguage": "zh-cn",
+    "url" : "https:\/\/www.ykiko.me\/zh-cn\/articles\/696878184\/",
+    "author" : {
+      "@type": "Person",
+      "name": "ykiko"
+    },
+    "copyrightYear": "2024",
+    "dateCreated": "2024-05-10T02:08:28\u002b00:00",
+    "datePublished": "2024-05-10T02:08:28\u002b00:00",
+    
+    "dateModified": "2024-05-10T02:08:28\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "3743"
+  }]
+  </script>
+
+
+
+  
+  
+    
 
   <script
   async
@@ -253,6 +274,7 @@
 
 
 
+  
 
   
   
@@ -266,8 +288,35 @@
   
   
 </head>
-<body
-    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
     <div id="the-top" class="absolute flex self-center">
       <a
         class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
@@ -279,11 +328,11 @@
     
     
       <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-100">
+<div class="fixed inset-x-0 z-100">
   <div
     id="menu-blur"
     class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
-  <div class="relative max-w-[64rem] ml-auto mr-auto">
+  <div class="relative m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32">
     
 
 
@@ -299,7 +348,7 @@
 
 
 <div
-  class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0">
+  class="main-menu flex items-center justify-between py-6 md:justify-start gap-x-3 pt-[2px] pr-2 md:pr-4 pb-[3px] pl-0">
   
   
 
@@ -319,11 +368,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="关于我"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    关于我
-  </p>
+  
+    <p class="text-base font-medium">
+      关于我
+    </p>
+  
 </a>
 
 
@@ -333,11 +386,15 @@
   <a
   href="/zh-cn/articles/"
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="文章"
+  title="Articles">
   
-  <p class="text-base font-medium" title="Articles">
-    文章
-  </p>
+  
+    <p class="text-base font-medium">
+      文章
+    </p>
+  
 </a>
 
 
@@ -347,11 +404,15 @@
   <a
   href=""
   
-  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+  aria-label="研究"
+  title="">
   
-  <p class="text-base font-medium" title="">
-    研究
-  </p>
+  
+    <p class="text-base font-medium">
+      研究
+    </p>
+  
 </a>
 
 
@@ -529,11 +590,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="关于我"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      关于我
-    </p>
+    
+      <p class="text-bg font-bg">
+        关于我
+      </p>
+    
   </a>
 </li>
 
@@ -545,11 +610,15 @@
   <a
     href="/zh-cn/articles/"
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="文章"
+    title="Articles">
     
-    <p class="text-bg font-bg" title="Articles">
-      文章
-    </p>
+    
+      <p class="text-bg font-bg">
+        文章
+      </p>
+    
   </a>
 </li>
 
@@ -561,11 +630,15 @@
   <a
     href=""
     
-    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400"
+    aria-label="研究"
+    title="">
     
-    <p class="text-bg font-bg" title="">
-      研究
-    </p>
+    
+      <p class="text-bg font-bg">
+        研究
+      </p>
+    
   </a>
 </li>
 
@@ -621,18 +694,54 @@
         
 
 
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+  
+
+
+
+
+
     <div id="hero" class="h-[150px] md:h-[200px]"></div>
   
   <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
     
     
-      
     
     <img
       id="background-image"
       src="/zh-cn/articles/696878184/featured_hu14248370496035663050.png"
-      alt="Background Image"
-      class="absolute inset-0 w-full h-full object-cover">
+      alt="C&#43;&#43; 中的单例模式真的“单例”吗？"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
     <div
       class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
     <div
@@ -651,7 +760,7 @@
       integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
       data-blur-id="background-blur"
       data-image-id="background-image"
-      data-image-url="/zh-cn/articles/696878184/featured.png"></script>
+      data-image-url="/zh-cn/articles/696878184/featured_hu14248370496035663050.png"></script>
   
       
     
@@ -847,6 +956,7 @@
     
     
       
+      
         
       
       <img
@@ -854,7 +964,8 @@
         width="96"
         height="96"
         alt="ykiko"
-        src="/img/author_hu12645359616066712621.jpg">
+        src="/img/author_hu12645359616066712621.jpg"
+        data-zoom-src="/img/author.jpg">
     
   
   <div class="place-self-center">
@@ -955,8 +1066,7 @@
       
       
       
-      
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8">
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
             
               <details
@@ -1014,11 +1124,23 @@
     const TOC_LINK_SELECTOR = 'a[href^="#"]'
     const NESTED_LIST_SELECTOR = 'li ul'
     const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
 
     function getActiveAnchorId(anchors, offsetRatio) {
       const threshold = window.scrollY + window.innerHeight * offsetRatio
       const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
       const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
 
       for (let i = anchors.length - 1; i >= 0; i--) {
         const top = anchors[i].getBoundingClientRect().top + window.scrollY
@@ -1066,6 +1188,12 @@
         toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
       }
 
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
       const config = {
         toc,
         anchors,
@@ -1088,7 +1216,6 @@
 
 
             
-            
           </div>
         </div>
       
@@ -1107,13 +1234,13 @@
     target="_blank"
   >动态库和静态库混合使用下的单例模式 BUG</a>。不过大部分都是遇到问题以后，贴一下解决方案，很零散，并没有系统分析问题产生的原因。于是，我写了这篇文章来详细讨论一下这个问题。</p>
 
-<h2 class="relative group">明确问题 
+<h2 class="relative group">明确问题
     <div id="明确问题" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e6%98%8e%e7%a1%ae%e9%97%ae%e9%a2%98" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%98%8e%e7%a1%ae%e9%97%ae%e9%a2%98" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>首先我们要明确讨论的问题，以 C++11 常见的单例模式实现为例：</p>
@@ -1137,13 +1264,13 @@
   >静态储存期 (static storage duration)</a>，编译器对它们的处理是类似的（只是初始化方式上有点区别）。而所谓的单例模式，只是在语言层面通过一些手段，防止用户不小心创建多个对象。</p>
 <p>那我们讨论的问题其实可以等价为：<strong>C++ 中的全局变量是唯一的吗？</strong></p>
 
-<h2 class="relative group">一个定义 
+<h2 class="relative group">一个定义
     <div id="一个定义" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e4%b8%80%e4%b8%aa%e5%ae%9a%e4%b9%89" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%b8%80%e4%b8%aa%e5%ae%9a%e4%b9%89" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>首先得区分变量的声明和定义。我们都知道，头文件中一般是不能写变量定义的。否则如果这个头文件被多个源文件包含，就会出现多个定义，链接的时候就会报<code>multiple definition of variable</code>的错误。所以我们一般会在头文件中使用<code>extern</code>声明变量，然后在对应的源文件中定义变量。</p>
@@ -1159,13 +1286,13 @@
   >动态初始化</a>）来决定这块内存的数据如何填充。</p>
 <p>由于只有一个定义，那么这种情况肯定是全局唯一的了。</p>
 
-<h2 class="relative group">多个定义 
+<h2 class="relative group">多个定义
     <div id="多个定义" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e5%a4%9a%e4%b8%aa%e5%ae%9a%e4%b9%89" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%a4%9a%e4%b8%aa%e5%ae%9a%e4%b9%89" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>我们都知道 C++ 并没有官方的构建系统，不同的库使用不同的构建系统，就不方便互相使用了（目前的事实标准来看是 cmake）。这个现状使得 header-only 库变得越来越流行，<code>include</code>即用，谁不喜欢呢？但是 header-only 也就意味着所有的代码都写在头文件中，如何在头文件中定义变量并且使得它能直接被多个源文件包含而不导致链接错误呢？</p>
@@ -1187,13 +1314,13 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span></code></pre></div><p>我们知道，把变量标记为<code>static</code>也可以使得它在多个源文件中出现定义。那<code>inline</code>和<code>static</code>有什么区别呢？关键就在于，<code>static</code>标记的变量是内部链接的，每个编译单元都有自己的一份实例，你在不同的编译单元取的地址是不一样的。而<code>inline</code>标记的变量是外部链接的，C++ 标准保证你在不同编译单元取同一个<code>inline</code>变量的地址是一样的。</p>
 
-<h2 class="relative group">真的单例吗 
+<h2 class="relative group">真的单例吗
     <div id="真的单例吗" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e7%9c%9f%e7%9a%84%e5%8d%95%e4%be%8b%e5%90%97" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%9c%9f%e7%9a%84%e5%8d%95%e4%be%8b%e5%90%97" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>实践是检验真理的唯一标准，我们来实验一下，C++ 标准有没有骗我们呢？</p>
@@ -1231,13 +1358,13 @@
 </span></span><span class="line"><span class="cl">addreress of x in src: 0x404020
 </span></span></code></pre></div><p>夭寿啦，为什么 Windows 和 Linux 的情况不一样呢？</p>
 
-<h2 class="relative group">符号导出 
+<h2 class="relative group">符号导出
     <div id="符号导出" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e7%ac%a6%e5%8f%b7%e5%af%bc%e5%87%ba" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%ac%a6%e5%8f%b7%e5%af%bc%e5%87%ba" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>一开始，我简单的以为是动态库默认符号导出规则的问题。因为 GCC 编译动态库的时候，会默认把所有符号导出。而 MSVC 恰恰相反，默认不导出任何符号，全部都要手动导出。显然只有一个符号被导出了，链接器才能“看见”它，然后才能合并来自不同动态库的符号。</p>
@@ -1281,13 +1408,13 @@
 <p>简单来说，在 ELF 不区分符号是来自哪个<code>.so</code>的，先加载谁就用谁，所以遇到多个<code>inline</code>变量就使用第一个加载的。但是 <code>PE</code> 文件的符号表指定了某个符号从哪个<code>dll</code>引入，这样就会导致只要一个变量<code>dllexport</code>了，那么这个 dll 一定会使用自己的变量。即使多个<code>dll</code>同时<code>dllexport</code>同一个变量，也没法合并，Windows 上 dll 的格式就限制了这件事情是做不到的。</p>
 <p>动态库链接时的符号解析问题实际上可能还要复杂的得多，还有很多其它的情况，例如通过<code>dlopen</code>等函数主动加载动态库。之后有时间的话，可能会专门写一篇文章来分析这个事情，这里就不多说了。</p>
 
-<h2 class="relative group">不唯一如何？ 
+<h2 class="relative group">不唯一如何？
     <div id="不唯一如何" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e4%b8%8d%e5%94%af%e4%b8%80%e5%a6%82%e4%bd%95" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%b8%8d%e5%94%af%e4%b8%80%e5%a6%82%e4%bd%95" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>为什么要保证“单例”变量的唯一性呢？这里拿 C++ 标准库来举例子</p>
@@ -1320,13 +1447,13 @@
 </ul>
 <p>举这个例子的目的是，为了说明，单例变量地址的唯一性会影响我们代码的编写方式。如果不唯一我们可能被迫要书写一些代码进行防御，可能会影响性能，而如果没写的话，甚至会直接导致逻辑错误。</p>
 
-<h2 class="relative group">解决方案 
+<h2 class="relative group">解决方案
     <div id="解决方案" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88" aria-label="锚点">#</a>
-    </span>        
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88" aria-label="锚点">#</a>
+    </span>
     
 </h2>
 <p>只提出问题可不行，得要解决，如何确保单例唯一呢？</p>
@@ -1481,52 +1608,36 @@
     <div class="pt-8">
       <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
       <div class="flex justify-between pt-3">
-        <span>
+        <span class="flex flex-col">
           
-            <a class="flex group mr-3" href="/zh-cn/articles/694365783/">
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >超好用的 C++ 在线编译器（VSCode 版）</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2024-04-24T21:35:41&#43;00:00">April 24, 2024</time>
-                  
-                </span>
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/zh-cn/articles/694365783/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;超好用的 C++ 在线编译器（VSCode 版）
               </span>
             </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2024-04-24T21:35:41&#43;00:00">April 24, 2024</time>
+              </span>
+            
           
         </span>
-        <span>
+        <span class="flex flex-col items-end">
           
-            <a class="flex text-right group ml-3" href="/zh-cn/articles/702197261/">
-              <span class="flex flex-col">
-                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >Python 与 C++ 的完美结合：pybind11 中的对象设计</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2024-06-07T15:28:11&#43;00:00">June 7, 2024</time>
-                  
-                </span>
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/zh-cn/articles/702197261/">
+              <span class="leading-6">
+                Python 与 C++ 的完美结合：pybind11 中的对象设计&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
             </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2024-06-07T15:28:11&#43;00:00">June 7, 2024</time>
+              </span>
+            
           
         </span>
       </div>
@@ -1560,10 +1671,18 @@
     </footer>
   </article>
 
-        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0 z-10">
+        
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-24 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
   <a
     href="#the-top"
-    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
     aria-label="返回顶部"
     title="返回顶部">
     &uarr;
