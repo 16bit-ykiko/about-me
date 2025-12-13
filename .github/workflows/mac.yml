@@ -1,20 +1,96 @@
-name: CI Debug via tmate
+name: Test macOS Disk Cleanup
 
 on:
-  pull_request: # 您可以根据需要修改触发条件
+  workflow_dispatch: # 允许手动触发
 
 jobs:
-  debug_session:
-    runs-on: macos-latest
+  cleanup-test:
+    runs-on: macos-15 # 指定 Apple Silicon Runner
 
     steps:
-      - name: Checkout code
+      - name: Checkout (Optional)
         uses: actions/checkout@v4
 
-      # 如果您的项目需要特定环境，请将相关设置步骤放在这里
-      # 例如: actions/setup-node, actions/setup-java 等
+      - name: Check Initial Disk Space
+        run: |
+          echo "======================================================="
+          echo "📊 INITIAL DISK USAGE"
+          echo "======================================================="
+          df -h /
+          echo ""
+          echo "Listing big directories (Top 5 in /Applications):"
+          du -sh /Applications/* 2>/dev/null | sort -rh | head -n 5 || true
 
-      - name: Start tmate debug session
-        # 使用 if: always() 确保无论如何都能启动调试
-        if: always()
-        uses: mxschmitt/action-tmate@v3
+      - name: 🧹 Nuclear Cleanup Script
+        run: |
+          echo "======================================================="
+          echo "🚀 STARTING CLEANUP"
+          echo "======================================================="
+
+          # 辅助函数：安全删除，不存在也不报错
+          function safe_rm() {
+            if [ -d "$1" ] || [ -f "$1" ]; then
+              echo "Deleting: $1"
+              sudo rm -rf "$1"
+            else
+              echo "Skipping (not found): $1"
+            fi
+          }
+
+          # 1. 删除 Android SDK (约 30GB+)
+          safe_rm "/Users/runner/Library/Android/sdk"
+          
+          # 2. 删除多余的 Xcode 版本 (约 60GB+)
+          # 保留默认版本 (通常是环境变量里指向的，或者最新的稳定版)
+          # 目前 macos-15 默认可能是 16.x，我们删除所有 26.x(Beta) 和旧的 15.x/14.x
+          
+          # 先列出所有 Xcode，方便调试看日志
+          echo "Found Xcode versions:"
+          ls -d /Applications/Xcode* || true
+          
+          # 暴力删除非默认的 Xcode (根据你的日志列表定制)
+          safe_rm "/Applications/Xcode_26.1.1.app"
+          safe_rm "/Applications/Xcode_26.0.1.app"
+          safe_rm "/Applications/Xcode_16.3.app"
+          safe_rm "/Applications/Xcode_16.2.app"
+          safe_rm "/Applications/Xcode_16.1.app"
+          safe_rm "/Applications/Xcode_16.0.app"
+          # 这是一个通配符删除，删除所有 15.x 和 14.x 版本
+          sudo rm -rf /Applications/Xcode_15.* 2>/dev/null || true
+          sudo rm -rf /Applications/Xcode_14.* 2>/dev/null || true
+          
+          # 3. 删除模拟器运行时 (CoreSimulator) (约 10GB+)
+          safe_rm "/Library/Developer/CoreSimulator/Profiles/Runtimes"
+          
+          # 4. 删除语言框架 (约 15GB+)
+          safe_rm "/Users/runner/.dotnet"
+          safe_rm "/Users/runner/.cargo"
+          safe_rm "/Users/runner/.rustup"
+          safe_rm "/Users/runner/.ghcup" # Haskell
+          safe_rm "/Library/Frameworks/Mono.framework"
+          
+          # 删除 Java 虚拟机 (保留系统默认，删除 Library 下的)
+          safe_rm "/Library/Java/JavaVirtualMachines"
+          
+          # 5. 删除浏览器 (约 3GB+)
+          safe_rm "/Applications/Google Chrome.app"
+          safe_rm "/Applications/Microsoft Edge.app"
+          safe_rm "/Applications/Firefox.app"
+          
+          # 6. 删除 CodeQL (如果存在)
+          safe_rm "/Users/runner/codeql"
+          
+          # 7. 清理缓存
+          safe_rm "/Users/runner/Library/Caches"
+          
+          echo "Cleanup finished."
+
+      - name: Check Final Disk Space
+        run: |
+          echo "======================================================="
+          echo "📊 FINAL DISK USAGE"
+          echo "======================================================="
+          df -h /
+          
+          # 计算一下大概省了多少
+          # 注意：这里只是简单的展示，df 的输出在脚本里解析稍微麻烦点，肉眼看最快
