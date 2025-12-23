@@ -121,8 +121,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.d73bd5624a883943ee708df101144407dd1c0d07937ac38a3fb7923631f3462db466c14c537ecc819f12c038e21ed2e83f1524eb126bc4e8f59f21a0e357738c.css"
-    integrity="sha512-1zvVYkqIOUPucI3xARREB90cDQeTesOKP7eSNjHzRi20ZsFMU37MgZ8SwDjiHtLoPxUk6xJrxOj1nyGg41dzjA==">
+    href="/css/main.bundle.min.9e8f7139c652e8a74a176ca1ebfd53ed3d4a6287070b98560332ae377ace684485cf68f3bdec2d950e9a9d74c13deaa568a8f1aba92143ab4aabd039e71fe576.css"
+    integrity="sha512-no9xOcZS6KdKF2yh6/1T7T1KYocHC5hWAzKuN3rOaESFz2jzvewtlQ6anXTBPeqlaKjxq6khQ6tKq9A55x/ldg==">
 
   
   
@@ -162,13 +162,14 @@
   
   
   
+  
     
     <script
       defer
       type="text/javascript"
       id="script-bundle"
-      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
-      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      src="/js/main.bundle.min.aee4e707e28a3bd3629b3d56fc8989adf1c11e60ba52e5c99085898be50963025e6b3c8a90f2ff6ac2fe5225da74015b85ec8e0e52510b07cc8e82b7f08997cb.js"
+      integrity="sha512-ruTnB&#43;KKO9Nimz1W/ImJrfHBHmC6UuXJkIWJi&#43;UJYwJeazyKkPL/asL&#43;UiXadAFbheyODlJRCwfMjoK38ImXyw=="
       data-copy="Copy"
       data-copied="Copied"></script>
   
@@ -217,6 +218,9 @@
 
 
 
+
+
+
   
   
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -234,7 +238,6 @@
     "name": "C\u002b\u002b Forbidden Dark Arts: STMP (Part 1)",
     "headline": "C\u002b\u002b Forbidden Dark Arts: STMP (Part 1)",
     
-    "abstract": "\u003cp\u003eAs is well known, traditional C\u002b\u002b constant expression evaluation neither depends on nor alters the global state of the program. For any identical input, its output is always the same, making it considered \u003cstrong\u003epurely functional\u003c\/strong\u003e. \u003cstrong\u003eTemplate Meta Programming (TMP)\u003c\/strong\u003e, as a subset of constant evaluation, should also adhere to this rule.\u003c\/p\u003e",
     "inLanguage": "en",
     "url" : "https://www.ykiko.me/en/articles/646752343/",
     "author" : {
@@ -737,7 +740,7 @@
     <img
       id="background-image"
       src="/en/articles/646752343/featured_hu15080474187158974944.png"
-      alt="C&#43;&#43; Forbidden Dark Arts: STMP (Part 1)"
+      role="presentation"
       loading="eager"
       decoding="async"
       fetchpriority="high"
@@ -752,7 +755,7 @@
   
     <div
       id="background-blur"
-      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
     
     
     <script
@@ -1268,47 +1271,30 @@
     ></figure>
 </p>
 <p>But is this really the case? Without violating the C++ standard, could the following code possibly compile?</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="n">value</span><span class="p">();</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="n">value</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">value</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">!=</span> <span class="n">b</span><span class="p">);</span>
-</span></span></code></pre></div><p>Is it possible to implement a compile-time counter like this?</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="n">next</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">!=</span> <span class="n">b</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>Is it possible to implement a compile-time counter like this?</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="n">next</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">next</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">c</span> <span class="o">=</span> <span class="n">next</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
-</span></span></code></pre></div><p>If the results of constant evaluations differ each time, it implies that the evaluation alters the global state. This form of stateful meta-programming is known as Stateful Template Meta Programming (STMP).</p>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>If the results of constant evaluations differ each time, it implies that the evaluation alters the global state. This form of stateful meta-programming is known as Stateful Template Meta Programming (STMP).</p>
 <p>In fact, with the help of some compiler built-in macros, we can achieve such effects, for example:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="n">__COUNTER__</span><span class="p">;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="n">__COUNTER__</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">__COUNTER__</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">c</span> <span class="o">=</span> <span class="n">__COUNTER__</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
-</span></span></code></pre></div><p>During preprocessing, the compiler increments the replacement result of the <code>__COUNTER__</code> macro. If you preprocess the source file, you will find it transformed into:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>During preprocessing, the compiler increments the replacement result of the <code>__COUNTER__</code> macro. If you preprocess the source file, you will find it transformed into:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
-</span></span></code></pre></div><p>This still differs significantly from the effect we aim to achieve, as preprocessing does not involve the semantic part of the C++ program. Moreover, such a counter is globally unique, and we cannot create multiple counters. Is there another way?</p>
-<p>The answer is yes. As unbelievable as it may seem, related <a
-  href="https://b.atch.se/posts/non-constant-constant-expressions/"
-    target="_blank"
-  >discussions</a> date back to 2015, and there are also related <a
-  href="https://zhuanlan.zhihu.com/p/24835482"
-    target="_blank"
-  >articles</a> on Zhihu. However, this article was published in 2017, using C++14, and much of its content is no longer applicable. With the C++26 standard now being developed, many things need to be revisited. We will focus on C++20.</p>
-<p>If you are only interested in the code, I have placed the relevant code on <a
-  href="https://godbolt.org/z/T543Tvc3q"
-    target="_blank"
-  >Compiler Explorer</a>. It compiles successfully with the three major compilers under C++20, and you can directly see the compiler&rsquo;s output. To prevent link failure, it is also available on <a
-  href="https://github.com/16bit-ykiko/blog/blob/main/code/compile-time-counter.cpp"
-    target="_blank"
-  >GitHub</a>. If you want to understand its principles, please continue reading. The C++ standard is very complex, and the author cannot guarantee the complete accuracy of the article. If there are any errors, please discuss them in the comments.</p>
-<blockquote>
-<p>Note: This article is for technical discussion only. Please do not use the related code in actual production. According to <a
-  href="https://cplusplus.github.io/CWG/issues/2118.html"
-    target="_blank"
-  >CWG 2118</a>, the related code seems to be considered ill-formed. Moreover, STMP is prone to ODR violations and requires great caution.</p>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>This still differs significantly from the effect we aim to achieve, as preprocessing does not involve the semantic part of the C++ program. Moreover, such a counter is globally unique, and we cannot create multiple counters. Is there another way?</p>
+<p>The answer is yes. As unbelievable as it may seem, related <a href="https://b.atch.se/posts/non-constant-constant-expressions/"  target="_blank">discussions</a> date back to 2015, and there are also related <a href="https://zhuanlan.zhihu.com/p/24835482"  target="_blank">articles</a> on Zhihu. However, this article was published in 2017, using C++14, and much of its content is no longer applicable. With the C++26 standard now being developed, many things need to be revisited. We will focus on C++20.</p>
+<p>If you are only interested in the code, I have placed the relevant code on <a href="https://godbolt.org/z/T543Tvc3q"  target="_blank">Compiler Explorer</a>. It compiles successfully with the three major compilers under C++20, and you can directly see the compiler&rsquo;s output. To prevent link failure, it is also available on <a href="https://github.com/16bit-ykiko/blog/blob/main/code/compile-time-counter.cpp"  target="_blank">GitHub</a>. If you want to understand its principles, please continue reading. The C++ standard is very complex, and the author cannot guarantee the complete accuracy of the article. If there are any errors, please discuss them in the comments.</p>
+<blockquote ><p>Note: This article is for technical discussion only. Please do not use the related code in actual production. According to <a href="https://cplusplus.github.io/CWG/issues/2118.html"  target="_blank">CWG 2118</a>, the related code seems to be considered ill-formed. Moreover, STMP is prone to ODR violations and requires great caution.</p>
 </blockquote>
-
 <h2 class="relative group">Observable State
     <div id="observable-state" class="anchor"></div>
     
@@ -1320,21 +1306,19 @@
 </h2>
 <p>Before changing, we must first be able to observe changes in the global state at compile time. Since C++ supports <strong>forward declaration</strong>, a <code>struct</code> is considered an <strong>incomplete type</strong> before its definition is seen, meaning the completeness of the class varies in different contexts.</p>
 <p>The C++ standard stipulates that <code>sizeof</code> can only be used on complete types (after all, incomplete types cannot calculate <code>size</code>). Using it on an incomplete type causes a compilation error, and this error is not a <strong>hard error</strong>, so we can use <code>SFINAE</code> or <code>requires</code> to capture this error. Thus, we can detect class completeness as follows:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">is_complete_v</span> <span class="o">=</span> <span class="k">requires</span> <span class="p">{</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">);</span> <span class="p">};</span>
-</span></span></code></pre></div><blockquote>
-<p>Some readers might ask, why not use concept in C++20? Using concept here would have some strange effects due to the wording in the standard regarding atomic constraints. We won&rsquo;t delve into this; interested readers can try it themselves.</p>
-</blockquote>
-<p>Try using it to observe type completeness:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span><span class="p">;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">is_complete_v</span> <span class="o">=</span> <span class="k">requires</span> <span class="p">{</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">);</span> <span class="p">};</span></span></span></code></pre></div></div>
+<blockquote ><p>Some readers might ask, why not use concept in C++20? Using concept here would have some strange effects due to the wording in the standard regarding atomic constraints. We won&rsquo;t delve into this; interested readers can try it themselves.</p>
+</blockquote><p>Try using it to observe type completeness:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span>
-</span></span></code></pre></div><p>Actually, the above code will fail to compile, with the second static assertion failing. How strange, what&rsquo;s going on? Let&rsquo;s try it separately:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// first time
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>Actually, the above code will fail to compile, with the second static assertion failing. How strange, what&rsquo;s going on? Let&rsquo;s try it separately:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// first time
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">X</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span>
@@ -1346,10 +1330,10 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span>
-</span></span></code></pre></div><p>Separately, it works, but together it doesn&rsquo;t. Why is this? It&rsquo;s because the compiler caches the result of the first template instantiation, and subsequent encounters with the same template directly use the first instantiation result. In the initial example, the second <code>is_complete_v&lt;X&gt;</code> still uses the first template instantiation result, so it evaluates to <code>false</code>, causing the compilation to fail.</p>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>Separately, it works, but together it doesn&rsquo;t. Why is this? It&rsquo;s because the compiler caches the result of the first template instantiation, and subsequent encounters with the same template directly use the first instantiation result. In the initial example, the second <code>is_complete_v&lt;X&gt;</code> still uses the first template instantiation result, so it evaluates to <code>false</code>, causing the compilation to fail.</p>
 <p>Is it reasonable for the compiler to do this? Yes, because templates may ultimately produce externally linked symbols. If the results of two instantiations differ, which one should be chosen during linking? But this does affect our ability to observe compile-time state. How to solve it? The answer is to add a template parameter as a seed, filling in different parameters each time to force the compiler to instantiate a new template:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="kt">int</span> <span class="n">seed</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="kt">int</span> <span class="n">seed</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">is_complete_v</span> <span class="o">=</span> <span class="k">requires</span> <span class="p">{</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">);</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span><span class="p">;</span>
@@ -1358,10 +1342,10 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">);</span>
-</span></span></code></pre></div><p>Manually filling in a different parameter each time is cumbersome. Is there a way to automate this?</p>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>Manually filling in a different parameter each time is cumbersome. Is there a way to automate this?</p>
 <p>Note that if a lambda expression is used as a <strong>Non Type Template Parameter (NTTP)</strong> default template parameter, each instantiation of the template will be of a different type:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">seed</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">test</span><span class="p">()</span> <span class="p">{</span>
@@ -1373,19 +1357,19 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">test</span><span class="p">();</span> <span class="c1">// class &lt;lambda_2&gt;
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">test</span><span class="p">();</span> <span class="c1">// class &lt;lambda_3&gt;
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>This feature perfectly meets our needs, as it automatically fills in a different seed each time. Thus, the final implementation of <code>is_complete_v</code> is as follows:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">auto</span> <span class="n">seed</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">is_complete_v</span> <span class="o">=</span> <span class="k">requires</span> <span class="p">{</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">);</span> <span class="p">};</span>
-</span></span></code></pre></div><p>Try using it again to observe type completeness:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>This feature perfectly meets our needs, as it automatically fills in a different seed each time. Thus, the final implementation of <code>is_complete_v</code> is as follows:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">auto</span> <span class="n">seed</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">is_complete_v</span> <span class="o">=</span> <span class="k">requires</span> <span class="p">{</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">);</span> <span class="p">};</span></span></span></code></pre></div></div>
+<p>Try using it again to observe type completeness:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span>
-</span></span></code></pre></div><p>Compilation succeeds! We have successfully observed changes in the compile-time global state.</p>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>Compilation succeeds! We have successfully observed changes in the compile-time global state.</p>
 
 <h2 class="relative group">Modifiable State
     <div id="modifiable-state" class="anchor"></div>
@@ -1399,7 +1383,7 @@
 <p>After being able to observe state changes, the next consideration is whether we can actively change the state through code. Unfortunately, for most declarations, the only way to change their state is by modifying the source code to add definitions; there are no other means to achieve this.</p>
 <p>The only exception is friend functions. But before considering how friend functions can play a role, let&rsquo;s first consider how to observe whether a function has been defined. For most functions, this is unobservable, as a function may be defined in another compilation unit, and calling a function does not require its definition to be visible.</p>
 <p>The exception is functions with a return type of <code>auto</code>. If the function definition is not visible, the return type cannot be deduced, making the function call impossible. The following code can detect whether the <code>foo</code> function is defined:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">seed</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">seed</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kr">inline</span> <span class="kt">bool</span> <span class="n">is_complete_v</span> <span class="o">=</span> <span class="k">requires</span> <span class="p">{</span> <span class="n">foo</span><span class="p">(</span><span class="n">seed</span><span class="p">);</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="k">auto</span><span class="p">);</span>
@@ -1408,10 +1392,10 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="k">auto</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">);</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;&gt;</span><span class="p">);</span>
-</span></span></code></pre></div><p>Next, let&rsquo;s discuss how to change the global state through friend functions.</p>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;&gt;</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>Next, let&rsquo;s discuss how to change the global state through friend functions.</p>
 <p>The biggest difference between friend functions and ordinary functions is that the function definition and declaration do not need to be in the same scope. Consider the following example:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="n">X</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
@@ -1419,9 +1403,9 @@
 </span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">42</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">foo</span><span class="p">(</span><span class="n">X</span><span class="p">{});</span>
-</span></span></code></pre></div><p>The above code compiles successfully with the three major compilers and fully complies with the C++ standard. This gives us room to operate. We can instantiate a class template while also instantiating the friend functions defined within it, thereby adding definitions to function declarations in other locations. This technique is also known as <strong>friend injection</strong>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="k">auto</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">foo</span><span class="p">(</span><span class="n">X</span><span class="p">{});</span></span></span></code></pre></div></div>
+<p>The above code compiles successfully with the three major compilers and fully complies with the C++ standard. This gives us room to operate. We can instantiate a class template while also instantiating the friend functions defined within it, thereby adding definitions to function declarations in other locations. This technique is also known as <strong>friend injection</strong>.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="k">auto</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span>
@@ -1433,7 +1417,8 @@
 </span></span><span class="line"><span class="cl"><span class="n">X</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span> <span class="n">x</span><span class="p">;</span> <span class="c1">// #2
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;&gt;</span><span class="p">);</span> <span class="c1">// #3
-</span></span></span></code></pre></div><p>Note that at #1, the template <code>X</code> has not been instantiated, so the <code>foo</code> function has not yet been defined, causing <code>is_complete_v</code> to return <code>false</code>. At #2, we instantiate an <code>X&lt;void&gt;</code>, causing the <code>foo</code> function within <code>X</code> to be instantiated, adding a definition to <code>foo</code>, so at #3, <code>is_complete_v</code> returns <code>true</code>. Of course, a function can only have one definition. If you try to instantiate an <code>X&lt;int&gt;</code>, the compiler will report a redefinition error for <code>foo</code>.</p>
+</span></span></span></code></pre></div></div>
+<p>Note that at #1, the template <code>X</code> has not been instantiated, so the <code>foo</code> function has not yet been defined, causing <code>is_complete_v</code> to return <code>false</code>. At #2, we instantiate an <code>X&lt;void&gt;</code>, causing the <code>foo</code> function within <code>X</code> to be instantiated, adding a definition to <code>foo</code>, so at #3, <code>is_complete_v</code> returns <code>true</code>. Of course, a function can only have one definition. If you try to instantiate an <code>X&lt;int&gt;</code>, the compiler will report a redefinition error for <code>foo</code>.</p>
 
 <h2 class="relative group">Constant Switch
     <div id="constant-switch" class="anchor"></div>
@@ -1445,7 +1430,7 @@
     
 </h2>
 <p>Combining the above techniques, we can easily instantiate a compile-time switch:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="nf">flag</span><span class="p">(</span><span class="k">auto</span><span class="p">);</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="nf">flag</span><span class="p">(</span><span class="k">auto</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">value</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">setter</span> <span class="p">{</span>
@@ -1465,18 +1450,10 @@
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="n">value</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">value</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">!=</span> <span class="n">b</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>Its principle is simple. The first time, <code>setter</code> has not been instantiated, so the <code>flag</code> function has not been defined, causing <code>exist</code> to evaluate to <code>false</code>, entering the <code>if constexpr</code> branch, instantiating a <code>setter&lt;false&gt;</code>, and returning <code>false</code>. The second time, <code>setter</code> has been instantiated, and the <code>flag</code> function has been defined, so <code>exist</code> evaluates to <code>true</code>, directly returning <code>true</code>.</p>
-<blockquote>
-<p>Note: The type of N here must be written as auto, not std::size_t. Only then is <code>flag(N)</code> a <a
-  href="https://en.cppreference.com/w/cpp/language/dependent_name"
-    target="_blank"
-  >dependent name</a>, allowing the requires to detect the legality of the expression. Due to the <a
-  href="https://en.cppreference.com/w/cpp/language/two-phase_lookup"
-    target="_blank"
-  >two-phase lookup</a> of templates, if written as <code>flag(0)</code>, it would be looked up in the first phase, find the call fails, and produce a hard error, causing compilation to fail.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Its principle is simple. The first time, <code>setter</code> has not been instantiated, so the <code>flag</code> function has not been defined, causing <code>exist</code> to evaluate to <code>false</code>, entering the <code>if constexpr</code> branch, instantiating a <code>setter&lt;false&gt;</code>, and returning <code>false</code>. The second time, <code>setter</code> has been instantiated, and the <code>flag</code> function has been defined, so <code>exist</code> evaluates to <code>true</code>, directly returning <code>true</code>.</p>
+<blockquote ><p>Note: The type of N here must be written as auto, not std::size_t. Only then is <code>flag(N)</code> a <a href="https://en.cppreference.com/w/cpp/language/dependent_name"  target="_blank">dependent name</a>, allowing the requires to detect the legality of the expression. Due to the <a href="https://en.cppreference.com/w/cpp/language/two-phase_lookup"  target="_blank">two-phase lookup</a> of templates, if written as <code>flag(0)</code>, it would be looked up in the first phase, find the call fails, and produce a hard error, causing compilation to fail.</p>
 </blockquote>
-
 <h2 class="relative group">Constant Counter
     <div id="constant-counter" class="anchor"></div>
     
@@ -1487,7 +1464,7 @@
     
 </h2>
 <p>Going further, we can directly implement a compile-time counter:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">reader</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">flag</span><span class="p">(</span><span class="n">reader</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
@@ -1513,8 +1490,8 @@
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">next</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">c</span> <span class="o">=</span> <span class="n">next</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>Its logic is, starting from <code>N</code> as 0, detect whether <code>flag(reader&lt;N&gt;)</code> is defined. If not defined, instantiate a <code>setter&lt;N&gt;</code>, adding a definition to <code>flag(reader&lt;N&gt;)</code>, and return <code>N</code>. Otherwise, recursively call <code>next&lt;N + 1&gt;()</code>, detecting the situation for <code>N+1</code>. Thus, this counter actually records the number of <code>setter</code> instantiations.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Its logic is, starting from <code>N</code> as 0, detect whether <code>flag(reader&lt;N&gt;)</code> is defined. If not defined, instantiate a <code>setter&lt;N&gt;</code>, adding a definition to <code>flag(reader&lt;N&gt;)</code>, and return <code>N</code>. Otherwise, recursively call <code>next&lt;N + 1&gt;()</code>, detecting the situation for <code>N+1</code>. Thus, this counter actually records the number of <code>setter</code> instantiations.</p>
 
 <h2 class="relative group">§: Access Private
     <div id="-access-private" class="anchor"></div>
@@ -1527,11 +1504,9 @@
 </h2>
 <p>First, it&rsquo;s important to clarify a point: the class access specifiers <code>private</code>, <code>public</code>, <code>protected</code> only act during compile-time checks. If there is a way to bypass this compile-time check, it is entirely possible to legally access any member of the class.</p>
 <p>Is there such a method? Yes: <strong>Template explicit instantiation ignores class scope access permissions:</strong></p>
-<blockquote>
-<p>The C++11/14 standards state the following in note 14.7.2/12 [temp.explicit]: The usual access checking rules do not apply to names used to specify explicit instantiations. [ Note: In particular, the template arguments and names used in the function declarator (including parameter types, return types and exception speciﬁcations) may be private types or objects which would normally not be accessible and the template may be a member template or member function which would not normally be accessible. — end note ]</p>
-</blockquote>
-<p>This means that during template <strong>explicit instantiation</strong>, we can directly access private members of a class.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+<blockquote ><p>The C++11/14 standards state the following in note 14.7.2/12 [temp.explicit]: The usual access checking rules do not apply to names used to specify explicit instantiations. [ Note: In particular, the template arguments and names used in the function declarator (including parameter types, return types and exception speciﬁcations) may be private types or objects which would normally not be accessible and the template may be a member template or member function which would not normally be accessible. — end note ]</p>
+</blockquote><p>This means that during template <strong>explicit instantiation</strong>, we can directly access private members of a class.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Bank</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">money</span> <span class="o">=</span> <span class="mi">999&#39;999&#39;999&#39;999</span><span class="p">;</span>
@@ -1554,8 +1529,8 @@
 </span></span><span class="line"><span class="cl">    <span class="n">steal</span><span class="p">(</span><span class="n">bank</span><span class="p">)</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="c1">// #3
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">bank</span><span class="p">.</span><span class="n">check</span><span class="p">();</span> <span class="c1">// 100
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>The syntax at #2 is template explicit instantiation, allowing us to directly access the private member <code>money</code> of <code>Bank</code>. By using <code>&amp;Bank::money</code>, we obtain the corresponding member pointer. Simultaneously, through template explicit instantiation, a definition is added to the <code>steal</code> function at #1, allowing direct invocation of this function at #3 to obtain a reference to <code>money</code>. Finally, 100 is successfully output.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>The syntax at #2 is template explicit instantiation, allowing us to directly access the private member <code>money</code> of <code>Bank</code>. By using <code>&amp;Bank::money</code>, we obtain the corresponding member pointer. Simultaneously, through template explicit instantiation, a definition is added to the <code>steal</code> function at #1, allowing direct invocation of this function at #3 to obtain a reference to <code>money</code>. Finally, 100 is successfully output.</p>
 
           
           

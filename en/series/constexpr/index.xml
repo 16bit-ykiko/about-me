@@ -15,10 +15,9 @@
       <pubDate>Thu, 22 Feb 2024 22:15:32 +0000</pubDate>
       
       <guid>https://www.ykiko.me/en/articles/683463723/</guid>
-      <description>&lt;p&gt;前情提要：&lt;a
-  href=&#34;https://www.ykiko.me/zh-cn/articles/682031684&#34;
-    target=&#34;_blank&#34;
-  &gt;C++中constexpr的历史！（第一部分）&lt;/a&gt;&lt;/p&gt;</description>
+      <description>前情提要：C++中constexpr的历史！（第一部分）
+2015-2016：模板的语法糖 # 在C++中，支持全特化（full specialization）的模板很多，但支持偏特化（partial specialization）的模板并不多。事实上，只有类模板（class template）和变量模板（variable template）支持偏特化，而变量模板可以看作是类模板的语法糖，因此实际上只有类模板支持偏特化。不支持偏特化会导致某些代码难以编写。
+</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/683463723/featured.png" />
     </item>
     
@@ -28,10 +27,9 @@
       <pubDate>Sat, 10 Feb 2024 23:15:47 +0000</pubDate>
       
       <guid>https://www.ykiko.me/en/articles/682031684/</guid>
-      <description>&lt;p&gt;几个月前，我写了一篇介绍 C++ 模板的文章：&lt;a
-  href=&#34;https://www.ykiko.me/zh-cn/articles/655902377&#34;
-    target=&#34;_blank&#34;
-  &gt;雾里看花：真正意义上的理解 C++ 模板&lt;/a&gt;。&lt;/p&gt;</description>
+      <description>几个月前，我写了一篇介绍 C++ 模板的文章：雾里看花：真正意义上的理解 C++ 模板。
+文章梳理了现代 C++ 中模板的地位。其中，使用 constexpr 函数替代模板进行编译期计算可以说是现代 C++ 最重要的改进之一。constexpr 本身其实并不难理解，非常直观。但由于几乎每个 C++ 版本都在改进它，不同 C++ 版本中可用的内容差异很大，有时可能会给人一种“不一致”的感觉。
+</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/682031684/featured.png" />
     </item>
     

@@ -125,8 +125,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.d73bd5624a883943ee708df101144407dd1c0d07937ac38a3fb7923631f3462db466c14c537ecc819f12c038e21ed2e83f1524eb126bc4e8f59f21a0e357738c.css"
-    integrity="sha512-1zvVYkqIOUPucI3xARREB90cDQeTesOKP7eSNjHzRi20ZsFMU37MgZ8SwDjiHtLoPxUk6xJrxOj1nyGg41dzjA==">
+    href="/css/main.bundle.min.9e8f7139c652e8a74a176ca1ebfd53ed3d4a6287070b98560332ae377ace684485cf68f3bdec2d950e9a9d74c13deaa568a8f1aba92143ab4aabd039e71fe576.css"
+    integrity="sha512-no9xOcZS6KdKF2yh6/1T7T1KYocHC5hWAzKuN3rOaESFz2jzvewtlQ6anXTBPeqlaKjxq6khQ6tKq9A55x/ldg==">
 
   
   
@@ -166,13 +166,14 @@
   
   
   
+  
     
     <script
       defer
       type="text/javascript"
       id="script-bundle"
-      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
-      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      src="/js/main.bundle.min.aee4e707e28a3bd3629b3d56fc8989adf1c11e60ba52e5c99085898be50963025e6b3c8a90f2ff6ac2fe5225da74015b85ec8e0e52510b07cc8e82b7f08997cb.js"
+      integrity="sha512-ruTnB&#43;KKO9Nimz1W/ImJrfHBHmC6UuXJkIWJi&#43;UJYwJeazyKkPL/asL&#43;UiXadAFbheyODlJRCwfMjoK38ImXyw=="
       data-copy="Copy"
       data-copied="Copied"></script>
   
@@ -221,6 +222,9 @@
 
 
 
+
+
+
   
   
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -238,7 +242,6 @@
     "name": "Various Approaches to Code Generation",
     "headline": "Various Approaches to Code Generation",
     
-    "abstract": "\u003ch2 class=\u0022relative group\u0022\u003eIntroduction\n    \u003cdiv id=\u0022introduction\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none\u0022\u003e\n        \u003ca class=\u0022text-primary-300 dark:text-neutral-700 !no-underline\u0022 href=\u0022#introduction\u0022 aria-label=\u0022Anchor\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e\n    \n\u003c\/h2\u003e\n\u003cp\u003eLet\u0026rsquo;s start with a recent requirement as an introduction. We all know that markdown can use \u003ccode\u003elang\u003c\/code\u003e to insert code blocks and supports syntax highlighting. However, I wanted to support custom syntax highlighting rules and encountered the following issues:\u003c\/p\u003e",
     "inLanguage": "en",
     "url" : "https://www.ykiko.me/en/articles/669359855/",
     "author" : {
@@ -741,7 +744,7 @@
     <img
       id="background-image"
       src="/en/articles/669359855/featured_hu15224311159986678503.png"
-      alt="Various Approaches to Code Generation"
+      role="presentation"
       loading="eager"
       decoding="async"
       fetchpriority="high"
@@ -756,7 +759,7 @@
   
     <div
       id="background-blur"
-      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
     
     
     <script
@@ -1339,10 +1342,10 @@
 <li>The languages supported are generally determined by the rendering engine. For instance, the languages supported by Github&rsquo;s rendering engine differ from others. Writing extensions for different rendering engines would require a lot of work, and there is little documentation available.</li>
 </ul>
 <p>Is there really no solution? Well, there is a way. Fortunately, most engines support using HTML rules directly, such as <code>&lt;code&gt;</code> for rendering.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">code</span> <span class="na">style</span><span class="o">=</span> <span class="s">&#34;color: #5C6370;font-style: italic;&#34;</span><span class="p">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">code</span> <span class="na">style</span><span class="o">=</span> <span class="s">&#34;color: #5C6370;font-style: italic;&#34;</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl"># this a variable named <span class="ni">&amp;#x27;</span>a<span class="ni">&amp;#x27;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;</span>
-</span></span></code></pre></div><p>This provides the possibility to add custom styles. However, we can&rsquo;t manually write such code in the markdown source file. If a statement has three different colors, such as <code>let a = 3;</code>, it means we have to write three different <code>&lt;span&gt;</code> tags for just one statement. It&rsquo;s very difficult to write and maintain.</p>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+<p>This provides the possibility to add custom styles. However, we can&rsquo;t manually write such code in the markdown source file. If a statement has three different colors, such as <code>let a = 3;</code>, it means we have to write three different <code>&lt;span&gt;</code> tags for just one statement. It&rsquo;s very difficult to write and maintain.</p>
 <p>In fact, we can do this: read the markdown source file, write the source file in normal markdown syntax, and when we encounter <code>lang</code>, extract the text and pass it to a rendering library to render it into DOM text. I chose the <code>highlight.js</code> library. Then replace the original text and output it in a new folder, such as &lsquo;out&rsquo; for the new folder and &lsquo;src&rsquo; for the original. This way, the source file doesn&rsquo;t need any modification, and the actual rendering is done with the content in the &lsquo;out&rsquo; folder. Every time we change the source file, we just need to run this program to do the conversion.</p>
 
 <h2 class="relative group">What is Code Generation?
@@ -1355,10 +1358,8 @@
     
 </h2>
 <p>The above case is a typical example of using &lsquo;code generation&rsquo; to solve problems. So what exactly is code generation? It is actually a very broad term. Generally speaking,</p>
-<blockquote>
-<p>Code generation refers to the process of using computer programs to generate other programs or code.</p>
-</blockquote>
-<p>This includes but is not limited to:</p>
+<blockquote ><p>Code generation refers to the process of using computer programs to generate other programs or code.</p>
+</blockquote><p>This includes but is not limited to:</p>
 <ul>
 <li>Compiler generating target code: This is the most typical example, where a compiler translates source code from a high-level programming language into machine-executable target code.</li>
 <li>Using configuration files or DSL to generate code: Generate actual code through specific configuration files or domain-specific languages (DSL). An example is using XML configuration files to define a UI interface, then generating the corresponding code.</li>
@@ -1387,17 +1388,14 @@
     
 </h3>
 <p>The <code>macro</code> in C language is one of the most classic and simplest compile-time code generation techniques. Pure text replacement, for example, if we want to repeat the string <code>&quot;Hello World&quot;</code> 100 times. What should we do? Obviously, we don&rsquo;t want to manually copy and paste. Consider using macros to accomplish this task.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#define REPEAT(x) (REPEAT1(x) REPEAT1(x) REPEAT1(x) REPEAT1(x) REPEAT1(x))
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#define REPEAT(x) (REPEAT1(x) REPEAT1(x) REPEAT1(x) REPEAT1(x) REPEAT1(x))
 </span></span></span><span class="line"><span class="cl"><span class="cp">#define REPEAT1(x) REPEAT2(x) REPEAT2(x) REPEAT2(x) REPEAT2(x) REPEAT2(x)
 </span></span></span><span class="line"><span class="cl"><span class="cp">#define REPEAT2(x) x x x x
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="nf">REPEAT</span><span class="p">(</span><span class="s">&#34;Hello world &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>Here, we mainly use a feature in C language where <code>&quot;a&quot;&quot;b&quot;</code> is equivalent to <code>&quot;ab&quot;</code>. Then, through macro expansion, <code>5*5*4</code> exactly one hundred times, we easily complete this task. Of course, the macros in C language are essentially just token replacements and do not allow users to obtain the token stream for input analysis, so their functionality is very limited. Nevertheless, there are still some interesting uses. Those interested can read this article <a
-  href="https://zhuanlan.zhihu.com/p/152354031"
-    target="_blank"
-  >The Art of Macro Programming in C/C++</a>. Of course, macros are not unique to C language; other programming languages also have them and can support stronger features. For example, the flexibility of macros in Rust is much stronger than in C language, mainly because Rust allows you to analyze the input token stream, rather than simply performing replacements. You can generate different code based on different input tokens. Even more, macros in Lisp are super flexible.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Here, we mainly use a feature in C language where <code>&quot;a&quot;&quot;b&quot;</code> is equivalent to <code>&quot;ab&quot;</code>. Then, through macro expansion, <code>5*5*4</code> exactly one hundred times, we easily complete this task. Of course, the macros in C language are essentially just token replacements and do not allow users to obtain the token stream for input analysis, so their functionality is very limited. Nevertheless, there are still some interesting uses. Those interested can read this article <a href="https://zhuanlan.zhihu.com/p/152354031"  target="_blank">The Art of Macro Programming in C/C++</a>. Of course, macros are not unique to C language; other programming languages also have them and can support stronger features. For example, the flexibility of macros in Rust is much stronger than in C language, mainly because Rust allows you to analyze the input token stream, rather than simply performing replacements. You can generate different code based on different input tokens. Even more, macros in Lisp are super flexible.</p>
 
 <h3 class="relative group">Generics/Templates
     <div id="genericstemplates" class="anchor"></div>
@@ -1409,7 +1407,7 @@
     
 </h3>
 <p>In some programming languages, <strong>generics (Generic)</strong> are also considered a code generation technique, generating actual different code based on different types. Of course, this is the most basic. Some programming languages support more powerful features, such as template metaprogramming in <code>C++</code> for some advanced code generation. A typical case is creating a function pointer table (jump table) at compile time.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">F</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">F</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">helper</span><span class="p">(</span><span class="n">T</span> <span class="n">t</span><span class="p">,</span> <span class="n">F</span> <span class="n">f</span><span class="p">)</span> <span class="p">{</span> <span class="n">f</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">));</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">Tuple</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Func</span><span class="o">&gt;</span>
@@ -1430,8 +1428,8 @@
 </span></span><span class="line"><span class="cl">    <span class="n">access</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">f</span><span class="p">);</span> <span class="c1">// =&gt; 1
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">index</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">access</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">f</span><span class="p">);</span> <span class="c1">// =&gt; 123
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>This way, we achieve the effect of accessing elements in a <code>tuple</code> based on the runtime <code>index</code>. The specific principle is manually creating a function pointer table and dispatching based on the index.</p>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>This way, we achieve the effect of accessing elements in a <code>tuple</code> based on the runtime <code>index</code>. The specific principle is manually creating a function pointer table and dispatching based on the index.</p>
 
 <h3 class="relative group">Code Generators
     <div id="code-generators" class="anchor"></div>
@@ -1444,7 +1442,7 @@
 </h3>
 <p>The above two points discuss language built-in features. However, in many scenarios, the built-in features of languages are not flexible enough to meet our needs. For example, in <code>C++</code>, if you want to generate functions and types in chunks, neither macros nor templates can do it.</p>
 <p>But code is just strings in source files. Based on this idea, we can completely write a specialized program to generate such strings. For example, write a <code>python</code> code to generate the above <code>C</code> program that repeats <code>Hello World</code> 100 times.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;&#34;Hello World &#34;&#39;</span>
 </span></span><span class="line"><span class="cl">
@@ -1455,12 +1453,9 @@
 </span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="se">}}</span><span class="s2">&#34;&#34;&#34;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;hello.c&#34;</span><span class="p">,</span> <span class="s2">&#34;w&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
-</span></span></code></pre></div><p>This way, we generate the above source file. Of course, this is just the simplest application. Or we can use <code>Protocol Buffer</code> to automatically generate serialization and deserialization code. Or we can obtain information from the <code>AST</code>, and even the type&rsquo;s meta-information can be generated by the code generator. The principle of such programs is simple, just string concatenation, and their upper limit depends entirely on how your code is written.</p>
-<p>But more often, language built-in features are more convenient to use. Using external code generators can complicate the compilation process. However, some languages have made this feature a built-in feature of the language, such as <code>C#</code>&rsquo;s <a
-  href="https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/source-generators-overview"
-    target="_blank"
-  >code generation</a>.</p>
+</span></span><span class="line"><span class="cl">    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">code</span><span class="p">)</span></span></span></code></pre></div></div>
+<p>This way, we generate the above source file. Of course, this is just the simplest application. Or we can use <code>Protocol Buffer</code> to automatically generate serialization and deserialization code. Or we can obtain information from the <code>AST</code>, and even the type&rsquo;s meta-information can be generated by the code generator. The principle of such programs is simple, just string concatenation, and their upper limit depends entirely on how your code is written.</p>
+<p>But more often, language built-in features are more convenient to use. Using external code generators can complicate the compilation process. However, some languages have made this feature a built-in feature of the language, such as <code>C#</code>&rsquo;s <a href="https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/source-generators-overview"  target="_blank">code generation</a>.</p>
 
 <h2 class="relative group">Runtime Code Generation
     <div id="runtime-code-generation" class="anchor"></div>
@@ -1485,12 +1480,12 @@
 <ul>
 <li><code>eval</code> is a mechanism that parses strings into executable code. In <code>Python</code>, the <code>eval</code> function can take a string as a parameter and execute the expression within it, returning the result. This provides a powerful tool for dynamic computation and code generation.</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s2">&#34;2 + 3&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># Output: 5</span>
-</span></span></code></pre></div><ul>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s2">&#34;2 + 3&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># Output: 5</span></span></span></code></pre></div></div>
+<ul>
 <li><code>exec</code> is different from <code>eval</code> in that <code>exec</code> can execute multiple statements, even including function and class definitions.</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Copy</span> <span class="n">code</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Copy</span> <span class="n">code</span>
 </span></span><span class="line"><span class="cl"><span class="n">code_block</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;
 </span></span></span><span class="line"><span class="cl"><span class="s2">def multiply(x, y):
 </span></span></span><span class="line"><span class="cl"><span class="s2">    return x * y
@@ -1498,8 +1493,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="s2">result = multiply(4, 5)
 </span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="n">exec</span><span class="p">(</span><span class="n">code_block</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># Output: 20</span>
-</span></span></code></pre></div><p>Undoubtedly, generating code at runtime through string concatenation can easily meet some demanding requirements in appropriate scenarios.</p>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># Output: 20</span></span></span></code></pre></div></div>
+<p>Undoubtedly, generating code at runtime through string concatenation can easily meet some demanding requirements in appropriate scenarios.</p>
 
 <h3 class="relative group">Dynamic Compilation
     <div id="dynamic-compilation" class="anchor"></div>
@@ -1516,23 +1511,23 @@
 <li><strong>Compile code at runtime</strong></li>
 </ul>
 <p>If you have <code>gcc</code> installed on your computer, you can run the following two commands:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Compile the source file into an object file</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Compile the source file into an object file</span>
 </span></span><span class="line"><span class="cl">gcc -c source.c source.o 
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Extract the .text section from the object file to generate a binary file</span>
-</span></span><span class="line"><span class="cl">objcopy -O binary -j .text source.o source.bin
-</span></span></code></pre></div><p>This way, we can obtain the binary form of the code in the <code>source.c</code> file. But having the code is not enough; we need to execute it.</p>
+</span></span><span class="line"><span class="cl">objcopy -O binary -j .text source.o source.bin</span></span></code></pre></div></div>
+<p>This way, we can obtain the binary form of the code in the <code>source.c</code> file. But having the code is not enough; we need to execute it.</p>
 <ul>
 <li><strong>Allocate executable memory</strong></li>
 </ul>
 <p>Code is also binary data. As long as we write the obtained code data into a block of memory and then <code>jmp</code> to execute it, it should work, right? The idea is straightforward, but unfortunately, most operating systems have memory protection, and generally allocated memory is not executable. If you try to write data and then execute it, it will directly cause a segmentation fault. But we can use <code>VirtualAlloc</code> or <code>mmap</code> to allocate a block of memory with execution permissions, write the code into it, and then execute it.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Windows
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Windows
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">VirtualAlloc</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">MEM_COMMIT</span> <span class="o">|</span> <span class="n">MEM_RESERVE</span><span class="p">,</span> <span class="n">PAGE_EXECUTE_READWRITE</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// Linux
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mmap</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">PROT_READ</span> <span class="o">|</span> <span class="n">PROT_WRITE</span> <span class="o">|</span> <span class="n">PROT_EXEC</span><span class="p">,</span> <span class="n">MAP_PRIVATE</span> <span class="o">|</span> <span class="n">MAP_ANONYMOUS</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-</span></span></code></pre></div><p>Combining these two points and making some adjustments, we can achieve reading code and input from the command line and directly running the output.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fstream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mmap</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">PROT_READ</span> <span class="o">|</span> <span class="n">PROT_WRITE</span> <span class="o">|</span> <span class="n">PROT_EXEC</span><span class="p">,</span> <span class="n">MAP_PRIVATE</span> <span class="o">|</span> <span class="n">MAP_ANONYMOUS</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>Combining these two points and making some adjustments, we can achieve reading code and input from the command line and directly running the output.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fstream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
@@ -1559,14 +1554,14 @@
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">Fn</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p</span><span class="p">)(</span><span class="n">std</span><span class="o">::</span><span class="n">stoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="n">std</span><span class="o">::</span><span class="n">stoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>The final effect:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">.<span class="se">\m</span>ain.exe <span class="s2">&#34;int f(int a, int b){ return a + b; }&#34;</span> <span class="m">1</span> <span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>The final effect:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">.<span class="se">\m</span>ain.exe <span class="s2">&#34;int f(int a, int b){ return a + b; }&#34;</span> <span class="m">1</span> <span class="m">2</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#  output: 3</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">.<span class="se">\m</span>ain.exe <span class="s2">&#34;int f(int a, int b){ return a - b; }&#34;</span> <span class="m">1</span> <span class="m">2</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#  output: -1</span>
-</span></span></code></pre></div><p>Perfect implementation.</p>
+</span></span><span class="line"><span class="cl"><span class="c1">#  output: -1</span></span></span></code></pre></div></div>
+<p>Perfect implementation.</p>
 
 <h2 class="relative group">Conclusion
     <div id="conclusion" class="anchor"></div>

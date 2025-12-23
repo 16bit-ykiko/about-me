@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.d73bd5624a883943ee708df101144407dd1c0d07937ac38a3fb7923631f3462db466c14c537ecc819f12c038e21ed2e83f1524eb126bc4e8f59f21a0e357738c.css"
-    integrity="sha512-1zvVYkqIOUPucI3xARREB90cDQeTesOKP7eSNjHzRi20ZsFMU37MgZ8SwDjiHtLoPxUk6xJrxOj1nyGg41dzjA==">
+    href="/css/main.bundle.min.9e8f7139c652e8a74a176ca1ebfd53ed3d4a6287070b98560332ae377ace684485cf68f3bdec2d950e9a9d74c13deaa568a8f1aba92143ab4aabd039e71fe576.css"
+    integrity="sha512-no9xOcZS6KdKF2yh6/1T7T1KYocHC5hWAzKuN3rOaESFz2jzvewtlQ6anXTBPeqlaKjxq6khQ6tKq9A55x/ldg==">
 
   
   
@@ -161,13 +161,14 @@
   
   
   
+  
     
     <script
       defer
       type="text/javascript"
       id="script-bundle"
-      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
-      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      src="/js/main.bundle.min.aee4e707e28a3bd3629b3d56fc8989adf1c11e60ba52e5c99085898be50963025e6b3c8a90f2ff6ac2fe5225da74015b85ec8e0e52510b07cc8e82b7f08997cb.js"
+      integrity="sha512-ruTnB&#43;KKO9Nimz1W/ImJrfHBHmC6UuXJkIWJi&#43;UJYwJeazyKkPL/asL&#43;UiXadAFbheyODlJRCwfMjoK38ImXyw=="
       data-copy="复制"
       data-copied="已复制"></script>
   
@@ -216,6 +217,9 @@
 
 
 
+
+
+
   
   
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -233,7 +237,6 @@
     "name": "std::variant 很难用！",
     "headline": "std::variant 很难用！",
     
-    "abstract": "\u003cp\u003e\u003ccode\u003estd::variant\u003c\/code\u003e于 C\u002b\u002b17 加入标准库，本文将讨论其加入标准的背景，以及一些使用上的问题。\u003c\/p\u003e",
     "inLanguage": "zh-cn",
     "url" : "https://www.ykiko.me/zh-cn/articles/645810896/",
     "author" : {
@@ -736,7 +739,7 @@
     <img
       id="background-image"
       src="/zh-cn/articles/645810896/featured_hu4253488404485719656.png"
-      alt="std::variant 很难用！"
+      role="presentation"
       loading="eager"
       decoding="async"
       fetchpriority="high"
@@ -751,7 +754,7 @@
   
     <div
       id="background-blur"
-      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
     
     
     <script
@@ -1232,36 +1235,28 @@
     </span>
     
 </h2>
-<p>首先来讨论一下<strong>和类型 (sum type)</strong>，或者叫做 <a
-  href="https://en.wikipedia.org/wiki/Tagged_union"
-    target="_blank"
-  >tagged union</a>。和类型就是只能在几种可能的类型中取值的类型。</p>
+<p>首先来讨论一下<strong>和类型 (sum type)</strong>，或者叫做 <a href="https://en.wikipedia.org/wiki/Tagged_union"  target="_blank">tagged union</a>。和类型就是只能在几种可能的类型中取值的类型。</p>
 <p>例如我们有如下两个类型</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Circle</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Circle</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">radius</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Rectangle</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">width</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">height</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>那么<code>Circle</code>和<code>Rectangle</code>的和类型，比如我们就叫<code>Shape</code>吧，在 C 语言中可以这么实现</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Shape</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>那么<code>Circle</code>和<code>Rectangle</code>的和类型，比如我们就叫<code>Shape</code>吧，在 C 语言中可以这么实现</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Shape</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">enum</span> <span class="nc">Type</span> <span class="p">{</span> <span class="n">Circle</span><span class="p">,</span> <span class="n">Rectangle</span> <span class="p">}</span> <span class="n">type</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">union</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">struct</span> <span class="nc">Circle</span> <span class="n">circle</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">struct</span> <span class="nc">Rectangle</span> <span class="n">rectangle</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><blockquote>
-<p>这里使用了叫做 <a
-  href="https://en.cppreference.com/w/cpp/language/union#Anonymous_unions"
-    target="_blank"
-  >anonymous union</a> 的特性，相当于声明了一个对应类型的 union 成员，并且把字段名字注入到当前作用域。</p>
-</blockquote>
-<p>这样我们就可以给<code>Shape</code>类型的变量赋不同类型的值，同时更新记录下赋值时的<code>type</code>。访问的时候反过来根据<code>type</code>来决定按照哪种类型访问即可。例如</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">Shape</span> <span class="n">shape</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<blockquote ><p>这里使用了叫做 <a href="https://en.cppreference.com/w/cpp/language/union#Anonymous_unions"  target="_blank">anonymous union</a> 的特性，相当于声明了一个对应类型的 union 成员，并且把字段名字注入到当前作用域。</p>
+</blockquote><p>这样我们就可以给<code>Shape</code>类型的变量赋不同类型的值，同时更新记录下赋值时的<code>type</code>。访问的时候反过来根据<code>type</code>来决定按照哪种类型访问即可。例如</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">Shape</span> <span class="n">shape</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">shape</span><span class="p">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">Shape</span><span class="o">::</span><span class="n">Circle</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">Circle</span> <span class="n">c</span> <span class="o">=</span> <span class="n">shape</span><span class="p">.</span><span class="n">circle</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;circle: radius is %f</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">radius</span><span class="p">);</span>
@@ -1280,8 +1275,8 @@
 </span></span><span class="line"><span class="cl">    <span class="n">shape</span><span class="p">.</span><span class="n">rectangle</span><span class="p">.</span><span class="n">width</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">shape</span><span class="p">.</span><span class="n">rectangle</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">foo</span><span class="p">(</span><span class="n">shape</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
 <h2 class="relative group">not trivial
     <div id="not-trivial" class="anchor"></div>
     
@@ -1292,7 +1287,7 @@
     
 </h2>
 <p>但在 C++ 中事情就没这么简单了，考虑如下代码</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Settings</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Settings</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">enum</span> <span class="k">class</span> <span class="nc">Type</span> <span class="p">{</span> <span class="n">int_</span><span class="p">,</span> <span class="n">double_</span><span class="p">,</span> <span class="n">string</span> <span class="p">}</span> <span class="n">type</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">union</span> <span class="p">{</span>
@@ -1306,13 +1301,10 @@
 </span></span><span class="line"><span class="cl">    <span class="n">Settings</span> <span class="n">settings</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">settings</span><span class="p">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">Settings</span><span class="o">::</span><span class="n">Type</span><span class="o">::</span><span class="n">String</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">settings</span><span class="p">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>这段代码其实没法通过编译，编译器会报错<code>use of deleted function Settings::Settings()</code>。为什么<code>Settings</code>的构造函数被删除了呢？这其实是因为<code>std::string</code>的构造函数是 not trivial 的，当<code>union</code>中含有 not trivial 的类型的成员的时候，编译器无法正确的生成构造函数和析构函数（不知道你要初始化或者析构哪个成员）。详情原因请见的可以参考 cppreference 上对 <a
-  href="https://en.cppreference.com/w/cpp/language/union"
-    target="_blank"
-  >union</a> 的介绍。</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>这段代码其实没法通过编译，编译器会报错<code>use of deleted function Settings::Settings()</code>。为什么<code>Settings</code>的构造函数被删除了呢？这其实是因为<code>std::string</code>的构造函数是 not trivial 的，当<code>union</code>中含有 not trivial 的类型的成员的时候，编译器无法正确的生成构造函数和析构函数（不知道你要初始化或者析构哪个成员）。详情原因请见的可以参考 cppreference 上对 <a href="https://en.cppreference.com/w/cpp/language/union"  target="_blank">union</a> 的介绍。</p>
 <p>怎么解决呢？那就是我们自己来定义<code>union</code>的构造函数和析构函数。比如我们可以给它定义一个空的构造函数和析构函数，也就是什么都不做</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">union</span> <span class="nc">Value</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">union</span> <span class="nc">Value</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">d</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">;</span>
@@ -1324,12 +1316,9 @@
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Settings</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">enum</span> <span class="k">class</span> <span class="nc">Type</span> <span class="p">{</span> <span class="n">int_</span><span class="p">,</span> <span class="n">double_</span><span class="p">,</span> <span class="n">string</span> <span class="p">}</span> <span class="n">type</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Value</span> <span class="n">value</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>使用的时候则要求我们通过 <a
-  href="https://en.cppreference.com/w/cpp/language/new#Placement_new"
-    target="_blank"
-  >placement new</a> 显式调用构造函数来初始化某个成员，同样的，我们也要手动调用析构函数来销毁某个成员。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>使用的时候则要求我们通过 <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new"  target="_blank">placement new</a> 显式调用构造函数来初始化某个成员，同样的，我们也要手动调用析构函数来销毁某个成员。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Settings</span> <span class="n">settings</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">settings</span><span class="p">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">Settings</span><span class="o">::</span><span class="n">Type</span><span class="o">::</span><span class="n">string</span><span class="p">;</span>
@@ -1341,11 +1330,9 @@
 </span></span><span class="line"><span class="cl">    <span class="k">new</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">settings</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">i</span><span class="p">)</span> <span class="kt">int</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">settings</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">settings</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">i</span><span class="p">.</span><span class="o">~</span><span class="kt">int</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><blockquote>
-<p>注意，这里不能<strong>直接赋值 (assign)</strong>。因为赋值操作其实是在调用成员函数<code>operator=</code>，而只有已经初始化过后的对象才能调用成员函数。</p>
-</blockquote>
-<p>从上面的代码不难看出，如果要在 C++ 里面直接使用 union 来表示 sum type，非常麻烦。不仅要及时更新<code>type</code>，还要正确调用构造函数和析构函数，还要留意赋值的时机问题赋值。如果其中的某一步忘记了，就会导致 undefined behavior，这非常让人头疼。不过还好，C++17 给我们提供了<code>std::variant</code>来解决这个问题。</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<blockquote ><p>注意，这里不能<strong>直接赋值 (assign)</strong>。因为赋值操作其实是在调用成员函数<code>operator=</code>，而只有已经初始化过后的对象才能调用成员函数。</p>
+</blockquote><p>从上面的代码不难看出，如果要在 C++ 里面直接使用 union 来表示 sum type，非常麻烦。不仅要及时更新<code>type</code>，还要正确调用构造函数和析构函数，还要留意赋值的时机问题赋值。如果其中的某一步忘记了，就会导致 undefined behavior，这非常让人头疼。不过还好，C++17 给我们提供了<code>std::variant</code>来解决这个问题。</p>
 
 <h2 class="relative group">std::variant
     <div id="stdvariant" class="anchor"></div>
@@ -1357,7 +1344,7 @@
     
 </h2>
 <p>直接看代码</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;variant&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">Settings</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">variant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">bool</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">;</span>
@@ -1366,38 +1353,41 @@
 </span></span><span class="line"><span class="cl">    <span class="n">Settings</span> <span class="n">s</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>上面的代码完全是 well defined，通过模板元编程，<code>variant</code>会在合适和时机处理对象的构造和析构。</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>上面的代码完全是 well defined，通过模板元编程，<code>variant</code>会在合适和时机处理对象的构造和析构。</p>
 <p>它有一个<code>index</code>成员函数可以获取当前类型在你写的类型列表里面的索引。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Settings</span> <span class="n">s</span><span class="p">;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Settings</span> <span class="n">s</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span> <span class="c1">// s.index() =&gt; 2
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">s</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// s.index() =&gt; 0
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">s</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="c1">// s.index() =&gt; 1
-</span></span></span></code></pre></div><p>使用用<code>std::get</code>可以从<code>variant</code>里面取出对应的值</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Settings</span> <span class="n">s</span><span class="p">;</span>
+</span></span></span></code></pre></div></div>
+<p>使用用<code>std::get</code>可以从<code>variant</code>里面取出对应的值</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Settings</span> <span class="n">s</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="c1">// =&gt; hello
-</span></span></span></code></pre></div><p>有些人可能会疑惑，我都提前知道里面存的是<code>string</code>了，为什么还要用<code>std::variant</code>呢？注意到<code>get</code>还有一个模板参数是整数的重载，它能解决这个问题吗？</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="c1">// =&gt; hello
-</span></span></span></code></pre></div><p>哦，我懂了。那既然能直接用<code>index</code>来获取，那直接下面这样写不就好了？</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="n">s</span><span class="p">.</span><span class="n">index</span><span class="p">()</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-</span></span></code></pre></div><p>很遗憾，想法是好的，但是这样做是不行的。模板参数必须是编译期常量，而<code>variant</code>作为一种类型擦除的手段，其<code>index</code>肯定是运行时的值。怎么办呢？动态转静态，只能一个个分发。例如</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">index</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+</span></span></span></code></pre></div></div>
+<p>有些人可能会疑惑，我都提前知道里面存的是<code>string</code>了，为什么还要用<code>std::variant</code>呢？注意到<code>get</code>还有一个模板参数是整数的重载，它能解决这个问题吗？</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="c1">// =&gt; hello
+</span></span></span></code></pre></div></div>
+<p>哦，我懂了。那既然能直接用<code>index</code>来获取，那直接下面这样写不就好了？</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="n">s</span><span class="p">.</span><span class="n">index</span><span class="p">()</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>很遗憾，想法是好的，但是这样做是不行的。模板参数必须是编译期常量，而<code>variant</code>作为一种类型擦除的手段，其<code>index</code>肯定是运行时的值。怎么办呢？动态转静态，只能一个个分发。例如</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">index</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">index</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">index</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>用数字的可读性是比较糟糕的，我们可以用<code>std::holds_alternative</code>来根据类型做判断</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">holds_alternative</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>用数字的可读性是比较糟糕的，我们可以用<code>std::holds_alternative</code>来根据类型做判断</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">holds_alternative</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">)){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">holds_alternative</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">)){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">holds_alternative</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">)){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>虽然能行，但是太多冗余代码了，有没有什么更好的办法来操作<code>variant</code>里面的值呢？</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>虽然能行，但是太多冗余代码了，有没有什么更好的办法来操作<code>variant</code>里面的值呢？</p>
 
 <h2 class="relative group">std::visit
     <div id="stdvisit" class="anchor"></div>
@@ -1409,24 +1399,25 @@
     
 </h2>
 <p><code>visit</code>这个名字其实就来源于设计模式里面的那个<code>visitor</code>模式。利用它，我们可以写出如下代码</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Settings</span> <span class="n">s</span><span class="p">;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Settings</span> <span class="n">s</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">callback</span> <span class="o">=</span> <span class="p">[](</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">value</span><span class="p">){</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">visit</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span> <span class="c1">// =&gt; hello
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">settings</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">visit</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span> <span class="c1">// =&gt; 1
-</span></span></span></code></pre></div><p>是不是很神奇呢？只需要传入一个<code>callback</code>，就能直接访问到<code>variant</code>里面的值了，不需要手动进行任何分发。软件工程领域有一条铁律：复杂度不会消失，只会转移，这里也不例外。其实<code>visit</code>内部帮你把<code>callback</code>根据<code>variant</code>里面的每个类型实例化了一份函数，预先打好了函数表，然后再运行时根据<code>index</code>直接调用函数表里面的函数就行了。</p>
+</span></span></span></code></pre></div></div>
+<p>是不是很神奇呢？只需要传入一个<code>callback</code>，就能直接访问到<code>variant</code>里面的值了，不需要手动进行任何分发。软件工程领域有一条铁律：复杂度不会消失，只会转移，这里也不例外。其实<code>visit</code>内部帮你把<code>callback</code>根据<code>variant</code>里面的每个类型实例化了一份函数，预先打好了函数表，然后再运行时根据<code>index</code>直接调用函数表里面的函数就行了。</p>
 <p>但更多时候，我们其实是想根据不同类型做不同的事情。这在其它语言中可以方便的通过模式匹配做到</p>
 <p><strong>Haskell:</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-haskell" data-lang="haskell"><span class="line"><span class="cl"><span class="kr">data</span> <span class="kt">Settings</span> <span class="ow">=</span> <span class="kt">IntValue</span> <span class="kt">Int</span> <span class="o">|</span> <span class="kt">BoolValue</span> <span class="kt">Bool</span> <span class="o">|</span> <span class="kt">StringValue</span> <span class="kt">String</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-haskell" data-lang="haskell"><span class="line"><span class="cl"><span class="kr">data</span> <span class="kt">Settings</span> <span class="ow">=</span> <span class="kt">IntValue</span> <span class="kt">Int</span> <span class="o">|</span> <span class="kt">BoolValue</span> <span class="kt">Bool</span> <span class="o">|</span> <span class="kt">StringValue</span> <span class="kt">String</span>
 </span></span><span class="line"><span class="cl">  <span class="kr">deriving</span> <span class="p">(</span><span class="kt">Show</span><span class="p">,</span> <span class="kt">Eq</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nf">match</span> <span class="ow">::</span> <span class="kt">Settings</span> <span class="ow">-&gt;</span> <span class="kt">IO</span> <span class="nb">()</span>
 </span></span><span class="line"><span class="cl"><span class="nf">match</span> <span class="p">(</span><span class="kt">IntValue</span> <span class="n">x</span><span class="p">)</span> <span class="ow">=</span> <span class="n">putStrLn</span> <span class="o">$</span> <span class="s">&#34;Int: &#34;</span> <span class="o">++</span> <span class="n">show</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="nf">match</span> <span class="p">(</span><span class="kt">BoolValue</span> <span class="n">x</span><span class="p">)</span> <span class="ow">=</span> <span class="n">putStrLn</span> <span class="o">$</span> <span class="s">&#34;Bool: &#34;</span> <span class="o">++</span> <span class="n">show</span> <span class="p">(</span><span class="n">not</span> <span class="n">x</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">match</span> <span class="p">(</span><span class="kt">StringValue</span> <span class="n">x</span><span class="p">)</span> <span class="ow">=</span> <span class="n">putStrLn</span> <span class="o">$</span> <span class="s">&#34;String: &#34;</span> <span class="o">++</span> <span class="p">(</span><span class="n">x</span> <span class="o">++</span> <span class="s">&#34; &#34;</span><span class="p">)</span>
-</span></span></code></pre></div><p><strong>Rust:</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">enum</span> <span class="nc">Settings</span><span class="p">{</span><span class="w">
+</span></span><span class="line"><span class="cl"><span class="nf">match</span> <span class="p">(</span><span class="kt">StringValue</span> <span class="n">x</span><span class="p">)</span> <span class="ow">=</span> <span class="n">putStrLn</span> <span class="o">$</span> <span class="s">&#34;String: &#34;</span> <span class="o">++</span> <span class="p">(</span><span class="n">x</span> <span class="o">++</span> <span class="s">&#34; &#34;</span><span class="p">)</span></span></span></code></pre></div></div>
+<p><strong>Rust:</strong></p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">enum</span> <span class="nc">Settings</span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Int</span><span class="p">(</span><span class="kt">i32</span><span class="p">),</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Bool</span><span class="p">(</span><span class="kt">bool</span><span class="p">),</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">String</span><span class="p">(</span><span class="nb">String</span><span class="p">),</span><span class="w">
@@ -1439,10 +1430,10 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Settings</span>::<span class="n">Bool</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Bool: </span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="o">!</span><span class="n">x</span><span class="p">),</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Settings</span>::<span class="nb">String</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;String: </span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34; &#34;</span><span class="p">),</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><p>很可惜，截止 C++23，C++ 还是没有模式匹配。想要在 C++ 写出类似上面代码的效果，目前有两种方案来自己模拟：</p>
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>很可惜，截止 C++23，C++ 还是没有模式匹配。想要在 C++ 写出类似上面代码的效果，目前有两种方案来自己模拟：</p>
 <p><strong>function overload:</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Overload</span> <span class="o">:</span> <span class="n">Ts</span><span class="p">...</span> <span class="p">{</span> <span class="k">using</span> <span class="n">Ts</span><span class="o">::</span><span class="k">operator</span><span class="p">()...;</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
@@ -1457,9 +1448,9 @@
 </span></span><span class="line"><span class="cl">    <span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Settings</span> <span class="n">settings</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">visit</span><span class="p">(</span><span class="n">overloads</span><span class="p">,</span> <span class="n">settings</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p><strong>if constexpr:</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p><strong>if constexpr:</strong></p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">Settings</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">variant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">bool</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">callback</span> <span class="o">=</span> <span class="p">[](</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span>
@@ -1473,8 +1464,8 @@
 </span></span><span class="line"><span class="cl">    <span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Settings</span> <span class="n">settings</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">visit</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="n">settings</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>无论是哪种方法都比较别扭，用模板来做这种 trick，不仅编译慢报错还不好看。这也意味着目前的<code>variant</code>非常不好用，没有配套的语言设施来简化其操作，和模板深深地纠缠在一起，让人望而却步。</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>无论是哪种方法都比较别扭，用模板来做这种 trick，不仅编译慢报错还不好看。这也意味着目前的<code>variant</code>非常不好用，没有配套的语言设施来简化其操作，和模板深深地纠缠在一起，让人望而却步。</p>
 
           
           

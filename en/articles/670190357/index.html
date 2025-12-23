@@ -125,8 +125,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.d73bd5624a883943ee708df101144407dd1c0d07937ac38a3fb7923631f3462db466c14c537ecc819f12c038e21ed2e83f1524eb126bc4e8f59f21a0e357738c.css"
-    integrity="sha512-1zvVYkqIOUPucI3xARREB90cDQeTesOKP7eSNjHzRi20ZsFMU37MgZ8SwDjiHtLoPxUk6xJrxOj1nyGg41dzjA==">
+    href="/css/main.bundle.min.9e8f7139c652e8a74a176ca1ebfd53ed3d4a6287070b98560332ae377ace684485cf68f3bdec2d950e9a9d74c13deaa568a8f1aba92143ab4aabd039e71fe576.css"
+    integrity="sha512-no9xOcZS6KdKF2yh6/1T7T1KYocHC5hWAzKuN3rOaESFz2jzvewtlQ6anXTBPeqlaKjxq6khQ6tKq9A55x/ldg==">
 
   
   
@@ -166,13 +166,14 @@
   
   
   
+  
     
     <script
       defer
       type="text/javascript"
       id="script-bundle"
-      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
-      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      src="/js/main.bundle.min.aee4e707e28a3bd3629b3d56fc8989adf1c11e60ba52e5c99085898be50963025e6b3c8a90f2ff6ac2fe5225da74015b85ec8e0e52510b07cc8e82b7f08997cb.js"
+      integrity="sha512-ruTnB&#43;KKO9Nimz1W/ImJrfHBHmC6UuXJkIWJi&#43;UJYwJeazyKkPL/asL&#43;UiXadAFbheyODlJRCwfMjoK38ImXyw=="
       data-copy="Copy"
       data-copied="Copied"></script>
   
@@ -221,6 +222,9 @@
 
 
 
+
+
+
   
   
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -238,7 +242,6 @@
     "name": "Why Do C\/C\u002b\u002b Compilers Not Retain Metadata?",
     "headline": "Why Do C\/C\u002b\u002b Compilers Not Retain Metadata?",
     
-    "abstract": "\u003ch2 class=\u0022relative group\u0022\u003eWhat is Metadata?\n    \u003cdiv id=\u0022what-is-metadata\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none\u0022\u003e\n        \u003ca class=\u0022text-primary-300 dark:text-neutral-700 !no-underline\u0022 href=\u0022#what-is-metadata\u0022 aria-label=\u0022Anchor\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e\n    \n\u003c\/h2\u003e\n\u003cp\u003eConsider the following \u003ccode\u003ePython\u003c\/code\u003e code, where we aim to automatically modify the corresponding field values based on the input string:\u003c\/p\u003e",
     "inLanguage": "en",
     "url" : "https://www.ykiko.me/en/articles/670190357/",
     "author" : {
@@ -741,7 +744,7 @@
     <img
       id="background-image"
       src="/en/articles/670190357/featured_hu12375743118955563405.png"
-      alt="Why Do C/C&#43;&#43; Compilers Not Retain Metadata?"
+      role="presentation"
       loading="eager"
       decoding="async"
       fetchpriority="high"
@@ -756,7 +759,7 @@
   
     <div
       id="background-blur"
-      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
     
     
     <script
@@ -1328,7 +1331,7 @@
     
 </h2>
 <p>Consider the following <code>Python</code> code, where we aim to automatically modify the corresponding field values based on the input string:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
 </span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
@@ -1336,10 +1339,10 @@
 </span></span><span class="line"><span class="cl"><span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s2">&#34;xiaohong&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="nb">setattr</span><span class="p">(</span><span class="n">person</span><span class="p">,</span> <span class="s2">&#34;age&#34;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="nb">setattr</span><span class="p">(</span><span class="n">person</span><span class="p">,</span> <span class="s2">&#34;name&#34;</span><span class="p">,</span> <span class="s2">&#34;xiaoming&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;name: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">, age: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">age</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="c1"># =&gt; name: xiaoming, age: 12</span>
-</span></span></code></pre></div><p><code>setattr</code> is a built-in function in <code>Python</code> that perfectly meets our needs. It modifies the corresponding value based on the input field name.</p>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;name: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">, age: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">age</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="c1"># =&gt; name: xiaoming, age: 12</span></span></span></code></pre></div></div>
+<p><code>setattr</code> is a built-in function in <code>Python</code> that perfectly meets our needs. It modifies the corresponding value based on the input field name.</p>
 <p>How can we achieve this in <code>C++</code>? <code>C++</code> does not have a built-in <code>setattr</code> function. Here is a code example (for now, let&rsquo;s consider only types that can be directly <code>memcpy</code>ed, i.e., <code>trivially copyable</code> types):</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Person</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Person</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">name</span><span class="p">;</span>
@@ -1371,8 +1374,8 @@
 </span></span><span class="line"><span class="cl">    <span class="n">setattr</span><span class="p">(</span><span class="o">&amp;</span><span class="n">person</span><span class="p">,</span> <span class="s">&#34;name&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">name</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">person</span><span class="p">.</span><span class="n">age</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">person</span><span class="p">.</span><span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// =&gt; 10 xiaohong
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>We have essentially implemented the <code>setattr</code> function ourselves, and this implementation seems to be generic. As long as we provide the <code>fieldInfo</code> for a specific type, it will work. The <code>fieldInfo</code> contains the field name, field offset, and field type size. This can be considered <strong>metadata</strong>. Additionally, metadata might include variable names, function names, etc. <strong>These pieces of information do not directly participate in the program&rsquo;s execution but provide additional information about the program&rsquo;s structure, data, types, etc.</strong> The content of metadata seems to be fixed and known to us since it exists in the program&rsquo;s source code. Does the <code>C/C++</code> compiler provide this functionality? The answer is: For programs in <code>debug</code> mode, some metadata might be retained for debugging purposes, but in <code>release</code> mode, nothing is retained. The benefit of this is obvious: since this information is not necessary for the program to run, not retaining it can significantly reduce the size of the binary executable.</p>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>We have essentially implemented the <code>setattr</code> function ourselves, and this implementation seems to be generic. As long as we provide the <code>fieldInfo</code> for a specific type, it will work. The <code>fieldInfo</code> contains the field name, field offset, and field type size. This can be considered <strong>metadata</strong>. Additionally, metadata might include variable names, function names, etc. <strong>These pieces of information do not directly participate in the program&rsquo;s execution but provide additional information about the program&rsquo;s structure, data, types, etc.</strong> The content of metadata seems to be fixed and known to us since it exists in the program&rsquo;s source code. Does the <code>C/C++</code> compiler provide this functionality? The answer is: For programs in <code>debug</code> mode, some metadata might be retained for debugging purposes, but in <code>release</code> mode, nothing is retained. The benefit of this is obvious: since this information is not necessary for the program to run, not retaining it can significantly reduce the size of the binary executable.</p>
 
 <h2 class="relative group">Why is this Information Unnecessary, and When is it Needed?
     <div id="why-is-this-information-unnecessary-and-when-is-it-needed" class="anchor"></div>
@@ -1394,9 +1397,9 @@
     </span>
     
 </h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
-</span></span></code></pre></div><p>In fact, variable declarations do not have a direct binary representation. They merely inform the compiler to allocate a block of memory to store the variable named <code>value</code>. The size of the allocated memory is determined by its type. Therefore, if the type size is unknown at the time of variable declaration, a compilation error will occur.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">A</span><span class="p">;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">value</span><span class="p">;</span></span></span></code></pre></div></div>
+<p>In fact, variable declarations do not have a direct binary representation. They merely inform the compiler to allocate a block of memory to store the variable named <code>value</code>. The size of the allocated memory is determined by its type. Therefore, if the type size is unknown at the time of variable declaration, a compilation error will occur.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">A</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="n">x</span><span class="p">;</span> <span class="c1">// error: storage size of &#39;x&#39; isn&#39;t known
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">A</span><span class="o">*</span> <span class="n">y</span><span class="p">;</span> <span class="c1">// ok the size of pointer is always known 
@@ -1413,7 +1416,8 @@
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">val</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span> <span class="c1">// ok
-</span></span></span></code></pre></div><p>You might think this is somewhat similar to <code>malloc</code>, and indeed it is. The difference is that <code>malloc</code> allocates memory on the heap at runtime, whereas direct variable declarations typically allocate memory in the data segment or on the stack. The compiler might internally maintain a symbol table that maps variable names to their addresses. When you later operate on this variable, you are actually operating on this memory region.</p>
+</span></span></span></code></pre></div></div>
+<p>You might think this is somewhat similar to <code>malloc</code>, and indeed it is. The difference is that <code>malloc</code> allocates memory on the heap at runtime, whereas direct variable declarations typically allocate memory in the data segment or on the stack. The compiler might internally maintain a symbol table that maps variable names to their addresses. When you later operate on this variable, you are actually operating on this memory region.</p>
 
 <h3 class="relative group">Built-in Operators
     <div id="built-in-operators" class="anchor"></div>
@@ -1425,7 +1429,7 @@
     
 </h3>
 <p>Built-in operators in <code>C</code> generally correspond directly to <code>CPU</code> instructions. As for how the <code>CPU</code> implements these operations, you can learn about digital electronics. Taking <code>x86_64</code> as an example, the possible correspondences are as follows:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="o">|</span> <span class="n">Operator</span> <span class="o">|</span> <span class="n">Meaning</span> <span class="o">|</span> <span class="n">Operator</span> <span class="o">|</span> <span class="n">Meaning</span> <span class="o">|</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="o">|</span> <span class="n">Operator</span> <span class="o">|</span> <span class="n">Meaning</span> <span class="o">|</span> <span class="n">Operator</span> <span class="o">|</span> <span class="n">Meaning</span> <span class="o">|</span>
 </span></span><span class="line"><span class="cl"><span class="o">|----------|---------|----------|---------|</span>
 </span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">+</span>        <span class="o">|</span> <span class="n">add</span>     <span class="o">|</span> <span class="o">*</span>        <span class="o">|</span> <span class="n">mul</span>     <span class="o">|</span>
 </span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">-</span>        <span class="o">|</span> <span class="n">sub</span>     <span class="o">|</span> <span class="o">/</span>        <span class="o">|</span> <span class="n">div</span>     <span class="o">|</span>
@@ -1437,10 +1441,11 @@
 </span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">==</span>       <span class="o">|</span> <span class="n">cmp</span>     <span class="o">|</span> <span class="o">!=</span>       <span class="o">|</span> <span class="n">cmp</span>     <span class="o">|</span>
 </span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">&gt;</span>        <span class="o">|</span> <span class="n">cmp</span>     <span class="o">|</span> <span class="o">&gt;=</span>       <span class="o">|</span> <span class="n">cmp</span>     <span class="o">|</span>
 </span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">&lt;</span>        <span class="o">|</span> <span class="n">cmp</span>     <span class="o">|</span> <span class="o">&lt;=</span>       <span class="o">|</span> <span class="n">cmp</span>     <span class="o">|</span>
-</span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">++</span>       <span class="o">|</span> <span class="n">inc</span>     <span class="o">|</span> <span class="o">--</span>       <span class="o">|</span> <span class="n">dec</span>     <span class="o">|</span>
-</span></span></code></pre></div><p>Assignment is likely accomplished through the <code>mov</code> instruction, for example:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// mov [addressof(a)] 3
-</span></span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">++</span>       <span class="o">|</span> <span class="n">inc</span>     <span class="o">|</span> <span class="o">--</span>       <span class="o">|</span> <span class="n">dec</span>     <span class="o">|</span></span></span></code></pre></div></div>
+<p>Assignment is likely accomplished through the <code>mov</code> instruction, for example:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// mov [addressof(a)] 3
+</span></span></span></code></pre></div></div>
+
 <h3 class="relative group">Structures
     <div id="structures" class="anchor"></div>
     
@@ -1450,7 +1455,7 @@
     </span>
     
 </h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">Point</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">Point</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">y</span><span class="p">;</span>
@@ -1461,19 +1466,16 @@
 </span></span><span class="line"><span class="cl">    <span class="n">Point</span> <span class="n">point</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">point</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">point</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>The size of a structure can generally be calculated from its members, often considering memory alignment, and is determined by the compiler. For example, <a
-  href="https://learn.microsoft.com/en-us/cpp/c-language/storage-and-alignment-of-structures?view=msvc-170"
-    target="_blank"
-  >msvc</a>. But in any case, the size of the structure is known at compile time, and we can also obtain the size of a type or variable through <code>sizeof</code>. Therefore, the <code>Point point</code> variable definition here is straightforward: the type size is known, and memory is allocated on the stack.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>The size of a structure can generally be calculated from its members, often considering memory alignment, and is determined by the compiler. For example, <a href="https://learn.microsoft.com/en-us/cpp/c-language/storage-and-alignment-of-structures?view=msvc-170"  target="_blank">msvc</a>. But in any case, the size of the structure is known at compile time, and we can also obtain the size of a type or variable through <code>sizeof</code>. Therefore, the <code>Point point</code> variable definition here is straightforward: the type size is known, and memory is allocated on the stack.</p>
 <p>Now, let&rsquo;s focus on structure member access. In fact, <code>C</code> has a macro that can obtain the offset of a structure member relative to the structure&rsquo;s starting address, called <code>offsetof</code> (even if we can&rsquo;t obtain it, the compiler internally calculates the field offsets, so the offset information is always known to the compiler). For example, here <code>offsetof(Point, x)</code> is <code>0</code>, and <code>offsetof(Point, y)</code> is <code>4</code>. Therefore, the above code can be understood as:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">point</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Point</span><span class="p">)];</span> <span class="c1">// 8 = sizeof(Point)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)(</span><span class="n">point</span> <span class="o">+</span> <span class="nf">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// point.x = 1
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)(</span><span class="n">point</span> <span class="o">+</span> <span class="nf">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// point.y = 2
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>The compiler might also maintain a symbol table for field names to offsets, and field names will eventually be replaced by <code>offset</code>. There is no need to retain them in the program.</p>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>The compiler might also maintain a symbol table for field names to offsets, and field names will eventually be replaced by <code>offset</code>. There is no need to retain them in the program.</p>
 
 <h3 class="relative group">Function Calls
     <div id="function-calls" class="anchor"></div>
@@ -1519,9 +1521,9 @@
     
 </h2>
 <p><code>AST</code> stands for Abstract Syntax Tree. It is a data structure used in programming language processing to represent the abstract syntax structure of source code. The <code>AST</code> is the result of source code being processed by a parser, capturing the syntactic structure of the code but not all details, such as whitespace or comments. In the <code>AST</code>, each node represents a syntactic structure in the source code, such as variable declarations, function calls, loops, etc. These nodes are connected through parent-child and sibling relationships, forming a tree structure that is easier for computer programs to understand and process. If you have the <code>clang</code> compiler installed on your computer, you can use the following command to view the syntax tree of a source file:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">clang -Xclang -ast-dump -fsyntax-only &lt;your.cpp&gt;
-</span></span></code></pre></div><p>The output is as follows, with important information filtered out and irrelevant parts deleted:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="o">|-</span><span class="n">CXXRecordDecl</span> <span class="mh">0x2103cd9c318</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">8</span><span class="o">&gt;</span> <span class="nl">col</span><span class="p">:</span><span class="mi">8</span> <span class="n">implicit</span> <span class="k">struct</span> <span class="nc">Point</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">clang -Xclang -ast-dump -fsyntax-only &lt;your.cpp&gt;</span></span></code></pre></div></div>
+<p>The output is as follows, with important information filtered out and irrelevant parts deleted:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="o">|-</span><span class="n">CXXRecordDecl</span> <span class="mh">0x2103cd9c318</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">8</span><span class="o">&gt;</span> <span class="nl">col</span><span class="p">:</span><span class="mi">8</span> <span class="n">implicit</span> <span class="k">struct</span> <span class="nc">Point</span>
 </span></span><span class="line"><span class="cl"><span class="o">|-</span><span class="n">FieldDecl</span> <span class="mh">0x2103cd9c3c0</span> <span class="o">&lt;</span><span class="nl">line</span><span class="p">:</span><span class="mi">4</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">9</span><span class="o">&gt;</span> <span class="nl">col</span><span class="p">:</span><span class="mi">9</span> <span class="n">referenced</span> <span class="n">x</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="o">|-</span><span class="n">FieldDecl</span> <span class="mh">0x2103e8661f0</span> <span class="o">&lt;</span><span class="nl">line</span><span class="p">:</span><span class="mi">5</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">9</span><span class="o">&gt;</span> <span class="nl">col</span><span class="p">:</span><span class="mi">9</span> <span class="n">referenced</span> <span class="n">y</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="err">`</span><span class="o">-</span><span class="n">FunctionDecl</span> <span class="mh">0x2103e8662b0</span> <span class="o">&lt;</span><span class="nl">line</span><span class="p">:</span><span class="mi">8</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nl">line</span><span class="p">:</span><span class="mi">13</span><span class="o">:</span><span class="mi">1</span><span class="o">&gt;</span> <span class="nl">line</span><span class="p">:</span><span class="mi">8</span><span class="o">:</span><span class="mi">5</span> <span class="n">main</span> <span class="err">&#39;</span><span class="kt">int</span> <span class="p">()</span><span class="err">&#39;</span>
@@ -1536,11 +1538,8 @@
 </span></span><span class="line"><span class="cl">    <span class="err">`</span><span class="o">-</span><span class="n">BinaryOperator</span> <span class="mh">0x2103e866c48</span> <span class="o">&lt;</span><span class="nl">line</span><span class="p">:</span><span class="mi">12</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">15</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="n">lvalue</span> <span class="sc">&#39;=&#39;</span>
 </span></span><span class="line"><span class="cl">      <span class="o">|-</span><span class="n">MemberExpr</span> <span class="mh">0x2103e866bf8</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">11</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="n">lvalue</span> <span class="p">.</span><span class="n">y</span> <span class="mh">0x2103e8661f0</span>
 </span></span><span class="line"><span class="cl">      <span class="o">|</span> <span class="err">`</span><span class="o">-</span><span class="n">DeclRefExpr</span> <span class="mh">0x2103e866bd8</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">5</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="n">Point</span><span class="sc">&#39;:&#39;</span><span class="n">Point</span><span class="err">&#39;</span> <span class="n">lvalue</span> <span class="n">Var</span> <span class="mh">0x2103e866410</span> <span class="err">&#39;</span><span class="n">point</span><span class="sc">&#39; &#39;</span><span class="n">Point</span><span class="sc">&#39;:&#39;</span><span class="n">Point</span><span class="err">&#39;</span>
-</span></span><span class="line"><span class="cl">      <span class="err">`</span><span class="o">-</span><span class="n">IntegerLiteral</span> <span class="mh">0x2103e866c28</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">15</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="mi">2</span>
-</span></span></code></pre></div><p>Alternatively, if you have the <code>clangd</code> plugin installed in <code>vscode</code>, you can right-click on a block of code and select <code>show AST</code> to view the <code>ast</code> of that code snippet. You can see that the source code content is indeed presented to us in a tree structure. Since it is a tree, we can freely traverse the tree nodes and filter to obtain the information we want. The above two examples are visual outputs. Typically, there are also direct code interfaces to obtain this information. For example, <code>Python</code> has a built-in <code>ast</code> module to obtain it, and <code>C++</code> generally uses <code>clang</code>-related tools to obtain this content. If you want to know how to use <code>clang</code> tools specifically, you can refer to the article: <a
-  href="https://www.ykiko.me/zh-cn/articles/669360731"
-    target="_blank"
-  >Use clang tools to freely control C++ code!</a></p>
+</span></span><span class="line"><span class="cl">      <span class="err">`</span><span class="o">-</span><span class="n">IntegerLiteral</span> <span class="mh">0x2103e866c28</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">15</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="mi">2</span></span></span></code></pre></div></div>
+<p>Alternatively, if you have the <code>clangd</code> plugin installed in <code>vscode</code>, you can right-click on a block of code and select <code>show AST</code> to view the <code>ast</code> of that code snippet. You can see that the source code content is indeed presented to us in a tree structure. Since it is a tree, we can freely traverse the tree nodes and filter to obtain the information we want. The above two examples are visual outputs. Typically, there are also direct code interfaces to obtain this information. For example, <code>Python</code> has a built-in <code>ast</code> module to obtain it, and <code>C++</code> generally uses <code>clang</code>-related tools to obtain this content. If you want to know how to use <code>clang</code> tools specifically, you can refer to the article: <a href="https://www.ykiko.me/zh-cn/articles/669360731"  target="_blank">Use clang tools to freely control C++ code!</a></p>
 <p>If you are curious about how the compiler transforms source code into an <code>ast</code>, you can learn about the front-end content of compilation principles.</p>
 
 <h2 class="relative group">How to Store This Information?
@@ -1554,7 +1553,7 @@
 </h2>
 <p>This question might sound confusing, but in fact, it is a question that only <code>C++</code> programmers need to consider.</p>
 <p>Actually, everything is caused by <code>constexpr</code>. Storing information like this:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">FieldInfo</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">FieldInfo</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">name</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">offset</span><span class="p">;</span>
@@ -1571,18 +1570,18 @@
 </span></span><span class="line"><span class="cl"><span class="p">{{</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s">&#34;x&#34;</span><span class="p">,</span> <span class="n">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)},</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s">&#34;y&#34;</span><span class="p">,</span> <span class="n">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)},</span>
-</span></span><span class="line"><span class="cl"><span class="p">}};</span>
-</span></span></code></pre></div><p>Means that we can not only query this information at runtime but also at compile time.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}};</span></span></span></code></pre></div></div>
+<p>Means that we can not only query this information at runtime but also at compile time.</p>
 <p>Furthermore, it can be stored in template parameters, so that even types can be stored:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="n">fixed_string</span> <span class="n">name</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">offset</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Type</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="n">fixed_string</span> <span class="n">name</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">offset</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Type</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Field</span><span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">FieldInfos</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">tuple</span>
 </span></span><span class="line"><span class="cl"><span class="o">&lt;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Field</span><span class="o">&lt;</span><span class="s">&#34;x&#34;</span><span class="p">,</span> <span class="n">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Field</span><span class="o">&lt;</span><span class="s">&#34;y&#34;</span><span class="p">,</span> <span class="n">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="kt">int</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="p">;</span>
-</span></span></code></pre></div><p>This undoubtedly gives us more room for operation. So, what should we do next with this information? In fact, we can choose to generate code based on this information. For related content, you can browse other sections in the series of articles.</p>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="p">;</span></span></span></code></pre></div></div>
+<p>This undoubtedly gives us more room for operation. So, what should we do next with this information? In fact, we can choose to generate code based on this information. For related content, you can browse other sections in the series of articles.</p>
 
           
           

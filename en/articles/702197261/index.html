@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.d73bd5624a883943ee708df101144407dd1c0d07937ac38a3fb7923631f3462db466c14c537ecc819f12c038e21ed2e83f1524eb126bc4e8f59f21a0e357738c.css"
-    integrity="sha512-1zvVYkqIOUPucI3xARREB90cDQeTesOKP7eSNjHzRi20ZsFMU37MgZ8SwDjiHtLoPxUk6xJrxOj1nyGg41dzjA==">
+    href="/css/main.bundle.min.9e8f7139c652e8a74a176ca1ebfd53ed3d4a6287070b98560332ae377ace684485cf68f3bdec2d950e9a9d74c13deaa568a8f1aba92143ab4aabd039e71fe576.css"
+    integrity="sha512-no9xOcZS6KdKF2yh6/1T7T1KYocHC5hWAzKuN3rOaESFz2jzvewtlQ6anXTBPeqlaKjxq6khQ6tKq9A55x/ldg==">
 
   
   
@@ -161,13 +161,14 @@
   
   
   
+  
     
     <script
       defer
       type="text/javascript"
       id="script-bundle"
-      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
-      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      src="/js/main.bundle.min.aee4e707e28a3bd3629b3d56fc8989adf1c11e60ba52e5c99085898be50963025e6b3c8a90f2ff6ac2fe5225da74015b85ec8e0e52510b07cc8e82b7f08997cb.js"
+      integrity="sha512-ruTnB&#43;KKO9Nimz1W/ImJrfHBHmC6UuXJkIWJi&#43;UJYwJeazyKkPL/asL&#43;UiXadAFbheyODlJRCwfMjoK38ImXyw=="
       data-copy="Copy"
       data-copied="Copied"></script>
   
@@ -216,6 +217,9 @@
 
 
 
+
+
+
   
   
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -233,7 +237,6 @@
     "name": "The Perfect Integration of Python and C\u002b\u002b: Object Design in pybind11",
     "headline": "The Perfect Integration of Python and C\u002b\u002b: Object Design in pybind11",
     
-    "abstract": "\u003cp\u003eI participated in \u003ca\n  href=\u0022https:\/\/summerofcode.withgoogle.com\/programs\/2024\/projects\/Ji2Mi97o\u0022\n    target=\u0022_blank\u0022\n  \u003eGoogle Summer of Code 2024\u003c\/a\u003e, where my main task was to implement a \u003ca\n  href=\u0022https:\/\/github.com\/pybind\/pybind11\u0022\n    target=\u0022_blank\u0022\n  \u003epybind11\u003c\/a\u003e compatibility interface for a \u003ca\n  href=\u0022https:\/\/pocketpy.dev\/\u0022\n    target=\u0022_blank\u0022\n  \u003ePython interpreter\u003c\/a\u003e. While it\u0026rsquo;s called implementing a compatibility interface, it essentially amounts to rewriting pybind11, so I\u0026rsquo;ve been diving deep into its source code recently.\u003c\/p\u003e",
     "inLanguage": "en",
     "url" : "https://www.ykiko.me/en/articles/702197261/",
     "author" : {
@@ -736,7 +739,7 @@
     <img
       id="background-image"
       src="/en/articles/702197261/featured_hu4370102388688331790.png"
-      alt="The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11"
+      role="presentation"
       loading="eager"
       decoding="async"
       fetchpriority="high"
@@ -751,7 +754,7 @@
   
     <div
       id="background-blur"
-      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
     
     
     <script
@@ -1225,20 +1228,9 @@
         
 
         <div class="article-content max-w-prose mb-20">
-          <p>I participated in <a
-  href="https://summerofcode.withgoogle.com/programs/2024/projects/Ji2Mi97o"
-    target="_blank"
-  >Google Summer of Code 2024</a>, where my main task was to implement a <a
-  href="https://github.com/pybind/pybind11"
-    target="_blank"
-  >pybind11</a> compatibility interface for a <a
-  href="https://pocketpy.dev/"
-    target="_blank"
-  >Python interpreter</a>. While it&rsquo;s called implementing a compatibility interface, it essentially amounts to rewriting pybind11, so I&rsquo;ve been diving deep into its source code recently.</p>
-<blockquote>
-<p>For readers who might not be familiar with pybind11, it is essentially a middleware that facilitates seamless interaction between Python and C++ code. For instance, embedding a Python interpreter within C++ or compiling C++ code into a dynamic library for Python to call. For more details, please refer to the official documentation.</p>
-</blockquote>
-<p>I&rsquo;ve recently managed to grasp the overall operational logic of the framework. Looking back, pybind11 truly lives up to its reputation as the de facto standard for binding C++ and Python, with many ingenious designs. Its interaction logic can also be applied to interactions between C++ and other GC languages, such as JS and C# (though there are no equivalents like jsbind11 or csharpbind11 yet). I might write a series of articles on this topic, stripping away some of the intricate details to introduce some of the shared concepts.</p>
+          <p>I participated in <a href="https://summerofcode.withgoogle.com/programs/2024/projects/Ji2Mi97o"  target="_blank">Google Summer of Code 2024</a>, where my main task was to implement a <a href="https://github.com/pybind/pybind11"  target="_blank">pybind11</a> compatibility interface for a <a href="https://pocketpy.dev/"  target="_blank">Python interpreter</a>. While it&rsquo;s called implementing a compatibility interface, it essentially amounts to rewriting pybind11, so I&rsquo;ve been diving deep into its source code recently.</p>
+<blockquote ><p>For readers who might not be familiar with pybind11, it is essentially a middleware that facilitates seamless interaction between Python and C++ code. For instance, embedding a Python interpreter within C++ or compiling C++ code into a dynamic library for Python to call. For more details, please refer to the official documentation.</p>
+</blockquote><p>I&rsquo;ve recently managed to grasp the overall operational logic of the framework. Looking back, pybind11 truly lives up to its reputation as the de facto standard for binding C++ and Python, with many ingenious designs. Its interaction logic can also be applied to interactions between C++ and other GC languages, such as JS and C# (though there are no equivalents like jsbind11 or csharpbind11 yet). I might write a series of articles on this topic, stripping away some of the intricate details to introduce some of the shared concepts.</p>
 <p>This article mainly discusses some interesting points about object design in pybind11.</p>
 
 <h2 class="relative group">PyObject
@@ -1252,15 +1244,15 @@
 </h2>
 <p>We all know that in Python, everything is an object, all instances of <code>object</code>. However, pybind11 actually needs to interact with specific implementations of Python like CPython. So, how is &ldquo;everything is an object&rdquo; reflected in CPython? The answer is <code>PyObject*</code>. Let&rsquo;s &ldquo;see&rdquo; Python and understand how actual Python code operates within CPython.</p>
 <p>Creating an object essentially means creating a <code>PyObject*</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-</span></span></code></pre></div><p>CPython has specific APIs to create objects of built-in types. The above statement would roughly translate to:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">PyObject</span><span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="nf">PyList_New</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span></span></span></code></pre></div></div>
+<p>CPython has specific APIs to create objects of built-in types. The above statement would roughly translate to:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">PyObject</span><span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="nf">PyList_New</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="nf">PyList_SetItem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nf">PyLong_FromLong</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl"><span class="nf">PyList_SetItem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nf">PyLong_FromLong</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span> 
-</span></span><span class="line"><span class="cl"><span class="nf">PyList_SetItem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="nf">PyLong_FromLong</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span>
-</span></span></code></pre></div><p>Thus, the role of <code>is</code> becomes clear—it checks whether the values of two pointers are the same. The reason for the default shallow copy is that the default assignment is merely a pointer assignment, not involving the elements it points to.</p>
+</span></span><span class="line"><span class="cl"><span class="nf">PyList_SetItem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="nf">PyLong_FromLong</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span></span></span></code></pre></div></div>
+<p>Thus, the role of <code>is</code> becomes clear—it checks whether the values of two pointers are the same. The reason for the default shallow copy is that the default assignment is merely a pointer assignment, not involving the elements it points to.</p>
 <p>CPython also provides a series of APIs to manipulate the objects pointed to by <code>PyObject*</code>, such as:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">PyObject</span><span class="o">*</span> <span class="nf">PyObject_CallObject</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">callable_object</span><span class="p">,</span> <span class="n">PyObject</span> <span class="o">*</span><span class="n">args</span><span class="p">);</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">PyObject</span><span class="o">*</span> <span class="nf">PyObject_CallObject</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">callable_object</span><span class="p">,</span> <span class="n">PyObject</span> <span class="o">*</span><span class="n">args</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">PyObject</span><span class="o">*</span> <span class="nf">PyObject_CallFunction</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">callable_object</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">format</span><span class="p">,</span> <span class="p">...);</span>
 </span></span><span class="line"><span class="cl"><span class="n">PyObject</span><span class="o">*</span> <span class="nf">PyObject_CallMethod</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">o</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">method</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">format</span><span class="p">,</span> <span class="p">...);</span>
 </span></span><span class="line"><span class="cl"><span class="n">PyObject</span><span class="o">*</span> <span class="nf">PyObject_CallFunctionObjArgs</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">callable</span><span class="p">,</span> <span class="p">...);</span>
@@ -1273,8 +1265,8 @@
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">PyObject_HasAttr</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">o</span><span class="p">,</span> <span class="n">PyObject</span> <span class="o">*</span><span class="n">attr_name</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">PyObject</span><span class="o">*</span> <span class="nf">PyObject_GetItem</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">o</span><span class="p">,</span> <span class="n">PyObject</span> <span class="o">*</span><span class="n">key</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">PyObject_SetItem</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">o</span><span class="p">,</span> <span class="n">PyObject</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">PyObject</span> <span class="o">*</span><span class="n">v</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">PyObject_DelItem</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">o</span><span class="p">,</span> <span class="n">PyObject</span> <span class="o">*</span><span class="n">key</span><span class="p">);</span>
-</span></span></code></pre></div><p>These functions generally have direct counterparts in Python, and their purposes are evident from their names.</p>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">PyObject_DelItem</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">o</span><span class="p">,</span> <span class="n">PyObject</span> <span class="o">*</span><span class="n">key</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>These functions generally have direct counterparts in Python, and their purposes are evident from their names.</p>
 
 <h2 class="relative group">handle
     <div id="handle" class="anchor"></div>
@@ -1287,7 +1279,7 @@
 </h2>
 <p>Since pybind11 needs to support manipulating Python objects in C++, its primary task is to encapsulate these C-style APIs. This is specifically achieved by the <code>handle</code> type. <code>handle</code> is a simple wrapper around <code>PyObject*</code> and encapsulates some member functions, such as:</p>
 <p>Roughly like this:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">handle</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">handle</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">PyObject</span><span class="o">*</span> <span class="n">m_ptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
@@ -1302,8 +1294,8 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
-</span></span></code></pre></div><p>Most functions are simply wrapped like above, but some functions are special.</p>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></div></div>
+<p>Most functions are simply wrapped like above, but some functions are special.</p>
 
 <h2 class="relative group">get/set
     <div id="getset" class="anchor"></div>
@@ -1315,16 +1307,18 @@
     
 </h2>
 <p>According to Bjarne Stroustrup, the father of C++, in &ldquo;The Design and Evolution of C++&rdquo;, part of the reason for introducing reference (lvalue) types was to allow users to assign to return values, making the overloading of operators like <code>[]</code> more natural. For example:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// get
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>     <span class="c1">// set
-</span></span></span></code></pre></div><p>Without references, one would have to return pointers, and the above code would have to be written as:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
+</span></span></span></code></pre></div></div>
+<p>Without references, one would have to return pointers, and the above code would have to be written as:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// get
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>     <span class="c1">// set
-</span></span></span></code></pre></div><p>In comparison, using references is much more aesthetically pleasing, isn&rsquo;t it? This issue exists in other programming languages as well, but not all languages adopt this solution. For example, Rust chooses automatic dereferencing, where the compiler automatically adds <code>*</code> to dereference at appropriate times, thus eliminating the need to write the extra <code>*</code>. However, neither of these methods works for Python because Python doesn&rsquo;t have the concept of dereferencing, nor does it distinguish between lvalues and rvalues. So, what&rsquo;s the solution? The answer is to distinguish between <code>getter</code> and <code>setter</code>.</p>
+</span></span></span></code></pre></div></div>
+<p>In comparison, using references is much more aesthetically pleasing, isn&rsquo;t it? This issue exists in other programming languages as well, but not all languages adopt this solution. For example, Rust chooses automatic dereferencing, where the compiler automatically adds <code>*</code> to dereference at appropriate times, thus eliminating the need to write the extra <code>*</code>. However, neither of these methods works for Python because Python doesn&rsquo;t have the concept of dereferencing, nor does it distinguish between lvalues and rvalues. So, what&rsquo;s the solution? The answer is to distinguish between <code>getter</code> and <code>setter</code>.</p>
 <p>For example, to overload <code>[]</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">List</span><span class="p">:</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">List</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;__getitem__&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">1</span>
@@ -1334,10 +1328,10 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="n">List</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># __getitem__</span>
-</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># __setitem__</span>
-</span></span></code></pre></div><p>Python checks the syntactic structure; if <code>[]</code> appears on the left side of <code>=</code>, it calls <code>__setitem__</code>; otherwise, it calls <code>__getitem__</code>. Actually, many languages adopt similar designs, such as C#&rsquo;s <code>this[]</code> operator overloading.</p>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># __setitem__</span></span></span></code></pre></div></div>
+<p>Python checks the syntactic structure; if <code>[]</code> appears on the left side of <code>=</code>, it calls <code>__setitem__</code>; otherwise, it calls <code>__getitem__</code>. Actually, many languages adopt similar designs, such as C#&rsquo;s <code>this[]</code> operator overloading.</p>
 <p>Even the <code>.</code> operator can be overloaded by overriding <code>__getattr__</code> and <code>__setattr__</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;__getattr__&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">1</span>
@@ -1347,18 +1341,18 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="c1"># __getattr__</span>
-</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># __setattr__</span>
-</span></span></code></pre></div><p>pybind11 aims for the handle to achieve similar effects, calling <code>__getitem__</code> and <code>__setitem__</code> at appropriate times. For example:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">py</span><span class="o">::</span><span class="n">handle</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">py</span><span class="o">::</span><span class="n">list</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># __setattr__</span></span></span></code></pre></div></div>
+<p>pybind11 aims for the handle to achieve similar effects, calling <code>__getitem__</code> and <code>__setitem__</code> at appropriate times. For example:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">py</span><span class="o">::</span><span class="n">handle</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">py</span><span class="o">::</span><span class="n">list</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="c1">// __setitem__
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// __getitem__
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">x</span> <span class="o">=</span> <span class="n">py</span><span class="o">::</span><span class="n">int_</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-</span></span></code></pre></div><p>The corresponding Python code is:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">obj</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">x</span> <span class="o">=</span> <span class="n">py</span><span class="o">::</span><span class="n">int_</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>The corresponding Python code is:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">obj</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="n">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
 </span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
-</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span></span></span></code></pre></div></div>
+
 <h2 class="relative group">accessor
     <div id="accessor" class="anchor"></div>
     
@@ -1369,7 +1363,7 @@
     
 </h2>
 <p>Next, let&rsquo;s focus on how to achieve this effect. First, consider the return value of <code>operator[]</code>. Since it might need to call <code>__setitem__</code>, we return a proxy object here. It stores the <code>key</code> for subsequent calls.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">accessor</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">accessor</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">handle</span> <span class="n">m_obj</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">ssize_t</span> <span class="n">m_key</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">handle</span> <span class="n">m_value</span><span class="p">;</span>
@@ -1377,13 +1371,14 @@
 </span></span><span class="line"><span class="cl">    <span class="n">accessor</span><span class="p">(</span><span class="n">handle</span> <span class="n">obj</span><span class="p">,</span> <span class="n">ssize_t</span> <span class="n">key</span><span class="p">)</span> <span class="o">:</span> <span class="n">m_obj</span><span class="p">(</span><span class="n">obj</span><span class="p">),</span> <span class="n">m_key</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">m_value</span> <span class="o">=</span> <span class="n">PyObject_GetItem</span><span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="n">ptr</span><span class="p">(),</span> <span class="n">key</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>The next question is how to distinguish between <code>obj[0] = 4</code> and <code>x = int_(1)</code>, so that the former calls <code>__setitem__</code> and the latter is a simple assignment to <code>x</code>. Notice the key difference between the two scenarios: lvalue and rvalue.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="c1">// assign to rvalue
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>The next question is how to distinguish between <code>obj[0] = 4</code> and <code>x = int_(1)</code>, so that the former calls <code>__setitem__</code> and the latter is a simple assignment to <code>x</code>. Notice the key difference between the two scenarios: lvalue and rvalue.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="c1">// assign to rvalue
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> 
 </span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// assign to lvalue
-</span></span></span></code></pre></div><p>How can <code>operator=</code> call different functions based on the value category of the operand? This requires a relatively rare trick. We all know that we can add a <code>const</code> qualifier to a member function to allow it to be called on const objects.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{</span>
+</span></span></span></code></pre></div></div>
+<p>How can <code>operator=</code> call different functions based on the value category of the operand? This requires a relatively rare trick. We all know that we can add a <code>const</code> qualifier to a member function to allow it to be called on const objects.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span> <span class="k">const</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
@@ -1392,9 +1387,9 @@
 </span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="n">A</span> <span class="n">a</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">a</span><span class="p">.</span><span class="n">foo</span><span class="p">();</span> <span class="c1">// error 
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">a</span><span class="p">.</span><span class="n">bar</span><span class="p">();</span> <span class="c1">// ok
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>In addition, we can also add reference qualifiers <code>&amp;</code> and <code>&amp;&amp;</code>, which require <code>expr.f()</code> to be an lvalue or rvalue, respectively. This allows us to call different functions based on whether the expression is an lvalue or rvalue.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>In addition, we can also add reference qualifiers <code>&amp;</code> and <code>&amp;&amp;</code>, which require <code>expr.f()</code> to be an lvalue or rvalue, respectively. This allows us to call different functions based on whether the expression is an lvalue or rvalue.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
@@ -1406,9 +1401,9 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="p">().</span><span class="n">bar</span><span class="p">();</span> <span class="c1">// ok
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">A</span><span class="p">().</span><span class="n">foo</span><span class="p">();</span> <span class="c1">// error
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>Using this feature, we can achieve the desired effect.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">accessor</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>Using this feature, we can achieve the desired effect.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">accessor</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">handle</span> <span class="n">m_obj</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">ssize_t</span> <span class="n">m_key</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">handle</span> <span class="n">m_value</span><span class="p">;</span>
@@ -1426,8 +1421,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">handle</span> <span class="n">value</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">m_value</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+
 <h2 class="relative group">lazy evaluation
     <div id="lazy-evaluation" class="anchor"></div>
     
@@ -1438,7 +1433,7 @@
     
 </h2>
 <p>Going further, we want this proxy object to behave just like a <code>handle</code>, able to use all methods of <code>handle</code>. This is simple; just inherit from <code>handle</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">accessor</span> <span class="o">:</span> <span class="k">public</span> <span class="n">handle</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">accessor</span> <span class="o">:</span> <span class="k">public</span> <span class="n">handle</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">handle</span> <span class="n">m_obj</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">ssize_t</span> <span class="n">m_key</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
@@ -1455,10 +1450,10 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">handle</span> <span class="n">value</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">m_ptr</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>At this point, it seems we&rsquo;re done. However, note that our <code>__getitem__</code> is called in the constructor, meaning that even if the fetched value isn&rsquo;t used later, it will still be called. There seems to be room for further optimization. Can we somehow lazy-evaluate this, only calling <code>__getitem__</code> when we need to call these functions within <code>handle</code>?</p>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>At this point, it seems we&rsquo;re done. However, note that our <code>__getitem__</code> is called in the constructor, meaning that even if the fetched value isn&rsquo;t used later, it will still be called. There seems to be room for further optimization. Can we somehow lazy-evaluate this, only calling <code>__getitem__</code> when we need to call these functions within <code>handle</code>?</p>
 <p>Currently, directly inheriting from <code>handle</code> certainly won&rsquo;t work. It&rsquo;s impossible to insert a check before every member function call to decide whether to call <code>__getitem__</code>. We can have both <code>handle</code> and <code>accessor</code> inherit from a base class, which has an interface to actually get the pointer to operate on.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">object_api</span><span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">object_api</span><span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">virtual</span> <span class="n">PyObject</span><span class="o">*</span> <span class="n">get</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -1467,9 +1462,9 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
-</span></span></code></pre></div><p>Then, both <code>handle</code> and <code>accessor</code> inherit from this base class. Now, <code>accessor</code> can perform lazy evaluation of <code>__getitem__</code> here.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">handle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">object_api</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></div></div>
+<p>Then, both <code>handle</code> and <code>accessor</code> inherit from this base class. Now, <code>accessor</code> can perform lazy evaluation of <code>__getitem__</code> here.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">handle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">object_api</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">PyObject</span><span class="o">*</span> <span class="nf">get</span><span class="p">()</span> <span class="k">override</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">m_ptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -1482,12 +1477,9 @@
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">m_ptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>This doesn&rsquo;t involve type erasure; it just requires subclasses to expose an interface. Naturally, we can use <a
-  href="https://en.cppreference.com/w/cpp/language/crtp"
-    target="_blank"
-  >CRTP</a> to devirtualize.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Derived</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>This doesn&rsquo;t involve type erasure; it just requires subclasses to expose an interface. Naturally, we can use <a href="https://en.cppreference.com/w/cpp/language/crtp"  target="_blank">CRTP</a> to devirtualize.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Derived</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">object_api</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">PyObject</span><span class="o">*</span> <span class="n">get</span><span class="p">()</span> <span class="p">{</span>
@@ -1514,8 +1506,8 @@
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">m_ptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>Thus, we&rsquo;ve lazy-evaluated the call to <code>__getitem__</code> without introducing additional runtime overhead.</p>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>Thus, we&rsquo;ve lazy-evaluated the call to <code>__getitem__</code> without introducing additional runtime overhead.</p>
 
 <h2 class="relative group">Conclusion
     <div id="conclusion" class="anchor"></div>

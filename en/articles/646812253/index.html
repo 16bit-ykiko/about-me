@@ -121,8 +121,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.d73bd5624a883943ee708df101144407dd1c0d07937ac38a3fb7923631f3462db466c14c537ecc819f12c038e21ed2e83f1524eb126bc4e8f59f21a0e357738c.css"
-    integrity="sha512-1zvVYkqIOUPucI3xARREB90cDQeTesOKP7eSNjHzRi20ZsFMU37MgZ8SwDjiHtLoPxUk6xJrxOj1nyGg41dzjA==">
+    href="/css/main.bundle.min.9e8f7139c652e8a74a176ca1ebfd53ed3d4a6287070b98560332ae377ace684485cf68f3bdec2d950e9a9d74c13deaa568a8f1aba92143ab4aabd039e71fe576.css"
+    integrity="sha512-no9xOcZS6KdKF2yh6/1T7T1KYocHC5hWAzKuN3rOaESFz2jzvewtlQ6anXTBPeqlaKjxq6khQ6tKq9A55x/ldg==">
 
   
   
@@ -162,13 +162,14 @@
   
   
   
+  
     
     <script
       defer
       type="text/javascript"
       id="script-bundle"
-      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
-      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      src="/js/main.bundle.min.aee4e707e28a3bd3629b3d56fc8989adf1c11e60ba52e5c99085898be50963025e6b3c8a90f2ff6ac2fe5225da74015b85ec8e0e52510b07cc8e82b7f08997cb.js"
+      integrity="sha512-ruTnB&#43;KKO9Nimz1W/ImJrfHBHmC6UuXJkIWJi&#43;UJYwJeazyKkPL/asL&#43;UiXadAFbheyODlJRCwfMjoK38ImXyw=="
       data-copy="Copy"
       data-copied="Copied"></script>
   
@@ -217,6 +218,9 @@
 
 
 
+
+
+
   
   
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -234,7 +238,6 @@
     "name": "C\u002b\u002b Forbidden Dark Magic: STMP (Part 2)",
     "headline": "C\u002b\u002b Forbidden Dark Magic: STMP (Part 2)",
     
-    "abstract": "\u003cp\u003eIn the previous \u003ca\n  href=\u0022https:\/\/www.ykiko.me\/zh-cn\/articles\/646752343\u0022\n    target=\u0022_blank\u0022\n  \u003earticle\u003c\/a\u003e, we gained a preliminary understanding of the principles of STMP and used it to implement a simple compile-time counter. However, its power extends far beyond that. This article will discuss some advanced applications based on STMP.\u003c\/p\u003e",
     "inLanguage": "en",
     "url" : "https://www.ykiko.me/en/articles/646812253/",
     "author" : {
@@ -737,7 +740,7 @@
     <img
       id="background-image"
       src="/en/articles/646812253/featured_hu13928384574616308479.png"
-      alt="C&#43;&#43; Forbidden Dark Magic: STMP (Part 2)"
+      role="presentation"
       loading="eager"
       decoding="async"
       fetchpriority="high"
@@ -752,7 +755,7 @@
   
     <div
       id="background-blur"
-      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
     
     
     <script
@@ -1277,10 +1280,7 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          <p>In the previous <a
-  href="https://www.ykiko.me/zh-cn/articles/646752343"
-    target="_blank"
-  >article</a>, we gained a preliminary understanding of the principles of STMP and used it to implement a simple compile-time counter. However, its power extends far beyond that. This article will discuss some advanced applications based on STMP.</p>
+          <p>In the previous <a href="https://www.ykiko.me/zh-cn/articles/646752343"  target="_blank">article</a>, we gained a preliminary understanding of the principles of STMP and used it to implement a simple compile-time counter. However, its power extends far beyond that. This article will discuss some advanced applications based on STMP.</p>
 
 <h2 class="relative group">type &lt;=&gt; value
     <div id="type--value" class="anchor"></div>
@@ -1310,7 +1310,7 @@
     
 </h3>
 <p>First, consider mapping types to values.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">identity</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">identity</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
@@ -1324,8 +1324,8 @@
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">consteval</span> <span class="n">meta_value</span> <span class="n">value_of</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">&amp;</span><span class="n">storage</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>By leveraging the fact that the addresses of static variables in different template instantiations are also different, we can easily map types to unique values (addresses).</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>By leveraging the fact that the addresses of static variables in different template instantiations are also different, we can easily map types to unique values (addresses).</p>
 
 <h3 class="relative group">value -&gt; type
     <div id="value---type" class="anchor"></div>
@@ -1337,7 +1337,7 @@
     
 </h3>
 <p>How do we map values back to types? Consider using straightforward template specialization.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">meta_value</span> <span class="n">value</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">meta_value</span> <span class="n">value</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_of</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;&gt;</span>
@@ -1346,8 +1346,9 @@
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// ...
-</span></span></span></code></pre></div><p>This works, but it requires us to specialize all the types we want to use in advance, which is impractical for most programs. Is there a way to add this specialization during evaluation? The answer is the friend injection technique we discussed in the previous article.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span></span></code></pre></div></div>
+<p>This works, but it requires us to specialize all the types we want to use in advance, which is impractical for most programs. Is there a way to add this specialization during evaluation? The answer is the friend injection technique we discussed in the previous article.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">self</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">T</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
@@ -1362,18 +1363,18 @@
 </span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">to_type</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">self</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">{};</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>Then, we just need to instantiate a <code>setter</code> while instantiating <code>value_of</code> to complete the registration.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>Then, we just need to instantiate a <code>setter</code> while instantiating <code>value_of</code> to complete the registration.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">consteval</span> <span class="n">meta_value</span> <span class="n">value_of</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">value</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">storage</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">setter</span><span class="o">&lt;</span><span class="n">value</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">setter</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">value</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>Finally, we can directly read the registration result through <code>reader</code> to implement <code>type_of</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">meta_value</span> <span class="n">value</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">type_of</span> <span class="o">=</span> <span class="k">typename</span> <span class="k">decltype</span><span class="p">(</span><span class="n">to_type</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span><span class="p">{}))</span><span class="o">::</span><span class="n">type</span><span class="p">;</span>
-</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Finally, we can directly read the registration result through <code>reader</code> to implement <code>type_of</code>.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="n">meta_value</span> <span class="n">value</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">type_of</span> <span class="o">=</span> <span class="k">typename</span> <span class="k">decltype</span><span class="p">(</span><span class="n">to_type</span><span class="p">(</span><span class="n">reader</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span><span class="p">{}))</span><span class="o">::</span><span class="n">type</span><span class="p">;</span></span></span></code></pre></div></div>
+
 <h3 class="relative group">sort types!
     <div id="sort-types" class="anchor"></div>
     
@@ -1384,7 +1385,7 @@
     
 </h3>
 <p>Without further ado, let&rsquo;s try using <code>std::sort</code> to sort a <code>type_list</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;array&gt;</span><span class="cp">
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;array&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
@@ -1410,27 +1411,16 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">result</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">array_to_list</span><span class="o">&lt;</span><span class="n">sorted_types</span><span class="o">&gt;::</span><span class="n">result</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p><code>type_list</code> is a simple type container, <code>array_to_list</code> is used to map the types in <code>std::array</code> back to <code>type_list</code>, and <code>sort_list</code> is the specific implementation of sorting. The process involves first mapping all types to a <code>std::array</code>, then sorting this array with <code>std::ranges::sort</code>, and finally mapping the sorted <code>std::array</code> back to <code>type_list</code>.</p>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p><code>type_list</code> is a simple type container, <code>array_to_list</code> is used to map the types in <code>std::array</code> back to <code>type_list</code>, and <code>sort_list</code> is the specific implementation of sorting. The process involves first mapping all types to a <code>std::array</code>, then sorting this array with <code>std::ranges::sort</code>, and finally mapping the sorted <code>std::array</code> back to <code>type_list</code>.</p>
 <p>Let&rsquo;s test it.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">list</span> <span class="o">=</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">list</span> <span class="o">=</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">sorted</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">sort_list</span><span class="o">&lt;</span><span class="n">list</span><span class="o">&gt;::</span><span class="n">result</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">expected</span> <span class="o">=</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">sorted</span><span class="p">,</span> <span class="n">expected</span><span class="o">&gt;</span><span class="p">);</span>
-</span></span></code></pre></div><p>All three major compilers pass with C++20! The code is available on <a
-  href="https://godbolt.org/z/4qW7MhfWP"
-    target="_blank"
-  >Compiler Explorer</a>, and to prevent link failure, it&rsquo;s also on <a
-  href="https://github.com/16bit-ykiko/about-me/blob/main/code/type-list-sort.cpp"
-    target="_blank"
-  >Github</a>.</p>
-<blockquote>
-<p>It&rsquo;s worth mentioning that this bidirectional mapping between types and values has become a built-in feature in Reflection for C++26. We no longer need to rely on friend injection tricks; we can directly use the <code>^</code> and <code>[: :]</code> operators to complete the mapping. For more details, see <a
-  href="https://www.ykiko.me/zh-cn/articles/661692275"
-    target="_blank"
-  >C++26 Static Reflection Proposal Analysis</a>.</p>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">sorted</span><span class="p">,</span> <span class="n">expected</span><span class="o">&gt;</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>All three major compilers pass with C++20! The code is available on <a href="https://godbolt.org/z/4qW7MhfWP"  target="_blank">Compiler Explorer</a>, and to prevent link failure, it&rsquo;s also on <a href="https://github.com/16bit-ykiko/about-me/blob/main/code/type-list-sort.cpp"  target="_blank">Github</a>.</p>
+<blockquote ><p>It&rsquo;s worth mentioning that this bidirectional mapping between types and values has become a built-in feature in Reflection for C++26. We no longer need to rely on friend injection tricks; we can directly use the <code>^</code> and <code>[: :]</code> operators to complete the mapping. For more details, see <a href="https://www.ykiko.me/zh-cn/articles/661692275"  target="_blank">C++26 Static Reflection Proposal Analysis</a>.</p>
 </blockquote>
-
 <h2 class="relative group">the true any
     <div id="the-true-any" class="anchor"></div>
     
@@ -1453,7 +1443,7 @@
     
 </h3>
 <p>First, consider how to register types.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">self</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">T</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
@@ -1494,8 +1484,8 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">N</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>We still use <code>setter</code> to register types. <code>lookup</code> is used to find the index of a type in the type set. The principle is to traverse the set and compare each one with <code>is_same_v</code>. If found, return the corresponding index. If not found by the end, register a new type. <code>count</code> is used to calculate the size of the type set.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>We still use <code>setter</code> to register types. <code>lookup</code> is used to find the index of a type in the type set. The principle is to traverse the set and compare each one with <code>is_same_v</code>. If found, return the corresponding index. If not found by the end, register a new type. <code>count</code> is used to calculate the size of the type set.</p>
 
 <h3 class="relative group">any type
     <div id="any-type" class="anchor"></div>
@@ -1507,7 +1497,7 @@
     
 </h3>
 <p>Next, we define a simple <code>any</code> type and a <code>make_any</code> function to construct <code>any</code> objects.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">any</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">any</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">destructor</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">index</span><span class="p">;</span>
@@ -1533,11 +1523,9 @@
 </span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Decay</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">destructor</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span> <span class="k">delete</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Decay</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">data</span><span class="p">);</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">any</span><span class="p">{</span><span class="n">data</span><span class="p">,</span> <span class="n">destructor</span><span class="p">,</span> <span class="n">index</span><span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><blockquote>
-<p>Why write a separate <code>make_any</code> instead of a template constructor? Because in my actual attempts, I found that the three major compilers have different and somewhat strange instantiation locations for template constructors, leading to different evaluation results. However, for ordinary template functions, the instantiation locations are the same, so I wrote it as a separate function.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<blockquote ><p>Why write a separate <code>make_any</code> instead of a template constructor? Because in my actual attempts, I found that the three major compilers have different and somewhat strange instantiation locations for template constructors, leading to different evaluation results. However, for ordinary template functions, the instantiation locations are the same, so I wrote it as a separate function.</p>
 </blockquote>
-
 <h3 class="relative group">visit it!
     <div id="visit-it" class="anchor"></div>
     
@@ -1548,7 +1536,7 @@
     
 </h3>
 <p>The highlight is here. We can implement a function similar to <code>std::visit</code> to access <code>any</code> objects. It accepts a callback function, then traverses the type set of the <code>any</code> object. If it finds the corresponding type, it converts <code>any</code> to that type and calls the callback function.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Callback</span><span class="p">,</span> <span class="k">auto</span> <span class="n">seed</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Callback</span><span class="p">,</span> <span class="k">auto</span> <span class="n">seed</span> <span class="o">=</span> <span class="p">[]</span> <span class="p">{}</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">void</span> <span class="n">visit</span><span class="p">(</span><span class="n">any</span><span class="o">&amp;</span> <span class="n">any</span><span class="p">,</span> <span class="n">Callback</span><span class="o">&amp;&amp;</span> <span class="n">callback</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="n">count</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="n">seed</span><span class="o">&gt;</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="o">&amp;</span><span class="p">]</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">...</span> <span class="n">Is</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">index_sequence</span><span class="o">&lt;</span><span class="n">Is</span><span class="p">...</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
@@ -1561,9 +1549,9 @@
 </span></span><span class="line"><span class="cl">        <span class="p">};</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="n">for_each</span><span class="p">.</span><span class="k">template</span> <span class="k">operator</span><span class="p">()</span><span class="o">&lt;</span><span class="n">Is</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">||</span> <span class="p">...);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}(</span><span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="n">n</span><span class="o">&gt;</span><span class="p">{});</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>Then let&rsquo;s try it out.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">String</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Then let&rsquo;s try it out.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">String</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">os</span><span class="p">,</span> <span class="k">const</span> <span class="n">String</span><span class="o">&amp;</span> <span class="n">string</span><span class="p">)</span> <span class="p">{</span>
@@ -1588,14 +1576,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// =&gt; Powerful Stateful Template Metaprogramming!!!
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>All three major compilers output the results as expected! The code is also available on <a
-  href="https://godbolt.org/z/aP3zs7479"
-    target="_blank"
-  >Compiler Explorer</a> and <a
-  href="https://github.com/16bit-ykiko/about-me/blob/main/code/the-true-any.cpp"
-    target="_blank"
-  >Github</a>.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>All three major compilers output the results as expected! The code is also available on <a href="https://godbolt.org/z/aP3zs7479"  target="_blank">Compiler Explorer</a> and <a href="https://github.com/16bit-ykiko/about-me/blob/main/code/the-true-any.cpp"  target="_blank">Github</a>.</p>
 
 <h2 class="relative group">conclusion
     <div id="conclusion" class="anchor"></div>

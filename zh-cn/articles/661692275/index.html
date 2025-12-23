@@ -125,8 +125,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.d73bd5624a883943ee708df101144407dd1c0d07937ac38a3fb7923631f3462db466c14c537ecc819f12c038e21ed2e83f1524eb126bc4e8f59f21a0e357738c.css"
-    integrity="sha512-1zvVYkqIOUPucI3xARREB90cDQeTesOKP7eSNjHzRi20ZsFMU37MgZ8SwDjiHtLoPxUk6xJrxOj1nyGg41dzjA==">
+    href="/css/main.bundle.min.9e8f7139c652e8a74a176ca1ebfd53ed3d4a6287070b98560332ae377ace684485cf68f3bdec2d950e9a9d74c13deaa568a8f1aba92143ab4aabd039e71fe576.css"
+    integrity="sha512-no9xOcZS6KdKF2yh6/1T7T1KYocHC5hWAzKuN3rOaESFz2jzvewtlQ6anXTBPeqlaKjxq6khQ6tKq9A55x/ldg==">
 
   
   
@@ -166,13 +166,14 @@
   
   
   
+  
     
     <script
       defer
       type="text/javascript"
       id="script-bundle"
-      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
-      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      src="/js/main.bundle.min.aee4e707e28a3bd3629b3d56fc8989adf1c11e60ba52e5c99085898be50963025e6b3c8a90f2ff6ac2fe5225da74015b85ec8e0e52510b07cc8e82b7f08997cb.js"
+      integrity="sha512-ruTnB&#43;KKO9Nimz1W/ImJrfHBHmC6UuXJkIWJi&#43;UJYwJeazyKkPL/asL&#43;UiXadAFbheyODlJRCwfMjoK38ImXyw=="
       data-copy="复制"
       data-copied="已复制"></script>
   
@@ -221,6 +222,9 @@
 
 
 
+
+
+
   
   
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -238,7 +242,6 @@
     "name": "C\u002b\u002b26 静态反射提案解析",
     "headline": "C\u002b\u002b26 静态反射提案解析",
     
-    "abstract": "\u003cp\u003e最近打算写一个系列文章详细讨论反射（reflection）这一概念，刚好 C\u002b\u002b26 有了新的反射提案，发现知乎上又没有相关的文章，而这个话题又经常被讨论。所以借此机会来聊一聊属于 C\u002b\u002b 的静态反射（static reflection），作为系列预热了。\u003c\/p\u003e",
     "inLanguage": "zh-cn",
     "url" : "https://www.ykiko.me/zh-cn/articles/661692275/",
     "author" : {
@@ -741,7 +744,7 @@
     <img
       id="background-image"
       src="/zh-cn/articles/661692275/featured_hu9568420036335256152.png"
-      alt="C&#43;&#43;26 静态反射提案解析"
+      role="presentation"
       loading="eager"
       decoding="async"
       fetchpriority="high"
@@ -756,7 +759,7 @@
   
     <div
       id="background-blur"
-      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
     
     
     <script
@@ -1366,7 +1369,7 @@
 <p>我们都知道随着 C++ 版本的不断更新，编译期计算的功能在不断的增强，通过<code>constexpr/consteval</code>函数我们能很大程度上直接复用运行期的代码，方便的进行编译期计算。完全取代了很久之前使用模板元进行编译期计算的方法。不仅写起来更加方便，编译速度也更快。</p>
 <p>观察下面几段编译期计算阶乘的代码：</p>
 <p>在 C++03/98 的时候，我们只能通过模板递归实例化来实现，而且无法将代码复用到运行期</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">factorial</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">enum</span> <span class="p">{</span> <span class="n">value</span> <span class="o">=</span> <span class="n">N</span> <span class="o">*</span> <span class="n">factorial</span><span class="o">&lt;</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="o">&gt;::</span><span class="n">value</span> <span class="p">};</span>
@@ -1376,9 +1379,9 @@
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">factorial</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">enum</span> <span class="p">{</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>C++11 中第一次引入了<code>constexpr</code>函数的概念，使得我们可以编写编译期和运行期复用的代码。但是限制很多，没有变量和循环，我们只能按照纯函数式的风格来编写代码</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>C++11 中第一次引入了<code>constexpr</code>函数的概念，使得我们可以编写编译期和运行期复用的代码。但是限制很多，没有变量和循环，我们只能按照纯函数式的风格来编写代码</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> 
 </span></span><span class="line"><span class="cl"><span class="p">{</span> 
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="n">n</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span> 
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -1390,9 +1393,9 @@
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">b</span> <span class="o">=</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">);</span> <span class="c1">// 运行期计算
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">b</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>随着 C++14/17 的到来，<code>constexpr</code>函数中的的限制被进一步放开，现在能在 constexpr 函数中使用局部变量和循环了，就像下面这样</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">factorial</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>随着 C++14/17 的到来，<code>constexpr</code>函数中的的限制被进一步放开，现在能在 constexpr 函数中使用局部变量和循环了，就像下面这样</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">factorial</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
@@ -1400,9 +1403,9 @@
 </span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">*=</span> <span class="n">i</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>C++20 之后，我们还可以在编译期使用<code>new/delete</code>，我们可以在编译期代码里面使用<code>vector</code>。很多运行期的代码可以直接在编译期复用，而不需要任何更改，只需要在函数前面加上一个 constexpr 标记，再也不用为了进行编译期计算而使用晦涩难懂的模板元编程了。但是，上面的示例仅仅适用于 value，在 C++ 里面除了 value 还有 type 和 higher kind type</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>C++20 之后，我们还可以在编译期使用<code>new/delete</code>，我们可以在编译期代码里面使用<code>vector</code>。很多运行期的代码可以直接在编译期复用，而不需要任何更改，只需要在函数前面加上一个 constexpr 标记，再也不用为了进行编译期计算而使用晦涩难懂的模板元编程了。但是，上面的示例仅仅适用于 value，在 C++ 里面除了 value 还有 type 和 higher kind type</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_list</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">U</span><span class="p">,</span> <span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
@@ -1417,12 +1420,9 @@
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">find_first_of</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
-</span></span></code></pre></div><p>由于 type 和 higher kind type 只能是 template arguments，所以还是只能通过<strong>模板递归匹配</strong>处理它们。要是我们能像 value 一样操作它们就好了，这样的话 constexpr 函数也能处理它们了。但是 C++ 又不是像 Zig 那样的语言，type is value。怎么办呢？没关系，我们把 type 映射到 value 不就行了？实现 type as value 的效果。在静态反射加入之前，我们可以通过一些 trick 来实现这个效果。可以在编译期把类型映射到类型名，于是只要对类型名进行计算就好了。关于如何进行这种映射，可以参考 <a
-  href="https://www.ykiko.me/zh-cn/articles/680412313"
-    target="_blank"
-  >C++ 中如何优雅进行 enum 到 string 的转换</a>。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">find_first_of</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>由于 type 和 higher kind type 只能是 template arguments，所以还是只能通过<strong>模板递归匹配</strong>处理它们。要是我们能像 value 一样操作它们就好了，这样的话 constexpr 函数也能处理它们了。但是 C++ 又不是像 Zig 那样的语言，type is value。怎么办呢？没关系，我们把 type 映射到 value 不就行了？实现 type as value 的效果。在静态反射加入之前，我们可以通过一些 trick 来实现这个效果。可以在编译期把类型映射到类型名，于是只要对类型名进行计算就好了。关于如何进行这种映射，可以参考 <a href="https://www.ykiko.me/zh-cn/articles/680412313"  target="_blank">C++ 中如何优雅进行 enum 到 string 的转换</a>。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_list</span><span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
@@ -1437,15 +1437,16 @@
 </span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>非常直观的代码，但是如果我们想把值映射回类型就比较困难了。不过没关系，在即将到来的 <strong>static reflection</strong> 中，这种类型和值的双向映射已经成为语言特性了，我们不再需要去手动处理了。</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>非常直观的代码，但是如果我们想把值映射回类型就比较困难了。不过没关系，在即将到来的 <strong>static reflection</strong> 中，这种类型和值的双向映射已经成为语言特性了，我们不再需要去手动处理了。</p>
 <p>使用<code>^</code>运算符将类型映射到值</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span><span class="o">::</span><span class="n">info</span> <span class="n">value</span> <span class="o">=</span> <span class="o">^</span><span class="kt">int</span><span class="p">;</span>
-</span></span></code></pre></div><p>使用<code>[: ... :]</code>将它映射回去，注意这是 symbol 级别的映射</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">Int</span> <span class="o">=</span> <span class="k">typename</span><span class="p">[</span><span class="o">:</span><span class="nl">value</span><span class="p">:];</span> <span class="c1">// 在此语境下，typename 可以省略
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span><span class="o">::</span><span class="n">info</span> <span class="n">value</span> <span class="o">=</span> <span class="o">^</span><span class="kt">int</span><span class="p">;</span></span></span></code></pre></div></div>
+<p>使用<code>[: ... :]</code>将它映射回去，注意这是 symbol 级别的映射</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">Int</span> <span class="o">=</span> <span class="k">typename</span><span class="p">[</span><span class="o">:</span><span class="nl">value</span><span class="p">:];</span> <span class="c1">// 在此语境下，typename 可以省略
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">typename</span><span class="p">[</span><span class="o">:</span><span class="nl">value</span><span class="p">:]</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// 相当于 int a = 3;
-</span></span></span></code></pre></div><p>现在我们就能写出下面这样的代码了。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
+</span></span></span></code></pre></div></div>
+<p>现在我们就能写出下面这样的代码了。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_list</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span> <span class="n">types</span> <span class="o">=</span> <span class="p">{</span><span class="o">^</span><span class="n">Ts</span><span class="p">...};</span>
@@ -1455,8 +1456,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">Second</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;::</span><span class="n">at</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">Second</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">);</span>
-</span></span></code></pre></div><p>再也不用递归匹配了，我们可以把类型像值一样计算。只要理解了这种映射关系，代码写起来非常简单。用于类型计算的模板元可以退出历史舞台了！</p>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">Second</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>再也不用递归匹配了，我们可以把类型像值一样计算。只要理解了这种映射关系，代码写起来非常简单。用于类型计算的模板元可以退出历史舞台了！</p>
 <p>其实<code>^</code>其实不仅能够映射类型，主要有下面这些功能:</p>
 <ul>
 <li><code>^::</code> —— 代表全局命名空间</li>
@@ -1482,13 +1483,14 @@
 <li><code>[:r:]::</code> —— 还原成对应的命名空间，类，枚举嵌套说明符</li>
 </ul>
 <p>看下面的使用示例</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">g</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="o">:^</span><span class="nl">x</span><span class="p">:]</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>     <span class="c1">// Okay.  Same as: x = 42;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>如果还原的东西和原本储存的不一样，则会编译错误</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typename</span><span class="p">[</span><span class="o">:</span> <span class="o">^::</span> <span class="o">:</span><span class="p">]</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// Error
-</span></span></span></code></pre></div>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>如果还原的东西和原本储存的不一样，则会编译错误</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typename</span><span class="p">[</span><span class="o">:</span> <span class="o">^::</span> <span class="o">:</span><span class="p">]</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// Error
+</span></span></span></code></pre></div></div>
+
 <h3 class="relative group">metainfo
     <div id="metainfo" class="anchor"></div>
     
@@ -1500,16 +1502,17 @@
 </h3>
 <p>光是上面一个特性，就足以让人心动了。然而远远不止如此，获取<code>class</code>等实体元信息的功能也有了。</p>
 <p>最基础的，获取类型名（变量名，字段名都可以用这个函数）</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span> 
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span> 
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">name_of</span><span class="p">(</span><span class="n">info</span> <span class="n">r</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">string_view</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">display_name_of</span><span class="p">(</span><span class="n">info</span> <span class="n">r</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">string_view</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>比如可以</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">display_name_of</span><span class="p">(</span><span class="o">^</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)</span> <span class="c1">//  =&gt; std::vector&lt;int&gt;
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>比如可以</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">display_name_of</span><span class="p">(</span><span class="o">^</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)</span> <span class="c1">//  =&gt; std::vector&lt;int&gt;
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">name_of</span><span class="p">(</span><span class="o">^</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)</span> <span class="c1">// =&gt; std::vector&lt;int, std::allocator&lt;int&gt;&gt;
-</span></span></span></code></pre></div><p>判断一个模板是不是另一个高阶模板的特化 和 萃取高阶模板里面的参数</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span> 
+</span></span></span></code></pre></div></div>
+<p>判断一个模板是不是另一个高阶模板的特化 和 萃取高阶模板里面的参数</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span> 
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">template_of</span><span class="p">(</span><span class="n">info</span> <span class="n">r</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">info</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">template_arguments_of</span><span class="p">(</span><span class="n">info</span> <span class="n">r</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">info</span><span class="o">&gt;</span><span class="p">;</span>
@@ -1517,17 +1520,18 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">template_of</span><span class="p">(</span><span class="n">type_of</span><span class="p">(</span><span class="o">^</span><span class="n">v</span><span class="p">))</span> <span class="o">==</span> <span class="o">^</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">template_arguments_of</span><span class="p">(</span><span class="n">type_of</span><span class="p">(</span><span class="o">^</span><span class="n">v</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="o">^</span><span class="kt">int</span><span class="p">);</span>
-</span></span></code></pre></div><p>把模板参数填到高阶模板中去</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span> 
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">template_arguments_of</span><span class="p">(</span><span class="n">type_of</span><span class="p">(</span><span class="o">^</span><span class="n">v</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="o">^</span><span class="kt">int</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>把模板参数填到高阶模板中去</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span> 
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">substitute</span><span class="p">(</span><span class="n">info</span> <span class="n">templ</span><span class="p">,</span> <span class="n">span</span><span class="o">&lt;</span><span class="n">info</span> <span class="k">const</span><span class="o">&gt;</span> <span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">info</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">r</span> <span class="o">=</span> <span class="n">substitute</span><span class="p">(</span><span class="o">^</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="p">{</span><span class="o">^</span><span class="kt">int</span><span class="p">});</span>
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">T</span> <span class="o">=</span> <span class="p">[</span><span class="o">:</span><span class="nl">r</span><span class="p">:];</span> <span class="c1">// Ok, T is std::vector&lt;int&gt;
-</span></span></span></code></pre></div><p>获取<code>struct</code>,<code>class</code>，,<code>union</code>,<code>enum</code>的成员信息</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span>
+</span></span></span></code></pre></div></div>
+<p>获取<code>struct</code>,<code>class</code>，,<code>union</code>,<code>enum</code>的成员信息</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Fs</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">consteval</span> <span class="k">auto</span> <span class="n">members_of</span><span class="p">(</span><span class="n">info</span> <span class="n">class_type</span><span class="p">,</span> <span class="n">Fs</span> <span class="p">...</span><span class="n">filters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">info</span><span class="o">&gt;</span><span class="p">;</span>
@@ -1549,8 +1553,8 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Fs</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">consteval</span> <span class="k">auto</span> <span class="n">subobjects_of</span><span class="p">(</span><span class="n">info</span> <span class="n">class_type</span><span class="p">,</span> <span class="n">Fs</span> <span class="p">...</span><span class="n">filters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">info</span><span class="o">&gt;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>待会用这个我们就可以实现遍历结构体，枚举等功能。进一步就可以实现序列化，反序列化等高级功能。后文会有一些示例。除此之外，还有一些其它的功能的编译期函数，上面只展示了一部分内容，更多的 API 可以参考提案中的内容。由于提供了直接获取高级模板里面参数的函数，再也不用用模板去进行类型萃取了！用于类型萃取的模板元也可以退出历史舞台了。</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>待会用这个我们就可以实现遍历结构体，枚举等功能。进一步就可以实现序列化，反序列化等高级功能。后文会有一些示例。除此之外，还有一些其它的功能的编译期函数，上面只展示了一部分内容，更多的 API 可以参考提案中的内容。由于提供了直接获取高级模板里面参数的函数，再也不用用模板去进行类型萃取了！用于类型萃取的模板元也可以退出历史舞台了。</p>
 
 <h2 class="relative group">better compile facilities
     <div id="better-compile-facilities" class="anchor"></div>
@@ -1573,7 +1577,7 @@
     
 </h3>
 <p>在 C++ 里面如何生成大量的代码段是一个非常不好解决的问题，得益于 C++ 独（逆）特（天）的机制，目前的代码片段生成几乎都是基于 lambda 表达式 + 可变参数包展开。看下面的例子</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">dynamic_tuple_get</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">tuple</span><span class="p">)</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">dynamic_tuple_get</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">tuple</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">size</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">tuple_size_v</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">tuple</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="o">&amp;</span><span class="p">]</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="p">...</span><span class="n">Is</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">index_sequence</span><span class="o">&lt;</span><span class="n">Is</span><span class="p">...</span><span class="o">&gt;</span><span class="p">)</span>
@@ -1596,10 +1600,10 @@
 </span></span><span class="line"><span class="cl">    <span class="n">dynamic_tuple_get</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">tuple</span><span class="p">);</span> <span class="c1">// 1
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">auto</span> <span class="n">n2</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">dynamic_tuple_get</span><span class="p">(</span><span class="n">n2</span><span class="p">,</span> <span class="n">tuple</span><span class="p">);</span> <span class="c1">// 42
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>一个很经典的例子，原理是通过多个分支判断，将运行期变量分发到编译期常量。实现根据运行期的<code>index</code>来访问<code>tuple</code>里面的元素。<strong>注：这里效率更高的办法是，编译期生成一个函数指针数组，然后直接根据index进行跳转，不过这里只是做个展示，不用纠结太多。</strong></p>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>一个很经典的例子，原理是通过多个分支判断，将运行期变量分发到编译期常量。实现根据运行期的<code>index</code>来访问<code>tuple</code>里面的元素。<strong>注：这里效率更高的办法是，编译期生成一个函数指针数组，然后直接根据index进行跳转，不过这里只是做个展示，不用纠结太多。</strong></p>
 <p>上面的代码展开后相当于</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">dynamic_tuple_get</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">tuple</span><span class="p">)</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">dynamic_tuple_get</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">tuple</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">N</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
@@ -1610,10 +1614,10 @@
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">(</span><span class="n">tuple</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>可以发现，我们用了极其别扭的写法只是为了实现极其简单的效果。而且由于 lambda 其实是个函数，其实没法直接从 lambda 里面直接返回到上一级函数。导致我们多做了很多多余的<code>if</code>判断。</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>可以发现，我们用了极其别扭的写法只是为了实现极其简单的效果。而且由于 lambda 其实是个函数，其实没法直接从 lambda 里面直接返回到上一级函数。导致我们多做了很多多余的<code>if</code>判断。</p>
 <p>换成<code>template for</code>则代码看起来清爽很多</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">void</span> <span class="nf">dynamic_tuple_get</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">tuple</span><span class="p">)</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">void</span> <span class="nf">dynamic_tuple_get</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">tuple</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">size</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">tuple_size_v</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">tuple</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">template</span> <span class="k">for</span><span class="p">(</span><span class="k">constexpr</span> <span class="k">auto</span> <span class="nl">num</span> <span class="p">:</span> <span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">iota</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="p">))</span>
@@ -1624,8 +1628,8 @@
 </span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>可以认为<code>template for</code>是 lambda 展开的语法糖加强版，反正非常好用就是了。如果这个加入了，利用模板元生成函数（代码）就可以退休了。</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>可以认为<code>template for</code>是 lambda 展开的语法糖加强版，反正非常好用就是了。如果这个加入了，利用模板元生成函数（代码）就可以退休了。</p>
 
 <h3 class="relative group">non-transient constexpr allocation
     <div id="non-transient-constexpr-allocation" class="anchor"></div>
@@ -1640,7 +1644,7 @@
 <ul>
 <li>C++ 可以通过控制模板实例化 static 成员在数据段预留位置，可以看作编译期内存分配</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">auto</span><span class="p">...</span> <span class="n">items</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">auto</span><span class="p">...</span> <span class="n">items</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">make_array</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">common_type_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">items</span><span class="p">)...</span><span class="o">&gt;</span><span class="p">;</span>
@@ -1655,18 +1659,19 @@
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">arr</span> <span class="o">=</span> <span class="n">make_array_v</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> <span class="c1">//成功在数据段预留位置，存放的是 1 2 3 4 5
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><ul>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
 <li>C++20 允许了<code>constexpr</code>中进行<code>new</code>，但是编译期<code>new</code>的内存必需要在编译期<code>delete</code>。</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">size</span><span class="p">(</span><span class="k">auto</span><span class="p">...</span> <span class="n">Is</span><span class="p">)</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">size</span><span class="p">(</span><span class="k">auto</span><span class="p">...</span> <span class="n">Is</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="n">Is</span><span class="p">...};</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>那就不能在编译期<code>new</code>里之后，不<code>delete</code>？实际数据放在数据段？这就是这个提案要解决的问题，它希望我们能使用</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span> <span class="c1">// 全局的
-</span></span></span></code></pre></div><p>主要难点是，在数据段分配的内存不像在堆上的内存一样有所有权，不需要<code>delete</code>。只要解决了这个问题，就能使用编译期的<code>std::map</code>，<code>std::vector</code>并且保留到运行期。这个作者的做法是进行标记。具体的细节这里就不说了。如果这个加入了，利用模板元打常量表也可以退出了。</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>那就不能在编译期<code>new</code>里之后，不<code>delete</code>？实际数据放在数据段？这就是这个提案要解决的问题，它希望我们能使用</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span> <span class="c1">// 全局的
+</span></span></span></code></pre></div></div>
+<p>主要难点是，在数据段分配的内存不像在堆上的内存一样有所有权，不需要<code>delete</code>。只要解决了这个问题，就能使用编译期的<code>std::map</code>，<code>std::vector</code>并且保留到运行期。这个作者的做法是进行标记。具体的细节这里就不说了。如果这个加入了，利用模板元打常量表也可以退出了。</p>
 
 <h2 class="relative group">some examples
     <div id="some-examples" class="anchor"></div>
@@ -1688,7 +1693,7 @@
     </span>
     
 </h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">print</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">template</span> <span class="nf">for</span><span class="p">(</span><span class="k">constexpr</span> <span class="k">auto</span> <span class="nl">member</span> <span class="p">:</span> <span class="n">nonstatic_data_members_of</span><span class="p">(</span><span class="n">type_of</span><span class="p">(</span><span class="o">^</span><span class="n">t</span><span class="p">)))</span>
@@ -1705,8 +1710,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">std</span><span class="o">::</span><span class="n">println</span><span class="p">(</span><span class="s">&#34;{}= {}&#34;</span><span class="p">,</span> <span class="n">name_of</span><span class="p">(</span><span class="n">member</span><span class="p">),</span> <span class="n">t</span><span class="p">.[</span><span class="o">:</span><span class="nl">member</span><span class="p">:]);</span> 
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
 <h3 class="relative group">enum to string
     <div id="enum-to-string" class="anchor"></div>
     
@@ -1716,7 +1721,7 @@
     </span>
     
 </h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">E</span><span class="o">&gt;</span> <span class="k">requires</span> <span class="n">std</span><span class="o">::</span><span class="n">is_enum_v</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">E</span><span class="o">&gt;</span> <span class="k">requires</span> <span class="n">std</span><span class="o">::</span><span class="n">is_enum_v</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">enum_to_string</span><span class="p">(</span><span class="n">E</span> <span class="n">value</span><span class="p">)</span> 
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">template</span> <span class="nf">for</span> <span class="p">(</span><span class="k">constexpr</span> <span class="k">auto</span> <span class="nl">e</span> <span class="p">:</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span><span class="o">::</span><span class="n">members_of</span><span class="p">(</span><span class="o">^</span><span class="n">E</span><span class="p">))</span> 
@@ -1727,8 +1732,8 @@
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;&lt;unnamed&gt;&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
 <h2 class="relative group">conclusion
     <div id="conclusion" class="anchor"></div>
     
@@ -1741,42 +1746,18 @@
 <p>花费了很长的篇幅介绍 C++ 的 static reflection。其实我非常喜欢 C++ 的编译期计算，对它的发展史也非常感兴趣。C++ 的编译期计算是一步步摸索出来的，有很多富有智慧的大师提出他们的独特想法，让不可能的事情变成现实。从 C++03 的变态模板元，到 C++11 的<code>constexpr</code>变量，到 C++14 ~23 对<code>constexpr</code>函数中的限制逐渐放开，把越来越多的操作移到编译期。再到如今的 static reflection，C++ 正在逐步脱离模板元的魔爪。之前那些老旧的模板元写法全都可以淘汰掉了！！！如果你没写过以前的老式模板元代码，大概是体会不到它有多可怕的。</p>
 <p>为了让静态反射能早点进入标准，作者团队特地选了原本提案的一部分核心子集。希望如作者所愿，静态反射能在 C++26 进入标准！当然，核心部分先进入，之后再补充更多更加有用的功能，所以这绝不是反射的全部内容。本文只是对该提案的粗略解读和翻译，想要详细了解的还请阅读下方链接中的提案，相关进展持续更新中：</p>
 <ul>
-<li><a
-  href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r0.html"
-    target="_blank"
-  >Reflection for C++26 - P2996R0</a></li>
-<li><a
-  href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r1.html"
-    target="_blank"
-  >Reflection for C++26 - P2996R1</a></li>
-<li><a
-  href="https://www.open-std.org/JTC1/SC22/WG21/docs/papers/2024/p2996r2.html"
-    target="_blank"
-  >Reflection for C++26 - P2996R2</a></li>
-<li><a
-  href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2996r3.html"
-    target="_blank"
-  >Reflection for C++26 - P2996R3</a></li>
-<li><a
-  href="https://wg21.link/P2996R4"
-    target="_blank"
-  >Reflection for C++26 - P2996R4</a></li>
+<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r0.html"  target="_blank">Reflection for C++26 - P2996R0</a></li>
+<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r1.html"  target="_blank">Reflection for C++26 - P2996R1</a></li>
+<li><a href="https://www.open-std.org/JTC1/SC22/WG21/docs/papers/2024/p2996r2.html"  target="_blank">Reflection for C++26 - P2996R2</a></li>
+<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2996r3.html"  target="_blank">Reflection for C++26 - P2996R3</a></li>
+<li><a href="https://wg21.link/P2996R4"  target="_blank">Reflection for C++26 - P2996R4</a></li>
 </ul>
 <p>实验编译器：</p>
 <ul>
-<li>在线尝试： <a
-  href="https://godbolt.org/z/13anqE1Pa"
-    target="_blank"
-  >https://godbolt.org/z/13anqE1Pa</a></li>
-<li>本地构建： <a
-  href="https://github.com/bloomberg/clang-p2996.git"
-    target="_blank"
-  >clang-p2996</a></li>
+<li>在线尝试： <a href="https://godbolt.org/z/13anqE1Pa"  target="_blank">https://godbolt.org/z/13anqE1Pa</a></li>
+<li>本地构建： <a href="https://github.com/bloomberg/clang-p2996.git"  target="_blank">clang-p2996</a></li>
 </ul>
-<p>反射系列文章：<a
-  href="https://www.ykiko.me/zh-cn/articles/669358870"
-    target="_blank"
-  >写给 C++ 程序员的反射教程</a></p>
+<p>反射系列文章：<a href="https://www.ykiko.me/zh-cn/articles/669358870"  target="_blank">写给 C++ 程序员的反射教程</a></p>
 
           
           

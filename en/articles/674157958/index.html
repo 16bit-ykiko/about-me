@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.d73bd5624a883943ee708df101144407dd1c0d07937ac38a3fb7923631f3462db466c14c537ecc819f12c038e21ed2e83f1524eb126bc4e8f59f21a0e357738c.css"
-    integrity="sha512-1zvVYkqIOUPucI3xARREB90cDQeTesOKP7eSNjHzRi20ZsFMU37MgZ8SwDjiHtLoPxUk6xJrxOj1nyGg41dzjA==">
+    href="/css/main.bundle.min.9e8f7139c652e8a74a176ca1ebfd53ed3d4a6287070b98560332ae377ace684485cf68f3bdec2d950e9a9d74c13deaa568a8f1aba92143ab4aabd039e71fe576.css"
+    integrity="sha512-no9xOcZS6KdKF2yh6/1T7T1KYocHC5hWAzKuN3rOaESFz2jzvewtlQ6anXTBPeqlaKjxq6khQ6tKq9A55x/ldg==">
 
   
   
@@ -161,13 +161,14 @@
   
   
   
+  
     
     <script
       defer
       type="text/javascript"
       id="script-bundle"
-      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
-      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      src="/js/main.bundle.min.aee4e707e28a3bd3629b3d56fc8989adf1c11e60ba52e5c99085898be50963025e6b3c8a90f2ff6ac2fe5225da74015b85ec8e0e52510b07cc8e82b7f08997cb.js"
+      integrity="sha512-ruTnB&#43;KKO9Nimz1W/ImJrfHBHmC6UuXJkIWJi&#43;UJYwJeazyKkPL/asL&#43;UiXadAFbheyODlJRCwfMjoK38ImXyw=="
       data-copy="Copy"
       data-copied="Copied"></script>
   
@@ -216,6 +217,9 @@
 
 
 
+
+
+
   
   
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -233,7 +237,6 @@
     "name": "A 7-Year Relay Race: Obtaining the Number of Fields in a C\u002b\u002b Struct",
     "headline": "A 7-Year Relay Race: Obtaining the Number of Fields in a C\u002b\u002b Struct",
     
-    "abstract": "\u003ch2 class=\u0022relative group\u0022\u003eIntroduction\n    \u003cdiv id=\u0022introduction\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none\u0022\u003e\n        \u003ca class=\u0022text-primary-300 dark:text-neutral-700 !no-underline\u0022 href=\u0022#introduction\u0022 aria-label=\u0022Anchor\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e\n    \n\u003c\/h2\u003e\n\u003cp\u003eIn \u003ccode\u003eC\u002b\u002b17\u003c\/code\u003e, a feature called \u003cstrong\u003estructured binding\u003c\/strong\u003e was introduced, also known as \u003ccode\u003eStruct Bind\u003c\/code\u003e. This feature is similar to pattern matching in other languages, allowing us to conveniently access the members of a structure.\u003c\/p\u003e",
     "inLanguage": "en",
     "url" : "https://www.ykiko.me/en/articles/674157958/",
     "author" : {
@@ -736,7 +739,7 @@
     <img
       id="background-image"
       src="/en/articles/674157958/featured_hu9144655273198076991.png"
-      alt="A 7-Year Relay Race: Obtaining the Number of Fields in a C&#43;&#43; Struct"
+      role="presentation"
       loading="eager"
       decoding="async"
       fetchpriority="high"
@@ -751,7 +754,7 @@
   
     <div
       id="background-blur"
-      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
     
     
     <script
@@ -1242,13 +1245,14 @@
     
 </h2>
 <p>In <code>C++17</code>, a feature called <strong>structured binding</strong> was introduced, also known as <code>Struct Bind</code>. This feature is similar to pattern matching in other languages, allowing us to conveniently access the members of a structure.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Point</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Point</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">Point</span> <span class="n">p</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// x = 1, y = 2
-</span></span></span></code></pre></div><p>Using this, we can implement some interesting functionalities, including <em>limited</em> reflection capabilities for structures, such as implementing a <code>for_each</code> function.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">for_each</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">object</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">func</span><span class="p">)</span>
+</span></span></span></code></pre></div></div>
+<p>Using this, we can implement some interesting functionalities, including <em>limited</em> reflection capabilities for structures, such as implementing a <code>for_each</code> function.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">for_each</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">object</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">func</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">T</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">remove_cvref_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">object</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="k">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_aggregate_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
@@ -1261,9 +1265,9 @@
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">func</span><span class="p">(</span><span class="n">object</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>This way, for any aggregate type with two members, we can traverse it.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Point</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>This way, for any aggregate type with two members, we can traverse it.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Point</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Line</span> <span class="p">{</span> <span class="n">Point</span> <span class="n">start</span><span class="p">;</span> <span class="n">Point</span> <span class="n">end</span><span class="p">;</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">Line</span> <span class="n">line</span> <span class="o">=</span> <span class="p">{{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">},</span> <span class="p">{</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">}};</span>
@@ -1271,15 +1275,16 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">object</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 1 2 3 4
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">});</span>
-</span></span></code></pre></div><p>However, there is a problem: this only recursively supports structures with exactly <code>2</code> fields. If you try to use a structure with <code>3</code> fields, the compiler will throw a <code>hard error</code>. That is, the number of structured bindings is incorrect, and it cannot be handled by <code>SFINAE</code> or <code>requires</code>, causing the compilation to abort directly.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Vec3</span> <span class="p">{</span> <span class="kt">float</span> <span class="n">x</span><span class="p">;</span> <span class="kt">float</span> <span class="n">y</span><span class="p">;</span> <span class="kt">float</span> <span class="n">z</span><span class="p">;</span> <span class="p">};</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">});</span></span></span></code></pre></div></div>
+<p>However, there is a problem: this only recursively supports structures with exactly <code>2</code> fields. If you try to use a structure with <code>3</code> fields, the compiler will throw a <code>hard error</code>. That is, the number of structured bindings is incorrect, and it cannot be handled by <code>SFINAE</code> or <code>requires</code>, causing the compilation to abort directly.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Vec3</span> <span class="p">{</span> <span class="kt">float</span> <span class="n">x</span><span class="p">;</span> <span class="kt">float</span> <span class="n">y</span><span class="p">;</span> <span class="kt">float</span> <span class="n">z</span><span class="p">;</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// Inside is a lambda
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">value</span> <span class="o">=</span> <span class="k">requires</span><span class="p">{</span> <span class="p">[](){</span> <span class="k">auto</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">Vec3</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">};</span> <span class="p">};</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// hard error
-</span></span></span></code></pre></div><p>We can solve this problem by manually dispatching.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="n">N</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></span></code></pre></div></div>
+<p>We can solve this problem by manually dispatching.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="n">N</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">object</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
@@ -1295,7 +1300,8 @@
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// ...
-</span></span></span></code></pre></div><p>You can freely enumerate up to the number of fields you want to support. Here, <code>N</code> is the number of fields in the structure. You may need to pass it explicitly as a template parameter or specialize a template for each type, storing its number of fields. However, this is still cumbersome. Is there a way to let the compiler automatically calculate the number of fields in a structure?</p>
+</span></span></span></code></pre></div></div>
+<p>You can freely enumerate up to the number of fields you want to support. Here, <code>N</code> is the number of fields in the structure. You may need to pass it explicitly as a template parameter or specialize a template for each type, storing its number of fields. However, this is still cumbersome. Is there a way to let the compiler automatically calculate the number of fields in a structure?</p>
 
 <h2 class="relative group">First Leg: Antony Polukhin
     <div id="first-leg-antony-polukhin" class="anchor"></div>
@@ -1306,21 +1312,9 @@
     </span>
     
 </h2>
-<p>A preliminary solution was provided in <a
-  href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost_pfr.html"
-    target="_blank"
-  >boost/pfr</a>. Its author, Antony Polukhin, gave detailed introductions at <a
-  href="https://www.youtube.com/watch?v=abdeAew3gmQ"
-    target="_blank"
-  >CppCon2016</a> and <a
-  href="https://www.youtube.com/watch?v=UlNUNxLtBI0"
-    target="_blank"
-  >CppCon2018</a>. However, the author used <code>C++14/17</code>, and the code was quite obscure. After rewriting it in <code>C++20</code>, the readability improved significantly.</p>
-<p>First, in <code>C++</code>, we can write an <code>Any</code> type that supports conversion to any type. Essentially, we just need to template the <a
-  href="https://en.cppreference.com/w/cpp/language/cast_operator"
-    target="_blank"
-  >type conversion function</a>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Any</span>
+<p>A preliminary solution was provided in <a href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost_pfr.html"  target="_blank">boost/pfr</a>. Its author, Antony Polukhin, gave detailed introductions at <a href="https://www.youtube.com/watch?v=abdeAew3gmQ"  target="_blank">CppCon2016</a> and <a href="https://www.youtube.com/watch?v=UlNUNxLtBI0"  target="_blank">CppCon2018</a>. However, the author used <code>C++14/17</code>, and the code was quite obscure. After rewriting it in <code>C++20</code>, the readability improved significantly.</p>
+<p>First, in <code>C++</code>, we can write an <code>Any</code> type that supports conversion to any type. Essentially, we just need to template the <a href="https://en.cppreference.com/w/cpp/language/cast_operator"  target="_blank">type conversion function</a>.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Any</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="nf">Any</span><span class="p">(</span><span class="kt">int</span><span class="p">){};</span> <span class="c1">// Supports construction from int
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
@@ -1330,8 +1324,9 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_convertible_v</span><span class="o">&lt;</span><span class="n">Any</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// true
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_convertible_v</span><span class="o">&lt;</span><span class="n">Any</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// true
-</span></span></span></code></pre></div><p>Then, we can utilize the feature of aggregate initialization: for expressions that exceed the maximum number of aggregate initializations, the <code>requires</code> statement will return <code>false</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Point</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
+</span></span></span></code></pre></div></div>
+<p>Then, we can utilize the feature of aggregate initialization: for expressions that exceed the maximum number of aggregate initializations, the <code>requires</code> statement will return <code>false</code>.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Point</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">test</span><span class="p">()</span>
@@ -1347,8 +1342,9 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">test</span><span class="o">&lt;</span><span class="n">Point</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">());</span> <span class="c1">// true
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">test</span><span class="o">&lt;</span><span class="n">Point</span><span class="p">,</span> <span class="mi">2</span><span class="o">&gt;</span><span class="p">());</span> <span class="c1">// true
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">test</span><span class="o">&lt;</span><span class="n">Point</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span><span class="p">());</span> <span class="c1">// false
-</span></span></span></code></pre></div><p>Notice that <code>Point</code> only has two members. When we pass three parameters to the initialization list, <code>requires</code> will return <code>false</code>. Using this feature, we can turn the above trial process into a recursive one, linearly searching the sequence until we find <code>false</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
+</span></span></span></code></pre></div></div>
+<p>Notice that <code>Point</code> only has two members. When we pass three parameters to the initialization list, <code>requires</code> will return <code>false</code>. Using this feature, we can turn the above trial process into a recursive one, linearly searching the sequence until we find <code>false</code>.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">member_count</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="o">!</span><span class="n">test</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;</span><span class="p">())</span>
@@ -1359,14 +1355,14 @@
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">member_count</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>If <code>test&lt;T, N&gt;</code> is true, it means <code>N</code> parameters can successfully construct <code>T</code>. Then we recursively try <code>N + 1</code> parameters until <code>test&lt;T, N&gt;</code> is false, and <code>N - 1</code> is the number of members in <code>T</code>. This way, we can get the number of members in <code>T</code> through <code>member_count&lt;T&gt;()</code>. Let&rsquo;s test it.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span><span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">a</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>If <code>test&lt;T, N&gt;</code> is true, it means <code>N</code> parameters can successfully construct <code>T</code>. Then we recursively try <code>N + 1</code> parameters until <code>test&lt;T, N&gt;</code> is false, and <code>N - 1</code> is the number of members in <code>T</code>. This way, we can get the number of members in <code>T</code> through <code>member_count&lt;T&gt;()</code>. Let&rsquo;s test it.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span><span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">a</span><span class="p">;</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">member_count</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">B</span><span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">a</span><span class="p">;</span> <span class="kt">int</span> <span class="n">b</span><span class="p">;</span> <span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">member_count</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
-</span></span></code></pre></div><p>Great, it&rsquo;s a success! Is this the end of the story?</p>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">member_count</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>Great, it&rsquo;s a success! Is this the end of the story?</p>
 
 <h2 class="relative group">Second Leg: João Baptista
     <div id="second-leg-joão-baptista" class="anchor"></div>
@@ -1381,30 +1377,27 @@
 <ul>
 <li>Lvalue reference</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span><span class="p">{</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span><span class="p">{</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">member_count</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// error
-</span></span></span></code></pre></div><ul>
+</span></span></span></code></pre></div></div>
+<ul>
 <li>Default constructor deleted</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span> <span class="n">X</span><span class="p">()</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// Default constructor deleted
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span> <span class="n">X</span><span class="p">()</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// Default constructor deleted
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">B</span><span class="p">{</span> <span class="n">X</span> <span class="n">x</span><span class="p">;</span> <span class="n">X</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">member_count</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// error
-</span></span></span></code></pre></div><ul>
+</span></span></span></code></pre></div></div>
+<ul>
 <li>Arrays</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">C</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="p">};</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">C</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">member_count</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// error
-</span></span></span></code></pre></div><p><strong>In these three cases, the original method completely fails. Why is that?</strong></p>
+</span></span></span></code></pre></div></div>
+<p><strong>In these three cases, the original method completely fails. Why is that?</strong></p>
 <p>This section mainly references two blogs by João Baptista:</p>
 <ul>
-<li><a
-  href="https://towardsdev.com/counting-the-number-of-fields-in-an-aggregate-in-c-20-c81aecfd725c"
-    target="_blank"
-  >Counting the number of fields in an aggregate in C++20</a></li>
-<li><a
-  href="https://towardsdev.com/counting-the-number-of-fields-in-an-aggregate-in-c-20-part-2-d3103dec734f"
-    target="_blank"
-  >Counting the number of fields in an aggregate in C++20 — part 2</a></li>
+<li><a href="https://towardsdev.com/counting-the-number-of-fields-in-an-aggregate-in-c-20-c81aecfd725c"  target="_blank">Counting the number of fields in an aggregate in C++20</a></li>
+<li><a href="https://towardsdev.com/counting-the-number-of-fields-in-an-aggregate-in-c-20-part-2-d3103dec734f"  target="_blank">Counting the number of fields in an aggregate in C++20 — part 2</a></li>
 </ul>
 <p>He summarized the issues in <code>boost/pfr</code> and proposed solutions to the three problems mentioned above.</p>
 
@@ -1418,10 +1411,11 @@
     
 </h3>
 <p>The first problem is relatively easy to understand. It&rsquo;s mainly because the conversion produced by <code>T()</code> type generates pure rvalues, and lvalue references cannot bind to pure rvalues. If it were an rvalue reference, it would work.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_constructible_v</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// false
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_constructible_v</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// false
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_constructible_v</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// true
-</span></span></span></code></pre></div><p>How to solve it? There&rsquo;s a clever way to handle this:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Any</span>
+</span></span></span></code></pre></div></div>
+<p>How to solve it? There&rsquo;s a clever way to handle this:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Any</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="nf">Any</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="p">{};</span> <span class="c1">// Supports construction from int
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
@@ -1430,13 +1424,14 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">operator</span> <span class="n">T</span><span class="o">&amp;&amp;</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>One converts to an lvalue reference, and the other to an rvalue reference. If only one of them matches, that one will be chosen. If both can match, the lvalue reference conversion has higher priority and will be chosen first, avoiding overload resolution issues.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_constructible_v</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// true
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>One converts to an lvalue reference, and the other to an rvalue reference. If only one of them matches, that one will be chosen. If both can match, the lvalue reference conversion has higher priority and will be chosen first, avoiding overload resolution issues.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_constructible_v</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// true
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_constructible_v</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// true
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_constructible_v</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// true
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_constructible_v</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">int</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// true
-</span></span></span></code></pre></div><p>Great, the first problem is solved!</p>
+</span></span></span></code></pre></div></div>
+<p>Great, the first problem is solved!</p>
 
 <h3 class="relative group">The Default Constructor Problem
     <div id="the-default-constructor-problem" class="anchor"></div>
@@ -1448,18 +1443,18 @@
     
 </h3>
 <p>Why does deleting the default constructor cause issues? Remember our initial <code>Point</code> type?</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Point</span><span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
-</span></span></code></pre></div><p>Our test results show that <code>0</code>, <code>1</code>, and <code>2</code> work, but <code>3</code> doesn&rsquo;t. If the number of parameters in <code>{ }</code> exceeds the number of members in <code>Point</code>, causing failure, I can understand. But why does it succeed when there are fewer parameters than the actual number of members? The reason is simple: members that are not explicitly initialized will be value-initialized. Thus, the number of parameters in <code>{ }</code> can be less than the actual number of fields. However, if a field prohibits default construction, value initialization is not possible, leading to a compilation error.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span> <span class="n">X</span><span class="p">()</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// Default constructor deleted
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Point</span><span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="kt">int</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span></span></span></code></pre></div></div>
+<p>Our test results show that <code>0</code>, <code>1</code>, and <code>2</code> work, but <code>3</code> doesn&rsquo;t. If the number of parameters in <code>{ }</code> exceeds the number of members in <code>Point</code>, causing failure, I can understand. But why does it succeed when there are fewer parameters than the actual number of members? The reason is simple: members that are not explicitly initialized will be value-initialized. Thus, the number of parameters in <code>{ }</code> can be less than the actual number of fields. However, if a field prohibits default construction, value initialization is not possible, leading to a compilation error.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span> <span class="n">X</span><span class="p">()</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// Default constructor deleted
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">B</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>  
 </span></span><span class="line"><span class="cl">    <span class="n">X</span> <span class="n">x</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl">    <span class="n">X</span> <span class="n">y</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">z</span><span class="p">;</span> 
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>For this type, if we try with <code>Any</code>, it should be that <code>0</code> and <code>1</code> don&rsquo;t work, but <code>2</code> and <code>3</code> do, and <code>4</code>, <code>5</code>, etc., don&rsquo;t work. That is, at least all members that cannot be default-initialized must be initialized. If a type supports default initialization, the valid search interval is <code>[0, N]</code>, where <code>N</code> is its maximum number of fields. If it doesn&rsquo;t support default initialization, the search interval becomes <code>[M, N]</code>, where <code>M</code> is the minimum number of parameters required to initialize all members that cannot be default-initialized.</p>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>For this type, if we try with <code>Any</code>, it should be that <code>0</code> and <code>1</code> don&rsquo;t work, but <code>2</code> and <code>3</code> do, and <code>4</code>, <code>5</code>, etc., don&rsquo;t work. That is, at least all members that cannot be default-initialized must be initialized. If a type supports default initialization, the valid search interval is <code>[0, N]</code>, where <code>N</code> is its maximum number of fields. If it doesn&rsquo;t support default initialization, the search interval becomes <code>[M, N]</code>, where <code>M</code> is the minimum number of parameters required to initialize all members that cannot be default-initialized.</p>
 <p>Our previous search strategy started from <code>0</code>. If the current one is <code>true</code>, we try the next one until we find <code>false</code>. Clearly, this search strategy is not suitable for the current situation because in the interval <code>[0, M)</code>, it also fits the case where the search fails. Now, we need to change it so that if the current one is <code>true</code> and the next one is <code>false</code>, we stop the search, which will find the upper bound of the interval.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">member_count</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="n">test</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">test</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">())</span>
@@ -1470,15 +1465,15 @@
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">member_count</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>Let&rsquo;s test it.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span><span class="p">{</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Let&rsquo;s test it.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span><span class="p">{</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">member_count</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span> 
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span> <span class="n">X</span><span class="p">()</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span> <span class="p">};</span> <span class="c1">// Default constructor deleted
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">B</span><span class="p">{</span> <span class="n">X</span> <span class="n">x</span><span class="p">;</span> <span class="n">X</span> <span class="n">y</span><span class="p">;</span> <span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">member_count</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
-</span></span></code></pre></div><p><code>OK</code>, the second problem is solved. That&rsquo;s awesome!</p>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">member_count</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span></span></span></code></pre></div></div>
+<p><code>OK</code>, the second problem is solved. That&rsquo;s awesome!</p>
 
 <h3 class="relative group">The Array Problem
     <div id="the-array-problem" class="anchor"></div>
@@ -1490,19 +1485,20 @@
     
 </h3>
 <p>If there are arrays in the structure&rsquo;s members, the final result will count each element of the array as a separate field. This is because aggregate initialization of standard arrays has a backdoor.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Array</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="p">};</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Array</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="n">Array</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">};</span> <span class="c1">// OK
-</span></span></span></code></pre></div><p>Notice that there&rsquo;s only one field but two values can be filled. However, this backdoor for arrays leads to a dilemma: if a structure contains arrays, the final count will be incorrect. Is there any way to solve this problem?</p>
+</span></span></span></code></pre></div></div>
+<p>Notice that there&rsquo;s only one field but two values can be filled. However, this backdoor for arrays leads to a dilemma: if a structure contains arrays, the final count will be incorrect. Is there any way to solve this problem?</p>
 <p><em>Note: The following part might be a bit hard to understand.</em></p>
 <p>Consider the following example:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">D</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">D</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">z</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>Let&rsquo;s look at its initialization:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">D</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">}</span> <span class="c1">// OK
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Let&rsquo;s look at its initialization:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">D</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">}</span> <span class="c1">// OK
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="c1">// Position 0
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">D</span><span class="p">{</span> <span class="p">{</span><span class="mi">1</span><span class="p">},</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">}</span> <span class="c1">// OK, position 0 can hold at most 1 element
@@ -1516,10 +1512,11 @@
 </span></span><span class="line"><span class="cl"><span class="c1">// Position 3
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">D</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">{</span><span class="mi">4</span><span class="p">},</span> <span class="mi">5</span><span class="p">}</span> <span class="c1">// Error
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">D</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span> <span class="p">}</span> <span class="c1">// OK, position 3 can hold at most 2 elements
-</span></span></span></code></pre></div><p>Yes, we can use nested initialization to solve this problem! First, we use the original method to find the maximum possible number of fields in the structure (including array expansion, which is 5 here). Then, we try to fit the original sequence into this nested initialization at each position. By continuously trying, we can find the maximum number of elements that can be placed at this position. If the maximum number exceeds <code>1</code>, it means this position is an array. This maximum number is the number of elements in the array, and we subtract the extra numbers from the final result.</p>
+</span></span></span></code></pre></div></div>
+<p>Yes, we can use nested initialization to solve this problem! First, we use the original method to find the maximum possible number of fields in the structure (including array expansion, which is 5 here). Then, we try to fit the original sequence into this nested initialization at each position. By continuously trying, we can find the maximum number of elements that can be placed at this position. If the maximum number exceeds <code>1</code>, it means this position is an array. This maximum number is the number of elements in the array, and we subtract the extra numbers from the final result.</p>
 <p><strong>It sounds simple, but the implementation is a bit complicated.</strong></p>
 <p>First, write a helper function to assist. By filling in different <code>N1</code>, <code>N2</code>, <code>N3</code>, we can correspond to the above different situations. Note that <code>Any</code> in <code>I2</code> is nested initialization, with an extra layer of parentheses.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N2</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N3</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N2</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N3</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">test_three_parts</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[]</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">...</span> <span class="n">I1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">...</span> <span class="n">I2</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">...</span> <span class="n">I3</span><span class="o">&gt;</span>
@@ -1527,9 +1524,9 @@
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">requires</span><span class="p">{</span> <span class="n">T</span><span class="p">{</span> <span class="n">Any</span><span class="p">(</span><span class="n">I1</span><span class="p">)...,</span> <span class="p">{</span> <span class="n">Any</span><span class="p">(</span><span class="n">I2</span><span class="p">)...</span> <span class="p">},</span> <span class="n">Any</span><span class="p">(</span><span class="n">I3</span><span class="p">)...</span> <span class="p">};</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}(</span><span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="n">N1</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="n">N2</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="n">N3</span><span class="o">&gt;</span><span class="p">{});</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>Next, we need to write a function to test whether placing <code>N</code> elements at a specified position with double <code>{ }</code> is feasible.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">position</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Next, we need to write a function to test whether placing <code>N</code> elements at a specified position with double <code>{ }</code> is feasible.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">position</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">try_place_n_in_pos</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">Total</span> <span class="o">=</span> <span class="n">member_count</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">();</span> <span class="c1">// Maximum possible number of fields
@@ -1545,17 +1542,18 @@
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>Since there&rsquo;s a lot of content, it might be hard to understand. Here, we&rsquo;ll first show the test results of this function to help understand. If you don&rsquo;t understand the function implementation, it&rsquo;s okay. Let&rsquo;s take the previous structure <code>D</code> as an example.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">try_place_n_in_pos</span><span class="o">&lt;</span><span class="n">D</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">();</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Since there&rsquo;s a lot of content, it might be hard to understand. Here, we&rsquo;ll first show the test results of this function to help understand. If you don&rsquo;t understand the function implementation, it&rsquo;s okay. Let&rsquo;s take the previous structure <code>D</code> as an example.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">try_place_n_in_pos</span><span class="o">&lt;</span><span class="n">D</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">();</span> 
 </span></span><span class="line"><span class="cl"><span class="c1">// This is testing D{ {1}, 2, 3, 4, 5 }
 </span></span></span><span class="line"><span class="cl"><span class="c1">// Placing 1 element at position 0
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="n">try_place_n_in_pos</span><span class="o">&lt;</span><span class="n">D</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">&gt;</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// This is testing D{ 1, {2, 3}, 4, 5 }
 </span></span></span><span class="line"><span class="cl"><span class="c1">// Placing 2 elements at position 1
-</span></span></span></code></pre></div><p>Okay, just understand what this function is doing: trying at a certain position continuously, and then finding the maximum number of elements that can be placed at this position.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">pos</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
+</span></span></span></code></pre></div></div>
+<p>Okay, just understand what this function is doing: trying at a certain position continuously, and then finding the maximum number of elements that can be placed at this position.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">pos</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">search_max_in_pos</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">Total</span> <span class="o">=</span> <span class="n">member_count</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">();</span>
@@ -1563,13 +1561,14 @@
 </span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="o">&amp;</span><span class="p">]</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">...</span> <span class="n">Is</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">index_sequence</span><span class="o">&lt;</span><span class="n">Is</span><span class="p">...</span><span class="o">&gt;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="p">((</span><span class="n">try_place_n_in_pos</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">Is</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">?</span> <span class="n">result</span> <span class="o">=</span> <span class="nl">Is</span> <span class="p">:</span> <span class="mi">0</span><span class="p">),</span> <span class="p">...);</span> <span class="p">}(</span><span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="n">Total</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>Here, we search for the maximum number of elements that can be placed at this position.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">search_max_in_pos</span><span class="o">&lt;</span><span class="n">D</span><span class="p">,</span> <span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 1, position 0 can hold at most 1 element
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Here, we search for the maximum number of elements that can be placed at this position.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">search_max_in_pos</span><span class="o">&lt;</span><span class="n">D</span><span class="p">,</span> <span class="mi">0</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 1, position 0 can hold at most 1 element
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">search_max_in_pos</span><span class="o">&lt;</span><span class="n">D</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// 2, position 1 can hold at most 2 elements
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">search_max_in_pos</span><span class="o">&lt;</span><span class="n">D</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// 2, position 3 can hold at most 2 elements
-</span></span></span></code></pre></div><p>This matches our initial manual test results. Next, we traverse all positions, find all extra array elements, and subtract these extras from the initial maximum number.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
+</span></span></span></code></pre></div></div>
+<p>This matches our initial manual test results. Next, we traverse all positions, find all extra array elements, and subtract these extras from the initial maximum number.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">search_all_extra_index</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">array</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">total</span> <span class="o">=</span> <span class="n">member_count</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">();</span>
@@ -1580,12 +1579,12 @@
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">search_all_extra_index</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="n">value</span><span class="o">&gt;</span><span class="p">(</span><span class="n">array</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>Here, we recursively search, and the results are stored in the array. Note that <code>N + value</code>: if we find two elements here, we can directly skip two positions. For example, if position <code>1</code> can hold <code>2</code> elements, then we can directly go to position <code>3</code> without checking position <code>2</code>.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Here, we recursively search, and the results are stored in the array. Note that <code>N + value</code>: if we find two elements here, we can directly skip two positions. For example, if position <code>1</code> can hold <code>2</code> elements, then we can directly go to position <code>3</code> without checking position <code>2</code>.</p>
 <p>Next, we store the results in the array and subtract the extras.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">true_member_count</span>
-</span></span></code></pre></div>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">true_member_count</span></span></span></code></pre></div></div>
+
           
           
           

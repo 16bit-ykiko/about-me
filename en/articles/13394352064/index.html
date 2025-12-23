@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.d73bd5624a883943ee708df101144407dd1c0d07937ac38a3fb7923631f3462db466c14c537ecc819f12c038e21ed2e83f1524eb126bc4e8f59f21a0e357738c.css"
-    integrity="sha512-1zvVYkqIOUPucI3xARREB90cDQeTesOKP7eSNjHzRi20ZsFMU37MgZ8SwDjiHtLoPxUk6xJrxOj1nyGg41dzjA==">
+    href="/css/main.bundle.min.9e8f7139c652e8a74a176ca1ebfd53ed3d4a6287070b98560332ae377ace684485cf68f3bdec2d950e9a9d74c13deaa568a8f1aba92143ab4aabd039e71fe576.css"
+    integrity="sha512-no9xOcZS6KdKF2yh6/1T7T1KYocHC5hWAzKuN3rOaESFz2jzvewtlQ6anXTBPeqlaKjxq6khQ6tKq9A55x/ldg==">
 
   
   
@@ -161,13 +161,14 @@
   
   
   
+  
     
     <script
       defer
       type="text/javascript"
       id="script-bundle"
-      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
-      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      src="/js/main.bundle.min.aee4e707e28a3bd3629b3d56fc8989adf1c11e60ba52e5c99085898be50963025e6b3c8a90f2ff6ac2fe5225da74015b85ec8e0e52510b07cc8e82b7f08997cb.js"
+      integrity="sha512-ruTnB&#43;KKO9Nimz1W/ImJrfHBHmC6UuXJkIWJi&#43;UJYwJeazyKkPL/asL&#43;UiXadAFbheyODlJRCwfMjoK38ImXyw=="
       data-copy="Copy"
       data-copied="Copied"></script>
   
@@ -216,6 +217,9 @@
 
 
 
+
+
+
   
   
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -233,7 +237,6 @@
     "name": "Design and Implementation of a New C\u002b\u002b Language Server",
     "headline": "Design and Implementation of a New C\u002b\u002b Language Server",
     
-    "abstract": "\u003cp\u003eIt has been several months since the last blog post. The reason for the long hiatus is that I have been busy working on \u003ca\n  href=\u0022https:\/\/github.com\/clice-project\/clice\u0022\n    target=\u0022_blank\u0022\n  \u003eclice\u003c\/a\u003e — a brand-new C\u002b\u002b language server.\u003c\/p\u003e",
     "inLanguage": "en",
     "url" : "https://www.ykiko.me/en/articles/13394352064/",
     "author" : {
@@ -736,7 +739,7 @@
     <img
       id="background-image"
       src="/en/articles/13394352064/featured_hu12690283705806268358.png"
-      alt="Design and Implementation of a New C&#43;&#43; Language Server"
+      role="presentation"
       loading="eager"
       decoding="async"
       fetchpriority="high"
@@ -751,7 +754,7 @@
   
     <div
       id="background-blur"
-      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
     
     
     <script
@@ -1266,14 +1269,8 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          <p>It has been several months since the last blog post. The reason for the long hiatus is that I have been busy working on <a
-  href="https://github.com/clice-project/clice"
-    target="_blank"
-  >clice</a> — a brand-new C++ language server.</p>
-<p>Some readers might be unfamiliar with the concept of a language server. However, you have likely used IDEs like Visual Studio or CLion and experienced features such as code completion, navigation, and refactoring. In traditional IDEs, these features are implemented through plugins or built-in functionalities, which require separate development for each editor, leading to high maintenance costs. When Microsoft released Visual Studio Code, they aimed to solve this problem by introducing the <a
-  href="https://microsoft.github.io/language-server-protocol/"
-    target="_blank"
-  >Language Server Protocol (LSP)</a>. LSP proposes a standard client-server model where language features are provided by an independent language server, and VSCode only needs to implement a generic client to communicate with the language server. This approach decouples the editor from language support, allowing VSCode to easily support multiple languages. For example, if you want to view the implementation of a <code>method</code>, your editor sends a <code>go to implementation</code> request to the language server, which might include the file path and the cursor&rsquo;s position in the source file. The language server processes this request and returns a file location and coordinates, enabling the editor to open the corresponding file and navigate to the specified location.</p>
+          <p>It has been several months since the last blog post. The reason for the long hiatus is that I have been busy working on <a href="https://github.com/clice-project/clice"  target="_blank">clice</a> — a brand-new C++ language server.</p>
+<p>Some readers might be unfamiliar with the concept of a language server. However, you have likely used IDEs like Visual Studio or CLion and experienced features such as code completion, navigation, and refactoring. In traditional IDEs, these features are implemented through plugins or built-in functionalities, which require separate development for each editor, leading to high maintenance costs. When Microsoft released Visual Studio Code, they aimed to solve this problem by introducing the <a href="https://microsoft.github.io/language-server-protocol/"  target="_blank">Language Server Protocol (LSP)</a>. LSP proposes a standard client-server model where language features are provided by an independent language server, and VSCode only needs to implement a generic client to communicate with the language server. This approach decouples the editor from language support, allowing VSCode to easily support multiple languages. For example, if you want to view the implementation of a <code>method</code>, your editor sends a <code>go to implementation</code> request to the language server, which might include the file path and the cursor&rsquo;s position in the source file. The language server processes this request and returns a file location and coordinates, enabling the editor to open the corresponding file and navigate to the specified location.</p>
 <p>clice is such a language server, designed to handle requests related to C/C++ code. The name &ldquo;clice&rdquo; is derived from my avatar &ldquo;alice,&rdquo; with the first letter replaced by &ldquo;c&rdquo; to represent C/C++.</p>
 <p>After several months of design and development, the project has taken shape, but it will likely take a few more months to refine before it can be put into use. This article primarily introduces the design and implementation of clice, serving as a personal summary of the current development stage. While the content is related to language servers, it also involves a lot of C/C++ compilation knowledge, so interested readers are encouraged to continue reading.</p>
 <p>Additionally, if you have any feature requests or suggestions, feel free to leave a comment. I will do my best to consider them in the next phase of development.</p>
@@ -1290,27 +1287,10 @@
 <p>The first question is, why develop a new language server? Is it necessary to reinvent the wheel?</p>
 <p>This question deserves a serious answer. Before this project, I had written many small or large projects. However, most of them were toy projects, created merely to validate an idea or for personal learning, without solving any real-world problems. clice is different; it aims to address existing issues (specific problems will be discussed later), not just to rewrite something for the sake of it.</p>
 <p>At the beginning of this year, I wanted to contribute to the LLVM project. I thought I would start with something familiar, like C++ and Clang. However, without a specific need, I couldn&rsquo;t just stare at the source code. Normally, the process would involve starting with some &ldquo;first issues&rdquo; to gradually familiarize myself with the project. But I found that boring; I wanted to tackle something significant right away, like implementing a new C++ standard feature. However, I discovered that there was almost no room for me to contribute here, as new features were almost always implemented by a few core Clang developers. So, I shifted my focus to clangd, since I primarily use VSCode for development, and clangd is the best C++ language server for VSCode.</p>
-<p>At the time, I knew nothing about clangd, except that it seemed to render keyword highlighting incorrectly. So, I started reading clangd&rsquo;s source code and browsing through its numerous issues to see if there was anything I could fix. After going through hundreds of issues, I found that there were indeed many problems. One issue that particularly caught my interest was related to code completion within templates (<a
-  href="https://github.com/clangd/clangd/issues/443"
-    target="_blank"
-  >issue</a>). Why was I interested in this? Regular readers might know that I am a seasoned metaprogramming enthusiast and have written many articles on the topic. Naturally, I was curious not only about how template metaprogramming works but also about how Clang, as a compiler, implements related features. This issue seemed like a great entry point. After spending a few weeks prototyping a solution, I managed to address the issue, <strong>but then I realized there was no one to review the code!</strong></p>
-<p>Upon further investigation, I found that clangd&rsquo;s current state is quite dire. Let&rsquo;s go through the timeline: clangd started as a small project within LLVM, with limited functionality and usability. As MaskRay mentioned in his <a
-  href="https://maskray.me/blog/2017-12-03-c&#43;&#43;-language-server-cquery"
-    target="_blank"
-  >ccls</a> blog post, clangd at the time could only handle single compilation units, making it unable to process cross-compilation unit requests. This blog post was published in 2017, which is why MaskRay chose to develop ccls, another C/C++ language server that was superior to clangd at the time. However, later on, Google began assigning people to improve clangd to meet the needs of their large internal codebases. At the same time, the LSP standard was continuously expanding, and clangd kept up with the new standards, while ccls&rsquo;s author seemed to become increasingly busy with other matters and had less time to maintain ccls. Eventually, clangd surpassed ccls in overall capability. The turning point came around 2023 when clangd reached a highly usable state for Google&rsquo;s internal use, and the employees originally responsible for clangd were reassigned to other projects. Currently, clangd&rsquo;s issues are primarily handled by <a
-  href="https://github.com/HighCommander4"
-    target="_blank"
-  >HighCommander4</a>, who works on it out of passion and is not employed by anyone to do so. Since he is not officially hired to maintain clangd, he can only address issues in his limited free time, mostly answering questions and conducting occasional code reviews. As he mentioned in this <a
-  href="https://github.com/clangd/clangd/issues/1690#issuecomment-1619735578"
-    target="_blank"
-  >comment</a>:</p>
-<blockquote>
-<p>The other part of the reason is lack of resources to pursue the ideas we do have, such as the idea mentioned above of trying to shift more of the burden to disk usage through more aggressive preamble caching. I&rsquo;m a casual contributor, and the limited time I have to spend on clangd is mostly taken up by answering questions, some code reviews, and the occasional small fix / improvement; I haven&rsquo;t had the bandwidth to drive this type of performance-related experimentation.</p>
-</blockquote>
-<p>Given this situation, it&rsquo;s no surprise that large PRs like <a
-  href="https://github.com/llvm/llvm-project/pull/66462"
-    target="_blank"
-  >preliminary support for C++20 modules in clangd</a> have been delayed for nearly a year. Realizing this, I began to consider developing my own language server. I estimated the project size to be around 20,000 lines of code (excluding tests), which is manageable for one person over a period of time, and there are precedents like ccls and rust-analyzer. Another point is that clangd&rsquo;s codebase is quite dated. Despite having extensive comments, the logic is still convoluted, and making large-scale modifications might take longer than rewriting from scratch.</p>
+<p>At the time, I knew nothing about clangd, except that it seemed to render keyword highlighting incorrectly. So, I started reading clangd&rsquo;s source code and browsing through its numerous issues to see if there was anything I could fix. After going through hundreds of issues, I found that there were indeed many problems. One issue that particularly caught my interest was related to code completion within templates (<a href="https://github.com/clangd/clangd/issues/443"  target="_blank">issue</a>). Why was I interested in this? Regular readers might know that I am a seasoned metaprogramming enthusiast and have written many articles on the topic. Naturally, I was curious not only about how template metaprogramming works but also about how Clang, as a compiler, implements related features. This issue seemed like a great entry point. After spending a few weeks prototyping a solution, I managed to address the issue, <strong>but then I realized there was no one to review the code!</strong></p>
+<p>Upon further investigation, I found that clangd&rsquo;s current state is quite dire. Let&rsquo;s go through the timeline: clangd started as a small project within LLVM, with limited functionality and usability. As MaskRay mentioned in his <a href="https://maskray.me/blog/2017-12-03-c&#43;&#43;-language-server-cquery"  target="_blank">ccls</a> blog post, clangd at the time could only handle single compilation units, making it unable to process cross-compilation unit requests. This blog post was published in 2017, which is why MaskRay chose to develop ccls, another C/C++ language server that was superior to clangd at the time. However, later on, Google began assigning people to improve clangd to meet the needs of their large internal codebases. At the same time, the LSP standard was continuously expanding, and clangd kept up with the new standards, while ccls&rsquo;s author seemed to become increasingly busy with other matters and had less time to maintain ccls. Eventually, clangd surpassed ccls in overall capability. The turning point came around 2023 when clangd reached a highly usable state for Google&rsquo;s internal use, and the employees originally responsible for clangd were reassigned to other projects. Currently, clangd&rsquo;s issues are primarily handled by <a href="https://github.com/HighCommander4"  target="_blank">HighCommander4</a>, who works on it out of passion and is not employed by anyone to do so. Since he is not officially hired to maintain clangd, he can only address issues in his limited free time, mostly answering questions and conducting occasional code reviews. As he mentioned in this <a href="https://github.com/clangd/clangd/issues/1690#issuecomment-1619735578"  target="_blank">comment</a>:</p>
+<blockquote ><p>The other part of the reason is lack of resources to pursue the ideas we do have, such as the idea mentioned above of trying to shift more of the burden to disk usage through more aggressive preamble caching. I&rsquo;m a casual contributor, and the limited time I have to spend on clangd is mostly taken up by answering questions, some code reviews, and the occasional small fix / improvement; I haven&rsquo;t had the bandwidth to drive this type of performance-related experimentation.</p>
+</blockquote><p>Given this situation, it&rsquo;s no surprise that large PRs like <a href="https://github.com/llvm/llvm-project/pull/66462"  target="_blank">preliminary support for C++20 modules in clangd</a> have been delayed for nearly a year. Realizing this, I began to consider developing my own language server. I estimated the project size to be around 20,000 lines of code (excluding tests), which is manageable for one person over a period of time, and there are precedents like ccls and rust-analyzer. Another point is that clangd&rsquo;s codebase is quite dated. Despite having extensive comments, the logic is still convoluted, and making large-scale modifications might take longer than rewriting from scratch.</p>
 <p>So, I decided to proceed. I categorized clangd&rsquo;s hundreds of issues to see if some problems were due to clangd&rsquo;s initial architectural design flaws, making them difficult to resolve and thus left unresolved. If so, could these issues be addressed by redesigning from the start? I found that indeed, some issues fit this description! Over the next few months, I spent time studying Clang&rsquo;s related mechanisms, exploring solutions to these problems, and prototyping implementations. After confirming that these issues could be resolved, I officially began developing clice.</p>
 
 <h2 class="relative group">Important Improvements
@@ -1335,20 +1315,17 @@
 </h3>
 <p>First and foremost, better template support, which was my initial motivation for wanting clangd to support this feature. What exactly are the current issues with template handling?</p>
 <p>Take code completion as an example. Consider the following code, where <code>^</code> represents the cursor position:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">vec</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">vec</span><span class="p">.</span><span class="o">^</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>In C++, if a type depends on a template parameter, we cannot make any accurate assumptions about it before the template is instantiated. For example, here <code>vector</code> could be either the primary template or a partial specialization like <code>vector&lt;bool&gt;</code>. Which one should we choose? For code compilation, accuracy is always paramount; we cannot use any results that might lead to errors. However, for a language server, providing more possible results is often better than providing none. We can assume that users are more likely to use the primary template rather than a partial specialization, and thus provide code completion based on the primary template. Currently, clangd does this; in the above case, it provides code completion based on the primary template of <code>vector</code>.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>In C++, if a type depends on a template parameter, we cannot make any accurate assumptions about it before the template is instantiated. For example, here <code>vector</code> could be either the primary template or a partial specialization like <code>vector&lt;bool&gt;</code>. Which one should we choose? For code compilation, accuracy is always paramount; we cannot use any results that might lead to errors. However, for a language server, providing more possible results is often better than providing none. We can assume that users are more likely to use the primary template rather than a partial specialization, and thus provide code completion based on the primary template. Currently, clangd does this; in the above case, it provides code completion based on the primary template of <code>vector</code>.</p>
 <p>Now consider a more complex example:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">vec2</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">vec2</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="o">^</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>From the user&rsquo;s perspective, code completion should also be provided here, since the type of <code>vec2[0]</code> is also <code>vector&lt;T&gt;</code>, similar to the previous example. However, clangd does not provide any completion here. What&rsquo;s the issue? According to the C++ standard, the return type of <code>std::vector&lt;T&gt;::operator[]</code> is <code>std::vector&lt;T&gt;::reference</code>, which is a <a
-  href="https://en.cppreference.com/w/cpp/language/dependent_name"
-    target="_blank"
-  >dependent name</a>. Its result seems straightforward: <code>T&amp;</code>. However, in libstdc++, its definition is nested within dozens of template layers, possibly for compatibility with older standards? So why can&rsquo;t clangd handle this situation?</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>From the user&rsquo;s perspective, code completion should also be provided here, since the type of <code>vec2[0]</code> is also <code>vector&lt;T&gt;</code>, similar to the previous example. However, clangd does not provide any completion here. What&rsquo;s the issue? According to the C++ standard, the return type of <code>std::vector&lt;T&gt;::operator[]</code> is <code>std::vector&lt;T&gt;::reference</code>, which is a <a href="https://en.cppreference.com/w/cpp/language/dependent_name"  target="_blank">dependent name</a>. Its result seems straightforward: <code>T&amp;</code>. However, in libstdc++, its definition is nested within dozens of template layers, possibly for compatibility with older standards? So why can&rsquo;t clangd handle this situation?</p>
 <ol>
 <li>It assumes the primary template and does not consider partial specializations, which might prevent the lookup from proceeding.</li>
 <li>It only performs name lookup without template instantiation, so even if it finds the result, it cannot map it back to the original template parameters.</li>
@@ -1368,7 +1345,7 @@
 <p>For clangd to function properly, users often need to provide a <code>compile_commands.json</code> file (referred to as CDB file). The traditional C++ compilation model treats a source file (e.g., <code>.c</code> or <code>.cpp</code>) as the basic compilation unit, where <code>#include</code> simply pastes the contents of the header file into the source file at the corresponding location. The CDB file stores the compilation commands for each source file. When you open a source file, clangd uses the corresponding compilation command from the CDB to compile the file.</p>
 <p>This naturally raises a question: if the CDB file only contains compilation commands for source files and not header files, how does clangd handle header files? clangd treats header files as source files and, based on certain rules, uses the compilation command of a corresponding source file in the same directory as the header file&rsquo;s compilation command. This model is simple and effective but overlooks some scenarios.</p>
 <p>Since a header file is part of a source file, its content can vary depending on the preceding content in the source file. For example:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// a.h
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// a.h
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#ifdef TEST
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span> <span class="p">...</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#else
@@ -1380,18 +1357,18 @@
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;a.h&#34;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="c1">// c.cpp
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&#34;a.h&#34;</span><span class="cp">
-</span></span></span></code></pre></div><p>Clearly, <code>a.h</code> has different states in <code>b.cpp</code> and <code>c.cpp</code>—one defines <code>X</code>, and the other defines <code>Y</code>. If <code>a.h</code> is simply treated as a source file, only <code>Y</code> will be visible.</p>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&#34;a.h&#34;</span></span></span></code></pre></div></div>
+<p>Clearly, <code>a.h</code> has different states in <code>b.cpp</code> and <code>c.cpp</code>—one defines <code>X</code>, and the other defines <code>Y</code>. If <code>a.h</code> is simply treated as a source file, only <code>Y</code> will be visible.</p>
 <p>A more extreme case is non-self-contained header files, such as:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// a.h
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// a.h
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">Y</span> <span class="p">{</span> 
 </span></span><span class="line"><span class="cl">    <span class="n">X</span> <span class="n">x</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// b.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">X</span> <span class="p">{};</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;a.h&#34;</span><span class="cp">
-</span></span></span></code></pre></div><p><code>a.h</code> cannot be compiled on its own, but when embedded in <code>b.cpp</code>, it compiles correctly. In this case, clangd will report an error in <code>a.h</code>, stating that <code>X</code> is undefined. This is because it treats <code>a.h</code> as an independent source file. There are many such header files in libstdc++, and some popular C++ header-only libraries also contain such code, which clangd currently cannot handle.</p>
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;a.h&#34;</span></span></span></code></pre></div></div>
+<p><code>a.h</code> cannot be compiled on its own, but when embedded in <code>b.cpp</code>, it compiles correctly. In this case, clangd will report an error in <code>a.h</code>, stating that <code>X</code> is undefined. This is because it treats <code>a.h</code> as an independent source file. There are many such header files in libstdc++, and some popular C++ header-only libraries also contain such code, which clangd currently cannot handle.</p>
 <p>clice will support <strong>header context</strong>, allowing automatic and user-initiated switching of header file states, and will also support non-self-contained header files. We aim to achieve the following effect, using the initial code as an example. When you navigate from <code>b.cpp</code> to <code>a.h</code>, <code>b.cpp</code> will be used as the context for <code>a.h</code>. Similarly, when navigating from <code>c.cpp</code> to <code>a.h</code>, <code>c.cpp</code> will be used as the context for <code>a.h</code>.</p>
 
 <h3 class="relative group">Full C++20 Module Support
@@ -1403,10 +1380,7 @@
     </span>
     
 </h3>
-<p>C++20 introduced <a
-  href="https://en.cppreference.com/w/cpp/language/modules"
-    target="_blank"
-  >modules</a> to speed up compilation. Unlike the traditional compilation model, module units may have dependencies, requiring additional handling. Although a PR for preliminary support of modules in clangd has been merged, it is in a very early stage.</p>
+<p>C++20 introduced <a href="https://en.cppreference.com/w/cpp/language/modules"  target="_blank">modules</a> to speed up compilation. Unlike the traditional compilation model, module units may have dependencies, requiring additional handling. Although a PR for preliminary support of modules in clangd has been merged, it is in a very early stage.</p>
 <ol>
 <li>Precompiled modules are not shared between different files, leading to redundant module compilation.</li>
 <li>Other LSP facilities have not kept up, such as highlighting and navigation for module names, and providing completions similar to header files.</li>
@@ -1466,21 +1440,18 @@
 </h3>
 <p>Next, let&rsquo;s discuss in detail how clice handles certain specific requests.</p>
 <p>When a user opens or updates a file in the editor, the editor sends a notification to clice. Upon receiving the request, clice parses the file. More specifically, it parses the file into an AST (Abstract Syntax Tree). Given the complexity of C++ syntax, writing a parser from scratch is impractical. Like clangd, we chose to use Clang&rsquo;s provided interfaces to parse source files.</p>
-<p>After obtaining the AST, we traverse it to collect information of interest. Take <code>SemanticTokens</code> as an example: we need to traverse the AST to add semantic information to each token in the source code—whether it&rsquo;s a <code>variable</code>, <code>function</code>, <code>const</code>, <code>static</code>, etc. All this information can be extracted from the AST. For a deeper understanding, you can read an introductory <a
-  href="https://www.ykiko.me/zh-cn/articles/669360731"
-    target="_blank"
-  >article</a> I wrote about Clang&rsquo;s AST.</p>
+<p>After obtaining the AST, we traverse it to collect information of interest. Take <code>SemanticTokens</code> as an example: we need to traverse the AST to add semantic information to each token in the source code—whether it&rsquo;s a <code>variable</code>, <code>function</code>, <code>const</code>, <code>static</code>, etc. All this information can be extracted from the AST. For a deeper understanding, you can read an introductory <a href="https://www.ykiko.me/zh-cn/articles/669360731"  target="_blank">article</a> I wrote about Clang&rsquo;s AST.</p>
 <p>Most requests can be implemented similarly. Code completion (CodeCompletion) and signature help (SignatureHelper) are more special. Since the syntax at the completion point may be incomplete, in the regular compilation process, if a syntax node is incomplete, Clang might treat it as an error node, discard it entirely, or even terminate compilation with a fatal error. None of these outcomes are acceptable for us. Generally, to implement code completion, the parser needs special handling. Clang is no exception; it provides a special code completion mode, where you inherit <code>CodeCompleteConsumer</code> and override relevant methods to obtain the necessary information.</p>
 <p>You can experience this functionality with a special compilation option:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">-std<span class="o">=</span>c++20  -fsyntax-only -Xclang -code-completion-at<span class="o">=</span><span class="s2">&#34;example.cpp:1:3&#34;</span>
-</span></span></code></pre></div><p>Assuming the source file is:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">con</span>
-</span></span></code></pre></div><p>The expected output is:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="nl">COMPLETION</span><span class="p">:</span> <span class="k">const</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">-std<span class="o">=</span>c++20  -fsyntax-only -Xclang -code-completion-at<span class="o">=</span><span class="s2">&#34;example.cpp:1:3&#34;</span></span></span></code></pre></div></div>
+<p>Assuming the source file is:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">con</span></span></span></code></pre></div></div>
+<p>The expected output is:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="nl">COMPLETION</span><span class="p">:</span> <span class="k">const</span>
 </span></span><span class="line"><span class="cl"><span class="nl">COMPLETION</span><span class="p">:</span> <span class="k">consteval</span>
 </span></span><span class="line"><span class="cl"><span class="nl">COMPLETION</span><span class="p">:</span> <span class="k">constexpr</span>
-</span></span><span class="line"><span class="cl"><span class="nl">COMPLETION</span><span class="p">:</span> <span class="n">constinit</span>
-</span></span></code></pre></div><p>As you can see, the result is the completion of four C++ keywords, with no errors or warnings.</p>
+</span></span><span class="line"><span class="cl"><span class="nl">COMPLETION</span><span class="p">:</span> <span class="n">constinit</span></span></span></code></pre></div></div>
+<p>As you can see, the result is the completion of four C++ keywords, with no errors or warnings.</p>
 <p>Yes, that&rsquo;s the entire process. It sounds quite simple, doesn&rsquo;t it? Indeed, the logic for traversing the AST is quite clear. However, there are many corner cases to consider, and it will take time to implement features</p>
 
           

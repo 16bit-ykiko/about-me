@@ -125,8 +125,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.d73bd5624a883943ee708df101144407dd1c0d07937ac38a3fb7923631f3462db466c14c537ecc819f12c038e21ed2e83f1524eb126bc4e8f59f21a0e357738c.css"
-    integrity="sha512-1zvVYkqIOUPucI3xARREB90cDQeTesOKP7eSNjHzRi20ZsFMU37MgZ8SwDjiHtLoPxUk6xJrxOj1nyGg41dzjA==">
+    href="/css/main.bundle.min.9e8f7139c652e8a74a176ca1ebfd53ed3d4a6287070b98560332ae377ace684485cf68f3bdec2d950e9a9d74c13deaa568a8f1aba92143ab4aabd039e71fe576.css"
+    integrity="sha512-no9xOcZS6KdKF2yh6/1T7T1KYocHC5hWAzKuN3rOaESFz2jzvewtlQ6anXTBPeqlaKjxq6khQ6tKq9A55x/ldg==">
 
   
   
@@ -166,13 +166,14 @@
   
   
   
+  
     
     <script
       defer
       type="text/javascript"
       id="script-bundle"
-      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
-      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      src="/js/main.bundle.min.aee4e707e28a3bd3629b3d56fc8989adf1c11e60ba52e5c99085898be50963025e6b3c8a90f2ff6ac2fe5225da74015b85ec8e0e52510b07cc8e82b7f08997cb.js"
+      integrity="sha512-ruTnB&#43;KKO9Nimz1W/ImJrfHBHmC6UuXJkIWJi&#43;UJYwJeazyKkPL/asL&#43;UiXadAFbheyODlJRCwfMjoK38ImXyw=="
       data-copy="Copy"
       data-copied="Copied"></script>
   
@@ -221,6 +222,9 @@
 
 
 
+
+
+
   
   
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -238,7 +242,6 @@
     "name": "Analysis of the C\u002b\u002b26 Static Reflection Proposal",
     "headline": "Analysis of the C\u002b\u002b26 Static Reflection Proposal",
     
-    "abstract": "\u003cp\u003eI recently planned to write a series of articles discussing the concept of reflection in detail. Coincidentally, C\u002b\u002b26 has introduced a new reflection proposal, and I noticed that there are no related articles on Zhihu, even though this topic is frequently discussed. Therefore, I decided to take this opportunity to talk about static reflection in C\u002b\u002b, serving as a warm-up for the series.\u003c\/p\u003e",
     "inLanguage": "en",
     "url" : "https://www.ykiko.me/en/articles/661692275/",
     "author" : {
@@ -741,7 +744,7 @@
     <img
       id="background-image"
       src="/en/articles/661692275/featured_hu9568420036335256152.png"
-      alt="Analysis of the C&#43;&#43;26 Static Reflection Proposal"
+      role="presentation"
       loading="eager"
       decoding="async"
       fetchpriority="high"
@@ -756,7 +759,7 @@
   
     <div
       id="background-blur"
-      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
     
     
     <script
@@ -1366,7 +1369,7 @@
 <p>We all know that as C++ versions continue to update, the capabilities of compile-time computation are constantly improving. Through <code>constexpr/consteval</code> functions, we can largely reuse runtime code directly, making compile-time computation more convenient. This completely replaces the old method of using template metaprogramming for compile-time computation. Not only is it easier to write, but it also compiles faster.</p>
 <p>Observe the following code snippets for computing factorials at compile time:</p>
 <p>In C++03/98, we could only achieve this through template recursive instantiation, and we couldn&rsquo;t reuse the code at runtime.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">factorial</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">enum</span> <span class="p">{</span> <span class="n">value</span> <span class="o">=</span> <span class="n">N</span> <span class="o">*</span> <span class="n">factorial</span><span class="o">&lt;</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="o">&gt;::</span><span class="n">value</span> <span class="p">};</span>
@@ -1376,9 +1379,9 @@
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">factorial</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">enum</span> <span class="p">{</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>C++11 introduced the concept of <code>constexpr</code> functions for the first time, allowing us to write code that can be reused at both compile time and runtime. However, there were many restrictions, such as no variables or loops, so we had to write code in a purely functional style.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>C++11 introduced the concept of <code>constexpr</code> functions for the first time, allowing us to write code that can be reused at both compile time and runtime. However, there were many restrictions, such as no variables or loops, so we had to write code in a purely functional style.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> 
 </span></span><span class="line"><span class="cl"><span class="p">{</span> 
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="n">n</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span> 
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -1390,9 +1393,9 @@
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">b</span> <span class="o">=</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">);</span> <span class="c1">// Runtime computation
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">b</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>With the advent of C++14/17, the restrictions in <code>constexpr</code> functions were further relaxed. Now, we can use local variables and loops in constexpr functions, as shown below.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">factorial</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>With the advent of C++14/17, the restrictions in <code>constexpr</code> functions were further relaxed. Now, we can use local variables and loops in constexpr functions, as shown below.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">factorial</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
@@ -1400,9 +1403,9 @@
 </span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">*=</span> <span class="n">i</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>After C++20, we can even use <code>new/delete</code> at compile time, and we can use <code>vector</code> in compile-time code. Much of the runtime code can be directly reused at compile time without any changes, just by adding a constexpr marker to the function. We no longer need to use obscure template metaprogramming for compile-time computation. However, the above examples only apply to values. In C++, besides values, there are types and higher-kinded types.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>After C++20, we can even use <code>new/delete</code> at compile time, and we can use <code>vector</code> in compile-time code. Much of the runtime code can be directly reused at compile time without any changes, just by adding a constexpr marker to the function. We no longer need to use obscure template metaprogramming for compile-time computation. However, the above examples only apply to values. In C++, besides values, there are types and higher-kinded types.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_list</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">U</span><span class="p">,</span> <span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
@@ -1417,12 +1420,9 @@
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">find_first_of</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
-</span></span></code></pre></div><p>Since types and higher-kinded types can only be template arguments, we still have to process them through <strong>template recursive matching</strong>. It would be great if we could manipulate them like values, so that constexpr functions could handle them too. But C++ is not a language like Zig, where &ldquo;type is value.&rdquo; What can we do? No problem, we can map types to values to achieve the effect of &ldquo;type as value.&rdquo; Before static reflection was introduced, we could achieve this effect through some tricks. We could map types to type names at compile time, and then perform computations on the type names. For how to perform such mapping, refer to <a
-  href="https://www.ykiko.me/zh-cn/articles/680412313"
-    target="_blank"
-  >How to Elegantly Convert enum to string in C++</a>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">find_first_of</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>Since types and higher-kinded types can only be template arguments, we still have to process them through <strong>template recursive matching</strong>. It would be great if we could manipulate them like values, so that constexpr functions could handle them too. But C++ is not a language like Zig, where &ldquo;type is value.&rdquo; What can we do? No problem, we can map types to values to achieve the effect of &ldquo;type as value.&rdquo; Before static reflection was introduced, we could achieve this effect through some tricks. We could map types to type names at compile time, and then perform computations on the type names. For how to perform such mapping, refer to <a href="https://www.ykiko.me/zh-cn/articles/680412313"  target="_blank">How to Elegantly Convert enum to string in C++</a>.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_list</span><span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
@@ -1437,15 +1437,16 @@
 </span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>The code is very intuitive, but if we want to map the value back to the type, it becomes more difficult. However, in the upcoming <strong>static reflection</strong>, this bidirectional mapping between types and values has become a language feature, and we no longer need to handle it manually.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>The code is very intuitive, but if we want to map the value back to the type, it becomes more difficult. However, in the upcoming <strong>static reflection</strong>, this bidirectional mapping between types and values has become a language feature, and we no longer need to handle it manually.</p>
 <p>Use the <code>^</code> operator to map types to values.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span><span class="o">::</span><span class="n">info</span> <span class="n">value</span> <span class="o">=</span> <span class="o">^</span><span class="kt">int</span><span class="p">;</span>
-</span></span></code></pre></div><p>Use <code>[: ... :]</code> to map it back. Note that this is a symbol-level mapping.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">Int</span> <span class="o">=</span> <span class="k">typename</span><span class="p">[</span><span class="o">:</span><span class="nl">value</span><span class="p">:];</span> <span class="c1">// In this context, typename can be omitted
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span><span class="o">::</span><span class="n">info</span> <span class="n">value</span> <span class="o">=</span> <span class="o">^</span><span class="kt">int</span><span class="p">;</span></span></span></code></pre></div></div>
+<p>Use <code>[: ... :]</code> to map it back. Note that this is a symbol-level mapping.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">Int</span> <span class="o">=</span> <span class="k">typename</span><span class="p">[</span><span class="o">:</span><span class="nl">value</span><span class="p">:];</span> <span class="c1">// In this context, typename can be omitted
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">typename</span><span class="p">[</span><span class="o">:</span><span class="nl">value</span><span class="p">:]</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// Equivalent to int a = 3;
-</span></span></span></code></pre></div><p>Now we can write code like this.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
+</span></span></span></code></pre></div></div>
+<p>Now we can write code like this.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_list</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span> <span class="n">types</span> <span class="o">=</span> <span class="p">{</span><span class="o">^</span><span class="n">Ts</span><span class="p">...};</span>
@@ -1455,8 +1456,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">Second</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;::</span><span class="n">at</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">Second</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">);</span>
-</span></span></code></pre></div><p>No more recursive matching! We can compute types like values. As long as you understand this mapping relationship, writing code becomes very simple. Template metaprogramming for type computation can now retire!</p>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">Second</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>No more recursive matching! We can compute types like values. As long as you understand this mapping relationship, writing code becomes very simple. Template metaprogramming for type computation can now retire!</p>
 <p>In fact, the <code>^</code> operator can map more than just types. It has the following functionalities:</p>
 <ul>
 <li><code>^::</code> —— Represents the global namespace</li>
@@ -1481,13 +1482,14 @@
 <li><code>[:r:]::</code> —— Restores to the corresponding namespace, class, or enum nested specifier</li>
 </ul>
 <p>See the usage example below.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">g</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="o">:^</span><span class="nl">x</span><span class="p">:]</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>     <span class="c1">// Okay. Same as: x = 42;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>If the restored entity does not match the originally stored one, a compilation error will occur.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typename</span><span class="p">[</span><span class="o">:</span> <span class="o">^::</span> <span class="o">:</span><span class="p">]</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// Error
-</span></span></span></code></pre></div>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>If the restored entity does not match the originally stored one, a compilation error will occur.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typename</span><span class="p">[</span><span class="o">:</span> <span class="o">^::</span> <span class="o">:</span><span class="p">]</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// Error
+</span></span></span></code></pre></div></div>
+
 <h3 class="relative group">Meta Info
     <div id="meta-info" class="anchor"></div>
     
@@ -1499,16 +1501,17 @@
 </h3>
 <p>The above feature alone is enough to be exciting. However, there&rsquo;s much more. The ability to obtain meta-information about entities like <code>class</code> has also been introduced.</p>
 <p>The most basic is obtaining type names (variable names, field names can also use this function).</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span> 
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span> 
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">name_of</span><span class="p">(</span><span class="n">info</span> <span class="n">r</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">string_view</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">display_name_of</span><span class="p">(</span><span class="n">info</span> <span class="n">r</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">string_view</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>For example:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">display_name_of</span><span class="p">(</span><span class="o">^</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)</span> <span class="c1">//  =&gt; std::vector&lt;int&gt;
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>For example:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">display_name_of</span><span class="p">(</span><span class="o">^</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)</span> <span class="c1">//  =&gt; std::vector&lt;int&gt;
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">name_of</span><span class="p">(</span><span class="o">^</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">)</span> <span class="c1">// =&gt; std::vector&lt;int, std::allocator&lt;int&gt;&gt;
-</span></span></span></code></pre></div><p>Determine if a template is a specialization of another higher-order template and extract parameters from the higher-order template.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span> 
+</span></span></span></code></pre></div></div>
+<p>Determine if a template is a specialization of another higher-order template and extract parameters from the higher-order template.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span> 
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">template_of</span><span class="p">(</span><span class="n">info</span> <span class="n">r</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">info</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">template_arguments_of</span><span class="p">(</span><span class="n">info</span> <span class="n">r</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">info</span><span class="o">&gt;</span><span class="p">;</span>
@@ -1516,17 +1519,18 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">template_of</span><span class="p">(</span><span class="n">type_of</span><span class="p">(</span><span class="o">^</span><span class="n">v</span><span class="p">))</span> <span class="o">==</span> <span class="o">^</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">template_arguments_of</span><span class="p">(</span><span class="n">type_of</span><span class="p">(</span><span class="o">^</span><span class="n">v</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="o">^</span><span class="kt">int</span><span class="p">);</span>
-</span></span></code></pre></div><p>Fill template parameters into higher-order templates.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span> 
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">template_arguments_of</span><span class="p">(</span><span class="n">type_of</span><span class="p">(</span><span class="o">^</span><span class="n">v</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="o">^</span><span class="kt">int</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>Fill template parameters into higher-order templates.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span> 
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">consteval</span> <span class="k">auto</span> <span class="nf">substitute</span><span class="p">(</span><span class="n">info</span> <span class="n">templ</span><span class="p">,</span> <span class="n">span</span><span class="o">&lt;</span><span class="n">info</span> <span class="k">const</span><span class="o">&gt;</span> <span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">info</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">r</span> <span class="o">=</span> <span class="n">substitute</span><span class="p">(</span><span class="o">^</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="p">{</span><span class="o">^</span><span class="kt">int</span><span class="p">});</span>
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">T</span> <span class="o">=</span> <span class="p">[</span><span class="o">:</span><span class="nl">r</span><span class="p">:];</span> <span class="c1">// Ok, T is std::vector&lt;int&gt;
-</span></span></span></code></pre></div><p>Obtain member information of <code>struct</code>, <code>class</code>, <code>union</code>, and <code>enum</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span>
+</span></span></span></code></pre></div></div>
+<p>Obtain member information of <code>struct</code>, <code>class</code>, <code>union</code>, and <code>enum</code>.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Fs</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">consteval</span> <span class="k">auto</span> <span class="n">members_of</span><span class="p">(</span><span class="n">info</span> <span class="n">class_type</span><span class="p">,</span> <span class="n">Fs</span> <span class="p">...</span><span class="n">filters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">info</span><span class="o">&gt;</span><span class="p">;</span>
@@ -1548,8 +1552,8 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Fs</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">consteval</span> <span class="k">auto</span> <span class="n">subobjects_of</span><span class="p">(</span><span class="n">info</span> <span class="n">class_type</span><span class="p">,</span> <span class="n">Fs</span> <span class="p">...</span><span class="n">filters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">info</span><span class="o">&gt;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>Later, we can use this to implement features like traversing structures and enums. Further, we can implement advanced features like serialization and deserialization. Some examples will be provided later. In addition, there are other compile-time functions, and only a part of the content is shown above. For more APIs, refer to the proposal. Since functions for directly obtaining parameters from higher-order templates are provided, we no longer need to use templates for type extraction! Template metaprogramming for type extraction can also retire.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Later, we can use this to implement features like traversing structures and enums. Further, we can implement advanced features like serialization and deserialization. Some examples will be provided later. In addition, there are other compile-time functions, and only a part of the content is shown above. For more APIs, refer to the proposal. Since functions for directly obtaining parameters from higher-order templates are provided, we no longer need to use templates for type extraction! Template metaprogramming for type extraction can also retire.</p>
 
 <h2 class="relative group">Better Compile Facilities
     <div id="better-compile-facilities" class="anchor"></div>
@@ -1572,7 +1576,7 @@
     
 </h3>
 <p>In C++, generating a large number of code segments is a very difficult problem to solve. Thanks to C++&rsquo;s unique (or rather, bizarre) mechanisms, current code segment generation is almost entirely based on lambda expressions + variadic parameter pack expansion. See the example below.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">dynamic_tuple_get</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">tuple</span><span class="p">)</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">dynamic_tuple_get</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">tuple</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">size</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">tuple_size_v</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">tuple</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="o">&amp;</span><span class="p">]</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="p">...</span><span class="n">Is</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">index_sequence</span><span class="o">&lt;</span><span class="n">Is</span><span class="p">...</span><span class="o">&gt;</span><span class="p">)</span>
@@ -1595,10 +1599,10 @@
 </span></span><span class="line"><span class="cl">    <span class="n">dynamic_tuple_get</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">tuple</span><span class="p">);</span> <span class="c1">// 1
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">auto</span> <span class="n">n2</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">dynamic_tuple_get</span><span class="p">(</span><span class="n">n2</span><span class="p">,</span> <span class="n">tuple</span><span class="p">);</span> <span class="c1">// 42
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>A classic example, the principle is to distribute runtime variables to compile-time constants through multiple branch judgments. Implement accessing elements in <code>tuple</code> based on runtime <code>index</code>. <strong>Note: A more efficient method here is to generate a function pointer array at compile time and then jump directly based on the index, but this is just for demonstration, so don&rsquo;t worry too much.</strong></p>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>A classic example, the principle is to distribute runtime variables to compile-time constants through multiple branch judgments. Implement accessing elements in <code>tuple</code> based on runtime <code>index</code>. <strong>Note: A more efficient method here is to generate a function pointer array at compile time and then jump directly based on the index, but this is just for demonstration, so don&rsquo;t worry too much.</strong></p>
 <p>The above code expands to the equivalent of:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">dynamic_tuple_get</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">tuple</span><span class="p">)</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">dynamic_tuple_get</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">tuple</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">N</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
@@ -1609,10 +1613,10 @@
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">(</span><span class="n">tuple</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>As you can see, we used extremely awkward syntax just to achieve a very simple effect. Moreover, since lambda is actually a function, it cannot directly return to the upper-level function, causing us to do many redundant <code>if</code> judgments.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>As you can see, we used extremely awkward syntax just to achieve a very simple effect. Moreover, since lambda is actually a function, it cannot directly return to the upper-level function, causing us to do many redundant <code>if</code> judgments.</p>
 <p>Using <code>template for</code> makes the code much cleaner.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">void</span> <span class="nf">dynamic_tuple_get</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">tuple</span><span class="p">)</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">void</span> <span class="nf">dynamic_tuple_get</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">tuple</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">size</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">tuple_size_v</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">tuple</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">template</span> <span class="k">for</span><span class="p">(</span><span class="k">constexpr</span> <span class="k">auto</span> <span class="nl">num</span> <span class="p">:</span> <span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">iota</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="p">))</span>
@@ -1623,8 +1627,8 @@
 </span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>You can think of <code>template for</code> as a syntax sugar-enhanced version of lambda expansion. It&rsquo;s very useful. If this is added, using template metaprogramming to generate functions (code) can retire.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>You can think of <code>template for</code> as a syntax sugar-enhanced version of lambda expansion. It&rsquo;s very useful. If this is added, using template metaprogramming to generate functions (code) can retire.</p>
 
 <h3 class="relative group">Non-Transient Constexpr Allocation
     <div id="non-transient-constexpr-allocation" class="anchor"></div>
@@ -1639,7 +1643,7 @@
 <ul>
 <li>C++ can reserve space in the data segment by controlling template instantiation of static members, which can be seen as compile-time memory allocation.</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">auto</span><span class="p">...</span> <span class="n">items</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">auto</span><span class="p">...</span> <span class="n">items</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">make_array</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">common_type_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">items</span><span class="p">)...</span><span class="o">&gt;</span><span class="p">;</span>
@@ -1654,18 +1658,19 @@
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">arr</span> <span class="o">=</span> <span class="n">make_array_v</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> <span class="c1">// Successfully reserves space in the data segment, storing 1 2 3 4 5
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><ul>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
 <li>C++20 allows <code>new</code> in <code>constexpr</code>, but memory allocated at compile time must be <code>delete</code>d at compile time.</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">size</span><span class="p">(</span><span class="k">auto</span><span class="p">...</span> <span class="n">Is</span><span class="p">)</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">size</span><span class="p">(</span><span class="k">auto</span><span class="p">...</span> <span class="n">Is</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="n">Is</span><span class="p">...};</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>So, can&rsquo;t we <code>new</code> at compile time and not <code>delete</code>, with the actual data placed in the data segment? This is the problem this proposal aims to solve. It hopes we can use:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span> <span class="c1">// Global
-</span></span></span></code></pre></div><p>The main difficulty is that memory allocated in the data segment, unlike memory on the heap, has no ownership and doesn&rsquo;t need to be <code>delete</code>d. Once this problem is solved, we can use compile-time <code>std::map</code>, <code>std::vector</code> and retain them until runtime. The author&rsquo;s approach is to mark them. The specific details won&rsquo;t be discussed here. If this is added, using template metaprogramming to create constant tables can also retire.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>So, can&rsquo;t we <code>new</code> at compile time and not <code>delete</code>, with the actual data placed in the data segment? This is the problem this proposal aims to solve. It hopes we can use:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span> <span class="c1">// Global
+</span></span></span></code></pre></div></div>
+<p>The main difficulty is that memory allocated in the data segment, unlike memory on the heap, has no ownership and doesn&rsquo;t need to be <code>delete</code>d. Once this problem is solved, we can use compile-time <code>std::map</code>, <code>std::vector</code> and retain them until runtime. The author&rsquo;s approach is to mark them. The specific details won&rsquo;t be discussed here. If this is added, using template metaprogramming to create constant tables can also retire.</p>
 
 <h2 class="relative group">Some Examples
     <div id="some-examples" class="anchor"></div>
@@ -1687,7 +1692,7 @@
     </span>
     
 </h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">print</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">template</span> <span class="nf">for</span><span class="p">(</span><span class="k">constexpr</span> <span class="k">auto</span> <span class="nl">member</span> <span class="p">:</span> <span class="n">nonstatic_data_members_of</span><span class="p">(</span><span class="n">type_of</span><span class="p">(</span><span class="o">^</span><span class="n">t</span><span class="p">)))</span>
@@ -1704,8 +1709,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">std</span><span class="o">::</span><span class="n">println</span><span class="p">(</span><span class="s">&#34;{}= {}&#34;</span><span class="p">,</span> <span class="n">name_of</span><span class="p">(</span><span class="n">member</span><span class="p">),</span> <span class="n">t</span><span class="p">.[</span><span class="o">:</span><span class="nl">member</span><span class="p">:]);</span> 
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
 <h3 class="relative group">Enum to String
     <div id="enum-to-string" class="anchor"></div>
     
@@ -1715,7 +1720,7 @@
     </span>
     
 </h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">E</span><span class="o">&gt;</span> <span class="k">requires</span> <span class="n">std</span><span class="o">::</span><span class="n">is_enum_v</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">E</span><span class="o">&gt;</span> <span class="k">requires</span> <span class="n">std</span><span class="o">::</span><span class="n">is_enum_v</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">enum_to_string</span><span class="p">(</span><span class="n">E</span> <span class="n">value</span><span class="p">)</span> 
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">template</span> <span class="nf">for</span> <span class="p">(</span><span class="k">constexpr</span> <span class="k">auto</span> <span class="nl">e</span> <span class="p">:</span> <span class="n">std</span><span class="o">::</span><span class="n">meta</span><span class="o">::</span><span class="n">members_of</span><span class="p">(</span><span class="o">^</span><span class="n">E</span><span class="p">))</span> 
@@ -1726,8 +1731,8 @@
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;&lt;unnamed&gt;&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
 <h2 class="relative group">Conclusion
     <div id="conclusion" class="anchor"></div>
     

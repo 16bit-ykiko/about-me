@@ -125,8 +125,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.d73bd5624a883943ee708df101144407dd1c0d07937ac38a3fb7923631f3462db466c14c537ecc819f12c038e21ed2e83f1524eb126bc4e8f59f21a0e357738c.css"
-    integrity="sha512-1zvVYkqIOUPucI3xARREB90cDQeTesOKP7eSNjHzRi20ZsFMU37MgZ8SwDjiHtLoPxUk6xJrxOj1nyGg41dzjA==">
+    href="/css/main.bundle.min.9e8f7139c652e8a74a176ca1ebfd53ed3d4a6287070b98560332ae377ace684485cf68f3bdec2d950e9a9d74c13deaa568a8f1aba92143ab4aabd039e71fe576.css"
+    integrity="sha512-no9xOcZS6KdKF2yh6/1T7T1KYocHC5hWAzKuN3rOaESFz2jzvewtlQ6anXTBPeqlaKjxq6khQ6tKq9A55x/ldg==">
 
   
   
@@ -166,13 +166,14 @@
   
   
   
+  
     
     <script
       defer
       type="text/javascript"
       id="script-bundle"
-      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
-      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      src="/js/main.bundle.min.aee4e707e28a3bd3629b3d56fc8989adf1c11e60ba52e5c99085898be50963025e6b3c8a90f2ff6ac2fe5225da74015b85ec8e0e52510b07cc8e82b7f08997cb.js"
+      integrity="sha512-ruTnB&#43;KKO9Nimz1W/ImJrfHBHmC6UuXJkIWJi&#43;UJYwJeazyKkPL/asL&#43;UiXadAFbheyODlJRCwfMjoK38ImXyw=="
       data-copy="Copy"
       data-copied="Copied"></script>
   
@@ -221,6 +222,9 @@
 
 
 
+
+
+
   
   
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -238,7 +242,6 @@
     "name": "Implementing Object in C\u002b\u002b!",
     "headline": "Implementing Object in C\u002b\u002b!",
     
-    "abstract": "\u003ch2 class=\u0022relative group\u0022\u003eStatic vs Dynamic\n    \u003cdiv id=\u0022static-vs-dynamic\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none\u0022\u003e\n        \u003ca class=\u0022text-primary-300 dark:text-neutral-700 !no-underline\u0022 href=\u0022#static-vs-dynamic\u0022 aria-label=\u0022Anchor\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e\n    \n\u003c\/h2\u003e\n\u003cp\u003eThe terms static typing and dynamic typing are familiar to many. The key distinction lies in the timing of type checking. What does this mean?\u003c\/p\u003e",
     "inLanguage": "en",
     "url" : "https://www.ykiko.me/en/articles/670191053/",
     "author" : {
@@ -741,7 +744,7 @@
     <img
       id="background-image"
       src="/en/articles/670191053/featured_hu14729570255897851859.png"
-      alt="Implementing Object in C&#43;&#43;!"
+      role="presentation"
       loading="eager"
       decoding="async"
       fetchpriority="high"
@@ -756,7 +759,7 @@
   
     <div
       id="background-blur"
-      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
     
     
     <script
@@ -1319,13 +1322,13 @@
 </h2>
 <p>The terms static typing and dynamic typing are familiar to many. The key distinction lies in the timing of type checking. What does this mean?</p>
 <p>Consider the following C++ code:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;123&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-</span></span></code></pre></div><p>We know that <code>string</code> cannot be directly added to <code>int</code>, so this should result in a TypeError. C++ checks for type errors at compile time, so this code will trigger a <strong>compile-time error</strong>.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;123&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span></span></span></code></pre></div></div>
+<p>We know that <code>string</code> cannot be directly added to <code>int</code>, so this should result in a TypeError. C++ checks for type errors at compile time, so this code will trigger a <strong>compile-time error</strong>.</p>
 <p>Now, consider the corresponding Python code:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="s2">&#34;123&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">1</span>
-</span></span></code></pre></div><p>Python, on the other hand, checks for errors at runtime, so the above code will actually produce a <strong>runtime error</strong>.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="s2">&#34;123&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">1</span></span></span></code></pre></div></div>
+<p>Python, on the other hand, checks for errors at runtime, so the above code will actually produce a <strong>runtime error</strong>.</p>
 <p>It&rsquo;s important to emphasize the meanings of <strong>compile time</strong> and <strong>runtime</strong> in this context. These terms are often encountered, but their meanings can vary depending on the context. Here, we define them as follows:</p>
 <ul>
 <li>
@@ -1354,7 +1357,7 @@
     
 </h2>
 <p>Here, we do not adopt the intrusive design (inheritance) used in Java/C#&rsquo;s <code>Object</code>. Instead, we use a non-intrusive design called <strong>fat pointer</strong>. A fat pointer is essentially a structure containing a pointer to the actual data and a pointer to type information. In the case of inheritance, the virtual table pointer resides in the object&rsquo;s header.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Any</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Any</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Type</span><span class="o">*</span> <span class="n">type</span><span class="p">;</span>    <span class="c1">// type info, similar to vtable
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">;</span>    <span class="c1">// pointer to the data
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">uint8_t</span> <span class="n">flag</span><span class="p">;</span>  <span class="c1">// special flag
@@ -1379,8 +1382,8 @@
 </span></span><span class="line"><span class="cl">    <span class="n">Any</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">name</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">Any</span><span class="o">&gt;</span> <span class="n">args</span><span class="p">);</span>  <span class="c1">// call method
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">foreach</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">,</span> <span class="n">Any</span><span class="o">&amp;</span><span class="p">)</span><span class="o">&gt;&amp;</span> <span class="n">fn</span><span class="p">);</span>  <span class="c1">// iterate fields
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
-</span></span></code></pre></div><p>The member functions will be implemented in subsequent sections. First, let&rsquo;s consider what is stored in the <code>Type</code> type.</p>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></div></div>
+<p>The member functions will be implemented in subsequent sections. First, let&rsquo;s consider what is stored in the <code>Type</code> type.</p>
 
 <h2 class="relative group">Meta Information
     <div id="meta-information" class="anchor"></div>
@@ -1391,7 +1394,7 @@
     </span>
     
 </h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Type</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Type</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">name</span><span class="p">;</span>       <span class="c1">// type name
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">destroy</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">);</span>      <span class="c1">// destructor
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span><span class="o">*</span> <span class="p">(</span><span class="o">*</span><span class="n">copy</span><span class="p">)(</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span><span class="p">);</span>  <span class="c1">// copy constructor
@@ -1401,8 +1404,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">using</span> <span class="n">Method</span> <span class="o">=</span> <span class="n">Any</span> <span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span>         <span class="c1">// method
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">,</span> <span class="n">Field</span><span class="o">&gt;</span> <span class="n">fields</span><span class="p">;</span>    <span class="c1">// field info
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">,</span> <span class="n">Method</span><span class="o">&gt;</span> <span class="n">methods</span><span class="p">;</span>  <span class="c1">// method info
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
-</span></span></code></pre></div><p>The content here is straightforward. We store the type name, destructor, move constructor, copy constructor, field information, and method information in <code>Type</code>. Field information includes the field type and name, while method information includes the method name and function address. If further expansion is desired, information about parent classes and overloaded functions can also be included. Since this is just an example, we will not consider them for now.</p>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></div></div>
+<p>The content here is straightforward. We store the type name, destructor, move constructor, copy constructor, field information, and method information in <code>Type</code>. Field information includes the field type and name, while method information includes the method name and function address. If further expansion is desired, information about parent classes and overloaded functions can also be included. Since this is just an example, we will not consider them for now.</p>
 
 <h2 class="relative group">Function Type Erasure
     <div id="function-type-erasure" class="anchor"></div>
@@ -1415,14 +1418,14 @@
 </h2>
 <p>To store member functions of different types in the same container, we must perform type erasure on the functions. All types of functions are erased to the type <code>Any(*)(void*, std::span&lt;Any&gt;)</code>. Here, <code>Any</code> is the type we defined earlier, <code>void*</code> represents the <code>this</code> pointer, and <code>std::span&lt;Any&gt;</code> is the function&rsquo;s parameter list. Now, we need to consider how to perform this function type erasure.</p>
 <p>Take the member function <code>say</code> as an example:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Person</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Person</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">name</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">age</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">say</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; say: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">msg</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>First, for convenience, let&rsquo;s implement <code>Any</code>&rsquo;s <code>cast</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>First, for convenience, let&rsquo;s implement <code>Any</code>&rsquo;s <code>cast</code>:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="n">Type</span><span class="o">*</span> <span class="n">type_of</span><span class="p">();</span>  <span class="c1">// type_of&lt;T&gt; returns type info of T
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -1431,15 +1434,15 @@
 </span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">{</span><span class="s">&#34;type mismatch&#34;</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>Using the feature in C++ that allows non-capturing <code>lambda</code> to implicitly convert to function pointers, we can easily implement this erasure.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">f</span> <span class="o">=</span> <span class="o">+</span><span class="p">[](</span><span class="kt">void</span><span class="o">*</span> <span class="n">object</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">Any</span><span class="o">&gt;</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Using the feature in C++ that allows non-capturing <code>lambda</code> to implicitly convert to function pointers, we can easily implement this erasure.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">f</span> <span class="o">=</span> <span class="o">+</span><span class="p">[](</span><span class="kt">void</span><span class="o">*</span> <span class="n">object</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">Any</span><span class="o">&gt;</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">auto</span><span class="o">&amp;</span> <span class="n">self</span> <span class="o">=</span> <span class="o">*</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">object</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">self</span><span class="p">.</span><span class="n">say</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="o">&gt;</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Any</span><span class="p">{};</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>The principle is simple: write a wrapper function to perform type conversion and forward the call. However, writing such forwarding code for each member function is cumbersome. We can consider using template metaprogramming to generate the code automatically, simplifying the type erasure process.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>The principle is simple: write a wrapper function to perform type conversion and forward the call. However, writing such forwarding code for each member function is cumbersome. We can consider using template metaprogramming to generate the code automatically, simplifying the type erasure process.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">member_fn_traits</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">R</span><span class="p">,</span> <span class="k">typename</span> <span class="n">C</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
@@ -1467,14 +1470,12 @@
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}(</span><span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">tuple_size_v</span><span class="o">&lt;</span><span class="n">args_type</span><span class="o">&gt;&gt;</span><span class="p">{});</span>
 </span></span><span class="line"><span class="cl">    <span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>I won&rsquo;t explain the code here. If you don&rsquo;t understand, it&rsquo;s okay. Essentially, it automates the process of type erasure for member functions using template metaprogramming. Just know how to use it. Using it is very simple. Here, <code>&amp;Person::say</code> is the pointer-to-member syntax. If you&rsquo;re not familiar, refer to <a
-  href="https://www.ykiko.me/zh-cn/articles/659510753"
-    target="_blank"
-  >C++ Member Pointers Explained</a>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">f</span> <span class="o">=</span> <span class="n">type_ensure</span><span class="o">&lt;&amp;</span><span class="n">Person</span><span class="o">::</span><span class="n">say</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>I won&rsquo;t explain the code here. If you don&rsquo;t understand, it&rsquo;s okay. Essentially, it automates the process of type erasure for member functions using template metaprogramming. Just know how to use it. Using it is very simple. Here, <code>&amp;Person::say</code> is the pointer-to-member syntax. If you&rsquo;re not familiar, refer to <a href="https://www.ykiko.me/zh-cn/articles/659510753"  target="_blank">C++ Member Pointers Explained</a>.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">f</span> <span class="o">=</span> <span class="n">type_ensure</span><span class="o">&lt;&amp;</span><span class="n">Person</span><span class="o">::</span><span class="n">say</span><span class="o">&gt;</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// decltype(f) =&gt; Any (*)(void*, std::span&lt;Any&gt;)
-</span></span></span></code></pre></div>
+</span></span></span></code></pre></div></div>
+
 <h2 class="relative group">Type Information Registration
     <div id="type-information-registration" class="anchor"></div>
     
@@ -1485,7 +1486,7 @@
     
 </h2>
 <p>In fact, we need to generate a corresponding <code>Type</code> structure for each type to store its information, so that it can be accessed correctly. This functionality is handled by the <code>type_of</code> function mentioned earlier.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="n">Type</span><span class="o">*</span> <span class="n">type_of</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="n">Type</span> <span class="n">type</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">type</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="k">typeid</span><span class="p">(</span><span class="n">T</span><span class="p">).</span><span class="n">name</span><span class="p">();</span>
@@ -1510,8 +1511,8 @@
 </span></span><span class="line"><span class="cl">    <span class="n">type</span><span class="p">.</span><span class="n">fields</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">&#34;age&#34;</span><span class="p">,</span> <span class="p">{</span><span class="n">type_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="o">&gt;</span><span class="p">(),</span> <span class="n">offsetof</span><span class="p">(</span><span class="n">Person</span><span class="p">,</span> <span class="n">age</span><span class="p">)}});</span>
 </span></span><span class="line"><span class="cl">    <span class="n">type</span><span class="p">.</span><span class="n">methods</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">&#34;say&#34;</span><span class="p">,</span> <span class="n">type_ensure</span><span class="o">&lt;&amp;</span><span class="n">Person</span><span class="o">::</span><span class="n">say</span><span class="o">&gt;</span><span class="p">()});</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">&amp;</span><span class="n">type</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>We provide a default implementation so that built-in basic types can automatically register some information. Then, we can specialize for custom types. Now, with this meta information, we can complete the implementation of <code>Any</code>&rsquo;s member functions.</p>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>We provide a default implementation so that built-in basic types can automatically register some information. Then, we can specialize for custom types. Now, with this meta information, we can complete the implementation of <code>Any</code>&rsquo;s member functions.</p>
 
 <h2 class="relative group">Complete Implementation of Any
     <div id="complete-implementation-of-any" class="anchor"></div>
@@ -1522,7 +1523,7 @@
     </span>
     
 </h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Any</span><span class="o">::</span><span class="n">Any</span><span class="p">(</span><span class="k">const</span> <span class="n">Any</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Any</span><span class="o">::</span><span class="n">Any</span><span class="p">(</span><span class="k">const</span> <span class="n">Any</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">type</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">type</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">data</span> <span class="o">=</span> <span class="n">type</span><span class="o">-&gt;</span><span class="n">copy</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">data</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -1560,8 +1561,8 @@
 </span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">{</span><span class="s">&#34;method not found&#34;</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>The implementation of <code>foreach</code> is to iterate over all <code>Field</code>s, get the offset and type, and then wrap it into an <code>Any</code> type. Note that this is just a simple wrapper; since we set the <code>flag</code>, this wrapper will not cause multiple destructions. <code>invoke</code> is to find the corresponding function from the member function list and call it.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>The implementation of <code>foreach</code> is to iterate over all <code>Field</code>s, get the offset and type, and then wrap it into an <code>Any</code> type. Note that this is just a simple wrapper; since we set the <code>flag</code>, this wrapper will not cause multiple destructions. <code>invoke</code> is to find the corresponding function from the member function list and call it.</p>
 
 <h2 class="relative group">Example Code
     <div id="example-code" class="anchor"></div>
@@ -1572,7 +1573,7 @@
     </span>
     
 </h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Any</span> <span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">{</span><span class="s">&#34;Tom&#34;</span><span class="p">,</span> <span class="mi">18</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Any</span><span class="o">&gt;</span> <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">{</span><span class="s">&#34;Hello&#34;</span><span class="p">}};</span>
 </span></span><span class="line"><span class="cl">    <span class="n">person</span><span class="p">.</span><span class="n">invoke</span><span class="p">(</span><span class="s">&#34;say&#34;</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
@@ -1590,11 +1591,8 @@
 </span></span><span class="line"><span class="cl">    <span class="c1">// name = Tom
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// age = 18
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>The complete code is available on <a
-  href="https://github.com/16bit-ykiko/blog/blob/main/code/dynamic-type-demo.cpp"
-    target="_blank"
-  >Github</a>. With this, we have implemented a highly dynamic, non-intrusive <code>Any</code>.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>The complete code is available on <a href="https://github.com/16bit-ykiko/blog/blob/main/code/dynamic-type-demo.cpp"  target="_blank">Github</a>. With this, we have implemented a highly dynamic, non-intrusive <code>Any</code>.</p>
 
 <h2 class="relative group">Extensions and Optimizations
     <div id="extensions-and-optimizations" class="anchor"></div>

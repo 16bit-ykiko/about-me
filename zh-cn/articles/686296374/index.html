@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.d73bd5624a883943ee708df101144407dd1c0d07937ac38a3fb7923631f3462db466c14c537ecc819f12c038e21ed2e83f1524eb126bc4e8f59f21a0e357738c.css"
-    integrity="sha512-1zvVYkqIOUPucI3xARREB90cDQeTesOKP7eSNjHzRi20ZsFMU37MgZ8SwDjiHtLoPxUk6xJrxOj1nyGg41dzjA==">
+    href="/css/main.bundle.min.9e8f7139c652e8a74a176ca1ebfd53ed3d4a6287070b98560332ae377ace684485cf68f3bdec2d950e9a9d74c13deaa568a8f1aba92143ab4aabd039e71fe576.css"
+    integrity="sha512-no9xOcZS6KdKF2yh6/1T7T1KYocHC5hWAzKuN3rOaESFz2jzvewtlQ6anXTBPeqlaKjxq6khQ6tKq9A55x/ldg==">
 
   
   
@@ -161,13 +161,14 @@
   
   
   
+  
     
     <script
       defer
       type="text/javascript"
       id="script-bundle"
-      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
-      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      src="/js/main.bundle.min.aee4e707e28a3bd3629b3d56fc8989adf1c11e60ba52e5c99085898be50963025e6b3c8a90f2ff6ac2fe5225da74015b85ec8e0e52510b07cc8e82b7f08997cb.js"
+      integrity="sha512-ruTnB&#43;KKO9Nimz1W/ImJrfHBHmC6UuXJkIWJi&#43;UJYwJeazyKkPL/asL&#43;UiXadAFbheyODlJRCwfMjoK38ImXyw=="
       data-copy="复制"
       data-copied="已复制"></script>
   
@@ -216,6 +217,9 @@
 
 
 
+
+
+
   
   
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -233,7 +237,6 @@
     "name": "C\u002b\u002b 究竟代码膨胀在哪里？",
     "headline": "C\u002b\u002b 究竟代码膨胀在哪里？",
     
-    "abstract": "\u003cp\u003e相信读者经常能听见有人说 C\u002b\u002b 代码二进制膨胀严重，但是一般很少会有人指出具体的原因。在网络上一番搜索过后，发现深入讨论这个问题的文章的并不多。上面那句话更像是八股文的一部分，被口口相传，但是没什么人能说出个所以然。今天小编 ykiko 就带大家一起来探秘 C\u002b\u002b 代码膨胀那些事  (^ω^)\u003c\/p\u003e",
     "inLanguage": "zh-cn",
     "url" : "https://www.ykiko.me/zh-cn/articles/686296374/",
     "author" : {
@@ -736,7 +739,7 @@
     <img
       id="background-image"
       src="/zh-cn/articles/686296374/featured_hu520283993221605861.png"
-      alt="C&#43;&#43; 究竟代码膨胀在哪里？"
+      role="presentation"
       loading="eager"
       decoding="async"
       fetchpriority="high"
@@ -751,7 +754,7 @@
   
     <div
       id="background-blur"
-      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
     
     
     <script
@@ -1280,7 +1283,7 @@
 </h3>
 <p>既然可以在多个源文件中定义，那是不是就意味着每个源文件都有一份代码实例，会不会导致代码膨胀呢?</p>
 <p>考虑如下示例，开头的注释表示文件名</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src1.cpp
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src1.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -1305,14 +1308,14 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">g1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">g2</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>先尝试<strong>不开优化</strong>编译前两个文件，看看他们是不是各自保留了一份<code>add</code>函数</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ -c src1.cpp -o src1.o
-</span></span><span class="line"><span class="cl">$ g++ -c src2.cpp -o src2.o
-</span></span></code></pre></div><p>分别查看这两个文件里面的符号表</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ objdump -d src1.o <span class="p">|</span> c++filt
-</span></span><span class="line"><span class="cl">$ objdump -d src2.o <span class="p">|</span> c++filt
-</span></span></code></pre></div><p>本地验证都通过上述命令直接查看符号表进行。但是为了方便展示，我会把 godbolt 对应的链接和截图放上来，它把很多影响阅读的不关键符号都省略了，看起来更加清晰。</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>先尝试<strong>不开优化</strong>编译前两个文件，看看他们是不是各自保留了一份<code>add</code>函数</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ -c src1.cpp -o src1.o
+</span></span><span class="line"><span class="cl">$ g++ -c src2.cpp -o src2.o</span></span></code></pre></div></div>
+<p>分别查看这两个文件里面的符号表</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ objdump -d src1.o <span class="p">|</span> c++filt
+</span></span><span class="line"><span class="cl">$ objdump -d src2.o <span class="p">|</span> c++filt</span></span></code></pre></div></div>
+<p>本地验证都通过上述命令直接查看符号表进行。但是为了方便展示，我会把 godbolt 对应的链接和截图放上来，它把很多影响阅读的不关键符号都省略了，看起来更加清晰。</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1322,13 +1325,10 @@
     src="https://pic4.zhimg.com/v2-0f8338487557d14a675e82276a73b9a3_r.jpg"
     ></figure>
 </p>
-<p>可以看到这两个 <a
-  href="https://godbolt.org/z/xoW8TTvP7"
-    target="_blank"
-  >源文件</a> 分别保留了一份，<code>add</code>函数的实例。然后我们将它们链接成可执行文件</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ main.o src1.o src2.o -o main.exe
-</span></span><span class="line"><span class="cl">$ objdump -d main.exe <span class="p">|</span> c++filt
-</span></span></code></pre></div><p>结果如下图所示</p>
+<p>可以看到这两个 <a href="https://godbolt.org/z/xoW8TTvP7"  target="_blank">源文件</a> 分别保留了一份，<code>add</code>函数的实例。然后我们将它们链接成可执行文件</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ main.o src1.o src2.o -o main.exe
+</span></span><span class="line"><span class="cl">$ objdump -d main.exe <span class="p">|</span> c++filt</span></span></code></pre></div></div>
+<p>结果如下图所示</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1349,10 +1349,7 @@
     </span>
     
 </h3>
-<p>前面我特意强调了，不打开优化，如果打开了优化会怎么样呢？仍然是上面的代码，我们尝试打开<code>O2</code>优化。最后的 <a
-  href="https://godbolt.org/z/jfx8jrnzf"
-    target="_blank"
-  >结果</a> 如下图所示</p>
+<p>前面我特意强调了，不打开优化，如果打开了优化会怎么样呢？仍然是上面的代码，我们尝试打开<code>O2</code>优化。最后的 <a href="https://godbolt.org/z/jfx8jrnzf"  target="_blank">结果</a> 如下图所示</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1365,7 +1362,7 @@
 <p>可能让人有点吃惊，打开<code>-O2</code>优化之后，<code>add</code>调用被完全内联。编译器最后连符号都没有给<code>add</code>生成，链接的时候自然也没有<code>add</code>。按照我们之前的定义来看，这种函数内联不属于代码膨胀，所以是没有<strong>额外的</strong>二进制膨胀开销的。</p>
 <p>稍微偏个题，既然这两个文件都不生成<code>add</code>这个符号，那万一有别的文件引用了<code>add</code>这个符号，不就会导致链接失败吗？</p>
 <p>考虑如下代码</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src1.cpp
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src1.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -1379,21 +1376,15 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">g1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">add</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>尝试编译链接上面的代码。发现不开优化可以链接通过。开了优化就会导致链接失败了。链接器会告诉你<code>undefined reference to add(int, int)</code>。<strong>三大编译器的行为都是如此</strong>，具体的原因上面已经解释过了，开了优化之后，编译器压根没生成<code>add</code>这个符号，链接的时候自然无法找到了。</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>尝试编译链接上面的代码。发现不开优化可以链接通过。开了优化就会导致链接失败了。链接器会告诉你<code>undefined reference to add(int, int)</code>。<strong>三大编译器的行为都是如此</strong>，具体的原因上面已经解释过了，开了优化之后，编译器压根没生成<code>add</code>这个符号，链接的时候自然无法找到了。</p>
 <p>但是我们想知道的是，这样做符合 C++ 标准吗？</p>
-<p>三大编译器都这样，似乎没有不符合的道理。但是在 inline 那一小节并没有明确说明，而在 <a
-  href="https://en.cppreference.com/w/cpp/language/definition#One_Definition_Rule"
-    target="_blank"
-  >One Definition Rule</a>  这里有如下两句话</p>
+<p>三大编译器都这样，似乎没有不符合的道理。但是在 inline 那一小节并没有明确说明，而在 <a href="https://en.cppreference.com/w/cpp/language/definition#One_Definition_Rule"  target="_blank">One Definition Rule</a>  这里有如下两句话</p>
 <ul>
 <li>For an inline function or inline variable(since C++17), a definition is required in every translation unit where it is odr-used.</li>
 <li>a function is odr-used if a function call to it is made or its address is taken</li>
 </ul>
-<p>两句话啥意思呢？意思就是，一个 inline 函数，如果在某个编译单元被 <a
-  href="https://en.cppreference.com/w/cpp/language/definition#ODR-use"
-    target="_blank"
-  >odr-used</a> 了，那么这个编译单元必须要有该函数的定义。啥情况是 odr-used 呢？后面一句话就是在解释，如果<strong>函数被调用</strong>或者<strong>取函数的地址</strong>就算是 odr-used。</p>
+<p>两句话啥意思呢？意思就是，一个 inline 函数，如果在某个编译单元被 <a href="https://en.cppreference.com/w/cpp/language/definition#ODR-use"  target="_blank">odr-used</a> 了，那么这个编译单元必须要有该函数的定义。啥情况是 odr-used 呢？后面一句话就是在解释，如果<strong>函数被调用</strong>或者<strong>取函数的地址</strong>就算是 odr-used。</p>
 <p>那我们看看之前的代码，在 main.cpp 中调用一个 inline 函数，但是却没有定义，所以其实是违背了 C++ 标准的约定的。到这里，算是松了一口气了。虽然有点反直觉，但是事实的确如此，三大编译器都没错！</p>
 
 <h3 class="relative group">其它情况
@@ -1435,7 +1426,7 @@
     
 </h3>
 <p>我们知道模板实例化发生在当前编译单元，实例化一份就会产生一份代码。考虑下面这个例子</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src1.cpp
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src1.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">add</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -1457,11 +1448,8 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">g1</span><span class="p">()</span> <span class="o">+</span> <span class="n">g2</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>仍然不开优化，尝试编译 <a
-  href="https://godbolt.org/z/aTxMsnK5n"
-    target="_blank"
-  >编译结果</a> 如下</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>仍然不开优化，尝试编译 <a href="https://godbolt.org/z/aTxMsnK5n"  target="_blank">编译结果</a> 如下</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1471,10 +1459,7 @@
     src="https://pic4.zhimg.com/v2-5de99e270f381ff7f77f012ed72836bb_r.jpg"
     ></figure>
 </p>
-<p>可以看见就像被 inline 标记的函数那样，这两个编译单元都实例化了<code>add&lt;int, int&gt;</code>和<code>add&lt;double, double&gt;</code>，各有一份代码。然后在最终链接的时候，链接器只为每个模板实例化保留了一份代码。那我们尝试打开<code>-O2</code>，然后再看看情况。<a
-  href="https://godbolt.org/z/edEd8Tvo4"
-    target="_blank"
-  >结果</a> 如下</p>
+<p>可以看见就像被 inline 标记的函数那样，这两个编译单元都实例化了<code>add&lt;int, int&gt;</code>和<code>add&lt;double, double&gt;</code>，各有一份代码。然后在最终链接的时候，链接器只为每个模板实例化保留了一份代码。那我们尝试打开<code>-O2</code>，然后再看看情况。<a href="https://godbolt.org/z/edEd8Tvo4"  target="_blank">结果</a> 如下</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1500,7 +1485,7 @@
 <p>那我们可以像非模板函数一样，把实现放在某一个源文件，其它文件引用这个源文件的函数吗？从上一小节的讨论来看，既然会生成符号，那应该就有办法链接到。但是不能保证一定生成啊，有什么办法保证生成符号吗？</p>
 <p>答案就是 —— 显式实例化！</p>
 <p>什么叫显式实例化？简单来说，如果一个模板，你直接使用。而不提前声明具体到何种类型，由编译器帮你生成声明，那就算隐式实例化。反之就叫做显式实例化。以函数模板为例，</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="kt">void</span> <span class="n">f</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span> <span class="c1">// 显式实例化 f&lt;int&gt; 定义
@@ -1509,20 +1494,22 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// 调用之前显式实例化的 f&lt;int&gt;
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">f</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">);</span> <span class="c1">// 隐式实例化 f&lt;double&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>相信还是很好理解的，而且<strong>显式实例化定义</strong>的话，编译器一定会为你保留符号。那接下来就是外部如何链接到这个显式实例化的函数了，有两种办法</p>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>相信还是很好理解的，而且<strong>显式实例化定义</strong>的话，编译器一定会为你保留符号。那接下来就是外部如何链接到这个显式实例化的函数了，有两种办法</p>
 <p>一种是，直接显式实例化一个函数声明</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="kt">void</span> <span class="n">f</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span> <span class="c1">// 显式实例化 f&lt;int&gt; 仅声明
-</span></span></span></code></pre></div><p>另一种是直接使用<code>extern</code>关键字实例化一个定义</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span></span></code></pre></div></div>
+<p>另一种是直接使用<code>extern</code>关键字实例化一个定义</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">){</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">extern</span> <span class="k">template</span> <span class="kt">void</span> <span class="n">f</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span> <span class="c1">// 显式实例化 f&lt;int&gt; 声明
 </span></span></span><span class="line"><span class="cl"><span class="c1">// 注意不加 extern 就会显式实例化一个定义了
-</span></span></span></code></pre></div><p>这两种都能正确引用到上面那个函数<code>f</code>，这样就可以调用其它文件的模板实例化了！</p>
+</span></span></span></code></pre></div></div>
+<p>这两种都能正确引用到上面那个函数<code>f</code>，这样就可以调用其它文件的模板实例化了！</p>
 
 <h3 class="relative group">真正的模板膨胀开销
     <div id="真正的模板膨胀开销" class="anchor"></div>
@@ -1534,11 +1521,11 @@
     
 </h3>
 <p>接下来是最重要的部分了，我们将会介绍模板膨胀的真正原因。由于一些历史遗留问题，C++ 中<code>char</code>,<code>unsigned char</code>,<code>signed char</code>三种类型永远互不相同</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">);</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="kt">signed</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">signed</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">);</span>
-</span></span></code></pre></div><p>但是如果落实到到编译器最终实现上来，<code>char</code>要么<code>signed</code>，要么<code>unsigned</code>。假设我们编写一个模板函数</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">signed</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>但是如果落实到到编译器最终实现上来，<code>char</code>要么<code>signed</code>，要么<code>unsigned</code>。假设我们编写一个模板函数</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">){</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">g</span><span class="p">()</span>
@@ -1546,11 +1533,8 @@
 </span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">&lt;</span><span class="kt">signed</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>实例化三种类型的函数模板，那么其中必然有两个实例化是相同的代码。编译器会把函数类型不同，但是最后生成的二进制代码相同的两个函数合并吗？尝试一下，<a
-  href="https://godbolt.org/z/KncEh3z5n"
-    target="_blank"
-  >结果</a> 如下</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>实例化三种类型的函数模板，那么其中必然有两个实例化是相同的代码。编译器会把函数类型不同，但是最后生成的二进制代码相同的两个函数合并吗？尝试一下，<a href="https://godbolt.org/z/KncEh3z5n"  target="_blank">结果</a> 如下</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1561,10 +1545,7 @@
     ></figure>
 </p>
 <p>可以看到这里生成了两个完全一样的函数，但是并没有合并。当然，如果我们打开<code>-O2</code>优化，这样短的函数就会被内联掉了，也不会生成最终符号。就和第一小节说的那样，也就没有所谓的&quot;模板膨胀开销&quot;。实际代码编写中有很多这样的短小的模板函数，比如<code>vector</code>这种容器的<code>end</code>,<code>begin</code>,<code>operator[]</code>等等，它们大概率会被完全内联，从而没有&quot;额外的膨胀&quot;开销。</p>
-<p>现在问题来了，如果函数没被没有内联呢？假设模板函数比较复杂，函数体较大。为了方便演示，我们暂时使用 GCC 的一个 attribute <code>[[gnu::noinline]]</code>来实现这种效果，然后打开 O2，再次编译上面的 <a
-  href="https://godbolt.org/z/Exff5cnfj"
-    target="_blank"
-  >代码</a></p>
+<p>现在问题来了，如果函数没被没有内联呢？假设模板函数比较复杂，函数体较大。为了方便演示，我们暂时使用 GCC 的一个 attribute <code>[[gnu::noinline]]</code>来实现这种效果，然后打开 O2，再次编译上面的 <a href="https://godbolt.org/z/Exff5cnfj"  target="_blank">代码</a></p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1575,11 +1556,8 @@
     ></figure>
 </p>
 <p>可以看到虽然被优化的只剩一条指令，但是编译器还是生成了三份函数。实际上，真的不被编译器内联的函数体积可能比较大，情况可能比这个“伪装的大函数”糟糕的多。于是，这样的话就产生了所谓的&quot;模板膨胀&quot;。<strong>本来能合并的代码却没有合并，这就是真正的模板膨胀开销所在</strong>。</p>
-<p>如果非常希望编译器/链接器合并这些相同的二进制代码怎么办呢？很遗憾，主流的工具链 ld / lld / ms linker 都不会做这种合并。目前唯一支持这个特性的链接器是 <a
-  href="https://www.gnu.org/software/binutils/"
-    target="_blank"
-  >gold</a>，但是它只能用于链接 elf 格式的可执行文件，所以没法在 Windows 上面使用了。下面我展示一下：如何使用它合并相同的二进制代码</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// main.cpp
+<p>如果非常希望编译器/链接器合并这些相同的二进制代码怎么办呢？很遗憾，主流的工具链 ld / lld / ms linker 都不会做这种合并。目前唯一支持这个特性的链接器是 <a href="https://www.gnu.org/software/binutils/"  target="_blank">gold</a>，但是它只能用于链接 elf 格式的可执行文件，所以没法在 Windows 上面使用了。下面我展示一下：如何使用它合并相同的二进制代码</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// main.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;utility&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
@@ -1600,12 +1578,12 @@
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">call_f</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="mi">100</span><span class="o">&gt;</span><span class="p">{});</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>我这里通过模板生成了<code>100</code>个不同的类型，但是实际上它们底层都是<code>size_t</code>类型，所以进行最终编译生成的二进制代码是完全相同的。使用如下命令尝试编译它</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ -O2 -ffunction-sections -fuse-ld<span class="o">=</span>gold -Wl,--icf<span class="o">=</span>all main.cpp -o main.o
-</span></span><span class="line"><span class="cl">$ objdump -d main.o <span class="p">|</span> c++filt
-</span></span></code></pre></div><p>使用<code>-fue-ld=gold</code>指定链接器，<code>-Wl,--icf=all</code>指定链接器选项。<code>icf</code>即意味着<code>identical code folding</code>，即相同代码折叠。因为链接器只在 section 级别上工作，所以 GCC 则需要配合开启<code>-ffunction-sections</code>，上面的编译器也可以替换成<code>clang</code></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">0000000000000740</span> &lt;X&lt;99ul&gt;::f<span class="o">()</span> <span class="o">[</span>clone .isra.0<span class="o">]</span>&gt;:
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>我这里通过模板生成了<code>100</code>个不同的类型，但是实际上它们底层都是<code>size_t</code>类型，所以进行最终编译生成的二进制代码是完全相同的。使用如下命令尝试编译它</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ -O2 -ffunction-sections -fuse-ld<span class="o">=</span>gold -Wl,--icf<span class="o">=</span>all main.cpp -o main.o
+</span></span><span class="line"><span class="cl">$ objdump -d main.o <span class="p">|</span> c++filt</span></span></code></pre></div></div>
+<p>使用<code>-fue-ld=gold</code>指定链接器，<code>-Wl,--icf=all</code>指定链接器选项。<code>icf</code>即意味着<code>identical code folding</code>，即相同代码折叠。因为链接器只在 section 级别上工作，所以 GCC 则需要配合开启<code>-ffunction-sections</code>，上面的编译器也可以替换成<code>clang</code></p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">0000000000000740</span> &lt;X&lt;99ul&gt;::f<span class="o">()</span> <span class="o">[</span>clone .isra.0<span class="o">]</span>&gt;:
 </span></span><span class="line"><span class="cl"> 740:   <span class="m">48</span> <span class="m">89</span> fa                mov    %rdi,%rdx
 </span></span><span class="line"><span class="cl"> 743:   <span class="m">48</span> 8d <span class="m">35</span> 1a <span class="m">04</span> <span class="m">00</span> <span class="m">00</span>    lea    0x41a<span class="o">(</span>%rip<span class="o">)</span>,%rsi
 </span></span><span class="line"><span class="cl"> 74a:   bf <span class="m">01</span> <span class="m">00</span> <span class="m">00</span> <span class="m">00</span>          mov    <span class="nv">$0</span>x1,%edi
@@ -1620,8 +1598,8 @@
 </span></span><span class="line"><span class="cl"> 766:   e8 d5 ff ff ff          call   <span class="m">740</span> &lt;X&lt;99ul&gt;::f<span class="o">()</span> <span class="o">[</span>clone .isra.0<span class="o">]</span>&gt;
 </span></span><span class="line"><span class="cl"> ... <span class="c1"># 重复 98 次</span>
 </span></span><span class="line"><span class="cl"> b48:   e9 f3 fb ff ff          jmp    <span class="m">740</span> &lt;X&lt;99ul&gt;::f<span class="o">()</span> <span class="o">[</span>clone .isra.0<span class="o">]</span>&gt;
-</span></span><span class="line"><span class="cl"> b4d:   0f 1f <span class="m">00</span>                nopl   <span class="o">(</span>%rax<span class="o">)</span>
-</span></span></code></pre></div><p>对输出内容进行了一些筛选，可以发现，gold 把二进制完全相同的 100 个模板函数合并成一个了，所谓的&quot;模板膨胀&quot;消失了。相比之下，前面那些那些不做这种合并的链接器，就自然就有额外的开销了。</p>
+</span></span><span class="line"><span class="cl"> b4d:   0f 1f <span class="m">00</span>                nopl   <span class="o">(</span>%rax<span class="o">)</span></span></span></code></pre></div></div>
+<p>对输出内容进行了一些筛选，可以发现，gold 把二进制完全相同的 100 个模板函数合并成一个了，所谓的&quot;模板膨胀&quot;消失了。相比之下，前面那些那些不做这种合并的链接器，就自然就有额外的开销了。</p>
 <p>但是 gold 并不是万能的，有些情况不能很好的处理。假设这 100 个函数，前<code>90%</code>的代码相同，但是最后<code>10%</code>的代码不相同，那么它就无能为力了。它只是简单的对比最终生成的二进制，然后合并完全相同的函数。那么还有其他的解决办法吗？**自动挡没有，咱们还有手动挡呢，咱写 C++ 的没什么别的擅长的，就擅长开手动挡。 **</p>
 
 <h3 class="relative group">手动优化模板膨胀问题
@@ -1635,16 +1613,16 @@
 </h3>
 <p>下面以大家最常用的<code>vector</code>为例，展示一下解决模板膨胀的主要思路。前面已经提到了，像迭代器接口这样的短函数，我们是不需要去管的。我们主要来处理那些逻辑比较复杂的函数，对 vector 来说，首当其冲的就是扩容函数了</p>
 <p>假设我们有如下<code>vector</code>代码</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">vector</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">T</span><span class="o">*</span> <span class="n">m_Begin</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">T</span><span class="o">*</span> <span class="n">m_End</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">T</span><span class="o">*</span> <span class="n">m_Capacity</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">grow</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>考虑一个<code>vector</code>扩容的朴素实现，暂不考虑异常安全</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>考虑一个<code>vector</code>扩容的朴素实现，暂不考虑异常安全</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">grow</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">T</span><span class="o">*</span> <span class="n">new_date</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">)));</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_move_constructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
@@ -1654,24 +1632,21 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">destroy</span><span class="p">(</span><span class="n">m_Begin</span><span class="p">,</span> <span class="n">m_End</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="n">m_Begin</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>逻辑看起来还挺简单的。但是毫无疑问，它算是一个较复杂的函数了，尤其是当对象的构造函数被内联的话，代码量也是比较大的。那如何合并呢？注意，合并模板的前提是找出不同模板实例的相同部分，如果一个函数为不同的类型生成完全不同的代码，那是没法合并的。</p>
-<p>那对于<code>vector</code>来说，如果 T 里面的元素类型不同，扩容逻辑还能相同吗？考虑到构造函数调用，似乎没任何办法。关键点来了，这里需要介绍一个<code>trivially_relocatable</code>的概念，具体的讨论可以参考：<a
-  href="https://www.ykiko.me/zh-cn/articles/679782886"
-    target="_blank"
-  >全新的构造函数，C++ 中的 relocate 构造函数</a>。</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>逻辑看起来还挺简单的。但是毫无疑问，它算是一个较复杂的函数了，尤其是当对象的构造函数被内联的话，代码量也是比较大的。那如何合并呢？注意，合并模板的前提是找出不同模板实例的相同部分，如果一个函数为不同的类型生成完全不同的代码，那是没法合并的。</p>
+<p>那对于<code>vector</code>来说，如果 T 里面的元素类型不同，扩容逻辑还能相同吗？考虑到构造函数调用，似乎没任何办法。关键点来了，这里需要介绍一个<code>trivially_relocatable</code>的概念，具体的讨论可以参考：<a href="https://www.ykiko.me/zh-cn/articles/679782886"  target="_blank">全新的构造函数，C++ 中的 relocate 构造函数</a>。</p>
 <p>我们这里只说结果，如果一个类型是<code>trivially_relocatable</code>的，那么可以使用<code>memcpy</code>把它从旧内存移动到新内存，不需要调用构造函数了。</p>
 <p>考虑编写如下的扩容函数</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">trivially_grow</span><span class="p">(</span><span class="kt">char</span><span class="o">*&amp;</span> <span class="n">begin</span><span class="p">,</span> <span class="kt">char</span><span class="o">*&amp;</span> <span class="n">end</span><span class="p">,</span> <span class="kt">char</span><span class="o">*&amp;</span> <span class="n">capacity</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">trivially_grow</span><span class="p">(</span><span class="kt">char</span><span class="o">*&amp;</span> <span class="n">begin</span><span class="p">,</span> <span class="kt">char</span><span class="o">*&amp;</span> <span class="n">end</span><span class="p">,</span> <span class="kt">char</span><span class="o">*&amp;</span> <span class="n">capacity</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">char</span><span class="o">*</span> <span class="n">new_data</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">size</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">memcpy</span><span class="p">(</span><span class="n">new_data</span><span class="p">,</span> <span class="n">begin</span><span class="p">,</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">begin</span><span class="p">)</span> <span class="o">*</span> <span class="n">size</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="n">begin</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">begin</span> <span class="o">=</span> <span class="n">new_data</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">end</span> <span class="o">=</span> <span class="n">new_data</span> <span class="o">+</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">begin</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">capacity</span> <span class="o">=</span> <span class="n">new_data</span> <span class="o">+</span> <span class="n">n</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>然后将原来的<code>grow</code>实现转发到这个函数</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>然后将原来的<code>grow</code>实现转发到这个函数</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">grow</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">is_trivially_relocatable_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">trivially_grow</span><span class="p">(</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">*&amp;&gt;</span><span class="p">(</span><span class="n">m_Begin</span><span class="p">),</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">*&amp;&gt;</span><span class="p">(</span><span class="n">m_End</span><span class="p">),</span> 
@@ -1679,8 +1654,8 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 原来的实现
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>这样就完成了抽取公共逻辑。于是所有的<code>T</code>只要满足<code>trivially_relocatable</code>，就可以全都这共享一份代码了。而几乎所有不含有自引用的类型都符合这个条件，于是<code>99%</code>的类型都使用同一套扩容逻辑！这样的优化效果是非常显著的！实际上 LLVM 很多容器的源码，比如 <code>SmallVector</code>,<code>StringMap</code>等等，都使用了这样的技巧。另外如果你觉得上面的<code>reinterpret_cast</code>破坏了严格别名，用起来有点害怕，你可以通过继承来实现相同的效果（基类成员用<code>void*</code>），具体的代码就不展示了。</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>这样就完成了抽取公共逻辑。于是所有的<code>T</code>只要满足<code>trivially_relocatable</code>，就可以全都这共享一份代码了。而几乎所有不含有自引用的类型都符合这个条件，于是<code>99%</code>的类型都使用同一套扩容逻辑！这样的优化效果是非常显著的！实际上 LLVM 很多容器的源码，比如 <code>SmallVector</code>,<code>StringMap</code>等等，都使用了这样的技巧。另外如果你觉得上面的<code>reinterpret_cast</code>破坏了严格别名，用起来有点害怕，你可以通过继承来实现相同的效果（基类成员用<code>void*</code>），具体的代码就不展示了。</p>
 
 <h2 class="relative group">异常导致的代码膨胀！
     <div id="异常导致的代码膨胀" class="anchor"></div>
@@ -1691,10 +1666,7 @@
     </span>
     
 </h2>
-<p>为什么 LLVM 源码禁用异常？很多人可能会下意识的认为，原因是异常很慢，效率很低。但其实，根据 <a
-  href="https://llvm.org/docs/CodingStandards.html#do-not-use-rtti-or-exceptions"
-    target="_blank"
-  >LLVM Coding Standard</a> 里面的内容，关闭异常和<code>RTTI</code>的主要目的是为了减少二进制大小。据说，打开异常和<code>RTTI</code>会导致 LLVM 的编译结果膨胀<code>10%-15%</code>，那么实际情况究竟如何？</p>
+<p>为什么 LLVM 源码禁用异常？很多人可能会下意识的认为，原因是异常很慢，效率很低。但其实，根据 <a href="https://llvm.org/docs/CodingStandards.html#do-not-use-rtti-or-exceptions"  target="_blank">LLVM Coding Standard</a> 里面的内容，关闭异常和<code>RTTI</code>的主要目的是为了减少二进制大小。据说，打开异常和<code>RTTI</code>会导致 LLVM 的编译结果膨胀<code>10%-15%</code>，那么实际情况究竟如何？</p>
 <p>目前主要的异常实现有两种，一种是 Itanium ABI 的实现，另一种则是 MS ABI 的实现。简单来说 MS ABI 采用运行时查找的办法，这样会导致异常在 Happy Path 执行也有的额外运行时开销，但是优点是最终生成的二进制代码相对较小。而 Itanium ABI 则是我们今天的主角，它号称零开销异常，Happy 路径没有任何额外的运行时开销。那古尔丹，代价是什么？代价就是非常严重的二进制膨胀。为什么会产生膨胀呢？简单来说，就是如果不想完全等到运行时去查找，那就得预先打表。由于异常的隐式传播特性，会导致表占用空间很大。具体实现细节非常复杂，不是本文的主题，放张图，大概感受一下</p>
 <p><figure><img
     class="my-0 rounded-md"
@@ -1707,16 +1679,16 @@
 </p>
 <p>那我们主要讨论什么呢？异常会导致二进制膨胀，这个没什么好怀疑的。我们主要看看如何减少异常产生的二进制膨胀，以 Itanium ABI 为例</p>
 <p>先来看下面这段示例代码</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">foo</span><span class="p">();</span> <span class="c1">// 外部链接函数，可能抛出异常
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span> <span class="c1">// 拥有 non-trivial 的析构函数
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">foo</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>注意，这里<code>foo</code>是一个外部链接的函数，可能会抛出异常。另外就是<code>vector</code>的析构函数调用是在<code>foo</code>之后的。如果<code>foo</code>抛出异常，控制流不知道跳转到什么地方了，那么<code>vetcor</code>的析构函数可能被跳过调用了，如果编译器不做些特殊处理的话，就会导致内存泄露了。先只打开<code>-O2</code>看看程序编译的结果</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bar<span class="o">()</span>:
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>注意，这里<code>foo</code>是一个外部链接的函数，可能会抛出异常。另外就是<code>vector</code>的析构函数调用是在<code>foo</code>之后的。如果<code>foo</code>抛出异常，控制流不知道跳转到什么地方了，那么<code>vetcor</code>的析构函数可能被跳过调用了，如果编译器不做些特殊处理的话，就会导致内存泄露了。先只打开<code>-O2</code>看看程序编译的结果</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bar<span class="o">()</span>:
 </span></span><span class="line"><span class="cl">        ...
 </span></span><span class="line"><span class="cl">        call    operator new<span class="o">(</span>unsigned long<span class="o">)</span>
 </span></span><span class="line"><span class="cl">        ...
@@ -1731,17 +1703,17 @@
 </span></span><span class="line"><span class="cl">        mov     esi, <span class="m">48</span>
 </span></span><span class="line"><span class="cl">        call    operator delete<span class="o">(</span>void*, unsigned long<span class="o">)</span>
 </span></span><span class="line"><span class="cl">        mov     rdi, rbp
-</span></span><span class="line"><span class="cl">        call    _Unwind_Resume
-</span></span></code></pre></div><p>省略掉不重要的部分，和我们刚才猜的大致相同。那这个<code>.L2</code>是干嘛的呢？这个其实就是异常被<code>catch</code>处理完后会跳转到这个<code>L2</code>把之前没处理完的工作做完（这里就是析构之前未析构的对象），之后再<code>Resume</code>回到先前的位置。</p>
+</span></span><span class="line"><span class="cl">        call    _Unwind_Resume</span></span></code></pre></div></div>
+<p>省略掉不重要的部分，和我们刚才猜的大致相同。那这个<code>.L2</code>是干嘛的呢？这个其实就是异常被<code>catch</code>处理完后会跳转到这个<code>L2</code>把之前没处理完的工作做完（这里就是析构之前未析构的对象），之后再<code>Resume</code>回到先前的位置。</p>
 <p>我们稍微调整下代码，把<code>foo</code>调用移动到<code>vector</code>构造的前面，其它什么都不变</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bar<span class="o">()</span>:
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bar<span class="o">()</span>:
 </span></span><span class="line"><span class="cl">        sub     rsp, <span class="m">8</span>
 </span></span><span class="line"><span class="cl">        call    foo<span class="o">()</span>
 </span></span><span class="line"><span class="cl">        mov     edi, <span class="m">48</span>
 </span></span><span class="line"><span class="cl">        call    operator new<span class="o">(</span>unsigned long<span class="o">)</span>
 </span></span><span class="line"><span class="cl">        ...
-</span></span><span class="line"><span class="cl">        jmp     operator delete<span class="o">(</span>void*, unsigned long<span class="o">)</span>
-</span></span></code></pre></div><p>可以发现没有生成清理栈的代码了，很合理。原因很简单，如果<code>foo</code>抛出异常，控制流直接跳转走了，那<code>vector</code>都没构造呢，自然也不需要析构了。通过简单的调整调用顺序就减少了二进制大小！但是，只有这种特别简单的情况下，依赖关系才比较明显。如果实际抛出异常的函数很多的话，就很难分析了。</p>
+</span></span><span class="line"><span class="cl">        jmp     operator delete<span class="o">(</span>void*, unsigned long<span class="o">)</span></span></span></code></pre></div></div>
+<p>可以发现没有生成清理栈的代码了，很合理。原因很简单，如果<code>foo</code>抛出异常，控制流直接跳转走了，那<code>vector</code>都没构造呢，自然也不需要析构了。通过简单的调整调用顺序就减少了二进制大小！但是，只有这种特别简单的情况下，依赖关系才比较明显。如果实际抛出异常的函数很多的话，就很难分析了。</p>
 
 <h3 class="relative group">noexcept
     <div id="noexcept" class="anchor"></div>
@@ -1755,15 +1727,15 @@
 <p>先讨论 C++11 加入的这个<code>noexcept</code>。注意即使加了<code>noexcept</code>，这个函数还是可能会抛出异常的，如果该函数抛出异常，程序直接<code>terminate</code>。那你可能要问了，这玩意有啥用呢？我异常抛了，不捕获不也是<code>terminate</code>吗？</p>
 <p>其实这个和 const 有点类似，你想改 const 变量，虽然是 undefined behavior，但是运行时随便改呀，限制不多。那你要问了， const 有什么意义？一个重要的意义是给编译器提供优化指示信息。编译器可以利用这个做 <em>constant folding（常量折叠）</em>  和 <em>common subexpression elimination（公共子表达式消除）</em> 。</p>
 <p><code>noexcept</code>也是类似的，它让编译器假设这个函数不会抛出异常，从而可以进行一些额外的优化。 还是第一个例子里面的代码为例，唯一的改变是把<code>foo</code>函数声明为了<code>noexcept</code>，然后再次编译</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bar<span class="o">()</span>:
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bar<span class="o">()</span>:
 </span></span><span class="line"><span class="cl">        push    rbx
 </span></span><span class="line"><span class="cl">        mov     edi, <span class="m">48</span>
 </span></span><span class="line"><span class="cl">        call    operator new<span class="o">(</span>unsigned long<span class="o">)</span>
 </span></span><span class="line"><span class="cl">        ...
 </span></span><span class="line"><span class="cl">        call    foo<span class="o">()</span>
 </span></span><span class="line"><span class="cl">        ...
-</span></span><span class="line"><span class="cl">        jmp     operator delete<span class="o">(</span>void*, unsigned long<span class="o">)</span>
-</span></span></code></pre></div><p>可以发现，用于异常处理的代码路径，同样没有了，这就是<code>noexpect</code>的功劳。</p>
+</span></span><span class="line"><span class="cl">        jmp     operator delete<span class="o">(</span>void*, unsigned long<span class="o">)</span></span></span></code></pre></div></div>
+<p>可以发现，用于异常处理的代码路径，同样没有了，这就是<code>noexpect</code>的功劳。</p>
 
 <h3 class="relative group">fno-exceptions
     <div id="fno-exceptions" class="anchor"></div>
@@ -1776,15 +1748,15 @@
 </h3>
 <p>终于讲到重头戏了：<code>-fno-exceptions</code>，注意这个选项非标准。但是三大编译器都有提供，不过具体的实现效果有些许差异。好像并没有十分详细的文档，我仅凭经验说一下 GCC 相关的，对于 GCC 来说，该选项会禁止用户的代码里面使用<code>try</code>,<code>catch</code>,<code>throw</code>等关键字，如果使用则导致编译错误。但是特别的，允许使用标准库。如果异常被抛出，就和<code>noexcept</code>一样，程序直接<code>terminate</code>。所以如果打开了这个选项，GCC 会默认假设所有函数不会抛出异常。</p>
 <p>仍然是上面的例子，我们尝试打开<code>-fno-exceptions</code>，然后再次编译</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bar<span class="o">()</span>:
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bar<span class="o">()</span>:
 </span></span><span class="line"><span class="cl">        push    rbx
 </span></span><span class="line"><span class="cl">        mov     edi, <span class="m">48</span>
 </span></span><span class="line"><span class="cl">        call    operator new<span class="o">(</span>unsigned long<span class="o">)</span>
 </span></span><span class="line"><span class="cl">        ...
 </span></span><span class="line"><span class="cl">        call    foo<span class="o">()</span>
 </span></span><span class="line"><span class="cl">        ...
-</span></span><span class="line"><span class="cl">        jmp     operator delete<span class="o">(</span>void*, unsigned long<span class="o">)</span>
-</span></span></code></pre></div><p>可以发现和<code>noexcept</code>产生的效果类似，它们都会让编译器假设某个函数不会抛出异常，从而不需要生成清理栈的额外代码,达到减少程序二进制大小的效果。</p>
+</span></span><span class="line"><span class="cl">        jmp     operator delete<span class="o">(</span>void*, unsigned long<span class="o">)</span></span></span></code></pre></div></div>
+<p>可以发现和<code>noexcept</code>产生的效果类似，它们都会让编译器假设某个函数不会抛出异常，从而不需要生成清理栈的额外代码,达到减少程序二进制大小的效果。</p>
 <hr>
 <p>这篇文章涉及到的话题跨度有点大，某些地方有错误在所难免，欢迎评论区讨论交流。</p>
 

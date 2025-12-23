@@ -125,8 +125,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.d73bd5624a883943ee708df101144407dd1c0d07937ac38a3fb7923631f3462db466c14c537ecc819f12c038e21ed2e83f1524eb126bc4e8f59f21a0e357738c.css"
-    integrity="sha512-1zvVYkqIOUPucI3xARREB90cDQeTesOKP7eSNjHzRi20ZsFMU37MgZ8SwDjiHtLoPxUk6xJrxOj1nyGg41dzjA==">
+    href="/css/main.bundle.min.9e8f7139c652e8a74a176ca1ebfd53ed3d4a6287070b98560332ae377ace684485cf68f3bdec2d950e9a9d74c13deaa568a8f1aba92143ab4aabd039e71fe576.css"
+    integrity="sha512-no9xOcZS6KdKF2yh6/1T7T1KYocHC5hWAzKuN3rOaESFz2jzvewtlQ6anXTBPeqlaKjxq6khQ6tKq9A55x/ldg==">
 
   
   
@@ -166,13 +166,14 @@
   
   
   
+  
     
     <script
       defer
       type="text/javascript"
       id="script-bundle"
-      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
-      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      src="/js/main.bundle.min.aee4e707e28a3bd3629b3d56fc8989adf1c11e60ba52e5c99085898be50963025e6b3c8a90f2ff6ac2fe5225da74015b85ec8e0e52510b07cc8e82b7f08997cb.js"
+      integrity="sha512-ruTnB&#43;KKO9Nimz1W/ImJrfHBHmC6UuXJkIWJi&#43;UJYwJeazyKkPL/asL&#43;UiXadAFbheyODlJRCwfMjoK38ImXyw=="
       data-copy="复制"
       data-copied="已复制"></script>
   
@@ -221,6 +222,9 @@
 
 
 
+
+
+
   
   
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -238,7 +242,6 @@
     "name": "在 C\u002b\u002b 中实现 Object!",
     "headline": "在 C\u002b\u002b 中实现 Object!",
     
-    "abstract": "\u003ch2 class=\u0022relative group\u0022\u003e静态与动态\n    \u003cdiv id=\u0022静态与动态\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none\u0022\u003e\n        \u003ca class=\u0022text-primary-300 dark:text-neutral-700 !no-underline\u0022 href=\u0022#%e9%9d%99%e6%80%81%e4%b8%8e%e5%8a%a8%e6%80%81\u0022 aria-label=\u0022锚点\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e\n    \n\u003c\/h2\u003e\n\u003cp\u003e静态类型和动态类型这两个词语相信大家都不陌生了，区分二者的关键在于类型检查的时机。什么意思呢？\u003c\/p\u003e",
     "inLanguage": "zh-cn",
     "url" : "https://www.ykiko.me/zh-cn/articles/670191053/",
     "author" : {
@@ -741,7 +744,7 @@
     <img
       id="background-image"
       src="/zh-cn/articles/670191053/featured_hu14729570255897851859.png"
-      alt="在 C&#43;&#43; 中实现 Object!"
+      role="presentation"
       loading="eager"
       decoding="async"
       fetchpriority="high"
@@ -756,7 +759,7 @@
   
     <div
       id="background-blur"
-      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
     
     
     <script
@@ -1319,13 +1322,13 @@
 </h2>
 <p>静态类型和动态类型这两个词语相信大家都不陌生了，区分二者的关键在于类型检查的时机。什么意思呢？</p>
 <p>假设我们有如下的 C++ 代码</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;123&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-</span></span></code></pre></div><p>那我们知道，<code>string</code>是不能和<code>int</code>直接相加的，所以这里应该有一个 TypeError。C++ 在编译期检查类型错误，所以这段代码会触发一个 <strong>compile time error（编译时错误）</strong>。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;123&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span></span></span></code></pre></div></div>
+<p>那我们知道，<code>string</code>是不能和<code>int</code>直接相加的，所以这里应该有一个 TypeError。C++ 在编译期检查类型错误，所以这段代码会触发一个 <strong>compile time error（编译时错误）</strong>。</p>
 <p>考虑对应的 Python 代码</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="s2">&#34;123&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">1</span>
-</span></span></code></pre></div><p>而 Python 则是在运行期检查错误，上述代码实际上会产生一个 <strong>runtime error（运行时错误）</strong>。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="s2">&#34;123&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">1</span></span></span></code></pre></div></div>
+<p>而 Python 则是在运行期检查错误，上述代码实际上会产生一个 <strong>runtime error（运行时错误）</strong>。</p>
 <p>有必要强调一下这里的编译期 <strong>compile time</strong> 和 <strong>runtime</strong> 指代的含义。这些词可能经常会见到，但是在不同的上下文中可以含义不太一样，在我们这里：</p>
 <ul>
 <li>
@@ -1360,7 +1363,7 @@
     
 </h2>
 <p>我们这里不采用类似 Java/C# 中<code>Object</code>那种侵入式设计（继承），而是采用被叫做 fat pointer 非侵入式设计。所谓 fat pointer 其实就是一个结构体，包含了一个指向实际数据的指针，以及一个指向类型信息的指针。如果是继承的话，则是这个虚表指针存在对象头部。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Any</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Any</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Type</span><span class="o">*</span> <span class="n">type</span><span class="p">;</span>    <span class="c1">// type info, similar to vtable
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">;</span>    <span class="c1">// pointer to the data
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">uint8_t</span> <span class="n">flag</span><span class="p">;</span>  <span class="c1">// special flag
@@ -1385,8 +1388,8 @@
 </span></span><span class="line"><span class="cl">    <span class="n">Any</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">name</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">Any</span><span class="o">&gt;</span> <span class="n">args</span><span class="p">);</span>  <span class="c1">// call method
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">foreach</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">,</span> <span class="n">Any</span><span class="o">&amp;</span><span class="p">)</span><span class="o">&gt;&amp;</span> <span class="n">fn</span><span class="p">);</span>  <span class="c1">// iterate fields
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
-</span></span></code></pre></div><p>其中的成员函数将会在后面的章节逐步实现，接下来我们先来考虑这个<code>Type</code>类型里面存的是什么。</p>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></div></div>
+<p>其中的成员函数将会在后面的章节逐步实现，接下来我们先来考虑这个<code>Type</code>类型里面存的是什么。</p>
 
 <h2 class="relative group">元信息
     <div id="元信息" class="anchor"></div>
@@ -1397,7 +1400,7 @@
     </span>
     
 </h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Type</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Type</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">name</span><span class="p">;</span>       <span class="c1">// type name
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">destroy</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">);</span>      <span class="c1">// destructor
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span><span class="o">*</span> <span class="p">(</span><span class="o">*</span><span class="n">copy</span><span class="p">)(</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span><span class="p">);</span>  <span class="c1">// copy constructor
@@ -1407,8 +1410,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">using</span> <span class="n">Method</span> <span class="o">=</span> <span class="n">Any</span> <span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">Any</span><span class="o">&gt;</span><span class="p">);</span>         <span class="c1">// method
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">,</span> <span class="n">Field</span><span class="o">&gt;</span> <span class="n">fields</span><span class="p">;</span>    <span class="c1">// field info
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">,</span> <span class="n">Method</span><span class="o">&gt;</span> <span class="n">methods</span><span class="p">;</span>  <span class="c1">// method info
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
-</span></span></code></pre></div><p>这里的内容很简单，我们在<code>Type</code>里面中存了类型名，析构函数，移动构造，拷贝构造，字段信息和方法信息。字段信息里面存的是字段类型和字段名，方法信息里面存的是方法名和函数地址。如果希望进一步扩展的话，还可以把父类的信息和重载函数的信息也存进来。由于这里只是做一个示例，就暂时不考虑它们了。</p>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></div></div>
+<p>这里的内容很简单，我们在<code>Type</code>里面中存了类型名，析构函数，移动构造，拷贝构造，字段信息和方法信息。字段信息里面存的是字段类型和字段名，方法信息里面存的是方法名和函数地址。如果希望进一步扩展的话，还可以把父类的信息和重载函数的信息也存进来。由于这里只是做一个示例，就暂时不考虑它们了。</p>
 
 <h2 class="relative group">函数类型擦除
     <div id="函数类型擦除" class="anchor"></div>
@@ -1421,14 +1424,14 @@
 </h2>
 <p>为了把不同类型的成员函数存在同一个容器里面，我们必须要对函数类型进行擦除。所有类型的函数都被擦除成了 <code>Any(*)(void*, std::span&lt;Any&gt;)</code>这个类型。这里的<code>Any</code>类型就是我们上面定义的<code>Any</code>类型，这里的<code>void*</code>其实代表就是<code>this</code>指针，而<code>std::span&lt;Any&gt;</code>则是函数的参数列表。现在我们要考虑如何进行这种函数类型擦除。</p>
 <p>以下面给定的成员函数<code>say</code>为例：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Person</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Person</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">name</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">age</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">say</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; say: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">msg</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>首先为了方便书写，我们把<code>Any</code>的<code>cast</code>实现一下：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>首先为了方便书写，我们把<code>Any</code>的<code>cast</code>实现一下：</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="n">Type</span><span class="o">*</span> <span class="n">type_of</span><span class="p">();</span>  <span class="c1">// type_of&lt;T&gt; returns type info of T
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -1437,15 +1440,15 @@
 </span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">{</span><span class="s">&#34;type mismatch&#34;</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>利用 C++ 中无捕获的<code>lambda</code>能隐式转换成函数指针这个特性，可以轻松实现这种擦除。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">f</span> <span class="o">=</span> <span class="o">+</span><span class="p">[](</span><span class="kt">void</span><span class="o">*</span> <span class="n">object</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">Any</span><span class="o">&gt;</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>利用 C++ 中无捕获的<code>lambda</code>能隐式转换成函数指针这个特性，可以轻松实现这种擦除。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">f</span> <span class="o">=</span> <span class="o">+</span><span class="p">[](</span><span class="kt">void</span><span class="o">*</span> <span class="n">object</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">Any</span><span class="o">&gt;</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">auto</span><span class="o">&amp;</span> <span class="n">self</span> <span class="o">=</span> <span class="o">*</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">object</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">self</span><span class="p">.</span><span class="n">say</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="o">&gt;</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Any</span><span class="p">{};</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>其实原理很简单，只要写一个 wrapper 函数进行一下类型转换，然后转发调用就行了。但是如果每个成员函数都要手写这么一大段转发代码还是很麻烦的。我们可以考虑通过模板元进行代码生成，自动生成上面的代码，简化类型擦除的这个过程。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>其实原理很简单，只要写一个 wrapper 函数进行一下类型转换，然后转发调用就行了。但是如果每个成员函数都要手写这么一大段转发代码还是很麻烦的。我们可以考虑通过模板元进行代码生成，自动生成上面的代码，简化类型擦除的这个过程。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">member_fn_traits</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">R</span><span class="p">,</span> <span class="k">typename</span> <span class="n">C</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
@@ -1473,14 +1476,12 @@
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}(</span><span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">tuple_size_v</span><span class="o">&lt;</span><span class="n">args_type</span><span class="o">&gt;&gt;</span><span class="p">{});</span>
 </span></span><span class="line"><span class="cl">    <span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>这里的代码我就不解释了，如果看不懂也没关系。其实就是通过模板元，把成员函数类型擦除的这个过程自动化了一下。只要知道如何使用就行了，使用起来是非常简单的。这里的<code>&amp;Person::say</code>是 pointer to member 的写法，不太熟悉的可以参考 <a
-  href="https://www.ykiko.me/zh-cn/articles/659510753"
-    target="_blank"
-  >C++ 成员指针完全解析</a>。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">f</span> <span class="o">=</span> <span class="n">type_ensure</span><span class="o">&lt;&amp;</span><span class="n">Person</span><span class="o">::</span><span class="n">say</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>这里的代码我就不解释了，如果看不懂也没关系。其实就是通过模板元，把成员函数类型擦除的这个过程自动化了一下。只要知道如何使用就行了，使用起来是非常简单的。这里的<code>&amp;Person::say</code>是 pointer to member 的写法，不太熟悉的可以参考 <a href="https://www.ykiko.me/zh-cn/articles/659510753"  target="_blank">C++ 成员指针完全解析</a>。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">f</span> <span class="o">=</span> <span class="n">type_ensure</span><span class="o">&lt;&amp;</span><span class="n">Person</span><span class="o">::</span><span class="n">say</span><span class="o">&gt;</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// decltype(f) =&gt; Any (*)(void*, std::span&lt;Any&gt;)
-</span></span></span></code></pre></div>
+</span></span></span></code></pre></div></div>
+
 <h2 class="relative group">类型信息注册
     <div id="类型信息注册" class="anchor"></div>
     
@@ -1491,7 +1492,7 @@
     
 </h2>
 <p>事实上我们需要给每个类型都生成一个对应的<code>Type</code>结构来保存它的信息，这样的话才能正确访问。而这个功能就由上文提到的<code>type_of</code>函数负责。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="n">Type</span><span class="o">*</span> <span class="n">type_of</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="n">Type</span> <span class="n">type</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">type</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="k">typeid</span><span class="p">(</span><span class="n">T</span><span class="p">).</span><span class="n">name</span><span class="p">();</span>
@@ -1516,8 +1517,8 @@
 </span></span><span class="line"><span class="cl">    <span class="n">type</span><span class="p">.</span><span class="n">fields</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">&#34;age&#34;</span><span class="p">,</span> <span class="p">{</span><span class="n">type_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="o">&gt;</span><span class="p">(),</span> <span class="n">offsetof</span><span class="p">(</span><span class="n">Person</span><span class="p">,</span> <span class="n">age</span><span class="p">)}});</span>
 </span></span><span class="line"><span class="cl">    <span class="n">type</span><span class="p">.</span><span class="n">methods</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">&#34;say&#34;</span><span class="p">,</span> <span class="n">type_ensure</span><span class="o">&lt;&amp;</span><span class="n">Person</span><span class="o">::</span><span class="n">say</span><span class="o">&gt;</span><span class="p">()});</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">&amp;</span><span class="n">type</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>我们提供一个默认实现，这样的话如果用到了内置的基础类型可以自动注册一些信息。然后可以通过特化给自定义的类型提供实现，好了，现在有了这些元信息我们可以把<code>Any</code>的成员函数实现补充完整了。</p>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>我们提供一个默认实现，这样的话如果用到了内置的基础类型可以自动注册一些信息。然后可以通过特化给自定义的类型提供实现，好了，现在有了这些元信息我们可以把<code>Any</code>的成员函数实现补充完整了。</p>
 
 <h2 class="relative group">Any 完整实现
     <div id="any-完整实现" class="anchor"></div>
@@ -1528,7 +1529,7 @@
     </span>
     
 </h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Any</span><span class="o">::</span><span class="n">Any</span><span class="p">(</span><span class="k">const</span> <span class="n">Any</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Any</span><span class="o">::</span><span class="n">Any</span><span class="p">(</span><span class="k">const</span> <span class="n">Any</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">type</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">type</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">data</span> <span class="o">=</span> <span class="n">type</span><span class="o">-&gt;</span><span class="n">copy</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">data</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -1566,8 +1567,8 @@
 </span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">{</span><span class="s">&#34;method not found&#34;</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p><code>foreach</code>的实现就是遍历所有的<code>Field</code>然后获取偏移量和类型，然后把它包装成<code>Any</code>类型。注意这里只是简单包装一下，实际上由于我们设置了<code>flag</code>，这个包装并不会导致多次析构。<code>invoke</code>就是从成员函数列表里面找出对应的函数，然后调用。</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p><code>foreach</code>的实现就是遍历所有的<code>Field</code>然后获取偏移量和类型，然后把它包装成<code>Any</code>类型。注意这里只是简单包装一下，实际上由于我们设置了<code>flag</code>，这个包装并不会导致多次析构。<code>invoke</code>就是从成员函数列表里面找出对应的函数，然后调用。</p>
 
 <h2 class="relative group">示例代码
     <div id="示例代码" class="anchor"></div>
@@ -1578,7 +1579,7 @@
     </span>
     
 </h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Any</span> <span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">{</span><span class="s">&#34;Tom&#34;</span><span class="p">,</span> <span class="mi">18</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Any</span><span class="o">&gt;</span> <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">{</span><span class="s">&#34;Hello&#34;</span><span class="p">}};</span>
 </span></span><span class="line"><span class="cl">    <span class="n">person</span><span class="p">.</span><span class="n">invoke</span><span class="p">(</span><span class="s">&#34;say&#34;</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
@@ -1596,11 +1597,8 @@
 </span></span><span class="line"><span class="cl">    <span class="c1">// name = Tom
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// age = 18
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>完整代码放在 <a
-  href="https://github.com/16bit-ykiko/blog/blob/main/code/dynamic-type-demo.cpp"
-    target="_blank"
-  >Github</a> 上了，至此我们就已经实现了一个极度动态，非侵入式的<code>Any</code>了。</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>完整代码放在 <a href="https://github.com/16bit-ykiko/blog/blob/main/code/dynamic-type-demo.cpp"  target="_blank">Github</a> 上了，至此我们就已经实现了一个极度动态，非侵入式的<code>Any</code>了。</p>
 
 <h2 class="relative group">扩展和优化
     <div id="扩展和优化" class="anchor"></div>

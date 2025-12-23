@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.d73bd5624a883943ee708df101144407dd1c0d07937ac38a3fb7923631f3462db466c14c537ecc819f12c038e21ed2e83f1524eb126bc4e8f59f21a0e357738c.css"
-    integrity="sha512-1zvVYkqIOUPucI3xARREB90cDQeTesOKP7eSNjHzRi20ZsFMU37MgZ8SwDjiHtLoPxUk6xJrxOj1nyGg41dzjA==">
+    href="/css/main.bundle.min.9e8f7139c652e8a74a176ca1ebfd53ed3d4a6287070b98560332ae377ace684485cf68f3bdec2d950e9a9d74c13deaa568a8f1aba92143ab4aabd039e71fe576.css"
+    integrity="sha512-no9xOcZS6KdKF2yh6/1T7T1KYocHC5hWAzKuN3rOaESFz2jzvewtlQ6anXTBPeqlaKjxq6khQ6tKq9A55x/ldg==">
 
   
   
@@ -161,13 +161,14 @@
   
   
   
+  
     
     <script
       defer
       type="text/javascript"
       id="script-bundle"
-      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
-      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      src="/js/main.bundle.min.aee4e707e28a3bd3629b3d56fc8989adf1c11e60ba52e5c99085898be50963025e6b3c8a90f2ff6ac2fe5225da74015b85ec8e0e52510b07cc8e82b7f08997cb.js"
+      integrity="sha512-ruTnB&#43;KKO9Nimz1W/ImJrfHBHmC6UuXJkIWJi&#43;UJYwJeazyKkPL/asL&#43;UiXadAFbheyODlJRCwfMjoK38ImXyw=="
       data-copy="Copy"
       data-copied="Copied"></script>
   
@@ -216,6 +217,9 @@
 
 
 
+
+
+
   
   
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -233,7 +237,6 @@
     "name": "Where Exactly Does C\u002b\u002b Code Bloat Occur?",
     "headline": "Where Exactly Does C\u002b\u002b Code Bloat Occur?",
     
-    "abstract": "\u003cp\u003eReaders often hear that C\u002b\u002b code suffers from severe binary bloat, but few can pinpoint the exact reasons. After some online research, it becomes clear that there are not many in-depth discussions on this topic. The statement seems more like a cliché, passed down through word of mouth, with few able to explain it thoroughly. Today, ykiko will take you on a journey to uncover the mysteries of C\u002b\u002b code bloat (^ω^)\u003c\/p\u003e",
     "inLanguage": "en",
     "url" : "https://www.ykiko.me/en/articles/686296374/",
     "author" : {
@@ -736,7 +739,7 @@
     <img
       id="background-image"
       src="/en/articles/686296374/featured_hu520283993221605861.png"
-      alt="Where Exactly Does C&#43;&#43; Code Bloat Occur?"
+      role="presentation"
       loading="eager"
       decoding="async"
       fetchpriority="high"
@@ -751,7 +754,7 @@
   
     <div
       id="background-blur"
-      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
     
     
     <script
@@ -1266,7 +1269,7 @@
 </h3>
 <p>Since the function can be defined in multiple source files, does this mean each source file will have its own instance of the code, potentially leading to code bloat?</p>
 <p>Consider the following example, where the comments indicate the file names:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src1.cpp
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src1.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -1291,14 +1294,14 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">g1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">g2</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>First, let&rsquo;s compile the first two files <strong>without optimization</strong> to see if they each retain a copy of the <code>add</code> function.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ -c src1.cpp -o src1.o
-</span></span><span class="line"><span class="cl">$ g++ -c src2.cpp -o src2.o
-</span></span></code></pre></div><p>Now, let&rsquo;s examine the symbol tables of these two files:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ objdump -d src1.o <span class="p">|</span> c++filt
-</span></span><span class="line"><span class="cl">$ objdump -d src2.o <span class="p">|</span> c++filt
-</span></span></code></pre></div><p>For convenience, I&rsquo;ll provide the corresponding links and screenshots from Godbolt, which omits many non-essential symbols for clarity.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>First, let&rsquo;s compile the first two files <strong>without optimization</strong> to see if they each retain a copy of the <code>add</code> function.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ -c src1.cpp -o src1.o
+</span></span><span class="line"><span class="cl">$ g++ -c src2.cpp -o src2.o</span></span></code></pre></div></div>
+<p>Now, let&rsquo;s examine the symbol tables of these two files:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ objdump -d src1.o <span class="p">|</span> c++filt
+</span></span><span class="line"><span class="cl">$ objdump -d src2.o <span class="p">|</span> c++filt</span></span></code></pre></div></div>
+<p>For convenience, I&rsquo;ll provide the corresponding links and screenshots from Godbolt, which omits many non-essential symbols for clarity.</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1308,13 +1311,10 @@
     src="https://pic4.zhimg.com/v2-0f8338487557d14a675e82276a73b9a3_r.jpg"
     ></figure>
 </p>
-<p>As you can see, both <a
-  href="https://godbolt.org/z/xoW8TTvP7"
-    target="_blank"
-  >source files</a> retain their own instances of the <code>add</code> function. Now, let&rsquo;s link them into an executable:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ main.o src1.o src2.o -o main.exe
-</span></span><span class="line"><span class="cl">$ objdump -d main.exe <span class="p">|</span> c++filt
-</span></span></code></pre></div><p>The result is shown below:</p>
+<p>As you can see, both <a href="https://godbolt.org/z/xoW8TTvP7"  target="_blank">source files</a> retain their own instances of the <code>add</code> function. Now, let&rsquo;s link them into an executable:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ main.o src1.o src2.o -o main.exe
+</span></span><span class="line"><span class="cl">$ objdump -d main.exe <span class="p">|</span> c++filt</span></span></code></pre></div></div>
+<p>The result is shown below:</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1335,10 +1335,7 @@
     </span>
     
 </h3>
-<p>Earlier, I specifically emphasized compiling without optimization. What happens if we enable optimization? Using the same code, let&rsquo;s try compiling with <code>-O2</code> optimization. The <a
-  href="https://godbolt.org/z/jfx8jrnzf"
-    target="_blank"
-  >result</a> is shown below:</p>
+<p>Earlier, I specifically emphasized compiling without optimization. What happens if we enable optimization? Using the same code, let&rsquo;s try compiling with <code>-O2</code> optimization. The <a href="https://godbolt.org/z/jfx8jrnzf"  target="_blank">result</a> is shown below:</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1351,7 +1348,7 @@
 <p>Surprisingly, with <code>-O2</code> optimization, the <code>add</code> function is completely inlined. The compiler doesn&rsquo;t even generate a symbol for <code>add</code>, so there&rsquo;s nothing to link. According to our earlier definition, this type of function inlining doesn&rsquo;t count as code bloat, so there&rsquo;s <strong>no additional binary bloat</strong>.</p>
 <p>As a side note, if neither file generates the <code>add</code> symbol, what happens if another file references <code>add</code>? Wouldn&rsquo;t that cause a linking error?</p>
 <p>Consider the following code:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src1.cpp
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src1.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -1365,21 +1362,15 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">g1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">add</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>Compiling and linking this code without optimization works fine. However, with optimization enabled, the linker fails with <code>undefined reference to add(int, int)</code>. <strong>All three major compilers behave this way</strong>, and the reason is as explained earlier: with optimization, the compiler doesn&rsquo;t generate the <code>add</code> symbol, so it can&rsquo;t be found during linking.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Compiling and linking this code without optimization works fine. However, with optimization enabled, the linker fails with <code>undefined reference to add(int, int)</code>. <strong>All three major compilers behave this way</strong>, and the reason is as explained earlier: with optimization, the compiler doesn&rsquo;t generate the <code>add</code> symbol, so it can&rsquo;t be found during linking.</p>
 <p>But is this behavior compliant with the C++ standard?</p>
-<p>Since all three major compilers behave this way, it seems compliant. However, the standard doesn&rsquo;t explicitly state this in the inline section. In the <a
-  href="https://en.cppreference.com/w/cpp/language/definition#One_Definition_Rule"
-    target="_blank"
-  >One Definition Rule</a>, there are two relevant points:</p>
+<p>Since all three major compilers behave this way, it seems compliant. However, the standard doesn&rsquo;t explicitly state this in the inline section. In the <a href="https://en.cppreference.com/w/cpp/language/definition#One_Definition_Rule"  target="_blank">One Definition Rule</a>, there are two relevant points:</p>
 <ul>
 <li>For an inline function or inline variable (since C++17), a definition is required in every translation unit where it is odr-used.</li>
 <li>A function is odr-used if a function call to it is made or its address is taken.</li>
 </ul>
-<p>What does this mean? It means that if an inline function is <a
-  href="https://en.cppreference.com/w/cpp/language/definition#ODR-use"
-    target="_blank"
-  >odr-used</a> in a translation unit, that unit must have a definition of the function. What counts as odr-used? The second point explains that if <strong>a function is called</strong> or <strong>its address is taken</strong>, it is odr-used.</p>
+<p>What does this mean? It means that if an inline function is <a href="https://en.cppreference.com/w/cpp/language/definition#ODR-use"  target="_blank">odr-used</a> in a translation unit, that unit must have a definition of the function. What counts as odr-used? The second point explains that if <strong>a function is called</strong> or <strong>its address is taken</strong>, it is odr-used.</p>
 <p>In our earlier code, <code>main.cpp</code> calls an inline function but doesn&rsquo;t define it, which violates the C++ standard. This is a bit counterintuitive, but it&rsquo;s the reality, and all three major compilers are correct!</p>
 
 <h3 class="relative group">Other Cases
@@ -1421,7 +1412,7 @@
     
 </h3>
 <p>We know that template instantiation occurs in the current translation unit, and each instantiation generates a copy of the code. Consider the following example:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src1.cpp
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src1.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">add</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -1443,11 +1434,8 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">g1</span><span class="p">()</span> <span class="o">+</span> <span class="n">g2</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>Compile without optimization and check the <a
-  href="https://godbolt.org/z/aTxMsnK5n"
-    target="_blank"
-  >compilation result</a>:</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Compile without optimization and check the <a href="https://godbolt.org/z/aTxMsnK5n"  target="_blank">compilation result</a>:</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1457,10 +1445,7 @@
     src="https://pic4.zhimg.com/v2-5de99e270f381ff7f77f012ed72836bb_r.jpg"
     ></figure>
 </p>
-<p>As with inline functions, both translation units instantiate <code>add&lt;int, int&gt;</code> and <code>add&lt;double, double&gt;</code>, each with its own copy. During linking, the linker retains only one instance of each template instantiation. Now, let&rsquo;s try compiling with <code>-O2</code> and see what happens. The <a
-  href="https://godbolt.org/z/edEd8Tvo4"
-    target="_blank"
-  >result</a> is as follows:</p>
+<p>As with inline functions, both translation units instantiate <code>add&lt;int, int&gt;</code> and <code>add&lt;double, double&gt;</code>, each with its own copy. During linking, the linker retains only one instance of each template instantiation. Now, let&rsquo;s try compiling with <code>-O2</code> and see what happens. The <a href="https://godbolt.org/z/edEd8Tvo4"  target="_blank">result</a> is as follows:</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1486,7 +1471,7 @@
 <p>Can we place the implementation in a single source file and have other files reference it, like with non-template functions? From the previous discussion, since symbols are generated, there should be a way to link to them. But how can we ensure that symbols are generated?</p>
 <p>The answer is — explicit instantiation!</p>
 <p>What is explicit instantiation? Simply put, if you directly use a template without declaring specific types, and the compiler generates the declaration for you, it&rsquo;s called implicit instantiation. Conversely, if you declare specific types beforehand, it&rsquo;s called explicit instantiation. For function templates:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="kt">void</span> <span class="n">f</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span> <span class="c1">// Explicit instantiation of f&lt;int&gt; definition
@@ -1495,20 +1480,22 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// Calls the explicitly instantiated f&lt;int&gt;
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">f</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">);</span> <span class="c1">// Implicitly instantiates f&lt;double&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>This is quite straightforward, and <strong>explicit instantiation definitions</strong> will always generate symbols. Now, how do other files link to this explicitly instantiated function? There are two ways:</p>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>This is quite straightforward, and <strong>explicit instantiation definitions</strong> will always generate symbols. Now, how do other files link to this explicitly instantiated function? There are two ways:</p>
 <p>One is to explicitly instantiate a function declaration:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="kt">void</span> <span class="n">f</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span> <span class="c1">// Explicit instantiation of f&lt;int&gt; declaration
-</span></span></span></code></pre></div><p>The other is to use the <code>extern</code> keyword to instantiate a definition:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span></span></code></pre></div></div>
+<p>The other is to use the <code>extern</code> keyword to instantiate a definition:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">){</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">extern</span> <span class="k">template</span> <span class="kt">void</span> <span class="n">f</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span> <span class="c1">// Explicit instantiation of f&lt;int&gt; declaration
 </span></span></span><span class="line"><span class="cl"><span class="c1">// Note: Without extern, this would explicitly instantiate a definition
-</span></span></span></code></pre></div><p>Both methods correctly reference the <code>f</code> function defined earlier, allowing calls to template instantiations in other files!</p>
+</span></span></span></code></pre></div></div>
+<p>Both methods correctly reference the <code>f</code> function defined earlier, allowing calls to template instantiations in other files!</p>
 
 <h3 class="relative group">The Real Cause of Template Bloat
     <div id="the-real-cause-of-template-bloat" class="anchor"></div>
@@ -1520,11 +1507,11 @@
     
 </h3>
 <p>Now, let&rsquo;s discuss the real cause of template bloat. Due to some historical reasons, in C++, <code>char</code>, <code>unsigned char</code>, and <code>signed char</code> are always distinct types:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">);</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="kt">signed</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">signed</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">);</span>
-</span></span></code></pre></div><p>However, in the compiler&rsquo;s final implementation, <code>char</code> is either <code>signed</code> or <code>unsigned</code>. Suppose we write a template function:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">signed</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>However, in the compiler&rsquo;s final implementation, <code>char</code> is either <code>signed</code> or <code>unsigned</code>. Suppose we write a template function:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">){</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">g</span><span class="p">()</span>
@@ -1532,11 +1519,8 @@
 </span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">&lt;</span><span class="kt">signed</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>Instantiating the template for these three types means that two of the instantiations will generate identical code. Will the compiler merge functions that have different types but generate identical binary code? Let&rsquo;s try it out. The <a
-  href="https://godbolt.org/z/KncEh3z5n"
-    target="_blank"
-  >result</a> is as follows:</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Instantiating the template for these three types means that two of the instantiations will generate identical code. Will the compiler merge functions that have different types but generate identical binary code? Let&rsquo;s try it out. The <a href="https://godbolt.org/z/KncEh3z5n"  target="_blank">result</a> is as follows:</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1547,10 +1531,7 @@
     ></figure>
 </p>
 <p>As you can see, two identical functions are generated but not merged. Of course, if we enable <code>-O2</code> optimization, such short functions will be inlined, and no symbols will be generated. As mentioned earlier, this means there&rsquo;s no &ldquo;additional template bloat.&rdquo; In practice, many small template functions, like <code>vector</code>&rsquo;s <code>end</code>, <code>begin</code>, and <code>operator[]</code>, are likely to be fully inlined, avoiding &ldquo;additional bloat.&rdquo;</p>
-<p>Now, the question is: what if the function isn&rsquo;t inlined? Suppose the template function is complex and has a large body. For demonstration purposes, we&rsquo;ll use GCC&rsquo;s <code>[[gnu::noinline]]</code> attribute to simulate this effect, then compile the <a
-  href="https://godbolt.org/z/Exff5cnfj"
-    target="_blank"
-  >code</a> with <code>-O2</code>:</p>
+<p>Now, the question is: what if the function isn&rsquo;t inlined? Suppose the template function is complex and has a large body. For demonstration purposes, we&rsquo;ll use GCC&rsquo;s <code>[[gnu::noinline]]</code> attribute to simulate this effect, then compile the <a href="https://godbolt.org/z/Exff5cnfj"  target="_blank">code</a> with <code>-O2</code>:</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1561,11 +1542,8 @@
     ></figure>
 </p>
 <p>Even though the function is optimized down to a single instruction, the compiler still generates three copies. In reality, functions that aren&rsquo;t inlined by the compiler might be much larger, making the situation worse than this &ldquo;pseudo-large function.&rdquo; This is where the so-called &ldquo;template bloat&rdquo; comes from. <strong>Code that could be merged isn&rsquo;t merged, and this is the real cause of template bloat.</strong></p>
-<p>If you really want the compiler/linker to merge identical binary code, what can you do? Unfortunately, mainstream toolchains like ld, lld, and MS linker don&rsquo;t perform this merging. The only linker that supports this feature is <a
-  href="https://www.gnu.org/software/binutils/"
-    target="_blank"
-  >gold</a>, but it only works with ELF format executables, so it can&rsquo;t be used on Windows. Here&rsquo;s how to use gold to merge identical binary code:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// main.cpp
+<p>If you really want the compiler/linker to merge identical binary code, what can you do? Unfortunately, mainstream toolchains like ld, lld, and MS linker don&rsquo;t perform this merging. The only linker that supports this feature is <a href="https://www.gnu.org/software/binutils/"  target="_blank">gold</a>, but it only works with ELF format executables, so it can&rsquo;t be used on Windows. Here&rsquo;s how to use gold to merge identical binary code:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// main.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;utility&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
@@ -1586,12 +1564,12 @@
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">call_f</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="mi">100</span><span class="o">&gt;</span><span class="p">{});</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>Here, I generate 100 different types using templates, but in reality, they are all based on <code>size_t</code>, so the final compiled binary code is identical. Compile it with the following command:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ -O2 -ffunction-sections -fuse-ld<span class="o">=</span>gold -Wl,--icf<span class="o">=</span>all main.cpp -o main.o
-</span></span><span class="line"><span class="cl">$ objdump -d main.o <span class="p">|</span> c++filt
-</span></span></code></pre></div><p>Using <code>-fuse-ld=gold</code> specifies the linker, and <code>-Wl,--icf=all</code> specifies the linker option. <code>icf</code> stands for &ldquo;identical code folding,&rdquo; which merges identical code. Since the linker works at the section level, GCC needs to enable <code>-ffunction-sections</code>. You can also replace GCC with Clang:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">0000000000000740</span> &lt;X&lt;99ul&gt;::f<span class="o">()</span> <span class="o">[</span>clone .isra.0<span class="o">]</span>&gt;:
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Here, I generate 100 different types using templates, but in reality, they are all based on <code>size_t</code>, so the final compiled binary code is identical. Compile it with the following command:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ -O2 -ffunction-sections -fuse-ld<span class="o">=</span>gold -Wl,--icf<span class="o">=</span>all main.cpp -o main.o
+</span></span><span class="line"><span class="cl">$ objdump -d main.o <span class="p">|</span> c++filt</span></span></code></pre></div></div>
+<p>Using <code>-fuse-ld=gold</code> specifies the linker, and <code>-Wl,--icf=all</code> specifies the linker option. <code>icf</code> stands for &ldquo;identical code folding,&rdquo; which merges identical code. Since the linker works at the section level, GCC needs to enable <code>-ffunction-sections</code>. You can also replace GCC with Clang:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">0000000000000740</span> &lt;X&lt;99ul&gt;::f<span class="o">()</span> <span class="o">[</span>clone .isra.0<span class="o">]</span>&gt;:
 </span></span><span class="line"><span class="cl"> 740:   <span class="m">48</span> <span class="m">89</span> fa                mov    %rdi,%rdx
 </span></span><span class="line"><span class="cl"> 743:   <span class="m">48</span> 8d <span class="m">35</span> 1a <span class="m">04</span> <span class="m">00</span> <span class="m">00</span>    lea    0x41a<span class="o">(</span>%rip<span class="o">)</span>,%rsi
 </span></span><span class="line"><span class="cl"> 74a:   bf <span class="m">01</span> <span class="m">00</span> <span class="m">00</span> <span class="m">00</span>          mov    <span class="nv">$0</span>x1,%edi
@@ -1600,8 +1578,8 @@
 </span></span><span class="line"><span class="cl"> 756:   <span class="m">66</span> 2e 0f 1f <span class="m">84</span> <span class="m">00</span> <span class="m">00</span>    cs nopw 0x0<span class="o">(</span>%rax,%rax,1<span class="o">)</span>
 </span></span><span class="line"><span class="cl"> 75d:   <span class="m">00</span> <span class="m">00</span> <span class="m">00</span> 
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="m">0000000000000760</span> &lt;void call_f&lt;0..99&gt;<span class="o">(</span>std::integer_sequence&lt;unsigned long, 0..99&gt;<span class="o">)</span>
-</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="m">0000000000000760</span> &lt;void call_f&lt;0..99&gt;<span class="o">(</span>std::integer_sequence&lt;unsigned long, 0..99&gt;<span class="o">)</span></span></span></code></pre></div></div>
+
           
           
           

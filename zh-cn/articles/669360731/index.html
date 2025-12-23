@@ -125,8 +125,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.d73bd5624a883943ee708df101144407dd1c0d07937ac38a3fb7923631f3462db466c14c537ecc819f12c038e21ed2e83f1524eb126bc4e8f59f21a0e357738c.css"
-    integrity="sha512-1zvVYkqIOUPucI3xARREB90cDQeTesOKP7eSNjHzRi20ZsFMU37MgZ8SwDjiHtLoPxUk6xJrxOj1nyGg41dzjA==">
+    href="/css/main.bundle.min.9e8f7139c652e8a74a176ca1ebfd53ed3d4a6287070b98560332ae377ace684485cf68f3bdec2d950e9a9d74c13deaa568a8f1aba92143ab4aabd039e71fe576.css"
+    integrity="sha512-no9xOcZS6KdKF2yh6/1T7T1KYocHC5hWAzKuN3rOaESFz2jzvewtlQ6anXTBPeqlaKjxq6khQ6tKq9A55x/ldg==">
 
   
   
@@ -166,13 +166,14 @@
   
   
   
+  
     
     <script
       defer
       type="text/javascript"
       id="script-bundle"
-      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
-      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      src="/js/main.bundle.min.aee4e707e28a3bd3629b3d56fc8989adf1c11e60ba52e5c99085898be50963025e6b3c8a90f2ff6ac2fe5225da74015b85ec8e0e52510b07cc8e82b7f08997cb.js"
+      integrity="sha512-ruTnB&#43;KKO9Nimz1W/ImJrfHBHmC6UuXJkIWJi&#43;UJYwJeazyKkPL/asL&#43;UiXadAFbheyODlJRCwfMjoK38ImXyw=="
       data-copy="复制"
       data-copied="已复制"></script>
   
@@ -221,6 +222,9 @@
 
 
 
+
+
+
   
   
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -238,7 +242,6 @@
     "name": "使用 Clang 工具自由的支配 C\u002b\u002b 代码吧",
     "headline": "使用 Clang 工具自由的支配 C\u002b\u002b 代码吧",
     
-    "abstract": "\u003cp\u003eClang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最初开发的目的是替代 GNU Compiler Collection (GCC) 的 C 语言前端，目标是提供更快的编译速度、更好的诊断信息和更灵活的架构。Clang 包含一个 C、C\u002b\u002b 和 Objective-C 编译器前端，这些前端设计为可以嵌入到其他项目中。Clang 的一个重要特点是其模块化架构，使开发者能够更轻松地扩展和定制编译器的功能。Clang 被广泛应用于许多项目，包括 LLVM 自身、一些操作系统内核的开发以及一些编程语言的编译器实现。\u003c\/p\u003e",
     "inLanguage": "zh-cn",
     "url" : "https://www.ykiko.me/zh-cn/articles/669360731/",
     "author" : {
@@ -741,7 +744,7 @@
     <img
       id="background-image"
       src="/zh-cn/articles/669360731/featured_hu8866568825491117517.png"
-      alt="使用 Clang 工具自由的支配 C&#43;&#43; 代码吧"
+      role="presentation"
       loading="eager"
       decoding="async"
       fetchpriority="high"
@@ -756,7 +759,7 @@
   
     <div
       id="background-blur"
-      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
     
     
     <script
@@ -1348,30 +1351,12 @@
     
 </h2>
 <p>目前，Clang 被划分为以下库和工具：libsupport、libsystem、libbasic、libast、liblex、libparse、libsema、libcodegen、librewrite、libanalysis。由于 Clang 本身是用 C++ 编写的，所以相关的接口都是 C++ 的。然而，由于 C++ 接口本身的复杂性和不稳定性（例如：在 Windows 上由 GCC 编译出来的 DLL 无法给 MSVC 使用，或者 Clang 自身版本升级导致 API 变动，从而出现不兼容性），官方并不推荐优先使用 C++ 接口。</p>
-<p>除了 C++ 接口之外，官方还提供了一个叫做 <a
-  href="https://clang.llvm.org/doxygen/group__CINDEX.html"
-    target="_blank"
-  >libclang</a> 的 C 语言接口，这个接口不仅使用起来相对简单，而且本身也比较稳定。唯一的缺点是无法获取完整的 C++ 抽象语法树 (AST)，不过鉴于 C++ 完整的语法树本身就极度复杂，很多时候我们只需要其中的一小部分信息，所以这个问题通常可以忽略，除非你真的有这方面的需求。</p>
-<p>如果你想要使用 libclang，你需要先安装 LLVM 和 Clang。在 <a
-  href="https://github.com/llvm/llvm-project/releases"
-    target="_blank"
-  >LLVM Release</a> 页面，有若干预发布的二进制包可以下载。如果你有定制化需求，请参考 <a
-  href="https://llvm.org/docs/GettingStarted.html#id4"
-    target="_blank"
-  >Getting Started</a> 页面进行手动编译。安装完成后，只需将<code>llvm/lib</code>目录下的<code>libclang.dll</code>链接到程序中，并包含<code>llvm/include</code>目录下的<code>clang-c/Index.h</code>头文件即可使用。</p>
-<p>然而，由于 C 语言没有一些高级抽象，操作字符串都很麻烦。如果大规模使用，还需要我们自己用 C++ 封装一层。幸好，官方基于这套 C 接口还提供了一个 Python 绑定，即 <a
-  href="https://pypi.org/project/clang/"
-    target="_blank"
-  >clang</a> 这个包，这使得使用起来更加方便。然而，官方提供的 Python 绑定并没有打包 libclang 的这个 DLL，因此你仍然需要在电脑上手动配置 LLVM 的环境，这可能会有些麻烦。不过，社区中有人在 PyPI 上提供了打包好的包：<a
-  href="https://pypi.org/project/libclang/"
-    target="_blank"
-  >libclang</a>。</p>
+<p>除了 C++ 接口之外，官方还提供了一个叫做 <a href="https://clang.llvm.org/doxygen/group__CINDEX.html"  target="_blank">libclang</a> 的 C 语言接口，这个接口不仅使用起来相对简单，而且本身也比较稳定。唯一的缺点是无法获取完整的 C++ 抽象语法树 (AST)，不过鉴于 C++ 完整的语法树本身就极度复杂，很多时候我们只需要其中的一小部分信息，所以这个问题通常可以忽略，除非你真的有这方面的需求。</p>
+<p>如果你想要使用 libclang，你需要先安装 LLVM 和 Clang。在 <a href="https://github.com/llvm/llvm-project/releases"  target="_blank">LLVM Release</a> 页面，有若干预发布的二进制包可以下载。如果你有定制化需求，请参考 <a href="https://llvm.org/docs/GettingStarted.html#id4"  target="_blank">Getting Started</a> 页面进行手动编译。安装完成后，只需将<code>llvm/lib</code>目录下的<code>libclang.dll</code>链接到程序中，并包含<code>llvm/include</code>目录下的<code>clang-c/Index.h</code>头文件即可使用。</p>
+<p>然而，由于 C 语言没有一些高级抽象，操作字符串都很麻烦。如果大规模使用，还需要我们自己用 C++ 封装一层。幸好，官方基于这套 C 接口还提供了一个 Python 绑定，即 <a href="https://pypi.org/project/clang/"  target="_blank">clang</a> 这个包，这使得使用起来更加方便。然而，官方提供的 Python 绑定并没有打包 libclang 的这个 DLL，因此你仍然需要在电脑上手动配置 LLVM 的环境，这可能会有些麻烦。不过，社区中有人在 PyPI 上提供了打包好的包：<a href="https://pypi.org/project/libclang/"  target="_blank">libclang</a>。</p>
 <p>于是如果你想使用 libclang 来获取 C++ 语法树，只需要</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install libclang
-</span></span></code></pre></div><p>什么额外的事情都不用做。本文就基于这个 python binding 的版本进行介绍。C 版本的 API 和 Python 版本的 API 基本是完全一致的，如果你觉得 Python 性能不够，你也可以参考这个教程对照着写 C 版本的代码。另外官方提供的包并没有 type hint，这样的话用 Python 写就没有代码补全，用起来也不舒服。我自己补了一个类型提示的 <a
-  href="https://github.com/16bit-ykiko/about-me/blob/main/code/cindex.pyi"
-    target="_blank"
-  >cindex.pyi</a>，下载下来之后直接和 放在同一文件夹内就能有代码提示了。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install libclang</span></span></code></pre></div></div>
+<p>什么额外的事情都不用做。本文就基于这个 python binding 的版本进行介绍。C 版本的 API 和 Python 版本的 API 基本是完全一致的，如果你觉得 Python 性能不够，你也可以参考这个教程对照着写 C 版本的代码。另外官方提供的包并没有 type hint，这样的话用 Python 写就没有代码补全，用起来也不舒服。我自己补了一个类型提示的 <a href="https://github.com/16bit-ykiko/about-me/blob/main/code/cindex.pyi"  target="_blank">cindex.pyi</a>，下载下来之后直接和 放在同一文件夹内就能有代码提示了。</p>
 
 <h2 class="relative group">Quick Start
     <div id="quick-start" class="anchor"></div>
@@ -1383,7 +1368,7 @@
     
 </h2>
 <p>示例的 C++ 源文件代码如下</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// main.cpp
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// main.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">Person</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">;</span>
@@ -1392,9 +1377,9 @@
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#34;John&#34;</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>解析它的 Python 代码如下</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">clang.cindex</span> <span class="k">as</span> <span class="nn">CX</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>解析它的 Python 代码如下</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">clang.cindex</span> <span class="k">as</span> <span class="nn">CX</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">traverse</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">Cursor</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="n">is_last</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="n">branch</span> <span class="o">=</span> <span class="s2">&#34;└──&#34;</span> <span class="k">if</span> <span class="n">is_last</span> <span class="k">else</span> <span class="s2">&#34;├──&#34;</span>
@@ -1414,9 +1399,9 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">index</span> <span class="o">=</span> <span class="n">CX</span><span class="o">.</span><span class="n">Index</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">excludeDecls</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">tu</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;main.cpp&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;-std=c++20&#39;</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl"><span class="n">traverse</span><span class="p">(</span><span class="n">tu</span><span class="o">.</span><span class="n">cursor</span><span class="p">)</span>
-</span></span></code></pre></div><p>输出结果如下</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">TRANSLATION_UNIT: main.cpp
+</span></span><span class="line"><span class="cl"><span class="n">traverse</span><span class="p">(</span><span class="n">tu</span><span class="o">.</span><span class="n">cursor</span><span class="p">)</span></span></span></code></pre></div></div>
+<p>输出结果如下</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">TRANSLATION_UNIT: main.cpp
 </span></span><span class="line"><span class="cl">├── STRUCT_DECL: Person
 </span></span><span class="line"><span class="cl">│   ├── FIELD_DECL: age
 </span></span><span class="line"><span class="cl">│   └── FIELD_DECL: name
@@ -1429,8 +1414,8 @@
 </span></span><span class="line"><span class="cl">        │           ├── INTEGER_LITERAL: <span class="m">1</span>
 </span></span><span class="line"><span class="cl">        │           └── STRING_LITERAL: <span class="s2">&#34;John&#34;</span>
 </span></span><span class="line"><span class="cl">        └── RETURN_STMT:
-</span></span><span class="line"><span class="cl">            └── INTEGER_LITERAL: <span class="m">0</span>
-</span></span></code></pre></div><p>前面的是语法树节点类型，后面是节点的内容。可以发现还是非常清晰的，几乎能和源代码一一对应。</p>
+</span></span><span class="line"><span class="cl">            └── INTEGER_LITERAL: <span class="m">0</span></span></span></code></pre></div></div>
+<p>前面的是语法树节点类型，后面是节点的内容。可以发现还是非常清晰的，几乎能和源代码一一对应。</p>
 
 <h2 class="relative group">Basic Types
     <div id="basic-types" class="anchor"></div>
@@ -1441,10 +1426,7 @@
     </span>
     
 </h2>
-<p>注意，本文假定读者对语法树有一定的认识，不在这里做过多介绍了。如果不知道语法树是什么的话，可以看一下 <a
-  href="https://16bit-ykiko.github.io/about-me/670190357"
-    target="_blank"
-  >为什么说 C/C++ 编译器不保留元信息</a>。下面对 cindex 中的一些常用类型做一些介绍</p>
+<p>注意，本文假定读者对语法树有一定的认识，不在这里做过多介绍了。如果不知道语法树是什么的话，可以看一下 <a href="https://16bit-ykiko.github.io/about-me/670190357"  target="_blank">为什么说 C/C++ 编译器不保留元信息</a>。下面对 cindex 中的一些常用类型做一些介绍</p>
 
 <h3 class="relative group">Cursor
     <div id="cursor" class="anchor"></div>
@@ -1456,35 +1438,35 @@
     
 </h3>
 <p>相当于语法树的基本节点，整个语法树都是由<code>Cursor</code>组成的。通过<code>kind</code>属性返回一个<code>CursorKind</code>类型枚举值，就代表了这个节点实际对应的类型。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">kind</span> <span class="ow">in</span> <span class="n">CursorKind</span><span class="o">.</span><span class="n">get_all_kinds</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span>
-</span></span></code></pre></div><p>这样可以打印出所有支持的节点类型，也可以直接去源码查看。<code>Cursor</code>还有一些其它的属性和方法让我们使用，常用的有如下这些：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">kind</span> <span class="ow">in</span> <span class="n">CursorKind</span><span class="o">.</span><span class="n">get_all_kinds</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span></span></span></code></pre></div></div>
+<p>这样可以打印出所有支持的节点类型，也可以直接去源码查看。<code>Cursor</code>还有一些其它的属性和方法让我们使用，常用的有如下这些：</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">spelling</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nd">@property</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">displayname</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nd">@property</span>
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">mangled_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span></span></code></pre></div><p>获取节点的名字，例如一个变量声明的节点，它的<code>spelling</code>就是这个变量的名字。而<code>displayname</code>则是节点的简短名字，大多数时候和<code>spelling</code>是一样的。但是有些时候会有区别，例如一个函数的<code>spelling</code>会带上参数类型，例如<code>func(int)</code>，但是它的<code>displayname</code>就只是<code>func</code>。而<code>mangled_name</code>就是该符号经过 name mangling 之后用于链接的名字。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">:</span>
-</span></span></code></pre></div><p>节点元素的类型，例如一个变量声明的节点，它的<code>type</code>就是这个变量的类型。或者一个字段声明的节点，它的<code>type</code>就是这个字段的类型。返回类型为<code>Type</code>。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">location</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SourceLocation</span><span class="p">:</span>
-</span></span></code></pre></div><p>节点的位置信息，返回类型为<code>SourceLocation</code>，其中携带了该节点在源码中的行数，列数，文件名等信息。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">extent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SourceRange</span><span class="p">:</span>
-</span></span></code></pre></div><p>节点的范围信息，返回类型为<code>SourceRange</code>，由两个<code>SourceLocation</code>组成，其中携带了该节点在源码中的起始位置和结束位置</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">access_specifier</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AccessSpecifier</span><span class="p">:</span>
-</span></span></code></pre></div><p>节点的访问权限，返回类型为<code>AccessSpecifier</code>。有<code>PUBLIC</code>, <code>PROTECTED</code>, <code>PRIVATE</code>, <code>NONE</code>, <code>INVALID</code>五种。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_children</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">iterable</span><span class="p">[</span><span class="n">Cursor</span><span class="p">]:</span>
-</span></span></code></pre></div><p>获取所有子节点，返回类型为<code>Cursor</code>的<code>iterable</code>。这个函数是最常用的，因为我们可以通过递归的方式遍历整个语法树。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_tokens</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">iterable</span><span class="p">[</span><span class="n">Token</span><span class="p">]:</span>
-</span></span></code></pre></div><p>获取代表该节点的所有<code>token</code>，返回类型为<code>Token</code>的<code>iterable</code>。<code>token</code>是语法树的最小单位，例如一个变量声明的节点，它的<code>token</code>就是<code>int</code>，<code>a</code>，<code>;</code>这三个。这个函数可以用来获取一些细节信息，例如获取整数字面量和浮点数字面量的值。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">is_definition</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">mangled_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span></span></code></pre></div></div>
+<p>获取节点的名字，例如一个变量声明的节点，它的<code>spelling</code>就是这个变量的名字。而<code>displayname</code>则是节点的简短名字，大多数时候和<code>spelling</code>是一样的。但是有些时候会有区别，例如一个函数的<code>spelling</code>会带上参数类型，例如<code>func(int)</code>，但是它的<code>displayname</code>就只是<code>func</code>。而<code>mangled_name</code>就是该符号经过 name mangling 之后用于链接的名字。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">:</span></span></span></code></pre></div></div>
+<p>节点元素的类型，例如一个变量声明的节点，它的<code>type</code>就是这个变量的类型。或者一个字段声明的节点，它的<code>type</code>就是这个字段的类型。返回类型为<code>Type</code>。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">location</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SourceLocation</span><span class="p">:</span></span></span></code></pre></div></div>
+<p>节点的位置信息，返回类型为<code>SourceLocation</code>，其中携带了该节点在源码中的行数，列数，文件名等信息。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">extent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SourceRange</span><span class="p">:</span></span></span></code></pre></div></div>
+<p>节点的范围信息，返回类型为<code>SourceRange</code>，由两个<code>SourceLocation</code>组成，其中携带了该节点在源码中的起始位置和结束位置</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">access_specifier</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AccessSpecifier</span><span class="p">:</span></span></span></code></pre></div></div>
+<p>节点的访问权限，返回类型为<code>AccessSpecifier</code>。有<code>PUBLIC</code>, <code>PROTECTED</code>, <code>PRIVATE</code>, <code>NONE</code>, <code>INVALID</code>五种。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_children</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">iterable</span><span class="p">[</span><span class="n">Cursor</span><span class="p">]:</span></span></span></code></pre></div></div>
+<p>获取所有子节点，返回类型为<code>Cursor</code>的<code>iterable</code>。这个函数是最常用的，因为我们可以通过递归的方式遍历整个语法树。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_tokens</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">iterable</span><span class="p">[</span><span class="n">Token</span><span class="p">]:</span></span></span></code></pre></div></div>
+<p>获取代表该节点的所有<code>token</code>，返回类型为<code>Token</code>的<code>iterable</code>。<code>token</code>是语法树的最小单位，例如一个变量声明的节点，它的<code>token</code>就是<code>int</code>，<code>a</code>，<code>;</code>这三个。这个函数可以用来获取一些细节信息，例如获取整数字面量和浮点数字面量的值。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">is_definition</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">is_const_method</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">is_converting_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">is_copy_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -1499,8 +1481,8 @@
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">is_static_method</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">is_virtual_method</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">is_abstract_record</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">is_scoped_enum</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span></span></code></pre></div><p>这些函数基本就见名知意了，例如<code>is_definition</code>就是判断该节点是否是一个定义，<code>is_const_method</code>就是判断该节点是否是一个<code>const</code>方法。</p>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">is_scoped_enum</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span></span></span></code></pre></div></div>
+<p>这些函数基本就见名知意了，例如<code>is_definition</code>就是判断该节点是否是一个定义，<code>is_const_method</code>就是判断该节点是否是一个<code>const</code>方法。</p>
 
 <h3 class="relative group">Type
     <div id="type" class="anchor"></div>
@@ -1512,16 +1494,16 @@
     
 </h3>
 <p>如果该节点有类型的话，代表该节点的类型。常用的属性有</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">kind</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeKind</span><span class="p">:</span>
-</span></span></code></pre></div><p>类型的类型，返回类型为<code>TypeKind</code>。例如<code>INT</code>, <code>FLOAT</code>, <code>POINTER</code>, <code>FUNCTIONPROTO</code>等等。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">spelling</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span></span></code></pre></div><p>类型的名字，例如<code>int</code>, <code>float</code>, <code>void</code>等等。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_align</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">kind</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeKind</span><span class="p">:</span></span></span></code></pre></div></div>
+<p>类型的类型，返回类型为<code>TypeKind</code>。例如<code>INT</code>, <code>FLOAT</code>, <code>POINTER</code>, <code>FUNCTIONPROTO</code>等等。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">spelling</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span></span></code></pre></div></div>
+<p>类型的名字，例如<code>int</code>, <code>float</code>, <code>void</code>等等。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_align</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fieldname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-</span></span></code></pre></div><p>获取类型的对齐，大小，字段偏移量等等。</p>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fieldname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span></span></span></code></pre></div></div>
+<p>获取类型的对齐，大小，字段偏移量等等。</p>
 <p>以及一些<code>is</code>开头的函数，例如<code>is_const_qualified</code>, <code>is_function_variadic</code>, <code>is_pod</code>等等。这里也就不多说了。</p>
 
 <h3 class="relative group">TranslationUnit
@@ -1535,20 +1517,20 @@
 </h3>
 <p>一般来说一个 C++ 源文件就代表一个<code>TranslationUnit</code>，也就是我们常说的编译单元。</p>
 <p>常用的有</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cursor</span><span class="p">:</span>
-</span></span></code></pre></div><p>获取该<code>TranslationUnit</code>的根节点，也就是<code>TRANSLATION_UNIT</code>类型的<code>Cursor</code>。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">spelling</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span></span></code></pre></div><p>获取该<code>TranslationUnit</code>的文件名。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_includes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">iterable</span><span class="p">[</span><span class="n">FileInclusion</span><span class="p">]:</span>
-</span></span></code></pre></div><p>获取该<code>TranslationUnit</code>的所有<code>include</code>，返回类型为<code>FileInclusion</code>的<code>list</code>，注意由于<code>include</code>的文件里面可能还会包含别的文件所以，可以用<code>depth</code>这个参数来限制，比如我只想获取第一层也就是直接包含的头文件可以这么写。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">index</span> <span class="o">=</span> <span class="n">CX</span><span class="o">.</span><span class="n">Index</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cursor</span><span class="p">:</span></span></span></code></pre></div></div>
+<p>获取该<code>TranslationUnit</code>的根节点，也就是<code>TRANSLATION_UNIT</code>类型的<code>Cursor</code>。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">spelling</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span></span></code></pre></div></div>
+<p>获取该<code>TranslationUnit</code>的文件名。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_includes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">iterable</span><span class="p">[</span><span class="n">FileInclusion</span><span class="p">]:</span></span></span></code></pre></div></div>
+<p>获取该<code>TranslationUnit</code>的所有<code>include</code>，返回类型为<code>FileInclusion</code>的<code>list</code>，注意由于<code>include</code>的文件里面可能还会包含别的文件所以，可以用<code>depth</code>这个参数来限制，比如我只想获取第一层也就是直接包含的头文件可以这么写。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">index</span> <span class="o">=</span> <span class="n">CX</span><span class="o">.</span><span class="n">Index</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="n">tu</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;main.cpp&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;-std=c++20&#39;</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">tu</span><span class="o">.</span><span class="n">get_includes</span><span class="p">():</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">depth</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">include</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-</span></span></code></pre></div><p>这样就会打印出所有直接使用的头文件了。</p>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">include</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></span></span></code></pre></div></div>
+<p>这样就会打印出所有直接使用的头文件了。</p>
 
 <h3 class="relative group">Index
     <div id="index" class="anchor"></div>
@@ -1561,11 +1543,11 @@
 </h3>
 <p>一个<code>Index</code>就是一个<code>TranslationUnit</code>的集合，并且最终被链接到一起，形成一个可执行文件或者库。</p>
 <p>有一个静态方法<code>create</code>用于创建一个新的<code>Index</code> ，然后成员方法<code>parse</code>可以解析一个<code>C++</code>源文件，返回一个<code>TranslationUnit</code>。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                <span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                <span class="n">unsaved_files</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                <span class="n">options</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TranslationUnit</span><span class="p">:</span>
-</span></span></code></pre></div><p><code>path</code>是源文件路径，<code>args</code>是编译参数，<code>unsaved_files</code>是未保存的文件，<code>options</code>是一些定义在<code>TranslationUnit.PARSE_XXX</code>中的参数，例如<code>PARSE_SKIP_FUNCTION_BODIES</code>和<code>PARSE_INCOMPLETE</code>。可以用来定制化解析过程，加快解析速度，或者保留宏信息等。</p>
+</span></span><span class="line"><span class="cl">                <span class="n">options</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TranslationUnit</span><span class="p">:</span></span></span></code></pre></div></div>
+<p><code>path</code>是源文件路径，<code>args</code>是编译参数，<code>unsaved_files</code>是未保存的文件，<code>options</code>是一些定义在<code>TranslationUnit.PARSE_XXX</code>中的参数，例如<code>PARSE_SKIP_FUNCTION_BODIES</code>和<code>PARSE_INCOMPLETE</code>。可以用来定制化解析过程，加快解析速度，或者保留宏信息等。</p>
 
 <h2 class="relative group">Examples
     <div id="examples" class="anchor"></div>
@@ -1587,16 +1569,16 @@
     
 </h3>
 <p>由于 clang 在解析的时候会把所有的头文件都展开，全部输出内容太多了。但是我们主要可能只是想要我们自己代码的信息，这时候就可以利用命名空间进行筛选了。示例如下：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">local</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="nc">Person</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>解析代码如下</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">clang.cindex</span> <span class="k">as</span> <span class="nn">CX</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>解析代码如下</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">clang.cindex</span> <span class="k">as</span> <span class="nn">CX</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">traverse_my</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">Cursor</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="n">CX</span><span class="o">.</span><span class="n">CursorKind</span><span class="o">.</span><span class="n">NAMESPACE</span><span class="p">:</span>
@@ -1608,8 +1590,8 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">index</span> <span class="o">=</span> <span class="n">CX</span><span class="o">.</span><span class="n">Index</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="n">tu</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;main.cpp&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;-std=c++20&#39;</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl"><span class="n">traverse_my</span><span class="p">(</span><span class="n">tu</span><span class="o">.</span><span class="n">cursor</span><span class="p">)</span>
-</span></span></code></pre></div><p>写一个函数对类型空间名进行筛选，然后转发到我们之前那个函数就行，这样就只会输出我们想要的的命名空间里面的内容了。</p>
+</span></span><span class="line"><span class="cl"><span class="n">traverse_my</span><span class="p">(</span><span class="n">tu</span><span class="o">.</span><span class="n">cursor</span><span class="p">)</span></span></span></code></pre></div></div>
+<p>写一个函数对类型空间名进行筛选，然后转发到我们之前那个函数就行，这样就只会输出我们想要的的命名空间里面的内容了。</p>
 
 <h3 class="relative group">Class &amp; Struct
     <div id="class--struct" class="anchor"></div>
@@ -1621,14 +1603,14 @@
     
 </h3>
 <p>我们主要是获取它们里面的字段名，类型，方法名，类型等，示例如下：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Person</span> <span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Person</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">say_hello</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">char</span> <span class="n">b</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>解析代码如下</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">traverse_class</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">Cursor</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>解析代码如下</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">traverse_class</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">Cursor</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="k">match</span> <span class="n">node</span><span class="o">.</span><span class="n">kind</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="n">CX</span><span class="o">.</span><span class="n">CursorKind</span><span class="o">.</span><span class="n">STRUCT_DECL</span> <span class="o">|</span> <span class="n">CX</span><span class="o">.</span><span class="n">CursorKind</span><span class="o">.</span><span class="n">CLASS_DECL</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Class: </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">spelling</span><span class="si">}</span><span class="s2">:&#34;</span><span class="p">)</span>
@@ -1647,8 +1629,8 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#     Field: name: const char *</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#     Method: say_hello: void (int, char)</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#         Param: a: int</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#         Param: b: char</span>
-</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="c1">#         Param: b: char</span></span></span></code></pre></div></div>
+
 <h3 class="relative group">Comment
     <div id="comment" class="anchor"></div>
     
@@ -1659,22 +1641,22 @@
     
 </h3>
 <p>可以获取 Doxygen 风格的注释</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@property</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">brief_comment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nd">@property</span>
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">raw_comment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span></span></code></pre></div><p><code>brief_comment</code>获取<code>@brief</code>后面的内容，<code>raw_comment</code>获取整个注释的内容。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cm">/**
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">raw_comment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span></span></span></code></pre></div></div>
+<p><code>brief_comment</code>获取<code>@brief</code>后面的内容，<code>raw_comment</code>获取整个注释的内容。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @brief func description
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param param1
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @return int
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">func</span><span class="p">(</span><span class="kt">int</span> <span class="n">param1</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">param1</span> <span class="o">+</span> <span class="mi">10000000</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>解析代码如下</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">traverse_comment</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">Cursor</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>解析代码如下</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">traverse_comment</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">Cursor</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">brief_comment</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;brief_comment =&gt; </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">brief_comment</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">raw_comment</span><span class="p">:</span>
@@ -1687,8 +1669,8 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#  * @brief func description</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#  * @param param1</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#  * @return int</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#  */</span>
-</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="c1">#  */</span></span></span></code></pre></div></div>
+
 <h3 class="relative group">Enum
     <div id="enum" class="anchor"></div>
     
@@ -1699,13 +1681,13 @@
     
 </h3>
 <p>获取枚举名以及对应的枚举常量值，还有它的底层类型</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">enum</span> <span class="k">class</span> <span class="nc">Color</span><span class="p">{</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">enum</span> <span class="k">class</span> <span class="nc">Color</span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">RED</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">GREEN</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">BLUE</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>解析代码如下</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">traverse_enum</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">Cursor</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>解析代码如下</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">traverse_enum</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">Cursor</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="n">CX</span><span class="o">.</span><span class="n">CursorKind</span><span class="o">.</span><span class="n">ENUM_DECL</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;enum: </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">spelling</span><span class="si">}</span><span class="s2">, underlying type: </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">enum_type</span><span class="o">.</span><span class="n">spelling</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;is scoped?: </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">is_scoped_enum</span><span class="p">()</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
@@ -1718,8 +1700,8 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># is scoped?: True</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#     enum_value: RED: 0</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#     enum_value: GREEN: 1</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#     enum_value: BLUE: 2</span>
-</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="c1">#     enum_value: BLUE: 2</span></span></span></code></pre></div></div>
+
 <h3 class="relative group">Attribute
     <div id="attribute" class="anchor"></div>
     
@@ -1730,13 +1712,14 @@
     
 </h3>
 <p>C++11 加入了新的 attribute 语法：<code>[[ ... ]]</code>，可以用来给函数或者变量添加额外的信息。例如<code>[[nodiscard]]</code>和<code>[[deprecated]]</code>。但是我们有时候在自己定义一些标记来给我们的与预处理工具使用，比如标记一个类型需要不需要生成元信息，我们也希望这些标记也能被 libclang 识别出来。但是遗憾的是如果直接写不被标准支持的属性会被 libclang 忽略，也就是最终的 AST 中是没有它的</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="na">[[Reflect]]</span> <span class="nc">Person</span><span class="p">{};</span> <span class="c1">// ignored
-</span></span></span></code></pre></div><p>一个可行的解决办法是利用<code>get_tokens</code>获取声明中的所有<code>token</code>，然后自己裁剪出来。比如这里获取到的结果就是<code>struct</code>,<code>[</code>,<code>[</code>,<code>Reflect</code>,<code>]</code>,<code>]</code>,<code>Person</code>,<code>{</code>,<code>}</code>，我们可以从中获取出我们想要的信息。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="na">[[Reflect]]</span> <span class="nc">Person</span><span class="p">{};</span> <span class="c1">// ignored
+</span></span></span></code></pre></div></div>
+<p>一个可行的解决办法是利用<code>get_tokens</code>获取声明中的所有<code>token</code>，然后自己裁剪出来。比如这里获取到的结果就是<code>struct</code>,<code>[</code>,<code>[</code>,<code>Reflect</code>,<code>]</code>,<code>]</code>,<code>Person</code>,<code>{</code>,<code>}</code>，我们可以从中获取出我们想要的信息。</p>
 <p>但是 clang 给我们提供了一种更好的办法。那就是利用<code>clang::annotate(...)</code>这个 clang 的扩展属性，例如像下面这样</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define Reflect clang::annotate(&#34;reflect&#34;)
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define Reflect clang::annotate(&#34;reflect&#34;)
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="na">[[Reflect]]</span> <span class="nc">A</span> <span class="p">{};</span>
-</span></span></code></pre></div><p>这样对于<code>A</code>这个<code>Cursor</code>来说，它的子节点中就会有一个<code>ANNOTATE_ATTR</code>的类型的<code>Cursor</code>，而<code>spelling</code>就是里面存的信息，这里就是<code>reflect</code>。这样我们就可以很方便的获取到我们自定义的属性了。而且 C++ 标准规定了，当编译器遇到一个不认识的 attribute 的时候，它会忽略这个 attribute，而不是报错。这样的话，这个属性它就只作用于我们的预处理器，不会影响到正常编译。</p>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="na">[[Reflect]]</span> <span class="nc">A</span> <span class="p">{};</span></span></span></code></pre></div></div>
+<p>这样对于<code>A</code>这个<code>Cursor</code>来说，它的子节点中就会有一个<code>ANNOTATE_ATTR</code>的类型的<code>Cursor</code>，而<code>spelling</code>就是里面存的信息，这里就是<code>reflect</code>。这样我们就可以很方便的获取到我们自定义的属性了。而且 C++ 标准规定了，当编译器遇到一个不认识的 attribute 的时候，它会忽略这个 attribute，而不是报错。这样的话，这个属性它就只作用于我们的预处理器，不会影响到正常编译。</p>
 
 <h3 class="relative group">Macro
     <div id="macro" class="anchor"></div>
@@ -1748,10 +1731,10 @@
     
 </h3>
 <p>clang 在实际解析语法树之前，会把所有的预处理指令都替换成实际的代码。所以最后的语法树信息中就没有它们了。但是有些时候我们的确想要获取到这些信息，比如我们想要获取到<code>#define</code>的信息，这里需要把<code>parse</code>的<code>options</code>参数设为<code>TranslationUnit.PARSE_DETAILED_PROCESSING_RECORD</code>。如果想要获取宏的内容就用<code>get_tokens</code>就行了。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define CONCAT(a, b) a#b
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">CONCAT</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-</span></span></code></pre></div><p>解析代码如下</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">traverse_macro</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">Cursor</span><span class="p">):</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define CONCAT(a, b) a#b
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">CONCAT</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span></span></span></code></pre></div></div>
+<p>解析代码如下</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">traverse_macro</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">Cursor</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="n">CX</span><span class="o">.</span><span class="n">CursorKind</span><span class="o">.</span><span class="n">MACRO_DEFINITION</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="o">.</span><span class="n">spelling</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">):</span>  <span class="c1"># Exclude internal macros</span>
 </span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;MACRO: </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">spelling</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
@@ -1766,8 +1749,8 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># MACRO: CONCAT</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># [&#39;CONCAT&#39;, &#39;(&#39;, &#39;a&#39;, &#39;,&#39;, &#39;b&#39;, &#39;)&#39;, &#39;a&#39;, &#39;#&#39;, &#39;b&#39;]</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># MACRO_INSTANTIATION: CONCAT</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># [&#39;CONCAT&#39;, &#39;(&#39;, &#39;1&#39;, &#39;,&#39;, &#39;2&#39;, &#39;)&#39;]</span>
-</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="c1"># [&#39;CONCAT&#39;, &#39;(&#39;, &#39;1&#39;, &#39;,&#39;, &#39;2&#39;, &#39;)&#39;]</span></span></span></code></pre></div></div>
+
 <h2 class="relative group">Rewrite
     <div id="rewrite" class="anchor"></div>
     
@@ -1778,13 +1761,13 @@
     
 </h2>
 <p>有时候我们希望对源代码进行一些简单的修改，在某个位置插入一段代码或者删除一段代码。这时候我们可以使用<code>Rewriter</code>这个类。示例如下：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">func</span><span class="p">(){</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">func</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>使用下面的代码对源文件进行修改</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">rewrite</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">Cursor</span><span class="p">,</span> <span class="n">rewriter</span><span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">Rewriter</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>使用下面的代码对源文件进行修改</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">rewrite</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">Cursor</span><span class="p">,</span> <span class="n">rewriter</span><span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">Rewriter</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="n">CX</span><span class="o">.</span><span class="n">CursorKind</span><span class="o">.</span><span class="n">VAR_DECL</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">spelling</span> <span class="o">==</span> <span class="s2">&#34;a&#34;</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">            <span class="n">rewriter</span><span class="o">.</span><span class="n">replace_text</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">extent</span><span class="p">,</span> <span class="s2">&#34;int a = 100&#34;</span><span class="p">)</span>
@@ -1801,14 +1784,14 @@
 </span></span><span class="line"><span class="cl"><span class="n">tu</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;main.cpp&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;-std=c++20&#39;</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl"><span class="n">rewriter</span> <span class="o">=</span> <span class="n">CX</span><span class="o">.</span><span class="n">Rewriter</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">tu</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">rewrite</span><span class="p">(</span><span class="n">tu</span><span class="o">.</span><span class="n">cursor</span><span class="p">,</span> <span class="n">rewriter</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">rewriter</span><span class="o">.</span><span class="n">overwrite_changed_files</span><span class="p">()</span>
-</span></span></code></pre></div><p>运行之后，<code>main.cpp</code>的内容就变成了</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="n">rewriter</span><span class="o">.</span><span class="n">overwrite_changed_files</span><span class="p">()</span></span></span></code></pre></div></div>
+<p>运行之后，<code>main.cpp</code>的内容就变成了</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">func</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="na">[[maybe_unused]]</span> <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
 <h2 class="relative group">Conclusion
     <div id="conclusion" class="anchor"></div>
     

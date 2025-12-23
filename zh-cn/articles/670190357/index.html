@@ -125,8 +125,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.d73bd5624a883943ee708df101144407dd1c0d07937ac38a3fb7923631f3462db466c14c537ecc819f12c038e21ed2e83f1524eb126bc4e8f59f21a0e357738c.css"
-    integrity="sha512-1zvVYkqIOUPucI3xARREB90cDQeTesOKP7eSNjHzRi20ZsFMU37MgZ8SwDjiHtLoPxUk6xJrxOj1nyGg41dzjA==">
+    href="/css/main.bundle.min.9e8f7139c652e8a74a176ca1ebfd53ed3d4a6287070b98560332ae377ace684485cf68f3bdec2d950e9a9d74c13deaa568a8f1aba92143ab4aabd039e71fe576.css"
+    integrity="sha512-no9xOcZS6KdKF2yh6/1T7T1KYocHC5hWAzKuN3rOaESFz2jzvewtlQ6anXTBPeqlaKjxq6khQ6tKq9A55x/ldg==">
 
   
   
@@ -166,13 +166,14 @@
   
   
   
+  
     
     <script
       defer
       type="text/javascript"
       id="script-bundle"
-      src="/js/main.bundle.min.db1621a0bc8f4a48f4b1a6be456ad9c38457ec26089548c0fb1b620bfe9c472047891038c3f9a8f8f6d510e1dd69bb620f98740b0cf88a0d77eeef6155a17f4f.js"
-      integrity="sha512-2xYhoLyPSkj0saa&#43;RWrZw4RX7CYIlUjA&#43;xtiC/6cRyBHiRA4w/mo&#43;PbVEOHdabtiD5h0Cwz4ig137u9hVaF/Tw=="
+      src="/js/main.bundle.min.aee4e707e28a3bd3629b3d56fc8989adf1c11e60ba52e5c99085898be50963025e6b3c8a90f2ff6ac2fe5225da74015b85ec8e0e52510b07cc8e82b7f08997cb.js"
+      integrity="sha512-ruTnB&#43;KKO9Nimz1W/ImJrfHBHmC6UuXJkIWJi&#43;UJYwJeazyKkPL/asL&#43;UiXadAFbheyODlJRCwfMjoK38ImXyw=="
       data-copy="复制"
       data-copied="已复制"></script>
   
@@ -221,6 +222,9 @@
 
 
 
+
+
+
   
   
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -238,7 +242,6 @@
     "name": "为什么说 C\/C\u002b\u002b 编译器不保留元信息？",
     "headline": "为什么说 C\/C\u002b\u002b 编译器不保留元信息？",
     
-    "abstract": "\u003ch2 class=\u0022relative group\u0022\u003e首先什么是元信息？\n    \u003cdiv id=\u0022首先什么是元信息\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none\u0022\u003e\n        \u003ca class=\u0022text-primary-300 dark:text-neutral-700 !no-underline\u0022 href=\u0022#%e9%a6%96%e5%85%88%e4%bb%80%e4%b9%88%e6%98%af%e5%85%83%e4%bf%a1%e6%81%af\u0022 aria-label=\u0022锚点\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e\n    \n\u003c\/h2\u003e\n\u003cp\u003e来看下面一段\u003ccode\u003epython\u003c\/code\u003e代码，我们希望能够根据传入的字符串来自动修改对应的字段值\u003c\/p\u003e",
     "inLanguage": "zh-cn",
     "url" : "https://www.ykiko.me/zh-cn/articles/670190357/",
     "author" : {
@@ -741,7 +744,7 @@
     <img
       id="background-image"
       src="/zh-cn/articles/670190357/featured_hu12375743118955563405.png"
-      alt="为什么说 C/C&#43;&#43; 编译器不保留元信息？"
+      role="presentation"
       loading="eager"
       decoding="async"
       fetchpriority="high"
@@ -756,7 +759,7 @@
   
     <div
       id="background-blur"
-      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
     
     
     <script
@@ -1328,7 +1331,7 @@
     
 </h2>
 <p>来看下面一段<code>python</code>代码，我们希望能够根据传入的字符串来自动修改对应的字段值</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
 </span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
@@ -1336,10 +1339,10 @@
 </span></span><span class="line"><span class="cl"><span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s2">&#34;xiaohong&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="nb">setattr</span><span class="p">(</span><span class="n">person</span><span class="p">,</span> <span class="s2">&#34;age&#34;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="nb">setattr</span><span class="p">(</span><span class="n">person</span><span class="p">,</span> <span class="s2">&#34;name&#34;</span><span class="p">,</span> <span class="s2">&#34;xiaoming&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;name: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">, age: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">age</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="c1"># =&gt; name: xiaoming, age: 12</span>
-</span></span></code></pre></div><p><code>setattr</code>是<code>python</code>内置的一个函数，刚好可以实现我们的需求。根据输入的字段名，修改对应值。</p>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;name: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">, age: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">age</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="c1"># =&gt; name: xiaoming, age: 12</span></span></span></code></pre></div></div>
+<p><code>setattr</code>是<code>python</code>内置的一个函数，刚好可以实现我们的需求。根据输入的字段名，修改对应值。</p>
 <p>如果想要在<code>C++</code>中实现应该怎么办呢？<code>C++</code>可没有内置<code>setattr</code>这种函数。代码示例如下。（暂时就先考虑可以直接<code>memcpy</code>的类型了，也就是<code>trivially copyable</code>的类型）</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Person</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Person</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">name</span><span class="p">;</span>
@@ -1371,8 +1374,8 @@
 </span></span><span class="line"><span class="cl">    <span class="n">setattr</span><span class="p">(</span><span class="o">&amp;</span><span class="n">person</span><span class="p">,</span> <span class="s">&#34;name&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">name</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">person</span><span class="p">.</span><span class="n">age</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">person</span><span class="p">.</span><span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// =&gt; 10 xiaohong
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>可以发现我们基本上自己实现了<code>setattr</code>这个函数，而且这样的实现似乎可以是通用的。只要为特定的类型提供属于它的<code>fieldInfo</code>就行了。这个<code>fieldInfo</code>里面存了字段名，字段的偏移量，字段的类型大小。它就可以被看做<strong>元信息</strong>,除此之外可能还有变量名，函数名，等等。<strong>这些信息不直接参与程序的运行，而是提供关于程序结构、数据、类型等方面的附加信息</strong>。元信息里面存的东西似乎也都是死套路，对于我们都是已知信息。因为它们就存在程序的源代码里面。那<code>C/C++</code>编译器提供这种功能吗？答案是：对于<code>debug</code>模式下的程序可能会保留一部分用于程序调试，而在<code>release</code>模式下什么都不会存。这样做的好处是很显然的，因为这些信息并不是程序运行起来必须要的信息，不保留它们可以显著减少二进制可执行文件的大小。</p>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>可以发现我们基本上自己实现了<code>setattr</code>这个函数，而且这样的实现似乎可以是通用的。只要为特定的类型提供属于它的<code>fieldInfo</code>就行了。这个<code>fieldInfo</code>里面存了字段名，字段的偏移量，字段的类型大小。它就可以被看做<strong>元信息</strong>,除此之外可能还有变量名，函数名，等等。<strong>这些信息不直接参与程序的运行，而是提供关于程序结构、数据、类型等方面的附加信息</strong>。元信息里面存的东西似乎也都是死套路，对于我们都是已知信息。因为它们就存在程序的源代码里面。那<code>C/C++</code>编译器提供这种功能吗？答案是：对于<code>debug</code>模式下的程序可能会保留一部分用于程序调试，而在<code>release</code>模式下什么都不会存。这样做的好处是很显然的，因为这些信息并不是程序运行起来必须要的信息，不保留它们可以显著减少二进制可执行文件的大小。</p>
 
 <h2 class="relative group">为什么这些信息是不必要的，什么时候需要？
     <div id="为什么这些信息是不必要的什么时候需要" class="anchor"></div>
@@ -1394,9 +1397,9 @@
     </span>
     
 </h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
-</span></span></code></pre></div><p>事实上变量声明并没有直接对应的二进制表示，它仅仅是告诉编译器需要分配一块空间来存储名为<code>value</code>的变量，究竟分配多大的内存则由它的类型决定。所以如果变量声明的时候类型大小是未知的，则会编译错误。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">A</span><span class="p">;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">value</span><span class="p">;</span></span></span></code></pre></div></div>
+<p>事实上变量声明并没有直接对应的二进制表示，它仅仅是告诉编译器需要分配一块空间来存储名为<code>value</code>的变量，究竟分配多大的内存则由它的类型决定。所以如果变量声明的时候类型大小是未知的，则会编译错误。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">A</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="n">x</span><span class="p">;</span> <span class="c1">// error: storage size of &#39;x&#39; isn&#39;t known
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">A</span><span class="o">*</span> <span class="n">y</span><span class="p">;</span> <span class="c1">// ok the size of pointer is always konwn 
@@ -1413,7 +1416,8 @@
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">val</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span> <span class="c1">// ok
-</span></span></span></code></pre></div><p>相信你想到了这和<code>malloc</code>似乎有点像，的确如此。区别在于，<code>malloc</code>是在运行时的堆上分配内存。而直接的变量声明一般是在数据区或者栈上分配内存。编译器可能在内部会维护一个符号表，将变量名与它的地址映射起来，在你后续对这个变量进行操作的时候，实际上是对这块内存区域进行操作。</p>
+</span></span></span></code></pre></div></div>
+<p>相信你想到了这和<code>malloc</code>似乎有点像，的确如此。区别在于，<code>malloc</code>是在运行时的堆上分配内存。而直接的变量声明一般是在数据区或者栈上分配内存。编译器可能在内部会维护一个符号表，将变量名与它的地址映射起来，在你后续对这个变量进行操作的时候，实际上是对这块内存区域进行操作。</p>
 
 <h3 class="relative group">内置运算符
     <div id="内置运算符" class="anchor"></div>
@@ -1425,7 +1429,7 @@
     
 </h3>
 <p><code>C</code>语言内置的运算符一般直接和<code>CPU</code>指令直接对应，至于<code>CPU</code>是如何实现这些运算的，可以学习下数电相关知识。以<code>x86_64</code>为例，可能的对应如下</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="o">|</span> <span class="n">Operator</span> <span class="o">|</span> <span class="n">Meaning</span> <span class="o">|</span> <span class="n">Operator</span> <span class="o">|</span> <span class="n">Meaning</span> <span class="o">|</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="o">|</span> <span class="n">Operator</span> <span class="o">|</span> <span class="n">Meaning</span> <span class="o">|</span> <span class="n">Operator</span> <span class="o">|</span> <span class="n">Meaning</span> <span class="o">|</span>
 </span></span><span class="line"><span class="cl"><span class="o">|----------|---------|----------|---------|</span>
 </span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">+</span>        <span class="o">|</span> <span class="n">add</span>     <span class="o">|</span> <span class="o">*</span>        <span class="o">|</span> <span class="n">mul</span>     <span class="o">|</span>
 </span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">-</span>        <span class="o">|</span> <span class="n">sub</span>     <span class="o">|</span> <span class="o">/</span>        <span class="o">|</span> <span class="n">div</span>     <span class="o">|</span>
@@ -1437,10 +1441,11 @@
 </span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">==</span>       <span class="o">|</span> <span class="n">cmp</span>     <span class="o">|</span> <span class="o">!=</span>       <span class="o">|</span> <span class="n">cmp</span>     <span class="o">|</span>
 </span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">&gt;</span>        <span class="o">|</span> <span class="n">cmp</span>     <span class="o">|</span> <span class="o">&gt;=</span>       <span class="o">|</span> <span class="n">cmp</span>     <span class="o">|</span>
 </span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">&lt;</span>        <span class="o">|</span> <span class="n">cmp</span>     <span class="o">|</span> <span class="o">&lt;=</span>       <span class="o">|</span> <span class="n">cmp</span>     <span class="o">|</span>
-</span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">++</span>       <span class="o">|</span> <span class="n">inc</span>     <span class="o">|</span> <span class="o">--</span>       <span class="o">|</span> <span class="n">dec</span>     <span class="o">|</span>
-</span></span></code></pre></div><p>赋值则可能是通过<code>mov</code>指令来完成的，比如</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// mov [addressof(a)] 3
-</span></span></span></code></pre></div>
+</span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">++</span>       <span class="o">|</span> <span class="n">inc</span>     <span class="o">|</span> <span class="o">--</span>       <span class="o">|</span> <span class="n">dec</span>     <span class="o">|</span></span></span></code></pre></div></div>
+<p>赋值则可能是通过<code>mov</code>指令来完成的，比如</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// mov [addressof(a)] 3
+</span></span></span></code></pre></div></div>
+
 <h3 class="relative group">结构体
     <div id="结构体" class="anchor"></div>
     
@@ -1450,7 +1455,7 @@
     </span>
     
 </h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">Point</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">Point</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">y</span><span class="p">;</span>
@@ -1461,19 +1466,16 @@
 </span></span><span class="line"><span class="cl">    <span class="n">Point</span> <span class="n">point</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">point</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">point</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>结构体的大小一般可以由特定规则算出从它的成员算出，往往要考虑内存对齐，而且是编译器决定的。例如 <a
-  href="https://learn.microsoft.com/en-us/cpp/c-language/storage-and-alignment-of-structures?view=msvc-170"
-    target="_blank"
-  >msvc</a>。但总之在编译的时候结构体的大小就是已知的了，我们也可以通过<code>sizeof</code>获取类型或者变量的大小。那么这里的<code>Point point</code>变量定义就很好理解，类型大小已知，相对于在栈上分配了一块内存。</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>结构体的大小一般可以由特定规则算出从它的成员算出，往往要考虑内存对齐，而且是编译器决定的。例如 <a href="https://learn.microsoft.com/en-us/cpp/c-language/storage-and-alignment-of-structures?view=msvc-170"  target="_blank">msvc</a>。但总之在编译的时候结构体的大小就是已知的了，我们也可以通过<code>sizeof</code>获取类型或者变量的大小。那么这里的<code>Point point</code>变量定义就很好理解，类型大小已知，相对于在栈上分配了一块内存。</p>
 <p>下面来关注一下结构体成员访问，事实上<code>C</code>语言有一个宏可以获取结构体成员相对于结构体起始地址的偏移量，叫做<code>offsetof</code>（就算我们获取不到，编译器里面也是会计算字段偏移量的，所以偏移量信息对编译器总是已知的）。例如在这里<code>offsetof(Point, x)</code>就是<code>0</code>，<code>offsetof(Point, y)</code>就是<code>4</code>。所以上面的代码可以理解为</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">point</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Point</span><span class="p">)];</span> <span class="c1">// 8 = sizeof(Point)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)(</span><span class="n">point</span> <span class="o">+</span> <span class="nf">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// point.x = 1
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)(</span><span class="n">point</span> <span class="o">+</span> <span class="nf">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// point.y = 2
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>编译器同样可能会维护一个字段名-&gt;偏移量的符号表，字段名最终会替换为<code>offset</code>。也没有必要在程序中保留了。</p>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>编译器同样可能会维护一个字段名-&gt;偏移量的符号表，字段名最终会替换为<code>offset</code>。也没有必要在程序中保留了。</p>
 
 <h3 class="relative group">函数调用
     <div id="函数调用" class="anchor"></div>
@@ -1519,9 +1521,9 @@
     
 </h2>
 <p><code>AST</code>是抽象语法树（<code>Abstract Syntax Tree</code>）的缩写。它是编程语言处理中的一种数据结构，用于表示源代码的抽象语法结构。<code>AST</code>是源代码经过解析器（<code>parser</code>）处理后的结果，它捕捉了代码中的语法结构，但不包含所有细节，比如空白字符或注释。在<code>AST</code>中，每个节点代表源代码中的一个语法结构，例如变量声明、函数调用、循环等。这些节点之间通过父子关系和兄弟关系连接，形成了一棵树状结构，这样的结构更容易被计算机程序理解和处理。如果你的电脑里面装了<code>clang</code>编译器，可以使用下面这个命令查看一个源文件的语法树</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">clang -Xclang -ast-dump -fsyntax-only &lt;your.cpp&gt;
-</span></span></code></pre></div><p>输出如下，我筛选出了重要的信息，无关的已经被删除了</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="o">|-</span><span class="n">CXXRecordDecl</span> <span class="mh">0x2103cd9c318</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">8</span><span class="o">&gt;</span> <span class="nl">col</span><span class="p">:</span><span class="mi">8</span> <span class="n">implicit</span> <span class="k">struct</span> <span class="nc">Point</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">clang -Xclang -ast-dump -fsyntax-only &lt;your.cpp&gt;</span></span></code></pre></div></div>
+<p>输出如下，我筛选出了重要的信息，无关的已经被删除了</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="o">|-</span><span class="n">CXXRecordDecl</span> <span class="mh">0x2103cd9c318</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">8</span><span class="o">&gt;</span> <span class="nl">col</span><span class="p">:</span><span class="mi">8</span> <span class="n">implicit</span> <span class="k">struct</span> <span class="nc">Point</span>
 </span></span><span class="line"><span class="cl"><span class="o">|-</span><span class="n">FieldDecl</span> <span class="mh">0x2103cd9c3c0</span> <span class="o">&lt;</span><span class="nl">line</span><span class="p">:</span><span class="mi">4</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">9</span><span class="o">&gt;</span> <span class="nl">col</span><span class="p">:</span><span class="mi">9</span> <span class="n">referenced</span> <span class="n">x</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="o">|-</span><span class="n">FieldDecl</span> <span class="mh">0x2103e8661f0</span> <span class="o">&lt;</span><span class="nl">line</span><span class="p">:</span><span class="mi">5</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">9</span><span class="o">&gt;</span> <span class="nl">col</span><span class="p">:</span><span class="mi">9</span> <span class="n">referenced</span> <span class="n">y</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="err">`</span><span class="o">-</span><span class="n">FunctionDecl</span> <span class="mh">0x2103e8662b0</span> <span class="o">&lt;</span><span class="nl">line</span><span class="p">:</span><span class="mi">8</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nl">line</span><span class="p">:</span><span class="mi">13</span><span class="o">:</span><span class="mi">1</span><span class="o">&gt;</span> <span class="nl">line</span><span class="p">:</span><span class="mi">8</span><span class="o">:</span><span class="mi">5</span> <span class="n">main</span> <span class="err">&#39;</span><span class="kt">int</span> <span class="p">()</span><span class="err">&#39;</span>
@@ -1536,11 +1538,8 @@
 </span></span><span class="line"><span class="cl">    <span class="err">`</span><span class="o">-</span><span class="n">BinaryOperator</span> <span class="mh">0x2103e866c48</span> <span class="o">&lt;</span><span class="nl">line</span><span class="p">:</span><span class="mi">12</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">15</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="n">lvalue</span> <span class="sc">&#39;=&#39;</span>
 </span></span><span class="line"><span class="cl">      <span class="o">|-</span><span class="n">MemberExpr</span> <span class="mh">0x2103e866bf8</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">11</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="n">lvalue</span> <span class="p">.</span><span class="n">y</span> <span class="mh">0x2103e8661f0</span>
 </span></span><span class="line"><span class="cl">      <span class="o">|</span> <span class="err">`</span><span class="o">-</span><span class="n">DeclRefExpr</span> <span class="mh">0x2103e866bd8</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">5</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="n">Point</span><span class="sc">&#39;:&#39;</span><span class="n">Point</span><span class="err">&#39;</span> <span class="n">lvalue</span> <span class="n">Var</span> <span class="mh">0x2103e866410</span> <span class="err">&#39;</span><span class="n">point</span><span class="sc">&#39; &#39;</span><span class="n">Point</span><span class="sc">&#39;:&#39;</span><span class="n">Point</span><span class="err">&#39;</span>
-</span></span><span class="line"><span class="cl">      <span class="err">`</span><span class="o">-</span><span class="n">IntegerLiteral</span> <span class="mh">0x2103e866c28</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">15</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="mi">2</span>
-</span></span></code></pre></div><p>或者如果你的<code>vscode</code>装了<code>clangd</code>这个插件，可以右键选择一块代码，然后右键<code>show AST</code>来看这块代码片段的<code>ast</code>。可以发现上面的确是把源码内容以树的方式呈现给我们了，既然是一颗树，我们就可以自由的遍历树的节点，然后筛选获取我们想要的信息。上面两例都是可视化的输出，通常情况下也会有直接的代码接口来直接获取。比如<code>python</code>内置就有<code>ast</code>模块来获取，<code>C++</code>一般是通过<code>clang</code>相关的工具来获取这些内容。如果想知道具体该如何使用<code>clang</code>工具，可以参考文章：<a
-  href="https://www.ykiko.me/zh-cn/articles/669360731"
-    target="_blank"
-  >使用 clang 工具自由的支配 C++ 代码吧！</a></p>
+</span></span><span class="line"><span class="cl">      <span class="err">`</span><span class="o">-</span><span class="n">IntegerLiteral</span> <span class="mh">0x2103e866c28</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">15</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="mi">2</span></span></span></code></pre></div></div>
+<p>或者如果你的<code>vscode</code>装了<code>clangd</code>这个插件，可以右键选择一块代码，然后右键<code>show AST</code>来看这块代码片段的<code>ast</code>。可以发现上面的确是把源码内容以树的方式呈现给我们了，既然是一颗树，我们就可以自由的遍历树的节点，然后筛选获取我们想要的信息。上面两例都是可视化的输出，通常情况下也会有直接的代码接口来直接获取。比如<code>python</code>内置就有<code>ast</code>模块来获取，<code>C++</code>一般是通过<code>clang</code>相关的工具来获取这些内容。如果想知道具体该如何使用<code>clang</code>工具，可以参考文章：<a href="https://www.ykiko.me/zh-cn/articles/669360731"  target="_blank">使用 clang 工具自由的支配 C++ 代码吧！</a></p>
 <p>如果你好奇编译器究竟是如何把源代码变成<code>ast</code>的，你可以去学习一下编译原理前端的内容。</p>
 
 <h2 class="relative group">以何种方式存储这些信息？
@@ -1554,7 +1553,7 @@
 </h2>
 <p>这个问题听起来让人有些困惑，实际上这个问题可能只有<code>C++</code>程序员需要考虑</p>
 <p>其实一切原因都是<code>constexpr</code>引起的。把信息下面这样存储起来</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">FieldInfo</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">FieldInfo</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">name</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">offset</span><span class="p">;</span>
@@ -1571,18 +1570,18 @@
 </span></span><span class="line"><span class="cl"><span class="p">{{</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s">&#34;x&#34;</span><span class="p">,</span> <span class="n">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)},</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s">&#34;y&#34;</span><span class="p">,</span> <span class="n">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)},</span>
-</span></span><span class="line"><span class="cl"><span class="p">}};</span>
-</span></span></code></pre></div><p>就意味着我们不仅仅能在运行期查询这些信息，还能在编译期查询这些信息</p>
+</span></span><span class="line"><span class="cl"><span class="p">}};</span></span></span></code></pre></div></div>
+<p>就意味着我们不仅仅能在运行期查询这些信息，还能在编译期查询这些信息</p>
 <p>更有甚者，还可以存到模板参数里面去，这样的话连类型也能存了</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="n">fixed_string</span> <span class="n">name</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">offset</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Type</span><span class="o">&gt;</span>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="n">fixed_string</span> <span class="n">name</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">offset</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Type</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Field</span><span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">FieldInfos</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">tuple</span>
 </span></span><span class="line"><span class="cl"><span class="o">&lt;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Field</span><span class="o">&lt;</span><span class="s">&#34;x&#34;</span><span class="p">,</span> <span class="n">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Field</span><span class="o">&lt;</span><span class="s">&#34;y&#34;</span><span class="p">,</span> <span class="n">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="kt">int</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="p">;</span>
-</span></span></code></pre></div><p>这样无疑给了我们更大的操作空间，那么有了这些信息之后，下一步该做些什么？事实上我们可以选择基于这部分信息进行代码生成，相关的内容可以浏览系列文章中的其它小节。</p>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="p">;</span></span></span></code></pre></div></div>
+<p>这样无疑给了我们更大的操作空间，那么有了这些信息之后，下一步该做些什么？事实上我们可以选择基于这部分信息进行代码生成，相关的内容可以浏览系列文章中的其它小节。</p>
 
           
           
