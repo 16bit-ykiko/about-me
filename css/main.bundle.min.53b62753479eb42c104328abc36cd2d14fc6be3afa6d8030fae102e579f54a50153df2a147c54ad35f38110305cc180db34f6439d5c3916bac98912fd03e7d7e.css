@@ -1054,9 +1054,6 @@
   .table-cell {
     display: table-cell;
   }
-  .aspect-\[\.\.\.\] {
-    aspect-ratio: ...;
-  }
   .aspect-\[4\/3\] {
     aspect-ratio: 4/3;
   }
@@ -4322,7 +4319,7 @@
       --scrollbar-track: oklch(26.9% 0 0);
     }
   }
-}body:has(#mobile-menu-toggle:checked){overflow:hidden}@media(min-width:853px){body{position:static!important}}#bmc-wbtn{z-index:50!important}.nested-menu{position:relative}.menuhide{position:absolute;z-index:1000;white-space:nowrap;opacity:0;visibility:hidden;transition:visibility .3s,opacity .3s ease-in-out}.nested-menu:hover .menuhide,.nested-menu:focus-within .menuhide{opacity:1;visibility:visible}.active{text-decoration-line:underline;text-decoration-thickness:3px;text-underline-offset:4px}@layer base{input:where([type='text']),input:where(:not([type])),input:where([type='email']),input:where([type='url']),input:where([type='password']),input:where([type='number']),input:where([type='date']),input:where([type='datetime-local']),input:where([type='month']),input:where([type='search']),input:where([type='tel']),input:where([type='time']),input:where([type='week']),select:where([multiple]),textarea,select {
+}body:has(#mobile-menu-toggle:checked){overflow:hidden}@media(min-width:853px){body:has(#mobile-menu-toggle:checked){overflow:visible}}#bmc-wbtn{z-index:50!important}.nested-menu{position:relative}.menuhide{position:absolute;z-index:1000;white-space:nowrap;opacity:0;visibility:hidden;transition:visibility .3s,opacity .3s ease-in-out}.nested-menu:hover .menuhide,.nested-menu:focus-within .menuhide{opacity:1;visibility:visible}.active{text-decoration-line:underline;text-decoration-thickness:3px;text-underline-offset:4px}@layer base{input:where([type='text']),input:where(:not([type])),input:where([type='email']),input:where([type='url']),input:where([type='password']),input:where([type='number']),input:where([type='date']),input:where([type='datetime-local']),input:where([type='month']),input:where([type='search']),input:where([type='tel']),input:where([type='time']),input:where([type='week']),select:where([multiple]),textarea,select {
     appearance: none;
     background-color: #fff;
     border-color: oklch(55.1% 0.027 264.364);
