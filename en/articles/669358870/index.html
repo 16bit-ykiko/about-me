@@ -125,8 +125,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1052,10 +1052,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1205,7 +1204,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1298,7 +1296,7 @@
     </span>
     
 </h2>
-<p>The term &ldquo;Reflection&rdquo; is likely familiar to many, even if you haven&rsquo;t used it, you&rsquo;ve probably heard of it. However, like many other <strong>jargon</strong> in the field of computer science, there isn&rsquo;t a clear and precise definition for reflection. This leads to situations where, for languages like C#, Java, and Python that have reflection, discussing reflection naturally brings to mind the corresponding facilities, APIs, and code examples in those languages, making it very concrete. However, for languages like C, C++, and Rust that lack reflection, when people talk about reflection, there&rsquo;s often uncertainty about what exactly is being referred to, making it very abstract. For example, someone once told me that Rust has reflection, citing the official Rust documentation&rsquo;s introduction to the <a href="https://doc.rust-lang.org/stable/std/any/index.html"  target="_blank">std::Any module</a>, which mentions:</p>
+<p>The term &ldquo;Reflection&rdquo; is likely familiar to many, even if you haven&rsquo;t used it, you&rsquo;ve probably heard of it. However, like many other <strong>jargon</strong> in the field of computer science, there isn&rsquo;t a clear and precise definition for reflection. This leads to situations where, for languages like C#, Java, and Python that have reflection, discussing reflection naturally brings to mind the corresponding facilities, APIs, and code examples in those languages, making it very concrete. However, for languages like C, C++, and Rust that lack reflection, when people talk about reflection, there&rsquo;s often uncertainty about what exactly is being referred to, making it very abstract. For example, someone once told me that Rust has reflection, citing the official Rust documentation&rsquo;s introduction to the <a href="https://doc.rust-lang.org/stable/std/any/index.html"  target="_blank" rel="noreferrer">std::Any module</a>, which mentions:</p>
 <blockquote><p>Utilities for dynamic typing or type reflection</p>
 </blockquote><p>But the awkwardness lies in the fact that if you consider it as reflection, its functionality is quite limited; if you say it&rsquo;s not, well, you could argue that it somewhat embodies reflection.</p>
 <p>Similar situations frequently occur in C++. You might often hear opinions like: C++ only has very weak reflection, namely RTTI (Run Time Type Information), but some frameworks like QT and UE have implemented their own reflection. In recent discussions, blogs, or proposals for new C++ standards, you might also hear terms like:</p>
@@ -1309,7 +1307,7 @@
 <li>Runtime reflection</li>
 </ul>
 <p>These terms can be quite confusing and overwhelming. Moreover, prefixes like static, dynamic, compile-time, and runtime are themselves jargon, often combined with various terms, carrying many meanings depending on the context.</p>
-<p>Some readers might say, &ldquo;I checked Wikipedia, and <a href="https://en.wikipedia.org/wiki/Reflective_programming"  target="_blank">reflection</a> does have a definition, as follows:</p>
+<p>Some readers might say, &ldquo;I checked Wikipedia, and <a href="https://en.wikipedia.org/wiki/Reflective_programming"  target="_blank" rel="noreferrer">reflection</a> does have a definition, as follows:</p>
 <blockquote><p>In computer science, reflective programming or reflection is the ability of a process to examine, introspect, and modify its own structure and behavior.</p>
 </blockquote><p>First, Wikipedia is written by people and isn&rsquo;t absolutely authoritative; if you&rsquo;re dissatisfied with this definition, you can modify it yourself. Second, the wording here is quite vague. What does introspection (introspect) mean? Self-reflection, but what does that mean in the context of computer science? So this definition is also quite awkward. What to do then? I choose to break it down into several processes for explanation, so we don&rsquo;t have to struggle with the conceptual question of &ldquo;<strong>what exactly is reflection</strong>.&rdquo; Instead, by understanding these processes, you&rsquo;ll naturally grasp what reflection is doing.</p>
 
@@ -1333,10 +1331,10 @@
     </span>
     
 </h3>
-<p>First, what is metadata (Metadata)? When we write code, we name variables, types, struct fields, etc. These names are mainly for programmers to understand and maintain the source code. For C/C++, these names are usually discarded after compilation to save binary space, which is understandable. For a detailed discussion, see <a href="https://www.ykiko.me/zh-cn/articles/670190357"  target="_blank">Why C/C++ Compilers Do Not Retain Metadata</a>.</p>
+<p>First, what is metadata (Metadata)? When we write code, we name variables, types, struct fields, etc. These names are mainly for programmers to understand and maintain the source code. For C/C++, these names are usually discarded after compilation to save binary space, which is understandable. For a detailed discussion, see <a href="https://www.ykiko.me/zh-cn/articles/670190357"  target="_blank" rel="noreferrer">Why C/C++ Compilers Do Not Retain Metadata</a>.</p>
 <p>But gradually, we found that in some cases, we need this data. For example, when serializing a struct into <code>json</code>, we need the struct field names, or when printing logs, we don&rsquo;t want to print enum values but the corresponding enum names. What to do? Early on, the only way was through hard coding, i.e., writing it manually, or using macros for more advanced cases. This was quite inconvenient and not conducive to future code maintenance.</p>
 <p>Later, some languages, like Java and C#, their compilers would retain a lot of data, including these names, during compilation. This data is called metadata (Metadata). Additionally, there are ways for programmers to attach metadata to certain structures themselves, such as C#&rsquo;s <code>attribute</code> and Java&rsquo;s <code>annotation</code>.</p>
-<p>What about C++? Currently, C++ compilers only retain type names for implementing RTTI, i.e., facilities related to <code>std::type_info</code> in the standard. Other information is stripped away by the compiler. What to do? Manually writing metadata is acceptable for a small number of classes, but as the project scale increases, such as having dozens or hundreds of classes, it becomes very tedious and error-prone. In fact, we can run a script before actual compilation to generate this data, known as code generation (Code Generation). For related content, see <a href="https://www.ykiko.me/zh-cn/articles/669360731"  target="_blank">Using Clang Tools to Freely Manipulate C++ Code</a>.</p>
+<p>What about C++? Currently, C++ compilers only retain type names for implementing RTTI, i.e., facilities related to <code>std::type_info</code> in the standard. Other information is stripped away by the compiler. What to do? Manually writing metadata is acceptable for a small number of classes, but as the project scale increases, such as having dozens or hundreds of classes, it becomes very tedious and error-prone. In fact, we can run a script before actual compilation to generate this data, known as code generation (Code Generation). For related content, see <a href="https://www.ykiko.me/zh-cn/articles/669360731"  target="_blank" rel="noreferrer">Using Clang Tools to Freely Manipulate C++ Code</a>.</p>
 
 <h3 class="relative group">Query Metadata
     <div id="query-metadata" class="anchor"></div>
@@ -1350,8 +1348,8 @@
 <p>After generation, the next step is querying metadata. Many languages&rsquo; built-in reflection modules, such as Python&rsquo;s <code>inspect</code>, Java&rsquo;s <code>Reflection</code>, and C#&rsquo;s <code>System.Reflection</code>, essentially encapsulate some operations, making it more convenient for users to access metadata without directly dealing with raw data.</p>
 <p>It&rsquo;s worth noting that the queries in the above cases occur at runtime. Searching and matching based on strings at runtime is a relatively slow process, which is why we often say that reflective method calls are slower than normal method calls.</p>
 <p>For C++, the compiler provides some limited interfaces for us to access (reflect) some information at compile time, such as using <code>decltype</code> to get a variable&rsquo;s type, further determining if two variable types are equal, or if one is a subclass of another, but the functionality is quite limited.</p>
-<p>However, you can generate metadata yourself as described in the previous section, mark them as constexpr, and then query them at compile time. In fact, C++26&rsquo;s static reflection follows this approach, with the compiler generating metadata and exposing some interfaces for users to query. For related content, see <a href="https://www.ykiko.me/zh-cn/articles/661692275"  target="_blank">C++26 Static Reflection Proposal Analysis</a>. The timing of the query is what distinguishes <strong>dynamic reflection</strong> from <strong>static reflection</strong>.</p>
-<p>Of course, what can be done at compile time is certainly less than what can be done at runtime. For example, creating a class instance based on a runtime type name is something that can&rsquo;t be done at compile time. But you can build dynamic reflection based on these static metadata. For related content, see <a href="https://www.ykiko.me/zh-cn/articles/670191053"  target="_blank">Implementing Object in C++</a>.</p>
+<p>However, you can generate metadata yourself as described in the previous section, mark them as constexpr, and then query them at compile time. In fact, C++26&rsquo;s static reflection follows this approach, with the compiler generating metadata and exposing some interfaces for users to query. For related content, see <a href="https://www.ykiko.me/zh-cn/articles/661692275"  target="_blank" rel="noreferrer">C++26 Static Reflection Proposal Analysis</a>. The timing of the query is what distinguishes <strong>dynamic reflection</strong> from <strong>static reflection</strong>.</p>
+<p>Of course, what can be done at compile time is certainly less than what can be done at runtime. For example, creating a class instance based on a runtime type name is something that can&rsquo;t be done at compile time. But you can build dynamic reflection based on these static metadata. For related content, see <a href="https://www.ykiko.me/zh-cn/articles/670191053"  target="_blank" rel="noreferrer">Implementing Object in C++</a>.</p>
 
 <h3 class="relative group">Operate Metadata
     <div id="operate-metadata" class="anchor"></div>
@@ -1362,7 +1360,7 @@
     </span>
     
 </h3>
-<p>Then, based on the metadata, further operations can be performed, such as code generation. In C++, this can be understood as compile-time code generation, while in Java and C#, it can be considered runtime code generation. For details, see <a href="https://www.ykiko.me/zh-cn/articles/669359855"  target="_blank">Various Ways to Generate Code</a>.</p>
+<p>Then, based on the metadata, further operations can be performed, such as code generation. In C++, this can be understood as compile-time code generation, while in Java and C#, it can be considered runtime code generation. For details, see <a href="https://www.ykiko.me/zh-cn/articles/669359855"  target="_blank" rel="noreferrer">Various Ways to Generate Code</a>.</p>
 
 <h2 class="relative group">Conclusion
     <div id="conclusion" class="anchor"></div>

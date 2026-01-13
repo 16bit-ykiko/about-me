@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1047,10 +1047,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1196,7 +1195,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1207,7 +1205,7 @@
 
         <div class="article-content max-w-prose mb-20">
           <p><strong>Singleton Pattern</strong> is a common design pattern often used in scenarios requiring object uniqueness, such as configuration systems, logging systems, and database connection pools. But does the Singleton Pattern truly guarantee a singleton? What consequences might arise if uniqueness is not ensured?</p>
-<p>Since this article is written, the answer is clearly no. There have been many discussions on Zhihu, such as <a href="https://www.zhihu.com/question/425920019/answer/2254241454"  target="_blank">Does the C++ Singleton Pattern across DLLs cause issues?</a> and <a href="https://zhuanlan.zhihu.com/p/354694011"  target="_blank">Singleton Pattern BUG in Mixed Use of Dynamic and Static Libraries</a>. However, most of these discussions only provide solutions after encountering problems, which are scattered and lack systematic analysis of the root causes. Therefore, I wrote this article to delve into this issue in detail.</p>
+<p>Since this article is written, the answer is clearly no. There have been many discussions on Zhihu, such as <a href="https://www.zhihu.com/question/425920019/answer/2254241454"  target="_blank" rel="noreferrer">Does the C++ Singleton Pattern across DLLs cause issues?</a> and <a href="https://zhuanlan.zhihu.com/p/354694011"  target="_blank" rel="noreferrer">Singleton Pattern BUG in Mixed Use of Dynamic and Static Libraries</a>. However, most of these discussions only provide solutions after encountering problems, which are scattered and lack systematic analysis of the root causes. Therefore, I wrote this article to delve into this issue in detail.</p>
 
 <h2 class="relative group">Clarifying the Problem
     <div id="clarifying-the-problem" class="anchor"></div>
@@ -1233,7 +1231,7 @@
 </span></span><span class="line"><span class="cl">    <span class="n">Singleton</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
 <p>We set the default constructor to <code>private</code> and explicitly <code>delete</code> the copy constructor and assignment operator, ensuring users can only obtain the pre-created object through the <code>instance</code> function and cannot create an object themselves via the constructor. Using a static local variable ensures thread safety during initialization.</p>
-<p>However, a singleton object is essentially no different from a regular global variable. In C++, both have <a href="https://en.cppreference.com/w/cpp/language/storage_duration"  target="_blank">static storage duration</a>, and the compiler treats them similarly (with some differences in initialization). The Singleton Pattern merely uses language-level techniques to prevent users from accidentally creating multiple objects.</p>
+<p>However, a singleton object is essentially no different from a regular global variable. In C++, both have <a href="https://en.cppreference.com/w/cpp/language/storage_duration"  target="_blank" rel="noreferrer">static storage duration</a>, and the compiler treats them similarly (with some differences in initialization). The Singleton Pattern merely uses language-level techniques to prevent users from accidentally creating multiple objects.</p>
 <p>Thus, the problem we are discussing can be equated to: <strong>Are global variables in C++ unique?</strong></p>
 
 <h2 class="relative group">A Definition
@@ -1249,7 +1247,7 @@
 <p>How does the compiler handle global variable definitions?</p>
 <p>Suppose we define a global variable:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span></span></code></pre></div></div>
-<p>This does not generate any instructions. The compiler adds a symbol <code>x</code> to the symbol table of the compilation unit (each source file). It reserves <code>4</code> bytes of space in static storage (possibly in the bss segment or rdata segment, etc.) for the symbol <code>x</code>. Depending on the initialization method (<a href="https://en.cppreference.com/w/cpp/language/initialization#Static_initialization"  target="_blank">static initialization</a> or <a href="https://en.cppreference.com/w/cpp/language/initialization#Dynamic_initialization"  target="_blank">dynamic initialization</a>), the data in this memory is filled accordingly.</p>
+<p>This does not generate any instructions. The compiler adds a symbol <code>x</code> to the symbol table of the compilation unit (each source file). It reserves <code>4</code> bytes of space in static storage (possibly in the bss segment or rdata segment, etc.) for the symbol <code>x</code>. Depending on the initialization method (<a href="https://en.cppreference.com/w/cpp/language/initialization#Static_initialization"  target="_blank" rel="noreferrer">static initialization</a> or <a href="https://en.cppreference.com/w/cpp/language/initialization#Dynamic_initialization"  target="_blank" rel="noreferrer">dynamic initialization</a>), the data in this memory is filled accordingly.</p>
 <p>Since there is only one definition, this case is certainly globally unique.</p>
 
 <h2 class="relative group">Multiple Definitions
@@ -1262,7 +1260,7 @@
     
 </h2>
 <p>We know that C++ does not have an official build system. Different libraries use different build systems, making them inconvenient to use together (currently, cmake is the de facto standard). This situation has led to the increasing popularity of header-only libraries, which are easy to use by simply including them. But header-only means all code is written in header files. How can variables be defined in header files and directly included by multiple source files without causing linking errors?</p>
-<p>Before C++17, there was no direct way. However, there were indirect methods. Considering that <code>inline</code> functions or template function definitions can appear in multiple source files, and the C++ standard guarantees they have the same address (related discussions can be found in <a href="https://www.ykiko.me/zh-cn/articles/686296374"  target="_blank">Where Does C++ Code Bloat Occur?</a>). Thus, defining static local variables within these functions effectively allows variable definitions in header files:</p>
+<p>Before C++17, there was no direct way. However, there were indirect methods. Considering that <code>inline</code> functions or template function definitions can appear in multiple source files, and the C++ standard guarantees they have the same address (related discussions can be found in <a href="https://www.ykiko.me/zh-cn/articles/686296374"  target="_blank" rel="noreferrer">Where Does C++ Code Bloat Occur?</a>). Thus, defining static local variables within these functions effectively allows variable definitions in header files:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
@@ -1331,7 +1329,7 @@
     
 </h2>
 <p>Initially, I thought it was simply due to the default symbol export rules of dynamic libraries. GCC exports all symbols by default when compiling dynamic libraries, while MSVC does the opposite, exporting no symbols by default, requiring manual export. Clearly, only when a symbol is exported can the linker &ldquo;see&rdquo; it and then merge symbols from different dynamic libraries.</p>
-<p>With this in mind, I tried to find ways to customize symbol export on GCC and eventually found <a href="https://gcc.gnu.org/wiki/Visibility"  target="_blank">Visibility - GCC Wiki</a>. Using <code>-fvisibility=hidden</code> during compilation makes symbols default to hidden (not exported). Then, use <code>__attribute__((visibility(&quot;default&quot;)))</code> or its C++ equivalent <code>[[gnu::visibility(&quot;default&quot;)]]</code> to explicitly mark symbols for export. Thus, I modified the code:</p>
+<p>With this in mind, I tried to find ways to customize symbol export on GCC and eventually found <a href="https://gcc.gnu.org/wiki/Visibility"  target="_blank" rel="noreferrer">Visibility - GCC Wiki</a>. Using <code>-fvisibility=hidden</code> during compilation makes symbols default to hidden (not exported). Then, use <code>__attribute__((visibility(&quot;default&quot;)))</code> or its C++ equivalent <code>[[gnu::visibility(&quot;default&quot;)]]</code> to explicitly mark symbols for export. Thus, I modified the code:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kr">inline</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
@@ -1358,7 +1356,7 @@
 <p>Noting that GCC on Windows (MinGW64 toolchain) still exports all symbols by default, the variable addresses should be the same. The result:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">addreress of x in main: 00007ff664a68130
 </span></span><span class="line"><span class="cl">addreress of x in src: 00007ffef4348110</span></span></code></pre></div></div>
-<p>The results are different. I didn&rsquo;t understand and thought it was a compiler bug. Switching to MSVC, I found that CMake provides a <a href="https://cmake.org/cmake/help/latest/prop_tgt/WINDOWS_EXPORT_ALL_SYMBOLS.html"  target="_blank">CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS</a> option, which automatically exports all symbols (via dumpbin). Trying this, compiling and running, the result:</p>
+<p>The results are different. I didn&rsquo;t understand and thought it was a compiler bug. Switching to MSVC, I found that CMake provides a <a href="https://cmake.org/cmake/help/latest/prop_tgt/WINDOWS_EXPORT_ALL_SYMBOLS.html"  target="_blank" rel="noreferrer">CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS</a> option, which automatically exports all symbols (via dumpbin). Trying this, compiling and running, the result:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">addreress of x in main: 00007FF60B11C000
 </span></span><span class="line"><span class="cl">addreress of x in src: 00007FFEF434C000</span></span></code></pre></div></div>
 <p>Oh, the results are still different. I realized my guess was wrong. After much research, I couldn&rsquo;t find why. Later, I got the answer by asking in the C++ group on TG.</p>
@@ -1375,7 +1373,7 @@
     
 </h2>
 <p>Why ensure the uniqueness of &ldquo;singleton&rdquo; variables? Here, I use the C++ standard library as an example.</p>
-<p>We know that <a href="https://en.cppreference.com/w/cpp/types/type_info"  target="_blank">type_info</a> can distinguish different types at runtime, and the standard library&rsquo;s <code>std::function</code> and <code>std::any</code> rely on it for type erasure. Its <code>constructor</code> and <code>operator=</code> are <code>deleted</code>, and we can only obtain the corresponding <code>type_info</code> object reference via <code>typeid(T)</code>, with object creation handled by the compiler.</p>
+<p>We know that <a href="https://en.cppreference.com/w/cpp/types/type_info"  target="_blank" rel="noreferrer">type_info</a> can distinguish different types at runtime, and the standard library&rsquo;s <code>std::function</code> and <code>std::any</code> rely on it for type erasure. Its <code>constructor</code> and <code>operator=</code> are <code>deleted</code>, and we can only obtain the corresponding <code>type_info</code> object reference via <code>typeid(T)</code>, with object creation handled by the compiler.</p>
 <p>Doesn&rsquo;t this fully conform to the Singleton Pattern? The next question is, how does the compiler determine if two <code>type_info</code> objects are the same? A typical implementation is as follows:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#if _PLATFORM_SUPPORTS_UNIQUE_TYPEINFO
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">type_info</span><span class="o">&amp;</span> <span class="n">__rhs</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
@@ -1389,8 +1387,8 @@
 </span></span><span class="line"><span class="cl"><span class="cp">#endif</span></span></span></code></pre></div></div>
 <p>The above code is straightforward. If <code>type_info</code> addresses are guaranteed unique, directly compare <code>__mangled_name</code> (it&rsquo;s <code>const char*</code>, so pointer comparison). Otherwise, compare addresses first, then type names. Specific to the three major standard library implementations:</p>
 <ul>
-<li><a href="https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/libsupc%2B%2B/tinfo.cc#L39"  target="_blank">libstdc++</a> uses <code>__GXX_MERGED_TYPEINFO_NAMES</code> to control enabling.</li>
-<li><a href="https://github.com/llvm/llvm-project/blob/main/libcxx/include/typeinfo#L197"  target="_blank">libc++</a> uses <code>_LIBCPP_TYPEINFO_COMPARATION_IMPLEMENTATION</code> to decide the approach (actually, there&rsquo;s a special BIT_FLAG mode).</li>
+<li><a href="https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/libsupc%2B%2B/tinfo.cc#L39"  target="_blank" rel="noreferrer">libstdc++</a> uses <code>__GXX_MERGED_TYPEINFO_NAMES</code> to control enabling.</li>
+<li><a href="https://github.com/llvm/llvm-project/blob/main/libcxx/include/typeinfo#L197"  target="_blank" rel="noreferrer">libc++</a> uses <code>_LIBCPP_TYPEINFO_COMPARATION_IMPLEMENTATION</code> to decide the approach (actually, there&rsquo;s a special BIT_FLAG mode).</li>
 <li>msvc stl (crt/src/vcruntime/std_type_info.cpp) always uses the second method due to the aforementioned Windows dll limitations.</li>
 </ul>
 <p>The purpose of this example is to illustrate that the uniqueness of singleton variable addresses affects how we write code. If not unique, we might be forced to write defensive code, potentially impacting performance, and if not written, it could directly cause logical errors.</p>

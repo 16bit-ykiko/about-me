@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1047,10 +1047,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1220,7 +1219,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1456,7 +1454,7 @@
     </span>
     
 </h3>
-<p>Before C++20, we didn&rsquo;t have such convenient methods. We had to use a technique called <a href="https://en.cppreference.com/w/cpp/language/sfinae"  target="_blank">SFINAE</a> to achieve similar functionality for type constraints. For example, the above functionality could only be written like this before C++20:</p>
+<p>Before C++20, we didn&rsquo;t have such convenient methods. We had to use a technique called <a href="https://en.cppreference.com/w/cpp/language/sfinae"  target="_blank" rel="noreferrer">SFINAE</a> to achieve similar functionality for type constraints. For example, the above functionality could only be written like this before C++20:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="o">=</span> <span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">())</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">print2</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">print1</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
@@ -1465,7 +1463,7 @@
 <p>The specific rules won&rsquo;t be discussed here, but interested readers can search for related articles.</p>
 <p>The result is that the line:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typename</span> <span class="o">=</span> <span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">())</span></span></span></code></pre></div></div>
-<p>is completely unintuitive and hard to understand. Only by deeply understanding C++ template rules can one grasp what this is doing. For why <code>requires</code> wasn&rsquo;t added until C++20, you can read the <a href="https://github.com/Cpp-Club/Cxx_HOPL4_zh/blob/main/06.md"  target="_blank">autobiography</a> written by the father of C++ himself.</p>
+<p>is completely unintuitive and hard to understand. Only by deeply understanding C++ template rules can one grasp what this is doing. For why <code>requires</code> wasn&rsquo;t added until C++20, you can read the <a href="https://github.com/Cpp-Club/Cxx_HOPL4_zh/blob/main/06.md"  target="_blank" rel="noreferrer">autobiography</a> written by the father of C++ himself.</p>
 
 <h2 class="relative group">Compile-time Computing
     <div id="compile-time-computing" class="anchor"></div>
@@ -1489,7 +1487,7 @@
 <p>First, it&rsquo;s important to acknowledge that compile-time computing is definitely useful. The extent of its significance in specific scenarios cannot be generalized. Many people panic at the mention of compile-time computing, citing reasons like difficult-to-understand code, niche skills, or lack of value. This can easily mislead beginners. In fact, there is a real demand for such functionality. If a programming language lacks this feature but there is a need, programmers will find other ways to achieve it.</p>
 <p>I will give two examples to illustrate:</p>
 <ul>
-<li>First, compiler optimizations for constant expressions are well-known. In extremely simple cases, like the expression <code>1+1+x</code>, the compiler will optimize it to <code>2+x</code>. In fact, modern compilers can perform many optimizations for similar cases, as seen in this <a href="https://www.zhihu.com/question/619246858/answer/3184453259"  target="_blank">question</a>. The asker wondered if the C function <code>strlen</code> would optimize the function call directly to a constant when the parameter is a constant string. For example, would <code>strlen(&quot;hello&quot;)</code> be directly optimized to <code>5</code>? Based on experiments with mainstream compilers, the answer is yes. Similar cases are countless, and you are unknowingly using compile-time computing. It&rsquo;s just that it&rsquo;s categorized under compiler optimizations. However, the compiler&rsquo;s optimization capabilities are ultimately limited, and allowing users to define such optimization rules would be more flexible and free. For example, in C++, <code>strlen</code> is explicitly marked as <code>constexpr</code>, ensuring this optimization.</li>
+<li>First, compiler optimizations for constant expressions are well-known. In extremely simple cases, like the expression <code>1+1+x</code>, the compiler will optimize it to <code>2+x</code>. In fact, modern compilers can perform many optimizations for similar cases, as seen in this <a href="https://www.zhihu.com/question/619246858/answer/3184453259"  target="_blank" rel="noreferrer">question</a>. The asker wondered if the C function <code>strlen</code> would optimize the function call directly to a constant when the parameter is a constant string. For example, would <code>strlen(&quot;hello&quot;)</code> be directly optimized to <code>5</code>? Based on experiments with mainstream compilers, the answer is yes. Similar cases are countless, and you are unknowingly using compile-time computing. It&rsquo;s just that it&rsquo;s categorized under compiler optimizations. However, the compiler&rsquo;s optimization capabilities are ultimately limited, and allowing users to define such optimization rules would be more flexible and free. For example, in C++, <code>strlen</code> is explicitly marked as <code>constexpr</code>, ensuring this optimization.</li>
 <li>Second, in the early days of programming language development, when compiler optimizations were not as advanced, external scripting languages were widely used to precompute data (or even generate code) to reduce runtime overhead. A typical example is precomputing trigonometric function tables, which are then used directly at runtime. For example, before compiling code, a script is run to generate some necessary code.</li>
 </ul>
 <p>C++&rsquo;s compile-time computing has clear semantic guarantees and is embedded within the language, allowing for good interaction with other parts. From this perspective, it effectively addresses the two issues mentioned above. Of course, many criticisms of it are not without merit. Compile-time computing via template meta-programming results in ugly and obscure code, involves many syntactic details, and significantly slows down compilation while increasing binary size. Undeniably, these issues exist. However, as C++ versions continue to evolve, compile-time computing has become much easier to understand, no longer requiring complex template meta-code, and even beginners can quickly learn it. This is because it now closely resembles runtime code. Next, we will clarify this through its historical development.</p>
@@ -1503,7 +1501,7 @@
     </span>
     
 </h3>
-<p>Historically, TMP was an accidental discovery. During the standardization of C++, it was found that the template system was Turing complete, meaning it could, in principle, compute anything computable. The first concrete demonstration was a program written by Erwin Unruh that computed prime numbers, although it didn&rsquo;t actually compile: the list of primes was part of the error messages generated by the compiler while trying to compile the code. For a specific example, refer <a href="https://en.wikibooks.org/wiki/C%2B%2B_Programming/Templates/Template_Meta-Programming#History_of_TMP"  target="_blank">here</a>.</p>
+<p>Historically, TMP was an accidental discovery. During the standardization of C++, it was found that the template system was Turing complete, meaning it could, in principle, compute anything computable. The first concrete demonstration was a program written by Erwin Unruh that computed prime numbers, although it didn&rsquo;t actually compile: the list of primes was part of the error messages generated by the compiler while trying to compile the code. For a specific example, refer <a href="https://en.wikibooks.org/wiki/C%2B%2B_Programming/Templates/Template_Meta-Programming#History_of_TMP"  target="_blank" rel="noreferrer">here</a>.</p>
 <p>As an introductory programming example, here&rsquo;s a method to compute factorials at compile time:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">factorial</span> <span class="p">{</span>

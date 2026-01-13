@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1047,10 +1047,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1224,7 +1223,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1255,7 +1253,7 @@
 </span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">point</span> <span class="o">+</span> <span class="n">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">point</span> <span class="o">+</span> <span class="n">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>在 C 语言中，我们经常通过这样计算 offset 的方式来访问结构体成员。如果把它封装成函数，还能用来根据传入的参数动态访问结构体的成员变量。然而上面的代码在 C++ 中是 undefined behavior，具体的原因可以参考 <a href="https://stackoverflow.com/questions/66800315/can-i-manually-access-fields-by-their-raw-offset-in-c"  target="_blank">Stack Overflow</a> 上的这个讨论。但是如果我们确实有这样需求，那该怎么合法的实现需求呢？C++ 为我们提供了一层抽象：<a href="https://en.cppreference.com/w/cpp/language/pointer#Pointers_to_members"  target="_blank">pointers to members</a>，用来合法进行这样的操作。</p>
+<p>在 C 语言中，我们经常通过这样计算 offset 的方式来访问结构体成员。如果把它封装成函数，还能用来根据传入的参数动态访问结构体的成员变量。然而上面的代码在 C++ 中是 undefined behavior，具体的原因可以参考 <a href="https://stackoverflow.com/questions/66800315/can-i-manually-access-fields-by-their-raw-offset-in-c"  target="_blank" rel="noreferrer">Stack Overflow</a> 上的这个讨论。但是如果我们确实有这样需求，那该怎么合法的实现需求呢？C++ 为我们提供了一层抽象：<a href="https://en.cppreference.com/w/cpp/language/pointer#Pointers_to_members"  target="_blank" rel="noreferrer">pointers to members</a>，用来合法进行这样的操作。</p>
 
 <h2 class="relative group">Usage
     <div id="usage" class="anchor"></div>
@@ -1345,7 +1343,7 @@
     </span>
     
 </h3>
-<p>一个指向非静态成员函数<code>f</code>的成员指针可以用<code>&amp;C::f</code>进行初始化。由于不能对非静态成员函数取地址，<code>&amp;(C::f)</code>和<code>&amp;f</code>什么都不表示。类似的可以通过运算符<code>.*</code>和<code>-&gt;*</code>来访问对应的成员函数。如果成员函数是重载函数，想要获取对应的成员函数指针，请参考 <a href="https://en.cppreference.com/w/cpp/language/overloaded_address"  target="_blank">如何获取重载函数的地址</a>。示例代码如下</p>
+<p>一个指向非静态成员函数<code>f</code>的成员指针可以用<code>&amp;C::f</code>进行初始化。由于不能对非静态成员函数取地址，<code>&amp;(C::f)</code>和<code>&amp;f</code>什么都不表示。类似的可以通过运算符<code>.*</code>和<code>-&gt;*</code>来访问对应的成员函数。如果成员函数是重载函数，想要获取对应的成员函数指针，请参考 <a href="https://en.cppreference.com/w/cpp/language/overloaded_address"  target="_blank" rel="noreferrer">如何获取重载函数的地址</a>。示例代码如下</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">C</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
@@ -1412,10 +1410,10 @@
     
 </h2>
 <p>首先要明确的是，C++ 标准并没有规定成员指针是什么实现的。在这一点上和虚函数一样，即标准没有规定虚函数是怎么实现的，只规定了虚函数的行为。所以成员指针相关的实现完全是 <strong>implementation defined</strong>。本来只需要了解怎么使用就足够了，不要关心底层实现。但是奈何网络上相关话题的错误文章太多了，已经严重的产生了误导，所以有必要进行澄清。</p>
-<p>对于三大主流编译器，GCC 遵循 Itanium C++ ABI ，MSVC 则遵守 MSVC C++ ABI，Clang 通过不同的编译选项可以分别设置为这两种 ABI。关于 ABI 的详细讨论请移步 <a href="https://www.ykiko.me/zh-cn/articles/692886292"  target="_blank">彻底理解 C++ ABI</a> 和 <a href="https://www.zhihu.com/question/653778109/answer/3480007666"  target="_blank">MSVC 与 GCC 产生的动态库如何才能相互替换</a>，这里不过多介绍。</p>
+<p>对于三大主流编译器，GCC 遵循 Itanium C++ ABI ，MSVC 则遵守 MSVC C++ ABI，Clang 通过不同的编译选项可以分别设置为这两种 ABI。关于 ABI 的详细讨论请移步 <a href="https://www.ykiko.me/zh-cn/articles/692886292"  target="_blank" rel="noreferrer">彻底理解 C++ ABI</a> 和 <a href="https://www.zhihu.com/question/653778109/answer/3480007666"  target="_blank" rel="noreferrer">MSVC 与 GCC 产生的动态库如何才能相互替换</a>，这里不过多介绍。</p>
 <ul>
-<li><a href="https://itanium-cxx-abi.github.io/cxx-abi/abi.html#data-member-pointers"  target="_blank">Itanium ABI</a> 具有公开的文档，之后的相关描述主要参考这个文档</li>
-<li>MSVC ABI 没有公开的文档，之后的相关描述主要参考 <a href="https://rants.vastheman.com/2021/09/21/msvc/"  target="_blank">MSVC C++ ABI Member Function Pointers</a> 这篇博客</li>
+<li><a href="https://itanium-cxx-abi.github.io/cxx-abi/abi.html#data-member-pointers"  target="_blank" rel="noreferrer">Itanium ABI</a> 具有公开的文档，之后的相关描述主要参考这个文档</li>
+<li>MSVC ABI 没有公开的文档，之后的相关描述主要参考 <a href="https://rants.vastheman.com/2021/09/21/msvc/"  target="_blank" rel="noreferrer">MSVC C++ ABI Member Function Pointers</a> 这篇博客</li>
 </ul>
 <p><strong>请注意：文章具有时效性，未来的实现可能会改变，仅作参考，以官方文档为准。</strong></p>
 <p>首先尝试打印一个成员指针的值</p>
@@ -1579,7 +1577,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">Derived2</span><span class="o">::*</span><span class="n">dp2</span> <span class="o">=</span> <span class="n">bp</span><span class="p">;</span>  <span class="c1">// ok in MSVC， error in GCC
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
 <p>为了不浪费空间，即使在同一程序中 MSVC 的成员指针大小也可能是不同的大小（Itanium 中由于统一实现，所以都是一样大的）。MSVC 对不同情况做了不同处理。</p>
-<blockquote><p>另外请注意 MSVC 对于虚继承的是实现和 Itanium 也是不一样的。可以参考 <a href="https://zhuanlan.zhihu.com/p/41309205"  target="_blank">C++中虚函数、虚继承内存模型</a> 这篇文章中的相关介绍。</p>
+<blockquote><p>另外请注意 MSVC 对于虚继承的是实现和 Itanium 也是不一样的。可以参考 <a href="https://zhuanlan.zhihu.com/p/41309205"  target="_blank" rel="noreferrer">C++中虚函数、虚继承内存模型</a> 这篇文章中的相关介绍。</p>
 </blockquote>
 <h3 class="relative group">pointer to data member
     <div id="pointer-to-data-member-2" class="anchor"></div>
@@ -1691,7 +1689,7 @@
 </span></span><span class="line"><span class="cl">    <span class="c1">// + is unary plus operator, use to cast a non-capturing lambda to a function pointer
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// f is function pointer
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
-<p>在 C++23 之后，如果使用 <a href="https://en.cppreference.com/w/cpp/language/member_functions#Explicit_object_member_functions"  target="_blank">explicit this</a> 定义成员函数，则<code>&amp;C::f</code>可以直接获取对应成员函数的函数指针，不需要像上面那样多一层包裹了</p>
+<p>在 C++23 之后，如果使用 <a href="https://en.cppreference.com/w/cpp/language/member_functions#Explicit_object_member_functions"  target="_blank" rel="noreferrer">explicit this</a> 定义成员函数，则<code>&amp;C::f</code>可以直接获取对应成员函数的函数指针，不需要像上面那样多一层包裹了</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">bar</span><span class="p">(</span><span class="k">this</span> <span class="n">A</span><span class="o">&amp;</span> <span class="n">self</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>

@@ -125,8 +125,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1052,10 +1052,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1219,7 +1218,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1371,7 +1369,7 @@
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="nf">REPEAT</span><span class="p">(</span><span class="s">&#34;Hello world &#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>这里主要运用了 C 语言中的一个特性就是<code>&quot;a&quot;&quot;b&quot;</code>等价于<code>&quot;ab&quot;</code>。然后通过宏展开<code>5*5*4</code>刚好一百次，然后就轻松的完成了这个任务。 当然了<code>C</code>语言的宏由于其本质上只是 Token 替换，而且不允许使用者获取 Token 流进行输入分析，所以功能十分有限。尽管如此，还是有一些比较有意思的用法的。感兴趣的可以阅读下这篇文章<a href="https://zhuanlan.zhihu.com/p/152354031"  target="_blank">C/C++ 宏编程的艺术</a>。当然了宏可不止<code>C</code>语言有，其它的编程语言也是有的，而且还可以支持更强的特性。例如 Rust 中的宏灵活性就比<code>C</code>语言强很多，关键就在于 Rust 允许你对输入的 Token Stream 进行分析，而不是简简单单的执行替换了，你可以根据输入 Token 的不同选择生成不同的代码。更有甚者像 Lisp 中的宏就超级灵活了。</p>
+<p>这里主要运用了 C 语言中的一个特性就是<code>&quot;a&quot;&quot;b&quot;</code>等价于<code>&quot;ab&quot;</code>。然后通过宏展开<code>5*5*4</code>刚好一百次，然后就轻松的完成了这个任务。 当然了<code>C</code>语言的宏由于其本质上只是 Token 替换，而且不允许使用者获取 Token 流进行输入分析，所以功能十分有限。尽管如此，还是有一些比较有意思的用法的。感兴趣的可以阅读下这篇文章<a href="https://zhuanlan.zhihu.com/p/152354031"  target="_blank" rel="noreferrer">C/C++ 宏编程的艺术</a>。当然了宏可不止<code>C</code>语言有，其它的编程语言也是有的，而且还可以支持更强的特性。例如 Rust 中的宏灵活性就比<code>C</code>语言强很多，关键就在于 Rust 允许你对输入的 Token Stream 进行分析，而不是简简单单的执行替换了，你可以根据输入 Token 的不同选择生成不同的代码。更有甚者像 Lisp 中的宏就超级灵活了。</p>
 
 <h3 class="relative group">泛型/模板
     <div id="泛型模板" class="anchor"></div>
@@ -1431,7 +1429,7 @@
 </span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;hello.c&#34;</span><span class="p">,</span> <span class="s2">&#34;w&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">code</span><span class="p">)</span></span></span></code></pre></div></div>
 <p>好了，这样的话就生成了上面那个源文件。当然这只是最简单的应用。亦或者我们可以用<code>Protocol Buffer</code>来进行自动生成序列化和反序列化的代码。又或者我们可以从<code>AST</code>中获取信息，连类型的元信息都由代码生成器生成，这种程序的原理很简单，就是字符串拼接，而它的上限完全取决于你的代码是怎么写的。</p>
-<p>但是更多时候还是语言内建的特性使用的更加方便一些，使用外部的代码生成器会让编译流程变得复杂一些。然而也有一些语言，将这个特性作为了语言内置的特性之一，比如<code>C#</code>的<a href="https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/source-generators-overview"  target="_blank">code generation</a>。</p>
+<p>但是更多时候还是语言内建的特性使用的更加方便一些，使用外部的代码生成器会让编译流程变得复杂一些。然而也有一些语言，将这个特性作为了语言内置的特性之一，比如<code>C#</code>的<a href="https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/source-generators-overview"  target="_blank" rel="noreferrer">code generation</a>。</p>
 
 <h2 class="relative group">运行期代码生成
     <div id="运行期代码生成" class="anchor"></div>

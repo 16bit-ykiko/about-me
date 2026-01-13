@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1047,10 +1047,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1210,7 +1209,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1287,7 +1285,7 @@
     src="https://pic4.zhimg.com/v2-0f8338487557d14a675e82276a73b9a3_r.jpg"
     ></figure>
 </p>
-<p>As you can see, both <a href="https://godbolt.org/z/xoW8TTvP7"  target="_blank">source files</a> retain their own instances of the <code>add</code> function. Now, let&rsquo;s link them into an executable:</p>
+<p>As you can see, both <a href="https://godbolt.org/z/xoW8TTvP7"  target="_blank" rel="noreferrer">source files</a> retain their own instances of the <code>add</code> function. Now, let&rsquo;s link them into an executable:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ main.o src1.o src2.o -o main.exe
 </span></span><span class="line"><span class="cl">$ objdump -d main.exe <span class="p">|</span> c++filt</span></span></code></pre></div></div>
 <p>The result is shown below:</p>
@@ -1311,7 +1309,7 @@
     </span>
     
 </h3>
-<p>Earlier, I specifically emphasized compiling without optimization. What happens if we enable optimization? Using the same code, let&rsquo;s try compiling with <code>-O2</code> optimization. The <a href="https://godbolt.org/z/jfx8jrnzf"  target="_blank">result</a> is shown below:</p>
+<p>Earlier, I specifically emphasized compiling without optimization. What happens if we enable optimization? Using the same code, let&rsquo;s try compiling with <code>-O2</code> optimization. The <a href="https://godbolt.org/z/jfx8jrnzf"  target="_blank" rel="noreferrer">result</a> is shown below:</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1341,12 +1339,12 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
 <p>Compiling and linking this code without optimization works fine. However, with optimization enabled, the linker fails with <code>undefined reference to add(int, int)</code>. <strong>All three major compilers behave this way</strong>, and the reason is as explained earlier: with optimization, the compiler doesn&rsquo;t generate the <code>add</code> symbol, so it can&rsquo;t be found during linking.</p>
 <p>But is this behavior compliant with the C++ standard?</p>
-<p>Since all three major compilers behave this way, it seems compliant. However, the standard doesn&rsquo;t explicitly state this in the inline section. In the <a href="https://en.cppreference.com/w/cpp/language/definition#One_Definition_Rule"  target="_blank">One Definition Rule</a>, there are two relevant points:</p>
+<p>Since all three major compilers behave this way, it seems compliant. However, the standard doesn&rsquo;t explicitly state this in the inline section. In the <a href="https://en.cppreference.com/w/cpp/language/definition#One_Definition_Rule"  target="_blank" rel="noreferrer">One Definition Rule</a>, there are two relevant points:</p>
 <ul>
 <li>For an inline function or inline variable (since C++17), a definition is required in every translation unit where it is odr-used.</li>
 <li>A function is odr-used if a function call to it is made or its address is taken.</li>
 </ul>
-<p>What does this mean? It means that if an inline function is <a href="https://en.cppreference.com/w/cpp/language/definition#ODR-use"  target="_blank">odr-used</a> in a translation unit, that unit must have a definition of the function. What counts as odr-used? The second point explains that if <strong>a function is called</strong> or <strong>its address is taken</strong>, it is odr-used.</p>
+<p>What does this mean? It means that if an inline function is <a href="https://en.cppreference.com/w/cpp/language/definition#ODR-use"  target="_blank" rel="noreferrer">odr-used</a> in a translation unit, that unit must have a definition of the function. What counts as odr-used? The second point explains that if <strong>a function is called</strong> or <strong>its address is taken</strong>, it is odr-used.</p>
 <p>In our earlier code, <code>main.cpp</code> calls an inline function but doesn&rsquo;t define it, which violates the C++ standard. This is a bit counterintuitive, but it&rsquo;s the reality, and all three major compilers are correct!</p>
 
 <h3 class="relative group">Other Cases
@@ -1411,7 +1409,7 @@
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">g1</span><span class="p">()</span> <span class="o">+</span> <span class="n">g2</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>Compile without optimization and check the <a href="https://godbolt.org/z/aTxMsnK5n"  target="_blank">compilation result</a>:</p>
+<p>Compile without optimization and check the <a href="https://godbolt.org/z/aTxMsnK5n"  target="_blank" rel="noreferrer">compilation result</a>:</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1421,7 +1419,7 @@
     src="https://pic4.zhimg.com/v2-5de99e270f381ff7f77f012ed72836bb_r.jpg"
     ></figure>
 </p>
-<p>As with inline functions, both translation units instantiate <code>add&lt;int, int&gt;</code> and <code>add&lt;double, double&gt;</code>, each with its own copy. During linking, the linker retains only one instance of each template instantiation. Now, let&rsquo;s try compiling with <code>-O2</code> and see what happens. The <a href="https://godbolt.org/z/edEd8Tvo4"  target="_blank">result</a> is as follows:</p>
+<p>As with inline functions, both translation units instantiate <code>add&lt;int, int&gt;</code> and <code>add&lt;double, double&gt;</code>, each with its own copy. During linking, the linker retains only one instance of each template instantiation. Now, let&rsquo;s try compiling with <code>-O2</code> and see what happens. The <a href="https://godbolt.org/z/edEd8Tvo4"  target="_blank" rel="noreferrer">result</a> is as follows:</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1496,7 +1494,7 @@
 </span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">&lt;</span><span class="kt">signed</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>Instantiating the template for these three types means that two of the instantiations will generate identical code. Will the compiler merge functions that have different types but generate identical binary code? Let&rsquo;s try it out. The <a href="https://godbolt.org/z/KncEh3z5n"  target="_blank">result</a> is as follows:</p>
+<p>Instantiating the template for these three types means that two of the instantiations will generate identical code. Will the compiler merge functions that have different types but generate identical binary code? Let&rsquo;s try it out. The <a href="https://godbolt.org/z/KncEh3z5n"  target="_blank" rel="noreferrer">result</a> is as follows:</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1507,7 +1505,7 @@
     ></figure>
 </p>
 <p>As you can see, two identical functions are generated but not merged. Of course, if we enable <code>-O2</code> optimization, such short functions will be inlined, and no symbols will be generated. As mentioned earlier, this means there&rsquo;s no &ldquo;additional template bloat.&rdquo; In practice, many small template functions, like <code>vector</code>&rsquo;s <code>end</code>, <code>begin</code>, and <code>operator[]</code>, are likely to be fully inlined, avoiding &ldquo;additional bloat.&rdquo;</p>
-<p>Now, the question is: what if the function isn&rsquo;t inlined? Suppose the template function is complex and has a large body. For demonstration purposes, we&rsquo;ll use GCC&rsquo;s <code>[[gnu::noinline]]</code> attribute to simulate this effect, then compile the <a href="https://godbolt.org/z/Exff5cnfj"  target="_blank">code</a> with <code>-O2</code>:</p>
+<p>Now, the question is: what if the function isn&rsquo;t inlined? Suppose the template function is complex and has a large body. For demonstration purposes, we&rsquo;ll use GCC&rsquo;s <code>[[gnu::noinline]]</code> attribute to simulate this effect, then compile the <a href="https://godbolt.org/z/Exff5cnfj"  target="_blank" rel="noreferrer">code</a> with <code>-O2</code>:</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1518,7 +1516,7 @@
     ></figure>
 </p>
 <p>Even though the function is optimized down to a single instruction, the compiler still generates three copies. In reality, functions that aren&rsquo;t inlined by the compiler might be much larger, making the situation worse than this &ldquo;pseudo-large function.&rdquo; This is where the so-called &ldquo;template bloat&rdquo; comes from. <strong>Code that could be merged isn&rsquo;t merged, and this is the real cause of template bloat.</strong></p>
-<p>If you really want the compiler/linker to merge identical binary code, what can you do? Unfortunately, mainstream toolchains like ld, lld, and MS linker don&rsquo;t perform this merging. The only linker that supports this feature is <a href="https://www.gnu.org/software/binutils/"  target="_blank">gold</a>, but it only works with ELF format executables, so it can&rsquo;t be used on Windows. Here&rsquo;s how to use gold to merge identical binary code:</p>
+<p>If you really want the compiler/linker to merge identical binary code, what can you do? Unfortunately, mainstream toolchains like ld, lld, and MS linker don&rsquo;t perform this merging. The only linker that supports this feature is <a href="https://www.gnu.org/software/binutils/"  target="_blank" rel="noreferrer">gold</a>, but it only works with ELF format executables, so it can&rsquo;t be used on Windows. Here&rsquo;s how to use gold to merge identical binary code:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// main.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;utility&gt;</span><span class="cp">

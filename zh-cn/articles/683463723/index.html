@@ -123,8 +123,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1050,10 +1050,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1215,7 +1214,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1258,7 +1256,7 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          <p>前情提要：<a href="https://www.ykiko.me/zh-cn/articles/682031684"  target="_blank">The History of constexpr in C++! (Part One)</a></p>
+          <p>前情提要：<a href="https://www.ykiko.me/zh-cn/articles/682031684"  target="_blank" rel="noreferrer">The History of constexpr in C++! (Part One)</a></p>
 
 <h2 class="relative group">2015-2016：模板的语法糖
     <div id="2015-2016模板的语法糖" class="anchor"></div>
@@ -1269,7 +1267,7 @@
     </span>
     
 </h2>
-<p>在 C++ 中支持 <a href="https://en.cppreference.com/w/cpp/language/template_specialization"  target="_blank">全特化 (full specialization)</a> 的模板很多，但是支持 <a href="https://en.cppreference.com/w/cpp/language/partial_specialization"  target="_blank">偏特化 (partial specialization)</a> 的模板并不多，事实上其实只有类模板 (class template) 和变量模板 (variable template) 两种支持，而变量模板其实可以看做类模板的语法糖，四舍五入一下其实只有类模板支持偏特化。不支持偏特化会导致有些代码十分难写</p>
+<p>在 C++ 中支持 <a href="https://en.cppreference.com/w/cpp/language/template_specialization"  target="_blank" rel="noreferrer">全特化 (full specialization)</a> 的模板很多，但是支持 <a href="https://en.cppreference.com/w/cpp/language/partial_specialization"  target="_blank" rel="noreferrer">偏特化 (partial specialization)</a> 的模板并不多，事实上其实只有类模板 (class template) 和变量模板 (variable template) 两种支持，而变量模板其实可以看做类模板的语法糖，四舍五入一下其实只有类模板支持偏特化。不支持偏特化会导致有些代码十分难写</p>
 <p>假设我们想实现一个<code>destroy_at</code>函数，效果就是调用对象的析构函数。特别的，如果析构函数是 trivial 的，那我们就省去这次无意义的析构函数调用。</p>
 <p>直觉上我们能写出下面这样的代码</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">value</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">is_trivially_destructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
@@ -1285,14 +1283,14 @@
 </span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_trivially_destructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;*</span> <span class="o">=</span> <span class="k">nullptr</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">destroy_at</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">p</span><span class="p">)</span> <span class="p">{}</span></span></span></code></pre></div></div>
 <p>具体的原理这里就不叙述了，虽然少了一层包装，但是仍然有很多与代码逻辑无关的东西出现。这里的<code>std::enable_if_t</code>就是典型例子，严重影响了代码的可读性。</p>
-<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2015/n4461.html"  target="_blank">N4461</a> 希望引入<code>static_if</code>（借鉴自 D 语言）可以用来编译期控制代码生成，只会把实际用到的分支编译进最终的二进制代码。这样就可以写出下面这样的代码，其中<code>static_if</code>的条件必须是常量表达式</p>
+<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2015/n4461.html"  target="_blank" rel="noreferrer">N4461</a> 希望引入<code>static_if</code>（借鉴自 D 语言）可以用来编译期控制代码生成，只会把实际用到的分支编译进最终的二进制代码。这样就可以写出下面这样的代码，其中<code>static_if</code>的条件必须是常量表达式</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">destroy_at</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">p</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">static_if</span><span class="p">(</span><span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_trivially_destructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">        <span class="n">p</span><span class="o">-&gt;~</span><span class="n">T</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>可以发现逻辑非常清晰，但是委员会一般对于加新的关键字比较谨慎。后来<code>static_if</code>被重命名为<code>constexpr_if</code>，再后来变成了我们今天熟悉的这种形式并且进入 <a href="https://en.cppreference.com/w/cpp/language/if#Constexpr_if"  target="_blank">C++17</a></p>
+<p>可以发现逻辑非常清晰，但是委员会一般对于加新的关键字比较谨慎。后来<code>static_if</code>被重命名为<code>constexpr_if</code>，再后来变成了我们今天熟悉的这种形式并且进入 <a href="https://en.cppreference.com/w/cpp/language/if#Constexpr_if"  target="_blank" rel="noreferrer">C++17</a></p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(...){...}</span>
 </span></span><span class="line"><span class="cl"><span class="k">else</span> <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(...){...}</span>
 </span></span><span class="line"><span class="cl"><span class="k">else</span> <span class="p">{...}</span></span></span></code></pre></div></div>
@@ -1307,7 +1305,7 @@
     </span>
     
 </h2>
-<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2015/n4487.pdf"  target="_blank">N4487</a> 讨论了支持 constexpr lambda 可能性，尤其希望能在 constexpr 计算中能够使用 lambda 表达式，并附带了一个实验性实现。</p>
+<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2015/n4487.pdf"  target="_blank" rel="noreferrer">N4487</a> 讨论了支持 constexpr lambda 可能性，尤其希望能在 constexpr 计算中能够使用 lambda 表达式，并附带了一个实验性实现。</p>
 <p>其实支持 constexpr 的 lambda 表达式并不困难，我们都知道 lambda 在 C++ 里面是很透明的，基本上完全就是一个匿名的函数对象。函数对象都能是 constexpr 的，那么支持 constexpr 的 lambda 也就是理所当然的事情了。</p>
 <p>唯一需要注意的就是，lambda 是可以进行捕获的，捕获 constexpr 的变量会怎么样呢？</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
@@ -1321,7 +1319,7 @@
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">foo</span> <span class="o">=</span> <span class="p">[</span><span class="o">=</span><span class="p">]()</span> <span class="p">{</span> <span class="k">return</span> <span class="o">&amp;</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>可以发现这种情况下，编译器不得不给<code>x</code>分配内存。实际上的判断规则更复杂一些，感兴趣的可以自行参考 <a href="https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture"  target="_blank">lambda capture</a>。最终这个提案被接受，进入了 <a href="https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture:~:text=This%20function%20is%20constexpr%20if%20the%20function%20call%20operator%20%28or%20specialization%2C%20for%20generic%20lambdas%29%20is%20constexpr."  target="_blank">C++17</a>。</p>
+<p>可以发现这种情况下，编译器不得不给<code>x</code>分配内存。实际上的判断规则更复杂一些，感兴趣的可以自行参考 <a href="https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture"  target="_blank" rel="noreferrer">lambda capture</a>。最终这个提案被接受，进入了 <a href="https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture:~:text=This%20function%20is%20constexpr%20if%20the%20function%20call%20operator%20%28or%20specialization%2C%20for%20generic%20lambdas%29%20is%20constexpr."  target="_blank" rel="noreferrer">C++17</a>。</p>
 
 <h2 class="relative group">2017-2019：编译期和运行期&hellip;不同?
     <div id="2017-2019编译期和运行期不同" class="anchor"></div>
@@ -1342,7 +1340,7 @@
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">dest</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
 <p>虽然能在编译期用了，编译期执行效率倒是无所谓，但是运行期效率肯定不如标准库的实现。如果能在编译期使用我的实现，运行期使用外部链接的标准库函数就好了。</p>
-<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0595r0.html"  target="_blank">P0595</a> 希望加入一个新的 magic function 也就是 <code>constexpr()</code> 用来判断当前的函数是否在编译期执行，后来被更名为<code>is_constant_evaluated</code>并且进入 C++20。使用起来就像下面这样</p>
+<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0595r0.html"  target="_blank" rel="noreferrer">P0595</a> 希望加入一个新的 magic function 也就是 <code>constexpr()</code> 用来判断当前的函数是否在编译期执行，后来被更名为<code>is_constant_evaluated</code>并且进入 C++20。使用起来就像下面这样</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_constant_evaluated</span><span class="p">())</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
@@ -1357,7 +1355,7 @@
 </span></span><span class="line"><span class="cl">        <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>这种写法被认为是 <strong>obviously incorrect</strong>，因为<code>if constexpr</code>的条件只能在编译期执行，所以这里<code>is_constant_evaluated</code>永远会返回<code>true</code>，这与我们最开始的目的相悖了。 所以提案 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p1938r3.html"  target="_blank">P1938R3</a> 提议加入新的语法来解决这个问题</p>
+<p>这种写法被认为是 <strong>obviously incorrect</strong>，因为<code>if constexpr</code>的条件只能在编译期执行，所以这里<code>is_constant_evaluated</code>永远会返回<code>true</code>，这与我们最开始的目的相悖了。 所以提案 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p1938r3.html"  target="_blank" rel="noreferrer">P1938R3</a> 提议加入新的语法来解决这个问题</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">if</span> <span class="k">consteval</span> <span class="cm">/* !consteval */</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -1383,7 +1381,7 @@
 </span></span><span class="line"><span class="cl"><span class="n">in</span> <span class="err">&#39;</span><span class="k">constexpr</span><span class="err">&#39;</span> <span class="n">expansion</span> <span class="n">of</span> <span class="err">&#39;</span><span class="n">foo</span><span class="p">()</span><span class="err">&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="nl">error</span><span class="p">:</span> <span class="n">overflow</span> <span class="n">in</span> <span class="n">constant</span> <span class="n">expression</span> <span class="p">[</span><span class="o">-</span><span class="n">fpermissive</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">  <span class="mi">233</span> <span class="o">|</span> <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">bar</span><span class="p">();</span></span></span></code></pre></div></div>
-<p>如果函数嵌套多了，报错信息也非常糟糕。不同于模板的地方在于，constexpr 函数也可以在运行期运行。所以我们可以在运行期调试代码，最后在编译期执行就好了。但是如果考虑到上一小节加的<code>is_constant_evaluated</code>，就会发现这种做法并不完全可行，因为编译期和运行期的代码逻辑可能不同。提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0596r0.html"  target="_blank">P0596</a> 希望引入<code>constexpr_trace</code>和<code>constexpr_assert</code>来方便编译期调试代码，虽然投票一致赞成，但是暂时未进入 C++ 标准。</p>
+<p>如果函数嵌套多了，报错信息也非常糟糕。不同于模板的地方在于，constexpr 函数也可以在运行期运行。所以我们可以在运行期调试代码，最后在编译期执行就好了。但是如果考虑到上一小节加的<code>is_constant_evaluated</code>，就会发现这种做法并不完全可行，因为编译期和运行期的代码逻辑可能不同。提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0596r0.html"  target="_blank" rel="noreferrer">P0596</a> 希望引入<code>constexpr_trace</code>和<code>constexpr_assert</code>来方便编译期调试代码，虽然投票一致赞成，但是暂时未进入 C++ 标准。</p>
 
 <h2 class="relative group">2017： 编译期可变容器
     <div id="2017-编译期可变容器" class="anchor"></div>
@@ -1395,7 +1393,7 @@
     
 </h2>
 <p>尽管在先前的提案中，允许了 constexpr 函数使用和修改变量，但是动态内存分配还是不允许的。如果有未知长度的数据需要处理，一般就是在栈上开一个大数组，这没什么问题。但是从实践上来说，有特别多的函数依赖于动态内存分配，支持 constexpr 函数中使用<code>vector</code>势在必得。</p>
-<p>在当时，直接允许在 constexpr 函数中使用<code>new</code>/<code>delete</code>似乎过于让人惊讶了，所以提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0597r0.html"  target="_blank">P0597</a> 想了一个折中的办法，先提供一个 magic container 叫做<code>std::constexpr_vector</code>，它由编译器实现，并且支持在 constexpr 函数中使用和修改。</p>
+<p>在当时，直接允许在 constexpr 函数中使用<code>new</code>/<code>delete</code>似乎过于让人惊讶了，所以提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0597r0.html"  target="_blank" rel="noreferrer">P0597</a> 想了一个折中的办法，先提供一个 magic container 叫做<code>std::constexpr_vector</code>，它由编译器实现，并且支持在 constexpr 函数中使用和修改。</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">constexpr_vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">x</span><span class="p">;</span>  <span class="c1">// ok
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">constexpr</span> <span class="n">constexpr_vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">y</span><span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">};</span>  <span class="c1">// ok
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
@@ -1417,7 +1415,7 @@
     </span>
     
 </h2>
-<p>提案 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1064r0.html"  target="_blank">P1064R0</a> 希望在常量求值中支持虚函数调用。哎，还不支持动态内存分配呢，咋就要支持虚函数调用了？其实不依赖动态内存分配也可以弄出来多态指针嘛，指向栈上的对象或者静态储存就可以了。</p>
+<p>提案 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1064r0.html"  target="_blank" rel="noreferrer">P1064R0</a> 希望在常量求值中支持虚函数调用。哎，还不支持动态内存分配呢，咋就要支持虚函数调用了？其实不依赖动态内存分配也可以弄出来多态指针嘛，指向栈上的对象或者静态储存就可以了。</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Base</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">virtual</span> <span class="kt">int</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
@@ -1432,7 +1430,7 @@
 </span></span><span class="line"><span class="cl">    <span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">foo</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>似乎没有任何理由拒绝上面这段代码编译通过。由于是在编译期执行，编译器当然能知道<code>p</code>指向的是<code>Derived</code>，然后调用<code>Derived::f</code>，实践上没有任何难度。的确如此，之后又有一个新的提案 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1327r1.html"  target="_blank">P1327R1</a> 进一步希望<code>dynamic_cast</code>和<code>typeid</code>也能在常量求值中使用，最终它们都被接受并且加入了 <a href="https://en.cppreference.com/w/cpp/language/constexpr#:~:text=it%20must%20not%20be%20virtual"  target="_blank">C++20</a>，现在可以自由的在编译期使用这些特性了。</p>
+<p>似乎没有任何理由拒绝上面这段代码编译通过。由于是在编译期执行，编译器当然能知道<code>p</code>指向的是<code>Derived</code>，然后调用<code>Derived::f</code>，实践上没有任何难度。的确如此，之后又有一个新的提案 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1327r1.html"  target="_blank" rel="noreferrer">P1327R1</a> 进一步希望<code>dynamic_cast</code>和<code>typeid</code>也能在常量求值中使用，最终它们都被接受并且加入了 <a href="https://en.cppreference.com/w/cpp/language/constexpr#:~:text=it%20must%20not%20be%20virtual"  target="_blank" rel="noreferrer">C++20</a>，现在可以自由的在编译期使用这些特性了。</p>
 
 <h2 class="relative group">2017-2019： 真正的动态内存分配！
     <div id="2017-2019-真正的动态内存分配" class="anchor"></div>
@@ -1443,7 +1441,7 @@
     </span>
     
 </h2>
-<p>在 <a href="https://www.youtube.com/watch?v=HMB9oXFobJc"  target="_blank">constexpr everything</a> 的这个演示视频中，展示了一个能在编译期处理<code>JSON</code>对象的例子</p>
+<p>在 <a href="https://www.youtube.com/watch?v=HMB9oXFobJc"  target="_blank" rel="noreferrer">constexpr everything</a> 的这个演示视频中，展示了一个能在编译期处理<code>JSON</code>对象的例子</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">jsv</span><span class="o">=</span> <span class="n">R</span><span class="s">&#34;({</span>
 </span></span><span class="line"><span class="cl">    <span class="s">&#34;feature-x-enabled&#34;</span><span class="o">:</span> <span class="nb">true</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="s">&#34;value-of-y&#34;</span><span class="o">:</span> <span class="mi">1729</span><span class="p">,</span>
@@ -1458,19 +1456,19 @@
 </span></span><span class="line"><span class="cl">    <span class="c1">// feature y
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
 <p>希望能直接通过解析常量字符串起到配置文件的作用（字符串文本可以由<code>#include</code>引入）。作者们因为不能使用 STL 的容器受到了严重影响，并且自己编写了替代品。通过<code>std::array</code>来实现<code>std::vector</code>和<code>std::map</code>这样的容器，由于没有动态内存分配，只能预先计算出需要的大小（可能导致多次遍历）或者在栈上开块大内存。</p>
-<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2019/p0784r7.html"  target="_blank">P0784R7</a> 重新讨论了在常量求值中支持标准库容器的可能性</p>
+<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2019/p0784r7.html"  target="_blank" rel="noreferrer">P0784R7</a> 重新讨论了在常量求值中支持标准库容器的可能性</p>
 <p>主要有以下三个难点：</p>
 <ul>
 <li>析构函数不能被声明为 constexpr（对于 constexpr 对象，它们必须是 trivial 的）</li>
 <li>无法进行动态内存分配/释放</li>
-<li>无法在常量求值中使用 <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new"  target="_blank">placement new</a> 来调用对象的构造函数</li>
+<li>无法在常量求值中使用 <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new"  target="_blank" rel="noreferrer">placement new</a> 来调用对象的构造函数</li>
 </ul>
-<p>针对第一个问题，作者们与 MSVC，GCC，Clang，EDG 等前端开发人员快速讨论并解决了这个问题。C++20 起，可以符合 <a href="https://en.cppreference.com/w/cpp/named_req/LiteralType"  target="_blank">literal type</a> 要求的类型具有 constexpr 修饰的析构函数，而不是严格要求平凡的析构函数。</p>
+<p>针对第一个问题，作者们与 MSVC，GCC，Clang，EDG 等前端开发人员快速讨论并解决了这个问题。C++20 起，可以符合 <a href="https://en.cppreference.com/w/cpp/named_req/LiteralType"  target="_blank" rel="noreferrer">literal type</a> 要求的类型具有 constexpr 修饰的析构函数，而不是严格要求平凡的析构函数。</p>
 <p>针对第二个问题，处理起来并不简单。C++ 有很多未定义行为都是由于错误的内存处理导致的，相比之下，不能直接操作内存的脚本语言则安全的多。但是为了复用代码，C++ 编译器中的常量求值器不得不直接操作内存，不过由于所有信息都是编译期已知的，理论上可以保证常量求值中不会出现内存错误 (out of range, double free, memory leak, &hellip;)，如果出现应该中止编译并报告错误。</p>
 <p>常量求值器需要跟踪许多对象的的元信息，并找出这些错误</p>
 <ul>
-<li>记录<code>union</code>哪个 field 是 active 的，访问 unactive 的成员导致未定义行为，这由 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1330r0.pdf"  target="_blank">P1330</a> 阐明</li>
-<li>正确记录对象的 <a href="https://en.cppreference.com/w/cpp/language/lifetime"  target="_blank">lifetime</a>，访问未初始化的内存和已经析构的对象都是不允许的</li>
+<li>记录<code>union</code>哪个 field 是 active 的，访问 unactive 的成员导致未定义行为，这由 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1330r0.pdf"  target="_blank" rel="noreferrer">P1330</a> 阐明</li>
+<li>正确记录对象的 <a href="https://en.cppreference.com/w/cpp/language/lifetime"  target="_blank" rel="noreferrer">lifetime</a>，访问未初始化的内存和已经析构的对象都是不允许的</li>
 </ul>
 <p>当时还不允许在常量求值中把<code>void*</code>转换成<code>T*</code>，所以理所当然的</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">);</span></span></span></code></pre></div></div>
@@ -1484,7 +1482,7 @@
 </span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">pb</span> <span class="o">=</span> <span class="n">alloc</span><span class="p">.</span><span class="n">allocate</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">alloc</span><span class="p">.</span><span class="n">deallocate</span><span class="p">(</span><span class="n">pb</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span></span></span></code></pre></div></div>
 <p>它们返回的都是<code>T*</code>，并且由编译器实现，这对于支持标准库容器来说已经足够了。</p>
-<p>对于第三个问题，则是添加了一个 magic function 即 <a href="https://en.cppreference.com/w/cpp/memory/construct_at"  target="_blank">std::construct_at</a>，它的作用是在指定的内存位置上调用对象的构造函数，用来在常量求值中取代<code>placement new</code>。这样的话我们就可以先通过<code>std::allocator</code>分配内存，再通过<code>std::construct_at</code>来构造对象了。该提案最终被接受，进入了 <a href="https://en.cppreference.com/w/cpp/memory/construct_at"  target="_blank">C++20</a>，同时使得<code>std::vector</code>，<code>std::string</code>在常量求值中可用（其它的容器理论上也行，但是目前的实现还没支持，如果非常想要只能自己搓一个了）。</p>
+<p>对于第三个问题，则是添加了一个 magic function 即 <a href="https://en.cppreference.com/w/cpp/memory/construct_at"  target="_blank" rel="noreferrer">std::construct_at</a>，它的作用是在指定的内存位置上调用对象的构造函数，用来在常量求值中取代<code>placement new</code>。这样的话我们就可以先通过<code>std::allocator</code>分配内存，再通过<code>std::construct_at</code>来构造对象了。该提案最终被接受，进入了 <a href="https://en.cppreference.com/w/cpp/memory/construct_at"  target="_blank" rel="noreferrer">C++20</a>，同时使得<code>std::vector</code>，<code>std::string</code>在常量求值中可用（其它的容器理论上也行，但是目前的实现还没支持，如果非常想要只能自己搓一个了）。</p>
 <p>虽然支持了动态内存分配，但并不是毫无限制。<strong>在一次常量求值中分配的内存必须要在这次常量求值结束之前释放完全，不能有内存泄漏，否则会导致编译错误</strong>。这种类型的内存分配被叫做 <em>transient constexpr allocations（瞬态内存分配）</em> 。该提案也讨论了 <em>non-transient allocation（非瞬态内存分配）</em> ，在编译期未被释放的内存，将被转为静态储存（其实就是存在数据区，就像全局变量那样）。但是，委员会认为这种可能性 &ldquo;too brittle&rdquo;，出于多种原因，目前尚未采纳。</p>
 
 <h2 class="relative group">2018：更多的 constexpr
@@ -1496,7 +1494,7 @@
     </span>
     
 </h2>
-<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1002r1.pdf"  target="_blank">P1002</a> 希望在 constexpr 函数中支持<code>try-catch</code>块。但是不能<code>throw</code>，这样是为了能把更多的标准库容器的成员函数标记为<code>constexpr</code>。</p>
+<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1002r1.pdf"  target="_blank" rel="noreferrer">P1002</a> 希望在 constexpr 函数中支持<code>try-catch</code>块。但是不能<code>throw</code>，这样是为了能把更多的标准库容器的成员函数标记为<code>constexpr</code>。</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">foo</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
@@ -1528,7 +1526,7 @@
 <p>事实上<code>g</code>无论是在编译期还是运行期执行，理论上都可以。为了保证它在编译期执行，我们需要多写一些代码</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">bar</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">foo</span><span class="p">(</span><span class="n">x</span><span class="p">);</span></span></span></code></pre></div></div>
-<p>这样就保证了<code>g</code>在编译期执行，同样，这种没意义的局部变量实在是多余。提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1073r0.html"  target="_blank">P1073</a> 希望增加一个标记 <code>constexpr!</code>来确保一个函数在编译期执行，如果不满足则导致编译错误。最终该标记被更名为 <a href="https://en.cppreference.com/w/cpp/language/consteval"  target="_blank">consteval</a> 并进入了 C++20。</p>
+<p>这样就保证了<code>g</code>在编译期执行，同样，这种没意义的局部变量实在是多余。提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1073r0.html"  target="_blank" rel="noreferrer">P1073</a> 希望增加一个标记 <code>constexpr!</code>来确保一个函数在编译期执行，如果不满足则导致编译错误。最终该标记被更名为 <a href="https://en.cppreference.com/w/cpp/language/consteval"  target="_blank" rel="noreferrer">consteval</a> 并进入了 C++20。</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">extern</span> <span class="kt">int</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">consteval</span> <span class="kt">int</span> <span class="nf">bar</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
@@ -1547,7 +1545,7 @@
     
 </h2>
 <p>在当时，有很多提案的内容仅仅是把标准库的某个部分标记为<code>constexpr</code>，在本文中没有讨论它们，因为它们具有相同的模式。</p>
-<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1235r0.pdf"  target="_blank">P1235</a> 希望把所有函数都标记为 implicit constexpr 的</p>
+<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1235r0.pdf"  target="_blank" rel="noreferrer">P1235</a> 希望把所有函数都标记为 implicit constexpr 的</p>
 <ul>
 <li>non：如果可能，将方法标记为 constexpr。</li>
 <li>constexpr：与当前行为相同</li>
@@ -1580,7 +1578,7 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2020/p1974r0.pdf"  target="_blank">P1974</a> 提议使用<code>propconst</code>来支持非瞬态内存分配，这样上述的额外的包装代码就不需要了。</p>
+<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2020/p1974r0.pdf"  target="_blank" rel="noreferrer">P1974</a> 提议使用<code>propconst</code>来支持非瞬态内存分配，这样上述的额外的包装代码就不需要了。</p>
 <p>非瞬态内存分配的原理很简单</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span> <span class="n">vec</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span></span></span></code></pre></div></div>
 <p>编译器会将上述代码编译为类似下面这样</p>
@@ -1604,7 +1602,7 @@
 <p>由于<code>pp1</code>是<code>constexpr</code>的，那么它的析构函数不应该调用。对<code>ppi</code>尝试调用<code>reset</code>是不允许的，因为<code>constexpr</code>标记的变量隐含<code>const</code>，而<code>reset</code>并不是一个<code>const</code>方法。但是对<code>pi</code>调用<code>reset</code>是允许的，因为外层<code>const</code>不影响内层指针。</p>
 <p>如果允许<code>pi</code>调用<code>reset</code>，显然这是一次运行期调用，会在运行期动态内存分配，而由于<code>ppi</code>不会调用析构函数，里面的<code>pi</code>当然也不会调用析构函数，于是内存就泄露了，显然这种做法不应该被允许。</p>
 <p>解决办法自然是想办法禁止<code>pi</code>调用<code>reset</code>，提案提出了<code>propconst</code>关键字，它可以把外层的<code>constexpr</code>传递给内层，这样<code>pi</code>也是<code>const</code>的了，也就不能调用<code>reset</code>了，就不会出现代码逻辑问题了。</p>
-<p>可惜的的是暂时还未被标准接受，在那之后还有一些新的的提案希望能够支持这个特性比如 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2670r1.html"  target="_blank">P2670R1</a>，相关的讨论还在继续。</p>
+<p>可惜的的是暂时还未被标准接受，在那之后还有一些新的的提案希望能够支持这个特性比如 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2670r1.html"  target="_blank" rel="noreferrer">P2670R1</a>，相关的讨论还在继续。</p>
 
 <h2 class="relative group">2021：constexpr 类
     <div id="2021constexpr-类" class="anchor"></div>
@@ -1616,7 +1614,7 @@
     
 </h2>
 <p>C++ 标准库中的很多类型，比如<code>vector</code>, <code>string</code>, <code>unique_ptr</code>中的所有方法都被标记为 constexpr，并且真正可以在编译期执行。很自然的，我们希望能直接标记整个类为 constexpr，这样可以省去哪些重复的说明符编写。</p>
-<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2021/p2350r1.pdf"  target="_blank">P2350</a> 希望支持这个特性，constexpr 标记的<code>class</code>中的所有方法都被隐式标记为 constexpr</p>
+<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2021/p2350r1.pdf"  target="_blank" rel="noreferrer">P2350</a> 希望支持这个特性，constexpr 标记的<code>class</code>中的所有方法都被隐式标记为 constexpr</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// before
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">struct</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="kt">bool</span> <span class="nf">empty</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="cm">/* */</span> <span class="p">}</span>
@@ -1634,8 +1632,8 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">clear</span><span class="p">()</span> <span class="p">{</span> <span class="cm">/* */</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>有一个有趣的故事与这个提案有关 - 在不知道它的存在之前，我（文章原作者）在 <a href="https://stdcpp.ru/"  target="_blank">stdcpp.ru</a> 提出了同样的想法。</p>
-<p>在标准制定过程中，很多几乎相同的提案几乎可以同时出现。这证明了 <a href="https://en.wikipedia.org/wiki/Multiple_discovery"  target="_blank">多重发现理论的正确性</a>：某些思想或概念会在不同的人群中独立地出现，就像它们在空气中漂浮一样，并且谁先发现的并不重要。如果社区的规模足够大，这些思想或概念自然会发生演变。</p>
+<p>有一个有趣的故事与这个提案有关 - 在不知道它的存在之前，我（文章原作者）在 <a href="https://stdcpp.ru/"  target="_blank" rel="noreferrer">stdcpp.ru</a> 提出了同样的想法。</p>
+<p>在标准制定过程中，很多几乎相同的提案几乎可以同时出现。这证明了 <a href="https://en.wikipedia.org/wiki/Multiple_discovery"  target="_blank" rel="noreferrer">多重发现理论的正确性</a>：某些思想或概念会在不同的人群中独立地出现，就像它们在空气中漂浮一样，并且谁先发现的并不重要。如果社区的规模足够大，这些思想或概念自然会发生演变。</p>
 
 <h2 class="relative group">2023：编译期类型擦除！
     <div id="2023编译期类型擦除" class="anchor"></div>
@@ -1649,7 +1647,7 @@
 <p>在常量求值中，一直不允许把<code>void*</code>转换成<code>T*</code>，这样导致诸如<code>std::any</code>，<code>std::function</code>等类型擦除实现的容器无法在常量求值中使用。原因呢，是因为我们可以通过<code>void*</code>来绕过类型系统，把一个类型转换为不相干的类型</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="kt">double</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">p</span><span class="p">));</span></span></span></code></pre></div></div>
-<p>如果对<code>p1</code>解引用实际上是未定义的行为，所以禁止了这种转换（<strong>注意 reinterpret_cast 一直在常量求值中禁用</strong>）。但是显然这种做法已经误伤了正确的写法了，因为像<code>std::any</code>这种实现，显然不会把一个从<code>void*</code>转换成无关的类型，而是会把它转换回原来的类型，完全不允许这种转换是不合理的。提案 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2738r0.pdf"  target="_blank">P2738R0</a> 希望在常量求值中支持这种转换，编译器理论上能在编译期记录一个<code>void*</code>指针原本的类型，如果转换的不是原本的类型，就报错。</p>
+<p>如果对<code>p1</code>解引用实际上是未定义的行为，所以禁止了这种转换（<strong>注意 reinterpret_cast 一直在常量求值中禁用</strong>）。但是显然这种做法已经误伤了正确的写法了，因为像<code>std::any</code>这种实现，显然不会把一个从<code>void*</code>转换成无关的类型，而是会把它转换回原来的类型，完全不允许这种转换是不合理的。提案 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2738r0.pdf"  target="_blank" rel="noreferrer">P2738R0</a> 希望在常量求值中支持这种转换，编译器理论上能在编译期记录一个<code>void*</code>指针原本的类型，如果转换的不是原本的类型，就报错。</p>
 <p>最终该提案被接受，并且加入 C++26，现在可以进行 <code>T*</code> -&gt; <code>void*</code> -&gt; <code>T*</code> 的转换了</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">void</span> <span class="nf">f</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
@@ -1695,7 +1693,7 @@
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">new</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">T</span><span class="p">{.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">}</span> <span class="c1">// placement new version
 </span></span></span><span class="line"><span class="cl"><span class="c1">// construct_at version cannot exist
 </span></span></span></code></pre></div></div>
-<p>提案 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2747r1.html"  target="_blank">P2747R1</a> 希望在常量求值中直接支持<code>placement new</code>。暂时还未被加入标准。</p>
+<p>提案 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2747r1.html"  target="_blank" rel="noreferrer">P2747R1</a> 希望在常量求值中直接支持<code>placement new</code>。暂时还未被加入标准。</p>
 
 <h2 class="relative group">2024-∞：未来无极限！
     <div id="2024-未来无极限" class="anchor"></div>
@@ -1706,13 +1704,13 @@
     </span>
     
 </h2>
-<p>截止目前，C++ 的常量求值已经支持了非常丰富的功能，支持条件，变量，循环，虚函数调用，动态内存分配等等一系列特性。但是受限于日常开发使用的 C++ 版本，有很多功能可能暂时没法使用，可以在 <a href="https://en.cppreference.com/w/cpp/feature_test#:~:text=P2564R3-,__cpp_constexpr,-constexpr"  target="_blank">这里</a> 方便的查看哪个版本支持了什么特性。</p>
+<p>截止目前，C++ 的常量求值已经支持了非常丰富的功能，支持条件，变量，循环，虚函数调用，动态内存分配等等一系列特性。但是受限于日常开发使用的 C++ 版本，有很多功能可能暂时没法使用，可以在 <a href="https://en.cppreference.com/w/cpp/feature_test#:~:text=P2564R3-,__cpp_constexpr,-constexpr"  target="_blank" rel="noreferrer">这里</a> 方便的查看哪个版本支持了什么特性。</p>
 <p>未来的 constexpr 中仍然有很多可能性，比如像<code>memcpy</code>这样的函数或许也能在常量求值中使用？又或者目前的<code>small_vector</code>的<strong>某些实现不能在不改动任何代码的前提</strong>下变成 constexpr 的，因为它们使用<code>char</code>数组为栈上的对象提供储存（为了避免默认构造）</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">void</span> <span class="nf">foo</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">byte</span> <span class="n">buf</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">construct_at</span><span class="p">(</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">buf</span><span class="p">),</span> <span class="mi">42</span><span class="p">);</span> <span class="c1">// no matter what
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
-<p>但是目前在常量求值中无法直接在<code>char</code>数组上构造对象。更进一步，在 C++20 加入的 <a href="https://en.cppreference.com/w/cpp/named_req/ImplicitLifetimeType"  target="_blank">implicit lifetime</a> 是否可能在常量求值中表现出来呢？这些理论上都是可能实现的，只是要求编译器记录更多的元信息。而在未来，一切皆有可能！最终我们或许真的能 constexpr everything！</p>
+<p>但是目前在常量求值中无法直接在<code>char</code>数组上构造对象。更进一步，在 C++20 加入的 <a href="https://en.cppreference.com/w/cpp/named_req/ImplicitLifetimeType"  target="_blank" rel="noreferrer">implicit lifetime</a> 是否可能在常量求值中表现出来呢？这些理论上都是可能实现的，只是要求编译器记录更多的元信息。而在未来，一切皆有可能！最终我们或许真的能 constexpr everything！</p>
 
           
           

@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1047,10 +1047,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1190,7 +1189,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1211,7 +1209,7 @@
     </span>
     
 </h2>
-<p>首先来讨论一下<strong>和类型 (sum type)</strong>，或者叫做 <a href="https://en.wikipedia.org/wiki/Tagged_union"  target="_blank">tagged union</a>。和类型就是只能在几种可能的类型中取值的类型。</p>
+<p>首先来讨论一下<strong>和类型 (sum type)</strong>，或者叫做 <a href="https://en.wikipedia.org/wiki/Tagged_union"  target="_blank" rel="noreferrer">tagged union</a>。和类型就是只能在几种可能的类型中取值的类型。</p>
 <p>例如我们有如下两个类型</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Circle</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">radius</span><span class="p">;</span>
@@ -1230,7 +1228,7 @@
 </span></span><span class="line"><span class="cl">        <span class="k">struct</span> <span class="nc">Rectangle</span> <span class="n">rectangle</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<blockquote><p>这里使用了叫做 <a href="https://en.cppreference.com/w/cpp/language/union#Anonymous_unions"  target="_blank">anonymous union</a> 的特性，相当于声明了一个对应类型的 union 成员，并且把字段名字注入到当前作用域。</p>
+<blockquote><p>这里使用了叫做 <a href="https://en.cppreference.com/w/cpp/language/union#Anonymous_unions"  target="_blank" rel="noreferrer">anonymous union</a> 的特性，相当于声明了一个对应类型的 union 成员，并且把字段名字注入到当前作用域。</p>
 </blockquote><p>这样我们就可以给<code>Shape</code>类型的变量赋不同类型的值，同时更新记录下赋值时的<code>type</code>。访问的时候反过来根据<code>type</code>来决定按照哪种类型访问即可。例如</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">Shape</span> <span class="n">shape</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">shape</span><span class="p">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">Shape</span><span class="o">::</span><span class="n">Circle</span><span class="p">)</span> <span class="p">{</span>
@@ -1278,7 +1276,7 @@
 </span></span><span class="line"><span class="cl">    <span class="n">settings</span><span class="p">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">Settings</span><span class="o">::</span><span class="n">Type</span><span class="o">::</span><span class="n">String</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">settings</span><span class="p">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>这段代码其实没法通过编译，编译器会报错<code>use of deleted function Settings::Settings()</code>。为什么<code>Settings</code>的构造函数被删除了呢？这其实是因为<code>std::string</code>的构造函数是 not trivial 的，当<code>union</code>中含有 not trivial 的类型的成员的时候，编译器无法正确的生成构造函数和析构函数（不知道你要初始化或者析构哪个成员）。详情原因请见的可以参考 cppreference 上对 <a href="https://en.cppreference.com/w/cpp/language/union"  target="_blank">union</a> 的介绍。</p>
+<p>这段代码其实没法通过编译，编译器会报错<code>use of deleted function Settings::Settings()</code>。为什么<code>Settings</code>的构造函数被删除了呢？这其实是因为<code>std::string</code>的构造函数是 not trivial 的，当<code>union</code>中含有 not trivial 的类型的成员的时候，编译器无法正确的生成构造函数和析构函数（不知道你要初始化或者析构哪个成员）。详情原因请见的可以参考 cppreference 上对 <a href="https://en.cppreference.com/w/cpp/language/union"  target="_blank" rel="noreferrer">union</a> 的介绍。</p>
 <p>怎么解决呢？那就是我们自己来定义<code>union</code>的构造函数和析构函数。比如我们可以给它定义一个空的构造函数和析构函数，也就是什么都不做</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">union</span> <span class="nc">Value</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
@@ -1293,7 +1291,7 @@
 </span></span><span class="line"><span class="cl">    <span class="k">enum</span> <span class="k">class</span> <span class="nc">Type</span> <span class="p">{</span> <span class="n">int_</span><span class="p">,</span> <span class="n">double_</span><span class="p">,</span> <span class="n">string</span> <span class="p">}</span> <span class="n">type</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Value</span> <span class="n">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>使用的时候则要求我们通过 <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new"  target="_blank">placement new</a> 显式调用构造函数来初始化某个成员，同样的，我们也要手动调用析构函数来销毁某个成员。</p>
+<p>使用的时候则要求我们通过 <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new"  target="_blank" rel="noreferrer">placement new</a> 显式调用构造函数来初始化某个成员，同样的，我们也要手动调用析构函数来销毁某个成员。</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Settings</span> <span class="n">settings</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">

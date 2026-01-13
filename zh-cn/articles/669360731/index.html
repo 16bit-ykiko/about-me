@@ -125,8 +125,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1052,10 +1052,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1231,7 +1230,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1327,12 +1325,12 @@
     
 </h2>
 <p>目前，Clang 被划分为以下库和工具：libsupport、libsystem、libbasic、libast、liblex、libparse、libsema、libcodegen、librewrite、libanalysis。由于 Clang 本身是用 C++ 编写的，所以相关的接口都是 C++ 的。然而，由于 C++ 接口本身的复杂性和不稳定性（例如：在 Windows 上由 GCC 编译出来的 DLL 无法给 MSVC 使用，或者 Clang 自身版本升级导致 API 变动，从而出现不兼容性），官方并不推荐优先使用 C++ 接口。</p>
-<p>除了 C++ 接口之外，官方还提供了一个叫做 <a href="https://clang.llvm.org/doxygen/group__CINDEX.html"  target="_blank">libclang</a> 的 C 语言接口，这个接口不仅使用起来相对简单，而且本身也比较稳定。唯一的缺点是无法获取完整的 C++ 抽象语法树 (AST)，不过鉴于 C++ 完整的语法树本身就极度复杂，很多时候我们只需要其中的一小部分信息，所以这个问题通常可以忽略，除非你真的有这方面的需求。</p>
-<p>如果你想要使用 libclang，你需要先安装 LLVM 和 Clang。在 <a href="https://github.com/llvm/llvm-project/releases"  target="_blank">LLVM Release</a> 页面，有若干预发布的二进制包可以下载。如果你有定制化需求，请参考 <a href="https://llvm.org/docs/GettingStarted.html#id4"  target="_blank">Getting Started</a> 页面进行手动编译。安装完成后，只需将<code>llvm/lib</code>目录下的<code>libclang.dll</code>链接到程序中，并包含<code>llvm/include</code>目录下的<code>clang-c/Index.h</code>头文件即可使用。</p>
-<p>然而，由于 C 语言没有一些高级抽象，操作字符串都很麻烦。如果大规模使用，还需要我们自己用 C++ 封装一层。幸好，官方基于这套 C 接口还提供了一个 Python 绑定，即 <a href="https://pypi.org/project/clang/"  target="_blank">clang</a> 这个包，这使得使用起来更加方便。然而，官方提供的 Python 绑定并没有打包 libclang 的这个 DLL，因此你仍然需要在电脑上手动配置 LLVM 的环境，这可能会有些麻烦。不过，社区中有人在 PyPI 上提供了打包好的包：<a href="https://pypi.org/project/libclang/"  target="_blank">libclang</a>。</p>
+<p>除了 C++ 接口之外，官方还提供了一个叫做 <a href="https://clang.llvm.org/doxygen/group__CINDEX.html"  target="_blank" rel="noreferrer">libclang</a> 的 C 语言接口，这个接口不仅使用起来相对简单，而且本身也比较稳定。唯一的缺点是无法获取完整的 C++ 抽象语法树 (AST)，不过鉴于 C++ 完整的语法树本身就极度复杂，很多时候我们只需要其中的一小部分信息，所以这个问题通常可以忽略，除非你真的有这方面的需求。</p>
+<p>如果你想要使用 libclang，你需要先安装 LLVM 和 Clang。在 <a href="https://github.com/llvm/llvm-project/releases"  target="_blank" rel="noreferrer">LLVM Release</a> 页面，有若干预发布的二进制包可以下载。如果你有定制化需求，请参考 <a href="https://llvm.org/docs/GettingStarted.html#id4"  target="_blank" rel="noreferrer">Getting Started</a> 页面进行手动编译。安装完成后，只需将<code>llvm/lib</code>目录下的<code>libclang.dll</code>链接到程序中，并包含<code>llvm/include</code>目录下的<code>clang-c/Index.h</code>头文件即可使用。</p>
+<p>然而，由于 C 语言没有一些高级抽象，操作字符串都很麻烦。如果大规模使用，还需要我们自己用 C++ 封装一层。幸好，官方基于这套 C 接口还提供了一个 Python 绑定，即 <a href="https://pypi.org/project/clang/"  target="_blank" rel="noreferrer">clang</a> 这个包，这使得使用起来更加方便。然而，官方提供的 Python 绑定并没有打包 libclang 的这个 DLL，因此你仍然需要在电脑上手动配置 LLVM 的环境，这可能会有些麻烦。不过，社区中有人在 PyPI 上提供了打包好的包：<a href="https://pypi.org/project/libclang/"  target="_blank" rel="noreferrer">libclang</a>。</p>
 <p>于是如果你想使用 libclang 来获取 C++ 语法树，只需要</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install libclang</span></span></code></pre></div></div>
-<p>什么额外的事情都不用做。本文就基于这个 python binding 的版本进行介绍。C 版本的 API 和 Python 版本的 API 基本是完全一致的，如果你觉得 Python 性能不够，你也可以参考这个教程对照着写 C 版本的代码。另外官方提供的包并没有 type hint，这样的话用 Python 写就没有代码补全，用起来也不舒服。我自己补了一个类型提示的 <a href="https://github.com/16bit-ykiko/about-me/blob/main/code/cindex.pyi"  target="_blank">cindex.pyi</a>，下载下来之后直接和 放在同一文件夹内就能有代码提示了。</p>
+<p>什么额外的事情都不用做。本文就基于这个 python binding 的版本进行介绍。C 版本的 API 和 Python 版本的 API 基本是完全一致的，如果你觉得 Python 性能不够，你也可以参考这个教程对照着写 C 版本的代码。另外官方提供的包并没有 type hint，这样的话用 Python 写就没有代码补全，用起来也不舒服。我自己补了一个类型提示的 <a href="https://github.com/16bit-ykiko/about-me/blob/main/code/cindex.pyi"  target="_blank" rel="noreferrer">cindex.pyi</a>，下载下来之后直接和 放在同一文件夹内就能有代码提示了。</p>
 
 <h2 class="relative group">Quick Start
     <div id="quick-start" class="anchor"></div>
@@ -1402,7 +1400,7 @@
     </span>
     
 </h2>
-<p>注意，本文假定读者对语法树有一定的认识，不在这里做过多介绍了。如果不知道语法树是什么的话，可以看一下 <a href="https://16bit-ykiko.github.io/about-me/670190357"  target="_blank">为什么说 C/C++ 编译器不保留元信息</a>。下面对 cindex 中的一些常用类型做一些介绍</p>
+<p>注意，本文假定读者对语法树有一定的认识，不在这里做过多介绍了。如果不知道语法树是什么的话，可以看一下 <a href="https://16bit-ykiko.github.io/about-me/670190357"  target="_blank" rel="noreferrer">为什么说 C/C++ 编译器不保留元信息</a>。下面对 cindex 中的一些常用类型做一些介绍</p>
 
 <h3 class="relative group">Cursor
     <div id="cursor" class="anchor"></div>

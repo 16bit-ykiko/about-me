@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1047,10 +1047,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1218,7 +1217,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1306,8 +1304,8 @@
     </span>
     
 </h2>
-<p>初步解决方案在 <a href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost_pfr.html"  target="_blank">boost/pfr</a> 中就已经给出了，其作者 Antony Polukhin 在 <a href="https://www.youtube.com/watch?v=abdeAew3gmQ"  target="_blank">CppCon2016</a> 和 <a href="https://www.youtube.com/watch?v=UlNUNxLtBI0"  target="_blank">CppCon2018</a> 中对此做了详细的介绍，不过作者采用的版本是<code>C++14/17</code>，其中的代码较为晦涩难懂，在我使用<code>C++20</code>进行重写之后可读性提高了不少。</p>
-<p>首先在<code>C++</code>中我们可以写一个<code>Any</code>类型，它支持向任意类型进行转换，其实就是把它的 <a href="https://en.cppreference.com/w/cpp/language/cast_operator"  target="_blank">类型转换函数</a> 写成模板函数就行了</p>
+<p>初步解决方案在 <a href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost_pfr.html"  target="_blank" rel="noreferrer">boost/pfr</a> 中就已经给出了，其作者 Antony Polukhin 在 <a href="https://www.youtube.com/watch?v=abdeAew3gmQ"  target="_blank" rel="noreferrer">CppCon2016</a> 和 <a href="https://www.youtube.com/watch?v=UlNUNxLtBI0"  target="_blank" rel="noreferrer">CppCon2018</a> 中对此做了详细的介绍，不过作者采用的版本是<code>C++14/17</code>，其中的代码较为晦涩难懂，在我使用<code>C++20</code>进行重写之后可读性提高了不少。</p>
+<p>首先在<code>C++</code>中我们可以写一个<code>Any</code>类型，它支持向任意类型进行转换，其实就是把它的 <a href="https://en.cppreference.com/w/cpp/language/cast_operator"  target="_blank" rel="noreferrer">类型转换函数</a> 写成模板函数就行了</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Any</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="nf">Any</span><span class="p">(</span><span class="kt">int</span><span class="p">){};</span> <span class="c1">// 支持从 int 构造
@@ -1390,8 +1388,8 @@
 <p><strong>遇到这三种情况，原来的方法完全失效了，为什么会这样？</strong></p>
 <p>这一小节的主要内容参考自 João Baptista 的两篇博客</p>
 <ul>
-<li><a href="https://towardsdev.com/counting-the-number-of-fields-in-an-aggregate-in-c-20-c81aecfd725c"  target="_blank">Counting the number of fields in an aggregate in C++20</a></li>
-<li><a href="https://towardsdev.com/counting-the-number-of-fields-in-an-aggregate-in-c-20-part-2-d3103dec734f"  target="_blank">Counting the number of fields in an aggregate in C++20 — part 2</a></li>
+<li><a href="https://towardsdev.com/counting-the-number-of-fields-in-an-aggregate-in-c-20-c81aecfd725c"  target="_blank" rel="noreferrer">Counting the number of fields in an aggregate in C++20</a></li>
+<li><a href="https://towardsdev.com/counting-the-number-of-fields-in-an-aggregate-in-c-20-part-2-d3103dec734f"  target="_blank" rel="noreferrer">Counting the number of fields in an aggregate in C++20 — part 2</a></li>
 </ul>
 <p>他总结了<code>boost/pfr</code>中的问题，并提出了解决方案，解决了上述提到的三个问题</p>
 
@@ -1665,7 +1663,7 @@
     </span>
     
 </h3>
-<p>这一切都源于<code>C++17</code>加入的一条新规则，是关于 <a href="https://en.cppreference.com/w/cpp/language/copy_elision"  target="_blank">copy elision</a> 的。</p>
+<p>这一切都源于<code>C++17</code>加入的一条新规则，是关于 <a href="https://en.cppreference.com/w/cpp/language/copy_elision"  target="_blank" rel="noreferrer">copy elision</a> 的。</p>
 <blockquote><p>Since C++17, a prvalue is not materialized until needed, and then it is constructed directly into the storage of its final destination. This sometimes means that even when the language syntax visually suggests a copy/move (e.g. copy initialization), no copy/move is performed — which means the type need not have an accessible copy/move constructor at all.</p>
 </blockquote><p>什么意思呢，举例子说明最清晰</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">M</span>
@@ -1780,7 +1778,7 @@
     </span>
     
 </h3>
-<p>作者在原文中提到的<code>GCC</code>和<code>MSVC</code>的问题我也一并找出来了，<code>MSVC</code>目前有一个<a href="https://developercommunity.visualstudio.com/t/MSVC-accepts-invalid-initialization-of-a/10541811"  target="_blank">缺陷</a>：</p>
+<p>作者在原文中提到的<code>GCC</code>和<code>MSVC</code>的问题我也一并找出来了，<code>MSVC</code>目前有一个<a href="https://developercommunity.visualstudio.com/t/MSVC-accepts-invalid-initialization-of-a/10541811"  target="_blank" rel="noreferrer">缺陷</a>：</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Any</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="c1">// requires std::is_copy_constructible_v&lt;T&gt;
@@ -1793,7 +1791,7 @@
 </span></span><span class="line"><span class="cl">    <span class="n">A</span> <span class="n">a</span><span class="p">{</span> <span class="n">Any</span><span class="p">{}</span> <span class="p">};</span> <span class="c1">// 这里 Any 转化成 int(&amp;)[2]类型了，即数组的引用
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
 <p>上述的代码可以正常编译，这意味着<code>MSVC</code>允许直接从数组的引用聚合初始化数组成员。但是这是<code>C++</code>标准所不允许的，这个<code>Bug</code>会导致在<code>MSVC</code>上对成员计数错误，解决办法其实很简单，前面我们已经顺便解决过这个问题了，只要把注释的那行加上就行了。因为数组是不可拷贝构造的类型，所以约束会把这个重载函数排除掉，这样就不会出现这个问题了。</p>
-<p><code>GCC 13</code>也有一个严重的 <a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=113141"  target="_blank">缺陷</a>，直接会导致<code>ice</code>，这个<code>bug</code>用下面几行代码就能复现出来：</p>
+<p><code>GCC 13</code>也有一个严重的 <a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=113141"  target="_blank" rel="noreferrer">缺陷</a>，直接会导致<code>ice</code>，这个<code>bug</code>用下面几行代码就能复现出来：</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Number</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
@@ -1809,7 +1807,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">F</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// internal compiler error
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
-<p>这个显然是不应该导致<code>ice</code>的，而且只在<code>GCC 13</code>才有这个<code>bug</code>实在是很奇怪。测试代码在 <a href="https://godbolt.org/z/jW4YWYf1P"  target="_blank">godbolt</a> 。<code>clang</code>没任何问题，但是<code>GCC 13</code>就直接内部编译器错误了。而<code>GCC 12</code>和<code>clang</code>的编译结果不一样<code>...</code>但是其实<code>clang</code>是对的。这也就是原作者文章里面说的<code>clang</code>和<code>gcc</code>不一致的地方。*注：后经评论区提醒，clang 15也会遇到类似的内部编译器错误。 *</p>
+<p>这个显然是不应该导致<code>ice</code>的，而且只在<code>GCC 13</code>才有这个<code>bug</code>实在是很奇怪。测试代码在 <a href="https://godbolt.org/z/jW4YWYf1P"  target="_blank" rel="noreferrer">godbolt</a> 。<code>clang</code>没任何问题，但是<code>GCC 13</code>就直接内部编译器错误了。而<code>GCC 12</code>和<code>clang</code>的编译结果不一样<code>...</code>但是其实<code>clang</code>是对的。这也就是原作者文章里面说的<code>clang</code>和<code>gcc</code>不一致的地方。*注：后经评论区提醒，clang 15也会遇到类似的内部编译器错误。 *</p>
 
 <h2 class="relative group">后记
     <div id="后记" class="anchor"></div>
@@ -1874,9 +1872,9 @@
     </span>
     
 </h2>
-<p>本文的全部代码都在 <a href="https://godbolt.org/z/scPP6WxbT"  target="_blank">Compiler Explorer - C++</a> 上，三大编译器均通过（gcc版本是12），有很多测试代码，如果你找到其它的<code>concer case</code>欢迎留言讨论</p>
+<p>本文的全部代码都在 <a href="https://godbolt.org/z/scPP6WxbT"  target="_blank" rel="noreferrer">Compiler Explorer - C++</a> 上，三大编译器均通过（gcc版本是12），有很多测试代码，如果你找到其它的<code>concer case</code>欢迎留言讨论</p>
 <p>好了，这篇文章到这里就结束了。如果你耐心看完了全文，相比你也是和我一样，喜欢这些好玩的东西。这种东西最有趣的地方就在于，利用<code>C++</code>暴露的一点点接口，去一步步扩展它，最后实现非常漂亮的接口出来。当然对于作者来说其实并不漂亮<code>OvO</code>。总之这种东西就像是游戏一样，是日常的消遣，没事给<code>C++</code>编译器找找<code>bug</code>，钻研这些犄角旮旯的特性，也是一份乐趣。如果非要谈实际价值，<strong>其实这种东西几乎不可能在实际的代码生产环境中使用</strong>。首先通过实例化大量模板来寻找结构体的字段数量，会大大拖慢编译速度，而且即使花费如此大的功夫，也只是实现了对聚合类型的遍历，还不支持其的非聚合类型。不仅副作用强，而且主要功能也不强。权衡一下考虑也是非常不值当了，对于这种需要类似反射的需求的时候，在<code>C++</code>加入静态反射之前（真正用上也许还得过十年！？），目前真正可行的自动化方案是采用代码生成来做这个事情。</p>
-<p>我也有相关的文章详细介绍了相关的原理，不依赖于这些奇淫巧技，真正可用于实际项目中的方案： <a href="https://www.ykiko.me/zh-cn/articles/669358870"  target="_blank">写给 C++ 程序员的反射教程</a>。</p>
+<p>我也有相关的文章详细介绍了相关的原理，不依赖于这些奇淫巧技，真正可用于实际项目中的方案： <a href="https://www.ykiko.me/zh-cn/articles/669358870"  target="_blank" rel="noreferrer">写给 C++ 程序员的反射教程</a>。</p>
 <p>当然如果用这些功能仅仅是为了<code>log</code>，<code>debug</code>或者<code>study</code>的话，而不是用于任何核心的代码部分，又不想引入很重的依赖，那这些东西用一用也未尝不可。</p>
 
           

@@ -121,8 +121,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1048,10 +1048,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1193,7 +1192,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1267,9 +1265,9 @@
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span></span></span></code></pre></div></div>
 <p>这与我们想要实现的效果还是有很大区别的，毕竟预处理并不涉及到 C++ 程序的语义部分。而且这样的计数器是全局唯一的，我们并不能创建很多个计数器，那还有别的办法吗？</p>
-<p>答案是肯定的。不管多么难以置信，相关的 <a href="https://b.atch.se/posts/non-constant-constant-expressions/"  target="_blank">讨论</a> 其实早在 2015 年的时候就有了，知乎上也有相关的 <a href="https://zhuanlan.zhihu.com/p/24835482"  target="_blank">文章</a>。但这篇文章是 2017 年发布的，使用的 C++ 版本还是 14，时过境迁，文章里面已经有很多的内容不适用了。更何况现在 C++26 的相关标准都开始制定了，有很多东西需要被重新讨论。我们将要选择的版本是 C++20。</p>
-<p>如果你只对代码感兴趣，我已经将相关的代码放在 <a href="https://godbolt.org/z/T543Tvc3q"  target="_blank">Compiler Explorer</a> 上。三大编译器 C++20 均编译通过，你可以直接看到编译器的输出结果。为了防止链接失效，也放到 <a href="https://github.com/16bit-ykiko/blog/blob/main/code/compile-time-counter.cpp"  target="_blank">GitHub</a> 上。如果你想要了解它的原理，欢迎继续往下阅读。C++ 标准非常复杂，作者也没法保证文章内容完全正确，如果有任何错误，欢迎评论区讨论交流。</p>
-<blockquote><p>注意：本文仅仅是技术讨论，请不要将相关的代码运用于实际生产中。根据 <a href="https://cplusplus.github.io/CWG/issues/2118.html"  target="_blank">CWG 2118</a>，相关的代码似乎被认为是非良构的 (ill formed)。并且 STMP 较为容易造成 ODR 违背，需要十分谨慎。</p>
+<p>答案是肯定的。不管多么难以置信，相关的 <a href="https://b.atch.se/posts/non-constant-constant-expressions/"  target="_blank" rel="noreferrer">讨论</a> 其实早在 2015 年的时候就有了，知乎上也有相关的 <a href="https://zhuanlan.zhihu.com/p/24835482"  target="_blank" rel="noreferrer">文章</a>。但这篇文章是 2017 年发布的，使用的 C++ 版本还是 14，时过境迁，文章里面已经有很多的内容不适用了。更何况现在 C++26 的相关标准都开始制定了，有很多东西需要被重新讨论。我们将要选择的版本是 C++20。</p>
+<p>如果你只对代码感兴趣，我已经将相关的代码放在 <a href="https://godbolt.org/z/T543Tvc3q"  target="_blank" rel="noreferrer">Compiler Explorer</a> 上。三大编译器 C++20 均编译通过，你可以直接看到编译器的输出结果。为了防止链接失效，也放到 <a href="https://github.com/16bit-ykiko/blog/blob/main/code/compile-time-counter.cpp"  target="_blank" rel="noreferrer">GitHub</a> 上。如果你想要了解它的原理，欢迎继续往下阅读。C++ 标准非常复杂，作者也没法保证文章内容完全正确，如果有任何错误，欢迎评论区讨论交流。</p>
+<blockquote><p>注意：本文仅仅是技术讨论，请不要将相关的代码运用于实际生产中。根据 <a href="https://cplusplus.github.io/CWG/issues/2118.html"  target="_blank" rel="noreferrer">CWG 2118</a>，相关的代码似乎被认为是非良构的 (ill formed)。并且 STMP 较为容易造成 ODR 违背，需要十分谨慎。</p>
 </blockquote>
 <h2 class="relative group">observable state
     <div id="observable-state" class="anchor"></div>
@@ -1427,7 +1425,7 @@
 </span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="n">a</span> <span class="o">!=</span> <span class="n">b</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
 <p>它的原理很简单。第一次的时候，<code>setter</code>尚未有任何实例化，所以<code>flag</code>函数也没有定义，于是<code>exist</code>求值为<code>false</code>，走到了<code>if constexpr</code>里面那个分支，实例化了一个<code>setter&lt;false&gt;</code>，并且返回<code>false</code>。第二次的时候，<code>setter</code>有了一个实例化，<code>flag</code>函数也有了定义，于是<code>exist</code>求值为<code>true</code>，直接返回<code>true</code>。</p>
-<blockquote><p>注意，这里的 N 的类型必须写成 auto，而不能使用 std::size_t。只有这样<code>flag(N)</code>才是 <a href="https://en.cppreference.com/w/cpp/language/dependent_name"  target="_blank">dependent name</a>，才能被 requires 检测表达式合法性。由于模板的 <a href="https://en.cppreference.com/w/cpp/language/two-phase_lookup"  target="_blank">two phase lookup</a>，如果写成<code>flag(0)</code>，会在第一阶段就进行查找，然后发现调用失败，产生一个 hard error，导致编译错误。</p>
+<blockquote><p>注意，这里的 N 的类型必须写成 auto，而不能使用 std::size_t。只有这样<code>flag(N)</code>才是 <a href="https://en.cppreference.com/w/cpp/language/dependent_name"  target="_blank" rel="noreferrer">dependent name</a>，才能被 requires 检测表达式合法性。由于模板的 <a href="https://en.cppreference.com/w/cpp/language/two-phase_lookup"  target="_blank" rel="noreferrer">two phase lookup</a>，如果写成<code>flag(0)</code>，会在第一阶段就进行查找，然后发现调用失败，产生一个 hard error，导致编译错误。</p>
 </blockquote>
 <h2 class="relative group">constant counter
     <div id="constant-counter" class="anchor"></div>

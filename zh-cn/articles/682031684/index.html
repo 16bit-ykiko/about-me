@@ -123,8 +123,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1050,10 +1050,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1209,7 +1208,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1252,9 +1250,9 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          <p>几个月前，我写了一篇介绍 C++ 模板的文章：<a href="https://www.ykiko.me/zh-cn/articles/655902377"  target="_blank">雾里看花：真正意义上的理解 C++ 模板</a>。</p>
+          <p>几个月前，我写了一篇介绍 C++ 模板的文章：<a href="https://www.ykiko.me/zh-cn/articles/655902377"  target="_blank" rel="noreferrer">雾里看花：真正意义上的理解 C++ 模板</a>。</p>
 <p>理清了现代 C++ 中模板的地位。其中用 constexpr function 替代模板进行编译期计算可以说是现代 C++ 最重要的改进之一了。 constexpr 本身其实并不难以理解，非常直观。但是由于几乎每个 C++ 版本都在改进它，所以不同的 C++ 版本可以使用的内容差别很大，有时候可能给人一种<code>inconsistency</code>的感觉。</p>
-<p>刚好最近我偶然间读到了这篇文章：<a href="https://pvs-studio.com/en/blog/posts/cpp/0909/"  target="_blank">Design and evolution of constexpr in C++</a>，全面介绍了 C++ 中 constexpr 的发展史，写的非常好。于是便想将其翻译到中文社区。</p>
+<p>刚好最近我偶然间读到了这篇文章：<a href="https://pvs-studio.com/en/blog/posts/cpp/0909/"  target="_blank" rel="noreferrer">Design and evolution of constexpr in C++</a>，全面介绍了 C++ 中 constexpr 的发展史，写的非常好。于是便想将其翻译到中文社区。</p>
 <p>但是有趣的是，这篇文章其实也是翻译的。文章的原作者是一位俄罗斯人，文章最初也是发表在俄罗斯的论坛上。这是作者的邮箱：<code>izaronplatz@gmail.com</code>，我已经和他联系过了，他回复到：</p>
 <blockquote><p>It&rsquo;s always good to spread knowledge in more languages.</p>
 </blockquote><p>也就是允许翻译了。但是我并不懂俄文，所以主要参考了原文结构，而主体部分，基本都是我重新叙述的。</p>
@@ -1313,13 +1311,13 @@
 <li><code>sizeof</code>表达式</li>
 <li>由常量表达式初始化的<code>const</code>变量</li>
 </ul>
-<p>前几项都很好理解的，对于最后一项稍微有点复杂。如果一个变量具有 <a href="https://en.cppreference.com/w/cpp/language/storage_duration"  target="_blank">静态储存期</a>，那么在常规情况下，它的内存会被填充为<code>0</code>，之后在程序开始执行的时候改变。但是对于上述的变量来说，这太晚了，需要在编译结束之前就计算出它们的值。</p>
-<p>在 C++98/03 当中有两种类型的 <a href="https://en.cppreference.com/w/cpp/language/initialization#Static_initialization"  target="_blank">静态初始化</a>：</p>
+<p>前几项都很好理解的，对于最后一项稍微有点复杂。如果一个变量具有 <a href="https://en.cppreference.com/w/cpp/language/storage_duration"  target="_blank" rel="noreferrer">静态储存期</a>，那么在常规情况下，它的内存会被填充为<code>0</code>，之后在程序开始执行的时候改变。但是对于上述的变量来说，这太晚了，需要在编译结束之前就计算出它们的值。</p>
+<p>在 C++98/03 当中有两种类型的 <a href="https://en.cppreference.com/w/cpp/language/initialization#Static_initialization"  target="_blank" rel="noreferrer">静态初始化</a>：</p>
 <ul>
-<li><a href="https://en.cppreference.com/w/cpp/language/zero_initialization"  target="_blank">零初始化</a> 内存被填充为<code>0</code>，然后在程序执行期间改变</li>
-<li><a href="https://en.cppreference.com/w/cpp/language/constant_initialization"  target="_blank">常量初始化</a> 使用常量表达式进行初始化，内存（如果需要的话）立即填充为计算出来的值</li>
+<li><a href="https://en.cppreference.com/w/cpp/language/zero_initialization"  target="_blank" rel="noreferrer">零初始化</a> 内存被填充为<code>0</code>，然后在程序执行期间改变</li>
+<li><a href="https://en.cppreference.com/w/cpp/language/constant_initialization"  target="_blank" rel="noreferrer">常量初始化</a> 使用常量表达式进行初始化，内存（如果需要的话）立即填充为计算出来的值</li>
 </ul>
-<blockquote><p>所有其它的初始化都被叫做 <a href="https://en.cppreference.com/w/cpp/language/initialization#Dynamic_initialization"  target="_blank">动态初始化</a>，这里我们不考虑它们。</p>
+<blockquote><p>所有其它的初始化都被叫做 <a href="https://en.cppreference.com/w/cpp/language/initialization#Dynamic_initialization"  target="_blank" rel="noreferrer">动态初始化</a>，这里我们不考虑它们。</p>
 </blockquote><p>让我们看一个包含两种静态初始化的例子</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">13</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -1331,7 +1329,7 @@
 </span></span></span></code></pre></div></div>
 <p>变量<code>v1</code>, <code>v2</code>和<code>v5</code>都可以作为常量表达式，可以用作模板参数，<code>switch</code>的<code>case</code>，<code>enum</code>的值，等等。而<code>v3</code>和<code>v4</code>则不行。即使我们能明显看出<code>foo() + 5</code>的值是<code>18</code>，但在那时还没有合适的语义来表达这一点。</p>
 <p>由于常量表达式是递归定义的，如果一个表达式的某一部分不是常量表达式，那么整个表达式就不是常量表达式。在这个判断过程中，只考虑实际计算的表达式，所以<code>v5</code>是常量表达式，但<code>v4</code>不是。</p>
-<p>如果没有获取常量初始化的变量的地址，编译器就可以不为它分配内存。所以我们可以通过取地址的方式，来强制编译器给常量初始化的变量预留内存（其实如果没有显式取地址的话，普通的局部变量也可能被优化掉，任何不违背 <a href="https://en.cppreference.com/w/cpp/language/as_if"  target="_blank">as-if</a> 原则的优化都是允许的。可以考虑使用<code>[[gnu::used]]</code>这个 attribute 标记避免变量被优化掉）。</p>
+<p>如果没有获取常量初始化的变量的地址，编译器就可以不为它分配内存。所以我们可以通过取地址的方式，来强制编译器给常量初始化的变量预留内存（其实如果没有显式取地址的话，普通的局部变量也可能被优化掉，任何不违背 <a href="https://en.cppreference.com/w/cpp/language/as_if"  target="_blank" rel="noreferrer">as-if</a> 原则的优化都是允许的。可以考虑使用<code>[[gnu::used]]</code>这个 attribute 标记避免变量被优化掉）。</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v1</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">v1</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v2</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">v2</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
@@ -1356,7 +1354,7 @@
 </span></span><span class="line"><span class="cl"><span class="o">(</span>sec  5<span class="o">)(</span>fl 0x00<span class="o">)(</span>ty    0<span class="o">)(</span>scl   3<span class="o">)</span> <span class="o">(</span>nx 1<span class="o">)</span> 0x0000000000000000 .pdata
 </span></span><span class="line"><span class="cl"><span class="o">(</span>sec  6<span class="o">)(</span>fl 0x00<span class="o">)(</span>ty    0<span class="o">)(</span>scl   3<span class="o">)</span> <span class="o">(</span>nx 1<span class="o">)</span> 0x0000000000000000 .rdata</span></span></code></pre></div></div>
 <p>可以发现在我的 GCC 14 上，零初始化的变量<code>v3</code>和<code>v4</code>被放在<code>.bss</code>段，而常量初始化的变量<code>v1</code>, <code>v2</code>,<code>v5</code>被放在<code>.rdata</code>段。操作系统会对<code>.rdata</code>段进行保护，使其处于只读模式，尝试写入会导致段错误。</p>
-<p>从上述的差异可以看出，一些<code>const</code>变量比其它的更加<code>const</code>。但是在当时我们并没有办法检测出这种差异（后来的 C++20 引入了 <a href="https://en.cppreference.com/w/cpp/language/constinit"  target="_blank">constinit</a> 来确保一个变量进行常量初始化）。</p>
+<p>从上述的差异可以看出，一些<code>const</code>变量比其它的更加<code>const</code>。但是在当时我们并没有办法检测出这种差异（后来的 C++20 引入了 <a href="https://en.cppreference.com/w/cpp/language/constinit"  target="_blank" rel="noreferrer">constinit</a> 来确保一个变量进行常量初始化）。</p>
 
 <h2 class="relative group">0-∞：编译器中的常量求值器
     <div id="0-编译器中的常量求值器" class="anchor"></div>
@@ -1390,8 +1388,8 @@
 <li><strong>代码生成</strong>：根据给定的 AST 生成 LLVM IR</li>
 </ul>
 <p>因此，常量表达式的计算（以及相关的事情，如模板实例化）严格发生在 C++ 编译器的前端，而 LLVM 不涉及此类工作。这种处理常量表达式（从 C++98 的简单表达式到 C++23 的复杂表达式）的工具被称为<strong>常量求值器 (constant evaluator)</strong>。</p>
-<p>多年来，对常量表达式的限制一直在不断放宽，而 Clang 的常量求值器相应地变得越来越复杂，直到管理 memory model（内存模型）。有一份旧的 <a href="https://clang.llvm.org/docs/InternalsManual.html#constant-folding-in-the-clang-ast"  target="_blank">文档</a>，描述 C++98/03 的常量求值。由于当时的常量表达式非常简单，它们是通过分析语法树进行 <em>constant folding</em> （常量折叠）来进行的。由于在语法树中，所有的算术表达式都已经被解析为子树的形式，因此计算常量就是简单地遍历子树。</p>
-<p>常量计算器的源代码位于 <a href="https://clang.llvm.org/doxygen/ExprConstant_8cpp_source.html"  target="_blank">lib/AST/ExprConstant.cpp</a>，在撰写本文时已经扩展到将近 17000 行。随着时间的推移，它学会了解释许多内容，例如循环（<code>EvaluateLoopBody</code>），所有这些都是在语法树上进行的。</p>
+<p>多年来，对常量表达式的限制一直在不断放宽，而 Clang 的常量求值器相应地变得越来越复杂，直到管理 memory model（内存模型）。有一份旧的 <a href="https://clang.llvm.org/docs/InternalsManual.html#constant-folding-in-the-clang-ast"  target="_blank" rel="noreferrer">文档</a>，描述 C++98/03 的常量求值。由于当时的常量表达式非常简单，它们是通过分析语法树进行 <em>constant folding</em> （常量折叠）来进行的。由于在语法树中，所有的算术表达式都已经被解析为子树的形式，因此计算常量就是简单地遍历子树。</p>
+<p>常量计算器的源代码位于 <a href="https://clang.llvm.org/doxygen/ExprConstant_8cpp_source.html"  target="_blank" rel="noreferrer">lib/AST/ExprConstant.cpp</a>，在撰写本文时已经扩展到将近 17000 行。随着时间的推移，它学会了解释许多内容，例如循环（<code>EvaluateLoopBody</code>），所有这些都是在语法树上进行的。</p>
 <p>常量表达式与运行时代码有一个重要的区别：它们必须不引发 undefined behavior（未定义行为）。如果常量计算器遇到未定义行为，编译将失败。</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="nl">error</span><span class="p">:</span> <span class="k">constexpr</span> <span class="n">variable</span> <span class="err">&#39;</span><span class="n">foo</span><span class="err">&#39;</span> <span class="n">must</span> <span class="n">be</span> <span class="n">initialized</span> <span class="n">by</span> <span class="n">a</span> <span class="n">constant</span> <span class="n">expression</span>
 </span></span><span class="line"><span class="cl">    <span class="mi">2</span> <span class="o">|</span> <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">foo</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">+</span> <span class="mi">2147483647</span><span class="p">;</span>               
@@ -1410,8 +1408,8 @@
     
 </h2>
 <p><strong>标准的改变是通过 proposals（提案）进行的</strong></p>
-<blockquote><p>在哪里可以找到提案？它们是由什么组成的？<br><br>所有的有关 C++ 标准的提案都可以在 <a href="https://open-std.org/JTC1/SC22/WG21/"  target="_blank">open-std.org</a> 上找到。它们中的大多数都有详细的描述并且易于阅读。通常由如下部分组成： <br><br>-  当前遇到的问题 <br>-  标准中相关措辞的的链接 <br>-  上述问题的解决方案 <br>-  建议对标准措辞进行的修改 <br>-  相关提案的链接（提案可能有多个版本或者需要和其它提案进行对比） <br>-  在高级提案中，往往还会附带上实验性实现的链接<br><br>可以通过这些提案来了解 C++ 的每个部分是如何演变的。并非存档中的所有提案最终都被接受，但是它们都对 C++ 的发展有着重要的影响。<br><br>通过提交新提案，任何人都可以参与到 C++ 的演变过程中来。</p>
-</blockquote><p><code>2003</code>年的提案 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2003/n1521.pdf"  target="_blank">N1521 Generalized Constant Expressions</a> 指出一个问题。如果一个表达式中的某个部分含有函数调用，那么整个表达式就不能是常量表达式，即使这个函数最终能够被常量折叠。这迫使人们在处理复杂常量表达式的时候使用宏，甚至一定程度上导致了宏的滥用</p>
+<blockquote><p>在哪里可以找到提案？它们是由什么组成的？<br><br>所有的有关 C++ 标准的提案都可以在 <a href="https://open-std.org/JTC1/SC22/WG21/"  target="_blank" rel="noreferrer">open-std.org</a> 上找到。它们中的大多数都有详细的描述并且易于阅读。通常由如下部分组成： <br><br>-  当前遇到的问题 <br>-  标准中相关措辞的的链接 <br>-  上述问题的解决方案 <br>-  建议对标准措辞进行的修改 <br>-  相关提案的链接（提案可能有多个版本或者需要和其它提案进行对比） <br>-  在高级提案中，往往还会附带上实验性实现的链接<br><br>可以通过这些提案来了解 C++ 的每个部分是如何演变的。并非存档中的所有提案最终都被接受，但是它们都对 C++ 的发展有着重要的影响。<br><br>通过提交新提案，任何人都可以参与到 C++ 的演变过程中来。</p>
+</blockquote><p><code>2003</code>年的提案 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2003/n1521.pdf"  target="_blank" rel="noreferrer">N1521 Generalized Constant Expressions</a> 指出一个问题。如果一个表达式中的某个部分含有函数调用，那么整个表达式就不能是常量表达式，即使这个函数最终能够被常量折叠。这迫使人们在处理复杂常量表达式的时候使用宏，甚至一定程度上导致了宏的滥用</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">square</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#define SQUARE(x) ((x) * (x))
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
@@ -1465,7 +1463,7 @@
     </span>
     
 </h2>
-<p>幸运的是，三年后，这个提案的后续修订版 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2235.pdf"  target="_blank">N2235</a> 认识到了过多的隐式特性是不好的，程序员应该有办法确保一个变量可以被用作常量，如果不满足相应的条件应该导致编译错误。</p>
+<p>幸运的是，三年后，这个提案的后续修订版 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2235.pdf"  target="_blank" rel="noreferrer">N2235</a> 认识到了过多的隐式特性是不好的，程序员应该有办法确保一个变量可以被用作常量，如果不满足相应的条件应该导致编译错误。</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">S</span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
@@ -1474,7 +1472,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">int</span> <span class="n">S</span><span class="o">::</span><span class="n">size</span> <span class="o">=</span> <span class="mi">256</span><span class="p">;</span>                       <span class="c1">// const initialization
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">int</span> <span class="n">z</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">max</span><span class="p">();</span> <span class="c1">// dynamic initialization
 </span></span></span></code></pre></div></div>
-<p>根据程序员的设想，<code>limit</code>应该被常量初始化，但事实并非如此，因为<code>S::size</code>被定义在<code>limit</code>之后，定义的太晚了。可以通过 C++20 加入的 <a href="https://en.cppreference.com/w/cpp/language/constinit"  target="_blank">constinit</a> 来验证这一点，<code>constinit</code>保证一个变量进行常量初始化，如果不能进行常量初始化，则会编译错误。</p>
+<p>根据程序员的设想，<code>limit</code>应该被常量初始化，但事实并非如此，因为<code>S::size</code>被定义在<code>limit</code>之后，定义的太晚了。可以通过 C++20 加入的 <a href="https://en.cppreference.com/w/cpp/language/constinit"  target="_blank" rel="noreferrer">constinit</a> 来验证这一点，<code>constinit</code>保证一个变量进行常量初始化，如果不能进行常量初始化，则会编译错误。</p>
 <p>在新的提案中，常值函数被<strong>重命名</strong>为 <em>constexpr function</em> ，对它们的要求保持不变。但现在，为了能够在常量表达式中使用它们，<strong>必须</strong>使用 constexpr 关键字进行声明。此外，如果函数体不符合相关的要求，将会编译失败。同时建议将一些标准库的函数（如<code>std::numeric_limits</code>中的函数）标记为 constexpr，因为它们符合相关的要求。<strong>变量</strong>或类成员也可以声明为 constexpr，这样的话，如果变量不是通过常量表达式进行初始化，将会编译失败。</p>
 <p>用户自定义<code>class</code>的 constexpr 构造函数也合法化了。该构造函数必须具有空函数体，并用常量表达式初始化成员。隐式生成的构造函数将尽可能的被标记为 constexpr。对于 constexpr 的对象，析构函数必须是平凡的，因为非平凡的析构函数通常会在正在执行的程序上下文中做一些改变，而在 constexpr 计算中不存在这样的上下文。</p>
 <p>以下是包含 constexpr 的示例类：</p>
@@ -1492,8 +1490,8 @@
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">complex</span> <span class="nf">I</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// OK
 </span></span></span></code></pre></div></div>
 <p>在提案中，像<code>I</code>这样的对象被称为用户自定义字面量。&ldquo;字面量&rdquo; 是 C++ 中的基本实体。就像 &ldquo;简单&rdquo; 字面量（数字、字符等）立即被嵌入到汇编指令中，字符串字面量存储在类似<code>.rodata</code>的段中那样，用户定义的字面量也在其中占有一席之地。</p>
-<p>现在 constexpr 变量不仅可以是数字和枚举，还可以是 <a href="https://en.cppreference.com/w/cpp/named_req/LiteralType"  target="_blank">literal type</a>，在此提案中引入了（尚不支持引用类型）。literal type 是可以传递给 constexpr 函数的类型，这些类型足够简单，以至于编译器可以在常量计算中支持它们。</p>
-<p>constexpr 关键字最后成为了一个 <em>specifier（说明符</em> ），类似于 *override * 这样仅用作标记。在讨论后，决定不创建新的 <a href="https://en.cppreference.com/w/cpp/language/storage_duration"  target="_blank">储存期类型</a> 和新的类型限定符，并且也决定不允许将其用于函数参数，以免使得函数的<a href="https://en.cppreference.com/w/cpp/language/overload_resolution"  target="_blank">overload resolution</a>规则变得过于复杂。</p>
+<p>现在 constexpr 变量不仅可以是数字和枚举，还可以是 <a href="https://en.cppreference.com/w/cpp/named_req/LiteralType"  target="_blank" rel="noreferrer">literal type</a>，在此提案中引入了（尚不支持引用类型）。literal type 是可以传递给 constexpr 函数的类型，这些类型足够简单，以至于编译器可以在常量计算中支持它们。</p>
+<p>constexpr 关键字最后成为了一个 <em>specifier（说明符</em> ），类似于 *override * 这样仅用作标记。在讨论后，决定不创建新的 <a href="https://en.cppreference.com/w/cpp/language/storage_duration"  target="_blank" rel="noreferrer">储存期类型</a> 和新的类型限定符，并且也决定不允许将其用于函数参数，以免使得函数的<a href="https://en.cppreference.com/w/cpp/language/overload_resolution"  target="_blank" rel="noreferrer">overload resolution</a>规则变得过于复杂。</p>
 
 <h2 class="relative group">2007：试着让标准库更加 constexpr？
     <div id="2007试着让标准库更加-constexpr" class="anchor"></div>
@@ -1504,7 +1502,7 @@
     </span>
     
 </h2>
-<p>在这一年，提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2007/n2349.pdf"  target="_blank">N2349 Constant Expressions in the Standard Library</a> 被提出，其中标记了一些函数和常量为   constexpr，还有一些容器的函数，例如：</p>
+<p>在这一年，提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2007/n2349.pdf"  target="_blank" rel="noreferrer">N2349 Constant Expressions in the Standard Library</a> 被提出，其中标记了一些函数和常量为   constexpr，还有一些容器的函数，例如：</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">bitset</span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
@@ -1530,8 +1528,8 @@
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="n">n</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>最初，提案提出者希望允许在 constexpr 函数中进行递归调用，但出于谨慎起见，这一做法被禁止了。然而，在审查过程中，由于措辞的变化，意外地允许了这种做法。CWG 认为递归具有足够的使用情景，因此应该允许它们。如果允许函数之间相互递归调用，还需要允许 constexpr 函数的 <em>forward declaration（向前声明）</em> 。在 constexpr 函数中调用未定义的 constexpr 函数时，应该在需要常量求值的上下文中进行诊断。这一点在 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2009/n2826.html"  target="_blank">N2826</a> 被澄清</p>
-<p>既然有递归，那就可能出现无穷递归。一个函数究竟会不会无穷递归？在一些简单的情况下，静态分析工具可以分析无穷递归是否会发生。而在一般情况下，这其实是个 <a href="https://en.wikipedia.org/wiki/Halting_problem"  target="_blank">停机问题</a>，无法解决。</p>
+<p>最初，提案提出者希望允许在 constexpr 函数中进行递归调用，但出于谨慎起见，这一做法被禁止了。然而，在审查过程中，由于措辞的变化，意外地允许了这种做法。CWG 认为递归具有足够的使用情景，因此应该允许它们。如果允许函数之间相互递归调用，还需要允许 constexpr 函数的 <em>forward declaration（向前声明）</em> 。在 constexpr 函数中调用未定义的 constexpr 函数时，应该在需要常量求值的上下文中进行诊断。这一点在 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2009/n2826.html"  target="_blank" rel="noreferrer">N2826</a> 被澄清</p>
+<p>既然有递归，那就可能出现无穷递归。一个函数究竟会不会无穷递归？在一些简单的情况下，静态分析工具可以分析无穷递归是否会发生。而在一般情况下，这其实是个 <a href="https://en.wikipedia.org/wiki/Halting_problem"  target="_blank" rel="noreferrer">停机问题</a>，无法解决。</p>
 <p>一般来说，编译器会设置一个默认递归层数。如果递归层数超过这个默认的层数，则会编译错误</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">foo</span><span class="p">(){</span> <span class="k">return</span> <span class="n">f</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">foo</span><span class="p">();</span></span></span></code></pre></div></div>
@@ -1557,7 +1555,7 @@
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="nf">pair</span><span class="p">();</span>               <span class="c1">// ok
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pair</span><span class="p">(</span><span class="k">const</span> <span class="n">T1</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="k">const</span> <span class="n">T2</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">);</span> <span class="c1">// error
 </span></span></span></code></pre></div></div>
-<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2010/n3039.pdf"  target="_blank">N3039 Constexpr functions with const reference parameters</a> 希望允许函数参数和返回值出现常量引用。</p>
+<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2010/n3039.pdf"  target="_blank" rel="noreferrer">N3039 Constexpr functions with const reference parameters</a> 希望允许函数参数和返回值出现常量引用。</p>
 <p>事实上，这是个非常巨大的改变。在此之前，常量求值中只有<strong>值</strong>，没有引用（指针）。只需要简单的对值进行运算就行了，引用的引入让常量求值器不得不建立一个内存模型。如果要支持<code>const T&amp;</code>，编译器需要在编译期创建一个临时对象，然后将引用绑定到它上面。任何对该对象不合法的访问都应该导致编译错误。</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">T</span> <span class="n">self</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="o">*</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">);</span> <span class="p">}</span>
@@ -1592,7 +1590,7 @@
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">magic</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">magic</span><span class="p">;</span> <span class="c1">// should be ok
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
-<p>提案 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3268.htm"  target="_blank">N3268 static_assert and list-initialization in constexpr functions</a> 希望在 constexpr 函数中支持这些静态声明。</p>
+<p>提案 <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3268.htm"  target="_blank" rel="noreferrer">N3268 static_assert and list-initialization in constexpr functions</a> 希望在 constexpr 函数中支持这些静态声明。</p>
 
 <h2 class="relative group">2012：我需要分支！
     <div id="2012我需要分支" class="anchor"></div>
@@ -1631,9 +1629,9 @@
 </span></span><span class="line"><span class="cl">                     <span class="o">?</span> <span class="mi">1</span>
 </span></span><span class="line"><span class="cl">                     <span class="o">:</span> <span class="n">pow_helper</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">pow</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2012/n3444.html"  target="_blank">N3444 Relaxing syntactic constraints on constexpr functions</a> 希望进一步放宽 constexpr 函数的限制，以便能够编写任意的代码</p>
+<p>提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2012/n3444.html"  target="_blank" rel="noreferrer">N3444 Relaxing syntactic constraints on constexpr functions</a> 希望进一步放宽 constexpr 函数的限制，以便能够编写任意的代码</p>
 <ul>
-<li>允许声明具有 <a href="https://en.cppreference.com/w/cpp/named_req/LiteralType"  target="_blank">literal type</a> 类型的局部变量，如果它们是通过构造函数进行初始化的，则该构造函数也必须被标记为 constexpr。这样，常量求值器可以缓存这些变量，避免重复求值相同的表达式，提高常量求值器的执行效率，但是不允许修改这些变量</li>
+<li>允许声明具有 <a href="https://en.cppreference.com/w/cpp/named_req/LiteralType"  target="_blank" rel="noreferrer">literal type</a> 类型的局部变量，如果它们是通过构造函数进行初始化的，则该构造函数也必须被标记为 constexpr。这样，常量求值器可以缓存这些变量，避免重复求值相同的表达式，提高常量求值器的执行效率，但是不允许修改这些变量</li>
 <li>允许局部类型声明</li>
 <li>允许使用<code>if</code>和多个<code>return</code>语句，并且要求每个分支至少有一个<code>return</code>语句</li>
 <li>允许 expression statement（仅由表达式构成的语句）</li>
@@ -1660,16 +1658,16 @@
     </span>
     
 </h2>
-<p>然而，CWG 认为在 constexpr 函数中支持循环（至少支持<code>for</code>）是必须的。<code>2013</code>年提案  <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2013/n3597.html"  target="_blank">Relaxing constraints on constexpr functions</a> 发布了修订版本。</p>
+<p>然而，CWG 认为在 constexpr 函数中支持循环（至少支持<code>for</code>）是必须的。<code>2013</code>年提案  <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2013/n3597.html"  target="_blank" rel="noreferrer">Relaxing constraints on constexpr functions</a> 发布了修订版本。</p>
 <p>实现 constexpr for 考虑了四种选项。</p>
 <ul>
 <li>添加全新的循环语法，新语法与 constexpr 所需的函数式编程风格良好交互。虽然解决了缺乏循环的问题，但并未消除程序员对现有语言的不满（为了支持 constexpr，需要将原有的代码重新改写）</li>
 <li>仅支持传统 C 语言风格的 for 循环，为此，至少需要支持 constexpr 函数中对变量进行更改</li>
-<li>仅支持 <a href="https://en.cppreference.com/w/cpp/language/range-for"  target="_blank">range-based for loop</a>，这样的循环不能与用户定义的迭代器类型一起使用，除非进一步放宽语言规则</li>
+<li>仅支持 <a href="https://en.cppreference.com/w/cpp/language/range-for"  target="_blank" rel="noreferrer">range-based for loop</a>，这样的循环不能与用户定义的迭代器类型一起使用，除非进一步放宽语言规则</li>
 <li>允许在 constexpr 函数中使用 C++ 的一致和广泛的子集，可能包括所有 C++</li>
 </ul>
 <p>最后选择的是最后一个选项，这极大的影响了 constexpr 在 C++ 中的后续发展。</p>
-<p>为了支持这个选项，我们不得不在 constexpr 函数中引入变量的可变性，即支持修改变量的值。根据该提案，现在可以更改在常量求值过程中创建的对象，直到求值过程或对象的 <a href="https://en.cppreference.com/w/cpp/language/lifetime"  target="_blank">lifetime</a> 结束。这些求值过程将在类似虚拟机的沙箱中进行，不会影响外部的代码。因此理论上，输出相同的 constexpr 参数将会输出相同的结果。</p>
+<p>为了支持这个选项，我们不得不在 constexpr 函数中引入变量的可变性，即支持修改变量的值。根据该提案，现在可以更改在常量求值过程中创建的对象，直到求值过程或对象的 <a href="https://en.cppreference.com/w/cpp/language/lifetime"  target="_blank" rel="noreferrer">lifetime</a> 结束。这些求值过程将在类似虚拟机的沙箱中进行，不会影响外部的代码。因此理论上，输出相同的 constexpr 参数将会输出相同的结果。</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">f</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="o">++</span><span class="n">n</span><span class="p">;</span> <span class="c1">// ++n 不是一个常量表达式
@@ -1722,7 +1720,7 @@
     
 </h2>
 <p>目前，类的 constexpr 函数会自动标记为 const</p>
-<p>在提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2013/n3598.html"  target="_blank">constexpr member functions and implicit const</a> 中指出：如果一个成员函数是 constexpr 的，它不一定一定要是 const 的。随着 constexpr 计算中的可变性变得越来越重要，这一点变得更加突出。但即使在此之前，它也妨碍了在 constexpr 和非 constexpr 代码中使用相同的函数：</p>
+<p>在提案 <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2013/n3598.html"  target="_blank" rel="noreferrer">constexpr member functions and implicit const</a> 中指出：如果一个成员函数是 constexpr 的，它不一定一定要是 const 的。随着 constexpr 计算中的可变性变得越来越重要，这一点变得更加突出。但即使在此之前，它也妨碍了在 constexpr 和非 constexpr 代码中使用相同的函数：</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">B</span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">A</span> <span class="n">a</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="nf">B</span><span class="p">()</span> <span class="o">:</span> <span class="n">a</span><span class="p">()</span> <span class="p">{}</span>
@@ -1737,7 +1735,7 @@
 </ul>
 <p>最终，方案<code>2</code>被接受了，现在如果一个成员函数被 constexpr 标记，不代表它是隐式 const 的成员函数了。</p>
 <hr>
-<p>下篇在这里：<a href="https://www.ykiko.me/zh-cn/articles/683463723"  target="_blank">C++ 中 constexpr 的发展史（下）</a>。</p>
+<p>下篇在这里：<a href="https://www.ykiko.me/zh-cn/articles/683463723"  target="_blank" rel="noreferrer">C++ 中 constexpr 的发展史（下）</a>。</p>
 
           
           

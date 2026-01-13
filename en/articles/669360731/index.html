@@ -125,8 +125,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1052,10 +1052,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1225,7 +1224,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1321,12 +1319,12 @@
     
 </h2>
 <p>Currently, Clang is divided into the following libraries and tools: libsupport, libsystem, libbasic, libast, liblex, libparse, libsema, libcodegen, librewrite, libanalysis. Since Clang itself is written in C++, the related interfaces are all in C++. However, due to the complexity and instability of C++ interfaces (for example, DLLs compiled by GCC on Windows cannot be used by MSVC, or API changes due to Clang version upgrades leading to incompatibility), the official does not recommend prioritizing the use of C++ interfaces.</p>
-<p>In addition to C++ interfaces, the official also provides a C interface called <a href="https://clang.llvm.org/doxygen/group__CINDEX.html"  target="_blank">libclang</a>, which is not only relatively simple to use but also quite stable. The only drawback is that it cannot obtain the complete C++ Abstract Syntax Tree (AST), but given that the complete syntax tree of C++ is extremely complex, often we only need a small part of the information, so this issue can usually be ignored unless you really have such a requirement.</p>
-<p>If you want to use libclang, you need to install LLVM and Clang first. On the <a href="https://github.com/llvm/llvm-project/releases"  target="_blank">LLVM Release</a> page, there are several pre-release binary packages available for download. If you have customization needs, please refer to the <a href="https://llvm.org/docs/GettingStarted.html#id4"  target="_blank">Getting Started</a> page for manual compilation. After installation, simply link the <code>libclang.dll</code> from the <code>llvm/lib</code> directory to your program and include the <code>clang-c/Index.h</code> header file from the <code>llvm/include</code> directory to use it.</p>
-<p>However, since C language lacks some high-level abstractions, even manipulating strings can be cumbersome. If used on a large scale, we need to encapsulate a layer in C++ ourselves. Fortunately, the official also provides a Python binding based on this C interface, namely the <a href="https://pypi.org/project/clang/"  target="_blank">clang</a> package, which makes it more convenient to use. However, the Python binding provided by the official does not package the libclang DLL, so you still need to manually configure the LLVM environment on your computer, which can be a bit troublesome. However, someone in the community has provided a packaged version on PyPI: <a href="https://pypi.org/project/libclang/"  target="_blank">libclang</a>.</p>
+<p>In addition to C++ interfaces, the official also provides a C interface called <a href="https://clang.llvm.org/doxygen/group__CINDEX.html"  target="_blank" rel="noreferrer">libclang</a>, which is not only relatively simple to use but also quite stable. The only drawback is that it cannot obtain the complete C++ Abstract Syntax Tree (AST), but given that the complete syntax tree of C++ is extremely complex, often we only need a small part of the information, so this issue can usually be ignored unless you really have such a requirement.</p>
+<p>If you want to use libclang, you need to install LLVM and Clang first. On the <a href="https://github.com/llvm/llvm-project/releases"  target="_blank" rel="noreferrer">LLVM Release</a> page, there are several pre-release binary packages available for download. If you have customization needs, please refer to the <a href="https://llvm.org/docs/GettingStarted.html#id4"  target="_blank" rel="noreferrer">Getting Started</a> page for manual compilation. After installation, simply link the <code>libclang.dll</code> from the <code>llvm/lib</code> directory to your program and include the <code>clang-c/Index.h</code> header file from the <code>llvm/include</code> directory to use it.</p>
+<p>However, since C language lacks some high-level abstractions, even manipulating strings can be cumbersome. If used on a large scale, we need to encapsulate a layer in C++ ourselves. Fortunately, the official also provides a Python binding based on this C interface, namely the <a href="https://pypi.org/project/clang/"  target="_blank" rel="noreferrer">clang</a> package, which makes it more convenient to use. However, the Python binding provided by the official does not package the libclang DLL, so you still need to manually configure the LLVM environment on your computer, which can be a bit troublesome. However, someone in the community has provided a packaged version on PyPI: <a href="https://pypi.org/project/libclang/"  target="_blank" rel="noreferrer">libclang</a>.</p>
 <p>So if you want to use libclang to obtain the C++ syntax tree, you just need</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install libclang</span></span></code></pre></div></div>
-<p>No additional steps are required. This article is based on this Python binding version. The C version API and the Python version API are basically identical. If you find Python performance insufficient, you can also refer to this tutorial to write C version code. Additionally, the official package does not provide type hints, so writing in Python lacks code completion and is not comfortable to use. I have added a type hint <a href="https://github.com/16bit-ykiko/about-me/blob/main/code/cindex.pyi"  target="_blank">cindex.pyi</a>, which can be downloaded and placed in the same folder to enable code hints.</p>
+<p>No additional steps are required. This article is based on this Python binding version. The C version API and the Python version API are basically identical. If you find Python performance insufficient, you can also refer to this tutorial to write C version code. Additionally, the official package does not provide type hints, so writing in Python lacks code completion and is not comfortable to use. I have added a type hint <a href="https://github.com/16bit-ykiko/about-me/blob/main/code/cindex.pyi"  target="_blank" rel="noreferrer">cindex.pyi</a>, which can be downloaded and placed in the same folder to enable code hints.</p>
 
 <h2 class="relative group">Quick Start
     <div id="quick-start" class="anchor"></div>
@@ -1396,7 +1394,7 @@
     </span>
     
 </h2>
-<p>Note, this article assumes that the reader has some understanding of syntax trees and will not introduce them in detail here. If you don&rsquo;t know what a syntax tree is, you can take a look at <a href="https://16bit-ykiko.github.io/about-me/670190357"  target="_blank">Why C/C++ Compilers Do Not Retain Meta Information</a>. Below is an introduction to some commonly used types in cindex</p>
+<p>Note, this article assumes that the reader has some understanding of syntax trees and will not introduce them in detail here. If you don&rsquo;t know what a syntax tree is, you can take a look at <a href="https://16bit-ykiko.github.io/about-me/670190357"  target="_blank" rel="noreferrer">Why C/C++ Compilers Do Not Retain Meta Information</a>. Below is an introduction to some commonly used types in cindex</p>
 
 <h3 class="relative group">Cursor
     <div id="cursor" class="anchor"></div>

@@ -125,8 +125,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1052,10 +1052,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1219,7 +1218,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1371,7 +1369,7 @@
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="nf">REPEAT</span><span class="p">(</span><span class="s">&#34;Hello world &#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>Here, we mainly use a feature in C language where <code>&quot;a&quot;&quot;b&quot;</code> is equivalent to <code>&quot;ab&quot;</code>. Then, through macro expansion, <code>5*5*4</code> exactly one hundred times, we easily complete this task. Of course, the macros in C language are essentially just token replacements and do not allow users to obtain the token stream for input analysis, so their functionality is very limited. Nevertheless, there are still some interesting uses. Those interested can read this article <a href="https://zhuanlan.zhihu.com/p/152354031"  target="_blank">The Art of Macro Programming in C/C++</a>. Of course, macros are not unique to C language; other programming languages also have them and can support stronger features. For example, the flexibility of macros in Rust is much stronger than in C language, mainly because Rust allows you to analyze the input token stream, rather than simply performing replacements. You can generate different code based on different input tokens. Even more, macros in Lisp are super flexible.</p>
+<p>Here, we mainly use a feature in C language where <code>&quot;a&quot;&quot;b&quot;</code> is equivalent to <code>&quot;ab&quot;</code>. Then, through macro expansion, <code>5*5*4</code> exactly one hundred times, we easily complete this task. Of course, the macros in C language are essentially just token replacements and do not allow users to obtain the token stream for input analysis, so their functionality is very limited. Nevertheless, there are still some interesting uses. Those interested can read this article <a href="https://zhuanlan.zhihu.com/p/152354031"  target="_blank" rel="noreferrer">The Art of Macro Programming in C/C++</a>. Of course, macros are not unique to C language; other programming languages also have them and can support stronger features. For example, the flexibility of macros in Rust is much stronger than in C language, mainly because Rust allows you to analyze the input token stream, rather than simply performing replacements. You can generate different code based on different input tokens. Even more, macros in Lisp are super flexible.</p>
 
 <h3 class="relative group">Generics/Templates
     <div id="genericstemplates" class="anchor"></div>
@@ -1431,7 +1429,7 @@
 </span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;hello.c&#34;</span><span class="p">,</span> <span class="s2">&#34;w&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">code</span><span class="p">)</span></span></span></code></pre></div></div>
 <p>This way, we generate the above source file. Of course, this is just the simplest application. Or we can use <code>Protocol Buffer</code> to automatically generate serialization and deserialization code. Or we can obtain information from the <code>AST</code>, and even the type&rsquo;s meta-information can be generated by the code generator. The principle of such programs is simple, just string concatenation, and their upper limit depends entirely on how your code is written.</p>
-<p>But more often, language built-in features are more convenient to use. Using external code generators can complicate the compilation process. However, some languages have made this feature a built-in feature of the language, such as <code>C#</code>&rsquo;s <a href="https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/source-generators-overview"  target="_blank">code generation</a>.</p>
+<p>But more often, language built-in features are more convenient to use. Using external code generators can complicate the compilation process. However, some languages have made this feature a built-in feature of the language, such as <code>C#</code>&rsquo;s <a href="https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/source-generators-overview"  target="_blank" rel="noreferrer">code generation</a>.</p>
 
 <h2 class="relative group">Runtime Code Generation
     <div id="runtime-code-generation" class="anchor"></div>

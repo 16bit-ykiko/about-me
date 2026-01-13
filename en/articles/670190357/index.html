@@ -125,8 +125,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1052,10 +1052,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1213,7 +1212,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1443,7 +1441,7 @@
 </span></span><span class="line"><span class="cl">    <span class="n">point</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">point</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>The size of a structure can generally be calculated from its members, often considering memory alignment, and is determined by the compiler. For example, <a href="https://learn.microsoft.com/en-us/cpp/c-language/storage-and-alignment-of-structures?view=msvc-170"  target="_blank">msvc</a>. But in any case, the size of the structure is known at compile time, and we can also obtain the size of a type or variable through <code>sizeof</code>. Therefore, the <code>Point point</code> variable definition here is straightforward: the type size is known, and memory is allocated on the stack.</p>
+<p>The size of a structure can generally be calculated from its members, often considering memory alignment, and is determined by the compiler. For example, <a href="https://learn.microsoft.com/en-us/cpp/c-language/storage-and-alignment-of-structures?view=msvc-170"  target="_blank" rel="noreferrer">msvc</a>. But in any case, the size of the structure is known at compile time, and we can also obtain the size of a type or variable through <code>sizeof</code>. Therefore, the <code>Point point</code> variable definition here is straightforward: the type size is known, and memory is allocated on the stack.</p>
 <p>Now, let&rsquo;s focus on structure member access. In fact, <code>C</code> has a macro that can obtain the offset of a structure member relative to the structure&rsquo;s starting address, called <code>offsetof</code> (even if we can&rsquo;t obtain it, the compiler internally calculates the field offsets, so the offset information is always known to the compiler). For example, here <code>offsetof(Point, x)</code> is <code>0</code>, and <code>offsetof(Point, y)</code> is <code>4</code>. Therefore, the above code can be understood as:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1515,7 +1513,7 @@
 </span></span><span class="line"><span class="cl">      <span class="o">|-</span><span class="n">MemberExpr</span> <span class="mh">0x2103e866bf8</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">11</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="n">lvalue</span> <span class="p">.</span><span class="n">y</span> <span class="mh">0x2103e8661f0</span>
 </span></span><span class="line"><span class="cl">      <span class="o">|</span> <span class="err">`</span><span class="o">-</span><span class="n">DeclRefExpr</span> <span class="mh">0x2103e866bd8</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">5</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="n">Point</span><span class="sc">&#39;:&#39;</span><span class="n">Point</span><span class="err">&#39;</span> <span class="n">lvalue</span> <span class="n">Var</span> <span class="mh">0x2103e866410</span> <span class="err">&#39;</span><span class="n">point</span><span class="sc">&#39; &#39;</span><span class="n">Point</span><span class="sc">&#39;:&#39;</span><span class="n">Point</span><span class="err">&#39;</span>
 </span></span><span class="line"><span class="cl">      <span class="err">`</span><span class="o">-</span><span class="n">IntegerLiteral</span> <span class="mh">0x2103e866c28</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">15</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="mi">2</span></span></span></code></pre></div></div>
-<p>Alternatively, if you have the <code>clangd</code> plugin installed in <code>vscode</code>, you can right-click on a block of code and select <code>show AST</code> to view the <code>ast</code> of that code snippet. You can see that the source code content is indeed presented to us in a tree structure. Since it is a tree, we can freely traverse the tree nodes and filter to obtain the information we want. The above two examples are visual outputs. Typically, there are also direct code interfaces to obtain this information. For example, <code>Python</code> has a built-in <code>ast</code> module to obtain it, and <code>C++</code> generally uses <code>clang</code>-related tools to obtain this content. If you want to know how to use <code>clang</code> tools specifically, you can refer to the article: <a href="https://www.ykiko.me/zh-cn/articles/669360731"  target="_blank">Use clang tools to freely control C++ code!</a></p>
+<p>Alternatively, if you have the <code>clangd</code> plugin installed in <code>vscode</code>, you can right-click on a block of code and select <code>show AST</code> to view the <code>ast</code> of that code snippet. You can see that the source code content is indeed presented to us in a tree structure. Since it is a tree, we can freely traverse the tree nodes and filter to obtain the information we want. The above two examples are visual outputs. Typically, there are also direct code interfaces to obtain this information. For example, <code>Python</code> has a built-in <code>ast</code> module to obtain it, and <code>C++</code> generally uses <code>clang</code>-related tools to obtain this content. If you want to know how to use <code>clang</code> tools specifically, you can refer to the article: <a href="https://www.ykiko.me/zh-cn/articles/669360731"  target="_blank" rel="noreferrer">Use clang tools to freely control C++ code!</a></p>
 <p>If you are curious about how the compiler transforms source code into an <code>ast</code>, you can learn about the front-end content of compilation principles.</p>
 
 <h2 class="relative group">How to Store This Information?

@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1047,10 +1047,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1192,7 +1191,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1242,8 +1240,8 @@
     </span>
     
 </h2>
-<p>这一小节介绍的内容已经有人提前封装好了，可以直接使用 <a href="https://github.com/Neargye/magic_enum"  target="_blank">magic enum</a> 这个库。下面主要是对这个库的原理进行解析，为了方便展示，将用 C++20 实现，实际上 C++17 就可以。</p>
-<p>在三大主流编译器中，有一些特殊<strong>宏变量</strong>。GCC 和 Clang 中的<code>__PRETTY_FUNCTION__</code>，MSVC 中的<code>__FUNCSIG__</code>。这几个宏变量会在<strong>编译期间被替换成函数的签名</strong>，如果该函数是模板函数则会将模板实例化的信息也输出（也可以使用 C++20 加入标准的 <a href="https://en.cppreference.com/w/cpp/utility/source_location/function_name"  target="_blank">source_location</a>，它具有和这些宏类似的效果）</p>
+<p>这一小节介绍的内容已经有人提前封装好了，可以直接使用 <a href="https://github.com/Neargye/magic_enum"  target="_blank" rel="noreferrer">magic enum</a> 这个库。下面主要是对这个库的原理进行解析，为了方便展示，将用 C++20 实现，实际上 C++17 就可以。</p>
+<p>在三大主流编译器中，有一些特殊<strong>宏变量</strong>。GCC 和 Clang 中的<code>__PRETTY_FUNCTION__</code>，MSVC 中的<code>__FUNCSIG__</code>。这几个宏变量会在<strong>编译期间被替换成函数的签名</strong>，如果该函数是模板函数则会将模板实例化的信息也输出（也可以使用 C++20 加入标准的 <a href="https://en.cppreference.com/w/cpp/utility/source_location/function_name"  target="_blank" rel="noreferrer">source_location</a>，它具有和这些宏类似的效果）</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">print_fn</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#if __GNUC__ || __clang__
@@ -1358,7 +1356,7 @@
     </span>
     
 </h2>
-<p>既然手写字符串转枚举很麻烦，那么写个脚本生成代码不就行了？的确如此，我们可以使用 libclang 的 python bind 轻松的完成这项工作。具体如何使用这个工具，可以参考 <a href="https://www.ykiko.me/zh-cn/articles/669360731"  target="_blank">使用 clang 工具自由的支配 C++ 代码吧</a>，下面只展示实现效果的代码</p>
+<p>既然手写字符串转枚举很麻烦，那么写个脚本生成代码不就行了？的确如此，我们可以使用 libclang 的 python bind 轻松的完成这项工作。具体如何使用这个工具，可以参考 <a href="https://www.ykiko.me/zh-cn/articles/669360731"  target="_blank" rel="noreferrer">使用 clang 工具自由的支配 C++ 代码吧</a>，下面只展示实现效果的代码</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">clang.cindex</span> <span class="k">as</span> <span class="nn">CX</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">generate_enum_to_string</span><span class="p">(</span><span class="n">enum</span><span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">Cursor</span><span class="p">):</span>
@@ -1431,7 +1429,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;Color.def&#34;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>这样的话，只要在<code>def</code>文件里面进行相关的增加和修改就行了。之后如果要遍历<code>enum</code>什么的，也可以直接定义一个宏来生成代码就行了，非常方便。事实上，对于大数量的枚举，有很多开源项目都采取这种方案。例如 clang 在定义<code>TokenKind</code>的时候，就是这么做的，相关的代码请参考  <a href="https://github.com/stuartcarnie/clang/blob/master/include/clang/Basic/TokenKinds.def"  target="_blank">Token.def</a>。由于 clang 要适配多种语言前端，最后总计的<code>TokenKind</code>有几百个之多。如果不这样做，进行<code>Token</code>的增加和修改会十分困难。</p>
+<p>这样的话，只要在<code>def</code>文件里面进行相关的增加和修改就行了。之后如果要遍历<code>enum</code>什么的，也可以直接定义一个宏来生成代码就行了，非常方便。事实上，对于大数量的枚举，有很多开源项目都采取这种方案。例如 clang 在定义<code>TokenKind</code>的时候，就是这么做的，相关的代码请参考  <a href="https://github.com/stuartcarnie/clang/blob/master/include/clang/Basic/TokenKinds.def"  target="_blank" rel="noreferrer">Token.def</a>。由于 clang 要适配多种语言前端，最后总计的<code>TokenKind</code>有几百个之多。如果不这样做，进行<code>Token</code>的增加和修改会十分困难。</p>
 
 <h2 class="relative group">总结
     <div id="总结" class="anchor"></div>
@@ -1447,7 +1445,7 @@
 <li>非侵入式且枚举数量较多，编译速度很重要，那就使用外部代码生成</li>
 <li>侵入式，可以直接使用宏</li>
 </ul>
-<p>年年月月盼反射，还是不知道什么时候才能进入标准呢。想要提前了解 C++ 静态反射的小伙伴，可以看 <a href="https://www.ykiko.me/zh-cn/articles/661692275"  target="_blank">C++26 静态反射提案解析</a>。或者还不知道反射是什么的小伙伴，可以参考这篇文章的内容：<a href="https://www.ykiko.me/zh-cn/articles/669358870"  target="_blank">写给 C++ 程序员的反射教程</a>。</p>
+<p>年年月月盼反射，还是不知道什么时候才能进入标准呢。想要提前了解 C++ 静态反射的小伙伴，可以看 <a href="https://www.ykiko.me/zh-cn/articles/661692275"  target="_blank" rel="noreferrer">C++26 静态反射提案解析</a>。或者还不知道反射是什么的小伙伴，可以参考这篇文章的内容：<a href="https://www.ykiko.me/zh-cn/articles/669358870"  target="_blank" rel="noreferrer">写给 C++ 程序员的反射教程</a>。</p>
 
           
           

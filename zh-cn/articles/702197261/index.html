@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1047,10 +1047,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1194,7 +1193,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1204,7 +1202,7 @@
         
 
         <div class="article-content max-w-prose mb-20">
-          <p>参加了 <a href="https://summerofcode.withgoogle.com/programs/2024/projects/Ji2Mi97o"  target="_blank">Google Summer of Code 2024</a>，主要的任务就是为一个 <a href="https://pocketpy.dev/"  target="_blank">Python 解释器</a> 实现 <a href="https://github.com/pybind/pybind11"  target="_blank">pybind11</a> 的兼容性接口。说是实现兼容性接口，实际上相当于重写 pybind11 了，所以最近一直在读它的源码。</p>
+          <p>参加了 <a href="https://summerofcode.withgoogle.com/programs/2024/projects/Ji2Mi97o"  target="_blank" rel="noreferrer">Google Summer of Code 2024</a>，主要的任务就是为一个 <a href="https://pocketpy.dev/"  target="_blank" rel="noreferrer">Python 解释器</a> 实现 <a href="https://github.com/pybind/pybind11"  target="_blank" rel="noreferrer">pybind11</a> 的兼容性接口。说是实现兼容性接口，实际上相当于重写 pybind11 了，所以最近一直在读它的源码。</p>
 <blockquote><p>可能有的读者不太清楚 pybind11 是什么，简单来说 pybind11 是一个中间件，让你可以方便进行 Python 与 C++ 代码之间的交互。比如在 C++ 中内嵌 Python 解释器，或者把 C++ 代码编译成动态库以供 Python 调用。具体的内容还请见官方文档。</p>
 </blockquote><p>最近基本把框架的大体的运作逻辑理清了。现在回过头来看，pybind11 不愧是 C++ 和 Python 绑定的事实标准，有很多巧妙的设计。它这套交互逻辑也完全可以套用到 C++ 和其它有 GC 的语言的交互上，比如 JS 和 C#（虽然现在并没有 jsbind11 和 csharpbind11 之类的东西）。最近可能我会写一系列相关的文章，去掉一些繁琐的细节，介绍其中一些共用的思想。</p>
 <p>这篇文章主要是讨论 pybind11 对象设计一些有意思的点。</p>
@@ -1454,7 +1452,7 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">m_ptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>这样并不涉及到类型擦除，只是需要子类暴露出一个接口，所以理所应当的我们可以使用 <a href="https://en.cppreference.com/w/cpp/language/crtp"  target="_blank">CRTP</a> 来去虚化</p>
+<p>这样并不涉及到类型擦除，只是需要子类暴露出一个接口，所以理所应当的我们可以使用 <a href="https://en.cppreference.com/w/cpp/language/crtp"  target="_blank" rel="noreferrer">CRTP</a> 来去虚化</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Derived</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">object_api</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>

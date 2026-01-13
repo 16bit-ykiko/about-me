@@ -125,8 +125,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1052,10 +1052,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1227,7 +1226,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1397,7 +1395,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">find_first_of</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span></span></span></code></pre></div></div>
-<p>由于 type 和 higher kind type 只能是 template arguments，所以还是只能通过<strong>模板递归匹配</strong>处理它们。要是我们能像 value 一样操作它们就好了，这样的话 constexpr 函数也能处理它们了。但是 C++ 又不是像 Zig 那样的语言，type is value。怎么办呢？没关系，我们把 type 映射到 value 不就行了？实现 type as value 的效果。在静态反射加入之前，我们可以通过一些 trick 来实现这个效果。可以在编译期把类型映射到类型名，于是只要对类型名进行计算就好了。关于如何进行这种映射，可以参考 <a href="https://www.ykiko.me/zh-cn/articles/680412313"  target="_blank">C++ 中如何优雅进行 enum 到 string 的转换</a>。</p>
+<p>由于 type 和 higher kind type 只能是 template arguments，所以还是只能通过<strong>模板递归匹配</strong>处理它们。要是我们能像 value 一样操作它们就好了，这样的话 constexpr 函数也能处理它们了。但是 C++ 又不是像 Zig 那样的语言，type is value。怎么办呢？没关系，我们把 type 映射到 value 不就行了？实现 type as value 的效果。在静态反射加入之前，我们可以通过一些 trick 来实现这个效果。可以在编译期把类型映射到类型名，于是只要对类型名进行计算就好了。关于如何进行这种映射，可以参考 <a href="https://www.ykiko.me/zh-cn/articles/680412313"  target="_blank" rel="noreferrer">C++ 中如何优雅进行 enum 到 string 的转换</a>。</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_list</span><span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
@@ -1722,18 +1720,18 @@
 <p>花费了很长的篇幅介绍 C++ 的 static reflection。其实我非常喜欢 C++ 的编译期计算，对它的发展史也非常感兴趣。C++ 的编译期计算是一步步摸索出来的，有很多富有智慧的大师提出他们的独特想法，让不可能的事情变成现实。从 C++03 的变态模板元，到 C++11 的<code>constexpr</code>变量，到 C++14 ~23 对<code>constexpr</code>函数中的限制逐渐放开，把越来越多的操作移到编译期。再到如今的 static reflection，C++ 正在逐步脱离模板元的魔爪。之前那些老旧的模板元写法全都可以淘汰掉了！！！如果你没写过以前的老式模板元代码，大概是体会不到它有多可怕的。</p>
 <p>为了让静态反射能早点进入标准，作者团队特地选了原本提案的一部分核心子集。希望如作者所愿，静态反射能在 C++26 进入标准！当然，核心部分先进入，之后再补充更多更加有用的功能，所以这绝不是反射的全部内容。本文只是对该提案的粗略解读和翻译，想要详细了解的还请阅读下方链接中的提案，相关进展持续更新中：</p>
 <ul>
-<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r0.html"  target="_blank">Reflection for C++26 - P2996R0</a></li>
-<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r1.html"  target="_blank">Reflection for C++26 - P2996R1</a></li>
-<li><a href="https://www.open-std.org/JTC1/SC22/WG21/docs/papers/2024/p2996r2.html"  target="_blank">Reflection for C++26 - P2996R2</a></li>
-<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2996r3.html"  target="_blank">Reflection for C++26 - P2996R3</a></li>
-<li><a href="https://wg21.link/P2996R4"  target="_blank">Reflection for C++26 - P2996R4</a></li>
+<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r0.html"  target="_blank" rel="noreferrer">Reflection for C++26 - P2996R0</a></li>
+<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2996r1.html"  target="_blank" rel="noreferrer">Reflection for C++26 - P2996R1</a></li>
+<li><a href="https://www.open-std.org/JTC1/SC22/WG21/docs/papers/2024/p2996r2.html"  target="_blank" rel="noreferrer">Reflection for C++26 - P2996R2</a></li>
+<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2996r3.html"  target="_blank" rel="noreferrer">Reflection for C++26 - P2996R3</a></li>
+<li><a href="https://wg21.link/P2996R4"  target="_blank" rel="noreferrer">Reflection for C++26 - P2996R4</a></li>
 </ul>
 <p>实验编译器：</p>
 <ul>
-<li>在线尝试： <a href="https://godbolt.org/z/13anqE1Pa"  target="_blank">https://godbolt.org/z/13anqE1Pa</a></li>
-<li>本地构建： <a href="https://github.com/bloomberg/clang-p2996.git"  target="_blank">clang-p2996</a></li>
+<li>在线尝试： <a href="https://godbolt.org/z/13anqE1Pa"  target="_blank" rel="noreferrer">https://godbolt.org/z/13anqE1Pa</a></li>
+<li>本地构建： <a href="https://github.com/bloomberg/clang-p2996.git"  target="_blank" rel="noreferrer">clang-p2996</a></li>
 </ul>
-<p>反射系列文章：<a href="https://www.ykiko.me/zh-cn/articles/669358870"  target="_blank">写给 C++ 程序员的反射教程</a></p>
+<p>反射系列文章：<a href="https://www.ykiko.me/zh-cn/articles/669358870"  target="_blank" rel="noreferrer">写给 C++ 程序员的反射教程</a></p>
 
           
           

@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1047,10 +1047,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1216,7 +1215,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1249,8 +1247,8 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          <p>距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 <a href="https://github.com/clice-project/clice"  target="_blank">clice</a> —— 一个全新的 C++ 语言服务器 (language server)。</p>
-<p>可能有的读者对语言服务器这个概念有些陌生。不过你肯定使用过 IDE，比如 Visual Studio 或者 CLion，体验过这些 IDE 提供的代码补全、跳转、重构等功能。在传统的 IDE 中，上述特性是由 IDE 的插件或者内置功能实现的，这种方式导致每种语言需要为每个编辑器单独开发支持，维护成本很高。而当初微软在发布 Visual Studio Code 时，希望能解决这个问题，于是提出了 <a href="https://microsoft.github.io/language-server-protocol/"  target="_blank">LSP(Language Server Protocol)</a> 这个概念。LSP 提出了标准的客户端-服务器模型。语言功能由一个独立的语言服务器提供，VSCode 只需要实现一个通用的客户端，与语言服务器通信即可。这种方法解耦了编辑器和语言支持，使得 VSCode 能轻松支持多种语言。例如，你想要查看一个<code>method</code>的<code>implementation</code>，那么你的编辑器就会向语言服务器发送一个<code>go to implementation</code>的请求，请求的具体内容呢，可能就是文件的路径和当前光标在源文件中的位置。语言服务器会对这个请求进行处理，同样返回给你一个文件位置一个坐标，编辑器从而根据这个结果打开对应的文件进行跳转。</p>
+          <p>距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 <a href="https://github.com/clice-project/clice"  target="_blank" rel="noreferrer">clice</a> —— 一个全新的 C++ 语言服务器 (language server)。</p>
+<p>可能有的读者对语言服务器这个概念有些陌生。不过你肯定使用过 IDE，比如 Visual Studio 或者 CLion，体验过这些 IDE 提供的代码补全、跳转、重构等功能。在传统的 IDE 中，上述特性是由 IDE 的插件或者内置功能实现的，这种方式导致每种语言需要为每个编辑器单独开发支持，维护成本很高。而当初微软在发布 Visual Studio Code 时，希望能解决这个问题，于是提出了 <a href="https://microsoft.github.io/language-server-protocol/"  target="_blank" rel="noreferrer">LSP(Language Server Protocol)</a> 这个概念。LSP 提出了标准的客户端-服务器模型。语言功能由一个独立的语言服务器提供，VSCode 只需要实现一个通用的客户端，与语言服务器通信即可。这种方法解耦了编辑器和语言支持，使得 VSCode 能轻松支持多种语言。例如，你想要查看一个<code>method</code>的<code>implementation</code>，那么你的编辑器就会向语言服务器发送一个<code>go to implementation</code>的请求，请求的具体内容呢，可能就是文件的路径和当前光标在源文件中的位置。语言服务器会对这个请求进行处理，同样返回给你一个文件位置一个坐标，编辑器从而根据这个结果打开对应的文件进行跳转。</p>
 <p>clice 就是这样一个语言服务器，用于处理 C/C++ 相关代码的请求。这个名字来源于我的头像 alice，把首字母替换为代表 C/C++ 的 c 就得到了 clice。</p>
 <p>经过了几个月的设计和开发，项目已经颇具雏形，但是预计离投入使用还需要几个月的时间来进行完善。这篇文章的主要内容是对 clice 的设计和实现进行介绍，也是我个人对于当前开发的一个阶段性总结。虽然是语言服务器相关的内容，但其实涉及到大量 C/C++ 编译相关知识的科普，感兴趣的读者可以继续往下阅读。</p>
 <p>同时，如果你有任何功能上的请求/建议，欢迎评论区留言讨论。在下一阶段的开发中，我会尽可能考虑它们。</p>
@@ -1267,10 +1265,10 @@
 <p>那么第一个问题，为什么要去开发一个新的语言服务器？重复造轮子有必要吗？</p>
 <p>这个问题值得去认真回答。在这个项目之前，我自己也编写过或大或小的很多项目。但它们绝大多数都是 toy project，只是为了验证某个想法或者个人学习而编写的，并没有解决任何的实际问题。clice 并不是这样的，它确实打算解决现有的问题（具体的问题后面再说），而不是为了重写而重写。</p>
 <p>在今年年初，我想参与到 llvm 项目的开发中。我想从我较为熟悉的地方，C++，也就是 clang 开始。但是，没需求的话，总不能干瞪源码吧。一般这种时候的正常流程是从一些 first issue 开始，一点点熟悉项目。但是我觉得这样很无聊，一上来我就想来干点大的，比如实现某个 C++ 新标准的特性。但是，我发现这里几乎没有我能插手的地方，新特性的实现几乎总是由几位 clang 的核心开发者完成。好吧，既然这里没什么机会，那就看看别的地方吧。注意力自然而然的转移到了 clangd 身上去了，毕竟我主要使用 vscode 进行开发，而 vscode 上最好用的 C++ 语言服务器就是 clangd 了。</p>
-<p>当时我对 clangd 一无所知，只是发现它似乎对关键字的高亮渲染并不正确。然后呢我就开始一边阅读 clangd 的源码，一边翻翻 clangd 数量众多的 issue 看看有没有什么我能解决的。在翻了几百个 issue 过后，我发现这里的问题还真不少。当时我特别感兴趣的是一个有关模板内代码补全的 <a href="https://github.com/clangd/clangd/issues/443"  target="_blank">issue</a>，为什么我对这个感兴趣呢？熟悉我的读者可能知道，我算是一个资深的元编程玩家了，在这之前也写过很多相关的文章。那很自然的，我不仅仅好奇模板元它本身是如何运作的，也好奇 clang 作为一个编译器是如何实现相关的特性的，这个 issue 对我来说是一个很好的切入点。在花了几个星期摸索原型实现后，我初步解决了那个 issue，<strong>但是，这时我发现根本没有人可以 review 相关的代码</strong>！</p>
-<p>一番调查过后，我发现 clangd 目前的情况很糟糕。让我们来捋一捋时间线，clangd 最初只是 llvm 内部一个简单的小项目，在功能性和易用性上都不出色。正如 MaskRay 在 <a href="https://maskray.me/blog/2017-12-03-c&#43;&#43;-language-server-cquery"  target="_blank">ccls</a> 中的这篇博客中所说，clangd 在当时只能处理单个编译单元，跨编译单元的请求无法处理。这篇博客发布的时间是 2017 年，这也是为什么 MaskRay 选择编写 ccls 的一个原因。ccls 也是一个 C/C++ 语言服务器，在当时那个节点上是强于 clangd 的。但是，后来，Google 开始派人对 clangd 进行改进以满足他们内部的大型代码库需求。与此同时，LSP 标准的内容也在不断地扩充，clangd 在不断地跟进新标准的内容，但是 ccls 的作者似乎逐渐忙于其它事情没有太多的时间去维护 ccls。于是最后，总体上 clangd 已经超越了 ccls。事情的转折发生在大概 2023 年，clangd 对 Google 内部来说，似乎已经达到了一个高度可用的状态，原先负责 clangd 的几位员工也被调离去做其他事情了。目前来说，clangd 的 issue 主要只有  <a href="https://github.com/HighCommander4"  target="_blank">HighCommander4</a> 一个人在负责处理，纯粹出于热爱，并没有被任何人雇佣。由于并没有被专门雇佣来维护 clangd，所以他只能在有限的空闲时间来处理 issue，而且也仅限于答疑和十分有限的 review。正如他在这条 <a href="https://github.com/clangd/clangd/issues/1690#issuecomment-1619735578"  target="_blank">评论</a> 中提到的一样：</p>
+<p>当时我对 clangd 一无所知，只是发现它似乎对关键字的高亮渲染并不正确。然后呢我就开始一边阅读 clangd 的源码，一边翻翻 clangd 数量众多的 issue 看看有没有什么我能解决的。在翻了几百个 issue 过后，我发现这里的问题还真不少。当时我特别感兴趣的是一个有关模板内代码补全的 <a href="https://github.com/clangd/clangd/issues/443"  target="_blank" rel="noreferrer">issue</a>，为什么我对这个感兴趣呢？熟悉我的读者可能知道，我算是一个资深的元编程玩家了，在这之前也写过很多相关的文章。那很自然的，我不仅仅好奇模板元它本身是如何运作的，也好奇 clang 作为一个编译器是如何实现相关的特性的，这个 issue 对我来说是一个很好的切入点。在花了几个星期摸索原型实现后，我初步解决了那个 issue，<strong>但是，这时我发现根本没有人可以 review 相关的代码</strong>！</p>
+<p>一番调查过后，我发现 clangd 目前的情况很糟糕。让我们来捋一捋时间线，clangd 最初只是 llvm 内部一个简单的小项目，在功能性和易用性上都不出色。正如 MaskRay 在 <a href="https://maskray.me/blog/2017-12-03-c&#43;&#43;-language-server-cquery"  target="_blank" rel="noreferrer">ccls</a> 中的这篇博客中所说，clangd 在当时只能处理单个编译单元，跨编译单元的请求无法处理。这篇博客发布的时间是 2017 年，这也是为什么 MaskRay 选择编写 ccls 的一个原因。ccls 也是一个 C/C++ 语言服务器，在当时那个节点上是强于 clangd 的。但是，后来，Google 开始派人对 clangd 进行改进以满足他们内部的大型代码库需求。与此同时，LSP 标准的内容也在不断地扩充，clangd 在不断地跟进新标准的内容，但是 ccls 的作者似乎逐渐忙于其它事情没有太多的时间去维护 ccls。于是最后，总体上 clangd 已经超越了 ccls。事情的转折发生在大概 2023 年，clangd 对 Google 内部来说，似乎已经达到了一个高度可用的状态，原先负责 clangd 的几位员工也被调离去做其他事情了。目前来说，clangd 的 issue 主要只有  <a href="https://github.com/HighCommander4"  target="_blank" rel="noreferrer">HighCommander4</a> 一个人在负责处理，纯粹出于热爱，并没有被任何人雇佣。由于并没有被专门雇佣来维护 clangd，所以他只能在有限的空闲时间来处理 issue，而且也仅限于答疑和十分有限的 review。正如他在这条 <a href="https://github.com/clangd/clangd/issues/1690#issuecomment-1619735578"  target="_blank" rel="noreferrer">评论</a> 中提到的一样：</p>
 <blockquote><p>The other part of the reason is lack of resources to pursue the ideas we do have, such as the idea mentioned above of trying to shift more of the burden to disk usage through more aggressive preamble caching. I&rsquo;m a casual contributor, and the limited time I have to spend on clangd is mostly taken up by answering questions, some code reviews, and the occasional small fix / improvement; I haven&rsquo;t had the bandwidth to drive this type of performance-related experimentation.<br><br>另一部分原因是缺乏资源去实践我们已有的一些想法，例如上面提到的通过更积极的预编译缓存，将更多的负担转移到磁盘使用上的想法。我只是一个非正式的贡献者，我能投入到 clangd 上的时间非常有限，主要用于回答问题、进行一些代码审查以及偶尔的小修复或改进；我没有足够的精力来推动这种与性能相关的实验。</p>
-</blockquote><p>既然如此，那么像为 clangd <a href="https://github.com/llvm/llvm-project/pull/66462"  target="_blank">初步支持 C++20 module</a> 这样的大型 PR 被拖了将近一年也就不奇怪了。意识到这个现状之后，我萌生了自己编写一个语言服务器的想法。我估计了一下项目大小，去除测试代码，大概 2w 行就能完成，是一个人花一段时间能完成的工作量，而且也有先例，例如 ccls 和 rust analyzer。另外一点就是 clangd 的代码已经上了年代了，尽管有非常多的注释，但是相关的逻辑仍然很绕，进行大范围修改所花费的时间可能还不如重写来得快。</p>
+</blockquote><p>既然如此，那么像为 clangd <a href="https://github.com/llvm/llvm-project/pull/66462"  target="_blank" rel="noreferrer">初步支持 C++20 module</a> 这样的大型 PR 被拖了将近一年也就不奇怪了。意识到这个现状之后，我萌生了自己编写一个语言服务器的想法。我估计了一下项目大小，去除测试代码，大概 2w 行就能完成，是一个人花一段时间能完成的工作量，而且也有先例，例如 ccls 和 rust analyzer。另外一点就是 clangd 的代码已经上了年代了，尽管有非常多的注释，但是相关的逻辑仍然很绕，进行大范围修改所花费的时间可能还不如重写来得快。</p>
 <p>于是说干就干，我对 clangd 的几百个 issue 进行了分类，看看有没有一些问题是因为 clangd 一开始的架构设计错误而导致很难解决，然后被搁置的。如果有的话，是否能在重新设计的时候就考虑这个问题来解决呢？我发现，确实有一些！于是接下来的时间里，我花了大概两个月的时间来学习研究 clang 里面相关的机制，摸索相关问题的解决方法，探索原型实现，在确定相关的问题基本都可以解决之后，正式开始了 clice 的开发。</p>
 
 <h2 class="relative group">Important improvement
@@ -1305,7 +1303,7 @@
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">vec2</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">vec2</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="o">^</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>从用户的角度来说，这里也应该提供补全，毕竟<code>vec2[0]</code>的类型不也是<code>vector&lt;T&gt;</code>吗？和前面一个例子一样。但是 clangd 在这里却不会为你提供任何补全，问题出在哪里？根据 C++ 标准，<code>std::vector&lt;T&gt;</code>的<code>operator[]</code>返回的类型是<code>std::vector&lt;T&gt;::reference</code>，这其实是一个 <a href="https://en.cppreference.com/w/cpp/language/dependent_name"  target="_blank">dependent name</a>，它的结果似乎相当直接，就是<code>T&amp;</code>。但是 libstdc++ 中它的定义却嵌套了十几层模板，似乎是为了兼容旧标准？那为什么 clangd 不能处理这种情况呢？</p>
+<p>从用户的角度来说，这里也应该提供补全，毕竟<code>vec2[0]</code>的类型不也是<code>vector&lt;T&gt;</code>吗？和前面一个例子一样。但是 clangd 在这里却不会为你提供任何补全，问题出在哪里？根据 C++ 标准，<code>std::vector&lt;T&gt;</code>的<code>operator[]</code>返回的类型是<code>std::vector&lt;T&gt;::reference</code>，这其实是一个 <a href="https://en.cppreference.com/w/cpp/language/dependent_name"  target="_blank" rel="noreferrer">dependent name</a>，它的结果似乎相当直接，就是<code>T&amp;</code>。但是 libstdc++ 中它的定义却嵌套了十几层模板，似乎是为了兼容旧标准？那为什么 clangd 不能处理这种情况呢？</p>
 <ol>
 <li>它基于主模板假设，不考虑偏特化可能会使查找无法进行下去</li>
 <li>它只进行名称查找而不进行模板实例化，就算找到了最后的结果，也没法把它和最初的模板参数映射起来</li>
@@ -1360,7 +1358,7 @@
     </span>
     
 </h3>
-<p>C++20 引入了 <a href="https://en.cppreference.com/w/cpp/language/modules"  target="_blank">module</a> 这个新特性，用于加速编译。与传统的编译模型不同，模块单元之间可能具有依赖关系。这要求我们进行一些额外的处理，尽管为 clangd 初步支持<code>module</code>的 PR 已经合并了，但它处于相当早期的状态。</p>
+<p>C++20 引入了 <a href="https://en.cppreference.com/w/cpp/language/modules"  target="_blank" rel="noreferrer">module</a> 这个新特性，用于加速编译。与传统的编译模型不同，模块单元之间可能具有依赖关系。这要求我们进行一些额外的处理，尽管为 clangd 初步支持<code>module</code>的 PR 已经合并了，但它处于相当早期的状态。</p>
 <ol>
 <li>不同文件之间不会共享预编译的模块，这导致了模块的重复编译</li>
 <li>其它配套的 LSP 设施没有及时跟进，比如为模块名提供高亮和跳转，还有提供类似头文件的补全</li>
@@ -1420,7 +1418,7 @@
 </h3>
 <p>接下来我们来详细谈谈，clice 是如何处理某些特定的请求的。</p>
 <p>首先当用户在编辑器中打开或者更新某个文件的时候，编辑器会发送相关的通知给 clice。clice 在收到请求后，会 parse 该文件。更具体的来说，会将该文件 parse 成 AST(Abstract Syntax Tree)。由于 C++ 的语法相当复杂，靠自己手写一个 parser 是不现实的，我们和 clangd 一样选择使用 clang 提供的接口来 parse 源文件。</p>
-<p>在获取 AST 之后，对 AST 进行遍历收集我们感兴趣的信息即可。以<code>SemanticTokens</code>为例，我们需要遍历 AST 去为源码中的每个 token 添加语义信息，是<code>variable</code>还是<code>function</code>？是不是<code>const</code>？是不是<code>static</code>？等等。总之一切这些信息都可以从 AST 中获取。想要对这个有更深入理解的话，可以阅读我之前写过的一个关于 clang AST 的入门 <a href="https://www.ykiko.me/zh-cn/articles/669360731"  target="_blank">文章</a>。</p>
+<p>在获取 AST 之后，对 AST 进行遍历收集我们感兴趣的信息即可。以<code>SemanticTokens</code>为例，我们需要遍历 AST 去为源码中的每个 token 添加语义信息，是<code>variable</code>还是<code>function</code>？是不是<code>const</code>？是不是<code>static</code>？等等。总之一切这些信息都可以从 AST 中获取。想要对这个有更深入理解的话，可以阅读我之前写过的一个关于 clang AST 的入门 <a href="https://www.ykiko.me/zh-cn/articles/669360731"  target="_blank" rel="noreferrer">文章</a>。</p>
 <p>绝大多数请求都可以通过类似上述的方式实现，比较特殊的是代码补全（CodeCompletion）和签名帮助（SignatureHelper）。由于补全点的语法可能并不完整，在常规的编译流程中，如果语法节点不完整，clang 可能会直接把它当做一个错误节点，甚至整个丢掉，又或者直接 fatal error 终止编译。无论如何，都是我们不能接受的。一般来说，为了实现代码补全的功能，需要 parser 开洞进行特殊的处理。clang 也不例外，它提供了一个特殊的 code completion 模式，通过继承<code>CodeCompleteConsumer</code>并重写其中相关的方法来获取相关的信息。</p>
 <p>可以通过一个特殊的编译选项来体验这一功能：</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">-std<span class="o">=</span>c++20  -fsyntax-only -Xclang -code-completion-at<span class="o">=</span><span class="s2">&#34;example.cpp:1:3&#34;</span></span></span></code></pre></div></div>
@@ -1445,7 +1443,7 @@
 </h3>
 <p>由于用户可能频繁变更文件，如果每次都需要重新 parse 整个文件，当文件非常大的时候，parse 时间会非常慢，响应请求时间会非常长（考虑到<code>#include</code>就是粘贴复制，很容易就可以造出一个巨大的文件）。想象一下，如果写按下一个字母，过了几秒钟代码补全结果才出来，那么体验将会多么糟糕！</p>
 <p>怎么办呢？答案就是增量编译 (Incremental Compilation)。也许你在学习 cmake 等构建工具的时候听说过这个词，但是它们是有一些区别的。构建工具所指的增量编译粒度是一个文件，只重新编译有变更的文件。但显然这对我们来说是不够的，LSP 的最基本请求单位就是文件，我们需要更细粒度的增量编译。</p>
-<p>clang 提供了一种叫做 <a href="https://clang.llvm.org/docs/UsersManual.html#usersmanual-precompiled-headers"  target="_blank">Precompiled Header(PCH)</a> 的机制，可以用于将某一段代码在编译成 AST 之后序列化到磁盘上，然后在之后编译的时候进行复用。</p>
+<p>clang 提供了一种叫做 <a href="https://clang.llvm.org/docs/UsersManual.html#usersmanual-precompiled-headers"  target="_blank" rel="noreferrer">Precompiled Header(PCH)</a> 的机制，可以用于将某一段代码在编译成 AST 之后序列化到磁盘上，然后在之后编译的时候进行复用。</p>
 <p>例如</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">

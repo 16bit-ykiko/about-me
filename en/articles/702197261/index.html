@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1047,10 +1047,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1194,7 +1193,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1204,7 +1202,7 @@
         
 
         <div class="article-content max-w-prose mb-20">
-          <p>I participated in <a href="https://summerofcode.withgoogle.com/programs/2024/projects/Ji2Mi97o"  target="_blank">Google Summer of Code 2024</a>, where my main task was to implement a <a href="https://github.com/pybind/pybind11"  target="_blank">pybind11</a> compatibility interface for a <a href="https://pocketpy.dev/"  target="_blank">Python interpreter</a>. While it&rsquo;s called implementing a compatibility interface, it essentially amounts to rewriting pybind11, so I&rsquo;ve been diving deep into its source code recently.</p>
+          <p>I participated in <a href="https://summerofcode.withgoogle.com/programs/2024/projects/Ji2Mi97o"  target="_blank" rel="noreferrer">Google Summer of Code 2024</a>, where my main task was to implement a <a href="https://github.com/pybind/pybind11"  target="_blank" rel="noreferrer">pybind11</a> compatibility interface for a <a href="https://pocketpy.dev/"  target="_blank" rel="noreferrer">Python interpreter</a>. While it&rsquo;s called implementing a compatibility interface, it essentially amounts to rewriting pybind11, so I&rsquo;ve been diving deep into its source code recently.</p>
 <blockquote><p>For readers who might not be familiar with pybind11, it is essentially a middleware that facilitates seamless interaction between Python and C++ code. For instance, embedding a Python interpreter within C++ or compiling C++ code into a dynamic library for Python to call. For more details, please refer to the official documentation.</p>
 </blockquote><p>I&rsquo;ve recently managed to grasp the overall operational logic of the framework. Looking back, pybind11 truly lives up to its reputation as the de facto standard for binding C++ and Python, with many ingenious designs. Its interaction logic can also be applied to interactions between C++ and other GC languages, such as JS and C# (though there are no equivalents like jsbind11 or csharpbind11 yet). I might write a series of articles on this topic, stripping away some of the intricate details to introduce some of the shared concepts.</p>
 <p>This article mainly discusses some interesting points about object design in pybind11.</p>
@@ -1454,7 +1452,7 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">m_ptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>This doesn&rsquo;t involve type erasure; it just requires subclasses to expose an interface. Naturally, we can use <a href="https://en.cppreference.com/w/cpp/language/crtp"  target="_blank">CRTP</a> to devirtualize.</p>
+<p>This doesn&rsquo;t involve type erasure; it just requires subclasses to expose an interface. Naturally, we can use <a href="https://en.cppreference.com/w/cpp/language/crtp"  target="_blank" rel="noreferrer">CRTP</a> to devirtualize.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Derived</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">object_api</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>

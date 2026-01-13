@@ -122,8 +122,8 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1049,10 +1049,9 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1192,7 +1191,6 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1213,7 +1211,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
     </span>
     
 </h2>
-<p>First, let&rsquo;s discuss <strong>sum types</strong>, also known as <a href="https://en.wikipedia.org/wiki/Tagged_union"  target="_blank">tagged unions</a>. A sum type is a type that can hold one of several possible types.</p>
+<p>First, let&rsquo;s discuss <strong>sum types</strong>, also known as <a href="https://en.wikipedia.org/wiki/Tagged_union"  target="_blank" rel="noreferrer">tagged unions</a>. A sum type is a type that can hold one of several possible types.</p>
 <p>For example, consider the following two types:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Circle</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">radius</span><span class="p">;</span>
@@ -1232,7 +1230,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
 </span></span><span class="line"><span class="cl">        <span class="k">struct</span> <span class="nc">Rectangle</span> <span class="n">rectangle</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<blockquote><p>Here, we use a feature called <a href="https://en.cppreference.com/w/cpp/language/union#Anonymous_unions"  target="_blank">anonymous union</a>, which declares a union member of the corresponding type and injects the field names into the current scope.</p>
+<blockquote><p>Here, we use a feature called <a href="https://en.cppreference.com/w/cpp/language/union#Anonymous_unions"  target="_blank" rel="noreferrer">anonymous union</a>, which declares a union member of the corresponding type and injects the field names into the current scope.</p>
 </blockquote><p>This allows us to assign values of different types to a variable of type <code>Shape</code>, while updating the <code>type</code> to reflect the current assignment. When accessing the value, we can determine how to access it based on the <code>type</code>. For example:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">Shape</span> <span class="n">shape</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">shape</span><span class="p">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">Shape</span><span class="o">::</span><span class="n">Circle</span><span class="p">)</span> <span class="p">{</span>
@@ -1280,7 +1278,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
 </span></span><span class="line"><span class="cl">    <span class="n">settings</span><span class="p">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">Settings</span><span class="o">::</span><span class="n">Type</span><span class="o">::</span><span class="n">String</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">settings</span><span class="p">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>This code will not compile. The compiler will report an error: <code>use of deleted function Settings::Settings()</code>. Why is the constructor of <code>Settings</code> deleted? This is because the constructor of <code>std::string</code> is not trivial. When a <code>union</code> contains members of non-trivial types, the compiler cannot correctly generate constructors and destructors (it doesn&rsquo;t know which member to initialize or destruct). For more details, refer to the <a href="https://en.cppreference.com/w/cpp/language/union"  target="_blank">union</a> section on cppreference.</p>
+<p>This code will not compile. The compiler will report an error: <code>use of deleted function Settings::Settings()</code>. Why is the constructor of <code>Settings</code> deleted? This is because the constructor of <code>std::string</code> is not trivial. When a <code>union</code> contains members of non-trivial types, the compiler cannot correctly generate constructors and destructors (it doesn&rsquo;t know which member to initialize or destruct). For more details, refer to the <a href="https://en.cppreference.com/w/cpp/language/union"  target="_blank" rel="noreferrer">union</a> section on cppreference.</p>
 <p>How can we solve this? We need to define the constructor and destructor for the <code>union</code> ourselves. For example, we can define an empty constructor and destructor that do nothing:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">union</span> <span class="nc">Value</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
@@ -1295,7 +1293,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
 </span></span><span class="line"><span class="cl">    <span class="k">enum</span> <span class="k">class</span> <span class="nc">Type</span> <span class="p">{</span> <span class="n">int_</span><span class="p">,</span> <span class="n">double_</span><span class="p">,</span> <span class="n">string</span> <span class="p">}</span> <span class="n">type</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Value</span> <span class="n">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>When using this, we need to explicitly call the constructor to initialize a member using <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new"  target="_blank">placement new</a>, and similarly, we need to manually call the destructor to destroy a member.</p>
+<p>When using this, we need to explicitly call the constructor to initialize a member using <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new"  target="_blank" rel="noreferrer">placement new</a>, and similarly, we need to manually call the destructor to destroy a member.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Settings</span> <span class="n">settings</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">

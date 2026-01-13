@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1047,10 +1047,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1206,7 +1205,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1216,8 +1214,8 @@
         
 
         <div class="article-content max-w-prose mb-20">
-          <p>The Application Binary Interface, commonly referred to as ABI, is a concept that feels both familiar and alien. Familiar because it often comes up in discussions and articles, and sometimes we have to deal with compatibility issues it causes. Alien because if someone asks you what ABI is, you might find it hard to describe it in precise terms. Eventually, you might resort to quoting <a href="https://en.wikipedia.org/wiki/Application_binary_interface"  target="_blank">WIKI</a>: ABI is the interface between two binary program modules. Is there a problem with this definition? Not really, as a general description, it suffices. But it feels somewhat hollow.</p>
-<p>This situation is not uncommon in the field of Computer Science. The author previously wrote an article discussing <a href="https://www.ykiko.me/zh-cn/articles/669358870"  target="_blank">reflection</a> and encountered the same issue. At its core, CS is not a discipline that strives for rigor; many concepts lack strict definitions and are more about conventional wisdom. Therefore, instead of obsessing over definitions, let&rsquo;s focus on practical aspects and explore what these so-called binary interfaces are and what factors affect their stability.</p>
+          <p>The Application Binary Interface, commonly referred to as ABI, is a concept that feels both familiar and alien. Familiar because it often comes up in discussions and articles, and sometimes we have to deal with compatibility issues it causes. Alien because if someone asks you what ABI is, you might find it hard to describe it in precise terms. Eventually, you might resort to quoting <a href="https://en.wikipedia.org/wiki/Application_binary_interface"  target="_blank" rel="noreferrer">WIKI</a>: ABI is the interface between two binary program modules. Is there a problem with this definition? Not really, as a general description, it suffices. But it feels somewhat hollow.</p>
+<p>This situation is not uncommon in the field of Computer Science. The author previously wrote an article discussing <a href="https://www.ykiko.me/zh-cn/articles/669358870"  target="_blank" rel="noreferrer">reflection</a> and encountered the same issue. At its core, CS is not a discipline that strives for rigor; many concepts lack strict definitions and are more about conventional wisdom. Therefore, instead of obsessing over definitions, let&rsquo;s focus on practical aspects and explore what these so-called binary interfaces are and what factors affect their stability.</p>
 
 <h2 class="relative group">CPU &amp; OS
     <div id="cpu--os" class="anchor"></div>
@@ -1228,12 +1226,12 @@
     </span>
     
 </h2>
-<p>Ultimately, executable files run on specific CPUs and operating systems. If the CPU instruction sets differ, binary incompatibility is inevitable. For example, programs compiled for <a href="https://en.wikipedia.org/wiki/ARM_architecture_family"  target="_blank">ARM</a> cannot <strong>directly</strong> run on x64 processors (unless virtualization techniques are used). What if the instruction sets are compatible? For instance, x64 processors are compatible with x86 instruction sets. Can x86 programs run on x64 operating systems? This depends on the operating system, specifically factors like <strong>Object File Format</strong>, <strong>Data Representation</strong>, <strong>Function Calling Convention</strong>, and <strong>Runtime Library</strong>. These can be considered as ABI specifications at the operating system level. We&rsquo;ll discuss the fourth point in a later section. Below, we&rsquo;ll focus on the first three points using the x64 platform as an example.</p>
+<p>Ultimately, executable files run on specific CPUs and operating systems. If the CPU instruction sets differ, binary incompatibility is inevitable. For example, programs compiled for <a href="https://en.wikipedia.org/wiki/ARM_architecture_family"  target="_blank" rel="noreferrer">ARM</a> cannot <strong>directly</strong> run on x64 processors (unless virtualization techniques are used). What if the instruction sets are compatible? For instance, x64 processors are compatible with x86 instruction sets. Can x86 programs run on x64 operating systems? This depends on the operating system, specifically factors like <strong>Object File Format</strong>, <strong>Data Representation</strong>, <strong>Function Calling Convention</strong>, and <strong>Runtime Library</strong>. These can be considered as ABI specifications at the operating system level. We&rsquo;ll discuss the fourth point in a later section. Below, we&rsquo;ll focus on the first three points using the x64 platform as an example.</p>
 <blockquote><p>x64, x86-64, x86_64, AMD64, and Intel 64 all refer to the 64-bit version of the x86 instruction set.</p>
 </blockquote><p><strong>There are mainly two sets of ABIs on the x64 platform</strong>:</p>
 <ul>
-<li><a href="https://learn.microsoft.com/en-us/cpp/build/x64-software-conventions?view=msvc-170"  target="_blank">Windows x64 ABI</a> for 64-bit Windows operating systems</li>
-<li><a href="https://gitlab.com/x86-psABIs/x86-64-ABI"  target="_blank">x86-64 System V ABI</a> for 64-bit Linux and other UNIX-like operating systems</li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/build/x64-software-conventions?view=msvc-170"  target="_blank" rel="noreferrer">Windows x64 ABI</a> for 64-bit Windows operating systems</li>
+<li><a href="https://gitlab.com/x86-psABIs/x86-64-ABI"  target="_blank" rel="noreferrer">x86-64 System V ABI</a> for 64-bit Linux and other UNIX-like operating systems</li>
 </ul>
 <p>Calling a function from a dynamic library can be simplified into three steps:</p>
 <ul>
@@ -1251,7 +1249,7 @@
     </span>
     
 </h3>
-<p>How to parse the dynamic library? This is where the ABI&rsquo;s specification of the Object File Format comes into play. If you want to write a linker, the generated executable must comply with the format requirements of the target platform. Windows x64 uses the <a href="https://learn.microsoft.com/en-us/windows/win32/debug/pe-format"  target="_blank">PE32+</a> format, a 64-bit version of the PE32 (Portable Executable 32-bit) format. System V ABI uses the <a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format"  target="_blank">ELF (Executable Linkable Format)</a> format. By using parsing libraries like <a href="https://github.com/trailofbits/pe-parse"  target="_blank">pe-parse</a> and <a href="https://github.com/serge1/ELFIO"  target="_blank">elfio</a>, you can parse actual executable files to obtain the symbol table, which maps function names to their addresses.</p>
+<p>How to parse the dynamic library? This is where the ABI&rsquo;s specification of the Object File Format comes into play. If you want to write a linker, the generated executable must comply with the format requirements of the target platform. Windows x64 uses the <a href="https://learn.microsoft.com/en-us/windows/win32/debug/pe-format"  target="_blank" rel="noreferrer">PE32+</a> format, a 64-bit version of the PE32 (Portable Executable 32-bit) format. System V ABI uses the <a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format"  target="_blank" rel="noreferrer">ELF (Executable Linkable Format)</a> format. By using parsing libraries like <a href="https://github.com/trailofbits/pe-parse"  target="_blank" rel="noreferrer">pe-parse</a> and <a href="https://github.com/serge1/ELFIO"  target="_blank" rel="noreferrer">elfio</a>, you can parse actual executable files to obtain the symbol table, which maps function names to their addresses.</p>
 
 <h3 class="relative group">Data Representation
     <div id="data-representation" class="anchor"></div>
@@ -1313,7 +1311,7 @@
 <li>How function parameters and return values are passed: via stack or registers?</li>
 <li>Which registers remain unchanged before and after the call?</li>
 <li>Who is responsible for cleaning up the stack frame: caller or callee?</li>
-<li>How to handle C&rsquo;s <a href="https://en.cppreference.com/w/c/variadic"  target="_blank">variadic</a> functions?</li>
+<li>How to handle C&rsquo;s <a href="https://en.cppreference.com/w/c/variadic"  target="_blank" rel="noreferrer">variadic</a> functions?</li>
 <li><code>...</code></li>
 </ul>
 <p>In 32-bit programs, there are many calling conventions like <code>__cdecl</code>, <code>__stdcall</code>, <code>__fastcall</code>, <code>__thiscall</code>, etc., leading to significant compatibility issues. In 64-bit programs, this has largely been unified. There are mainly two calling conventions: those specified by Windows x64 ABI and x86-64 System V ABI (though they don&rsquo;t have formal names). <strong>It&rsquo;s important to note that function parameter passing is only related to the calling convention, not the code optimization level. You wouldn&rsquo;t want code compiled with different optimization levels to fail to link and run together.</strong></p>
@@ -1322,7 +1320,7 @@
 </blockquote><ul>
 <li><strong>Passing structures smaller than 16 bytes by value is more efficient than by reference</strong></li>
 </ul>
-<p>This has been a long-standing claim, but I never found evidence for it. Recently, while studying calling conventions, I found the reason. First, if the structure size is less than or equal to 8 bytes, it can be directly passed in a 64-bit register. <strong>Passing parameters via registers involves fewer memory accesses than passing by reference</strong>, making it more efficient. What about 16 bytes? System V ABI allows splitting a 16-byte structure into two 8-byte parts and passing them via registers. In this case, passing by value is indeed more efficient than passing by reference. Observe the following <a href="https://godbolt.org/z/5Ph34x1cK"  target="_blank">code</a>:</p>
+<p>This has been a long-standing claim, but I never found evidence for it. Recently, while studying calling conventions, I found the reason. First, if the structure size is less than or equal to 8 bytes, it can be directly passed in a 64-bit register. <strong>Passing parameters via registers involves fewer memory accesses than passing by reference</strong>, making it more efficient. What about 16 bytes? System V ABI allows splitting a 16-byte structure into two 8-byte parts and passing them via registers. In this case, passing by value is indeed more efficient than passing by reference. Observe the following <a href="https://godbolt.org/z/5Ph34x1cK"  target="_blank" rel="noreferrer">code</a>:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span>
@@ -1372,7 +1370,7 @@
 <ul>
 <li><strong>unique_ptr and raw_ptr are equally efficient</strong></li>
 </ul>
-<p>I used to believe this firmly, thinking that <code>unique_ptr</code> is just a simple wrapper around raw pointers. However, after watching the thought-provoking talk <a href="https://www.bilibili.com/video/BV1qp421y75W/?spm_id_from=333.999.0.0"  target="_blank">There are no zero-cost abstractions</a> at CPPCON, I realized I was mistaken. Here, we won&rsquo;t discuss the additional overhead caused by exceptions (destructors requiring the compiler to generate additional stack frame cleanup code). Instead, we&rsquo;ll focus on whether a C++ object (less than 8 bytes) can be passed via registers. For a completely <a href="https://en.cppreference.com/w/cpp/language/classes#Trivial_class"  target="_blank">trivial</a> type, this is possible; it behaves almost exactly like a C structure. But what if it&rsquo;s not trivial?</p>
+<p>I used to believe this firmly, thinking that <code>unique_ptr</code> is just a simple wrapper around raw pointers. However, after watching the thought-provoking talk <a href="https://www.bilibili.com/video/BV1qp421y75W/?spm_id_from=333.999.0.0"  target="_blank" rel="noreferrer">There are no zero-cost abstractions</a> at CPPCON, I realized I was mistaken. Here, we won&rsquo;t discuss the additional overhead caused by exceptions (destructors requiring the compiler to generate additional stack frame cleanup code). Instead, we&rsquo;ll focus on whether a C++ object (less than 8 bytes) can be passed via registers. For a completely <a href="https://en.cppreference.com/w/cpp/language/classes#Trivial_class"  target="_blank" rel="noreferrer">trivial</a> type, this is possible; it behaves almost exactly like a C structure. But what if it&rsquo;s not trivial?</p>
 <p>For example, if a custom copy constructor is defined, can it still be passed via registers? Logically, it cannot. Why? We know that C++ allows taking the address of function parameters. If the parameter is an integer passed via a register, where does the address come from? Let&rsquo;s experiment:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
@@ -1408,9 +1406,9 @@
 <p>Finally, we&rsquo;ve covered the operating system-level guarantees. Since this is low-level and involves a lot of assembly, readers unfamiliar with assembly might find it challenging. However, the following content is mostly assembly-free and can be read with ease.</p>
 <p>We all know that the C++ standard does not explicitly specify ABI, but it does have some requirements for compiler implementations, such as:</p>
 <ul>
-<li>Structure member addresses increase in declaration order <a href="https://en.cppreference.com/w/c/language/struct#Explanation"  target="_blank">incrementally</a>, ensuring that the compiler does not reorder structure members.</li>
-<li>Structures satisfying the <a href="https://en.cppreference.com/w/cpp/language/data_members#Standard-layout"  target="_blank">Standard Layout</a> constraints must be compatible with corresponding C structures.</li>
-<li>Structures satisfying the <a href="https://en.cppreference.com/w/cpp/types/is_trivially_copyable"  target="_blank">Trivially Copyable</a> constraints can be copied using <code>memmove</code> or <code>memcpy</code> to create an identical new object.</li>
+<li>Structure member addresses increase in declaration order <a href="https://en.cppreference.com/w/c/language/struct#Explanation"  target="_blank" rel="noreferrer">incrementally</a>, ensuring that the compiler does not reorder structure members.</li>
+<li>Structures satisfying the <a href="https://en.cppreference.com/w/cpp/language/data_members#Standard-layout"  target="_blank" rel="noreferrer">Standard Layout</a> constraints must be compatible with corresponding C structures.</li>
+<li>Structures satisfying the <a href="https://en.cppreference.com/w/cpp/types/is_trivially_copyable"  target="_blank" rel="noreferrer">Trivially Copyable</a> constraints can be copied using <code>memmove</code> or <code>memcpy</code> to create an identical new object.</li>
 <li><code>...</code></li>
 </ul>
 <p>Additionally, as C++ continues to release new versions, will the same code compiled with new and old standards produce the same result (ignoring the impact of macros controlling C++ version conditional compilation)? This depends on the C++ standard&rsquo;s guarantees for ABI compatibility. In fact, the C++ standard strives to ensure <strong>backward compatibility</strong>. This means that two pieces of code compiled with old and new standards should be identical.</p>
@@ -1430,7 +1428,7 @@
     </span>
     
 </h3>
-<p>Before C++23, there was no <strong>legal</strong> way to obtain the address of a member function. The only option was to obtain a member pointer (for more on member pointers, refer to this <a href="https://www.ykiko.me/zh-cn/articles/659510753"  target="_blank">article</a>):</p>
+<p>Before C++23, there was no <strong>legal</strong> way to obtain the address of a member function. The only option was to obtain a member pointer (for more on member pointers, refer to this <a href="https://www.ykiko.me/zh-cn/articles/659510753"  target="_blank" rel="noreferrer">article</a>):</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>

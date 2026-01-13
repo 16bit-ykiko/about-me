@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1047,10 +1047,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1194,7 +1193,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1215,9 +1213,9 @@
     </span>
     
 </h2>
-<p>The story began in January of this year when I was pondering how to write an efficient <code>small_vector</code>. I referred to the LLVM source code and found that it specialized implementations for types that are trivially destructible, using bitwise copy for operations like expansion. At the time, I didn’t understand why this was possible. Later, I learned about the concept of trivially copyable and further delved into the concept of relocatable. After reading several related proposals, I wrote this <a href="https://www.ykiko.me/zh-cn/articles/679782886"  target="_blank">article</a> discussing trivially relocatable.</p>
-<p>A few days later, a friend of mine, <a href="https://github.com/blueloveTH"  target="_blank">blueloveTH</a>, asked if I could help write a lightweight <code>small_vector</code> for his project. This project is <a href="https://github.com/pocketpy/pocketpy"  target="_blank">pocketpy</a>, a lightweight Python interpreter. I thought, what a coincidence! I had just researched this topic a few days prior, so I spent a few hours writing a very lightweight <a href="https://github.com/pocketpy/pocketpy/pull/208"  target="_blank">small_vector</a> that supports trivially relocatable optimizations. Coincidentally, this project is also the one I applied to participate in for this year’s GSoC.</p>
-<p>On May 1st, I received two emails: one from the GSoC committee informing me that my application had been accepted, and the other from Arthur O&rsquo;Dwyer, the author of P1144 (trivially relocatable). I was puzzled at first—why would he suddenly email me? We didn’t know each other. It turned out that he periodically searches for C++ projects related to trivially relocatable on GitHub and exchanges ideas with the authors. He found the code in pocketpy and thus sent us an email. He also seemed to have found my personal blog post discussing trivially relocatable <a href="https://www.ykiko.me/zh-cn/articles/679782886/"  target="_blank">here</a>. We initially exchanged a few emails and later discussed some content of the proposal on Slack.</p>
+<p>The story began in January of this year when I was pondering how to write an efficient <code>small_vector</code>. I referred to the LLVM source code and found that it specialized implementations for types that are trivially destructible, using bitwise copy for operations like expansion. At the time, I didn’t understand why this was possible. Later, I learned about the concept of trivially copyable and further delved into the concept of relocatable. After reading several related proposals, I wrote this <a href="https://www.ykiko.me/zh-cn/articles/679782886"  target="_blank" rel="noreferrer">article</a> discussing trivially relocatable.</p>
+<p>A few days later, a friend of mine, <a href="https://github.com/blueloveTH"  target="_blank" rel="noreferrer">blueloveTH</a>, asked if I could help write a lightweight <code>small_vector</code> for his project. This project is <a href="https://github.com/pocketpy/pocketpy"  target="_blank" rel="noreferrer">pocketpy</a>, a lightweight Python interpreter. I thought, what a coincidence! I had just researched this topic a few days prior, so I spent a few hours writing a very lightweight <a href="https://github.com/pocketpy/pocketpy/pull/208"  target="_blank" rel="noreferrer">small_vector</a> that supports trivially relocatable optimizations. Coincidentally, this project is also the one I applied to participate in for this year’s GSoC.</p>
+<p>On May 1st, I received two emails: one from the GSoC committee informing me that my application had been accepted, and the other from Arthur O&rsquo;Dwyer, the author of P1144 (trivially relocatable). I was puzzled at first—why would he suddenly email me? We didn’t know each other. It turned out that he periodically searches for C++ projects related to trivially relocatable on GitHub and exchanges ideas with the authors. He found the code in pocketpy and thus sent us an email. He also seemed to have found my personal blog post discussing trivially relocatable <a href="https://www.ykiko.me/zh-cn/articles/679782886/"  target="_blank" rel="noreferrer">here</a>. We initially exchanged a few emails and later discussed some content of the proposal on Slack.</p>
 <p>At the end of our discussion, he invited me to attend this WG21 meeting. The reason was that the current state of trivially relocatable in C++ is such that the committee is considering adopting an unreliable proposal, P2786, instead of the more comprehensive P1144. Arthur O&rsquo;Dwyer hoped that supporters of P1144 could express their approval. Later, I sent an email to ISO applying to participate as a guest (guest) online. After three weeks without a reply, I almost thought I wouldn’t be able to attend. However, three days before the meeting, Herb Sutter finally replied, saying that he thought all emails had been replied to, but somehow mine was missed. He then informed me that my application had been approved and welcomed me to the meeting.</p>
 <blockquote><p>There was a small hiccup here. During the opening event, Herb Sutter was counting the number of participating countries. The method was to call out each country one by one, and if someone was participating, they would raise their hand. When he called out China, I was a bit excited and couldn’t find the hand-raising button. Finally, when he noticed no one raised their hand, he mentioned that he remembered there was a Chinese participant in this meeting.</p>
 </blockquote>
@@ -1267,17 +1265,17 @@
 </h2>
 <p>In terms of core language, the following proposals were passed:</p>
 <ul>
-<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2747r2.html"  target="_blank">constexpr placement new</a> supports directly using placement new to call object constructors during constant evaluation. Previously, only <code>std::construct_at</code> could be used, which is a specialized version of placement new with parentheses. For a detailed discussion on this, you can read my <a href="https://www.ykiko.me/zh-cn/articles/683463723"  target="_blank">blog</a> on the history of constexpr development.</li>
-<li><a href="https://wg21.link/P3144R2"  target="_blank">deleting a pointer to an incomplete type should be ill-formed</a> Now, deleting a pointer to an incomplete type will result in a compilation error instead of undefined behavior.</li>
-<li><a href="https://isocpp.org/files/papers/P2963R3.pdf"  target="_blank">ordering of constraints involving fold expressions</a> clarifies the partial ordering rules for constraints involving fold expressions.</li>
-<li><a href="https://wg21.link/P0963R3"  target="_blank">structured binding declaration as a condition</a> Structured bindings can now be used in the condition of an if statement.</li>
+<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2747r2.html"  target="_blank" rel="noreferrer">constexpr placement new</a> supports directly using placement new to call object constructors during constant evaluation. Previously, only <code>std::construct_at</code> could be used, which is a specialized version of placement new with parentheses. For a detailed discussion on this, you can read my <a href="https://www.ykiko.me/zh-cn/articles/683463723"  target="_blank" rel="noreferrer">blog</a> on the history of constexpr development.</li>
+<li><a href="https://wg21.link/P3144R2"  target="_blank" rel="noreferrer">deleting a pointer to an incomplete type should be ill-formed</a> Now, deleting a pointer to an incomplete type will result in a compilation error instead of undefined behavior.</li>
+<li><a href="https://isocpp.org/files/papers/P2963R3.pdf"  target="_blank" rel="noreferrer">ordering of constraints involving fold expressions</a> clarifies the partial ordering rules for constraints involving fold expressions.</li>
+<li><a href="https://wg21.link/P0963R3"  target="_blank" rel="noreferrer">structured binding declaration as a condition</a> Structured bindings can now be used in the condition of an if statement.</li>
 </ul>
 <p>In terms of the standard library, the following proposals were passed:</p>
 <ul>
-<li><a href="https://isocpp.org/files/papers/P0843R14.html"  target="_blank">inplace_vector</a> Note that inplace_vector is different from small_vector; the latter performs dynamic memory allocation when the SBO capacity is insufficient, while the former does not. It is equivalent to a dynamic array and can be conveniently used as a buffer.</li>
-<li><a href="https://wg21.link/P2985R0"  target="_blank">std::is_virtual_base_of</a> Used to determine if a class is a virtual base class of another class.</li>
-<li><a href="https://wg21.link/P3168R2"  target="_blank">std::optional range support</a> Supports range operations for optional.</li>
-<li><a href="https://isocpp.org/files/papers/P2300R10.html"  target="_blank">std::execution</a> The long-debated std::execution has finally been included in the standard.</li>
+<li><a href="https://isocpp.org/files/papers/P0843R14.html"  target="_blank" rel="noreferrer">inplace_vector</a> Note that inplace_vector is different from small_vector; the latter performs dynamic memory allocation when the SBO capacity is insufficient, while the former does not. It is equivalent to a dynamic array and can be conveniently used as a buffer.</li>
+<li><a href="https://wg21.link/P2985R0"  target="_blank" rel="noreferrer">std::is_virtual_base_of</a> Used to determine if a class is a virtual base class of another class.</li>
+<li><a href="https://wg21.link/P3168R2"  target="_blank" rel="noreferrer">std::optional range support</a> Supports range operations for optional.</li>
+<li><a href="https://isocpp.org/files/papers/P2300R10.html"  target="_blank" rel="noreferrer">std::execution</a> The long-debated std::execution has finally been included in the standard.</li>
 </ul>
 
 <h2 class="relative group">Proposals with Significant Progress
@@ -1292,20 +1290,20 @@
 <p>I spent most of my time in the EWG meeting room, so I’ll mainly discuss some progress in core language aspects.</p>
 <p>On Monday afternoon and all day Tuesday, EWG discussed Contracts. Compared to the last Tokyo meeting, some consensus was reached on certain disputes regarding Contracts, but there are still unresolved issues. Personally, I think the hope of including it in C++26 is still slim.</p>
 <p>On Wednesday morning, EWG discussed Reflection for C++26. It was passed with 0 votes against (including my super favor vote) and handed over to CWG for wording revisions to be included in the C++ standard. On Thursday and Friday, CWG reviewed part of the content, but the proposal is too extensive and wasn’t fully reviewed. If everything goes smoothly, it is expected to be officially added to C++26 in two to three more meetings. The voting results show that everyone believes C++ needs reflection, and reflection is very likely to be included in C++26.</p>
-<p>On Friday morning, EWG mainly discussed trivially relocatable. In previous meetings, <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2786r6.pdf"  target="_blank">P2786</a> had already passed EWG voting and was handed over to CWG. However, it is not perfect and has many issues. Including such a proposal in the standard would undoubtedly be detrimental to the development of C++. Since the last Tokyo meeting, several new proposals discussing trivially relocatable have emerged:</p>
+<p>On Friday morning, EWG mainly discussed trivially relocatable. In previous meetings, <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2786r6.pdf"  target="_blank" rel="noreferrer">P2786</a> had already passed EWG voting and was handed over to CWG. However, it is not perfect and has many issues. Including such a proposal in the standard would undoubtedly be detrimental to the development of C++. Since the last Tokyo meeting, several new proposals discussing trivially relocatable have emerged:</p>
 <ul>
-<li><a href="https://wg21.link/p3233r0"  target="_blank">Issues with P2786</a></li>
-<li><a href="https://wg21.link/p3236r1"  target="_blank">Please reject P2786 and adopt P1144 </a></li>
-<li><a href="https://wg21.link/p3278r0"  target="_blank">Analysis of interaction between relocation, assignment, and swap</a></li>
+<li><a href="https://wg21.link/p3233r0"  target="_blank" rel="noreferrer">Issues with P2786</a></li>
+<li><a href="https://wg21.link/p3236r1"  target="_blank" rel="noreferrer">Please reject P2786 and adopt P1144 </a></li>
+<li><a href="https://wg21.link/p3278r0"  target="_blank" rel="noreferrer">Analysis of interaction between relocation, assignment, and swap</a></li>
 </ul>
 <p>Clearly, they all pointed fingers at P2786. After the authors of these proposals presented, a vote was needed to decide whether to return P2786 from CWG back to EWG, essentially reconsidering the trivially relocatable model that C++26 would adopt. In the end, P2786 was returned to EWG with an overwhelming majority. Of course, I voted super favor, as this was the main reason I attended this meeting. As for P1144, it might have to wait until the next meeting, as it wasn’t discussed this time.</p>
 <p>The rest are some minor proposal progresses. Notably, many proposals related to constexpr passed EWG, including:</p>
 <ul>
-<li><a href="https://wg21.link/p3032r2"  target="_blank">Less transient constexpr allocation</a></li>
-<li><a href="https://wg21.link/p3068r2"  target="_blank">Allowing exception throwing in constant-evaluation</a></li>
-<li><a href="https://wg21.link/p2758r3"  target="_blank">Emitting messages at compile time</a></li>
+<li><a href="https://wg21.link/p3032r2"  target="_blank" rel="noreferrer">Less transient constexpr allocation</a></li>
+<li><a href="https://wg21.link/p3068r2"  target="_blank" rel="noreferrer">Allowing exception throwing in constant-evaluation</a></li>
+<li><a href="https://wg21.link/p2758r3"  target="_blank" rel="noreferrer">Emitting messages at compile time</a></li>
 </ul>
-<p>However, it’s still uncertain how likely they are to pass CWG. If you’re interested in the latest progress of a specific proposal, you can search for the proposal number in the ISO C++ GitHub <a href="https://github.com/cplusplus/papers/issues"  target="_blank">issues</a>, where the latest progress of each proposal is recorded in detail.</p>
+<p>However, it’s still uncertain how likely they are to pass CWG. If you’re interested in the latest progress of a specific proposal, you can search for the proposal number in the ISO C++ GitHub <a href="https://github.com/cplusplus/papers/issues"  target="_blank" rel="noreferrer">issues</a>, where the latest progress of each proposal is recorded in detail.</p>
 
 <h2 class="relative group">Some Personal Reflections
     <div id="some-personal-reflections" class="anchor"></div>
@@ -1320,7 +1318,7 @@
 <p>First, regarding the trivially relocatable vote, after voting, I suddenly felt a sense of guilt. The reason was that before the final vote, the author of P2786 said:</p>
 <blockquote><p>If other people want to make modifications and bring forward their own paper, you know, as an author, I am not going to say, &lsquo;No, don&rsquo;t; it&rsquo;s my paper.&rsquo; If it&rsquo;s a good change, you know, that&rsquo;s good.</p>
 </blockquote><p>I could clearly hear the emotion in his voice when he said this. Putting myself in his shoes, I can understand his feelings. He must have poured a lot of effort into this proposal, and having it withdrawn in such an unceremonious manner is hard to accept. But in reality, the author of P1144 has invested even more effort, with the proposal already at version R11, and the content itself is more comprehensive, yet it has been consistently overlooked. I find it hard to understand why this situation has arisen.</p>
-<p>Another point is about the plenary session voting. The proposal <a href="https://wg21.link/p1061r8"  target="_blank">Structured Bindings can introduce a Pack</a>, which supports introducing parameter packs in structured bindings:</p>
+<p>Another point is about the plenary session voting. The proposal <a href="https://wg21.link/p1061r8"  target="_blank" rel="noreferrer">Structured Bindings can introduce a Pack</a>, which supports introducing parameter packs in structured bindings:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="p">...</span><span class="n">pack</span><span class="p">]</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span></span></span></code></pre></div></div>
 <p>It had already passed CWG, but during the plenary session, a compiler vendor pointed out that some examples in the wording of the proposal’s reference implementation could cause the compiler to crash. As a result, the plenary session vote did not pass.</p>
 <p>A similar situation occurred with std::execution. Before the plenary session vote, someone pointed out that std::execution should not be included in C++26, as it is overly complex and not mature enough. The authors were merely theorizing without considering practical application scenarios. Additionally, heavy use of templates leads to very slow compilation speeds and frequent internal compiler errors. Although the final vote result was more in favor than against, the C++ committee emphasizes <strong>consensus</strong> rather than majority rule. A certain proportion must be reached for a proposal to pass, so theoretically, this proposal should not have passed this meeting. However, due to <strong>certain reasons</strong>, it was ultimately passed. I didn’t pay close attention to the specifics, so I can’t say for sure.</p>

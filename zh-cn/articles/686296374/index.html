@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1047,10 +1047,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1224,7 +1223,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1301,7 +1299,7 @@
     src="https://pic4.zhimg.com/v2-0f8338487557d14a675e82276a73b9a3_r.jpg"
     ></figure>
 </p>
-<p>可以看到这两个 <a href="https://godbolt.org/z/xoW8TTvP7"  target="_blank">源文件</a> 分别保留了一份，<code>add</code>函数的实例。然后我们将它们链接成可执行文件</p>
+<p>可以看到这两个 <a href="https://godbolt.org/z/xoW8TTvP7"  target="_blank" rel="noreferrer">源文件</a> 分别保留了一份，<code>add</code>函数的实例。然后我们将它们链接成可执行文件</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ main.o src1.o src2.o -o main.exe
 </span></span><span class="line"><span class="cl">$ objdump -d main.exe <span class="p">|</span> c++filt</span></span></code></pre></div></div>
 <p>结果如下图所示</p>
@@ -1325,7 +1323,7 @@
     </span>
     
 </h3>
-<p>前面我特意强调了，不打开优化，如果打开了优化会怎么样呢？仍然是上面的代码，我们尝试打开<code>O2</code>优化。最后的 <a href="https://godbolt.org/z/jfx8jrnzf"  target="_blank">结果</a> 如下图所示</p>
+<p>前面我特意强调了，不打开优化，如果打开了优化会怎么样呢？仍然是上面的代码，我们尝试打开<code>O2</code>优化。最后的 <a href="https://godbolt.org/z/jfx8jrnzf"  target="_blank" rel="noreferrer">结果</a> 如下图所示</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1355,12 +1353,12 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
 <p>尝试编译链接上面的代码。发现不开优化可以链接通过。开了优化就会导致链接失败了。链接器会告诉你<code>undefined reference to add(int, int)</code>。<strong>三大编译器的行为都是如此</strong>，具体的原因上面已经解释过了，开了优化之后，编译器压根没生成<code>add</code>这个符号，链接的时候自然无法找到了。</p>
 <p>但是我们想知道的是，这样做符合 C++ 标准吗？</p>
-<p>三大编译器都这样，似乎没有不符合的道理。但是在 inline 那一小节并没有明确说明，而在 <a href="https://en.cppreference.com/w/cpp/language/definition#One_Definition_Rule"  target="_blank">One Definition Rule</a>  这里有如下两句话</p>
+<p>三大编译器都这样，似乎没有不符合的道理。但是在 inline 那一小节并没有明确说明，而在 <a href="https://en.cppreference.com/w/cpp/language/definition#One_Definition_Rule"  target="_blank" rel="noreferrer">One Definition Rule</a>  这里有如下两句话</p>
 <ul>
 <li>For an inline function or inline variable(since C++17), a definition is required in every translation unit where it is odr-used.</li>
 <li>a function is odr-used if a function call to it is made or its address is taken</li>
 </ul>
-<p>两句话啥意思呢？意思就是，一个 inline 函数，如果在某个编译单元被 <a href="https://en.cppreference.com/w/cpp/language/definition#ODR-use"  target="_blank">odr-used</a> 了，那么这个编译单元必须要有该函数的定义。啥情况是 odr-used 呢？后面一句话就是在解释，如果<strong>函数被调用</strong>或者<strong>取函数的地址</strong>就算是 odr-used。</p>
+<p>两句话啥意思呢？意思就是，一个 inline 函数，如果在某个编译单元被 <a href="https://en.cppreference.com/w/cpp/language/definition#ODR-use"  target="_blank" rel="noreferrer">odr-used</a> 了，那么这个编译单元必须要有该函数的定义。啥情况是 odr-used 呢？后面一句话就是在解释，如果<strong>函数被调用</strong>或者<strong>取函数的地址</strong>就算是 odr-used。</p>
 <p>那我们看看之前的代码，在 main.cpp 中调用一个 inline 函数，但是却没有定义，所以其实是违背了 C++ 标准的约定的。到这里，算是松了一口气了。虽然有点反直觉，但是事实的确如此，三大编译器都没错！</p>
 
 <h3 class="relative group">其它情况
@@ -1425,7 +1423,7 @@
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">g1</span><span class="p">()</span> <span class="o">+</span> <span class="n">g2</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>仍然不开优化，尝试编译 <a href="https://godbolt.org/z/aTxMsnK5n"  target="_blank">编译结果</a> 如下</p>
+<p>仍然不开优化，尝试编译 <a href="https://godbolt.org/z/aTxMsnK5n"  target="_blank" rel="noreferrer">编译结果</a> 如下</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1435,7 +1433,7 @@
     src="https://pic4.zhimg.com/v2-5de99e270f381ff7f77f012ed72836bb_r.jpg"
     ></figure>
 </p>
-<p>可以看见就像被 inline 标记的函数那样，这两个编译单元都实例化了<code>add&lt;int, int&gt;</code>和<code>add&lt;double, double&gt;</code>，各有一份代码。然后在最终链接的时候，链接器只为每个模板实例化保留了一份代码。那我们尝试打开<code>-O2</code>，然后再看看情况。<a href="https://godbolt.org/z/edEd8Tvo4"  target="_blank">结果</a> 如下</p>
+<p>可以看见就像被 inline 标记的函数那样，这两个编译单元都实例化了<code>add&lt;int, int&gt;</code>和<code>add&lt;double, double&gt;</code>，各有一份代码。然后在最终链接的时候，链接器只为每个模板实例化保留了一份代码。那我们尝试打开<code>-O2</code>，然后再看看情况。<a href="https://godbolt.org/z/edEd8Tvo4"  target="_blank" rel="noreferrer">结果</a> 如下</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1510,7 +1508,7 @@
 </span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">&lt;</span><span class="kt">signed</span> <span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>实例化三种类型的函数模板，那么其中必然有两个实例化是相同的代码。编译器会把函数类型不同，但是最后生成的二进制代码相同的两个函数合并吗？尝试一下，<a href="https://godbolt.org/z/KncEh3z5n"  target="_blank">结果</a> 如下</p>
+<p>实例化三种类型的函数模板，那么其中必然有两个实例化是相同的代码。编译器会把函数类型不同，但是最后生成的二进制代码相同的两个函数合并吗？尝试一下，<a href="https://godbolt.org/z/KncEh3z5n"  target="_blank" rel="noreferrer">结果</a> 如下</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1521,7 +1519,7 @@
     ></figure>
 </p>
 <p>可以看到这里生成了两个完全一样的函数，但是并没有合并。当然，如果我们打开<code>-O2</code>优化，这样短的函数就会被内联掉了，也不会生成最终符号。就和第一小节说的那样，也就没有所谓的&quot;模板膨胀开销&quot;。实际代码编写中有很多这样的短小的模板函数，比如<code>vector</code>这种容器的<code>end</code>,<code>begin</code>,<code>operator[]</code>等等，它们大概率会被完全内联，从而没有&quot;额外的膨胀&quot;开销。</p>
-<p>现在问题来了，如果函数没被没有内联呢？假设模板函数比较复杂，函数体较大。为了方便演示，我们暂时使用 GCC 的一个 attribute <code>[[gnu::noinline]]</code>来实现这种效果，然后打开 O2，再次编译上面的 <a href="https://godbolt.org/z/Exff5cnfj"  target="_blank">代码</a></p>
+<p>现在问题来了，如果函数没被没有内联呢？假设模板函数比较复杂，函数体较大。为了方便演示，我们暂时使用 GCC 的一个 attribute <code>[[gnu::noinline]]</code>来实现这种效果，然后打开 O2，再次编译上面的 <a href="https://godbolt.org/z/Exff5cnfj"  target="_blank" rel="noreferrer">代码</a></p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"
@@ -1532,7 +1530,7 @@
     ></figure>
 </p>
 <p>可以看到虽然被优化的只剩一条指令，但是编译器还是生成了三份函数。实际上，真的不被编译器内联的函数体积可能比较大，情况可能比这个“伪装的大函数”糟糕的多。于是，这样的话就产生了所谓的&quot;模板膨胀&quot;。<strong>本来能合并的代码却没有合并，这就是真正的模板膨胀开销所在</strong>。</p>
-<p>如果非常希望编译器/链接器合并这些相同的二进制代码怎么办呢？很遗憾，主流的工具链 ld / lld / ms linker 都不会做这种合并。目前唯一支持这个特性的链接器是 <a href="https://www.gnu.org/software/binutils/"  target="_blank">gold</a>，但是它只能用于链接 elf 格式的可执行文件，所以没法在 Windows 上面使用了。下面我展示一下：如何使用它合并相同的二进制代码</p>
+<p>如果非常希望编译器/链接器合并这些相同的二进制代码怎么办呢？很遗憾，主流的工具链 ld / lld / ms linker 都不会做这种合并。目前唯一支持这个特性的链接器是 <a href="https://www.gnu.org/software/binutils/"  target="_blank" rel="noreferrer">gold</a>，但是它只能用于链接 elf 格式的可执行文件，所以没法在 Windows 上面使用了。下面我展示一下：如何使用它合并相同的二进制代码</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// main.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;utility&gt;</span><span class="cp">
@@ -1610,7 +1608,7 @@
 </span></span><span class="line"><span class="cl">    <span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="n">m_Begin</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
 <p>逻辑看起来还挺简单的。但是毫无疑问，它算是一个较复杂的函数了，尤其是当对象的构造函数被内联的话，代码量也是比较大的。那如何合并呢？注意，合并模板的前提是找出不同模板实例的相同部分，如果一个函数为不同的类型生成完全不同的代码，那是没法合并的。</p>
-<p>那对于<code>vector</code>来说，如果 T 里面的元素类型不同，扩容逻辑还能相同吗？考虑到构造函数调用，似乎没任何办法。关键点来了，这里需要介绍一个<code>trivially_relocatable</code>的概念，具体的讨论可以参考：<a href="https://www.ykiko.me/zh-cn/articles/679782886"  target="_blank">全新的构造函数，C++ 中的 relocate 构造函数</a>。</p>
+<p>那对于<code>vector</code>来说，如果 T 里面的元素类型不同，扩容逻辑还能相同吗？考虑到构造函数调用，似乎没任何办法。关键点来了，这里需要介绍一个<code>trivially_relocatable</code>的概念，具体的讨论可以参考：<a href="https://www.ykiko.me/zh-cn/articles/679782886"  target="_blank" rel="noreferrer">全新的构造函数，C++ 中的 relocate 构造函数</a>。</p>
 <p>我们这里只说结果，如果一个类型是<code>trivially_relocatable</code>的，那么可以使用<code>memcpy</code>把它从旧内存移动到新内存，不需要调用构造函数了。</p>
 <p>考虑编写如下的扩容函数</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">trivially_grow</span><span class="p">(</span><span class="kt">char</span><span class="o">*&amp;</span> <span class="n">begin</span><span class="p">,</span> <span class="kt">char</span><span class="o">*&amp;</span> <span class="n">end</span><span class="p">,</span> <span class="kt">char</span><span class="o">*&amp;</span> <span class="n">capacity</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
@@ -1642,7 +1640,7 @@
     </span>
     
 </h2>
-<p>为什么 LLVM 源码禁用异常？很多人可能会下意识的认为，原因是异常很慢，效率很低。但其实，根据 <a href="https://llvm.org/docs/CodingStandards.html#do-not-use-rtti-or-exceptions"  target="_blank">LLVM Coding Standard</a> 里面的内容，关闭异常和<code>RTTI</code>的主要目的是为了减少二进制大小。据说，打开异常和<code>RTTI</code>会导致 LLVM 的编译结果膨胀<code>10%-15%</code>，那么实际情况究竟如何？</p>
+<p>为什么 LLVM 源码禁用异常？很多人可能会下意识的认为，原因是异常很慢，效率很低。但其实，根据 <a href="https://llvm.org/docs/CodingStandards.html#do-not-use-rtti-or-exceptions"  target="_blank" rel="noreferrer">LLVM Coding Standard</a> 里面的内容，关闭异常和<code>RTTI</code>的主要目的是为了减少二进制大小。据说，打开异常和<code>RTTI</code>会导致 LLVM 的编译结果膨胀<code>10%-15%</code>，那么实际情况究竟如何？</p>
 <p>目前主要的异常实现有两种，一种是 Itanium ABI 的实现，另一种则是 MS ABI 的实现。简单来说 MS ABI 采用运行时查找的办法，这样会导致异常在 Happy Path 执行也有的额外运行时开销，但是优点是最终生成的二进制代码相对较小。而 Itanium ABI 则是我们今天的主角，它号称零开销异常，Happy 路径没有任何额外的运行时开销。那古尔丹，代价是什么？代价就是非常严重的二进制膨胀。为什么会产生膨胀呢？简单来说，就是如果不想完全等到运行时去查找，那就得预先打表。由于异常的隐式传播特性，会导致表占用空间很大。具体实现细节非常复杂，不是本文的主题，放张图，大概感受一下</p>
 <p><figure><img
     class="my-0 rounded-md"

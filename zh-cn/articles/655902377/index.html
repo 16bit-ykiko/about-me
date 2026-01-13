@@ -120,8 +120,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1047,10 +1047,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1236,7 +1235,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1472,7 +1470,7 @@
     </span>
     
 </h3>
-<p>在 C++20 之前，我们并没有这么好用的方法。只能通过一种叫做 <a href="https://en.cppreference.com/w/cpp/language/sfinae"  target="_blank">SFINAE</a> 的技术来实现类似的功能，对类型实现约束。比如上面那个功能，在 C++20 之前只能这么写：</p>
+<p>在 C++20 之前，我们并没有这么好用的方法。只能通过一种叫做 <a href="https://en.cppreference.com/w/cpp/language/sfinae"  target="_blank" rel="noreferrer">SFINAE</a> 的技术来实现类似的功能，对类型实现约束。比如上面那个功能，在 C++20 之前只能这么写：</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="o">=</span> <span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">())</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">print2</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">print1</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
@@ -1481,7 +1479,7 @@
 <p>具体的规则在这里就不介绍了，感兴趣的可以去搜搜相关的文章看看。</p>
 <p>结果就是</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typename</span> <span class="o">=</span> <span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">())</span></span></span></code></pre></div></div>
-<p>这行代码，让人捉不着头脑，完全不知道是在表达什么含义。只有深入了解 C++ 模板相关的规则之后才能看懂这究竟是在干嘛。关于为什么<code>requires</code>直到 C++20 才被加入，可以阅读 C++ 之父本人写的 <a href="https://github.com/Cpp-Club/Cxx_HOPL4_zh/blob/main/06.md"  target="_blank">自述</a>。</p>
+<p>这行代码，让人捉不着头脑，完全不知道是在表达什么含义。只有深入了解 C++ 模板相关的规则之后才能看懂这究竟是在干嘛。关于为什么<code>requires</code>直到 C++20 才被加入，可以阅读 C++ 之父本人写的 <a href="https://github.com/Cpp-Club/Cxx_HOPL4_zh/blob/main/06.md"  target="_blank" rel="noreferrer">自述</a>。</p>
 
 <h2 class="relative group">Compile-time Computing
     <div id="compile-time-computing" class="anchor"></div>
@@ -1505,7 +1503,7 @@
 <p>首先要肯定的一点是，编译期计算肯定是有用的。具体到特定场景，意义有多大，这肯定就不能一概而论了。有很多人谈编译期计算色变，什么代码难懂，屠龙技，没有价值云云。这样的确很容易误导初学者。事实上相关的需求的确存在。如果编程语言没有这个功能，但是确有需求，程序员也会想方设法的通过其它的办法来实现。</p>
 <p>我将举两个例子来说明：</p>
 <ul>
-<li>首先是编译器对常量表达式的优化，相信这个大家都并不陌生。极其简单的情况，像<code>1+1+x</code>这样的表达式，编译器会把它优化成<code>2+x</code>。事实上现代编译器对于类似的情况能做的优化非常多，比如这个 <a href="https://www.zhihu.com/question/619246858/answer/3184453259"  target="_blank">问题</a>。提问者问 C 语言的<code>strlen</code>函数在参数是常量字符串的时候，会不会把函数调用直接优化成一个常量。比如<code>strlen(&quot;hello&quot;)</code>会不会直接优化成<code>5</code>。从主流编译器的实验结果来看，答案是肯定的。类似的情况数不胜数，不知不觉中你就在使用编译期计算。只是它被归到编译器优化的一部分去了。而编译器的优化能力总归是有上限的，允许使用者自己定义这种优化规则，会更加灵活和自由。比如在 C++ 里面明确了<code>strlen</code>是<code>constexpr</code>的，这种优化必然会发生。</li>
+<li>首先是编译器对常量表达式的优化，相信这个大家都并不陌生。极其简单的情况，像<code>1+1+x</code>这样的表达式，编译器会把它优化成<code>2+x</code>。事实上现代编译器对于类似的情况能做的优化非常多，比如这个 <a href="https://www.zhihu.com/question/619246858/answer/3184453259"  target="_blank" rel="noreferrer">问题</a>。提问者问 C 语言的<code>strlen</code>函数在参数是常量字符串的时候，会不会把函数调用直接优化成一个常量。比如<code>strlen(&quot;hello&quot;)</code>会不会直接优化成<code>5</code>。从主流编译器的实验结果来看，答案是肯定的。类似的情况数不胜数，不知不觉中你就在使用编译期计算。只是它被归到编译器优化的一部分去了。而编译器的优化能力总归是有上限的，允许使用者自己定义这种优化规则，会更加灵活和自由。比如在 C++ 里面明确了<code>strlen</code>是<code>constexpr</code>的，这种优化必然会发生。</li>
 <li>其而是在程序语言发展早期，编译器优化能力还没那么强的时候。就已经开始广泛的使用外部脚本语言提前算好数据（甚至生成好代码）用来减少运行时开销了。典型的例子是算好三角函数表这种常量表，然后运行期直接用就行了。例如在编译代码之前，运行一段脚本用来生成一些需要的代码。</li>
 </ul>
 <p>C++ 的编译期计算有明确的语义保证，并且内嵌于语言之中，能和其它部分良好的交互。从这个角度来说，很好的解决了上面两点问题。当然很多人对它的讨伐并不无道理，通过模板元编程进行的编译期计算。代码丑陋且晦涩难懂，牵扯到的语法细节多，并且大大拖慢编译时间，增加二进制文件大小。无可否认的是，这些问题的确存在。但是随着 C++ 版本的不断更新，编译期计算现在已经非常容易理解了，不再需要去写那些复杂的模板元代码，新手也能很快学会。因为和运行期代码几乎一样了。接下来伴随着它的发展史，我们将逐步阐明。</p>
@@ -1519,7 +1517,7 @@
     </span>
     
 </h3>
-<p>从历史上看，TMP 是一个偶然事件。在标准化 C++ 语言的过程中发现它的模板系统恰好是图灵完备的，即原则上能够计算任何可计算的东西。第一个具体演示是 Erwin Unruh 编写的一个程序，该程序计算素数，尽管它实际上并未完成编译：素数列表是编译器在尝试编译代码时生成的错误消息的一部分。具体的示例，请参考 <a href="https://en.wikibooks.org/wiki/C%2B%2B_Programming/Templates/Template_Meta-Programming#History_of_TMP"  target="_blank">这里</a>。</p>
+<p>从历史上看，TMP 是一个偶然事件。在标准化 C++ 语言的过程中发现它的模板系统恰好是图灵完备的，即原则上能够计算任何可计算的东西。第一个具体演示是 Erwin Unruh 编写的一个程序，该程序计算素数，尽管它实际上并未完成编译：素数列表是编译器在尝试编译代码时生成的错误消息的一部分。具体的示例，请参考 <a href="https://en.wikibooks.org/wiki/C%2B%2B_Programming/Templates/Template_Meta-Programming#History_of_TMP"  target="_blank" rel="noreferrer">这里</a>。</p>
 <p>作为入门级别的编程案例，可以展示一个编译期计算阶乘的方法：</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">factorial</span> <span class="p">{</span>
@@ -1659,7 +1657,7 @@
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}));</span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}));</span></span></span></code></pre></div></div>
 <p>瞬间清爽一万倍，仅仅是因为在 C++ 中类型不是一等公民，只能作为模板参数，在涉及到类型相关的计算的时候，我们就不得不编写繁琐的模板元代码。事实上对类型做计算的需求一直都存在，典型的例子是<code>std::variant</code>。在编写<code>operator=</code>的时候，我们需要从一个类型列表里面（<code>variant</code>的模板参数列表）里面查找某个类型并返回一个索引，其实就是从一个数组里面查找一个满足特定条件的元素。相关的实现这里就不展示了。其实可怕的并不是使用模板元编程本身，而是就 C++ 自身而言，把类型当作值这样的改动是完全不可接受 unacceptable 的。也就是说这样的状况会一直持续下去，以后都不会有什么本质上的改变，这一事实才是最让人悲伤的。不过仍然要清楚的一个事实是，支持对类型做计算的语言并不多，像 Rust 对于这方面的支持几乎没有。C++ 的代码虽然写起来蹩脚，但是至少能写。</p>
-<p>但是还好这里有还有另外一条路可以走。就是通过一些手段把类型映射到值。例如把类型映射到字符串，匹配类型可以类似于匹配字符串，只要对字符串进行计算就好了，也能实现一定程度上的<code>type as value</code>。C++23之前 并没有标准化的手段进行这种映射，通过一些特殊的编译器扩展能做到，可以参考 <a href="https://www.ykiko.me/zh-cn/articles/680412313"  target="_blank">C++ 中如何优雅进行 enum 到 string 的转换</a></p>
+<p>但是还好这里有还有另外一条路可以走。就是通过一些手段把类型映射到值。例如把类型映射到字符串，匹配类型可以类似于匹配字符串，只要对字符串进行计算就好了，也能实现一定程度上的<code>type as value</code>。C++23之前 并没有标准化的手段进行这种映射，通过一些特殊的编译器扩展能做到，可以参考 <a href="https://www.ykiko.me/zh-cn/articles/680412313"  target="_blank" rel="noreferrer">C++ 中如何优雅进行 enum 到 string 的转换</a></p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_list</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
@@ -1673,7 +1671,7 @@
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>在 C++23 之后也可以直接用<code>typeid</code>实现映射，而不使用字符串映射。但是类型映射到值简单，把值映射到类型回去可一点都不简单，除非你利用 <a href="https://www.ykiko.me/zh-cn/articles/646752343"  target="_blank">STMP</a> 这种黑魔法，才能方便的把值映射回类型。但是，如果静态反射将来被引入，那么这种从类型和值的双向映射会非常简单。这样的话虽然不能直接支持把类型当成值来进行操作，但是也基本差不多了。不过还有很长一段路要走，具体什么时候能加入标准，还是个未知数。如果对静态反射感兴趣，可以阅读 <a href="https://www.ykiko.me/zh-cn/articles/661692275"  target="_blank">C++26 静态反射提案解析</a>。</p>
+<p>在 C++23 之后也可以直接用<code>typeid</code>实现映射，而不使用字符串映射。但是类型映射到值简单，把值映射到类型回去可一点都不简单，除非你利用 <a href="https://www.ykiko.me/zh-cn/articles/646752343"  target="_blank" rel="noreferrer">STMP</a> 这种黑魔法，才能方便的把值映射回类型。但是，如果静态反射将来被引入，那么这种从类型和值的双向映射会非常简单。这样的话虽然不能直接支持把类型当成值来进行操作，但是也基本差不多了。不过还有很长一段路要走，具体什么时候能加入标准，还是个未知数。如果对静态反射感兴趣，可以阅读 <a href="https://www.ykiko.me/zh-cn/articles/661692275"  target="_blank" rel="noreferrer">C++26 静态反射提案解析</a>。</p>
 
 <h3 class="relative group">Comptime Variable
     <div id="comptime-variable" class="anchor"></div>
@@ -1708,7 +1706,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="cm">/* ... */</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>事实上我们并没有办法保证一个函数参数是编译期常量，所以上面的代码是没法编译通过的。想要编译期常量，只能把这部分内容填到模板参数里面去，比如上面的函数可能会最后修改成<code>format&lt;&quot;{}&quot;&gt;(1)</code>这样的形式。虽然只是形式上的差别，但这无疑给使用者带来了困难。这样来看，也就不难理解为什么<code>std::make_index_sequence</code>这样的东西大行其道了。想要真正意义上可以做模板参数的编译期变量，也可以通过 <a href="https://www.ykiko.me/zh-cn/articles/646752343"  target="_blank">STMP</a> 这种黑魔法做到，但是如前文所述，难以在日常的编程中真正使用它。</p>
+<p>事实上我们并没有办法保证一个函数参数是编译期常量，所以上面的代码是没法编译通过的。想要编译期常量，只能把这部分内容填到模板参数里面去，比如上面的函数可能会最后修改成<code>format&lt;&quot;{}&quot;&gt;(1)</code>这样的形式。虽然只是形式上的差别，但这无疑给使用者带来了困难。这样来看，也就不难理解为什么<code>std::make_index_sequence</code>这样的东西大行其道了。想要真正意义上可以做模板参数的编译期变量，也可以通过 <a href="https://www.ykiko.me/zh-cn/articles/646752343"  target="_blank" rel="noreferrer">STMP</a> 这种黑魔法做到，但是如前文所述，难以在日常的编程中真正使用它。</p>
 
 <h3 class="relative group">Type is Value
     <div id="type-is-value" class="anchor"></div>

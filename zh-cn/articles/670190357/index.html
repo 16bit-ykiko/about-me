@@ -125,8 +125,8 @@
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1052,10 +1052,9 @@
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1213,7 +1212,6 @@
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1443,7 +1441,7 @@
 </span></span><span class="line"><span class="cl">    <span class="n">point</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">point</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>结构体的大小一般可以由特定规则算出从它的成员算出，往往要考虑内存对齐，而且是编译器决定的。例如 <a href="https://learn.microsoft.com/en-us/cpp/c-language/storage-and-alignment-of-structures?view=msvc-170"  target="_blank">msvc</a>。但总之在编译的时候结构体的大小就是已知的了，我们也可以通过<code>sizeof</code>获取类型或者变量的大小。那么这里的<code>Point point</code>变量定义就很好理解，类型大小已知，相对于在栈上分配了一块内存。</p>
+<p>结构体的大小一般可以由特定规则算出从它的成员算出，往往要考虑内存对齐，而且是编译器决定的。例如 <a href="https://learn.microsoft.com/en-us/cpp/c-language/storage-and-alignment-of-structures?view=msvc-170"  target="_blank" rel="noreferrer">msvc</a>。但总之在编译的时候结构体的大小就是已知的了，我们也可以通过<code>sizeof</code>获取类型或者变量的大小。那么这里的<code>Point point</code>变量定义就很好理解，类型大小已知，相对于在栈上分配了一块内存。</p>
 <p>下面来关注一下结构体成员访问，事实上<code>C</code>语言有一个宏可以获取结构体成员相对于结构体起始地址的偏移量，叫做<code>offsetof</code>（就算我们获取不到，编译器里面也是会计算字段偏移量的，所以偏移量信息对编译器总是已知的）。例如在这里<code>offsetof(Point, x)</code>就是<code>0</code>，<code>offsetof(Point, y)</code>就是<code>4</code>。所以上面的代码可以理解为</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1515,7 +1513,7 @@
 </span></span><span class="line"><span class="cl">      <span class="o">|-</span><span class="n">MemberExpr</span> <span class="mh">0x2103e866bf8</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">11</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="n">lvalue</span> <span class="p">.</span><span class="n">y</span> <span class="mh">0x2103e8661f0</span>
 </span></span><span class="line"><span class="cl">      <span class="o">|</span> <span class="err">`</span><span class="o">-</span><span class="n">DeclRefExpr</span> <span class="mh">0x2103e866bd8</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">5</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="n">Point</span><span class="sc">&#39;:&#39;</span><span class="n">Point</span><span class="err">&#39;</span> <span class="n">lvalue</span> <span class="n">Var</span> <span class="mh">0x2103e866410</span> <span class="err">&#39;</span><span class="n">point</span><span class="sc">&#39; &#39;</span><span class="n">Point</span><span class="sc">&#39;:&#39;</span><span class="n">Point</span><span class="err">&#39;</span>
 </span></span><span class="line"><span class="cl">      <span class="err">`</span><span class="o">-</span><span class="n">IntegerLiteral</span> <span class="mh">0x2103e866c28</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">15</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="mi">2</span></span></span></code></pre></div></div>
-<p>或者如果你的<code>vscode</code>装了<code>clangd</code>这个插件，可以右键选择一块代码，然后右键<code>show AST</code>来看这块代码片段的<code>ast</code>。可以发现上面的确是把源码内容以树的方式呈现给我们了，既然是一颗树，我们就可以自由的遍历树的节点，然后筛选获取我们想要的信息。上面两例都是可视化的输出，通常情况下也会有直接的代码接口来直接获取。比如<code>python</code>内置就有<code>ast</code>模块来获取，<code>C++</code>一般是通过<code>clang</code>相关的工具来获取这些内容。如果想知道具体该如何使用<code>clang</code>工具，可以参考文章：<a href="https://www.ykiko.me/zh-cn/articles/669360731"  target="_blank">使用 clang 工具自由的支配 C++ 代码吧！</a></p>
+<p>或者如果你的<code>vscode</code>装了<code>clangd</code>这个插件，可以右键选择一块代码，然后右键<code>show AST</code>来看这块代码片段的<code>ast</code>。可以发现上面的确是把源码内容以树的方式呈现给我们了，既然是一颗树，我们就可以自由的遍历树的节点，然后筛选获取我们想要的信息。上面两例都是可视化的输出，通常情况下也会有直接的代码接口来直接获取。比如<code>python</code>内置就有<code>ast</code>模块来获取，<code>C++</code>一般是通过<code>clang</code>相关的工具来获取这些内容。如果想知道具体该如何使用<code>clang</code>工具，可以参考文章：<a href="https://www.ykiko.me/zh-cn/articles/669360731"  target="_blank" rel="noreferrer">使用 clang 工具自由的支配 C++ 代码吧！</a></p>
 <p>如果你好奇编译器究竟是如何把源代码变成<code>ast</code>的，你可以去学习一下编译原理前端的内容。</p>
 
 <h2 class="relative group">以何种方式存储这些信息？

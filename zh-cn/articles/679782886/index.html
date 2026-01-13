@@ -122,8 +122,8 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
   <link
     type="text/css"
     rel="stylesheet"
-    href="/css/main.bundle.min.53b62753479eb42c104328abc36cd2d14fc6be3afa6d8030fae102e579f54a50153df2a147c54ad35f38110305cc180db34f6439d5c3916bac98912fd03e7d7e.css"
-    integrity="sha512-U7YnU0eetCwQQyirw2zS0U/Gvjr6bYAw&#43;uEC5Xn1SlAVPfKhR8VK0184EQMFzBgNs09kOdXDkWusmJEv0D59fg==">
+    href="/css/main.bundle.min.851251ec35cf75f8ac4c61493516b737c2b94fffb83e6a2b6ddedafc2a324b3000b6585161a8ab2ba5edc5240772be9c7df73ec0599e503442fe3e2d95eed0a8.css"
+    integrity="sha512-hRJR7DXPdfisTGFJNRa3N8K5T/&#43;4Pmorbd7a/CoySzAAtlhRYairK6XtxSQHcr6cffc&#43;wFmeUDRC/j4tle7QqA==">
 
   
   
@@ -1049,10 +1049,9 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
       
       
       
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            
-              <details
+            <details
   open
   id="TOCView"
   class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
@@ -1214,7 +1213,6 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
 </script>
 
 
-            
           </div>
         </div>
       
@@ -1258,9 +1256,9 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
 </span></span><span class="line"><span class="cl">    <span class="n">m_Data</span> <span class="o">=</span> <span class="n">new_data</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">m_Capacity</span> <span class="o">=</span> <span class="n">new_capacity</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>上面的代码很简单，先通过<code>malloc</code>分配新的内存，然后通过 <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new"  target="_blank">placement new</a> 在新分配的内存上调用移动构造进行初始化。注意，正如前文提到的： C++ 中的 move 是 non-destructive 的，所以需要在调用完移动构造之后，原对象还需要调用析构函数，来正确的结束生存期。最后释放原来的内存，更新成员变量的值就行了。</p>
+<p>上面的代码很简单，先通过<code>malloc</code>分配新的内存，然后通过 <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new"  target="_blank" rel="noreferrer">placement new</a> 在新分配的内存上调用移动构造进行初始化。注意，正如前文提到的： C++ 中的 move 是 non-destructive 的，所以需要在调用完移动构造之后，原对象还需要调用析构函数，来正确的结束生存期。最后释放原来的内存，更新成员变量的值就行了。</p>
 <p><em>注：构造和析构的步骤也可以采用 C++20 加入的 std::construct_at 和 std::destroy_at，其实就是对 placement new 和 destroy 的封装。</em></p>
-<p>但是这样的实现并不高效，在 C++ 中有一个 <a href="https://en.cppreference.com/w/cpp/named_req/TriviallyCopyable"  target="_blank">trivially copyable</a> 的概念，可以通过<code>is_trivially_copyable</code>这个 triat 来进行判断。满足这个约束的类型，可以直接使用<code>memcpy</code>或者<code>memmove</code>来进行拷贝得到一个新的对象。考虑下面这个例子：</p>
+<p>但是这样的实现并不高效，在 C++ 中有一个 <a href="https://en.cppreference.com/w/cpp/named_req/TriviallyCopyable"  target="_blank" rel="noreferrer">trivially copyable</a> 的概念，可以通过<code>is_trivially_copyable</code>这个 triat 来进行判断。满足这个约束的类型，可以直接使用<code>memcpy</code>或者<code>memmove</code>来进行拷贝得到一个新的对象。考虑下面这个例子：</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Point</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
@@ -1312,7 +1310,7 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
     </span>
     
 </h2>
-<p>这样总感觉怪怪的，我们主要的目的是把就旧内存上的对象全部移动到新内存上，但是用的居然是 <a href="https://en.cppreference.com/w/cpp/named_req/TriviallyCopyable"  target="_blank">trivially copyable</a> 这个 trait，似乎约束过强了。完全创建一个新对象和把原来的对象放置到新的位置，感觉差别还挺大的。考虑下面这个例子。似乎直接对<code>std::string</code>这样的类型进行<code>memcpy</code>也是可以的。由于内存都是我们手动管理，析构函数也是我们手动调用，并不会出现多次调用析构函数的情况</p>
+<p>这样总感觉怪怪的，我们主要的目的是把就旧内存上的对象全部移动到新内存上，但是用的居然是 <a href="https://en.cppreference.com/w/cpp/named_req/TriviallyCopyable"  target="_blank" rel="noreferrer">trivially copyable</a> 这个 trait，似乎约束过强了。完全创建一个新对象和把原来的对象放置到新的位置，感觉差别还挺大的。考虑下面这个例子。似乎直接对<code>std::string</code>这样的类型进行<code>memcpy</code>也是可以的。由于内存都是我们手动管理，析构函数也是我们手动调用，并不会出现多次调用析构函数的情况</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">byte</span> <span class="n">buffer</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">)];</span>
 </span></span><span class="line"><span class="cl"><span class="k">auto</span><span class="o">&amp;</span> <span class="n">str1</span> <span class="o">=</span> <span class="o">*</span><span class="n">std</span><span class="o">::</span><span class="n">construct_at</span><span class="p">((</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*</span><span class="p">)</span> <span class="n">buffer</span><span class="p">,</span> <span class="s">&#34;hello world&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -1324,9 +1322,9 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
 <p>仔细思考一下数据的流向和析构函数的调用，发现没有任何不妥。似乎我们应该寻找一种叫做 trivially moveable 的概念，用来放宽松条件，从而使更多的类型得到优化。很可惜，目前 C++ 标准中并没有这样的概念。为了和 C++ 已经存在的 move 操作区分开来，我们把这种操作叫做 relocate，即把原本的对象放置在一个全新的位置。</p>
 <p>事实上有很多著名的开源组件也都通过模板特化来实现了类似的功能，例如</p>
 <ul>
-<li><a href="https://github.com/bloomberg/bde/blob/962f7aa/groups/bsl/bslmf/bslmf_isbitwisemoveable.h#L8-L48"  target="_blank">BSL</a> 的<code>bslmf::IsBitwiseMoveable&lt;T&gt;</code></li>
-<li><a href="https://github.com/facebook/folly/blob/main/folly/docs/FBVector.md#object-relocation"  target="_blank">Folly</a> 的<code>folly::IsRelocatable&lt;T&gt; </code></li>
-<li><a href="https://github.com/qt/qtbase/"  target="_blank">QT</a> 的<code>QTypeInfo&lt;T&gt;::isRelocatable</code></li>
+<li><a href="https://github.com/bloomberg/bde/blob/962f7aa/groups/bsl/bslmf/bslmf_isbitwisemoveable.h#L8-L48"  target="_blank" rel="noreferrer">BSL</a> 的<code>bslmf::IsBitwiseMoveable&lt;T&gt;</code></li>
+<li><a href="https://github.com/facebook/folly/blob/main/folly/docs/FBVector.md#object-relocation"  target="_blank" rel="noreferrer">Folly</a> 的<code>folly::IsRelocatable&lt;T&gt; </code></li>
+<li><a href="https://github.com/qt/qtbase/"  target="_blank" rel="noreferrer">QT</a> 的<code>QTypeInfo&lt;T&gt;::isRelocatable</code></li>
 </ul>
 <p>通过对特定的类型进行标记，使得它们可以拥有这种优化。但是，上面的优化只是在我们逻辑上认为相等，严格来说目前这样写在 C++ 中算是 undefined behavior。那怎么办？只能想办法通过新提案，修改标准措辞，来支持上面的优化。</p>
 
@@ -1341,16 +1339,16 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
 </h2>
 <p>首先这个问题早就被发现了，例如知乎上很久之前就有相关的讨论：</p>
 <ul>
-<li><a href="https://www.zhihu.com/question/316026652/answer/623722536"  target="_blank">比起 malloc new / free old，realloc 在性能上有多少的优势?</a></li>
-<li><a href="https://www.zhihu.com/question/384869006/answer/1130101522"  target="_blank">C++ vector 的 push_back 扩容机制为什么不考虑在尾元素后面的空间申请内存?</a></li>
+<li><a href="https://www.zhihu.com/question/316026652/answer/623722536"  target="_blank" rel="noreferrer">比起 malloc new / free old，realloc 在性能上有多少的优势?</a></li>
+<li><a href="https://www.zhihu.com/question/384869006/answer/1130101522"  target="_blank" rel="noreferrer">C++ vector 的 push_back 扩容机制为什么不考虑在尾元素后面的空间申请内存?</a></li>
 </ul>
 <p>类似的问题还有挺多的。<code>realloc</code>会尝试在原地扩容，如果失败。就会尝试分配一块新的内存，然后用<code>memcpy</code>把原来的数据拷贝到新的内存上。所以在目前的 C++ 标准中，如果你想要直接使用<code>realloc</code>进行扩容的话，必须要保证对象是 trivially copyable 的。当然，前面已经说了，这个条件是比较苛刻的，需要引入新的概念来放宽条件。</p>
 <p>相关的提案最早在 2015 年就被提出了，在 2023 年仍然活跃的提案主要有下面四个（目标都是 C++26）：</p>
 <ul>
-<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p1144r9.html"  target="_blank">std::is_trivially_relocatable</a></li>
-<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2786r4.pdf"  target="_blank">Trivial Relocatability For C++26</a></li>
-<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2785r3.html"  target="_blank">Relocating prvalues</a></li>
-<li><a href="https://isocpp.org/files/papers/D2839R1.html#part-i-owning-references-and-defaulted-relocation-constructors"  target="_blank">Nontrivial Relocation via a New owning reference Type</a></li>
+<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p1144r9.html"  target="_blank" rel="noreferrer">std::is_trivially_relocatable</a></li>
+<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2786r4.pdf"  target="_blank" rel="noreferrer">Trivial Relocatability For C++26</a></li>
+<li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2785r3.html"  target="_blank" rel="noreferrer">Relocating prvalues</a></li>
+<li><a href="https://isocpp.org/files/papers/D2839R1.html#part-i-owning-references-and-defaulted-relocation-constructors"  target="_blank" rel="noreferrer">Nontrivial Relocation via a New owning reference Type</a></li>
 </ul>
 <p>大概可以分为两派，保守派和激进派</p>
 
@@ -1420,7 +1418,7 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
 </span></span><span class="line"><span class="cl">    <span class="n">X</span><span class="p">(</span><span class="n">X</span> <span class="n">x</span><span class="p">)</span><span class="o">:</span> <span class="n">s</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">s</span><span class="p">))</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
 <p>另外一个好处是，目前这种<code>T(T)</code>声明的构造函数是不允许的，所以不会和现有的代码冲突。有一点需要注意，相信之前大家可能听人这样解释过，为什么拷贝构造函数的参数必须是引用？因为如果不是引用的话，函数传参也需要拷贝，就会导致无限递归。</p>
-<p>事实上这种解释已经过时了，由于 C++17 引入的强制性的 <a href="https://en.cppreference.com/w/cpp/language/copy_elision"  target="_blank">copy elision</a>。即使一个类型没有拷贝构造函数和移动构造函数，它也可以直接从纯右值构造，并且没有任何拷贝/移动构造函数的调用</p>
+<p>事实上这种解释已经过时了，由于 C++17 引入的强制性的 <a href="https://en.cppreference.com/w/cpp/language/copy_elision"  target="_blank" rel="noreferrer">copy elision</a>。即使一个类型没有拷贝构造函数和移动构造函数，它也可以直接从纯右值构造，并且没有任何拷贝/移动构造函数的调用</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">X</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
@@ -1449,7 +1447,7 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
     </span>
     
 </h2>
-<p>关于为什么过了这么多年这个问题仍然没有解决，其实这是一段相当长的历史，是 C++ 的对象模型存在缺陷导致的。直到 C++20 的 <a href="https://en.cppreference.com/w/cpp/language/lifetime"  target="_blank">隐式生存期提案</a> 被接受之前，在最开始的扩容函数实现中，连把 trivially-copyable 的类型优化为 memcpy 都是 undefined behavior。</p>
+<p>关于为什么过了这么多年这个问题仍然没有解决，其实这是一段相当长的历史，是 C++ 的对象模型存在缺陷导致的。直到 C++20 的 <a href="https://en.cppreference.com/w/cpp/language/lifetime"  target="_blank" rel="noreferrer">隐式生存期提案</a> 被接受之前，在最开始的扩容函数实现中，连把 trivially-copyable 的类型优化为 memcpy 都是 undefined behavior。</p>
 <p>当然，不要听到 undefined behavior 就害怕，觉得心里面有道坎一样。事实上这一直被认为是标准的缺陷，这种优化早已经广泛实践各大代码库之中了，可靠性已经得到验证。只是 C++ 标准一直没有合适的措辞来描述这种情况，完全认为是 UB 肯定是不对的，不加限制的使用也是不对的，所以问题的关键就是如何在这两者之间如何找出一个合适的边界了。最近我会专门写一篇文章来介绍 C++ 对象模型相关的内容，这里就不展开了。</p>
 
 <h2 class="relative group">其它语言
@@ -1473,7 +1471,7 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
     
 </h3>
 <p>首先先看最近比较火热的 Rust。其实，只要结构中不含有自引用的成员，那么使用<code>memcpy</code>把旧的对象移动到新的内存上，几乎总是可行的。另外，Rust 并没有什么多继承虚函数（虚表结构复杂）啦，虚继承啦，这种比较奇怪的东西（并且实际用到的地方很少），所以几乎所有的类型都可以直接使用<code>memcpy</code>来从旧对象创建一个新对象。刚好 Safe Rust 中的 move 语义还是 destructive move，所以它的 move 的默认实现就是直接<code>memcpy</code>，是清爽很多。</p>
-<p>但是默认的移动只能移动局部非静态变量，如果一个变量是引用，那么你就没法移动它。不过还好 Safe Rust 提供了一个 <a href="https://doc.rust-lang.org/std/mem/fn.take.html"  target="_blank">std::mem::take</a> 函数用来解决这个问题：</p>
+<p>但是默认的移动只能移动局部非静态变量，如果一个变量是引用，那么你就没法移动它。不过还好 Safe Rust 提供了一个 <a href="https://doc.rust-lang.org/std/mem/fn.take.html"  target="_blank" rel="noreferrer">std::mem::take</a> 函数用来解决这个问题：</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">mem</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">v</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">];</span><span class="w">
@@ -1481,8 +1479,8 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">old_v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mem</span>::<span class="n">take</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">v</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="fm">assert_eq!</span><span class="p">(</span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="n">old_v</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="fm">assert!</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">is_empty</span><span class="p">());</span></span></span></code></pre></div></div>
-<p>效果是，移动 + 原对象置空，比较类似于 C++ 中的 move。还有 <a href="https://doc.rust-lang.org/std/mem/fn.swap.html"  target="_blank">std::mem::swap</a> 和 <a href="https://doc.rust-lang.org/std/mem/fn.replace.html"  target="_blank">std::mem::replace</a> 用于其它需要从引用处进行移动的场景。</p>
-<p>虽然可能情况不多，但是如果一个类型含有自引用的结构怎么办？事实上，允许用户自定义构造函数是一个比较简单的解决办法，但是 Rust 社区对此似乎比较反感。目前的解决方案是通过 Pin，不过 Rust 社区似乎对这个解决方案也不是很满意，它很难理解且很难使用。未来全新的设计应该和 linear type 有关，相关的讨论详见 <a href="https://without.boats/blog/changing-the-rules-of-rust/"  target="_blank">Changing the rules of Rust</a>。</p>
+<p>效果是，移动 + 原对象置空，比较类似于 C++ 中的 move。还有 <a href="https://doc.rust-lang.org/std/mem/fn.swap.html"  target="_blank" rel="noreferrer">std::mem::swap</a> 和 <a href="https://doc.rust-lang.org/std/mem/fn.replace.html"  target="_blank" rel="noreferrer">std::mem::replace</a> 用于其它需要从引用处进行移动的场景。</p>
+<p>虽然可能情况不多，但是如果一个类型含有自引用的结构怎么办？事实上，允许用户自定义构造函数是一个比较简单的解决办法，但是 Rust 社区对此似乎比较反感。目前的解决方案是通过 Pin，不过 Rust 社区似乎对这个解决方案也不是很满意，它很难理解且很难使用。未来全新的设计应该和 linear type 有关，相关的讨论详见 <a href="https://without.boats/blog/changing-the-rules-of-rust/"  target="_blank" rel="noreferrer">Changing the rules of Rust</a>。</p>
 
 <h3 class="relative group">Mojo
     <div id="mojo" class="anchor"></div>
