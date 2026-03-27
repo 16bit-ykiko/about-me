@@ -135,8 +135,7 @@ class List(Node):
         indent = "  " * depth
         for index, item in enumerate(self.items):
             prefix = f"{index + 1}. " if self.ordered else "- "
-            text = item.__str__(
-                depth + 1) if isinstance(item, List) else str(item)
+            text = item.__str__(depth + 1) if isinstance(item, List) else str(item)
             result += f"{indent}{prefix}{text}\n"
         return result
 
@@ -185,7 +184,7 @@ class LinkCard(Node):
         self.url = url
 
     def __str__(self) -> str:
-        return '{{< ' + f'linkcard url="{self.url}" title="{self.label}"' + ' >}}'
+        return "{{< " + f'linkcard url="{self.url}" title="{self.label}"' + " >}}"
 
 
 class Document:
@@ -200,4 +199,4 @@ class Document:
         pass
 
     def dump(self):
-        return '\n\n'.join(str(child) for child in self.children)
+        return "\n\n".join(str(child) for child in self.children)

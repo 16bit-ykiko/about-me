@@ -1,4 +1,4 @@
-name: Pages
+name: pages
 
 on:
   schedule:
@@ -6,15 +6,58 @@ on:
 
   push:
     branches:
+      - "**"
+
+  pull_request:
+    branches:
       - main
 
 jobs:
-  deploy:
+  validate:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        run: python3 -m pip install uv
+
+      - name: Sync Python dependencies
+        run: uv sync --frozen --only-group ci
+
+      - name: Validate scripts
+        run: uv run --frozen --only-group ci --no-sync python -m py_compile scripts/*.py
+
+  deploy:
+    needs: validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        run: python3 -m pip install uv
+
+      - name: Sync Python dependencies
+        run: uv sync --frozen --only-group ci
+
+      - name: Sync articles from Zhihu
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false
+        env:
+          ZHIHU_COOKIE: ${{ secrets.ZHIHU_COOKIE }}
+        run: uv run --frozen --only-group ci --no-sync python scripts/zhihu_cli.py sync
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
@@ -22,12 +65,13 @@ jobs:
           hugo-version: "0.141.0"
 
       - name: Build
-        run: | 
+        run: |
           cd website
           git clone https://github.com/nunocoracao/blowfish.git themes/blowfish --depth=1
           hugo
 
       - name: Deploy
+        if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
