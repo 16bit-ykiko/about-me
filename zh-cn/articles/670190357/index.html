@@ -1,1319 +1,269 @@
-<!doctype html>
-<html
-  lang="zh-cn"
-  dir="ltr"
-  class="scroll-smooth"
-  data-default-appearance="dark"
-  data-auto-appearance="true"><head>
-  <meta charset="utf-8">
-  
-    <meta http-equiv="content-language" content="zh-cn">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="theme-color">
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
 
-  
-  
-    <title>为什么说 C/C&#43;&#43; 编译器不保留元信息？ &middot; ykiko&#39;s blog</title>
-    <meta name="title" content="为什么说 C/C&#43;&#43; 编译器不保留元信息？ &middot; ykiko&#39;s blog">
-  
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>为什么说 C/C&#43;&#43; 编译器不保留元信息？ | ykiko&#39;s blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="首先什么是元信息？
+来看下面一段python代码，我们希望能够根据传入的字符串来自动修改对应的字段值">
+<meta name="author" content="ykiko">
+<link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/670190357/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.497bbe86f976d8babb698f161028591a57fd8bb07879b6c8583470451e59b8bf.css" integrity="sha256-SXu&#43;hvl22Lq7aY8WEChZGlf9i7B4ebbIWDRwRR5ZuL8=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.ykiko.me/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.ykiko.me/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.ykiko.me/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.ykiko.me/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.ykiko.me/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh-cn" href="https://www.ykiko.me/zh-cn/articles/670190357/">
+<link rel="alternate" hreflang="en" href="https://www.ykiko.me/en/articles/670190357/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
 
-  
-  
-    <meta name="description" content="mainly about computer science and mathematics">
-  
-  
-  
-  
-  <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/670190357/">
-  
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
 
-  
-  
-    <meta name="author" content="ykiko">
-  
-  
-    
-      
-        
-          <link href="https://github.com/16bit-ykiko" rel="me">
-        
-      
-    
-      
-        
-      
-    
-      
-        
-          <link href="https://www.zhihu.com/people/75-49-80-77" rel="me">
-        
-      
-    
-      
-        
-          <link href="https://space.bilibili.com/360835081" rel="me">
-        
-      
-    
-      
-        
-          <link href="https://bangumi.tv/user/857516" rel="me">
-        
-      
-    
-  
+            .list {
+                background: var(--theme);
+            }
 
-  
-  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/670190357/">
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-PEDMYR1V0K"></script>
+      <script>
+        var doNotTrack = false;
+        if ( true ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-PEDMYR1V0K');
+        }
+      </script><meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/670190357/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
   <meta property="og:title" content="为什么说 C/C&#43;&#43; 编译器不保留元信息？">
-  <meta property="og:description" content="首先什么是元信息？ # 来看下面一段python代码，我们希望能够根据传入的字符串来自动修改对应的字段值">
-  <meta property="og:locale" content="zh_cn">
+  <meta property="og:description" content="首先什么是元信息？ 来看下面一段python代码，我们希望能够根据传入的字符串来自动修改对应的字段值">
+  <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
     <meta property="article:published_time" content="2023-12-03T15:37:51+00:00">
-    <meta property="article:modified_time" content="2023-12-03T15:37:51+00:00">
-    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/670190357/featured.png">
+    <meta property="article:modified_time" content="2024-11-30T10:08:55+00:00">
+      <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/670190357/featured.png">
       <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/670191053/">
       <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/669360731/">
       <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/669359855/">
       <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/669358870/">
       <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/661692275/">
 
-  
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/670190357/featured.png">
   <meta name="twitter:title" content="为什么说 C/C&#43;&#43; 编译器不保留元信息？">
-  <meta name="twitter:description" content="首先什么是元信息？ # 来看下面一段python代码，我们希望能够根据传入的字符串来自动修改对应的字段值">
-
-  
-  
-  
-  
-    
-      
-    
-  
-    
-  
-    
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-    
-  
-  
-  <link
-    type="text/css"
-    rel="stylesheet"
-    href="/css/main.bundle.min.93c1106978281351eae66e32e131b4336ab340af8541f681ed9b2a296ddd9b42d62f5817e2263b9e17381848037d26495239ee78d409564e1847b469b2cf4ff3.css"
-    integrity="sha512-k8EQaXgoE1Hq5m4y4TG0M2qzQK&#43;FQfaB7ZsqKW3dm0LWL1gX4iY7nhc4GEgDfSZJUjnueNQJVk4YR7Rpss9P8w==">
-
-  
-  
-  <script
-    type="text/javascript"
-    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
-    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
-  
-  
-  
-  
-  
-    
-    <script
-      type="text/javascript"
-      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
-      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
-  
-  
-    
-    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
-  
-
-  
-  
-  
-    
-  
-  
-    
-  
-  
-    
-  
-  
-  
-  
-  
-  
-    
-    <script
-      defer
-      type="text/javascript"
-      id="script-bundle"
-      src="/js/main.bundle.min.95b0d9497a40ea6de914762e897e3c2422257a60a11559725f19171705e24adfeac245887f1b05960dcc446c2e791d3d98f21247d239356bb789fb78bdabcb17.js"
-      integrity="sha512-lbDZSXpA6m3pFHYuiX48JCIlemChFVlyXxkXFwXiSt/qwkWIfxsFlg3MRGwueR09mPISR9I5NWu3ift4vavLFw=="
-      data-copy="复制"
-      data-copied="已复制"></script>
-  
-
-  
-  
+  <meta name="twitter:description" content="首先什么是元信息？ 来看下面一段python代码，我们希望能够根据传入的字符串来自动修改对应的字段值">
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-  
-
-  
-  <script type="application/ld+json">
-  [{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "articleSection": "Articles",
-    "name": "为什么说 C\/C\u002b\u002b 编译器不保留元信息？",
-    "headline": "为什么说 C\/C\u002b\u002b 编译器不保留元信息？",
-    
-    "inLanguage": "zh-cn",
-    "url" : "https://www.ykiko.me/zh-cn/articles/670190357/",
-    "author" : {
-      "@type": "Person",
-      "name": "ykiko"
-    },
-    "copyrightYear": "2023",
-    "dateCreated": "2023-12-03T15:37:51\u002b00:00",
-    "datePublished": "2023-12-03T15:37:51\u002b00:00",
-    
-    "dateModified": "2023-12-03T15:37:51\u002b00:00",
-    
-    
-    
-    "mainEntityOfPage": "true",
-    "wordCount": "3325"
-  }]
-  </script>
-
-
-
-  
-  
-    
-
-  <script
-  async
-  src="https://www.googletagmanager.com/gtag/js?id=G-PEDMYR1V0K"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-PEDMYR1V0K');
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "文章",
+      "item": "https://www.ykiko.me/zh-cn/articles/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "为什么说 C/C++ 编译器不保留元信息？",
+      "item": "https://www.ykiko.me/zh-cn/articles/670190357/"
+    }
+  ]
+}
 </script>
-
-
-
-
-
-  
-
-  
-  
-
-  
-  
-
-  
-  
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "为什么说 C/C++ 编译器不保留元信息？",
+  "name": "为什么说 C\/C\u002b\u002b 编译器不保留元信息？",
+  "description": "首先什么是元信息？ 来看下面一段python代码，我们希望能够根据传入的字符串来自动修改对应的字段值\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "首先什么是元信息？ 来看下面一段python代码，我们希望能够根据传入的字符串来自动修改对应的字段值\nclass Person: def __init__(self, age, name): self.age = age self.name = name person = Person(10, \"xiaohong\") setattr(person, \"age\", 12) setattr(person, \"name\", \"xiaoming\") print(f\"name: {person.name}, age: {person.age}\") # =\u003e name: xiaoming, age: 12 setattr是python内置的一个函数，刚好可以实现我们的需求。根据输入的字段名，修改对应值。\n如果想要在C++中实现应该怎么办呢？C++可没有内置setattr这种函数。代码示例如下。（暂时就先考虑可以直接memcpy的类型了，也就是trivially copyable的类型）\nstruct Person { int age; std::string_view name; }; // 名字 -\u003e 字段偏移量，字段大小 std::map\u003cstd::string_view, std::pair\u003cstd::size_t, std::size_t\u003e\u003e fieldInfo = { {\"age\", {offsetof(Person, age), sizeof(int)}}, {\"name\", {offsetof(Person, name), sizeof(std::string_view)}}, }; void setattr(Person* point, std::string_view name, void* data) { if (!fieldInfo.contains(name)) { throw std::runtime_error(\"Field not found\"); } auto\u0026 [offset, size] = fieldInfo[name]; std::memcpy(reinterpret_cast\u003cchar*\u003e(point) + offset, data, size); } int main() { Person person = {.age = 1, .name = \"xiaoming\"}; int age = 10; std::string_view name = \"xiaohong\"; setattr(\u0026person, \"age\", \u0026age); setattr(\u0026person, \"name\", \u0026name); std::cout \u003c\u003c person.age \u003c\u003c \" \" \u003c\u003c person.name \u003c\u003c std::endl; // =\u003e 10 xiaohong } 可以发现我们基本上自己实现了setattr这个函数，而且这样的实现似乎可以是通用的。只要为特定的类型提供属于它的fieldInfo就行了。这个fieldInfo里面存了字段名，字段的偏移量，字段的类型大小。它就可以被看做元信息,除此之外可能还有变量名，函数名，等等。这些信息不直接参与程序的运行，而是提供关于程序结构、数据、类型等方面的附加信息。元信息里面存的东西似乎也都是死套路，对于我们都是已知信息。因为它们就存在程序的源代码里面。那C/C++编译器提供这种功能吗？答案是：对于debug模式下的程序可能会保留一部分用于程序调试，而在release模式下什么都不会存。这样做的好处是很显然的，因为这些信息并不是程序运行起来必须要的信息，不保留它们可以显著减少二进制可执行文件的大小。\n为什么这些信息是不必要的，什么时候需要？ 接下来我会以C语言为例，将它的源码与二进制表示对应起来。看看执行代码究竟需要哪些信息？\n变量定义 int value; 事实上变量声明并没有直接对应的二进制表示，它仅仅是告诉编译器需要分配一块空间来存储名为value的变量，究竟分配多大的内存则由它的类型决定。所以如果变量声明的时候类型大小是未知的，则会编译错误。\nstruct A; A x; // error: storage size of 'x' isn't known A* y; // ok the size of pointer is always konwn struct Node { int val; Node next; }; // error Node is not a complete type // 其实意思就是定义 Node 类型的时候它的大小还是未知的 struct Node { int val; Node* next; }; // ok 相信你想到了这和malloc似乎有点像，的确如此。区别在于，malloc是在运行时的堆上分配内存。而直接的变量声明一般是在数据区或者栈上分配内存。编译器可能在内部会维护一个符号表，将变量名与它的地址映射起来，在你后续对这个变量进行操作的时候，实际上是对这块内存区域进行操作。\n内置运算符 C语言内置的运算符一般直接和CPU指令直接对应，至于CPU是如何实现这些运算的，可以学习下数电相关知识。以x86_64为例，可能的对应如下\n| Operator | Meaning | Operator | Meaning | |----------|---------|----------|---------| | + | add | * | mul | | - | sub | / | div | | % | div | \u0026 | and | | \\| | or | ^ | xor | | ~ | not | \u003c\u003c | shl | | \u003e\u003e | shr | \u0026\u0026 | and | | || | or | ! | not | | == | cmp | != | cmp | | \u003e | cmp | \u003e= | cmp | | \u003c | cmp | \u003c= | cmp | | ++ | inc | -- | dec | 赋值则可能是通过mov指令来完成的，比如\na = 3; // mov [addressof(a)] 3 结构体 struct Point { int x; int y; } int main() { Point point; point.x = 1; point.y = 2; } 结构体的大小一般可以由特定规则算出从它的成员算出，往往要考虑内存对齐，而且是编译器决定的。例如 msvc。但总之在编译的时候结构体的大小就是已知的了，我们也可以通过sizeof获取类型或者变量的大小。那么这里的Point point变量定义就很好理解，类型大小已知，相对于在栈上分配了一块内存。\n下面来关注一下结构体成员访问，事实上C语言有一个宏可以获取结构体成员相对于结构体起始地址的偏移量，叫做offsetof（就算我们获取不到，编译器里面也是会计算字段偏移量的，所以偏移量信息对编译器总是已知的）。例如在这里offsetof(Point, x)就是0，offsetof(Point, y)就是4。所以上面的代码可以理解为\nint main() { char point[sizeof(Point)]; // 8 = sizeof(Point) *(int*)(point + offsetof(Point, x)) = 1; // point.x = 1 *(int*)(point + offsetof(Point, y)) = 2; // point.y = 2 } 编译器同样可能会维护一个字段名-\u003e偏移量的符号表，字段名最终会替换为offset。也没有必要在程序中保留了。\n函数调用 一般通过函数调用栈实现，这个太常见了，就不仔细说了。函数名最后会直接被替换为函数地址。\n总结 通过上面的分析，相信你已经发现了，C语言中的符号名，类型名，变量名，函数名，结构体字段名等等信息都被替换成了数字，地址，偏移量等等。缺少了它们对程序运行并没有什么影响。所以选择把它们抛弃掉，减少二进制文件的大小。对于C++来说情况基本也是类似的，C++只会在一些特殊的情况下保留部分元信息，比如type_info，而且可以手动选择关闭掉RTTI从而确保不会产生这种信息。\n那什么时候我们需要使用这些信息？显然最开始介绍的setattr是需要的。在程序调试的时候，我们得知道一个地址对应的变量名，函数名，成员名等等，方便我们调试，这时候我们也是需要的。当把结构体序列化为json的时候，我们需要知道它的字段名，我们也需要这些信息。把类型擦除成void*了之后，我们还是需要知道它实际对应的类型是什么，这时候我们也是需要的。总之，为了在运行期区分这串二进制内容倒是原本是什么东西的时候，我们就需要这些信息（当然在编译期想要利用这些信息进行代码生成，也是需要的）。\n如何获取这些信息？ C/C++编译器并没有提供给我们接口让我们获取这些信息，但是前面已经说了，这些信息显然就在源代码里面啊。变量名，函数名，类型名，字段名。我们可以选择通过人工理解代码，然后手动去存储元信息。几千个类，几十个成员函数，可能写个几个月就好了吧。开玩笑的，或者我们可以写一些程序，比如正则表达式匹配之类的帮我们获取到这些信息？不过，其实我们有更好的选择来获取这些信息，那就是通过AST。\nAST(Abstract Syntax Tree) AST是抽象语法树（Abstract Syntax Tree）的缩写。它是编程语言处理中的一种数据结构，用于表示源代码的抽象语法结构。AST是源代码经过解析器（parser）处理后的结果，它捕捉了代码中的语法结构，但不包含所有细节，比如空白字符或注释。在AST中，每个节点代表源代码中的一个语法结构，例如变量声明、函数调用、循环等。这些节点之间通过父子关系和兄弟关系连接，形成了一棵树状结构，这样的结构更容易被计算机程序理解和处理。如果你的电脑里面装了clang编译器，可以使用下面这个命令查看一个源文件的语法树\nclang -Xclang -ast-dump -fsyntax-only 输出如下，我筛选出了重要的信息，无关的已经被删除了\n|-CXXRecordDecl 0x2103cd9c318 \u003ccol:1, col:8\u003e col:8 implicit struct Point |-FieldDecl 0x2103cd9c3c0 \u003cline:4:5, col:9\u003e col:9 referenced x 'int' |-FieldDecl 0x2103e8661f0 \u003cline:5:5, col:9\u003e col:9 referenced y 'int' `-FunctionDecl 0x2103e8662b0 \u003cline:8:1, line:13:1\u003e line:8:5 main 'int ()' `-CompoundStmt 0x2103e866c68 \u003cline:9:1, line:13:1\u003e |-DeclStmt 0x2103e866b30 \u003cline:10:5, col:16\u003e | `-VarDecl 0x2103e866410 \u003ccol:5, col:11\u003e col:11 used point 'Point':'Point' callinit | `-CXXConstructExpr 0x2103e866b08 \u003ccol:11\u003e 'Point':'Point' 'void () noexcept' |-BinaryOperator 0x2103e866bb8 \u003cline:11:5, col:15\u003e 'int' lvalue '=' | |-MemberExpr 0x2103e866b68 \u003ccol:5, col:11\u003e 'int' lvalue .x 0x2103cd9c3c0 | | `-DeclRefExpr 0x2103e866b48 \u003ccol:5\u003e 'Point':'Point' lvalue Var 0x2103e866410 'point' 'Point':'Point' | `-IntegerLiteral 0x2103e866b98 \u003ccol:15\u003e 'int' 1 `-BinaryOperator 0x2103e866c48 \u003cline:12:5, col:15\u003e 'int' lvalue '=' |-MemberExpr 0x2103e866bf8 \u003ccol:5, col:11\u003e 'int' lvalue .y 0x2103e8661f0 | `-DeclRefExpr 0x2103e866bd8 \u003ccol:5\u003e 'Point':'Point' lvalue Var 0x2103e866410 'point' 'Point':'Point' `-IntegerLiteral 0x2103e866c28 \u003ccol:15\u003e 'int' 2 或者如果你的vscode装了clangd这个插件，可以右键选择一块代码，然后右键show AST来看这块代码片段的ast。可以发现上面的确是把源码内容以树的方式呈现给我们了，既然是一颗树，我们就可以自由的遍历树的节点，然后筛选获取我们想要的信息。上面两例都是可视化的输出，通常情况下也会有直接的代码接口来直接获取。比如python内置就有ast模块来获取，C++一般是通过clang相关的工具来获取这些内容。如果想知道具体该如何使用clang工具，可以参考文章：使用 clang 工具自由的支配 C++ 代码吧！\n如果你好奇编译器究竟是如何把源代码变成ast的，你可以去学习一下编译原理前端的内容。\n以何种方式存储这些信息？ 这个问题听起来让人有些困惑，实际上这个问题可能只有C++程序员需要考虑\n其实一切原因都是constexpr引起的。把信息下面这样存储起来\nstruct FieldInfo { std::string_view name; std::size_t offset; std::size_t size; }； struct Point { int x; int y; }； constexpr std::array\u003cFieldInfo, 2\u003e fieldInfos = {{ {\"x\", offsetof(Point, x), sizeof(int)}, {\"y\", offsetof(Point, y), sizeof(int)}, }}; 就意味着我们不仅仅能在运行期查询这些信息，还能在编译期查询这些信息\n更有甚者，还可以存到模板参数里面去，这样的话连类型也能存了\ntemplate\u003cfixed_string name, std::size_t offset, typename Type\u003e struct Field{}; using FieldInfos = std::tuple \u003c Field\u003c\"x\", offsetof(Point, x), int\u003e, Field\u003c\"y\", offsetof(Point, y), int\u003e \u003e; 这样无疑给了我们更大的操作空间，那么有了这些信息之后，下一步该做些什么？事实上我们可以选择基于这部分信息进行代码生成，相关的内容可以浏览系列文章中的其它小节。\n",
+  "wordCount" : "3315",
+  "inLanguage": "zh-cn",
+  "image": "https://www.ykiko.me/zh-cn/articles/670190357/featured.png","datePublished": "2023-12-03T15:37:51Z",
+  "dateModified": "2024-11-30T10:08:55Z",
+  "author":{
+    "@type": "Person",
+    "name": "ykiko"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.ykiko.me/zh-cn/articles/670190357/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ykiko's blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.ykiko.me/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
-
-
-
-
-
-
-
-  
-    
-  
-
-
-
-
-
-
-
-  
-    
-  
-
-
-
-
-
-
-  
-  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral bf-scrollbar">
-    <div id="the-top" class="absolute flex self-center">
-      <a
-        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
-        href="#main-content">
-        <span class="font-bold text-primary-600 pe-2 dark:text-primary-400">&darr;</span>
-        跳过正文
-      </a>
-    </div>
-    
-    
-      <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 z-100">
-  <div
-    id="menu-blur"
-    class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl bg-neutral/25 dark:bg-neutral-800/25"></div>
-  <div class="relative m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32">
-    <div class="main-menu flex items-center w-full gap-2 p-1 pl-0">
-  
-  
-    <a href="/zh-cn/" class="text-base font-medium truncate min-w-0 shrink">
-      ykiko&rsquo;s blog
-    </a>
-  
-  <div class="flex items-center ms-auto">
-    <div class="hidden md:flex">
-      <nav class="flex items-center gap-x-5 h-12">
-  
-    
-      
-  
-    <a
-      href=""
-      
-      class="flex items-center bf-icon-color-hover"
-      aria-label="关于我"
-      title="">
-      
-      
-        <span class="text-base font-medium break-normal">
-          关于我
-        </span>
-      
-    </a>
-  
-
-    
-      
-  
-    <a
-      href="/zh-cn/articles/"
-      
-      class="flex items-center bf-icon-color-hover"
-      aria-label="文章"
-      title="Articles">
-      
-      
-        <span class="text-base font-medium break-normal">
-          文章
-        </span>
-      
-    </a>
-  
-
-    
-      
-  
-    <a
-      href=""
-      
-      class="flex items-center bf-icon-color-hover"
-      aria-label="研究"
-      title="">
-      
-      
-        <span class="text-base font-medium break-normal">
-          研究
-        </span>
-      
-    </a>
-  
-
-    
-  
-
-  
-  <div class="translation nested-menu">
-    <button class="cursor-pointer flex items-center">
-      <span class="me-1">
-        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
-    <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg></span>
-      </span>
-      <span class="text-sm font-medium bf-icon-color-hover" title="为什么说 C/C&#43;&#43; 编译器不保留元信息？">简体中文</span>
-    </button>
-    <ul class="menuhide">
-      <li class="rounded-xl backdrop-blur shadow-2xl p-2 flex flex-col gap-1">
-        
-          <a href="/en/articles/670190357/" class="flex items-center bf-icon-color-hover px-3 py-1">
-            <span class="text-sm font-sm" title="Why is it said that C/C&#43;&#43; compilers do not preserve metadata?">
-              English
-            </span>
-          </a>
-        
-          <a href="/zh-cn/articles/670190357/" class="flex items-center bf-icon-color-hover px-3 py-1">
-            <span class="text-sm font-sm" title="为什么说 C/C&#43;&#43; 编译器不保留元信息？">
-              简体中文
-            </span>
-          </a>
-        
-      </li>
-    </ul>
-  </div>
-
-
-  
-
-  
-    <button
-      id="search-button"
-      aria-label="Search"
-      class="text-base bf-icon-color-hover"
-      title="搜索 (/)">
-      <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
-</span>
-    </button>
-  
-
-  
-    <div class="flex items-center">
-      <button
-        id="appearance-switcher"
-        aria-label="Dark mode switcher"
-        type="button"
-        class="text-base bf-icon-color-hover">
-        <div class="flex items-center justify-center dark:hidden">
-          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
-</span>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://www.ykiko.me/zh-cn/" accesskey="h" title="ykiko&#39;s blog (Alt + H)">ykiko&#39;s blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                    <ul class="lang-switch"><li>|</li>
+                        <li>
+                            <a href="https://www.ykiko.me/en/" title="EN"
+                                aria-label="English">English</a>
+                        </li>
+                    </ul>
+            </div>
         </div>
-        <div class="items-center justify-center hidden dark:flex">
-          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
-</span>
-        </div>
-      </button>
-    </div>
-  
-</nav>
+        <ul id="menu">
+            <li>
+                <a href="https://www.ykiko.me/zh-cn/articles/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.ykiko.me/zh-cn/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
 
-
-
-    </div>
-    <div class="flex md:hidden">
-      <div class="flex items-center h-14 gap-4">
-  
-    <button
-      id="search-button-mobile"
-      aria-label="Search"
-      class="flex items-center justify-center bf-icon-color-hover"
-      title="搜索 (/)">
-      <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
-</span>
-    </button>
-  
-
-  
-    <button
-      id="appearance-switcher-mobile"
-      type="button"
-      aria-label="Dark mode switcher"
-      class="flex items-center justify-center text-neutral-900 hover:text-primary-600 dark:text-neutral-200 dark:hover:text-primary-400">
-      <div class="dark:hidden">
-        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
-</span>
-      </div>
-      <div class="hidden dark:block">
-        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
-</span>
-      </div>
-    </button>
-  
-
-  
-    <input type="checkbox" id="mobile-menu-toggle" autocomplete="off" class="hidden peer">
-    <label for="mobile-menu-toggle" class="flex items-center justify-center cursor-pointer bf-icon-color-hover">
-      <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
-</span>
-    </label>
-
-    <div
-      role="dialog"
-      aria-modal="true"
-      style="scrollbar-gutter: stable;"
-      class="fixed inset-0 z-50 invisible overflow-y-auto px-6 py-20 opacity-0 transition-[opacity,visibility] duration-300 peer-checked:visible peer-checked:opacity-100 bg-neutral-50/97 dark:bg-neutral-900/99
-      bf-scrollbar">
-      <label
-        for="mobile-menu-toggle"
-        class="fixed end-8 top-5 flex items-center justify-center z-50 h-12 w-12 cursor-pointer select-none rounded-full bf-icon-color-hover border bf-border-color bf-border-color-hover bg-neutral-50 dark:bg-neutral-900">
-        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
-</span>
-      </label>
-      <nav class="mx-auto max-w-md space-y-6">
-        
-  
+<article class="post-single">
+  <header class="post-header">
     
-    <div class="px-2">
-      <a
-        href=""
-        aria-label="关于我"
-        
-        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
-        
-        <span title="" class="text-2xl font-bold tracking-tight">
-          关于我
-        </span>
-        
-      </a>
-
-      
-    </div>
-  
-    
-    <div class="px-2">
-      <a
-        href="/zh-cn/articles/"
-        aria-label="文章"
-        
-        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
-        
-        <span title="Articles" class="text-2xl font-bold tracking-tight">
-          文章
-        </span>
-        
-      </a>
-
-      
-    </div>
-  
-    
-    <div class="px-2">
-      <a
-        href=""
-        aria-label="研究"
-        
-        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
-        
-        <span title="" class="text-2xl font-bold tracking-tight">
-          研究
-        </span>
-        
-      </a>
-
-      
-    </div>
-  
-
-        
-  
-
-        
-  
-    <div
-      class="flex flex-wrap items-center [&_span]:text-2xl [&_.translation_button_.icon]:text-4xl! [&_.translation_button_span]:text-base! [&_.translation_.menuhide_span]:text-sm! gap-x-6 ps-2 mt-8 pt-8 border-t bf-border-color">
-      
-  <div class="translation nested-menu">
-    <button class="cursor-pointer flex items-center">
-      <span class="me-1">
-        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
-    <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg></span>
-      </span>
-      <span class="text-sm font-medium bf-icon-color-hover" title="为什么说 C/C&#43;&#43; 编译器不保留元信息？">简体中文</span>
-    </button>
-    <ul class="menuhide">
-      <li class="rounded-xl backdrop-blur shadow-2xl p-2 flex flex-col gap-1">
-        
-          <a href="/en/articles/670190357/" class="flex items-center bf-icon-color-hover px-3 py-1">
-            <span class="text-sm font-sm" title="Why is it said that C/C&#43;&#43; compilers do not preserve metadata?">
-              English
-            </span>
-          </a>
-        
-          <a href="/zh-cn/articles/670190357/" class="flex items-center bf-icon-color-hover px-3 py-1">
-            <span class="text-sm font-sm" title="为什么说 C/C&#43;&#43; 编译器不保留元信息？">
-              简体中文
-            </span>
-          </a>
-        
-      </li>
-    </ul>
-  </div>
-
-
-
-      
-    </div>
-  
-
-      </nav>
-    </div>
-  
-</div>
-
-
-
-
-
-
-
-    </div>
-  </div>
-</div>
-
-
-
-
-  <script>
-    (function () {
-      var mainmenu = document.querySelector(".main-menu");
-      if (!mainmenu) return;
-
-      var path = window.location.pathname;
-      var links = mainmenu.querySelectorAll('a[href="' + path + '"]');
-
-      links.forEach(function (link) {
-        var targets = link.querySelectorAll("span");
-        targets.forEach(function (el) {
-          el.classList.add("active");
-        });
-      });
-    })();
-  </script>
-
-
-  </div>
-</div>
-
-
-<script
-  type="text/javascript"
-  src="/js/background-blur.min.00a57c73ea12f2cab2980c3c3d649e89f6d82f190f74bbe2b67f2f5e39ab7d032ece47086400ca05396758aace13299da49aca43ea643d2625e62c506267a169.js"
-  integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
-  data-blur-id="menu-blur"></script>
-
-    
-    <div class="relative flex flex-col grow">
-      <main id="main-content" class="grow">
-        
-  
-  <article>
-    
-    
-      
-      
-      
-      
-        
-
-
-
-
-
-
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-
-
-
-
-
-  
-    
-    
-      
-      
-    
-  
-
-
-
-
-
-    <div id="hero" class="h-[150px] md:h-[200px]"></div>
-  
-  <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
-    
-    
-    
-    <img
-      id="background-image"
-      src="/zh-cn/articles/670190357/featured_hu12375743118955563405.png"
-      role="presentation"
-      loading="eager"
-      decoding="async"
-      fetchpriority="high"
-      class="absolute inset-0 w-full h-full object-cover"
-      >
-    <div
-      class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
-    <div
-      class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal"></div>
-  </div>
-
-  
-    <div
-      id="background-blur"
-      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
-    
-    
-    <script
-      type="text/javascript"
-      src="/js/background-blur.min.00a57c73ea12f2cab2980c3c3d649e89f6d82f190f74bbe2b67f2f5e39ab7d032ece47086400ca05396758aace13299da49aca43ea643d2625e62c506267a169.js"
-      integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
-      data-blur-id="background-blur"
-      data-image-id="background-image"
-      data-image-url="/zh-cn/articles/670190357/featured_hu12375743118955563405.png"></script>
-  
-      
-    
-
-    
-    <header id="single_header" class="mt-5 max-w-prose">
-      
-        <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
-  
-  
-    
-  
-    
-  
-  <li class="hidden">
-    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/zh-cn/"
-      >ykiko&#39;s blog</a
-    ><span class="px-1 text-primary-500">/</span>
-  </li>
-
-  
-  <li class="inline">
-    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/zh-cn/articles/"
-      >Articles</a
-    ><span class="px-1 text-primary-500">/</span>
-  </li>
-
-  
-  <li class="hidden">
-    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/zh-cn/articles/670190357/"
-      >为什么说 C/C&#43;&#43; 编译器不保留元信息？</a
-    ><span class="px-1 text-primary-500">/</span>
-  </li>
-
-</ol>
-
-
-      
-      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-        为什么说 C/C++ 编译器不保留元信息？
-      </h1>
-      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
-        
-
-
-
-
-
-  
-  
-
-
-
-  
-
-  
-  
-  
-    
-  
-
-  
-
-  
-    
-  
-
-  
-
-  
-    
-  
-
-  
-    
-  
-
-  
-
-  
-
-  
-
-  
-    
-  
-
-  
-    
-  
-
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <time datetime="2023-12-03T15:37:51&#43;00:00">December 3, 2023</time><span class="px-2 text-primary-500">&middot;</span><span>3325 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">7 分钟</span><span class="px-2 text-primary-500">&middot;</span>
-
-
-  
-    
-  
-  
-
-<span class="mb-[2px]">
-  <a
-    href="#/articles/670190357/index.md"
-    class="text-lg hover:text-primary-500"
-    rel="noopener noreferrer"
-    target="_blank"
-    title="编辑内容"
-    ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z"/></svg></span></span></a
-  >
-</span><span class="px-2 text-primary-500">&middot;</span><span class="mb-[2px]">
-  <span
-    id="zen-mode-button"
-    class="text-lg hover:text-primary-500"
-    title="啟用阅读模式"
-    data-title-i18n-disable="啟用阅读模式"
-    data-title-i18n-enable="停用阅读模式">
-    <span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
-    <path fill="currentColor" d="M 12.980469 4 C 9.1204688 4 5.9804688 7.14 5.9804688 11 L 6 26 L 9.9804688 26 L 9.9804688 11 C 9.9804688 9.35 11.320469 8 12.980469 8 L 40.019531 8 C 41.679531 8 43.019531 9.35 43.019531 11 L 43.019531 39 C 43.019531 40.65 41.679531 42 40.019531 42 L 29 42 C 29 43.54 28.420938 44.94 27.460938 46 L 40.019531 46 C 43.879531 46 47.019531 42.86 47.019531 39 L 47.019531 11 C 47.019531 7.14 43.879531 4 40.019531 4 L 12.980469 4 z M 7 28 C 4.794 28 3 29.794 3 32 L 3 42 C 3 44.206 4.794 46 7 46 L 23 46 C 25.206 46 27 44.206 27 42 L 27 32 C 27 29.794 25.206 28 23 28 L 7 28 z M 7 32 L 23 32 L 23.001953 42 L 7 42 L 7 32 z"/>
-</svg></span></span>
-  </span>
-</span>
-
-    
-
-    
-    
-  </div>
-
-  
-    <div class="flex flex-row flex-wrap items-center">
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-      
-    </div>
-  
-
-  
-  
-    <div class="flex flex-row flex-wrap items-center">
-      
-        
-      
-        
-          
-        
-      
-        
-      
-        
-          
-        
-      
-    </div>
-  
-
-  
-  
-
-
-
-      </div>
-      
-        
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-    
-    
-<div class="flex author">
-  
-    
-    
-      
-    
-    
-      
-      
-      
-        
-        
-        
-      
-      <img
-        class="!mt-0 !mb-0 h-24 w-24 rounded-full me-4"
-        width="96"
-        height="96"
-        alt="ykiko"
-        src="/img/author_hu12645359616066712621.jpg"
-        data-zoom-src="/img/author_hu18173386983798328237.jpg">
-    
-  
-  <div class="place-self-center">
-    
-      <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
-        作者
-      </div>
-      <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
-        ykiko
-      </div>
-    
-    
-    <div class="text-2xl sm:text-lg">
-  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500 space-x-2">
-    
-      
-        
-        <a
-          class=" hover:text-primary-700 dark:hover:text-primary-400"
-          href="https://github.com/16bit-ykiko"
-          
-          target="_blank"
-          aria-label="Github"
-          title="Github"
-          rel="me noopener noreferrer"
-          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-</span></span></a
-        >
-      
-    
-      
-        
-        <a
-          class=" hover:text-primary-700 dark:hover:text-primary-400"
-          href="mailto:ykikoykikoykiko@gmail.com"
-          
-          target="_blank"
-          aria-label="Envelope-Solid"
-          title="Envelope-Solid"
-          rel="me noopener noreferrer"
-          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path fill="currentColor" d="M464 64C490.5 64 512 85.49 512 112C512 127.1 504.9 141.3 492.8 150.4L275.2 313.6C263.8 322.1 248.2 322.1 236.8 313.6L19.2 150.4C7.113 141.3 0 127.1 0 112C0 85.49 21.49 64 48 64H464zM217.6 339.2C240.4 356.3 271.6 356.3 294.4 339.2L512 176V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V176L217.6 339.2z"/></svg></span></span></a
-        >
-      
-    
-      
-        
-        <a
-          class=" hover:text-primary-700 dark:hover:text-primary-400"
-          href="https://www.zhihu.com/people/75-49-80-77"
-          
-          target="_blank"
-          aria-label="Zhihu"
-          title="Zhihu"
-          rel="me noopener noreferrer"
-          ><span class="inline-block align-text-bottom"><span class="relative block icon"><?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1719381188729" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6448" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M541.867 556.8s0-66.133-32-68.267c-32-4.266-132.267 0-132.267 0v-204.8h149.333s-2.133-68.266-29.866-68.266h-243.2l40.533-108.8s-59.733 4.266-83.2 42.666C189.867 187.733 121.6 384 121.6 384s23.467 10.667 61.867-19.2c38.4-27.733 51.2-78.933 51.2-78.933l70.4-4.267 2.133 206.933s-125.867-2.133-149.333 0c-25.6 2.134-38.4 68.267-38.4 68.267h189.866s-17.066 117.333-64 198.4C196.267 840.533 102.4 906.667 102.4 906.667S168.533 934.4 234.667 896s113.066-206.933 113.066-206.933L499.2 878.933s12.8-89.6-2.133-117.333C480 736 390.4 633.6 390.4 633.6L352 667.733l27.733-113.066 162.134 2.133z m38.4-345.6l-2.134 614.4H640l21.333 74.667 108.8-74.667H921.6V211.2H580.267z m273.066 546.133h-70.4l-89.6 68.267-19.2-68.267h-19.2V281.6h198.4v475.733z" fill="currentColor" p-id="6449"></path></svg></span></span></a
-        >
-      
-    
-      
-        
-        <a
-          class=" hover:text-primary-700 dark:hover:text-primary-400"
-          href="https://space.bilibili.com/360835081"
-          
-          target="_blank"
-          aria-label="Bilibili"
-          title="Bilibili"
-          rel="me noopener noreferrer"
-          ><span class="inline-block align-text-bottom"><span class="relative block icon"><?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1719381779479" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9290" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M306.005333 117.632L444.330667 256h135.296l138.368-138.325333a42.666667 42.666667 0 0 1 60.373333 60.373333L700.330667 256H789.333333A149.333333 149.333333 0 0 1 938.666667 405.333333v341.333334a149.333333 149.333333 0 0 1-149.333334 149.333333h-554.666666A149.333333 149.333333 0 0 1 85.333333 746.666667v-341.333334A149.333333 149.333333 0 0 1 234.666667 256h88.96L245.632 177.962667a42.666667 42.666667 0 0 1 60.373333-60.373334zM789.333333 341.333333h-554.666666a64 64 0 0 0-63.701334 57.856L170.666667 405.333333v341.333334a64 64 0 0 0 57.856 63.701333L234.666667 810.666667h554.666666a64 64 0 0 0 63.701334-57.856L853.333333 746.666667v-341.333334A64 64 0 0 0 789.333333 341.333333zM341.333333 469.333333a42.666667 42.666667 0 0 1 42.666667 42.666667v85.333333a42.666667 42.666667 0 0 1-85.333333 0v-85.333333a42.666667 42.666667 0 0 1 42.666666-42.666667z m341.333334 0a42.666667 42.666667 0 0 1 42.666666 42.666667v85.333333a42.666667 42.666667 0 0 1-85.333333 0v-85.333333a42.666667 42.666667 0 0 1 42.666667-42.666667z" fill="currentColor" p-id="9291"></path></svg></span></span></a
-        >
-      
-    
-      
-        
-        <a
-          class=" hover:text-primary-700 dark:hover:text-primary-400"
-          href="https://bangumi.tv/user/857516"
-          
-          target="_blank"
-          aria-label="Banguim"
-          title="Banguim"
-          rel="me noopener noreferrer"
-          ><span class="inline-block align-text-bottom"><span class="relative block icon"><?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1719382391801" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11123" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M1013.49888 192.13312l0-50.2016c0-133.98528-115.46112-133.98528-133.98528-133.98528l-49.9968 0c-1.69472-0.06656-3.25632-0.47616-5.02272-0.47616L197.31968 7.47008c-1.69472 0-3.32288 0.47616-5.02272 0.47616l-49.9968 0c-18.51904 0-133.98528 0-133.98528 133.98528l0 50.13504c-0.06656 1.62816-0.47616 3.18976-0.47616 4.81792l0 627.1744c0 1.62816 0.47616 3.18976 0.47616 4.81792l0 50.13504c0 133.98528 133.98528 133.98528 133.98528 133.98528l49.9968 0c1.69472 0.06656 3.25632 0.47616 4.95104 0.47616l627.1744 0c1.69472 0 3.25632-0.47616 4.95104-0.47616l50.06848 0c38.67136 0 65.87392-11.25888 85.4784-27.20256 1.22368-0.95232 2.5088-1.89952 3.73248-2.85184 4.47488-3.93216 8.61696-8.1408 12.2112-12.48256 1.01888-1.29024 1.89952-2.57536 2.85184-3.93216 29.57824-38.66624 29.78304-87.58272 29.78304-87.58272l0-50.2016c0.06656-1.62816 0.47616-3.1232 0.47616-4.81792L1013.97504 196.8128C1013.97504 195.32288 1013.56544 193.76128 1013.49888 192.13312zM162.11456 874.5984 61.0304 874.5984l0-101.07904 101.07904 0L162.10944 874.5984zM162.11456 717.824 61.0304 717.824l0-101.07904 101.07904 0L162.10944 717.824zM162.11456 561.04448 61.0304 561.04448 61.0304 459.96544l101.07904 0L162.10944 561.04448zM162.11456 404.27008 61.0304 404.27008 61.0304 303.18592l101.07904 0L162.10944 404.27008zM162.11456 247.49056 61.0304 247.49056 61.0304 146.41152l101.07904 0L162.10944 247.49056zM794.98752 899.63008 224.18432 899.63008 224.18432 121.4464l570.8032 0L794.98752 899.63008zM952.30464 873.4464l-101.07904 0 0-101.07904 101.07904 0L952.30464 873.4464zM952.30464 716.66688l-101.07904 0 0-101.07904 101.07904 0L952.30464 716.66688zM952.30464 559.89248l-101.07904 0L851.2256 458.81344l101.07904 0L952.30464 559.89248zM952.30464 403.11296l-101.07904 0L851.2256 302.03392l101.07904 0L952.30464 403.11296zM952.30464 246.33856l-101.07904 0L851.2256 145.25952l101.07904 0L952.30464 246.33856z" fill="currentColor" p-id="11124"></path><path d="M452.46464 680.91904 452.46464 680.91904 646.7584 543.744c20.48512-14.72 20.48512-51.42016 0-66.14528L452.46464 340.02432c-20.48512-14.72-54.272-4.13696-54.272 25.23648l0 290.82624C398.19264 685.46048 432.04608 695.57248 452.46464 680.91904z" fill="currentColor" p-id="11125"></path></svg></span></span></a
-        >
-      
-    
-  </div>
-
-</div>
-  </div>
-</div>
-
-  
-
-  
-
-  
-    <div class="mb-5"></div>
-  
-
-      
-    </header>
-
-    
-    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
-      
-      
-      
-      
-      
-        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
-          <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
-            <details
-  open
-  id="TOCView"
-  class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
-  <summary
-    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
-    目录
-  </summary>
-  <div
-    class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#首先什么是元信息">首先什么是元信息？</a></li>
-    <li><a href="#为什么这些信息是不必要的什么时候需要">为什么这些信息是不必要的，什么时候需要？</a>
-      <ul>
-        <li><a href="#变量定义">变量定义</a></li>
-        <li><a href="#内置运算符">内置运算符</a></li>
-        <li><a href="#结构体">结构体</a></li>
-        <li><a href="#函数调用">函数调用</a></li>
-        <li><a href="#总结">总结</a></li>
-      </ul>
+    <h1 class="post-title entry-hint-parent">
+      为什么说 C/C&#43;&#43; 编译器不保留元信息？
+    </h1>
+    <div class="post-meta"><span title='2023-12-03 15:37:51 +0000 UTC'>2023-12-03</span>&nbsp;·&nbsp;<span>更新于 2024-11-30</span>&nbsp;·&nbsp;<span>7 min</span>&nbsp;·&nbsp;<span>3315 words</span>&nbsp;·&nbsp;<span>ykiko</span>&nbsp;|&nbsp;<span>Translations:</span>
+<ul class="i18n_list">
+    <li>
+        <a href="https://www.ykiko.me/en/articles/670190357/">English</a>
     </li>
-    <li><a href="#如何获取这些信息">如何获取这些信息？</a></li>
-    <li><a href="#astabstract-syntax-tree">AST(Abstract Syntax Tree)</a></li>
-    <li><a href="#以何种方式存储这些信息">以何种方式存储这些信息？</a></li>
-  </ul>
-</nav>
-  </div>
-</details>
-<details class="toc-inside mt-0 overflow-hidden rounded-lg -ms-5 ps-5 lg:hidden">
-  <summary
-    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
-    目录
-  </summary>
-  <div
-    class="py-2 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#首先什么是元信息">首先什么是元信息？</a></li>
-    <li><a href="#为什么这些信息是不必要的什么时候需要">为什么这些信息是不必要的，什么时候需要？</a>
-      <ul>
-        <li><a href="#变量定义">变量定义</a></li>
-        <li><a href="#内置运算符">内置运算符</a></li>
-        <li><a href="#结构体">结构体</a></li>
-        <li><a href="#函数调用">函数调用</a></li>
-        <li><a href="#总结">总结</a></li>
-      </ul>
-    </li>
-    <li><a href="#如何获取这些信息">如何获取这些信息？</a></li>
-    <li><a href="#astabstract-syntax-tree">AST(Abstract Syntax Tree)</a></li>
-    <li><a href="#以何种方式存储这些信息">以何种方式存储这些信息？</a></li>
-  </ul>
-</nav>
-  </div>
-</details>
+</ul>
 
+</div>
+  </header><figure class="entry-cover"><img loading="eager" src="https://www.ykiko.me/zh-cn/articles/670190357/featured.png" alt="为什么说 C/C&#43;&#43; 编译器不保留元信息？"></figure><div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
 
-<script>
-  (function () {
-    'use strict'
-
-    const SCROLL_OFFSET_RATIO = 0.33
-    const TOC_SELECTOR = '#TableOfContents'
-    const ANCHOR_SELECTOR = '.anchor'
-    const TOC_LINK_SELECTOR = 'a[href^="#"]'
-    const NESTED_LIST_SELECTOR = 'li ul'
-    const ACTIVE_CLASS = 'active'
-    let isJumpingToAnchor = false
-
-    function getActiveAnchorId(anchors, offsetRatio) {
-      const threshold = window.scrollY + window.innerHeight * offsetRatio
-      const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
-      const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
-
-      if (isJumpingToAnchor) {
-        for (let i = 0; i < anchors.length; i++) {
-          const anchor = anchors[i]
-          if (!tocIds.has(anchor.id)) continue
-          const top = anchor.getBoundingClientRect().top + window.scrollY
-          if (Math.abs(window.scrollY - top) < 100) {
-            return anchor.id
-          }
-        }
-      }
-
-      for (let i = anchors.length - 1; i >= 0; i--) {
-        const top = anchors[i].getBoundingClientRect().top + window.scrollY
-        if (top <= threshold && tocIds.has(anchors[i].id)) {
-          return anchors[i].id
-        }
-      }
-      return anchors.find(anchor => tocIds.has(anchor.id))?.id || ''
-    }
-
-    function updateTOC({ toc, anchors, links, scrollOffset, collapseInactive }) {
-      const activeId = getActiveAnchorId(anchors, scrollOffset)
-      if (!activeId) return
-
-      links.forEach(link => {
-        const isActive = link.getAttribute('href') === `#${activeId}`
-        link.classList.toggle(ACTIVE_CLASS, isActive)
-
-        if (collapseInactive) {
-          const ul = link.closest('li')?.querySelector('ul')
-          if (ul) ul.style.display = isActive ? '' : 'none'
-        }
-      })
-
-      if (collapseInactive) {
-        const activeLink = toc.querySelector(`a[href="#${CSS.escape(activeId)}"]`)
-        let el = activeLink
-        while (el && el !== toc) {
-          if (el.tagName === 'UL') el.style.display = ''
-          if (el.tagName === 'LI') el.querySelector('ul')?.style.setProperty('display', '')
-          el = el.parentElement
-        }
-      }
-    }
-
-    function initTOC() {
-      const toc = document.querySelector(TOC_SELECTOR)
-      if (!toc) return
-
-      const collapseInactive = false
-      const anchors = [...document.querySelectorAll(ANCHOR_SELECTOR)]
-      const links = [...toc.querySelectorAll(TOC_LINK_SELECTOR)]
-
-      if (collapseInactive) {
-        toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
-      }
-
-      links.forEach(link => {
-        link.addEventListener('click', () => {
-          isJumpingToAnchor = true
-        })
-      })
-
-      const config = {
-        toc,
-        anchors,
-        links,
-        scrollOffset: SCROLL_OFFSET_RATIO,
-        collapseInactive
-      }
-
-      window.addEventListener('scroll', () => updateTOC(config), { passive: true })
-      window.addEventListener('hashchange', () => updateTOC(config), { passive: true })
-
-      updateTOC(config)
-    }
-
-    document.readyState === 'loading'
-      ? document.addEventListener('DOMContentLoaded', initTOC)
-      : initTOC()
-  })()
-</script>
-
-
-          </div>
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e9%a6%96%e5%85%88%e4%bb%80%e4%b9%88%e6%98%af%e5%85%83%e4%bf%a1%e6%81%af" aria-label="首先什么是元信息？">首先什么是元信息？</a></li>
+                <li>
+                    <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e8%bf%99%e4%ba%9b%e4%bf%a1%e6%81%af%e6%98%af%e4%b8%8d%e5%bf%85%e8%a6%81%e7%9a%84%e4%bb%80%e4%b9%88%e6%97%b6%e5%80%99%e9%9c%80%e8%a6%81" aria-label="为什么这些信息是不必要的，什么时候需要？">为什么这些信息是不必要的，什么时候需要？</a><ul>
+                        
+                <li>
+                    <a href="#%e5%8f%98%e9%87%8f%e5%ae%9a%e4%b9%89" aria-label="变量定义">变量定义</a></li>
+                <li>
+                    <a href="#%e5%86%85%e7%bd%ae%e8%bf%90%e7%ae%97%e7%ac%a6" aria-label="内置运算符">内置运算符</a></li>
+                <li>
+                    <a href="#%e7%bb%93%e6%9e%84%e4%bd%93" aria-label="结构体">结构体</a></li>
+                <li>
+                    <a href="#%e5%87%bd%e6%95%b0%e8%b0%83%e7%94%a8" aria-label="函数调用">函数调用</a></li>
+                <li>
+                    <a href="#%e6%80%bb%e7%bb%93" aria-label="总结">总结</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%a6%82%e4%bd%95%e8%8e%b7%e5%8f%96%e8%bf%99%e4%ba%9b%e4%bf%a1%e6%81%af" aria-label="如何获取这些信息？">如何获取这些信息？</a></li>
+                <li>
+                    <a href="#astabstract-syntax-tree" aria-label="AST(Abstract Syntax Tree)">AST(Abstract Syntax Tree)</a></li>
+                <li>
+                    <a href="#%e4%bb%a5%e4%bd%95%e7%a7%8d%e6%96%b9%e5%bc%8f%e5%ad%98%e5%82%a8%e8%bf%99%e4%ba%9b%e4%bf%a1%e6%81%af" aria-label="以何种方式存储这些信息？">以何种方式存储这些信息？</a>
+                </li>
+            </ul>
         </div>
-      
+    </details>
+</div>
 
-
-      <div class="min-w-0 min-h-0 max-w-fit">
-        
-  <details
-    class="mt-2 mb-5 overflow-hidden rounded-lg ms-0 ps-5"
-    >
-    
-  <summary
-    class="py-1 text-lg font-semibold cursor-pointer bg-primary-200 text-neutral-800 -ms-5 ps-5 dark:bg-primary-800 dark:text-neutral-100">
-    Reflection -
-    这篇文章属于一个选集。
-  </summary>
-  
-  
-    
-      <div
-        class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-        <a href="/zh-cn/articles/669358870/">
-          § 1:
-          写给 C&#43;&#43; 程序员的反射教程
-        </a>
-      </div>
-    
-  
-    
-      <div
-        class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-        § 2:
-        本文
-      </div>
-    
-  
-    
-      <div
-        class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-        <a href="/zh-cn/articles/670191053/">
-          § 3:
-          在 C&#43;&#43; 中实现 Object!
-        </a>
-      </div>
-    
-  
-    
-      <div
-        class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-        <a href="/zh-cn/articles/669359855/">
-          § 4:
-          各种姿势进行代码生成
-        </a>
-      </div>
-    
-  
-    
-      <div
-        class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-        <a href="/zh-cn/articles/669360731/">
-          § 5:
-          使用 Clang 工具自由的支配 C&#43;&#43; 代码吧
-        </a>
-      </div>
-    
-  
-    
-      <div
-        class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-        <a href="/zh-cn/articles/661692275/">
-          § 6:
-          C&#43;&#43;26 静态反射提案解析
-        </a>
-      </div>
-    
-  
-
-
-  </details>
-
-
-        <div class="article-content max-w-prose mb-20">
-          
-<h2 class="relative group">首先什么是元信息？
-    <div id="首先什么是元信息" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e9%a6%96%e5%85%88%e4%bb%80%e4%b9%88%e6%98%af%e5%85%83%e4%bf%a1%e6%81%af" aria-label="锚点">#</a>
-    </span>
-    
-</h2>
+  <div class="post-content"><h2 id="首先什么是元信息">首先什么是元信息？<a hidden class="anchor" aria-hidden="true" href="#首先什么是元信息">#</a></h2>
 <p>来看下面一段<code>python</code>代码，我们希望能够根据传入的字符串来自动修改对应的字段值</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
 </span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
@@ -1321,17 +271,17 @@
 </span></span><span class="line"><span class="cl"><span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s2">&#34;xiaohong&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="nb">setattr</span><span class="p">(</span><span class="n">person</span><span class="p">,</span> <span class="s2">&#34;age&#34;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="nb">setattr</span><span class="p">(</span><span class="n">person</span><span class="p">,</span> <span class="s2">&#34;name&#34;</span><span class="p">,</span> <span class="s2">&#34;xiaoming&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;name: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">, age: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">age</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="c1"># =&gt; name: xiaoming, age: 12</span></span></span></code></pre></div></div>
-<p><code>setattr</code>是<code>python</code>内置的一个函数，刚好可以实现我们的需求。根据输入的字段名，修改对应值。</p>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;name: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">, age: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">age</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="c1"># =&gt; name: xiaoming, age: 12</span>
+</span></span></code></pre></div><p><code>setattr</code>是<code>python</code>内置的一个函数，刚好可以实现我们的需求。根据输入的字段名，修改对应值。</p>
 <p>如果想要在<code>C++</code>中实现应该怎么办呢？<code>C++</code>可没有内置<code>setattr</code>这种函数。代码示例如下。（暂时就先考虑可以直接<code>memcpy</code>的类型了，也就是<code>trivially copyable</code>的类型）</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Person</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Person</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">name</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 名字 -&gt; 字段偏移量，字段大小
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="o">&gt;&gt;</span> <span class="n">fieldInfo</span> <span class="o">=</span> 
+</span></span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="o">&gt;&gt;</span> <span class="n">fieldInfo</span> <span class="o">=</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s">&#34;age&#34;</span><span class="p">,</span>  <span class="p">{</span><span class="n">offsetof</span><span class="p">(</span><span class="n">Person</span><span class="p">,</span> <span class="n">age</span><span class="p">),</span>  <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)}},</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s">&#34;name&#34;</span><span class="p">,</span> <span class="p">{</span><span class="n">offsetof</span><span class="p">(</span><span class="n">Person</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">)}},</span>
@@ -1356,62 +306,34 @@
 </span></span><span class="line"><span class="cl">    <span class="n">setattr</span><span class="p">(</span><span class="o">&amp;</span><span class="n">person</span><span class="p">,</span> <span class="s">&#34;name&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">name</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">person</span><span class="p">.</span><span class="n">age</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">person</span><span class="p">.</span><span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// =&gt; 10 xiaohong
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
-<p>可以发现我们基本上自己实现了<code>setattr</code>这个函数，而且这样的实现似乎可以是通用的。只要为特定的类型提供属于它的<code>fieldInfo</code>就行了。这个<code>fieldInfo</code>里面存了字段名，字段的偏移量，字段的类型大小。它就可以被看做<strong>元信息</strong>,除此之外可能还有变量名，函数名，等等。<strong>这些信息不直接参与程序的运行，而是提供关于程序结构、数据、类型等方面的附加信息</strong>。元信息里面存的东西似乎也都是死套路，对于我们都是已知信息。因为它们就存在程序的源代码里面。那<code>C/C++</code>编译器提供这种功能吗？答案是：对于<code>debug</code>模式下的程序可能会保留一部分用于程序调试，而在<code>release</code>模式下什么都不会存。这样做的好处是很显然的，因为这些信息并不是程序运行起来必须要的信息，不保留它们可以显著减少二进制可执行文件的大小。</p>
-
-<h2 class="relative group">为什么这些信息是不必要的，什么时候需要？
-    <div id="为什么这些信息是不必要的什么时候需要" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e8%bf%99%e4%ba%9b%e4%bf%a1%e6%81%af%e6%98%af%e4%b8%8d%e5%bf%85%e8%a6%81%e7%9a%84%e4%bb%80%e4%b9%88%e6%97%b6%e5%80%99%e9%9c%80%e8%a6%81" aria-label="锚点">#</a>
-    </span>
-    
-</h2>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>可以发现我们基本上自己实现了<code>setattr</code>这个函数，而且这样的实现似乎可以是通用的。只要为特定的类型提供属于它的<code>fieldInfo</code>就行了。这个<code>fieldInfo</code>里面存了字段名，字段的偏移量，字段的类型大小。它就可以被看做<strong>元信息</strong>,除此之外可能还有变量名，函数名，等等。<strong>这些信息不直接参与程序的运行，而是提供关于程序结构、数据、类型等方面的附加信息</strong>。元信息里面存的东西似乎也都是死套路，对于我们都是已知信息。因为它们就存在程序的源代码里面。那<code>C/C++</code>编译器提供这种功能吗？答案是：对于<code>debug</code>模式下的程序可能会保留一部分用于程序调试，而在<code>release</code>模式下什么都不会存。这样做的好处是很显然的，因为这些信息并不是程序运行起来必须要的信息，不保留它们可以显著减少二进制可执行文件的大小。</p>
+<h2 id="为什么这些信息是不必要的什么时候需要">为什么这些信息是不必要的，什么时候需要？<a hidden class="anchor" aria-hidden="true" href="#为什么这些信息是不必要的什么时候需要">#</a></h2>
 <p>接下来我会以<code>C</code>语言为例，将它的源码与二进制表示对应起来。看看执行代码究竟需要哪些信息？</p>
-
-<h3 class="relative group">变量定义
-    <div id="变量定义" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%8f%98%e9%87%8f%e5%ae%9a%e4%b9%89" aria-label="锚点">#</a>
-    </span>
-    
-</h3>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">value</span><span class="p">;</span></span></span></code></pre></div></div>
-<p>事实上变量声明并没有直接对应的二进制表示，它仅仅是告诉编译器需要分配一块空间来存储名为<code>value</code>的变量，究竟分配多大的内存则由它的类型决定。所以如果变量声明的时候类型大小是未知的，则会编译错误。</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">A</span><span class="p">;</span>
+<h3 id="变量定义">变量定义<a hidden class="anchor" aria-hidden="true" href="#变量定义">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
+</span></span></code></pre></div><p>事实上变量声明并没有直接对应的二进制表示，它仅仅是告诉编译器需要分配一块空间来存储名为<code>value</code>的变量，究竟分配多大的内存则由它的类型决定。所以如果变量声明的时候类型大小是未知的，则会编译错误。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">A</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="n">x</span><span class="p">;</span> <span class="c1">// error: storage size of &#39;x&#39; isn&#39;t known
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">A</span><span class="o">*</span> <span class="n">y</span><span class="p">;</span> <span class="c1">// ok the size of pointer is always konwn 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl"><span class="n">A</span><span class="o">*</span> <span class="n">y</span><span class="p">;</span> <span class="c1">// ok the size of pointer is always konwn
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">Node</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">val</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Node</span> <span class="n">next</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span> <span class="c1">// error Node is not a complete type
 </span></span></span><span class="line"><span class="cl"><span class="c1">// 其实意思就是定义 Node 类型的时候它的大小还是未知的
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">Node</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">val</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span> <span class="c1">// ok
-</span></span></span></code></pre></div></div>
-<p>相信你想到了这和<code>malloc</code>似乎有点像，的确如此。区别在于，<code>malloc</code>是在运行时的堆上分配内存。而直接的变量声明一般是在数据区或者栈上分配内存。编译器可能在内部会维护一个符号表，将变量名与它的地址映射起来，在你后续对这个变量进行操作的时候，实际上是对这块内存区域进行操作。</p>
-
-<h3 class="relative group">内置运算符
-    <div id="内置运算符" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%86%85%e7%bd%ae%e8%bf%90%e7%ae%97%e7%ac%a6" aria-label="锚点">#</a>
-    </span>
-    
-</h3>
+</span></span></span></code></pre></div><p>相信你想到了这和<code>malloc</code>似乎有点像，的确如此。区别在于，<code>malloc</code>是在运行时的堆上分配内存。而直接的变量声明一般是在数据区或者栈上分配内存。编译器可能在内部会维护一个符号表，将变量名与它的地址映射起来，在你后续对这个变量进行操作的时候，实际上是对这块内存区域进行操作。</p>
+<h3 id="内置运算符">内置运算符<a hidden class="anchor" aria-hidden="true" href="#内置运算符">#</a></h3>
 <p><code>C</code>语言内置的运算符一般直接和<code>CPU</code>指令直接对应，至于<code>CPU</code>是如何实现这些运算的，可以学习下数电相关知识。以<code>x86_64</code>为例，可能的对应如下</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="o">|</span> <span class="n">Operator</span> <span class="o">|</span> <span class="n">Meaning</span> <span class="o">|</span> <span class="n">Operator</span> <span class="o">|</span> <span class="n">Meaning</span> <span class="o">|</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="o">|</span> <span class="n">Operator</span> <span class="o">|</span> <span class="n">Meaning</span> <span class="o">|</span> <span class="n">Operator</span> <span class="o">|</span> <span class="n">Meaning</span> <span class="o">|</span>
 </span></span><span class="line"><span class="cl"><span class="o">|----------|---------|----------|---------|</span>
 </span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">+</span>        <span class="o">|</span> <span class="n">add</span>     <span class="o">|</span> <span class="o">*</span>        <span class="o">|</span> <span class="n">mul</span>     <span class="o">|</span>
 </span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">-</span>        <span class="o">|</span> <span class="n">sub</span>     <span class="o">|</span> <span class="o">/</span>        <span class="o">|</span> <span class="n">div</span>     <span class="o">|</span>
@@ -1423,21 +345,11 @@
 </span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">==</span>       <span class="o">|</span> <span class="n">cmp</span>     <span class="o">|</span> <span class="o">!=</span>       <span class="o">|</span> <span class="n">cmp</span>     <span class="o">|</span>
 </span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">&gt;</span>        <span class="o">|</span> <span class="n">cmp</span>     <span class="o">|</span> <span class="o">&gt;=</span>       <span class="o">|</span> <span class="n">cmp</span>     <span class="o">|</span>
 </span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">&lt;</span>        <span class="o">|</span> <span class="n">cmp</span>     <span class="o">|</span> <span class="o">&lt;=</span>       <span class="o">|</span> <span class="n">cmp</span>     <span class="o">|</span>
-</span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">++</span>       <span class="o">|</span> <span class="n">inc</span>     <span class="o">|</span> <span class="o">--</span>       <span class="o">|</span> <span class="n">dec</span>     <span class="o">|</span></span></span></code></pre></div></div>
-<p>赋值则可能是通过<code>mov</code>指令来完成的，比如</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// mov [addressof(a)] 3
-</span></span></span></code></pre></div></div>
-
-<h3 class="relative group">结构体
-    <div id="结构体" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%bb%93%e6%9e%84%e4%bd%93" aria-label="锚点">#</a>
-    </span>
-    
-</h3>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">Point</span>
+</span></span><span class="line"><span class="cl"><span class="o">|</span> <span class="o">++</span>       <span class="o">|</span> <span class="n">inc</span>     <span class="o">|</span> <span class="o">--</span>       <span class="o">|</span> <span class="n">dec</span>     <span class="o">|</span>
+</span></span></code></pre></div><p>赋值则可能是通过<code>mov</code>指令来完成的，比如</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// mov [addressof(a)] 3
+</span></span></span></code></pre></div><h3 id="结构体">结构体<a hidden class="anchor" aria-hidden="true" href="#结构体">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">Point</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">y</span><span class="p">;</span>
@@ -1448,64 +360,28 @@
 </span></span><span class="line"><span class="cl">    <span class="n">Point</span> <span class="n">point</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">point</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">point</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>结构体的大小一般可以由特定规则算出从它的成员算出，往往要考虑内存对齐，而且是编译器决定的。例如 <a href="https://learn.microsoft.com/en-us/cpp/c-language/storage-and-alignment-of-structures?view=msvc-170"  target="_blank" rel="noreferrer">msvc</a>。但总之在编译的时候结构体的大小就是已知的了，我们也可以通过<code>sizeof</code>获取类型或者变量的大小。那么这里的<code>Point point</code>变量定义就很好理解，类型大小已知，相对于在栈上分配了一块内存。</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>结构体的大小一般可以由特定规则算出从它的成员算出，往往要考虑内存对齐，而且是编译器决定的。例如 <a href="https://learn.microsoft.com/en-us/cpp/c-language/storage-and-alignment-of-structures?view=msvc-170">msvc</a>。但总之在编译的时候结构体的大小就是已知的了，我们也可以通过<code>sizeof</code>获取类型或者变量的大小。那么这里的<code>Point point</code>变量定义就很好理解，类型大小已知，相对于在栈上分配了一块内存。</p>
 <p>下面来关注一下结构体成员访问，事实上<code>C</code>语言有一个宏可以获取结构体成员相对于结构体起始地址的偏移量，叫做<code>offsetof</code>（就算我们获取不到，编译器里面也是会计算字段偏移量的，所以偏移量信息对编译器总是已知的）。例如在这里<code>offsetof(Point, x)</code>就是<code>0</code>，<code>offsetof(Point, y)</code>就是<code>4</code>。所以上面的代码可以理解为</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">point</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Point</span><span class="p">)];</span> <span class="c1">// 8 = sizeof(Point)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)(</span><span class="n">point</span> <span class="o">+</span> <span class="nf">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// point.x = 1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)(</span><span class="n">point</span> <span class="o">+</span> <span class="nf">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// point.y = 2
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
-<p>编译器同样可能会维护一个字段名-&gt;偏移量的符号表，字段名最终会替换为<code>offset</code>。也没有必要在程序中保留了。</p>
-
-<h3 class="relative group">函数调用
-    <div id="函数调用" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%87%bd%e6%95%b0%e8%b0%83%e7%94%a8" aria-label="锚点">#</a>
-    </span>
-    
-</h3>
+</span></span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)(</span><span class="n">point</span> <span class="o">+</span> <span class="nf">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// point.x = 1
+</span></span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)(</span><span class="n">point</span> <span class="o">+</span> <span class="nf">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// point.y = 2
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>编译器同样可能会维护一个字段名-&gt;偏移量的符号表，字段名最终会替换为<code>offset</code>。也没有必要在程序中保留了。</p>
+<h3 id="函数调用">函数调用<a hidden class="anchor" aria-hidden="true" href="#函数调用">#</a></h3>
 <p>一般通过函数调用栈实现，这个太常见了，就不仔细说了。函数名最后会直接被替换为函数地址。</p>
-
-<h3 class="relative group">总结
-    <div id="总结" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%80%bb%e7%bb%93" aria-label="锚点">#</a>
-    </span>
-    
-</h3>
+<h3 id="总结">总结<a hidden class="anchor" aria-hidden="true" href="#总结">#</a></h3>
 <p>通过上面的分析，相信你已经发现了，<code>C</code>语言中的符号名，类型名，变量名，函数名，结构体字段名等等信息都被替换成了数字，地址，偏移量等等。缺少了它们对程序运行并没有什么影响。所以选择把它们抛弃掉，减少二进制文件的大小。对于<code>C++</code>来说情况基本也是类似的，<code>C++</code>只会在一些特殊的情况下保留部分元信息，比如<code>type_info</code>，而且可以手动选择关闭掉<code>RTTI</code>从而确保不会产生这种信息。</p>
 <p>那什么时候我们需要使用这些信息？显然最开始介绍的<code>setattr</code>是需要的。在程序调试的时候，我们得知道一个地址对应的变量名，函数名，成员名等等，方便我们调试，这时候我们也是需要的。当把结构体序列化为<code>json</code>的时候，我们需要知道它的字段名，我们也需要这些信息。把类型擦除成<code>void*</code>了之后，我们还是需要知道它实际对应的类型是什么，这时候我们也是需要的。总之，为了在运行期区分这串二进制内容倒是原本是什么东西的时候，我们就需要这些信息（当然在编译期想要利用这些信息进行代码生成，也是需要的）。</p>
-
-<h2 class="relative group">如何获取这些信息？
-    <div id="如何获取这些信息" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%a6%82%e4%bd%95%e8%8e%b7%e5%8f%96%e8%bf%99%e4%ba%9b%e4%bf%a1%e6%81%af" aria-label="锚点">#</a>
-    </span>
-    
-</h2>
+<h2 id="如何获取这些信息">如何获取这些信息？<a hidden class="anchor" aria-hidden="true" href="#如何获取这些信息">#</a></h2>
 <p><code>C/C++</code>编译器并没有提供给我们接口让我们获取这些信息，但是前面已经说了，这些信息显然就在源代码里面啊。变量名，函数名，类型名，字段名。我们可以选择通过人工理解代码，然后手动去存储元信息。几千个类，几十个成员函数，可能写个几个月就好了吧。开玩笑的，或者我们可以写一些程序，比如正则表达式匹配之类的帮我们获取到这些信息？不过，其实我们有更好的选择来获取这些信息，那就是通过<code>AST</code>。</p>
-
-<h2 class="relative group">AST(Abstract Syntax Tree)
-    <div id="astabstract-syntax-tree" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#astabstract-syntax-tree" aria-label="锚点">#</a>
-    </span>
-    
-</h2>
+<h2 id="astabstract-syntax-tree">AST(Abstract Syntax Tree)<a hidden class="anchor" aria-hidden="true" href="#astabstract-syntax-tree">#</a></h2>
 <p><code>AST</code>是抽象语法树（<code>Abstract Syntax Tree</code>）的缩写。它是编程语言处理中的一种数据结构，用于表示源代码的抽象语法结构。<code>AST</code>是源代码经过解析器（<code>parser</code>）处理后的结果，它捕捉了代码中的语法结构，但不包含所有细节，比如空白字符或注释。在<code>AST</code>中，每个节点代表源代码中的一个语法结构，例如变量声明、函数调用、循环等。这些节点之间通过父子关系和兄弟关系连接，形成了一棵树状结构，这样的结构更容易被计算机程序理解和处理。如果你的电脑里面装了<code>clang</code>编译器，可以使用下面这个命令查看一个源文件的语法树</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">clang -Xclang -ast-dump -fsyntax-only &lt;your.cpp&gt;</span></span></code></pre></div></div>
-<p>输出如下，我筛选出了重要的信息，无关的已经被删除了</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="o">|-</span><span class="n">CXXRecordDecl</span> <span class="mh">0x2103cd9c318</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">8</span><span class="o">&gt;</span> <span class="nl">col</span><span class="p">:</span><span class="mi">8</span> <span class="n">implicit</span> <span class="k">struct</span> <span class="nc">Point</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">clang -Xclang -ast-dump -fsyntax-only &lt;your.cpp&gt;
+</span></span></code></pre></div><p>输出如下，我筛选出了重要的信息，无关的已经被删除了</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="o">|-</span><span class="n">CXXRecordDecl</span> <span class="mh">0x2103cd9c318</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">8</span><span class="o">&gt;</span> <span class="nl">col</span><span class="p">:</span><span class="mi">8</span> <span class="n">implicit</span> <span class="k">struct</span> <span class="nc">Point</span>
 </span></span><span class="line"><span class="cl"><span class="o">|-</span><span class="n">FieldDecl</span> <span class="mh">0x2103cd9c3c0</span> <span class="o">&lt;</span><span class="nl">line</span><span class="p">:</span><span class="mi">4</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">9</span><span class="o">&gt;</span> <span class="nl">col</span><span class="p">:</span><span class="mi">9</span> <span class="n">referenced</span> <span class="n">x</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="o">|-</span><span class="n">FieldDecl</span> <span class="mh">0x2103e8661f0</span> <span class="o">&lt;</span><span class="nl">line</span><span class="p">:</span><span class="mi">5</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">9</span><span class="o">&gt;</span> <span class="nl">col</span><span class="p">:</span><span class="mi">9</span> <span class="n">referenced</span> <span class="n">y</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="err">`</span><span class="o">-</span><span class="n">FunctionDecl</span> <span class="mh">0x2103e8662b0</span> <span class="o">&lt;</span><span class="nl">line</span><span class="p">:</span><span class="mi">8</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nl">line</span><span class="p">:</span><span class="mi">13</span><span class="o">:</span><span class="mi">1</span><span class="o">&gt;</span> <span class="nl">line</span><span class="p">:</span><span class="mi">8</span><span class="o">:</span><span class="mi">5</span> <span class="n">main</span> <span class="err">&#39;</span><span class="kt">int</span> <span class="p">()</span><span class="err">&#39;</span>
@@ -1520,22 +396,13 @@
 </span></span><span class="line"><span class="cl">    <span class="err">`</span><span class="o">-</span><span class="n">BinaryOperator</span> <span class="mh">0x2103e866c48</span> <span class="o">&lt;</span><span class="nl">line</span><span class="p">:</span><span class="mi">12</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">15</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="n">lvalue</span> <span class="sc">&#39;=&#39;</span>
 </span></span><span class="line"><span class="cl">      <span class="o">|-</span><span class="n">MemberExpr</span> <span class="mh">0x2103e866bf8</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="nl">col</span><span class="p">:</span><span class="mi">11</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="n">lvalue</span> <span class="p">.</span><span class="n">y</span> <span class="mh">0x2103e8661f0</span>
 </span></span><span class="line"><span class="cl">      <span class="o">|</span> <span class="err">`</span><span class="o">-</span><span class="n">DeclRefExpr</span> <span class="mh">0x2103e866bd8</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">5</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="n">Point</span><span class="sc">&#39;:&#39;</span><span class="n">Point</span><span class="err">&#39;</span> <span class="n">lvalue</span> <span class="n">Var</span> <span class="mh">0x2103e866410</span> <span class="err">&#39;</span><span class="n">point</span><span class="sc">&#39; &#39;</span><span class="n">Point</span><span class="sc">&#39;:&#39;</span><span class="n">Point</span><span class="err">&#39;</span>
-</span></span><span class="line"><span class="cl">      <span class="err">`</span><span class="o">-</span><span class="n">IntegerLiteral</span> <span class="mh">0x2103e866c28</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">15</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="mi">2</span></span></span></code></pre></div></div>
-<p>或者如果你的<code>vscode</code>装了<code>clangd</code>这个插件，可以右键选择一块代码，然后右键<code>show AST</code>来看这块代码片段的<code>ast</code>。可以发现上面的确是把源码内容以树的方式呈现给我们了，既然是一颗树，我们就可以自由的遍历树的节点，然后筛选获取我们想要的信息。上面两例都是可视化的输出，通常情况下也会有直接的代码接口来直接获取。比如<code>python</code>内置就有<code>ast</code>模块来获取，<code>C++</code>一般是通过<code>clang</code>相关的工具来获取这些内容。如果想知道具体该如何使用<code>clang</code>工具，可以参考文章：<a href="https://www.ykiko.me/zh-cn/articles/669360731"  target="_blank" rel="noreferrer">使用 clang 工具自由的支配 C++ 代码吧！</a></p>
+</span></span><span class="line"><span class="cl">      <span class="err">`</span><span class="o">-</span><span class="n">IntegerLiteral</span> <span class="mh">0x2103e866c28</span> <span class="o">&lt;</span><span class="nl">col</span><span class="p">:</span><span class="mi">15</span><span class="o">&gt;</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span> <span class="mi">2</span>
+</span></span></code></pre></div><p>或者如果你的<code>vscode</code>装了<code>clangd</code>这个插件，可以右键选择一块代码，然后右键<code>show AST</code>来看这块代码片段的<code>ast</code>。可以发现上面的确是把源码内容以树的方式呈现给我们了，既然是一颗树，我们就可以自由的遍历树的节点，然后筛选获取我们想要的信息。上面两例都是可视化的输出，通常情况下也会有直接的代码接口来直接获取。比如<code>python</code>内置就有<code>ast</code>模块来获取，<code>C++</code>一般是通过<code>clang</code>相关的工具来获取这些内容。如果想知道具体该如何使用<code>clang</code>工具，可以参考文章：<a href="https://www.ykiko.me/zh-cn/articles/669360731">使用 clang 工具自由的支配 C++ 代码吧！</a></p>
 <p>如果你好奇编译器究竟是如何把源代码变成<code>ast</code>的，你可以去学习一下编译原理前端的内容。</p>
-
-<h2 class="relative group">以何种方式存储这些信息？
-    <div id="以何种方式存储这些信息" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%bb%a5%e4%bd%95%e7%a7%8d%e6%96%b9%e5%bc%8f%e5%ad%98%e5%82%a8%e8%bf%99%e4%ba%9b%e4%bf%a1%e6%81%af" aria-label="锚点">#</a>
-    </span>
-    
-</h2>
+<h2 id="以何种方式存储这些信息">以何种方式存储这些信息？<a hidden class="anchor" aria-hidden="true" href="#以何种方式存储这些信息">#</a></h2>
 <p>这个问题听起来让人有些困惑，实际上这个问题可能只有<code>C++</code>程序员需要考虑</p>
 <p>其实一切原因都是<code>constexpr</code>引起的。把信息下面这样存储起来</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">FieldInfo</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">FieldInfo</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">name</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">offset</span><span class="p">;</span>
@@ -1552,399 +419,202 @@
 </span></span><span class="line"><span class="cl"><span class="p">{{</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s">&#34;x&#34;</span><span class="p">,</span> <span class="n">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)},</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s">&#34;y&#34;</span><span class="p">,</span> <span class="n">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)},</span>
-</span></span><span class="line"><span class="cl"><span class="p">}};</span></span></span></code></pre></div></div>
-<p>就意味着我们不仅仅能在运行期查询这些信息，还能在编译期查询这些信息</p>
+</span></span><span class="line"><span class="cl"><span class="p">}};</span>
+</span></span></code></pre></div><p>就意味着我们不仅仅能在运行期查询这些信息，还能在编译期查询这些信息</p>
 <p>更有甚者，还可以存到模板参数里面去，这样的话连类型也能存了</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="n">fixed_string</span> <span class="n">name</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">offset</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Type</span><span class="o">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="n">fixed_string</span> <span class="n">name</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">offset</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Type</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Field</span><span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">FieldInfos</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">tuple</span>
 </span></span><span class="line"><span class="cl"><span class="o">&lt;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Field</span><span class="o">&lt;</span><span class="s">&#34;x&#34;</span><span class="p">,</span> <span class="n">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Field</span><span class="o">&lt;</span><span class="s">&#34;y&#34;</span><span class="p">,</span> <span class="n">offsetof</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="kt">int</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="p">;</span></span></span></code></pre></div></div>
-<p>这样无疑给了我们更大的操作空间，那么有了这些信息之后，下一步该做些什么？事实上我们可以选择基于这部分信息进行代码生成，相关的内容可以浏览系列文章中的其它小节。</p>
-
-          
-          
-          
-        </div>
-        
-        
-  <details class="mt-2 mb-5 overflow-hidden rounded-lg ms-0 ps-5">
-    
-  <summary
-    class="py-1 text-lg font-semibold cursor-pointer bg-primary-200 text-neutral-800 -ms-5 ps-5 dark:bg-primary-800 dark:text-neutral-100">
-    Reflection -
-    这篇文章属于一个选集。
-  </summary>
-  
-  
-    
-      <div
-        class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-        <a href="/zh-cn/articles/669358870/">
-          § 1:
-          写给 C&#43;&#43; 程序员的反射教程
-        </a>
-      </div>
-    
-  
-    
-      <div
-        class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-        § 2:
-        本文
-      </div>
-    
-  
-    
-      <div
-        class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-        <a href="/zh-cn/articles/670191053/">
-          § 3:
-          在 C&#43;&#43; 中实现 Object!
-        </a>
-      </div>
-    
-  
-    
-      <div
-        class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-        <a href="/zh-cn/articles/669359855/">
-          § 4:
-          各种姿势进行代码生成
-        </a>
-      </div>
-    
-  
-    
-      <div
-        class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-        <a href="/zh-cn/articles/669360731/">
-          § 5:
-          使用 Clang 工具自由的支配 C&#43;&#43; 代码吧
-        </a>
-      </div>
-    
-  
-    
-      <div
-        class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-        <a href="/zh-cn/articles/661692275/">
-          § 6:
-          C&#43;&#43;26 静态反射提案解析
-        </a>
-      </div>
-    
-  
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="p">;</span>
+</span></span></code></pre></div><p>这样无疑给了我们更大的操作空间，那么有了这些信息之后，下一步该做些什么？事实上我们可以选择基于这部分信息进行代码生成，相关的内容可以浏览系列文章中的其它小节。</p>
 
 
-  </details>
-
-
-        
-  
-  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
-    
-      
-        
-        <a
-          class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          target="_blank"
-          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/zh-cn/articles/670190357/&amp;title=%e4%b8%ba%e4%bb%80%e4%b9%88%e8%af%b4%20C/C&#43;&#43;%20%e7%bc%96%e8%af%91%e5%99%a8%e4%b8%8d%e4%bf%9d%e7%95%99%e5%85%83%e4%bf%a1%e6%81%af%ef%bc%9f"
-          
-          title="分享到 LinkedIn"
-          aria-label="分享到 LinkedIn">
-          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
-</span>
-        </a>
-      
-    
-      
-        
-        <a
-          class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          target="_blank"
-          href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/zh-cn/articles/670190357/&amp;text=%e4%b8%ba%e4%bb%80%e4%b9%88%e8%af%b4%20C/C&#43;&#43;%20%e7%bc%96%e8%af%91%e5%99%a8%e4%b8%8d%e4%bf%9d%e7%95%99%e5%85%83%e4%bf%a1%e6%81%af%ef%bc%9f"
-          
-          title="分享到 Twitter"
-          aria-label="分享到 Twitter">
-          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg></span>
-        </a>
-      
-    
-      
-        
-        <a
-          class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          target="_blank"
-          href="https://reddit.com/submit/?url=https://www.ykiko.me/zh-cn/articles/670190357/&amp;resubmit=true&amp;title=%e4%b8%ba%e4%bb%80%e4%b9%88%e8%af%b4%20C/C&#43;&#43;%20%e7%bc%96%e8%af%91%e5%99%a8%e4%b8%8d%e4%bf%9d%e7%95%99%e5%85%83%e4%bf%a1%e6%81%af%ef%bc%9f"
-          
-          title="提交到 Reddit"
-          aria-label="提交到 Reddit">
-          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z"/></svg>
-</span>
-        </a>
-      
-    
-      
-        
-        <a
-          class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          target="_blank"
-          href="https://api.whatsapp.com/send?text=https://www.ykiko.me/zh-cn/articles/670190357/&amp;resubmit=true&amp;title=%e4%b8%ba%e4%bb%80%e4%b9%88%e8%af%b4%20C/C&#43;&#43;%20%e7%bc%96%e8%af%91%e5%99%a8%e4%b8%8d%e4%bf%9d%e7%95%99%e5%85%83%e4%bf%a1%e6%81%af%ef%bc%9f"
-          
-          title="通过 WhatsApp 分享"
-          aria-label="通过 WhatsApp 分享">
-          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
-</span>
-        </a>
-      
-    
-      
-        
-        <a
-          class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          target="_blank"
-          href="https://t.me/share/url?url=https://www.ykiko.me/zh-cn/articles/670190357/&amp;resubmit=true&amp;title=%e4%b8%ba%e4%bb%80%e4%b9%88%e8%af%b4%20C/C&#43;&#43;%20%e7%bc%96%e8%af%91%e5%99%a8%e4%b8%8d%e4%bf%9d%e7%95%99%e5%85%83%e4%bf%a1%e6%81%af%ef%bc%9f"
-          
-          title="通过 Telegram 分享"
-          aria-label="通过 Telegram 分享">
-          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M248,8C111.033,8,0,119.033,0,256S111.033,504,248,504,496,392.967,496,256,384.967,8,248,8ZM362.952,176.66c-3.732,39.215-19.881,134.378-28.1,178.3-3.476,18.584-10.322,24.816-16.948,25.425-14.4,1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25,5.342-39.5,3.652-3.793,67.107-61.51,68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608,69.142-14.845,10.194-26.894,9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7,18.45-13.7,108.446-47.248,144.628-62.3c68.872-28.647,83.183-33.623,92.511-33.789,2.052-.034,6.639.474,9.61,2.885a10.452,10.452,0,0,1,3.53,6.716A43.765,43.765,0,0,1,362.952,176.66Z"/></svg>
-</span>
-        </a>
-      
-    
-      
-        
-        <a
-          class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          target="_blank"
-          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/zh-cn/articles/670190357/&amp;description=%e4%b8%ba%e4%bb%80%e4%b9%88%e8%af%b4%20C/C&#43;&#43;%20%e7%bc%96%e8%af%91%e5%99%a8%e4%b8%8d%e4%bf%9d%e7%95%99%e5%85%83%e4%bf%a1%e6%81%af%ef%bc%9f"
-          
-          title="钉到 Pinterest"
-          aria-label="钉到 Pinterest">
-          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"/></svg>
-</span>
-        </a>
-      
-    
-      
-        
-        <a
-          class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          target="_blank"
-          href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/zh-cn/articles/670190357/&amp;quote=%e4%b8%ba%e4%bb%80%e4%b9%88%e8%af%b4%20C/C&#43;&#43;%20%e7%bc%96%e8%af%91%e5%99%a8%e4%b8%8d%e4%bf%9d%e7%95%99%e5%85%83%e4%bf%a1%e6%81%af%ef%bc%9f"
-          
-          title="分享到 Facebook"
-          aria-label="分享到 Facebook">
-          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
-</span>
-        </a>
-      
-    
-      
-        
-        <a
-          class="email-link m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          target="_blank"
-          href="#"
-          
-            data-email=""
-            data-subject="Reply to 为什么说 C/C&#43;&#43; 编译器不保留元信息？"
-          
-          title="通过电子邮件发送"
-          aria-label="通过电子邮件发送">
-          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
-</span>
-        </a>
-      
-    
-  </section>
-
-
-        
-  
-  
-
-
-      </div>
-    </section>
-
-    
-    <footer class="pt-8 max-w-prose print:hidden">
-      
-  
-    
-    
-    
-    <div class="pt-8">
-      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
-      <div class="flex justify-between pt-3">
-        <span class="flex flex-col">
-          
-            <a
-              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
-              href="/zh-cn/articles/669360731/">
-              <span class="leading-6">
-                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;使用 Clang 工具自由的支配 C++ 代码吧
-              </span>
-            </a>
-            
-              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2023-11-29T01:14:27&#43;00:00">November 29, 2023</time>
-              </span>
-            
-          
-        </span>
-        <span class="flex flex-col items-end">
-          
-            <a
-              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
-              href="/zh-cn/articles/670191053/">
-              <span class="leading-6">
-                在 C++ 中实现 Object!&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
-              </span>
-            </a>
-            
-              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2023-12-03T15:40:52&#43;00:00">December 3, 2023</time>
-              </span>
-            
-          
-        </span>
-      </div>
-    </div>
-  
-
-
-      
-        
-          <div class="pt-3">
-            <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
-            <div class="pt-3">
-              
-<script src="https://giscus.app/client.js" 
-    data-repo="16bit-ykiko/about-me" 
-    data-repo-id="R_kgDOLNvUfQ"
-    data-category="Announcements" 
-    data-category-id="DIC_kwDOLNvUfc4Ckzfl" 
-    data-mapping="title" data-strict="0"
-    data-reactions-enabled="1" 
-    data-emit-metadata="0" 
-    data-input-position="top" 
-    data-theme="noborder_gray"
-    data-lang="zh-CN" 
-    crossorigin="anonymous" async>
-</script>
-            </div>
-          </div>
-        
-      
-    </footer>
-  </article>
-
-        
-
-
-  
-
-
-
-
-
-
-<div
-  id="scroll-to-top"
-  class="fixed bottom-6 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
-  <a
-    href="#the-top"
-    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
-    aria-label="返回顶部"
-    title="返回顶部">
-    &uarr;
-  </a>
-</div>
-
-      </main><footer id="site-footer" class="py-10 print:hidden">
-    <script src="/live2d/autoload.js"></script>
-
-    
-      
-    
-    <div class="flex items-center justify-between">
-  
-      
-      
-      <p class="text-sm text-neutral-500 dark:text-neutral-400">
-        ©2024 ykiko
-      </p>
-      
-  
-      
-      
-      <p class="text-xs text-neutral-500 dark:text-neutral-400">
-        
-        
-        由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
-          href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
-          href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
-      </p>
-      
-  
-    </div>
-    <script>
-      
-      mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
-        margin: 24,
-        background: 'rgba(0,0,0,0.5)',
-        scrollOffset: 0,
-      })
-      
-    </script>
-    
-    
-    
-  </footer>
-  
-<div
-  id="search-wrapper"
-  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-500"
-  data-url="https://www.ykiko.me/zh-cn/">
-  <div
-    id="search-modal"
-    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
-    <header class="relative z-10 flex items-center justify-between flex-none px-2">
-      <form class="flex items-center flex-auto min-w-0">
-        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
-          <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
-</span>
-        </div>
-        <input
-          type="search"
-          id="search-query"
-          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
-          placeholder="搜索"
-          tabindex="0">
-      </form>
-      <button
-        id="close-search-button"
-        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
-        title="关闭 (Esc)">
-        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
-</span>
-      </button>
-    </header>
-    <section class="flex-auto px-2 overflow-auto">
-      <ul id="search-results">
-        
-      </ul>
-    </section>
   </div>
-</div>
 
-    </div>
-  </body>
-  
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://www.ykiko.me/zh-cn/articles/670191053/">
+    <span class="title">« </span>
+    <br>
+    <span>在 C&#43;&#43; 中实现 Object!</span>
+  </a>
+  <a class="next" href="https://www.ykiko.me/zh-cn/articles/669360731/">
+    <span class="title"> »</span>
+    <br>
+    <span>使用 Clang 工具自由的支配 C&#43;&#43; 代码吧</span>
+  </a>
+</nav>
+
+  </footer>
+<div class="giscus"></div>
+<script>
+  function getGiscusTheme() {
+    const rootTheme = document.documentElement.dataset.theme;
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const isDark = rootTheme === "dark" || (rootTheme === "auto" && prefersDark);
+    return isDark ? "noborder_gray" : "noborder_light";
+  }
+
+  function setGiscusTheme(theme) {
+    const iframe = document.querySelector("iframe.giscus-frame");
+    if (!iframe) return;
+    iframe.contentWindow.postMessage(
+      { giscus: { setConfig: { theme: theme } } },
+      "https://giscus.app"
+    );
+  }
+
+  window.addEventListener("load", function() {
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.crossOrigin = "anonymous";
+    script.async = true;
+    script.setAttribute("data-repo", "16bit-ykiko/about-me");
+    script.setAttribute("data-repo-id", "R_kgDOLNvUfQ");
+    script.setAttribute("data-category", "Announcements");
+    script.setAttribute("data-category-id", "DIC_kwDOLNvUfc4Ckzfl");
+    script.setAttribute("data-mapping", "title");
+    script.setAttribute("data-strict", "0");
+    script.setAttribute("data-reactions-enabled", "1");
+    script.setAttribute("data-emit-metadata", "0");
+    script.setAttribute("data-input-position", "top");
+    script.setAttribute("data-theme", getGiscusTheme());
+    script.setAttribute("data-lang", "zh-CN");
+    document.querySelector(".giscus").appendChild(script);
+
+    const themeToggle = document.getElementById("theme-toggle");
+    if (themeToggle) {
+      themeToggle.addEventListener("click", function() {
+        window.setTimeout(function() {
+          setGiscusTheme(getGiscusTheme());
+        }, 0);
+      });
+    }
+  });
+</script>
+
+</article>
+    </main>
+    
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
 </html>
