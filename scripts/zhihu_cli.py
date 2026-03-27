@@ -1,5 +1,7 @@
 import argparse
 import os
+import shutil
+import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -39,6 +41,23 @@ def build_client(
 def sync_articles(client: ZhihuClient) -> None:
     delay_seconds = float(os.environ.get("ZHIHU_DELAY_SECONDS", "0"))
     client.sync_articles(ARTICLE_OUTPUT_DIR, delay_seconds=delay_seconds)
+    run_markdown_format()
+
+
+def run_markdown_format() -> None:
+    if not (BASE_DIR / "pixi.toml").exists():
+        console.print("[yellow]Skip formatting: pixi.toml not found.[/]")
+        return
+    if shutil.which("pixi") is None:
+        raise RuntimeError(
+            "pixi is required to format synced markdown. Install pixi and rerun the sync."
+        )
+    console.print("[cyan]Formatting repository via pixi...[/]")
+    subprocess.run(
+        ["pixi", "run", "-e", "format", "format"],
+        cwd=BASE_DIR,
+        check=True,
+    )
 
 
 def format_timestamp(timestamp: int) -> str:

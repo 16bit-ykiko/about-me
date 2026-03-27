@@ -33,6 +33,11 @@ jobs:
       - name: Install uv
         run: python3 -m pip install uv
 
+      - name: Setup Pixi
+        uses: prefix-dev/setup-pixi@v0.9.3
+        with:
+          run-install: false
+
       - name: Sync Python dependencies
         run: uv sync --frozen --only-group ci
 
