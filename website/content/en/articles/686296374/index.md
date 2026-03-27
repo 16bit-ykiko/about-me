@@ -318,7 +318,7 @@ Use `-fuse-ld=gold` to specify the linker, and `-Wl,--icf=all` to specify linker
  760:   48 83 ec 08             sub    $0x8,%rsp
  764:   31 ff                   xor    %edi,%edi
  766:   e8 d5 ff ff ff          call   740 <X<99ul>::f() [clone .isra.0]>
- ... # 重复 98 次
+ ... # repeated 98 times
  b48:   e9 f3 fb ff ff          jmp    740 <X<99ul>::f() [clone .isra.0]>
  b4d:   0f 1f 00                nopl   (%rax)
 ```
