@@ -1,24 +1,22 @@
 languageCode = "en"
 languageName = "English"
-weight = 1
+weight = 2
 title = "ykiko's blog"
 
 [params]
+languageAltTitle = "EN"
 displayName = "English"
-isoCode = "en"
-description = "mainly about computer science and mathematics"
-# copyright = "Copy, _right?_ :thinking_face:"
-copyright = "©2024 ykiko"
+description = "understand the trade-offs | there is a reason"
+author = "ykiko"
 
-[params.author]
-name = "ykiko"
-image = "img/author.jpg"
-headline = "understand the trade-offs"
+[params.homeInfoParams]
+Title = "ykiko"
+Content = """
+I am a developer primarily focused on C++, compilers, and high-performance computing. Currently, my work revolves around LLM Infra, while most of my spare time is dedicated to the open-source project clice—a brand-new C++ language server designed to address the pain points of existing tools.
 
-links = [
-  { github = "https://github.com/16bit-ykiko" },
-  { envelope-solid = "mailto:ykikoykikoykiko@gmail.com" },
-  { zhihu = "https://www.zhihu.com/people/75-49-80-77" },
-  { bilibili = "https://space.bilibili.com/360835081" },
-  { banguim = "https://bangumi.tv/user/857516" },
-]
+Beyond code and engineering, I have recently begun delving into philosophy and literature. If writing code is my way of building systems and understanding the external world, then reading and writing are my means of inward exploration—a process of embracing my own contradictions and continuously reconstructing myself.
+
+I particularly like the following quote:
+
+> "He reflected that he was already dead. For him, only now, as he began to untangle his thoughts, did he take the decisive step. The outcome of every action is contained within the action itself." — George Orwell, *1984*
+"""

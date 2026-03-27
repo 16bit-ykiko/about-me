@@ -1,24 +1,22 @@
-languageCode = "zh-cn"
+languageCode = "zh-CN"
 languageName = "简体中文"
 weight = 1
 title = "ykiko's blog"
 
 [params]
+languageAltTitle = "中"
 displayName = "简体中文"
-isoCode = "zh-cn"
-description = "mainly about computer science and mathematics"
-# copyright = "Copy, _right?_ :thinking_face:"
-copyright = "©2024 ykiko"
+description = "understand the trade-offs | there is a reason"
+author = "ykiko"
 
-[params.author]
-name = "ykiko"
-image = "img/author.jpg"
-headline = "understand the trade-offs"
+[params.homeInfoParams]
+Title = "ykiko"
+Content = """
+我是一名开发者，主要关注 C++、编译器与高性能计算。目前，我的工作内容与 LLM Infra 相关，而业余时间则大部分投入在开源项目 clice 上。这是一个旨在解决现有工具痛点的全新 C++ 语言服务器。
 
-links = [
-  { github = "https://github.com/16bit-ykiko" },
-  { envelope-solid = "mailto:ykikoykikoykiko@gmail.com" },
-  { zhihu = "https://www.zhihu.com/people/75-49-80-77" },
-  { bilibili = "https://space.bilibili.com/360835081" },
-  { banguim = "https://bangumi.tv/user/857516" }
-]
+在代码与工程之外，我近期开始涉猎哲学与文学书籍。如果说编写代码是我构建系统、理解外部世界的方式，那么阅读与写作则是我向内探索、接纳自身矛盾，并不断重构自我的过程。
+
+我特别喜欢下面这句话：
+
+> “他反省自己已经死了。对他而言，只有现在，当他开始能够理清自己的思绪时，他才迈出了决定性的一步。一切行动的结果都包含在行动本身里。” — George Orwell, *1984*
+"""

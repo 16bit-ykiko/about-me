@@ -104,12 +104,12 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: "0.141.0"
+          hugo-version: "0.154.5"
 
       - name: Build
         run: |
           cd website
-          git clone https://github.com/nunocoracao/blowfish.git themes/blowfish --depth=1
+          git clone https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod --depth=1
           hugo
 
       - name: Deploy
