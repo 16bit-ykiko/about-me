@@ -15,27 +15,27 @@
         sessionStorage.getItem("waifu-text") > n)
     )
       return;
-    t && (clearTimeout(t), (t = null)),
+    (t && (clearTimeout(t), (t = null)),
       (o = e(o)),
-      sessionStorage.setItem("waifu-text", n);
+      sessionStorage.setItem("waifu-text", n));
     const i = document.getElementById("waifu-tips");
-    (i.innerHTML = o),
+    ((i.innerHTML = o),
       i.classList.add("waifu-tips-active"),
       (t = setTimeout(() => {
-        sessionStorage.removeItem("waifu-text"),
-          i.classList.remove("waifu-tips-active");
-      }, s));
+        (sessionStorage.removeItem("waifu-text"),
+          i.classList.remove("waifu-tips-active"));
+      }, s)));
   }
   class s {
     constructor(e) {
       let { apiPath: t, cdnPath: o } = e,
         s = !1;
-      if ("string" == typeof o) (s = !0), o.endsWith("/") || (o += "/");
+      if ("string" == typeof o) ((s = !0), o.endsWith("/") || (o += "/"));
       else {
         if ("string" != typeof t) throw "Invalid initWidget argument!";
         t.endsWith("/") || (t += "/");
       }
-      (this.useCDN = s), (this.apiPath = t), (this.cdnPath = o);
+      ((this.useCDN = s), (this.apiPath = t), (this.cdnPath = o));
     }
     async loadModelList() {
       const e = await fetch(`${this.cdnPath}model_list.json`);
@@ -52,8 +52,8 @@
         const o = e(this.modelList.models[t]);
         loadlive2d("live2d", `${this.cdnPath}model/${o}/index.json`);
       } else
-        loadlive2d("live2d", `${this.apiPath}get/?id=${t}-${s}`),
-          console.log(`Live2D 模型 ${t}-${s} 加载完成`);
+        (loadlive2d("live2d", `${this.apiPath}get/?id=${t}-${s}`),
+          console.log(`Live2D 模型 ${t}-${s} 加载完成`));
     }
     async loadRandModel() {
       const t = localStorage.getItem("modelId"),
@@ -61,8 +61,8 @@
       if (this.useCDN) {
         this.modelList || (await this.loadModelList());
         const s = e(this.modelList.models[t]);
-        loadlive2d("live2d", `${this.cdnPath}model/${s}/index.json`),
-          o("我的新衣服好看嘛？", 4e3, 10);
+        (loadlive2d("live2d", `${this.cdnPath}model/${s}/index.json`),
+          o("我的新衣服好看嘛？", 4e3, 10));
       } else
         fetch(`${this.apiPath}rand_textures/?id=${t}-${s}`)
           .then((e) => e.json())
@@ -94,10 +94,10 @@
           .then((e) => e.json())
           .then((e) => {
             const t = `这句一言来自 <span>「${e.from}」</span>，是 <span>${e.creator}</span> 在 hitokoto.cn 投稿的。`;
-            o(e.hitokoto, 6e3, 9),
+            (o(e.hitokoto, 6e3, 9),
               setTimeout(() => {
                 o(t, 4e3, 9);
-              }, 6e3);
+              }, 6e3));
           });
       },
     },
@@ -105,13 +105,13 @@
       icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">\x3c!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --\x3e<path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L277.3 424.9l-40.1 74.5c-5.2 9.7-16.3 14.6-27 11.9S192 499 192 488V392c0-5.3 1.8-10.5 5.1-14.7L362.4 164.7c2.5-7.1-6.5-14.3-13-8.4L170.4 318.2l-32 28.9 0 0c-9.2 8.3-22.3 10.6-33.8 5.8l-85-35.4C8.4 312.8 .8 302.2 .1 290s5.5-23.7 16.1-29.8l448-256c10.7-6.1 23.9-5.5 34 1.4z"/></svg>',
       callback: () => {
         if (window.Asteroids)
-          window.ASTEROIDSPLAYERS || (window.ASTEROIDSPLAYERS = []),
-            window.ASTEROIDSPLAYERS.push(new Asteroids());
+          (window.ASTEROIDSPLAYERS || (window.ASTEROIDSPLAYERS = []),
+            window.ASTEROIDSPLAYERS.push(new Asteroids()));
         else {
           const e = document.createElement("script");
-          (e.src =
+          ((e.src =
             "https://fastly.jsdelivr.net/gh/stevenjoezhang/asteroids/asteroids.js"),
-            document.head.appendChild(e);
+            document.head.appendChild(e));
         }
       },
     },
@@ -126,9 +126,9 @@
     photo: {
       icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">\x3c!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --\x3e<path d="M220.6 121.2L271.1 96 448 96v96H333.2c-21.9-15.1-48.5-24-77.2-24s-55.2 8.9-77.2 24H64V128H192c9.9 0 19.7-2.3 28.6-6.8zM0 128V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H271.1c-9.9 0-19.7 2.3-28.6 6.8L192 64H160V48c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16l0 16C28.7 64 0 92.7 0 128zM344 304c0 48.6-39.4 88-88 88s-88-39.4-88-88s39.4-88 88-88s88 39.4 88 88z"/></svg>',
       callback: () => {
-        o("照好了嘛，是不是很可爱呢？", 6e3, 9),
+        (o("照好了嘛，是不是很可爱呢？", 6e3, 9),
           (Live2D.captureName = "photo.png"),
-          (Live2D.captureFrame = !0);
+          (Live2D.captureFrame = !0));
       },
     },
     info: {
@@ -140,15 +140,15 @@
     quit: {
       icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">\x3c!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --\x3e<path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>',
       callback: () => {
-        localStorage.setItem("waifu-display", Date.now()),
+        (localStorage.setItem("waifu-display", Date.now()),
           o("愿你有一天能与重要的人重逢。", 2e3, 11),
           (document.getElementById("waifu").style.bottom = "-500px"),
           setTimeout(() => {
-            (document.getElementById("waifu").style.display = "none"),
+            ((document.getElementById("waifu").style.display = "none"),
               document
                 .getElementById("waifu-toggle")
-                .classList.add("waifu-toggle-active");
-          }, 3e3);
+                .classList.add("waifu-toggle-active"));
+          }, 3e3));
       },
     },
   };
@@ -158,7 +158,7 @@
       let s,
         n = !1,
         i = t.message.default;
-      window.addEventListener("mousemove", () => (n = !0)),
+      (window.addEventListener("mousemove", () => (n = !0)),
         window.addEventListener("keydown", () => (n = !0)),
         setInterval(() => {
           n
@@ -193,7 +193,7 @@
             return t;
           })(t.time),
           7e3,
-          11
+          11,
         ),
         window.addEventListener("mouseover", (s) => {
           for (let { selector: n, text: i } of t.mouseover)
@@ -222,9 +222,9 @@
             n.split("/")[1] <= s.getDate() &&
             s.getDate() <= c.split("/")[1] &&
             ((o = (o = e(o)).replace("{year}", s.getFullYear())), i.push(o));
-        });
+        }));
       const c = () => {};
-      console.log("%c", c),
+      (console.log("%c", c),
         (c.toString = () => {
           o(t.message.console, 6e3, 9);
         }),
@@ -233,61 +233,61 @@
         }),
         window.addEventListener("visibilitychange", () => {
           document.hidden || o(t.message.visibilitychange, 6e3, 9);
-        });
+        }));
     }
-    localStorage.removeItem("waifu-display"),
+    (localStorage.removeItem("waifu-display"),
       sessionStorage.removeItem("waifu-text"),
       document.body.insertAdjacentHTML(
         "beforeend",
-        '<div id="waifu">\n            <div id="waifu-tips"></div>\n            <canvas id="live2d" width="800" height="800"></canvas>\n            <div id="waifu-tool"></div>\n        </div>'
+        '<div id="waifu">\n            <div id="waifu-tips"></div>\n            <canvas id="live2d" width="800" height="800"></canvas>\n            <div id="waifu-tool"></div>\n        </div>',
       ),
       setTimeout(() => {
         document.getElementById("waifu").style.bottom = 0;
       }, 0),
       (function () {
-        (n["switch-model"].callback = () => i.loadOtherModel()),
+        ((n["switch-model"].callback = () => i.loadOtherModel()),
           (n["switch-texture"].callback = () => i.loadRandModel()),
-          Array.isArray(t.tools) || (t.tools = Object.keys(n));
+          Array.isArray(t.tools) || (t.tools = Object.keys(n)));
         for (let e of t.tools)
           if (n[e]) {
             const { icon: t, callback: o } = n[e];
-            document
+            (document
               .getElementById("waifu-tool")
               .insertAdjacentHTML(
                 "beforeend",
-                `<span id="waifu-tool-${e}">${t}</span>`
+                `<span id="waifu-tool-${e}">${t}</span>`,
               ),
               document
                 .getElementById(`waifu-tool-${e}`)
-                .addEventListener("click", o);
+                .addEventListener("click", o));
           }
       })(),
       (function () {
         let e = localStorage.getItem("modelId"),
           o = localStorage.getItem("modelTexturesId");
-        null === e && ((e = 1), (o = 53)),
+        (null === e && ((e = 1), (o = 53)),
           i.loadModel(e, o),
           fetch(t.waifuPath)
             .then((e) => e.json())
-            .then(c);
-      })();
+            .then(c));
+      })());
   }
   window.initWidget = function (e, t) {
-    "string" == typeof e && (e = { waifuPath: e, apiPath: t }),
+    ("string" == typeof e && (e = { waifuPath: e, apiPath: t }),
       document.body.insertAdjacentHTML(
         "beforeend",
-        '<div id="waifu-toggle">\n            <span>看板娘</span>\n        </div>'
-      );
+        '<div id="waifu-toggle">\n            <span>看板娘</span>\n        </div>',
+      ));
     const o = document.getElementById("waifu-toggle");
-    o.addEventListener("click", () => {
-      o.classList.remove("waifu-toggle-active"),
+    (o.addEventListener("click", () => {
+      (o.classList.remove("waifu-toggle-active"),
         o.getAttribute("first-time")
           ? (i(e), o.removeAttribute("first-time"))
           : (localStorage.removeItem("waifu-display"),
             (document.getElementById("waifu").style.display = ""),
             setTimeout(() => {
               document.getElementById("waifu").style.bottom = 0;
-            }, 0));
+            }, 0)));
     }),
       localStorage.getItem("waifu-display") &&
       Date.now() - localStorage.getItem("waifu-display") <= 864e5
@@ -295,6 +295,6 @@
           setTimeout(() => {
             o.classList.add("waifu-toggle-active");
           }, 0))
-        : i(e);
+        : i(e));
   };
 })();

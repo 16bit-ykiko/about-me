@@ -69,12 +69,13 @@
   <meta property="og:url" content="https://www.ykiko.me/en/articles/669358870/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
   <meta property="og:title" content="A Reflection Tutorial for C&#43;&#43; Programmers">
-  <meta property="og:description" content="What is Reflection? # The term “Reflection” is likely familiar to many, even if you haven’t used it, you’ve probably heard of it. However, like many other jargon in the field of computer science, there isn’t a clear and precise definition for reflection. This leads to situations where, for languages like C#, Java, and Python that have reflection, discussing reflection naturally brings to mind the corresponding facilities, APIs, and code examples in those languages, making it very concrete. However, for languages like C, C&#43;&#43;, and Rust that lack reflection, when people talk about reflection, there’s often uncertainty about what exactly is being referred to, making it very abstract. For example, someone once told me that Rust has reflection, citing the official Rust documentation’s introduction to the std::Any module, which mentions:">
+  <meta property="og:description" content="This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+What is Reflection? # The term Reflection is probably not new to anyone; perhaps you haven’t used it, but you’ve certainly heard of it. However, like many other idiomatic terms in the CS field, there isn’t a clear and precise definition for reflection. This leads to a situation where, for languages like C#, Java, and Python that have reflection, discussing it naturally brings to mind related facilities, APIs, and code examples in those languages, making it very concrete. But for languages like C, C&#43;&#43;, and Rust, which don’t have reflection, when reflection is discussed, people are often unsure what the other person is referring to, making it very abstract. For example, someone might tell me that Rust has reflection, and the example they provide is the introduction to std::Any module in Rust’s official documentation. It mentions:">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2023-11-29T09:14:02+00:00">
-    <meta property="article:modified_time" content="2023-11-29T09:14:02+00:00">
+    <meta property="article:published_time" content="2023-11-29T01:14:02+00:00">
+    <meta property="article:modified_time" content="2023-11-29T01:14:02+00:00">
     <meta property="og:image" content="https://www.ykiko.me/en/articles/669358870/featured.png">
       <meta property="og:see_also" content="https://www.ykiko.me/en/articles/670191053/">
       <meta property="og:see_also" content="https://www.ykiko.me/en/articles/670190357/">
@@ -86,7 +87,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/en/articles/669358870/featured.png">
   <meta name="twitter:title" content="A Reflection Tutorial for C&#43;&#43; Programmers">
-  <meta name="twitter:description" content="What is Reflection? # The term “Reflection” is likely familiar to many, even if you haven’t used it, you’ve probably heard of it. However, like many other jargon in the field of computer science, there isn’t a clear and precise definition for reflection. This leads to situations where, for languages like C#, Java, and Python that have reflection, discussing reflection naturally brings to mind the corresponding facilities, APIs, and code examples in those languages, making it very concrete. However, for languages like C, C&#43;&#43;, and Rust that lack reflection, when people talk about reflection, there’s often uncertainty about what exactly is being referred to, making it very abstract. For example, someone once told me that Rust has reflection, citing the official Rust documentation’s introduction to the std::Any module, which mentions:">
+  <meta name="twitter:description" content="This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+What is Reflection? # The term Reflection is probably not new to anyone; perhaps you haven’t used it, but you’ve certainly heard of it. However, like many other idiomatic terms in the CS field, there isn’t a clear and precise definition for reflection. This leads to a situation where, for languages like C#, Java, and Python that have reflection, discussing it naturally brings to mind related facilities, APIs, and code examples in those languages, making it very concrete. But for languages like C, C&#43;&#43;, and Rust, which don’t have reflection, when reflection is discussed, people are often unsure what the other person is referring to, making it very abstract. For example, someone might tell me that Rust has reflection, and the example they provide is the introduction to std::Any module in Rust’s official documentation. It mentions:">
 
   
   
@@ -249,15 +251,15 @@
       "name": "ykiko"
     },
     "copyrightYear": "2023",
-    "dateCreated": "2023-11-29T09:14:02\u002b00:00",
-    "datePublished": "2023-11-29T09:14:02\u002b00:00",
+    "dateCreated": "2023-11-29T01:14:02\u002b00:00",
+    "datePublished": "2023-11-29T01:14:02\u002b00:00",
     
-    "dateModified": "2023-11-29T09:14:02\u002b00:00",
+    "dateModified": "2023-11-29T01:14:02\u002b00:00",
     
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "1165"
+    "wordCount": "1240"
   }]
   </script>
 
@@ -838,7 +840,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2023-11-29T09:14:02&#43;00:00">29 November 2023</time><span class="px-2 text-primary-500">&middot;</span><span>1165 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">6 mins</span><span class="px-2 text-primary-500">&middot;</span>
+      <time datetime="2023-11-29T01:14:02&#43;00:00">29 November 2023</time><span class="px-2 text-primary-500">&middot;</span><span>1240 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">3 mins</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1243,7 +1245,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/670190357/">
           Part 2:
-          Why Do C/C&#43;&#43; Compilers Not Retain Metadata?
+          Why is it said that C/C&#43;&#43; compilers do not preserve metadata?
         </a>
       </div>
     
@@ -1253,7 +1255,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/670191053/">
           Part 3:
-          Implementing Object in C&#43;&#43;!
+          Implement Object in C&#43;&#43;!
         </a>
       </div>
     
@@ -1263,7 +1265,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/669359855/">
           Part 4:
-          Various Approaches to Code Generation
+          Various approaches to code generation
         </a>
       </div>
     
@@ -1273,7 +1275,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/669360731/">
           Part 5:
-          Harness the Power of C&#43;&#43; Code with Clang Tools
+          Master your C&#43;&#43; code with Clang tools.
         </a>
       </div>
     
@@ -1283,7 +1285,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/661692275/">
           Part 6:
-          Analysis of the C&#43;&#43;26 Static Reflection Proposal
+          C&#43;&#43;26 Static Reflection Proposal Analysis
         </a>
       </div>
     
@@ -1294,7 +1296,8 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          
+          <blockquote><p>This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.</p>
+</blockquote>
 <h2 class="relative group">What is Reflection?
     <div id="what-is-reflection" class="anchor"></div>
     
@@ -1304,20 +1307,20 @@
     </span>
     
 </h2>
-<p>The term &ldquo;Reflection&rdquo; is likely familiar to many, even if you haven&rsquo;t used it, you&rsquo;ve probably heard of it. However, like many other <strong>jargon</strong> in the field of computer science, there isn&rsquo;t a clear and precise definition for reflection. This leads to situations where, for languages like C#, Java, and Python that have reflection, discussing reflection naturally brings to mind the corresponding facilities, APIs, and code examples in those languages, making it very concrete. However, for languages like C, C++, and Rust that lack reflection, when people talk about reflection, there&rsquo;s often uncertainty about what exactly is being referred to, making it very abstract. For example, someone once told me that Rust has reflection, citing the official Rust documentation&rsquo;s introduction to the <a href="https://doc.rust-lang.org/stable/std/any/index.html"  target="_blank" rel="noreferrer">std::Any module</a>, which mentions:</p>
+<p>The term Reflection is probably not new to anyone; perhaps you haven&rsquo;t used it, but you&rsquo;ve certainly heard of it. However, like many other <strong>idiomatic terms</strong> in the CS field, there isn&rsquo;t a clear and precise definition for reflection. This leads to a situation where, for languages like C#, Java, and Python that have reflection, discussing it naturally brings to mind related facilities, APIs, and code examples in those languages, making it very concrete. But for languages like C, C++, and Rust, which don&rsquo;t have reflection, when reflection is discussed, people are often unsure what the other person is referring to, making it very abstract. For example, someone might tell me that Rust has reflection, and the example they provide is the introduction to <a href="https://doc.rust-lang.org/stable/std/any/index.html"  target="_blank" rel="noreferrer">std::Any module</a> in Rust&rsquo;s official documentation. It mentions:</p>
 <blockquote><p>Utilities for dynamic typing or type reflection</p>
-</blockquote><p>But the awkwardness lies in the fact that if you consider it as reflection, its functionality is quite limited; if you say it&rsquo;s not, well, you could argue that it somewhat embodies reflection.</p>
-<p>Similar situations frequently occur in C++. You might often hear opinions like: C++ only has very weak reflection, namely RTTI (Run Time Type Information), but some frameworks like QT and UE have implemented their own reflection. In recent discussions, blogs, or proposals for new C++ standards, you might also hear terms like:</p>
+</blockquote><p>But the awkwardness lies in this: if you call it reflection, its functionality is very limited; if you say it&rsquo;s not, it&rsquo;s not entirely wrong to argue that it exhibits some form of it.</p>
+<p>Similar situations often occur in C++. I&rsquo;m sure you often hear views like these: C++ only has very weak reflection, namely RTTI (Run Time Type Information), but some C++ frameworks like QT and UE implement their own reflection. In recent discussions, online blogs, or C++ new standard proposals, you might again hear about:</p>
 <ul>
 <li>Static reflection</li>
 <li>Dynamic reflection</li>
 <li>Compile-time reflection</li>
 <li>Runtime reflection</li>
 </ul>
-<p>These terms can be quite confusing and overwhelming. Moreover, prefixes like static, dynamic, compile-time, and runtime are themselves jargon, often combined with various terms, carrying many meanings depending on the context.</p>
-<p>Some readers might say, &ldquo;I checked Wikipedia, and <a href="https://en.wikipedia.org/wiki/Reflective_programming"  target="_blank" rel="noreferrer">reflection</a> does have a definition, as follows:</p>
+<p>Such a plethora of terms can be utterly confusing and disorienting. Moreover, prefixes like static, dynamic, compile time, and runtime are themselves idiomatic terms, often combined with various words, and have many meanings depending on the context.</p>
+<p>Some readers might say, &ldquo;I checked WIKI, and <a href="https://en.wikipedia.org/wiki/Reflective_programming"  target="_blank" rel="noreferrer">reflection</a> clearly has a definition, as follows:&rdquo;</p>
 <blockquote><p>In computer science, reflective programming or reflection is the ability of a process to examine, introspect, and modify its own structure and behavior.</p>
-</blockquote><p>First, Wikipedia is written by people and isn&rsquo;t absolutely authoritative; if you&rsquo;re dissatisfied with this definition, you can modify it yourself. Second, the wording here is quite vague. What does introspection (introspect) mean? Self-reflection, but what does that mean in the context of computer science? So this definition is also quite awkward. What to do then? I choose to break it down into several processes for explanation, so we don&rsquo;t have to struggle with the conceptual question of &ldquo;<strong>what exactly is reflection</strong>.&rdquo; Instead, by understanding these processes, you&rsquo;ll naturally grasp what reflection is doing.</p>
+</blockquote><p>First, WIKI is also written by people and does not possess absolute authority; if you are not satisfied with this definition, you can modify it yourself. Secondly, the wording here is also very vague. What does &ldquo;introspect&rdquo; mean? Self-reflection, what does this term mean in CS? So this definition is also very awkward. What to do then? I choose to break it down into several processes for explanation, so we don&rsquo;t have to dwell on the conceptual question of &ldquo;what <strong>exactly is reflection</strong>.&rdquo; Instead, by understanding these processes, you will naturally understand what reflection does.</p>
 
 <h2 class="relative group">How to Understand Reflection?
     <div id="how-to-understand-reflection" class="anchor"></div>
@@ -1339,10 +1342,10 @@
     </span>
     
 </h3>
-<p>First, what is metadata (Metadata)? When we write code, we name variables, types, struct fields, etc. These names are mainly for programmers to understand and maintain the source code. For C/C++, these names are usually discarded after compilation to save binary space, which is understandable. For a detailed discussion, see <a href="https://www.ykiko.me/zh-cn/articles/670190357"  target="_blank" rel="noreferrer">Why C/C++ Compilers Do Not Retain Metadata</a>.</p>
-<p>But gradually, we found that in some cases, we need this data. For example, when serializing a struct into <code>json</code>, we need the struct field names, or when printing logs, we don&rsquo;t want to print enum values but the corresponding enum names. What to do? Early on, the only way was through hard coding, i.e., writing it manually, or using macros for more advanced cases. This was quite inconvenient and not conducive to future code maintenance.</p>
-<p>Later, some languages, like Java and C#, their compilers would retain a lot of data, including these names, during compilation. This data is called metadata (Metadata). Additionally, there are ways for programmers to attach metadata to certain structures themselves, such as C#&rsquo;s <code>attribute</code> and Java&rsquo;s <code>annotation</code>.</p>
-<p>What about C++? Currently, C++ compilers only retain type names for implementing RTTI, i.e., facilities related to <code>std::type_info</code> in the standard. Other information is stripped away by the compiler. What to do? Manually writing metadata is acceptable for a small number of classes, but as the project scale increases, such as having dozens or hundreds of classes, it becomes very tedious and error-prone. In fact, we can run a script before actual compilation to generate this data, known as code generation (Code Generation). For related content, see <a href="https://www.ykiko.me/zh-cn/articles/669360731"  target="_blank" rel="noreferrer">Using Clang Tools to Freely Manipulate C++ Code</a>.</p>
+<p>First, what is metadata? When we write code, we give names to variables, types, struct fields, etc. These names are primarily for the convenience of programmers to understand and maintain the source code. For C/C++, these names are usually discarded after compilation to save binary space, which is understandable. For a detailed discussion, please see <a href="https://www.ykiko.me/en/articles/670190357"  target="_blank" rel="noreferrer">Why C/C++ compilers do not retain metadata</a>.</p>
+<p>However, gradually, we found that in some cases, this data is needed. For example, when serializing a struct into <code>json</code>, the struct field names are required, and when printing logs, we don&rsquo;t want to print enum values but rather the corresponding enum names directly. What to do? Early on, it could only be done through hard coding, i.e., manual writing, or perhaps some macros for more advanced cases. This is actually very inconvenient and not conducive to subsequent code maintenance.</p>
+<p>Later, some languages, such as Java and C#, emerged. Their compilers retain a lot of data, including these names, during compilation. This data is called metadata. At the same time, there are also means to allow programmers to attach metadata to certain structures themselves, such as C#&rsquo;s <code>attribute</code> and Java&rsquo;s <code>annotation</code>.</p>
+<p>What about C++? Currently, C++ compilers only retain type names for implementing RTTI, i.e., the related facilities of <code>std::type_info</code> in the standard. Other information is erased by the compiler. What to do? Manually writing metadata is acceptable for a small number of classes, but when the project scale increases, for example, with dozens or hundreds of classes, it becomes very tedious and error-prone. In fact, we can run a script before actual compilation to generate this data, which is called Code Generation. For related content, please refer to <a href="https://www.ykiko.me/en/articles/669360731"  target="_blank" rel="noreferrer">Freely control C++ code with clang tools</a>.</p>
 
 <h3 class="relative group">Query Metadata
     <div id="query-metadata" class="anchor"></div>
@@ -1353,11 +1356,11 @@
     </span>
     
 </h3>
-<p>After generation, the next step is querying metadata. Many languages&rsquo; built-in reflection modules, such as Python&rsquo;s <code>inspect</code>, Java&rsquo;s <code>Reflection</code>, and C#&rsquo;s <code>System.Reflection</code>, essentially encapsulate some operations, making it more convenient for users to access metadata without directly dealing with raw data.</p>
-<p>It&rsquo;s worth noting that the queries in the above cases occur at runtime. Searching and matching based on strings at runtime is a relatively slow process, which is why we often say that reflective method calls are slower than normal method calls.</p>
-<p>For C++, the compiler provides some limited interfaces for us to access (reflect) some information at compile time, such as using <code>decltype</code> to get a variable&rsquo;s type, further determining if two variable types are equal, or if one is a subclass of another, but the functionality is quite limited.</p>
-<p>However, you can generate metadata yourself as described in the previous section, mark them as constexpr, and then query them at compile time. In fact, C++26&rsquo;s static reflection follows this approach, with the compiler generating metadata and exposing some interfaces for users to query. For related content, see <a href="https://www.ykiko.me/zh-cn/articles/661692275"  target="_blank" rel="noreferrer">C++26 Static Reflection Proposal Analysis</a>. The timing of the query is what distinguishes <strong>dynamic reflection</strong> from <strong>static reflection</strong>.</p>
-<p>Of course, what can be done at compile time is certainly less than what can be done at runtime. For example, creating a class instance based on a runtime type name is something that can&rsquo;t be done at compile time. But you can build dynamic reflection based on these static metadata. For related content, see <a href="https://www.ykiko.me/zh-cn/articles/670191053"  target="_blank" rel="noreferrer">Implementing Object in C++</a>.</p>
+<p>After generation, the next step is to query the metadata. Many languages&rsquo; built-in reflection modules, such as Python&rsquo;s <code>inspect</code>, Java&rsquo;s <code>Reflection</code>, and C#&rsquo;s <code>System.Reflection</code>, actually encapsulate some operations, making it more convenient for users to avoid direct contact with raw metadata.</p>
+<p>It is worth noting that the queries in the above cases all occur at runtime. Searching and matching based on strings at runtime is actually a relatively slow process, which is why we often say that calling methods via reflection is slower than calling them normally.</p>
+<p>For C++, the compiler provides some limited interfaces for us to access (reflect) some information at compile time. For example, <code>decltype</code> can be used to get the type of a variable, and further determine whether two variable types are equal, whether they are a subclass of a certain type, etc., but the functionality is very limited.</p>
+<p>However, you can generate metadata yourself using the method from the previous subsection, mark them all as <code>constexpr</code>, and then query them at compile time. In fact, C++26&rsquo;s static reflection follows this idea: the compiler generates metadata and exposes some interfaces for users to query. For related content, please see <a href="https://www.ykiko.me/en/articles/661692275"  target="_blank" rel="noreferrer">Analysis of C++26 Static Reflection Proposal</a>. The timing of the query is the distinction between so-called <strong>dynamic reflection</strong> and <strong>static reflection</strong>.</p>
+<p>Of course, what can be done at compile time is certainly not as much as at runtime. For example, if you want to create a class instance based on a runtime type name, it&rsquo;s impossible to do so at compile time. But you can build dynamic reflection based on this static metadata. For related content, please see <a href="https://www.ykiko.me/en/articles/670191053"  target="_blank" rel="noreferrer">Implementing Object in C++</a>.</p>
 
 <h3 class="relative group">Operate Metadata
     <div id="operate-metadata" class="anchor"></div>
@@ -1368,7 +1371,7 @@
     </span>
     
 </h3>
-<p>Then, based on the metadata, further operations can be performed, such as code generation. In C++, this can be understood as compile-time code generation, while in Java and C#, it can be considered runtime code generation. For details, see <a href="https://www.ykiko.me/zh-cn/articles/669359855"  target="_blank" rel="noreferrer">Various Ways to Generate Code</a>.</p>
+<p>Then, further operations are performed based on the metadata, such as code generation. In C++, this can be understood as compile-time code generation, while in Java and C#, it can be considered runtime code generation. See <a href="https://www.ykiko.me/en/articles/669359855"  target="_blank" rel="noreferrer">Various ways to generate code</a> for details.</p>
 
 <h2 class="relative group">Conclusion
     <div id="conclusion" class="anchor"></div>
@@ -1379,14 +1382,14 @@
     </span>
     
 </h2>
-<p>Finally, let&rsquo;s break down reflection in different languages using the above three steps:</p>
+<p>Finally, let&rsquo;s use the three steps above to break down reflection in different languages:</p>
 <ul>
-<li>Python, JavaScript, Java, C#: Metadata is generated by the compiler/interpreter, standard libraries provide interfaces, users can query metadata at runtime, and with the presence of a virtual machine (VM), code generation is convenient.</li>
-<li>Go: Metadata is generated by the compiler, standard libraries provide interfaces, users can query metadata at runtime. However, since Go is mainly AOT (Ahead-of-Time) compiled, runtime code generation is not convenient.</li>
-<li>Zig, C++26 static reflection: Metadata is generated by the compiler, standard libraries provide interfaces, users can query metadata at compile time. Similarly, since it&rsquo;s AOT compiled, runtime code generation is not convenient, but compile-time code generation is possible.</li>
+<li>Python, JavaScript, Java, C#: Metadata is generated by the compiler/interpreter, standard libraries provide interfaces, users can query metadata at runtime, and thanks to the Virtual Machine (VM), code can be conveniently generated.</li>
+<li>Go: Metadata is generated by the compiler, standard libraries provide interfaces, users can query metadata at runtime. However, since Go is primarily AOT (Ahead-of-Time) compiled, runtime code generation is not convenient.</li>
+<li>Zig, C++26 Static Reflection: Metadata is generated by the compiler, standard libraries provide interfaces, users can query metadata at compile time. Similarly, since it&rsquo;s AOT compiled, runtime code generation is not convenient, but code generation can be performed at compile time.</li>
 </ul>
-<p>As for QT and UE, they generate metadata through code generation, encapsulate interfaces, and users can query metadata at runtime. The implementation principle is similar to Go&rsquo;s reflection.</p>
-<p>I hope this tutorial series is helpful to you! If there are any errors, feel free to discuss them in the comments. Thank you for reading.</p>
+<p>QT and UE, on the other hand, generate their own metadata through code generation, encapsulate interfaces, and allow users to query metadata at runtime. The underlying principle is similar to Go&rsquo;s reflection.</p>
+<p>I hope this series of tutorials is helpful to you! If there are any errors, please feel free to discuss them in the comments section. Thank you for reading.</p>
 
           
           
@@ -1416,7 +1419,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/670190357/">
           Part 2:
-          Why Do C/C&#43;&#43; Compilers Not Retain Metadata?
+          Why is it said that C/C&#43;&#43; compilers do not preserve metadata?
         </a>
       </div>
     
@@ -1426,7 +1429,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/670191053/">
           Part 3:
-          Implementing Object in C&#43;&#43;!
+          Implement Object in C&#43;&#43;!
         </a>
       </div>
     
@@ -1436,7 +1439,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/669359855/">
           Part 4:
-          Various Approaches to Code Generation
+          Various approaches to code generation
         </a>
       </div>
     
@@ -1446,7 +1449,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/669360731/">
           Part 5:
-          Harness the Power of C&#43;&#43; Code with Clang Tools
+          Master your C&#43;&#43; code with Clang tools.
         </a>
       </div>
     
@@ -1456,7 +1459,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/661692275/">
           Part 6:
-          Analysis of the C&#43;&#43;26 Static Reflection Proposal
+          C&#43;&#43;26 Static Reflection Proposal Analysis
         </a>
       </div>
     
@@ -1611,12 +1614,12 @@
               class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
               href="/en/articles/661692275/">
               <span class="leading-6">
-                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;Analysis of the C++26 Static Reflection Proposal
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;C++26 Static Reflection Proposal Analysis
               </span>
             </a>
             
               <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2023-10-17T02:38:26&#43;00:00">17 October 2023</time>
+                <time datetime="2023-10-16T18:38:26&#43;00:00">16 October 2023</time>
               </span>
             
           
@@ -1627,12 +1630,12 @@
               class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
               href="/en/articles/669359855/">
               <span class="leading-6">
-                Various Approaches to Code Generation&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+                Various approaches to code generation&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
             </a>
             
               <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2023-11-29T09:14:16&#43;00:00">29 November 2023</time>
+                <time datetime="2023-11-29T01:14:16&#43;00:00">29 November 2023</time>
               </span>
             
           

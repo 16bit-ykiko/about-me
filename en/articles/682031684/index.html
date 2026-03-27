@@ -15,8 +15,8 @@
 
   
   
-    <title>C&#43;&#43; 中 constexpr 的发展史！（上篇） &middot; ykiko&#39;s blog</title>
-    <meta name="title" content="C&#43;&#43; 中 constexpr 的发展史！（上篇） &middot; ykiko&#39;s blog">
+    <title>The History of constexpr in C&#43;&#43;! (Part One) &middot; ykiko&#39;s blog</title>
+    <meta name="title" content="The History of constexpr in C&#43;&#43;! (Part One) &middot; ykiko&#39;s blog">
   
 
   
@@ -68,23 +68,23 @@
   
   <meta property="og:url" content="https://www.ykiko.me/en/articles/682031684/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="C&#43;&#43; 中 constexpr 的发展史！（上篇）">
-  <meta property="og:description" content="几个月前，我写了一篇介绍 C&#43;&#43; 模板的文章：雾里看花：真正意义上的理解 C&#43;&#43; 模板。
-文章梳理了现代 C&#43;&#43; 中模板的地位。其中，使用 constexpr 函数替代模板进行编译期计算可以说是现代 C&#43;&#43; 最重要的改进之一。constexpr 本身其实并不难理解，非常直观。但由于几乎每个 C&#43;&#43; 版本都在改进它，不同 C&#43;&#43; 版本中可用的内容差异很大，有时可能会给人一种“不一致”的感觉。">
+  <meta property="og:title" content="The History of constexpr in C&#43;&#43;! (Part One)">
+  <meta property="og:description" content="This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+A few months ago, I wrote an article introducing C&#43;&#43; templates: Looking at Flowers in a Fog: A True Understanding of C&#43;&#43; Templates.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2024-02-10T23:15:47+00:00">
-    <meta property="article:modified_time" content="2024-02-10T23:15:47+00:00">
+    <meta property="article:published_time" content="2024-02-10T15:15:47+00:00">
+    <meta property="article:modified_time" content="2024-02-10T15:15:47+00:00">
     <meta property="og:image" content="https://www.ykiko.me/en/articles/682031684/featured.png">
       <meta property="og:see_also" content="https://www.ykiko.me/en/articles/683463723/">
 
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/en/articles/682031684/featured.png">
-  <meta name="twitter:title" content="C&#43;&#43; 中 constexpr 的发展史！（上篇）">
-  <meta name="twitter:description" content="几个月前，我写了一篇介绍 C&#43;&#43; 模板的文章：雾里看花：真正意义上的理解 C&#43;&#43; 模板。
-文章梳理了现代 C&#43;&#43; 中模板的地位。其中，使用 constexpr 函数替代模板进行编译期计算可以说是现代 C&#43;&#43; 最重要的改进之一。constexpr 本身其实并不难理解，非常直观。但由于几乎每个 C&#43;&#43; 版本都在改进它，不同 C&#43;&#43; 版本中可用的内容差异很大，有时可能会给人一种“不一致”的感觉。">
+  <meta name="twitter:title" content="The History of constexpr in C&#43;&#43;! (Part One)">
+  <meta name="twitter:description" content="This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+A few months ago, I wrote an article introducing C&#43;&#43; templates: Looking at Flowers in a Fog: A True Understanding of C&#43;&#43; Templates.">
 
   
   
@@ -237,8 +237,8 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Articles",
-    "name": "C\u002b\u002b 中 constexpr 的发展史！（上篇）",
-    "headline": "C\u002b\u002b 中 constexpr 的发展史！（上篇）",
+    "name": "The History of constexpr in C\u002b\u002b! (Part One)",
+    "headline": "The History of constexpr in C\u002b\u002b! (Part One)",
     
     "inLanguage": "en",
     "url" : "https://www.ykiko.me/en/articles/682031684/",
@@ -247,15 +247,15 @@
       "name": "ykiko"
     },
     "copyrightYear": "2024",
-    "dateCreated": "2024-02-10T23:15:47\u002b00:00",
-    "datePublished": "2024-02-10T23:15:47\u002b00:00",
+    "dateCreated": "2024-02-10T15:15:47\u002b00:00",
+    "datePublished": "2024-02-10T15:15:47\u002b00:00",
     
-    "dateModified": "2024-02-10T23:15:47\u002b00:00",
+    "dateModified": "2024-02-10T15:15:47\u002b00:00",
     
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "4670"
+    "wordCount": "4497"
   }]
   </script>
 
@@ -410,13 +410,13 @@
         <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
     <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg></span>
       </span>
-      <span class="text-sm font-medium bf-icon-color-hover" title="C&#43;&#43; 中 constexpr 的发展史！（上篇）">EN</span>
+      <span class="text-sm font-medium bf-icon-color-hover" title="The History of constexpr in C&#43;&#43;! (Part One)">EN</span>
     </button>
     <ul class="menuhide">
       <li class="rounded-xl backdrop-blur shadow-2xl p-2 flex flex-col gap-1">
         
           <a href="/en/articles/682031684/" class="flex items-center bf-icon-color-hover px-3 py-1">
-            <span class="text-sm font-sm" title="C&#43;&#43; 中 constexpr 的发展史！（上篇）">
+            <span class="text-sm font-sm" title="The History of constexpr in C&#43;&#43;! (Part One)">
               English
             </span>
           </a>
@@ -586,13 +586,13 @@
         <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
     <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg></span>
       </span>
-      <span class="text-sm font-medium bf-icon-color-hover" title="C&#43;&#43; 中 constexpr 的发展史！（上篇）">EN</span>
+      <span class="text-sm font-medium bf-icon-color-hover" title="The History of constexpr in C&#43;&#43;! (Part One)">EN</span>
     </button>
     <ul class="menuhide">
       <li class="rounded-xl backdrop-blur shadow-2xl p-2 flex flex-col gap-1">
         
           <a href="/en/articles/682031684/" class="flex items-center bf-icon-color-hover px-3 py-1">
-            <span class="text-sm font-sm" title="C&#43;&#43; 中 constexpr 的发展史！（上篇）">
+            <span class="text-sm font-sm" title="The History of constexpr in C&#43;&#43;! (Part One)">
               English
             </span>
           </a>
@@ -771,7 +771,7 @@
   
   <li class="hidden">
     <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/en/articles/682031684/"
-      >C&#43;&#43; 中 constexpr 的发展史！（上篇）</a
+      >The History of constexpr in C&#43;&#43;! (Part One)</a
     ><span class="px-1 text-primary-500">/</span>
   </li>
 
@@ -780,7 +780,7 @@
 
       
       <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-        C++ 中 constexpr 的发展史！（上篇）
+        The History of constexpr in C++! (Part One)
       </h1>
       <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
         
@@ -836,7 +836,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2024-02-10T23:15:47&#43;00:00">10 February 2024</time><span class="px-2 text-primary-500">&middot;</span><span>4670 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">10 mins</span><span class="px-2 text-primary-500">&middot;</span>
+      <time datetime="2024-02-10T15:15:47&#43;00:00">10 February 2024</time><span class="px-2 text-primary-500">&middot;</span><span>4497 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">9 mins</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1072,11 +1072,18 @@
     class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#很神奇吗">很神奇吗？</a></li>
-    <li><a href="#c9803我比你更-const">C++98/03：我比你更 const</a></li>
-    <li><a href="#0-编译器中的常量求值器">0-∞：编译器中的常量求值器</a></li>
-    <li><a href="#2003真的能-macro-free-吗">2003：真的能 macro free 吗？</a></li>
-    <li><a href="#2006-2007当一切浮出水面">2006-2007：当一切浮出水面</a></li>
+    <li><a href="#is-it-magical">Is it magical?</a></li>
+    <li><a href="#c9803-im-more-const-than-you">C++98/03: I&rsquo;m more const than you</a></li>
+    <li><a href="#0--the-constant-evaluator-in-the-compiler">0-∞: The Constant Evaluator in the Compiler</a></li>
+    <li><a href="#2003-can-we-really-be-macro-free">2003: Can we really be macro-free?</a></li>
+    <li><a href="#2006-2007-when-everything-comes-to-the-surface">2006-2007: When Everything Comes to the Surface</a></li>
+    <li><a href="#2007-trying-to-make-the-standard-library-more-constexpr">2007: Trying to make the standard library more constexpr?</a></li>
+    <li><a href="#2008-halting-problem-i-dont-care">2008: Halting&hellip; problem? I don&rsquo;t care!</a></li>
+    <li><a href="#2010-references-or-pointers">2010: References or Pointers?</a></li>
+    <li><a href="#2011-why-no-declarations">2011: Why no declarations?</a></li>
+    <li><a href="#2012-i-need-branches">2012: I need branches!</a></li>
+    <li><a href="#2013-only-kids-make-choices-i-want-loops-too">2013: Only kids make choices, I want loops too!</a></li>
+    <li><a href="#2013-constexpr-is-not-a-subset-of-const">2013: constexpr is not a subset of const!</a></li>
   </ul>
 </nav>
   </div>
@@ -1090,11 +1097,18 @@
     class="py-2 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#很神奇吗">很神奇吗？</a></li>
-    <li><a href="#c9803我比你更-const">C++98/03：我比你更 const</a></li>
-    <li><a href="#0-编译器中的常量求值器">0-∞：编译器中的常量求值器</a></li>
-    <li><a href="#2003真的能-macro-free-吗">2003：真的能 macro free 吗？</a></li>
-    <li><a href="#2006-2007当一切浮出水面">2006-2007：当一切浮出水面</a></li>
+    <li><a href="#is-it-magical">Is it magical?</a></li>
+    <li><a href="#c9803-im-more-const-than-you">C++98/03: I&rsquo;m more const than you</a></li>
+    <li><a href="#0--the-constant-evaluator-in-the-compiler">0-∞: The Constant Evaluator in the Compiler</a></li>
+    <li><a href="#2003-can-we-really-be-macro-free">2003: Can we really be macro-free?</a></li>
+    <li><a href="#2006-2007-when-everything-comes-to-the-surface">2006-2007: When Everything Comes to the Surface</a></li>
+    <li><a href="#2007-trying-to-make-the-standard-library-more-constexpr">2007: Trying to make the standard library more constexpr?</a></li>
+    <li><a href="#2008-halting-problem-i-dont-care">2008: Halting&hellip; problem? I don&rsquo;t care!</a></li>
+    <li><a href="#2010-references-or-pointers">2010: References or Pointers?</a></li>
+    <li><a href="#2011-why-no-declarations">2011: Why no declarations?</a></li>
+    <li><a href="#2012-i-need-branches">2012: I need branches!</a></li>
+    <li><a href="#2013-only-kids-make-choices-i-want-loops-too">2013: Only kids make choices, I want loops too!</a></li>
+    <li><a href="#2013-constexpr-is-not-a-subset-of-const">2013: constexpr is not a subset of const!</a></li>
   </ul>
 </nav>
   </div>
@@ -1233,7 +1247,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/683463723/">
           Part 2:
-          C&#43;&#43;中constexpr的历史！（第二部分）
+          The History of constexpr in C&#43;&#43;! (Part Two)
         </a>
       </div>
     
@@ -1244,38 +1258,39 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          <p>几个月前，我写了一篇介绍 C++ 模板的文章：<a href="https://www.ykiko.me/zh-cn/articles/655902377"  target="_blank" rel="noreferrer">雾里看花：真正意义上的理解 C++ 模板</a>。</p>
-<p>文章梳理了现代 C++ 中模板的地位。其中，使用 constexpr 函数替代模板进行编译期计算可以说是现代 C++ 最重要的改进之一。constexpr 本身其实并不难理解，非常直观。但由于几乎每个 C++ 版本都在改进它，不同 C++ 版本中可用的内容差异很大，有时可能会给人一种“不一致”的感觉。</p>
-<p>最近我偶然读到了这篇文章：<a href="https://pvs-studio.com/en/blog/posts/cpp/0909/"  target="_blank" rel="noreferrer">Design and evolution of constexpr in C++</a>，它全面介绍了 C++ 中 constexpr 的发展史，写得非常好。于是便想将其翻译到中文社区。</p>
-<p>有趣的是，这篇文章其实也是翻译的。文章的原作者是一位俄罗斯人，最初发表在俄罗斯的论坛上。这是作者的邮箱：<code>izaronplatz@gmail.com</code>，我已经和他联系过了，他回复说：</p>
+          <blockquote><p>This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.</p>
+</blockquote><p>A few months ago, I wrote an article introducing C++ templates: <a href="https://www.ykiko.me/en/articles/655902377"  target="_blank" rel="noreferrer">Looking at Flowers in a Fog: A True Understanding of C++ Templates</a>.</p>
+<p>It clarified the position of templates in modern C++. Among the changes, using constexpr functions to replace templates for compile-time computation is arguably one of the most important improvements in modern C++. <code>constexpr</code> itself is not difficult to understand; it&rsquo;s very intuitive. However, because it has been improved in almost every version of C++, the features available in different C++ versions vary greatly, which can sometimes give a feeling of <code>inconsistency</code>.</p>
+<p>Coincidentally, I recently came across this article: <a href="https://pvs-studio.com/en/blog/posts/cpp/0909/"  target="_blank" rel="noreferrer">Design and evolution of constexpr in C++</a>, which provides a comprehensive history of the development of <code>constexpr</code> in C++. It&rsquo;s very well-written. So, I decided to translate it for the Chinese-speaking community.</p>
+<p>But interestingly, this article is also a translation. The original author is Russian, and the article was first published on a Russian forum. Here is the author&rsquo;s email: <code>izaronplatz@gmail.com</code>. I have already contacted him, and he replied:</p>
 <blockquote><p>It&rsquo;s always good to spread knowledge in more languages.</p>
-</blockquote><p>也就是允许翻译了。不过我不懂俄文，所以主要参考了原文的结构，而主体部分基本都是我重新叙述的。</p>
-<p>原文内容较长，故分为上下两篇，这是上篇。</p>
+</blockquote><p>This means translation is permitted. However, I don&rsquo;t understand Russian, so I mainly followed the structure of the original article, but the main body is mostly my own re-narration.</p>
+<p>The original content is quite long, so it is divided into two parts. This is the first part.</p>
 
-<h2 class="relative group">很神奇吗？
-    <div id="很神奇吗" class="anchor"></div>
+<h2 class="relative group">Is it magical?
+    <div id="is-it-magical" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%be%88%e7%a5%9e%e5%a5%87%e5%90%97" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#is-it-magical" aria-label="Anchor">#</a>
     </span>
     
 </h2>
-<p>constexpr 是当代 C++ 中最神奇的关键字之一。它使得某些代码可以在编译期执行。</p>
-<p>随着时间的推移，constexpr 的功能越来越强大。现在几乎可以在编译时计算中使用标准库的所有功能。</p>
-<p>constexpr 的发展历史可以追溯到早期版本的 C++。通过研究标准提案和编译器源代码，我们可以了解这一语言特性是如何一步步地构建起来的，为什么会以这样的形式存在，实际上 constexpr 表达式是如何计算的，未来有哪些可能的功能，以及哪些功能可能会存在但没有被纳入标准。</p>
-<p>本文适合任何人，无论你是否了解 constexpr！</p>
+<p><code>constexpr</code> is one of the most magical keywords in modern C++. It allows certain code to be executed at compile time.</p>
+<p>Over time, the capabilities of <code>constexpr</code> have become increasingly powerful. Now, almost all features of the standard library can be used in compile-time computations.</p>
+<p>The history of <code>constexpr</code> can be traced back to the early versions of C++. By studying standard proposals and compiler source code, we can understand how this language feature was built step by step, why it exists in its current form, how <code>constexpr</code> expressions are actually computed, what future features might be possible, and which features could have existed but were not included in the standard.</p>
+<p>This article is suitable for everyone, whether you are familiar with <code>constexpr</code> or not!</p>
 
-<h2 class="relative group">C++98/03：我比你更 const
-    <div id="c9803我比你更-const" class="anchor"></div>
+<h2 class="relative group">C++98/03: I&rsquo;m more const than you
+    <div id="c9803-im-more-const-than-you" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#c9803%e6%88%91%e6%af%94%e4%bd%a0%e6%9b%b4-const" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#c9803-im-more-const-than-you" aria-label="Anchor">#</a>
     </span>
     
 </h2>
-<p>在 C++ 中，有些地方需要整数常量（比如内建数组类型的长度），这些值必须在编译期就确定。C++ 标准允许通过简单的表达式来构造常量，例如：</p>
+<p>In C++, some places require integer constants (like the length of a built-in array type), and these values must be determined at compile time. The C++ standard allows constants to be constructed through simple expressions, for example:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">enum</span> <span class="nc">EPlants</span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">APRICOT</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">LIME</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">,</span>
@@ -1297,33 +1312,33 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">f1</span> <span class="o">=</span> <span class="n">foo</span><span class="o">&lt;</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">&gt;</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">f2</span> <span class="o">=</span> <span class="n">foo</span><span class="o">&lt;</span><span class="p">((</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="o">?</span> <span class="mi">10</span> <span class="o">*</span> <span class="mi">11</span> <span class="o">:</span> <span class="n">VEGETABLE</span><span class="p">)</span><span class="o">&gt;</span><span class="p">();</span></span></span></code></pre></div></div>
-<p>这些表达式在<code>[expr.const]</code>小节中被定义，并且被叫做<em>常量表达式（constant expression）</em>。它们只能包含：</p>
+<p>These expressions are defined in the <code>[expr.const]</code> section and are called <em>constant expressions</em>. They can only contain:</p>
 <ul>
-<li>字面量：<code>1</code>,<code>'A'</code>,<code>true</code>,<code>...</code></li>
-<li>枚举值</li>
-<li>整数或枚举类型的模板参数（例如<code>template&lt;int v&gt;</code>中的<code>v</code>）</li>
-<li><code>sizeof</code>表达式</li>
-<li>由常量表达式初始化的<code>const</code>变量</li>
+<li>Literals: <code>1</code>, <code>'A'</code>, <code>true</code>, <code>...</code></li>
+<li>Enum values</li>
+<li>Template parameters of integer or enum type (e.g., <code>v</code> in <code>template&lt;int v&gt;</code>)</li>
+<li><code>sizeof</code> expressions</li>
+<li><code>const</code> variables initialized by a constant expression</li>
 </ul>
-<p>前几项都很好理解，最后一项稍微有点复杂。如果一个变量具有<a href="https://en.cppreference.com/w/cpp/language/storage_duration"  target="_blank" rel="noreferrer">静态储存期</a>，那么在常规情况下，它的内存会被填充为<code>0</code>，之后在程序开始执行的时候改变。但对于上述的变量来说，这太晚了，需要在编译结束之前就计算出它们的值。</p>
-<p>在 C++98/03 当中有两种类型的<a href="https://en.cppreference.com/w/cpp/language/initialization#Static_initialization"  target="_blank" rel="noreferrer">静态初始化</a>：</p>
+<p>The first few items are easy to understand, but the last one is a bit more complex. If a variable has <a href="https://en.cppreference.com/w/cpp/language/storage_duration"  target="_blank" rel="noreferrer">static storage duration</a>, its memory is normally filled with <code>0</code> and then changed when the program starts executing. But for the variables mentioned above, this is too late; their values need to be computed before compilation ends.</p>
+<p>In C++98/03, there were two types of <a href="https://en.cppreference.com/w/cpp/language/initialization#Static_initialization"  target="_blank" rel="noreferrer">static initialization</a>:</p>
 <ul>
-<li><a href="https://en.cppreference.com/w/cpp/language/zero_initialization"  target="_blank" rel="noreferrer">零初始化</a>：内存被填充为<code>0</code>，然后在程序执行期间改变</li>
-<li><a href="https://en.cppreference.com/w/cpp/language/constant_initialization"  target="_blank" rel="noreferrer">常量初始化</a>：使用常量表达式进行初始化，内存（如果需要的话）立即填充为计算出来的值</li>
+<li><a href="https://en.cppreference.com/w/cpp/language/zero_initialization"  target="_blank" rel="noreferrer">Zero initialization</a>: memory is filled with <code>0</code> and then changed during program execution.</li>
+<li><a href="https://en.cppreference.com/w/cpp/language/constant_initialization"  target="_blank" rel="noreferrer">Constant initialization</a>: initialized with a constant expression, and the memory (if needed) is immediately filled with the computed value.</li>
 </ul>
-<blockquote><p>所有其它的初始化都被叫做<a href="https://en.cppreference.com/w/cpp/language/initialization#Dynamic_initialization"  target="_blank" rel="noreferrer">动态初始化</a>，这里我们不考虑它们。</p>
-</blockquote><p>让我们看一个包含两种静态初始化的例子：</p>
+<blockquote><p>All other initializations are called <a href="https://en.cppreference.com/w/cpp/language/initialization#Dynamic_initialization"  target="_blank" rel="noreferrer">dynamic initialization</a>, which we will not consider here.</p>
+</blockquote><p>Let&rsquo;s look at an example that includes both types of static initialization:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">13</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">v1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">4</span><span class="p">;</span>              <span class="c1">// 常量初始化
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">int</span> <span class="n">v2</span> <span class="o">=</span> <span class="mi">15</span> <span class="o">*</span> <span class="n">v1</span> <span class="o">+</span> <span class="mi">8</span><span class="p">;</span>                <span class="c1">// 常量初始化
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">int</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">foo</span><span class="p">()</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>                  <span class="c1">// 零初始化
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">int</span> <span class="n">v4</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="o">?</span> <span class="mi">10</span> <span class="o">*</span> <span class="nl">v3</span> <span class="p">:</span> <span class="mi">12345</span><span class="p">;</span>  <span class="c1">// 零初始化
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">int</span> <span class="n">v5</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="o">?</span> <span class="mi">10</span> <span class="o">*</span> <span class="nl">v3</span> <span class="p">:</span> <span class="mi">12345</span><span class="p">;</span>  <span class="c1">// 常量初始化
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">v1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">4</span><span class="p">;</span>              <span class="c1">// const initialization
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">int</span> <span class="n">v2</span> <span class="o">=</span> <span class="mi">15</span> <span class="o">*</span> <span class="n">v1</span> <span class="o">+</span> <span class="mi">8</span><span class="p">;</span>                <span class="c1">// const initialization
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">int</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">foo</span><span class="p">()</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>                  <span class="c1">// zero initialization
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">int</span> <span class="n">v4</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="o">?</span> <span class="mi">10</span> <span class="o">*</span> <span class="nl">v3</span> <span class="p">:</span> <span class="mi">12345</span><span class="p">;</span>  <span class="c1">// zero initialization
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">int</span> <span class="n">v5</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="o">?</span> <span class="mi">10</span> <span class="o">*</span> <span class="nl">v3</span> <span class="p">:</span> <span class="mi">12345</span><span class="p">;</span>  <span class="c1">// const initialization
 </span></span></span></code></pre></div></div>
-<p>变量<code>v1</code>, <code>v2</code>和<code>v5</code>都可以作为常量表达式，可以用作模板参数，<code>switch</code>的<code>case</code>，<code>enum</code>的值，等等。而<code>v3</code>和<code>v4</code>则不行。即使我们能明显看出<code>foo() + 5</code>的值是<code>18</code>，但在那时还没有合适的语义来表达这一点。</p>
-<p>由于常量表达式是递归定义的，如果一个表达式的某一部分不是常量表达式，那么整个表达式就不是常量表达式。在这个判断过程中，只考虑实际计算的表达式，所以<code>v5</code>是常量表达式，但<code>v4</code>不是。</p>
-<p>如果没有获取常量初始化的变量的地址，编译器就可以不为它分配内存。所以我们可以通过取地址的方式，来强制编译器给常量初始化的变量预留内存（其实如果没有显式取地址的话，普通的局部变量也可能被优化掉，任何不违背<a href="https://en.cppreference.com/w/cpp/language/as_if"  target="_blank" rel="noreferrer">as-if</a>原则的优化都是允许的。可以考虑使用<code>[[gnu::used]]</code>这个 attribute 标记避免变量被优化掉）。</p>
+<p>The variables <code>v1</code>, <code>v2</code>, and <code>v5</code> can be used as constant expressions, serving as template arguments, <code>switch</code> <code>case</code> labels, <code>enum</code> values, etc. <code>v3</code> and <code>v4</code> cannot. Even though we can clearly see that the value of <code>foo() + 5</code> is <code>18</code>, there was no suitable semantics to express this at the time.</p>
+<p>Since constant expressions are defined recursively, if any part of an expression is not a constant expression, the entire expression is not a constant expression. In this evaluation process, only the actually computed expressions are considered, which is why <code>v5</code> is a constant expression, but <code>v4</code> is not.</p>
+<p>If the address of a constantly initialized variable is not taken, the compiler may not allocate memory for it. So we can force the compiler to reserve memory for a constantly initialized variable by taking its address (in fact, even ordinary local variables might be optimized away if their address is not explicitly taken; any optimization that does not violate the <a href="https://en.cppreference.com/w/cpp/language/as_if"  target="_blank" rel="noreferrer">as-if</a> rule is allowed. You can consider using the <code>[[gnu::used]]</code> attribute to prevent a variable from being optimized away).</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v1</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">v1</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v2</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">v2</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
@@ -1331,8 +1346,8 @@
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v4</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">v4</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v5</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">v5</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>编译上述代码并查看符号表（环境是 windows x86-64）：</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ --std<span class="o">=</span>c++98  -c main.cpp 
+<p>Compile the above code and check the symbol table (environment is Windows x86-64):</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ g++ --std<span class="o">=</span>c++98  -c main.cpp
 </span></span><span class="line"><span class="cl">$ objdump -t -C main.o
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="o">(</span>sec  6<span class="o">)(</span>fl 0x00<span class="o">)(</span>ty    0<span class="o">)(</span>scl   3<span class="o">)</span> <span class="o">(</span>nx 0<span class="o">)</span> 0x0000000000000000 v1
@@ -1347,87 +1362,87 @@
 </span></span><span class="line"><span class="cl"><span class="o">(</span>sec  4<span class="o">)(</span>fl 0x00<span class="o">)(</span>ty    0<span class="o">)(</span>scl   3<span class="o">)</span> <span class="o">(</span>nx 1<span class="o">)</span> 0x0000000000000000 .xdata
 </span></span><span class="line"><span class="cl"><span class="o">(</span>sec  5<span class="o">)(</span>fl 0x00<span class="o">)(</span>ty    0<span class="o">)(</span>scl   3<span class="o">)</span> <span class="o">(</span>nx 1<span class="o">)</span> 0x0000000000000000 .pdata
 </span></span><span class="line"><span class="cl"><span class="o">(</span>sec  6<span class="o">)(</span>fl 0x00<span class="o">)(</span>ty    0<span class="o">)(</span>scl   3<span class="o">)</span> <span class="o">(</span>nx 1<span class="o">)</span> 0x0000000000000000 .rdata</span></span></code></pre></div></div>
-<p>可以发现在我的 GCC 14 上，零初始化的变量<code>v3</code>和<code>v4</code>被放在<code>.bss</code>段，而常量初始化的变量<code>v1</code>, <code>v2</code>,<code>v5</code>被放在<code>.rdata</code>段。操作系统会对<code>.rdata</code>段进行保护，使其处于只读模式，尝试写入会导致段错误。</p>
-<p>从上述的差异可以看出，一些<code>const</code>变量比其它的更加<code>const</code>。但是在当时我们并没有办法检测出这种差异（后来的 C++20 引入了<a href="https://en.cppreference.com/w/cpp/language/constinit"  target="_blank" rel="noreferrer">constinit</a>来确保一个变量进行常量初始化）。</p>
+<p>You can see that on my GCC 14, the zero-initialized variables <code>v3</code> and <code>v4</code> are placed in the <code>.bss</code> section, while the constant-initialized variables <code>v1</code>, <code>v2</code>, and <code>v5</code> are placed in the <code>.rdata</code> section. The operating system protects the <code>.rdata</code> section, making it read-only; attempting to write to it will cause a segmentation fault.</p>
+<p>From the differences above, it&rsquo;s clear that some <code>const</code> variables are more <code>const</code> than others. But at the time, we had no way to detect this difference (later, C++20 introduced <a href="https://en.cppreference.com/w/cpp/language/constinit"  target="_blank" rel="noreferrer">constinit</a> to ensure a variable undergoes constant initialization).</p>
 
-<h2 class="relative group">0-∞：编译器中的常量求值器
-    <div id="0-编译器中的常量求值器" class="anchor"></div>
+<h2 class="relative group">0-∞: The Constant Evaluator in the Compiler
+    <div id="0--the-constant-evaluator-in-the-compiler" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#0-%e7%bc%96%e8%af%91%e5%99%a8%e4%b8%ad%e7%9a%84%e5%b8%b8%e9%87%8f%e6%b1%82%e5%80%bc%e5%99%a8" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#0--the-constant-evaluator-in-the-compiler" aria-label="Anchor">#</a>
     </span>
     
 </h2>
-<p>为了理解常量表达式是如何求值的，我们需要简单了解编译器的构造。不同编译器的处理方法大致相同，接下来将以 Clang/LLVM 为例。</p>
-<p>总的来说，编译器可以看做由以下三个部分组成：</p>
+<p>To understand how constant expressions are evaluated, we need a brief overview of compiler construction. The process is roughly the same across different compilers; we will use Clang/LLVM as an example.</p>
+<p>In general, a compiler can be seen as consisting of three parts:</p>
 <ul>
-<li><strong>前端（Front-end）</strong>：将 C/C++/Rust 等源代码转换为 LLVM IR（一种特殊的中间表示）。Clang 是 C 语言家族的编译器前端。</li>
-<li><strong>中端（Middle-end）</strong>：根据相关的设置对 LLVM IR 进行优化。</li>
-<li><strong>后端（Back-end）</strong>：将 LLVM IR 转换为特定平台的机器码：x86/Arm/PowerPC 等等。</li>
+<li><strong>Front-end</strong>: Converts source code like C/C++/Rust into LLVM IR (a special intermediate representation). Clang is the compiler front-end for the C language family.</li>
+<li><strong>Middle-end</strong>: Optimizes the LLVM IR based on relevant settings.</li>
+<li><strong>Back-end</strong>: Converts the LLVM IR into machine code for a specific platform: x86/Arm/PowerPC, etc.</li>
 </ul>
-<p>对于一个简单的编程语言，通过调用 LLVM，<code>1000</code>行就能实现一个编译器。你只需要负责实现语言前端就行了，后端交给 LLVM 即可。甚至前端也可以考虑使用 lex/yacc 这样的现成的语法解析器。</p>
-<p>具体到编译器前端的工作，例如这里提到的 Clang，可以分为以下三个阶段：</p>
+<p>For a simple programming language, you can implement a compiler in <code>1000</code> lines by calling LLVM. You only need to be responsible for implementing the language front-end; the back-end is handled by LLVM. You can even consider using existing parser generators like lex/yacc for the front-end.</p>
+<p>Specifically, the work of a compiler front-end, like Clang here, can be divided into three stages:</p>
 <ul>
-<li><strong>词法分析</strong>：将源文件转换为 Token Stream，例如 <code>[]() { return 13 + 37; }</code> 被转换为 <code>[</code>, <code>]</code>, <code>(</code>, <code>)</code>, <code>{</code>, <code>return</code>, <code>13</code>, <code>+</code>, <code>37</code>, <code>;</code>, <code>}</code></li>
-<li><strong>语法分析</strong>：产生 Abstract Syntax Tree（抽象语法树），就是将上一步中的 Token Stream 转换为类似于下面这样的递归的树状结构：</li>
+<li><strong>Lexical analysis</strong>: Converts the source file into a Token Stream. For example, <code>[]() { return 13 + 37; }</code> is converted to <code>[</code>, <code>]</code>, <code>(</code>, <code>)</code>, <code>{</code>, <code>return</code>, <code>13</code>, <code>+</code>, <code>37</code>, <code>;</code>, <code>}</code>.</li>
+<li><strong>Syntax analysis</strong>: Produces an Abstract Syntax Tree (AST), which converts the Token Stream from the previous step into a recursive tree-like structure like the one below.</li>
 </ul>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">lambda-expr 
-</span></span><span class="line"><span class="cl">└── body 
-</span></span><span class="line"><span class="cl">    └── <span class="k">return</span>-expr 
-</span></span><span class="line"><span class="cl">        └── plus-expr 
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">lambda-expr
+</span></span><span class="line"><span class="cl">└── body
+</span></span><span class="line"><span class="cl">    └── <span class="k">return</span>-expr
+</span></span><span class="line"><span class="cl">        └── plus-expr
 </span></span><span class="line"><span class="cl">            ├── number <span class="m">13</span>
 </span></span><span class="line"><span class="cl">            └── number <span class="m">37</span></span></span></code></pre></div></div>
 <ul>
-<li><strong>代码生成</strong>：根据给定的 AST 生成 LLVM IR</li>
+<li><strong>Code generation</strong>: Generates LLVM IR from the given AST.</li>
 </ul>
-<p>因此，常量表达式的计算（以及相关的事情，如模板实例化）严格发生在 C++ 编译器的前端，而 LLVM 不涉及此类工作。这种处理常量表达式（从 C++98 的简单表达式到 C++23 的复杂表达式）的工具被称为<strong>常量求值器 (constant evaluator)</strong>。</p>
-<p>多年来，对常量表达式的限制一直在不断放宽，而 Clang 的常量求值器相应地变得越来越复杂，直到管理 memory model（内存模型）。有一份旧的<a href="https://clang.llvm.org/docs/InternalsManual.html#constant-folding-in-the-clang-ast"  target="_blank" rel="noreferrer">文档</a>，描述 C++98/03 的常量求值。由于当时的常量表达式非常简单，它们是通过分析语法树进行 <em>constant folding</em> （常量折叠）来进行的。由于在语法树中，所有的算术表达式都已经被解析为子树的形式，因此计算常量就是简单地遍历子树。</p>
-<p>常量计算器的源代码位于<a href="https://clang.llvm.org/doxygen/ExprConstant_8cpp_source.html"  target="_blank" rel="noreferrer">lib/AST/ExprConstant.cpp</a>，在撰写本文时已经扩展到将近 17000 行。随着时间的推移，它学会了解释许多内容，例如循环（<code>EvaluateLoopBody</code>），所有这些都是在语法树上进行的。</p>
-<p>常量表达式与运行时代码有一个重要的区别：它们必须不引发 undefined behavior（未定义行为）。如果常量计算器遇到未定义行为，编译将失败。</p>
+<p>Therefore, the computation of constant expressions (and related matters, like template instantiation) happens strictly in the front-end of the C++ compiler, and LLVM is not involved in such work. The tool that handles this processing of constant expressions (from the simple expressions of C++98 to the complex ones of C++23) is called a <strong>constant evaluator</strong>.</p>
+<p>Over the years, the restrictions on constant expressions have been continuously relaxed, and Clang&rsquo;s constant evaluator has correspondingly become more and more complex, to the point of managing a memory model. There is an old <a href="https://clang.llvm.org/docs/InternalsManual.html#constant-folding-in-the-clang-ast"  target="_blank" rel="noreferrer">document</a> that describes constant evaluation in C++98/03. Since constant expressions were very simple back then, they were handled by analyzing the syntax tree for <em>constant folding</em>. Because all arithmetic expressions in the syntax tree have already been parsed into the form of subtrees, computing constants was simply a matter of traversing the subtrees.</p>
+<p>The source code for the constant evaluator is located in <a href="https://clang.llvm.org/doxygen/ExprConstant_8cpp_source.html"  target="_blank" rel="noreferrer">lib/AST/ExprConstant.cpp</a>, which has grown to nearly 17,000 lines at the time of this writing. Over time, it has learned to interpret many things, such as loops (<code>EvaluateLoopBody</code>), all of which are done on the syntax tree.</p>
+<p>Constant expressions have an important difference from runtime code: they must not cause undefined behavior. If the constant evaluator encounters undefined behavior, the compilation will fail.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="nl">error</span><span class="p">:</span> <span class="k">constexpr</span> <span class="n">variable</span> <span class="err">&#39;</span><span class="n">foo</span><span class="err">&#39;</span> <span class="n">must</span> <span class="n">be</span> <span class="n">initialized</span> <span class="n">by</span> <span class="n">a</span> <span class="n">constant</span> <span class="n">expression</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">2</span> <span class="o">|</span> <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">foo</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">+</span> <span class="mi">2147483647</span><span class="p">;</span>               
+</span></span><span class="line"><span class="cl">    <span class="mi">2</span> <span class="o">|</span> <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">foo</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">+</span> <span class="mi">2147483647</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="o">|</span>               <span class="o">^</span>     <span class="o">~~~~~~~~~~~~~~~</span>
 </span></span><span class="line"><span class="cl"><span class="nl">note</span><span class="p">:</span> <span class="n">value</span> <span class="mi">2147483660</span> <span class="n">is</span> <span class="n">outside</span> <span class="n">the</span> <span class="n">range</span> <span class="n">of</span> <span class="n">representable</span> <span class="n">values</span> <span class="n">of</span> <span class="n">type</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span>
 </span></span><span class="line"><span class="cl">    <span class="mi">2</span> <span class="o">|</span> <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">foo</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">+</span> <span class="mi">2147483647</span><span class="p">;</span></span></span></code></pre></div></div>
-<p>因此在有些时候可以用它们来检测程序中的潜在错误。</p>
+<p>Therefore, they can sometimes be used to detect potential errors in a program.</p>
 
-<h2 class="relative group">2003：真的能 macro free 吗？
-    <div id="2003真的能-macro-free-吗" class="anchor"></div>
+<h2 class="relative group">2003: Can we really be macro-free?
+    <div id="2003-can-we-really-be-macro-free" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2003%e7%9c%9f%e7%9a%84%e8%83%bd-macro-free-%e5%90%97" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2003-can-we-really-be-macro-free" aria-label="Anchor">#</a>
     </span>
     
 </h2>
-<p><strong>标准的改变是通过 proposals（提案）进行的</strong></p>
-<blockquote><p>在哪里可以找到提案？它们是由什么组成的？<br><br>所有的有关 C++ 标准的提案都可以在<a href="https://open-std.org/JTC1/SC22/WG21/"  target="_blank" rel="noreferrer">open-std.org</a>上找到。它们中的大多数都有详细的描述并且易于阅读。通常由如下部分组成：<br><br>-  当前遇到的问题<br>-  标准中相关措辞的的链接<br>-  上述问题的解决方案<br>-  建议对标准措辞进行的修改<br>-  相关提案的链接（提案可能有多个版本或者需要和其它提案进行对比）<br>-  在高级提案中，往往还会附带上实验性实现的链接<br><br>可以通过这些提案来了解 C++ 的每个部分是如何演变的。并非存档中的所有提案最终都被接受，但是它们都对 C++ 的发展有着重要的影响。<br><br>通过提交新提案，任何人都可以参与到 C++ 的演变过程中来。</p>
-</blockquote><p><code>2003</code>年的提案<a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2003/n1521.pdf"  target="_blank" rel="noreferrer">N1521 Generalized Constant Expressions</a>指出一个问题。如果一个表达式中的某个部分含有函数调用，那么整个表达式就不能是常量表达式，即使这个函数最终能够被常量折叠。这迫使人们在处理复杂常量表达式的时候使用宏，甚至一定程度上导致了宏的滥用：</p>
+<p><strong>Changes to the standard are made through proposals.</strong></p>
+<blockquote><p>Where can proposals be found? What are they composed of?<br><br>All proposals related to the C++ standard can be found on <a href="https://open-std.org/JTC1/SC22/WG21/"  target="_blank" rel="noreferrer">open-std.org</a>. Most of them have detailed descriptions and are easy to read. They usually consist of the following parts: <br><br>- The problem currently being faced <br>- Links to relevant wording in the standard <br>- A solution to the aforementioned problem <br>- Suggested changes to the standard&rsquo;s wording <br>- Links to related proposals (a proposal may have multiple versions or need to be compared with other proposals) <br>- In advanced proposals, links to experimental implementations are often included<br><br>You can use these proposals to understand how each part of C++ has evolved. Not all proposals in the archive are ultimately accepted, but they all have a significant impact on the development of C++.<br><br>Anyone can participate in the evolution of C++ by submitting new proposals.</p>
+</blockquote><p>The <code>2003</code> proposal <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2003/n1521.pdf"  target="_blank" rel="noreferrer">N1521 Generalized Constant Expressions</a> pointed out a problem. If a part of an expression contains a function call, the entire expression cannot be a constant expression, even if the function could ultimately be constant-folded. This forced people to use macros when dealing with complex constant expressions, and to some extent, led to the abuse of macros.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">square</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#define SQUARE(x) ((x) * (x))
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="n">square</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">max</span><span class="p">()</span> 
-</span></span><span class="line"><span class="cl"><span class="c1">// 理论上可用于常量表达式, 但是实际上不能
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">max</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Theoretically usable in constant expressions, but actually not
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="n">SQUARE</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">INT_MAX</span>
-</span></span><span class="line"><span class="cl"><span class="c1">// 被迫使用宏代替
+</span></span><span class="line"><span class="cl"><span class="c1">// Forced to use macros instead
 </span></span></span></code></pre></div></div>
-<p>因此，建议引入**常值 (constant-valued)**函数的概念，允许在常量表达式中使用这些函数。如果希望一个函数是常值函数，那么它必须满足：</p>
+<p>Therefore, it was proposed to introduce the concept of <strong>constant-valued</strong> functions, allowing these functions to be used in constant expressions. For a function to be a constant-valued function, it must satisfy:</p>
 <ul>
-<li>inline ，non-recursive，并且返回类型不是 void</li>
-<li>仅由单一的 return expr 语句组成，并且在把 expr 里面的函数参数替换为常量表达式之后，得到的仍然是一个常量表达式</li>
+<li><code>inline</code>, non-recursive, and its return type is not <code>void</code></li>
+<li>Consists only of a single <code>return expr</code> statement, and after replacing the function parameters in <code>expr</code> with constant expressions, the result is still a constant expression.</li>
 </ul>
-<p>如果这样的函数被调用，并且参数是常量表达式，那么函数调用表达式也是常量表达式：</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">square</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>         <span class="c1">// 常值函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">long</span> <span class="nf">long_max</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">2147483647</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// 常值函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">abs</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="o">-</span><span class="nl">x</span> <span class="p">:</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>   <span class="c1">// 常值函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">next</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="o">++</span><span class="n">x</span><span class="p">;</span> <span class="p">}</span>             <span class="c1">// 非常值函数
+<p>If such a function is called with constant expression arguments, the function call expression is also a constant expression.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">square</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>         <span class="c1">// constant-valued
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">long</span> <span class="nf">long_max</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">2147483647</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// constant-valued
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">abs</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="o">-</span><span class="nl">x</span> <span class="p">:</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>   <span class="c1">// constant-valued
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">next</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="o">++</span><span class="n">x</span><span class="p">;</span> <span class="p">}</span>             <span class="c1">// non constant-valued
 </span></span></span></code></pre></div></div>
-<p>这样的话，不需要修改任何代码，最开始的例子中的<code>v3</code>和<code>v4</code>也可以被用作常量表达式了，因为<code>foo</code>被认为是常值函数。</p>
-<p>该提案认为，可以考虑进一步支持下面这种情况：</p>
+<p>With this, without modifying any code, <code>v3</code> and <code>v4</code> from the initial example could also be used as constant expressions, because <code>foo</code> would be considered a constant-valued function.</p>
+<p>The proposal suggested that further support for the following situation could be considered:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">cayley</span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">cayley</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="o">:</span> <span class="n">value</span><span class="p">(</span><span class="n">square</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">square</span><span class="p">(</span><span class="n">b</span><span class="p">))</span> <span class="p">{}</span>
@@ -1436,41 +1451,300 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">bitset</span><span class="o">&lt;</span><span class="n">cayley</span><span class="p">(</span><span class="mi">98</span><span class="p">,</span> <span class="o">-</span><span class="mi">23</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">s</span><span class="p">;</span> <span class="c1">// same as bitset&lt;10133&gt;
 </span></span></span></code></pre></div></div>
-<p>因为成员<code>value</code>是<code>totally constant</code>的，在构造函数中通过两次调用常值函数进行初始化。换句话说，根据该提案的一般逻辑，此代码可以大致转换为以下形式（将变量和函数移到结构体之外）：</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 模拟 cayley::cayley(98, -23)的构造函数调用和 operator int()
+<p>Because the member <code>value</code> is <code>totally constant</code>, initialized in the constructor by two calls to constant-valued functions. In other words, according to the general logic of the proposal, this code could be roughly transformed into the following form (moving variables and functions outside the struct):</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Simulate the constructor call and operator int() of cayley::cayley(98, -23)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">int</span> <span class="n">cayley_98_m23_value</span> <span class="o">=</span> <span class="n">square</span><span class="p">(</span><span class="mi">98</span><span class="p">)</span> <span class="o">+</span> <span class="n">square</span><span class="p">(</span><span class="o">-</span><span class="mi">23</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">cayley_98_m23_operator_int</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">cayley_98_m23_value</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 创建 bitset
+</span></span><span class="line"><span class="cl"><span class="c1">// Create bitset
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">bitset</span><span class="o">&lt;</span><span class="n">cayley_98_m23_operator_int</span><span class="p">()</span><span class="o">&gt;</span> <span class="n">s</span><span class="p">;</span> <span class="c1">// same as bitset&lt;10133&gt;
 </span></span></span></code></pre></div></div>
-<p>但是和变量一样，程序员无法确定一个函数是否为常值函数，只有编译器知道。</p>
-<blockquote><p>提案通常不会深入到编译器实现它们的细节。上述提案表示，实现它不应该有任何困难，只需要稍微改变大多数编译器中存在的常量折叠即可。然而，提案与编译器实现密切相关。如果提案无法在合理时间内实现，很可能不会被采纳。从后来的视角来看，许多大的提案最后被分成了多个小的提案逐步实现。</p>
+<p>But just like with variables, programmers cannot be certain whether a function is a constant-valued function; only the compiler knows.</p>
+<blockquote><p>Proposals usually do not delve into the details of how compilers should implement them. The above proposal stated that implementing it should not present any difficulties, only requiring a slight change to the constant folding that exists in most compilers. However, proposals are closely related to compiler implementation. If a proposal cannot be implemented in a reasonable amount of time, it is unlikely to be adopted. From a later perspective, many large proposals were eventually broken down into several smaller proposals and implemented gradually.</p>
 </blockquote>
-<h2 class="relative group">2006-2007：当一切浮出水面
-    <div id="2006-2007当一切浮出水面" class="anchor"></div>
+<h2 class="relative group">2006-2007: When Everything Comes to the Surface
+    <div id="2006-2007-when-everything-comes-to-the-surface" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2006-2007%e5%bd%93%e4%b8%80%e5%88%87%e6%b5%ae%e5%87%ba%e6%b0%b4%e9%9d%a2" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2006-2007-when-everything-comes-to-the-surface" aria-label="Anchor">#</a>
     </span>
     
 </h2>
-<p>幸运的是，三年后，这个提案的后续修订版<a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2235.pdf"  target="_blank" rel="noreferrer">N2235</a>认识到了过多的隐式特性是不好的，程序员应该有办法确保一个变量可以被用作常量，如果不满足相应的条件应该导致编译错误。</p>
+<p>Fortunately, three years later, a subsequent revision of this proposal, <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2235.pdf"  target="_blank" rel="noreferrer">N2235</a>, recognized that too many implicit features are bad, and programmers should have a way to ensure that a variable can be used as a constant, with a compilation error resulting if the corresponding conditions are not met.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">S</span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">limit</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">S</span><span class="o">::</span><span class="n">size</span><span class="p">;</span>                 <span class="c1">// 动态初始化
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">int</span> <span class="n">S</span><span class="o">::</span><span class="n">size</span> <span class="o">=</span> <span class="mi">256</span><span class="p">;</span>                       <span class="c1">// 常量初始化
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">int</span> <span class="n">z</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">max</span><span class="p">();</span> <span class="c1">// 动态初始化
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">limit</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">S</span><span class="o">::</span><span class="n">size</span><span class="p">;</span>                 <span class="c1">// dynamic initialization
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">int</span> <span class="n">S</span><span class="o">::</span><span class="n">size</span> <span class="o">=</span> <span class="mi">256</span><span class="p">;</span>                       <span class="c1">// const initialization
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">int</span> <span class="n">z</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">max</span><span class="p">();</span> <span class="c1">// dynamic initialization
 </span></span></span></code></pre></div></div>
-<p>根据程序员的设想，<code>limit</code>应该被常量初始化，但事实并非如此，因为<code>S::size</code>被定义在<code>limit</code>之后，定义的太晚了。可以通过 C++20 加入的<a href="https://en.cppreference.com/w/cpp/language/constinit"  target="_blank" rel="noreferrer">constinit</a>来验证这一点，<code>constinit</code>保证一个变量进行常量初始化，如果不能进行常量初始化，则会编译错误。</p>
-<p>在新的提案中，常值函数被<strong>重命名</strong>为 <em>constexpr function</em>，对它们的要求保持不变。但现在，为了能够在常量表达式中使用它们，<strong>必须</strong>使用 constexpr 关键字进行声明。此外，如果函数体不符合相关的要求，将会编译失败。同时建议将一些标准库的函数（如<code>std::numeric_limits</code>中的函数）标记为 constexpr，因为它们符合相关的要求。<strong>变量</strong>或类成员也可以声明为 constexpr，这样的话，如果变量不是通过常量表达式进行初始化，将会编译失败。</p>
-<p>用户自定义<code>class</code>的 constexpr 构造函数也合法化了。该构造函数必须具有空函数体，并用常量表达式初始化成员。隐式生成的构造函数将尽可能的被标记为 constexpr。对于 constexpr 的对象，析构函数必须是平凡的，因为非平凡的析构函数通常会在正在执行的程序上下文中做一些改变，而在 constexpr 计算中不存在这样的上下文。</p>
-<p>以下是包含 constexpr 的示例类：</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"></code></pre></div></div>
+<p>According to the programmer&rsquo;s intention, <code>limit</code> should be constantly initialized, but this is not the case because <code>S::size</code> is defined after <code>limit</code>, which is too late. This can be verified with <a href="https://en.cppreference.com/w/cpp/language/constinit"  target="_blank" rel="noreferrer">constinit</a>, which was added in C++20. <code>constinit</code> guarantees that a variable undergoes constant initialization, and if it cannot, a compilation error will occur.</p>
+<p>In the new proposal, constant-valued functions were <strong>renamed</strong> to <em>constexpr functions</em>, and the requirements for them remained the same. But now, to be able to use them in constant expressions, they <strong>must</strong> be declared with the <code>constexpr</code> keyword. Furthermore, if the function body does not meet the relevant requirements, compilation will fail. It was also suggested that some standard library functions (like those in <code>std::numeric_limits</code>) be marked as <code>constexpr</code>, as they meet the relevant requirements. <strong>Variables</strong> or class members can also be declared as <code>constexpr</code>, in which case, if the variable is not initialized with a constant expression, compilation will fail.</p>
+<p><code>constexpr</code> constructors for user-defined <code>class</code>es were also legalized. Such a constructor must have an empty function body and initialize members with constant expressions. Implicitly generated constructors will be marked as <code>constexpr</code> whenever possible. For <code>constexpr</code> objects, the destructor must be trivial, because non-trivial destructors usually make changes in the context of a running program, and no such context exists in <code>constexpr</code> computation.</p>
+<p>Here is an example class containing <code>constexpr</code>:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">complex</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="nf">complex</span><span class="p">(</span><span class="kt">double</span> <span class="n">r</span><span class="p">,</span> <span class="kt">double</span> <span class="n">i</span><span class="p">)</span> <span class="o">:</span> <span class="n">re</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">im</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="kt">double</span> <span class="nf">real</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">re</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="kt">double</span> <span class="nf">imag</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">im</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">re</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">im</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">complex</span> <span class="nf">I</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// OK
+</span></span></span></code></pre></div></div>
+<p>In the proposal, objects like <code>I</code> were called user-defined literals. &ldquo;Literals&rdquo; are fundamental entities in C++. Just as &ldquo;simple&rdquo; literals (numbers, characters, etc.) are immediately embedded into assembly instructions, and string literals are stored in sections like <code>.rodata</code>, user-defined literals also have their place there.</p>
+<p>Now <code>constexpr</code> variables can be not only numbers and enums, but also of a <a href="https://en.cppreference.com/w/cpp/named_req/LiteralType"  target="_blank" rel="noreferrer">literal type</a>, which was introduced in this proposal (reference types were not yet supported). A literal type is a type that can be passed to a <code>constexpr</code> function, and these types are simple enough for the compiler to support them in constant computation.</p>
+<p>The <code>constexpr</code> keyword eventually became a <em>specifier</em>, similar to <em>override</em>, used only as a marker. After discussion, it was decided not to create a new <a href="https://en.cppreference.com/w/cpp/language/storage_duration"  target="_blank" rel="noreferrer">storage duration type</a> or a new type qualifier, and it was also decided not to allow its use on function parameters, to avoid making the function <a href="https://en.cppreference.com/w/cpp/language/overload_resolution"  target="_blank" rel="noreferrer">overload resolution</a> rules overly complex.</p>
+
+<h2 class="relative group">2007: Trying to make the standard library more constexpr?
+    <div id="2007-trying-to-make-the-standard-library-more-constexpr" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2007-trying-to-make-the-standard-library-more-constexpr" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>In this year, proposal <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2007/n2349.pdf"  target="_blank" rel="noreferrer">N2349 Constant Expressions in the Standard Library</a> was put forward, which marked some functions and constants as <code>constexpr</code>, as well as some container functions, for example:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">bitset</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">constexpr</span> <span class="nf">bitset</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="nf">bitset</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">constexpr</span> <span class="n">size_t</span> <span class="nf">size</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">constexpr</span> <span class="kt">bool</span> <span class="k">operator</span><span class="p">[](</span><span class="n">size_t</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>The constructors initialize the class members via constant-expressions, and the other functions contain a single <code>return</code> statement, conforming to the current rules.</p>
+<p>Of all the proposals about <code>constexpr</code>, more than half suggest marking certain functions in the standard library as <code>constexpr</code>. In terms of content, they are not very interesting because they do not lead to changes in the core language rules.</p>
+
+<h2 class="relative group">2008: Halting&hellip; problem? I don&rsquo;t care!
+    <div id="2008-halting-problem-i-dont-care" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2008-halting-problem-i-dont-care" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="n">n</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Initially, the proposal authors wanted to allow recursive calls in <code>constexpr</code> functions, but this was forbidden out of caution. However, during the review process, due to a change in wording, this practice was accidentally allowed. The CWG believed that recursion has enough use cases that it should be allowed. If mutual recursion between functions is allowed, then <em>forward declarations</em> of <code>constexpr</code> functions must also be allowed. When an undefined <code>constexpr</code> function is called in a context that requires constant evaluation, a diagnostic should be issued. This was clarified in <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2009/n2826.html"  target="_blank" rel="noreferrer">N2826</a>.</p>
+<p>Since there is recursion, infinite recursion is possible. Will a function actually recurse infinitely? In some simple cases, static analysis tools can determine if infinite recursion will occur. But in the general case, this is actually the <a href="https://en.wikipedia.org/wiki/Halting_problem"  target="_blank" rel="noreferrer">halting problem</a>, which is unsolvable.</p>
+<p>Generally, compilers set a default recursion depth. If the recursion depth exceeds this default, compilation will fail.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">foo</span><span class="p">(){</span> <span class="k">return</span> <span class="n">f</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">foo</span><span class="p">();</span></span></span></code></pre></div></div>
+<p>The above code results in a compilation error:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">error: <span class="s1">&#39;constexpr&#39;</span> evaluation depth exceeds maximum of <span class="m">512</span>
+</span></span><span class="line"><span class="cl">    <span class="o">(</span>use <span class="s1">&#39;-fconstexpr-depth=&#39;</span> to increase the maximum<span class="o">)</span>
+</span></span><span class="line"><span class="cl">   <span class="m">24</span> <span class="p">|</span>     constexpr int <span class="nv">x</span> <span class="o">=</span> foo<span class="o">()</span><span class="p">;</span></span></span></code></pre></div></div>
+<p>In Clang, the default depth is 512, which can be changed with <code>-fconstexpr-depth</code>. In fact, template instantiation has a similar depth limit. In effect, this limit can be seen as analogous to the stack size for runtime function calls; exceeding this size results in a &ldquo;stack overflow,&rdquo; which is quite reasonable.</p>
+
+<h2 class="relative group">2010: References or Pointers?
+    <div id="2010-references-or-pointers" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2010-references-or-pointers" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>At the time, many functions could not be marked as <code>constexpr</code> because their parameters contained references.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">max</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">);</span> <span class="c1">// error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="nf">pair</span><span class="p">();</span>               <span class="c1">// ok
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pair</span><span class="p">(</span><span class="k">const</span> <span class="n">T1</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="k">const</span> <span class="n">T2</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">);</span> <span class="c1">// error
+</span></span></span></code></pre></div></div>
+<p>Proposal <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2010/n3039.pdf"  target="_blank" rel="noreferrer">N3039 Constexpr functions with const reference parameters</a> aimed to allow constant references as function parameters and return values.</p>
+<p>In fact, this was a huge change. Before this, constant evaluation only involved <strong>values</strong>, not references (or pointers). It was enough to simply operate on values. The introduction of references forced the constant evaluator to build a memory model. To support <code>const T&amp;</code>, the compiler needs to create a temporary object at compile time and then bind the reference to it. Any illegal access to this object should result in a compilation error.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">T</span> <span class="n">self</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="o">*</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="n">self_ptr</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">self_ref</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="o">*</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">near_ref</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="o">*</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">test1</span> <span class="o">=</span> <span class="n">self</span><span class="p">(</span><span class="mi">123</span><span class="p">);</span> <span class="c1">// OK
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">test2</span> <span class="o">=</span> <span class="n">self_ptr</span><span class="p">(</span><span class="mi">123</span><span class="p">);</span> <span class="c1">// Fails, a pointer to a temporary object is not a constant expression
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">test3</span> <span class="o">=</span> <span class="n">self_ref</span><span class="p">(</span><span class="mi">123</span><span class="p">);</span> <span class="c1">// OK
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">tets4</span> <span class="o">=</span> <span class="n">near_ref</span><span class="p">(</span><span class="mi">123</span><span class="p">);</span> <span class="c1">// Fails, out-of-bounds pointer access
+</span></span></span></code></pre></div></div>
+
+<h2 class="relative group">2011: Why no declarations?
+    <div id="2011-why-no-declarations" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2011-why-no-declarations" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>As mentioned earlier, a <code>constexpr</code> function could only consist of a single <code>return</code> statement. This meant that even declarations that did not affect the evaluation were not allowed. But at least three types of declarations would be helpful for writing such functions: static assertions, type aliases, and local variables initialized by constant expressions.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">f</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">magic</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">magic</span><span class="p">;</span> <span class="c1">// should be ok
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>Proposal <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3268.htm"  target="_blank" rel="noreferrer">N3268 static_assert and list-initialization in constexpr functions</a> aimed to support these static declarations in <code>constexpr</code> functions.</p>
+
+<h2 class="relative group">2012: I need branches!
+    <div id="2012-i-need-branches" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2012-i-need-branches" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>There are many simple functions that one would want to compute at compile time, such as calculating <code>a</code> to the power of <code>n</code>:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pow</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">range_error</span><span class="p">(</span><span class="s">&#34;negative exponent for integer power&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">sqrt</span> <span class="o">=</span> <span class="n">pow</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">sqrt</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">result</span> <span class="o">*</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>However, at that time (C++11), to make it <code>constexpr</code>, programmers had to write a completely new version in a pure functional style (no local variables or loops):</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">pow_helper</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">sqrt</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">sqrt</span> <span class="o">*</span> <span class="n">sqrt</span> <span class="o">*</span> <span class="p">((</span><span class="n">n</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">?</span> <span class="nl">a</span> <span class="p">:</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">pow</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">               <span class="o">?</span> <span class="k">throw</span> <span class="n">std</span><span class="o">::</span><span class="n">range_error</span><span class="p">(</span><span class="s">&#34;negative exponent for integer power&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">               <span class="o">:</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                     <span class="o">?</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                     <span class="o">:</span> <span class="n">pow_helper</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">pow</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Proposal <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2012/n3444.html"  target="_blank" rel="noreferrer">N3444 Relaxing syntactic constraints on constexpr functions</a> aimed to further relax the constraints on <code>constexpr</code> functions to allow writing more arbitrary code.</p>
+<ul>
+<li>Allow declaration of local variables of <a href="https://en.cppreference.com/w/cpp/named_req/LiteralType"  target="_blank" rel="noreferrer">literal type</a>. If they are initialized via a constructor, that constructor must also be marked as <code>constexpr</code>. This allows the constant evaluator to cache these variables, avoiding re-evaluation of the same expressions and improving the efficiency of the constant evaluator. However, modifying these variables is not allowed.</li>
+<li>Allow local type declarations.</li>
+<li>Allow the use of <code>if</code> and multiple <code>return</code> statements, requiring each branch to have at least one <code>return</code> statement.</li>
+<li>Allow expression statements (statements consisting only of an expression).</li>
+<li>Allow the address or reference of a static variable as a constant expression.</li>
+</ul>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">mutex</span><span class="o">&amp;</span> <span class="n">get_mutex</span><span class="p">(</span><span class="kt">bool</span> <span class="n">which</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="n">mutex</span> <span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">which</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">m1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">m2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">mutex</span><span class="o">&amp;</span> <span class="n">m</span> <span class="o">=</span> <span class="n">get_mutex</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span> <span class="c1">// OK
+</span></span></span></code></pre></div></div>
+<p>However, <code>for/while</code> loops, <code>goto</code>, <code>switch</code>, and <code>try</code> were not allowed, as these could create complex control flow and even infinite loops.</p>
+
+<h2 class="relative group">2013: Only kids make choices, I want loops too!
+    <div id="2013-only-kids-make-choices-i-want-loops-too" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2013-only-kids-make-choices-i-want-loops-too" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>However, the CWG believed that supporting loops (at least <code>for</code>) in <code>constexpr</code> functions was essential. In <code>2013</code>, a revised version of the proposal, <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2013/n3597.html"  target="_blank" rel="noreferrer">Relaxing constraints on constexpr functions</a>, was published.</p>
+<p>Four options were considered for implementing <code>constexpr for</code>.</p>
+<ul>
+<li>Add a completely new loop syntax that interacts well with the functional programming style required by <code>constexpr</code>. While this solves the lack of loops, it does not eliminate programmers&rsquo; dissatisfaction with the existing language (having to rewrite existing code to support <code>constexpr</code>).</li>
+<li>Only support traditional C-style <code>for</code> loops. For this, at least, changes to variables within <code>constexpr</code> functions would need to be supported.</li>
+<li>Only support the <a href="https://en.cppreference.com/w/cpp/language/range-for"  target="_blank" rel="noreferrer">range-based for loop</a>. Such loops cannot be used with user-defined iterator types unless language rules are further relaxed.</li>
+<li>Allow a consistent and broad subset of C++ to be used in <code>constexpr</code> functions, potentially including all of C++.</li>
+</ul>
+<p>The last option was chosen, which greatly influenced the subsequent development of <code>constexpr</code> in C++.</p>
+<p>To support this option, we had to introduce mutability for variables in <code>constexpr</code> functions, i.e., support modifying the value of variables. According to the proposal, objects created during constant evaluation can now be changed until the end of the evaluation process or the object&rsquo;s <a href="https://en.cppreference.com/w/cpp/language/lifetime"  target="_blank" rel="noreferrer">lifetime</a>. These evaluation processes will take place in a sandbox-like virtual machine and will not affect external code. Therefore, in theory, the same <code>constexpr</code> arguments will produce the same result.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">f</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">++</span><span class="n">n</span><span class="p">;</span> <span class="c1">// ++n is not a constant expression
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// OK, this is a constant expression
+</span></span></span><span class="line"><span class="cl"><span class="c1">// n in f can be modified because its lifetime
+</span></span></span><span class="line"><span class="cl"><span class="c1">// begins during the evaluation of the expression
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="n">k2</span> <span class="o">=</span> <span class="o">++</span><span class="n">k</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Error, not a constant expression, cannot modify k
+</span></span></span><span class="line"><span class="cl"><span class="c1">// because its lifetime did not begin within this expression
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="nf">X</span><span class="p">()</span> <span class="o">:</span> <span class="n">n</span><span class="p">(</span><span class="mi">5</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">n</span> <span class="o">*=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// not a constant expression
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">g</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">X</span> <span class="n">x</span><span class="p">;</span> <span class="c1">// initialization of x is a constant expression
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">x</span><span class="p">.</span><span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="n">k3</span> <span class="o">=</span> <span class="n">g</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//  OK, this is a constant expression
+</span></span></span><span class="line"><span class="cl"><span class="c1">//  x.n can be modified because
+</span></span></span><span class="line"><span class="cl"><span class="c1">//  the lifetime of x begins during the evaluation of g()
+</span></span></span></code></pre></div></div>
+<p>Additionally, I want to point out that code like this can now also compile:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">void</span> <span class="nf">add</span><span class="p">(</span><span class="n">X</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">x</span><span class="p">.</span><span class="n">n</span><span class="o">++</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">int</span> <span class="nf">g</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">X</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span><span class="p">.</span><span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Local side effects are also allowed in constant evaluation!</p>
+
+<h2 class="relative group">2013: constexpr is not a subset of const!
+    <div id="2013-constexpr-is-not-a-subset-of-const" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2013-constexpr-is-not-a-subset-of-const" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>Currently, <code>constexpr</code> functions of a class are automatically marked as <code>const</code>.</p>
+<p>The proposal <a href="https://open-std.org/JTC1/SC22/WG21/docs/papers/2013/n3598.html"  target="_blank" rel="noreferrer">constexpr member functions and implicit const</a> points out that if a member function is <code>constexpr</code>, it does not necessarily have to be <code>const</code>. As mutability in <code>constexpr</code> computations becomes more important, this point becomes more prominent. But even before this, it hindered the use of the same function in both <code>constexpr</code> and non-<code>constexpr</code> code:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">B</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="nf">B</span><span class="p">()</span> <span class="o">:</span> <span class="n">a</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">const</span> <span class="n">A</span><span class="o">&amp;</span> <span class="n">getA</span><span class="p">()</span> <span class="k">const</span> <span class="cm">/*implicit*/</span> <span class="p">{</span> <span class="k">return</span> <span class="n">a</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">&amp;</span> <span class="n">getA</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">a</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// code duplication
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></div></div>
+<p>Interestingly, the proposal provided three options, and the second one was chosen:</p>
+<ul>
+<li>Maintain the status quo -&gt; leads to code duplication.</li>
+<li>A function marked <code>constexpr</code> is not implicitly <code>const</code> -&gt; breaks ABI, as the <code>const</code> signature of a member function is part of the function&rsquo;s type.</li>
+<li>Use <code>mutable</code> for marking: <code>constexpr A &amp;getA() mutable { return a; };</code> -&gt; even more inconsistent.</li>
+</ul>
+<p>Ultimately, option <code>2</code> was accepted. Now, if a member function is marked <code>constexpr</code>, it does not mean it is an implicitly <code>const</code> member function.</p>
+<hr>
+<p>The next part is here: <a href="https://www.ykiko.me/en/articles/683463723"  target="_blank" rel="noreferrer">The History of constexpr in C++ (Part 2)</a>.</p>
 
           
           
@@ -1500,7 +1774,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/683463723/">
           Part 2:
-          C&#43;&#43;中constexpr的历史！（第二部分）
+          The History of constexpr in C&#43;&#43;! (Part Two)
         </a>
       </div>
     
@@ -1519,7 +1793,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/en/articles/682031684/&amp;title=C&#43;&#43;%20%e4%b8%ad%20constexpr%20%e7%9a%84%e5%8f%91%e5%b1%95%e5%8f%b2%ef%bc%81%ef%bc%88%e4%b8%8a%e7%af%87%ef%bc%89"
+          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/en/articles/682031684/&amp;title=The%20History%20of%20constexpr%20in%20C&#43;&#43;!%20%28Part%20One%29"
           
           title="Share on LinkedIn"
           aria-label="Share on LinkedIn">
@@ -1533,7 +1807,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/en/articles/682031684/&amp;text=C&#43;&#43;%20%e4%b8%ad%20constexpr%20%e7%9a%84%e5%8f%91%e5%b1%95%e5%8f%b2%ef%bc%81%ef%bc%88%e4%b8%8a%e7%af%87%ef%bc%89"
+          href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/en/articles/682031684/&amp;text=The%20History%20of%20constexpr%20in%20C&#43;&#43;!%20%28Part%20One%29"
           
           title="Tweet on Twitter"
           aria-label="Tweet on Twitter">
@@ -1546,7 +1820,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://reddit.com/submit/?url=https://www.ykiko.me/en/articles/682031684/&amp;resubmit=true&amp;title=C&#43;&#43;%20%e4%b8%ad%20constexpr%20%e7%9a%84%e5%8f%91%e5%b1%95%e5%8f%b2%ef%bc%81%ef%bc%88%e4%b8%8a%e7%af%87%ef%bc%89"
+          href="https://reddit.com/submit/?url=https://www.ykiko.me/en/articles/682031684/&amp;resubmit=true&amp;title=The%20History%20of%20constexpr%20in%20C&#43;&#43;!%20%28Part%20One%29"
           
           title="Submit to Reddit"
           aria-label="Submit to Reddit">
@@ -1560,7 +1834,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://api.whatsapp.com/send?text=https://www.ykiko.me/en/articles/682031684/&amp;resubmit=true&amp;title=C&#43;&#43;%20%e4%b8%ad%20constexpr%20%e7%9a%84%e5%8f%91%e5%b1%95%e5%8f%b2%ef%bc%81%ef%bc%88%e4%b8%8a%e7%af%87%ef%bc%89"
+          href="https://api.whatsapp.com/send?text=https://www.ykiko.me/en/articles/682031684/&amp;resubmit=true&amp;title=The%20History%20of%20constexpr%20in%20C&#43;&#43;!%20%28Part%20One%29"
           
           title="Share via WhatsApp"
           aria-label="Share via WhatsApp">
@@ -1574,7 +1848,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://t.me/share/url?url=https://www.ykiko.me/en/articles/682031684/&amp;resubmit=true&amp;title=C&#43;&#43;%20%e4%b8%ad%20constexpr%20%e7%9a%84%e5%8f%91%e5%b1%95%e5%8f%b2%ef%bc%81%ef%bc%88%e4%b8%8a%e7%af%87%ef%bc%89"
+          href="https://t.me/share/url?url=https://www.ykiko.me/en/articles/682031684/&amp;resubmit=true&amp;title=The%20History%20of%20constexpr%20in%20C&#43;&#43;!%20%28Part%20One%29"
           
           title="Share via Telegram"
           aria-label="Share via Telegram">
@@ -1588,7 +1862,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/en/articles/682031684/&amp;description=C&#43;&#43;%20%e4%b8%ad%20constexpr%20%e7%9a%84%e5%8f%91%e5%b1%95%e5%8f%b2%ef%bc%81%ef%bc%88%e4%b8%8a%e7%af%87%ef%bc%89"
+          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/en/articles/682031684/&amp;description=The%20History%20of%20constexpr%20in%20C&#43;&#43;!%20%28Part%20One%29"
           
           title="Pin on Pinterest"
           aria-label="Pin on Pinterest">
@@ -1602,7 +1876,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/en/articles/682031684/&amp;quote=C&#43;&#43;%20%e4%b8%ad%20constexpr%20%e7%9a%84%e5%8f%91%e5%b1%95%e5%8f%b2%ef%bc%81%ef%bc%88%e4%b8%8a%e7%af%87%ef%bc%89"
+          href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/en/articles/682031684/&amp;quote=The%20History%20of%20constexpr%20in%20C&#43;&#43;!%20%28Part%20One%29"
           
           title="Share on Facebook"
           aria-label="Share on Facebook">
@@ -1619,7 +1893,7 @@
           href="#"
           
             data-email=""
-            data-subject="Reply to C&#43;&#43; 中 constexpr 的发展史！（上篇）"
+            data-subject="Reply to The History of constexpr in C&#43;&#43;! (Part One)"
           
           title="Send via email"
           aria-label="Send via email">
@@ -1655,12 +1929,12 @@
               class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
               href="/en/articles/680412313/">
               <span class="leading-6">
-                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;How to Elegantly Convert Enum to String in C++?
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;How to elegantly convert enum to string in C++?
               </span>
             </a>
             
               <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2024-01-29T17:03:28&#43;00:00">29 January 2024</time>
+                <time datetime="2024-01-29T09:03:28&#43;00:00">29 January 2024</time>
               </span>
             
           
@@ -1671,12 +1945,12 @@
               class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
               href="/en/articles/683463723/">
               <span class="leading-6">
-                C++中constexpr的历史！（第二部分）&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+                The History of constexpr in C++! (Part Two)&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
             </a>
             
               <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2024-02-22T22:15:32&#43;00:00">22 February 2024</time>
+                <time datetime="2024-02-22T14:15:32&#43;00:00">22 February 2024</time>
               </span>
             
           

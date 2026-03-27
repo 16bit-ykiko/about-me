@@ -69,19 +69,21 @@
   <meta property="og:url" content="https://www.ykiko.me/en/articles/655902377/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
   <meta property="og:title" content="Seeing Through the Fog: A True Understanding of C&#43;&#43; Templates">
-  <meta property="og:description" content="In C&#43;&#43;, the concept of templates has existed for over two decades. As one of the most important language constructs in C&#43;&#43;, discussions about templates are countless. Unfortunately, deep and valuable discussions are rare, especially those that view this feature from multiple perspectives. Many articles often intertwine templates with various syntactic details, making it easy to leave readers feeling lost in a fog. Similar examples occur in other topics, such as introducing coroutines while mixing them with various I/O discussions, or discussing reflection as if it were limited to Java or C#. While this approach is not without reason, it often makes it difficult to grasp the essence. After reading a lot of content, one may still fail to grasp the key points and instead end up confusing different concepts.">
+  <meta property="og:description" content="This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+在 C&#43;&#43; 中，模板（Template）这个概念已经存在二十多年了。作为 C&#43;&#43; 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2023-09-12T23:46:11+00:00">
-    <meta property="article:modified_time" content="2023-09-12T23:46:11+00:00">
+    <meta property="article:published_time" content="2023-09-12T15:46:11+00:00">
+    <meta property="article:modified_time" content="2023-09-12T15:46:11+00:00">
     <meta property="og:image" content="https://www.ykiko.me/en/articles/655902377/featured.png">
 
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/en/articles/655902377/featured.png">
   <meta name="twitter:title" content="Seeing Through the Fog: A True Understanding of C&#43;&#43; Templates">
-  <meta name="twitter:description" content="In C&#43;&#43;, the concept of templates has existed for over two decades. As one of the most important language constructs in C&#43;&#43;, discussions about templates are countless. Unfortunately, deep and valuable discussions are rare, especially those that view this feature from multiple perspectives. Many articles often intertwine templates with various syntactic details, making it easy to leave readers feeling lost in a fog. Similar examples occur in other topics, such as introducing coroutines while mixing them with various I/O discussions, or discussing reflection as if it were limited to Java or C#. While this approach is not without reason, it often makes it difficult to grasp the essence. After reading a lot of content, one may still fail to grasp the key points and instead end up confusing different concepts.">
+  <meta name="twitter:description" content="This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+在 C&#43;&#43; 中，模板（Template）这个概念已经存在二十多年了。作为 C&#43;&#43; 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。">
 
   
   
@@ -244,15 +246,15 @@
       "name": "ykiko"
     },
     "copyrightYear": "2023",
-    "dateCreated": "2023-09-12T23:46:11\u002b00:00",
-    "datePublished": "2023-09-12T23:46:11\u002b00:00",
+    "dateCreated": "2023-09-12T15:46:11\u002b00:00",
+    "datePublished": "2023-09-12T15:46:11\u002b00:00",
     
-    "dateModified": "2023-09-12T23:46:11\u002b00:00",
+    "dateModified": "2023-09-12T15:46:11\u002b00:00",
     
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "2663"
+    "wordCount": "4941"
   }]
   </script>
 
@@ -833,7 +835,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2023-09-12T23:46:11&#43;00:00">12 September 2023</time><span class="px-2 text-primary-500">&middot;</span><span>2663 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">13 mins</span><span class="px-2 text-primary-500">&middot;</span>
+      <time datetime="2023-09-12T15:46:11&#43;00:00">12 September 2023</time><span class="px-2 text-primary-500">&middot;</span><span>4941 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">10 mins</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1072,12 +1074,12 @@
     <li><a href="#code-generation">Code Generation</a>
       <ul>
         <li><a href="#generic">Generic</a></li>
-        <li><a href="#table-generation">Table Generation</a></li>
+        <li><a href="#table-gen">Table Gen</a></li>
       </ul>
     </li>
-    <li><a href="#type-constraints">Type Constraints</a>
+    <li><a href="#type-constraint">Type Constraint</a>
       <ul>
-        <li><a href="#function-overloading">Function Overloading</a></li>
+        <li><a href="#function-overload">Function Overload</a></li>
         <li><a href="#instantiation-stack">Instantiation Stack</a></li>
         <li><a href="#before-c20">Before C++20</a></li>
       </ul>
@@ -1088,6 +1090,14 @@
         <li><a href="#history">History</a></li>
       </ul>
     </li>
+    <li><a href="#type-manipulation">Type Manipulation</a>
+      <ul>
+        <li><a href="#match-type">Match Type</a></li>
+        <li><a href="#comptime-variable">Comptime Variable</a></li>
+        <li><a href="#type-is-value">Type is Value</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
   </div>
@@ -1104,12 +1114,12 @@
     <li><a href="#code-generation">Code Generation</a>
       <ul>
         <li><a href="#generic">Generic</a></li>
-        <li><a href="#table-generation">Table Generation</a></li>
+        <li><a href="#table-gen">Table Gen</a></li>
       </ul>
     </li>
-    <li><a href="#type-constraints">Type Constraints</a>
+    <li><a href="#type-constraint">Type Constraint</a>
       <ul>
-        <li><a href="#function-overloading">Function Overloading</a></li>
+        <li><a href="#function-overload">Function Overload</a></li>
         <li><a href="#instantiation-stack">Instantiation Stack</a></li>
         <li><a href="#before-c20">Before C++20</a></li>
       </ul>
@@ -1120,6 +1130,14 @@
         <li><a href="#history">History</a></li>
       </ul>
     </li>
+    <li><a href="#type-manipulation">Type Manipulation</a>
+      <ul>
+        <li><a href="#match-type">Match Type</a></li>
+        <li><a href="#comptime-variable">Comptime Variable</a></li>
+        <li><a href="#type-is-value">Type is Value</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
   </div>
@@ -1236,16 +1254,17 @@
         
 
         <div class="article-content max-w-prose mb-20">
-          <p>In C++, the concept of templates has existed for over two decades. As one of the most important language constructs in C++, discussions about templates are countless. Unfortunately, deep and valuable discussions are rare, especially those that view this feature from multiple perspectives. Many articles often intertwine templates with various syntactic details, making it easy to leave readers feeling lost in a fog. Similar examples occur in other topics, such as introducing coroutines while mixing them with various I/O discussions, or discussing reflection as if it were limited to Java or C#. While this approach is not without reason, it often makes it difficult to grasp the essence. After reading a lot of content, one may still fail to grasp the key points and instead end up confusing different concepts.</p>
-<p>Personally, I prefer to discuss a problem from multiple levels and angles, rather than limiting myself to a specific aspect. This way, one can better understand the problem itself and avoid having too narrow a perspective. Therefore, this article will attempt to observe templates from four angles, starting from their inception, to clarify the development trajectory of this feature in C++. Note that this article is not a tutorial and will not delve into syntactic details. Instead, it will focus more on design philosophy and trade-offs. A basic understanding of templates is sufficient to follow along, so feel free to read on. Of course, this approach may lack some rigor, and any errors are welcome to be discussed in the comments.</p>
-<p><strong>We will mainly discuss four themes:</strong></p>
+          <blockquote><p>This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.</p>
+</blockquote><p>在 C++ 中，模板（Template）这个概念已经存在二十多年了。作为 C++ 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。</p>
+<p>就我个人而言，讨论一个问题喜欢多层次，多角度的去讨论，而不仅限于某一特定的方面。这样一来，既能更好的理解问题本身，也不至于让自己的视野太狭隘。故本文将尝试从模板诞生之初开始，以四个角度来观察，理清模板这一特性在 C++ 中的发展脉络。注意，本文并不是教学文章，不会深入语法细节。更多的谈论设计哲学和 trade-off 。掌握一些模板的基础知识就能看懂，请放心阅读。当然，这样可能严谨性有所缺失，如有错误欢迎评论区讨论。</p>
+<p><strong>我们主要讨论四个主题：</strong></p>
 <ul>
-<li>Code Generation</li>
-<li>Type Constraints</li>
-<li>Compile-time Computing</li>
-<li>Type Manipulation</li>
+<li>代码生成 (Code Generation)</li>
+<li>类型约束 (Type Constraint)</li>
+<li>编译时计算 (Compile-time Computing)</li>
+<li>操纵类型 (Type Manipulation)</li>
 </ul>
-<p>The first theme is generally considered to be the standard use of templates. The latter three are usually categorized under TMP, or Template Meta Programming. The original intent of templates was not to achieve these three functions, but they were eventually realized through some clever tricks, making the code more obscure and difficult to understand, hence the term &ldquo;meta programming.&rdquo;</p>
+<p>其中第一个主题一般认为就是普通的 Template。而后三者一般被规划到 TMP 中去。TMP 即 Template meta programming 也就是模板元编程。因为模板设计之初的意图并不是实现后面这三个功能，但是最后却通过一些奇怪的 trick 实现了这些功能，代码写起来也比较晦涩难懂，所以一般叫做元编程。</p>
 
 <h2 class="relative group">Code Generation
     <div id="code-generation" class="anchor"></div>
@@ -1266,7 +1285,7 @@
     </span>
     
 </h3>
-<p><strong>Generic programming</strong> involves writing the same code for different types to achieve code reuse. Before templates were introduced, we could only simulate generics using macros. Consider the following simple example:</p>
+<p><strong>Generic</strong> programming, which means writing the same code for different types to achieve code reuse. Before templates were introduced, we could only simulate generics using macros. Consider the simple example below:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define add(T) _ADD_IMPL_##T
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="cp">#define ADD_IMPL(T)        \
@@ -1281,15 +1300,15 @@
 </span></span><span class="line"><span class="cl">    <span class="n">add</span><span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">add</span><span class="p">(</span><span class="kt">float</span><span class="p">)(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">2.0f</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>The principle is simple: replace the type in a regular function with a macro parameter, and generate different names for different type parameters through macro concatenation. The <code>IMPL</code> macro is then used to generate definitions for specific functions, a process known as <strong>instantiation</strong>.</p>
-<p>Of course, this is just a simple example, and it might seem fine. But imagine implementing a <code>vector</code> using macros—it would be quite daunting. Specifically, using macros for generics has several drawbacks:</p>
+<p>Its principle is very simple: it replaces the type in a regular function with a macro parameter and uses macro symbol concatenation to generate different names for different type parameters. Then, the <code>IMPL</code> macro is used to generate definitions for specific functions. This process can be called <strong>instantiation</strong>.</p>
+<p>Of course, this is just the simplest example, and perhaps it looks fine to you. But what if you wanted to implement a <code>vector</code> using macros? Just thinking about it is a bit scary. Specifically, using macros to implement generics has the following disadvantages:</p>
 <ul>
-<li>Poor code readability, as macro concatenation is coupled with code logic, making error messages hard to read.</li>
-<li>Difficult to debug, as breakpoints can only be set at the macro expansion point, not inside the macro definition.</li>
-<li>Requires explicit type parameters, which can become verbose with many parameters.</li>
-<li>Manual instantiation of function definitions is necessary, which can be cumbersome in larger codebases where a generic might have dozens of instantiations.</li>
+<li>Poor code readability: Macro concatenation and code logic are coupled, making error messages difficult to read.</li>
+<li>Difficult to debug: Breakpoints can only be set at the macro expansion location, not inside the macro definition.</li>
+<li>Requires explicit writing of type parameters: If there are many parameters, it becomes very verbose.</li>
+<li>Requires manual instantiation of function definitions: In larger codebases, a generic might have dozens of instantiations, and writing them all manually is too cumbersome.</li>
 </ul>
-<p>These issues are all resolved with templates:</p>
+<p>These problems are all solved in templates:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="n">T</span> <span class="n">add</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
@@ -1303,23 +1322,23 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">add</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>  <span class="c1">// explicitly specify T
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
 <ul>
-<li>Templates act as placeholders, eliminating the need for character concatenation, making the code look just like regular code, with only an additional template parameter declaration.</li>
-<li>Errors and debugging point accurately to the template definition location, not the instantiation point.</li>
-<li>Supports automatic template parameter deduction, eliminating the need for explicit type parameters, while also allowing explicit specification.</li>
-<li>Supports <strong>implicit instantiation</strong>, where the compiler automatically instantiates used functions, as well as <strong>explicit instantiation</strong>, where instantiations are done manually.</li>
+<li>Templates are placeholders; they don&rsquo;t require character concatenation and are indistinguishable from ordinary code, except for the template parameter declaration.</li>
+<li>Errors and debugging can accurately point to the template definition location, not the template instantiation location.</li>
+<li>Supports automatic template parameter deduction, eliminating the need to explicitly write type parameters, while also supporting explicit specification of type parameters.</li>
+<li>Supports <strong>implicit instantiation</strong>, where the compiler automatically instantiates used functions. It also supports <strong>explicit instantiation</strong>, which is manual instantiation.</li>
 </ul>
-<p>Additionally, features like <strong>partial specialization</strong>, <strong>full specialization</strong>, <strong>variadic templates</strong>, and <strong>variable templates</strong> are all impossible with macros. It is the advent of templates that made the implementation of generic libraries like STL possible.</p>
+<p>In addition, there are a series of features such as <strong>partial specialization</strong>, <strong>full specialization</strong>, <strong>variadic templates</strong>, and <strong>variable templates</strong>, none of which can be achieved with macros alone. It is precisely because of the advent of templates that the implementation of generic libraries like STL became possible.</p>
 
-<h3 class="relative group">Table Generation
-    <div id="table-generation" class="anchor"></div>
+<h3 class="relative group">Table Gen
+    <div id="table-gen" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#table-generation" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#table-gen" aria-label="Anchor">#</a>
     </span>
     
 </h3>
-<p>The generics discussed above can be seen as the most direct use of templates. Based on these, we can achieve more advanced code generation, such as generating a fixed table at compile time for runtime queries. The standard library&rsquo;s <code>std::visit</code> implementation uses this technique. Here&rsquo;s a simple simulation:</p>
+<p>The generics mentioned above can be seen as the most direct use of templates. Based on them, we can have more advanced code generation, for example, generating a fixed table at compile time for runtime lookup. The implementation of <code>std::visit</code> in the standard library uses this technique; below is a simple simulation of it:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Variant</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Callback</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">Variant</span><span class="o">&amp;</span> <span class="n">variant</span><span class="p">,</span> <span class="n">Callback</span><span class="o">&amp;</span> <span class="n">callback</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">callback</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">variant</span><span class="p">));</span>
@@ -1342,8 +1361,8 @@
 </span></span><span class="line"><span class="cl">    <span class="n">visit</span><span class="p">(</span><span class="n">variant</span><span class="p">,</span> <span class="n">callback</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>Although the type of elements stored in the <code>variant</code> is determined at runtime, the set of possible types it can hold is known at compile time. Therefore, we instantiate a corresponding <code>wrapper</code> function for each possible type in the set using <code>callback</code> and store them in an array. At runtime, we simply use the <code>variant</code>&rsquo;s <code>index</code> to access the corresponding member in the array to complete the call.</p>
-<p>Of course, with C++17&rsquo;s <strong>folding expressions</strong>, we can do better:</p>
+<p>Although the type of elements stored in <code>variant</code> can only be determined at runtime, the set of possible types it can take can be determined at compile time. So, we use <code>callback</code> to instantiate a corresponding <code>wrapper</code> function for each possible type in the set and store them in an array. At runtime, we can directly use <code>variant</code>&rsquo;s <code>index</code> to access the corresponding member in the array to complete the call.</p>
+<p>Of course, using the <strong>folding expression</strong> introduced in C++17, we actually have a better approach:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Ts</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Callback</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">visit</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">variant</span><span class="p">,</span> <span class="n">Callback</span><span class="o">&amp;&amp;</span> <span class="n">callback</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">foreach</span> <span class="o">=</span> <span class="p">[]</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">variant</span><span class="p">,</span> <span class="n">Callback</span><span class="o">&amp;</span> <span class="n">callback</span><span class="p">)</span> <span class="p">{</span>
@@ -1355,48 +1374,48 @@
 </span></span><span class="line"><span class="cl">    <span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="n">foreach</span><span class="p">.</span><span class="k">template</span> <span class="k">operator</span><span class="p">()</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">(</span><span class="n">variant</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span> <span class="o">||</span> <span class="p">...);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>By leveraging the short-circuiting behavior of logical operators, we can exit the evaluation of subsequent folding expressions early, and shorter functions are more conducive to inlining.</p>
+<p>By utilizing the short-circuiting property of logical operators, we can exit the evaluation of subsequent folding expressions early, and shorter functions are more conducive to inlining.</p>
 
-<h2 class="relative group">Type Constraints
-    <div id="type-constraints" class="anchor"></div>
+<h2 class="relative group">Type Constraint
+    <div id="type-constraint" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#type-constraints" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#type-constraint" aria-label="Anchor">#</a>
     </span>
     
 </h2>
-<p>I agree with most points, but template error messages are definitely not easy to read. Compared to macros, isn&rsquo;t it a case of the pot calling the kettle black? Or even worse. Producing hundreds or thousands of lines of error messages is something only C++ templates can do.</p>
-<p>This leads to the next question: why are C++ compilation error messages so long? And why are they sometimes so difficult to understand?</p>
+<p>I agree with everything else, but template error messages are clearly not easy to read! Compared to macros, isn&rsquo;t it just a case of &ldquo;fifty paces behind a hundred paces&rdquo;? Perhaps even worse. Easily producing hundreds or thousands of lines of errors, I think only C++ templates can do that.</p>
+<p>This is the next problem to discuss: why are C++ compilation error messages so long? And sometimes very difficult to understand.</p>
 
-<h3 class="relative group">Function Overloading
-    <div id="function-overloading" class="anchor"></div>
+<h3 class="relative group">Function Overload
+    <div id="function-overload" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#function-overloading" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#function-overload" aria-label="Anchor">#</a>
     </span>
     
 </h3>
-<p>Consider this simple example with just a few lines:</p>
+<p>Consider this simple example with only a few lines:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="p">{}</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>On my GCC compiler, this produces a whopping 239 lines of error messages. The good news is that GCC highlights the key part, as shown below:</p>
+<p>On my GCC compiler, it produced a whopping 239 lines of error messages. The good news is that GCC highlighted the critical part, as shown below:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">no</span> <span class="n">match</span> <span class="k">for</span> <span class="err">&#39;</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="err">&#39;</span> <span class="p">(</span><span class="n">operand</span> <span class="n">types</span> <span class="n">are</span> <span class="err">&#39;</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="err">&#39;</span> <span class="p">{</span><span class="n">aka</span> <span class="err">&#39;</span><span class="n">std</span><span class="o">::</span><span class="n">basic_ostream</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="err">&#39;</span><span class="p">}</span> <span class="n">and</span> <span class="sc">&#39;A&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="mi">9</span> <span class="o">|</span>     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="p">{}</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="o">|</span>     <span class="o">~~~~~~~~~</span> <span class="o">^~</span> <span class="o">~~~</span>
 </span></span><span class="line"><span class="cl">      <span class="o">|</span>          <span class="o">|</span>       <span class="o">|</span>
 </span></span><span class="line"><span class="cl">      <span class="o">|</span>          <span class="o">|</span>       <span class="n">A</span>
 </span></span><span class="line"><span class="cl">      <span class="o">|</span>          <span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="p">{</span><span class="n">aka</span> <span class="n">std</span><span class="o">::</span><span class="n">basic_ostream</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="p">}</span></span></span></code></pre></div></div>
-<p>So it&rsquo;s still somewhat understandable: it means no matching overloaded function was found, indicating that we need to overload <code>operator&lt;&lt;</code> for <code>A</code>. But what are the remaining 200 lines of errors doing? The key lies in <strong>overload resolution</strong>. Let&rsquo;s look at one of the messages:</p>
+<p>That&rsquo;s probably understandable; it means no matching overloaded function was found, so we need to overload <code>operator&lt;&lt;</code> for <code>A</code>. But what we&rsquo;re curious about is, what are the remaining two hundred lines of errors doing? The key lies in <strong>Overload Resolution</strong>. Let&rsquo;s look at one piece of information:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="nl">note</span><span class="p">:</span>   <span class="k">template</span> <span class="n">argument</span> <span class="n">deduction</span><span class="o">/</span><span class="n">substitution</span> <span class="nl">failed</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl"><span class="nl">note</span><span class="p">:</span>   <span class="n">cannot</span> <span class="n">convert</span> <span class="err">&#39;</span><span class="n">A</span><span class="p">()</span><span class="err">&#39;</span> <span class="p">(</span><span class="n">type</span> <span class="sc">&#39;A&#39;</span><span class="p">)</span> <span class="n">to</span> <span class="n">type</span> <span class="err">&#39;</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="err">&#39;</span>
 </span></span><span class="line"><span class="cl">    <span class="mi">9</span> <span class="o">|</span>     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">A</span><span class="p">{}</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span></span></span></code></pre></div></div>
-<p>This means the compiler tried to match the <code>A</code> type with the <code>const char*</code> overload (via implicit type conversion) and failed. The standard library has many such functions with numerous overloads. For example, <code>operator&lt;&lt;</code> is overloaded for <code>int</code>, <code>bool</code>, <code>long</code>, <code>double</code>, and many others—nearly dozens of functions. The error messages list all the reasons why each overload attempt failed, easily resulting in hundreds of lines. Combined with the cryptic naming in the standard library, it can look like gibberish.</p>
+<p>This means that an attempt was made to match type <code>A</code> with the <code>const char*</code> overload (via implicit type conversion), and it failed. Standard library functions like this have many overloads, for example, <code>operator&lt;&lt;</code> is overloaded for <code>int</code>, <code>bool</code>, <code>long</code>, <code>double</code>, etc., nearly dozens of functions. The error message then lists the reasons why all these overloaded functions failed, easily reaching hundreds of lines. Coupled with the cryptic naming in the standard library, it looks like gibberish.</p>
 
 <h3 class="relative group">Instantiation Stack
     <div id="instantiation-stack" class="anchor"></div>
@@ -1407,7 +1426,7 @@
     </span>
     
 </h3>
-<p>Function overloading is part of the reason why error messages are hard to read, but not the whole story. As shown above, merely enumerating all possibilities results in a few hundred lines of errors. But we can produce thousands of lines—an order of magnitude difference that can&rsquo;t be easily explained by quantity alone. Moreover, this section is about type constraints, so what does it have to do with compiler errors? Consider this example:</p>
+<p>Function overloading is one reason why error messages are difficult to read, but not the only one. In fact, as shown above, merely enumerating all possibilities only results in a few hundred lines of errors. Keep in mind that we can still produce thousands of lines; the difference in magnitude cannot be easily compensated by quantity. Moreover, this subsection is about type constraints, so what does it have to do with compiler errors? Consider the following example:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">B</span> <span class="p">{};</span>
@@ -1421,10 +1440,10 @@
 </span></span><span class="line"><span class="cl">    <span class="n">test</span><span class="p">(</span><span class="n">A</span><span class="p">{},</span> <span class="n">B</span><span class="p">{});</span>  <span class="c1">// #1: a few lines
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">test</span><span class="p">(</span><span class="n">A</span><span class="p">{},</span> <span class="n">A</span><span class="p">{});</span>  <span class="c1">// #2: hundred lines
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
-<p>In this example, <code>#1</code> produces only a few lines of error messages, while <code>#2</code> produces hundreds. Why such a big difference? Recall the two advantages of templates over macros mentioned in the first part: automatic type deduction and implicit instantiation. Only when template parameter deduction succeeds does template instantiation occur, and only then are errors in the function body checked.</p>
-<p>In <code>test(A{}, B{})</code>, template parameter deduction fails because the <code>test</code> function implies an important condition: the types of <code>a</code> and <code>b</code> must be the same. Thus, the error is that no matching function is found. In <code>test(A{}, A{})</code>, template parameter deduction succeeds, and instantiation proceeds, but an error occurs during instantiation. That is, <code>T</code> is deduced as <code>A</code>, and when substituting <code>A</code> into the function body, an error occurs. The compiler then lists all the reasons why the substitution failed.</p>
-<p>This leads to a problem: when there are many layers of template nesting, the error might occur in the innermost template function, forcing the compiler to print the entire template instantiation stack.</p>
-<p>So what&rsquo;s the use of type constraints? Consider this example:</p>
+<p>In the example above, <code>#1</code> only has a few lines of error messages, while <code>#2</code> has hundreds of lines. Why is there such a large difference? Do you remember the two advantages of templates over macros that we discussed in the first part? One is automatic type deduction, and the other is implicit instantiation. Only when template parameter deduction succeeds will template instantiation be triggered, and only then will errors in the function body be checked.</p>
+<p>In <code>test(A{}, B{})</code>, template parameter deduction failed. This is because the <code>test</code> function implies an important condition: that the types of <code>a</code> and <code>b</code> are the same. So, it actually reports an error that no matching function was found. For the second function, <code>test(A{}, A{})</code>, template parameter deduction succeeded, and it entered the instantiation phase, but an error occurred during instantiation. This means that <code>T</code> has been deduced as <code>A</code>, and an error occurred when trying to substitute <code>A</code> into the function body. Therefore, the compiler has to list the reasons for the substitution failure within the function body.</p>
+<p>This leads to a problem: when there are many layers of nested templates, an error might occur in the innermost template function, but the compiler has to print out the entire template instantiation stack.</p>
+<p>So what&rsquo;s the use of constraining types? Look at the example below:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
@@ -1443,15 +1462,15 @@
 </span></span><span class="line"><span class="cl">    <span class="n">print2</span><span class="p">(</span><span class="n">A</span><span class="p">{});</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>This short code produces 700 lines of compilation errors on my GCC. Now, uncomment the commented line. In contrast, the error messages are much shorter:</p>
+<p>Just a few lines, but on my GCC, it produced 700 lines of compilation errors. If we make a slight change and uncomment the commented line of code, the error message in this situation is only a few lines:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">In</span> <span class="n">substitution</span> <span class="n">of</span> <span class="err">&#39;</span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>  <span class="k">requires</span> <span class="k">requires</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">;}</span> <span class="kt">void</span> <span class="nf">print2</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="p">[</span><span class="n">with</span> <span class="n">T</span> <span class="o">=</span> <span class="n">A</span><span class="p">]</span><span class="err">&#39;</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl"><span class="n">required</span> <span class="n">from</span> <span class="n">here</span>
 </span></span><span class="line"><span class="cl"><span class="n">required</span> <span class="n">by</span> <span class="n">the</span> <span class="n">constraints</span> <span class="n">of</span> <span class="err">&#39;</span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>  <span class="k">requires</span> <span class="k">requires</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">;}</span> <span class="kt">void</span> <span class="nf">print2</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="err">&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="n">in</span> <span class="n">requirements</span> <span class="n">with</span> <span class="err">&#39;</span><span class="n">T</span> <span class="n">x</span><span class="err">&#39;</span> <span class="p">[</span><span class="n">with</span> <span class="n">T</span> <span class="o">=</span> <span class="n">A</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="nl">note</span><span class="p">:</span> <span class="n">the</span> <span class="n">required</span> <span class="n">expression</span> <span class="err">&#39;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">)</span><span class="err">&#39;</span> <span class="n">is</span> <span class="n">invalid</span>
 </span></span><span class="line"><span class="cl">   <span class="mi">15</span> <span class="o">|</span> <span class="k">requires</span> <span class="k">requires</span> <span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span></span></span></code></pre></div></div>
-<p>This means that an instance <code>x</code> of type <code>A</code> does not satisfy the <code>requires</code> clause <code>std::cout &lt;&lt; x</code>. In fact, with this syntax, we can restrict errors to the type deduction phase, avoiding instantiation. Thus, the error messages become much more concise.</p>
-<p>In other words, <code>requires</code> can prevent the propagation of compilation errors. Unfortunately, constraint-related syntax was only added in C++20. What about before that?</p>
+<p>This means that an instance <code>x</code> of type <code>A</code> does not satisfy the <code>requires</code> clause <code>std::cout &lt;&lt; x</code>. In fact, with such syntax, we can limit errors to the type deduction phase, without proceeding to instantiation. This results in much more concise error messages.</p>
+<p>In other words, <code>requires</code> allows us to prevent the propagation of compilation errors. However, unfortunately, constraint-related syntax was only added in C++20. What about before that?</p>
 
 <h3 class="relative group">Before C++20
     <div id="before-c20" class="anchor"></div>
@@ -1462,16 +1481,16 @@
     </span>
     
 </h3>
-<p>Before C++20, we didn&rsquo;t have such convenient methods. We had to use a technique called <a href="https://en.cppreference.com/w/cpp/language/sfinae"  target="_blank" rel="noreferrer">SFINAE</a> to achieve similar functionality for type constraints. For example, the above functionality could only be written like this before C++20:</p>
+<p>Before C++20, we didn&rsquo;t have such a convenient method. We could only achieve similar functionality, constraining types, through a technique called <a href="https://en.cppreference.com/w/cpp/language/sfinae"  target="_blank" rel="noreferrer">SFINAE</a>. For example, the functionality above could only be written like this before C++20:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="o">=</span> <span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">())</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">print2</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">print1</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>The specific rules won&rsquo;t be discussed here, but interested readers can search for related articles.</p>
-<p>The result is that the line:</p>
+<p>I won&rsquo;t go into the specific rules here; if you&rsquo;re interested, you can search for related articles.</p>
+<p>The result is:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typename</span> <span class="o">=</span> <span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">())</span></span></span></code></pre></div></div>
-<p>is completely unintuitive and hard to understand. Only by deeply understanding C++ template rules can one grasp what this is doing. For why <code>requires</code> wasn&rsquo;t added until C++20, you can read the <a href="https://github.com/Cpp-Club/Cxx_HOPL4_zh/blob/main/06.md"  target="_blank" rel="noreferrer">autobiography</a> written by the father of C++ himself.</p>
+<p>This line of code is baffling; it&rsquo;s completely unclear what it&rsquo;s trying to express. Only after a deep understanding of C++ template rules can one comprehend what it&rsquo;s doing. For why <code>requires</code> was only added in C++20, you can read the <a href="https://github.com/Cpp-Club/Cxx_HOPL4_zh/blob/main/06.md"  target="_blank" rel="noreferrer">autobiography</a> written by the creator of C++ himself.</p>
 
 <h2 class="relative group">Compile-time Computing
     <div id="compile-time-computing" class="anchor"></div>
@@ -1492,13 +1511,13 @@
     </span>
     
 </h3>
-<p>First, it&rsquo;s important to acknowledge that compile-time computing is definitely useful. The extent of its significance in specific scenarios cannot be generalized. Many people panic at the mention of compile-time computing, citing reasons like difficult-to-understand code, niche skills, or lack of value. This can easily mislead beginners. In fact, there is a real demand for such functionality. If a programming language lacks this feature but there is a need, programmers will find other ways to achieve it.</p>
+<p>First, it must be affirmed that compile-time computation is definitely useful. As for how significant it is in specific scenarios, that certainly cannot be generalized. Many people dread compile-time computation, calling it hard to understand, a &ldquo;dragon-slaying skill,&rdquo; or worthless. This can easily mislead beginners. In fact, such demands do exist. If a programming language lacks this feature but there is a need for it, programmers will find ways to implement it through other means.</p>
 <p>I will give two examples to illustrate:</p>
 <ul>
-<li>First, compiler optimizations for constant expressions are well-known. In extremely simple cases, like the expression <code>1+1+x</code>, the compiler will optimize it to <code>2+x</code>. In fact, modern compilers can perform many optimizations for similar cases, as seen in this <a href="https://www.zhihu.com/question/619246858/answer/3184453259"  target="_blank" rel="noreferrer">question</a>. The asker wondered if the C function <code>strlen</code> would optimize the function call directly to a constant when the parameter is a constant string. For example, would <code>strlen(&quot;hello&quot;)</code> be directly optimized to <code>5</code>? Based on experiments with mainstream compilers, the answer is yes. Similar cases are countless, and you are unknowingly using compile-time computing. It&rsquo;s just that it&rsquo;s categorized under compiler optimizations. However, the compiler&rsquo;s optimization capabilities are ultimately limited, and allowing users to define such optimization rules would be more flexible and free. For example, in C++, <code>strlen</code> is explicitly marked as <code>constexpr</code>, ensuring this optimization.</li>
-<li>Second, in the early days of programming language development, when compiler optimizations were not as advanced, external scripting languages were widely used to precompute data (or even generate code) to reduce runtime overhead. A typical example is precomputing trigonometric function tables, which are then used directly at runtime. For example, before compiling code, a script is run to generate some necessary code.</li>
+<li>First, the compiler&rsquo;s optimization of constant expressions, which I believe everyone is familiar with. In extremely simple cases, like <code>1+1+x</code>, the compiler will optimize it to <code>2+x</code>. In fact, modern compilers can perform many optimizations for similar situations, such as this <a href="https://www.zhihu.com/question/619246858/answer/3184453259"  target="_blank" rel="noreferrer">question</a>. The questioner asked whether the C language&rsquo;s <code>strlen</code> function, when its parameter is a constant string, would directly optimize the function call into a constant. For example, would <code>strlen(&quot;hello&quot;)</code> be directly optimized to <code>5</code>? From the experimental results of mainstream compilers, the answer is yes. Similar situations are countless; you are using compile-time computation without even realizing it. It&rsquo;s just categorized as part of compiler optimization. However, the compiler&rsquo;s optimization capabilities always have limits, and allowing users to define such optimization rules themselves would be more flexible and free. For example, in C++, if <code>strlen</code> is explicitly <code>constexpr</code>, this optimization will necessarily occur.</li>
+<li>Second, in the early days of programming language development, when compiler optimization capabilities were not as strong, external scripting languages were already widely used to pre-calculate data (or even generate code) to reduce runtime overhead. A typical example is calculating constant tables like trigonometric function tables, which can then be used directly at runtime. For instance, running a script to generate some necessary code before compiling the main code.</li>
 </ul>
-<p>C++&rsquo;s compile-time computing has clear semantic guarantees and is embedded within the language, allowing for good interaction with other parts. From this perspective, it effectively addresses the two issues mentioned above. Of course, many criticisms of it are not without merit. Compile-time computing via template meta-programming results in ugly and obscure code, involves many syntactic details, and significantly slows down compilation while increasing binary size. Undeniably, these issues exist. However, as C++ versions continue to evolve, compile-time computing has become much easier to understand, no longer requiring complex template meta-code, and even beginners can quickly learn it. This is because it now closely resembles runtime code. Next, we will clarify this through its historical development.</p>
+<p>C++&rsquo;s compile-time computation has clear semantic guarantees and is embedded within the language, allowing good interaction with other parts. From this perspective, it effectively solves the two problems mentioned above. Of course, many people&rsquo;s criticisms of it are not without reason: compile-time computation performed through template metaprogramming results in ugly and obscure code, involves many syntactic details, and significantly slows down compilation time and increases binary file size. Undeniably, these problems do exist. However, with continuous updates to C++ versions, compile-time computation is now very easy to understand, no longer requiring complex template metaprogramming, and even beginners can quickly learn it because it is almost identical to runtime code. We will gradually clarify this as we trace its development history.</p>
 
 <h3 class="relative group">History
     <div id="history" class="anchor"></div>
@@ -1509,8 +1528,8 @@
     </span>
     
 </h3>
-<p>Historically, TMP was an accidental discovery. During the standardization of C++, it was found that the template system was Turing complete, meaning it could, in principle, compute anything computable. The first concrete demonstration was a program written by Erwin Unruh that computed prime numbers, although it didn&rsquo;t actually compile: the list of primes was part of the error messages generated by the compiler while trying to compile the code. For a specific example, refer <a href="https://en.wikibooks.org/wiki/C%2B%2B_Programming/Templates/Template_Meta-Programming#History_of_TMP"  target="_blank" rel="noreferrer">here</a>.</p>
-<p>As an introductory programming example, here&rsquo;s a method to compute factorials at compile time:</p>
+<p>Historically, TMP was an accident. In the process of standardizing the C++ language, it was discovered that its template system was Turing-complete, meaning it could, in principle, compute anything computable. The first concrete demonstration was a program written by Erwin Unruh that computed prime numbers, although it didn&rsquo;t actually compile: the list of prime numbers was part of the error message generated by the compiler when trying to compile the code. For a specific example, please refer to <a href="https://en.wikibooks.org/wiki/C%2B%2B_Programming/Templates/Template_Meta-Programming#History_of_TMP"  target="_blank" rel="noreferrer">here</a>.</p>
+<p>As an introductory programming example, here&rsquo;s a method for compile-time factorial calculation:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">factorial</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">enum</span> <span class="p">{</span> <span class="n">value</span> <span class="o">=</span> <span class="n">N</span> <span class="o">*</span> <span class="n">factorial</span><span class="o">&lt;</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="o">&gt;::</span><span class="n">value</span> <span class="p">};</span>
@@ -1523,7 +1542,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">value</span> <span class="o">=</span> <span class="n">factorial</span><span class="o">&lt;</span><span class="mi">5</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>  <span class="c1">// =&gt; 120
 </span></span></span></code></pre></div></div>
-<p>This code can compile even before C++11. After C++11, many new features were introduced to simplify compile-time computing. The most important is the <code>constexpr</code> keyword. Before C++11, there was no suitable way to represent compile-time constants, so <code>enum</code> was used. After C++11, we can write:</p>
+<p>This code could compile even before C++11. After that, C++ introduced many new features to simplify compile-time computation. The most important one is the <code>constexpr</code> keyword. It can be seen that before C++11, we didn&rsquo;t have a suitable way to represent the concept of a compile-time constant, only borrowing <code>enum</code> to express it. After C++11, we can write it like this:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">N</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">factorial</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">static</span> <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">N</span> <span class="o">*</span> <span class="n">factorial</span><span class="o">&lt;</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
@@ -1533,16 +1552,219 @@
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">factorial</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">static</span> <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>Although this simplifies things, we are still using templates for compile-time computing. This makes the code hard to read, mainly for two reasons:</p>
+<p>Despite some simplification, we are still relying on templates for compile-time computation. Code written this way is difficult to read, mainly due to two points:</p>
 <ul>
-<li>Template parameters can only be compile-time constants; there is no concept of compile-time variables, whether global or local.</li>
-<li>Only recursion can be used for programming, not loops.</li>
+<li>Template parameters can only be compile-time constants; there is no concept of compile-time variables, neither global nor local.</li>
+<li>Programming can only be done through recursion, not loops.</li>
 </ul>
-<p>Imagine writing code without variables or loops—it would be quite painful.</p>
-<p>Are there programming languages that satisfy these two characteristics? In fact, programming languages that satisfy these two points are generally called pure functional programming languages. Haskell is a typical example. However, Haskell has powerful pattern matching, and once familiar with Haskell&rsquo;s mindset, one can write concise and elegant code (and Haskell itself can use the <code>do</code> syntax to simulate local variables, as using local variables is equivalent to passing them down as function parameters). C++ lacks these features, inheriting the drawbacks without the benefits. Fortunately, these issues are resolved with <code>constexpr</code> functions.</p>
+<p>Imagine if, in your everyday coding, variables and loops were forbidden; how uncomfortable would that be to write?</p>
+<p>Are there programming languages that satisfy these two characteristics? In fact, programming languages that satisfy these two points are generally called pure functional programming languages. Haskell is a typical example. However, Haskell has powerful pattern matching, and once familiar with Haskell&rsquo;s way of thinking, one can write concise and elegant code (and Haskell itself can simulate local variables using <code>do</code> syntax, because using local variables is essentially passing them down as function parameters level by level). C++ has none of these; it inherits all the disadvantages of others and none of the advantages. Fortunately, all these problems have been solved in <code>constexpr function</code>.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">factorial</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">N</span><span class="p">;</span></span></span></code></pre></div></div>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">*=</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="n">factorial</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>  <span class="c1">// compile-time
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="o">&amp;</span> <span class="n">n</span> <span class="o">=</span> <span class="o">*</span><span class="k">new</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">b</span> <span class="o">=</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>  <span class="c1">// run-time
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>C++ allows a function to be directly modified with the <code>constexpr</code> keyword. This indicates that the function can be called both at runtime and compile-time, with almost no changes to the function&rsquo;s content itself. This way, we can directly reuse runtime code at compile-time. It also allows programming with loops and local variables, meaning it&rsquo;s indistinguishable from ordinary code. Quite astonishing, isn&rsquo;t it? So, compile-time computation has long been commonplace in C++, and users don&rsquo;t need to write complex template metaprogramming. After C++20, almost all standard library functions are also <code>constexpr</code>, allowing us to easily call them, such as compile-time sorting.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="nf">sort</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">range</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">range</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">range</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">range</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">arr</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="nl">i</span><span class="p">:</span> <span class="n">arr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>True code reuse! If you want this function to execute only at compile time, you can mark it with <code>consteval</code>. Additionally, in C++20, compile-time dynamic memory allocation is allowed; you can use <code>new</code> in a <code>constexpr function</code> for memory allocation, but memory allocated at compile time must also be deallocated at compile time. You can also directly use containers like <code>vector</code> and <code>string</code> at compile time. And please note, <code>constexpr</code> functions compile much faster compared to compile-time computation using templates. If you&rsquo;re curious how the compiler implements this powerful feature, you can imagine that the C++ compiler internally embeds a small interpreter. When it encounters a <code>constexpr</code> function, it interprets it with this interpreter and then returns the calculated result.</p>
+<p>I believe you have fully witnessed C++&rsquo;s efforts in compile-time computation. Compile-time computation has long been decoupled from template metaprogramming and has become a very natural feature in C++, requiring no special syntax yet wielding powerful capabilities. So, from now on, don&rsquo;t panic when C++ compile-time computation is mentioned, thinking it&rsquo;s some &ldquo;dragon-slaying skill.&rdquo; It has already become very gentle and beautiful.</p>
+<p>Although compile-time computation has escaped the clutches of template metaprogramming, C++ has not. There are still two situations where we are forced to write awkward template metaprogramming code.</p>
+
+<h2 class="relative group">Type Manipulation
+    <div id="type-manipulation" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#type-manipulation" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+
+<h3 class="relative group">Match Type
+    <div id="match-type" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#match-type" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>How do you determine if two types are equal, or rather, if the types of two variables are equal? Some might think this is redundant, as variable types are known at compile time, so why would we need to check? This question actually arose with generic programming. Consider the following example:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">test</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">T</span> <span class="o">==</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="cm">/* ... */</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Such code aligns with our intuition, but unfortunately, C++ doesn&rsquo;t allow you to write it this way. However, in languages like Python/Java, such syntax does exist, but their checks are mostly performed at runtime. C++ does allow us to operate on types at compile time, but unfortunately, types cannot be first-class citizens, treated as ordinary values; they can only be template parameters. We can only write code like this:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">test</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="cm">/* ... */</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Types can only exist within template parameters, which directly nullifies all the advantages of <code>constexpr</code> compile-time computation mentioned in the previous section. We are back to the Stone Age, without variables or loops.</p>
+<p>Below is code to check if two <code>type_list</code>s satisfy a subsequence relationship:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_list</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">SubFirst</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">SubRest</span><span class="p">,</span> <span class="k">typename</span> <span class="n">SuperFirst</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">SuperRest</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">is_subsequence_of_impl</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">SubFirst</span><span class="p">,</span> <span class="n">SubRest</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="n">SuperFirst</span><span class="p">,</span> <span class="n">SuperRest</span><span class="p">...</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">SubFirst</span><span class="p">,</span> <span class="n">SuperFirst</span><span class="o">&gt;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="k">constexpr</span><span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">SubRest</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nf">is_subsequence_of</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">SubRest</span><span class="p">...</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="n">SuperRest</span><span class="p">...</span><span class="o">&gt;</span><span class="p">{});</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">SuperRest</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">is_subsequence_of</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">SubFirst</span><span class="p">,</span> <span class="n">SubRest</span><span class="p">...</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="n">SuperRest</span><span class="p">...</span><span class="o">&gt;</span><span class="p">{});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Sub</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Super</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">Sub</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="n">Super</span><span class="p">...</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">Sub</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="nf">constexpr</span><span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">Super</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">is_subsequence_of_impl</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">Sub</span><span class="p">...</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="n">Super</span><span class="p">...</span><span class="o">&gt;</span><span class="p">{});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;</span><span class="p">{}));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">{}));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static_assert</span><span class="p">(</span><span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;&gt;</span><span class="p">{},</span> <span class="n">type_list</span><span class="o">&lt;&gt;</span><span class="p">{}));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>It&rsquo;s very uncomfortable to write. If I write the same code logic using a <code>constexpr</code> function, replacing type parameters with <code>std::size_t</code>:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="kt">bool</span> <span class="nf">is_subsequence_of</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">sub</span><span class="p">,</span> <span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">super</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="n">index</span><span class="p">;</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">sub</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">super</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">super</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">sub</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">index</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">index</span> <span class="o">==</span> <span class="n">sub</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}));</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}));</span></span></span></code></pre></div></div>
+<p>It instantly becomes a million times cleaner, simply because types are not first-class citizens in C++ and can only be template parameters. When it comes to type-related computations, we are forced to write cumbersome template metaprogramming code. In fact, the need to compute with types has always existed; a typical example is <code>std::variant</code>. When writing <code>operator=</code>, we need to find a certain type from a type list (the <code>variant</code>&rsquo;s template parameter list) and return an index, which is essentially finding an element that satisfies a specific condition from an array. The related implementation will not be shown here. The truly terrible thing is not using template metaprogramming itself, but rather that for C++ itself, such a change as treating types as values is completely unacceptable. This means that this situation will continue indefinitely, and there will be no fundamental change in the future, and this fact is the most disheartening. However, it is still important to realize that not many languages support computing with types; Rust, for example, has almost no support in this area. Although C++ code is awkward to write, at least it can be written.</p>
+<p>But thankfully, there&rsquo;s another path we can take: mapping types to values through certain means. For example, mapping types to strings, where matching types can be similar to matching strings; we just need to compute with strings, which can achieve a certain degree of <code>type as value</code>. Before C++23, there was no standardized way to perform this mapping. It could be done through some special compiler extensions; you can refer to <a href="https://www.ykiko.me/en/articles/680412313"  target="_blank" rel="noreferrer">How to elegantly convert enum to string in C++</a>.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">type_list</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">find</span><span class="p">(</span><span class="n">type_list</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// type_name returns the name of the type
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">array</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">{</span><span class="n">type_name</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">()...};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">type_name</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>After C++23, <code>typeid</code> can also be used directly for mapping, instead of string mapping. However, mapping types to values is simple, but mapping values back to types is not simple at all, unless you use black magic like <a href="https://www.ykiko.me/en/articles/646752343"  target="_blank" rel="noreferrer">STMP</a> to conveniently map values back to types. But, if static reflection is introduced in the future, this bidirectional mapping between types and values will be very simple. In that case, although it won&rsquo;t directly support treating types as values, it will be pretty close. However, there&rsquo;s still a long way to go, and when it will be added to the standard is still unknown. If you&rsquo;re interested in static reflection, you can read <a href="https://www.ykiko.me/en/articles/661692275"  target="_blank" rel="noreferrer">Analysis of the C++26 Static Reflection Proposal</a>.</p>
+
+<h3 class="relative group">Comptime Variable
+    <div id="comptime-variable" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#comptime-variable" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>Besides the necessity of using template metaprogramming for type computations as mentioned above, if you need to instantiate templates while performing compile-time computations, you also have to use template metaprogramming.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">consteval</span> <span class="k">auto</span> <span class="nf">test</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">length</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span> <span class="n">length</span><span class="o">&gt;</span><span class="p">{};</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// error length is not constant expression
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>The error means that <code>length</code> is not a compile-time constant; it&rsquo;s generally considered a compile-time variable. This is quite annoying. Consider the following requirement: we want to implement a completely type-safe <code>format</code> function. That is, based on the content of the first constant string, constrain the number of subsequent function parameters. For example, if it&rsquo;s <code>&quot;{}&quot;</code>, the <code>format</code> function should have <code>1</code> parameter.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">consteval</span> <span class="k">auto</span> <span class="nf">count</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">fmt</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">fmt</span><span class="p">.</span><span class="n">length</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">fmt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;{&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">fmt</span><span class="p">.</span><span class="n">length</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">fmt</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;}&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">num</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">format</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">requires</span> <span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">Args</span><span class="p">)</span> <span class="o">==</span> <span class="n">count</span><span class="p">(</span><span class="n">fmt</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* ... */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>In fact, we have no way to guarantee that a function parameter is a compile-time constant, so the code above cannot compile. To have a compile-time constant, this content must be put into template parameters, for example, the above function might eventually be modified to <code>format&lt;&quot;{}&quot;&gt;(1)</code>. Although it&rsquo;s only a formal difference, this undoubtedly creates difficulties for the user. From this perspective, it&rsquo;s not hard to understand why things like <code>std::make_index_sequence</code> are so prevalent. To truly have compile-time variables that can be template parameters, it can also be achieved through black magic like <a href="https://www.ykiko.me/en/articles/646752343"  target="_blank" rel="noreferrer">STMP</a>, but as mentioned earlier, it&rsquo;s difficult to actually use it in everyday programming.</p>
+
+<h3 class="relative group">Type is Value
+    <div id="type-is-value" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#type-is-value" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>It&rsquo;s worth mentioning that there&rsquo;s a relatively new language called Zig. It solves the problems mentioned above, supporting not only compile-time variables but also treating types as first-class citizens. Thanks to Zig&rsquo;s unique <code>comptime</code> mechanism, variables or code blocks marked with it are executed at compile time. This allows us to write code like this:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">import</span><span class="p">(</span><span class="s">&#34;std&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">is_subsequence_of</span><span class="p">(</span><span class="n">comptime</span><span class="w"> </span><span class="n">sub</span>: <span class="nc">anytype</span><span class="p">,</span><span class="w"> </span><span class="n">comptime</span><span class="w"> </span><span class="k">super</span>: <span class="nc">anytype</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">comptime</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">var</span><span class="w"> </span><span class="n">subIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">var</span><span class="w"> </span><span class="n">superIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="n">superIndex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="k">super</span><span class="p">.</span><span class="n">len</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">subIndex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">sub</span><span class="p">.</span><span class="n">len</span><span class="p">)</span><span class="w"> </span>: <span class="p">(</span><span class="n">superIndex</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">sub</span><span class="p">[</span><span class="n">subIndex</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">super</span><span class="p">[</span><span class="n">superIndex</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">subIndex</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">subIndex</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">sub</span><span class="p">.</span><span class="n">len</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="o">!</span><span class="n">void</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">comptime</span><span class="w"> </span><span class="n">var</span><span class="w"> </span><span class="n">sub</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">_</span><span class="p">]</span><span class="w"> </span><span class="k">type</span> <span class="p">{</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">f32</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">comptime</span><span class="w"> </span><span class="n">var</span><span class="w"> </span><span class="k">super</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">_</span><span class="p">]</span><span class="w"> </span><span class="k">type</span> <span class="p">{</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">f32</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">f32</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">std</span><span class="p">.</span><span class="n">debug</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&#34;{}</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="n">comptime</span><span class="w"> </span><span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span><span class="w"> </span><span class="k">super</span><span class="p">)});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">comptime</span><span class="w"> </span><span class="n">var</span><span class="w"> </span><span class="n">sub2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">_</span><span class="p">]</span><span class="w"> </span><span class="k">type</span> <span class="p">{</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">f32</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">comptime</span><span class="w"> </span><span class="n">var</span><span class="w"> </span><span class="n">super2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">_</span><span class="p">]</span><span class="w"> </span><span class="k">type</span> <span class="p">{</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">f32</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">f32</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">std</span><span class="p">.</span><span class="n">debug</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&#34;{}</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="p">.{</span><span class="n">comptime</span><span class="w"> </span><span class="n">is_subsequence_of</span><span class="p">(</span><span class="n">sub2</span><span class="p">,</span><span class="w"> </span><span class="n">super2</span><span class="p">)});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>This is the code we&rsquo;ve dreamed of writing; it&rsquo;s truly elegant! In terms of type computation, Zig completely outperforms current C++. Interested readers can check out the Zig official website, but in other areas besides type computation, such as generics and code generation, Zig actually doesn&rsquo;t do as well. This is not the focus of this article, so I won&rsquo;t discuss it.</p>
+
+<h2 class="relative group">Conclusion
+    <div id="conclusion" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#conclusion" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+<p>It can be seen that templates initially took on too many roles, and their usage was not what was originally intended during their design; they were used as tricks to compensate for the language&rsquo;s lack of expressive power. With the continuous development of C++, these additional roles have gradually been replaced by simpler, more direct, and easier-to-understand syntax. Type constraints are handled by <code>concept</code> and <code>requires</code>, compile-time computation by <code>constexpr</code>, and type manipulation by future <code>static reflection</code>. Templates are gradually returning to their original form, responsible for code generation. Those obscure and difficult-to-understand workarounds are also gradually being phased out, which is a good sign, although we often still have to deal with legacy code. But at least we know that the future will be better!</p>
 
           
           
@@ -1696,12 +1918,12 @@
               class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
               href="/en/articles/646812253/">
               <span class="leading-6">
-                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;C++ Forbidden Dark Magic: STMP (Part 2)
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;C++ Forbidden Black Magic: STMP (Part 2)
               </span>
             </a>
             
               <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2023-07-30T09:29:27&#43;00:00">30 July 2023</time>
+                <time datetime="2023-07-30T01:29:27&#43;00:00">30 July 2023</time>
               </span>
             
           
@@ -1712,12 +1934,12 @@
               class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
               href="/en/articles/659510753/">
               <span class="leading-6">
-                Comprehensive Analysis of C++ Member Pointers&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+                C++ Pointers to Members: A Comprehensive Guide&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
             </a>
             
               <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2023-10-04T14:50:12&#43;00:00">4 October 2023</time>
+                <time datetime="2023-10-04T06:50:12&#43;00:00">4 October 2023</time>
               </span>
             
           

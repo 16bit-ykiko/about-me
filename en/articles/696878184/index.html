@@ -15,8 +15,8 @@
 
   
   
-    <title>Is the Singleton Pattern in C&#43;&#43; Truly &#34;Singleton&#34;? &middot; ykiko&#39;s blog</title>
-    <meta name="title" content="Is the Singleton Pattern in C&#43;&#43; Truly &#34;Singleton&#34;? &middot; ykiko&#39;s blog">
+    <title>Is the singleton pattern in C&#43;&#43; truly a &#39;singleton&#39;? &middot; ykiko&#39;s blog</title>
+    <meta name="title" content="Is the singleton pattern in C&#43;&#43; truly a &#39;singleton&#39;? &middot; ykiko&#39;s blog">
   
 
   
@@ -68,20 +68,22 @@
   
   <meta property="og:url" content="https://www.ykiko.me/en/articles/696878184/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="Is the Singleton Pattern in C&#43;&#43; Truly &#34;Singleton&#34;?">
-  <meta property="og:description" content="Singleton Pattern is a common design pattern often used in scenarios requiring object uniqueness, such as configuration systems, logging systems, and database connection pools. But does the Singleton Pattern truly guarantee a singleton? What consequences might arise if uniqueness is not ensured?">
+  <meta property="og:title" content="Is the singleton pattern in C&#43;&#43; truly a &#39;singleton&#39;?">
+  <meta property="og:description" content="This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+Singleton Pattern is a common design pattern, often applied in scenarios such as configuration systems, logging systems, and database connection pools, where object uniqueness must be ensured. But can the Singleton Pattern truly guarantee a single instance? What are the consequences if uniqueness is not guaranteed?">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2024-05-10T02:08:28+00:00">
-    <meta property="article:modified_time" content="2024-05-10T02:08:28+00:00">
+    <meta property="article:published_time" content="2024-05-09T18:08:28+00:00">
+    <meta property="article:modified_time" content="2024-05-09T18:08:28+00:00">
     <meta property="og:image" content="https://www.ykiko.me/en/articles/696878184/featured.png">
 
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/en/articles/696878184/featured.png">
-  <meta name="twitter:title" content="Is the Singleton Pattern in C&#43;&#43; Truly &#34;Singleton&#34;?">
-  <meta name="twitter:description" content="Singleton Pattern is a common design pattern often used in scenarios requiring object uniqueness, such as configuration systems, logging systems, and database connection pools. But does the Singleton Pattern truly guarantee a singleton? What consequences might arise if uniqueness is not ensured?">
+  <meta name="twitter:title" content="Is the singleton pattern in C&#43;&#43; truly a &#39;singleton&#39;?">
+  <meta name="twitter:description" content="This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+Singleton Pattern is a common design pattern, often applied in scenarios such as configuration systems, logging systems, and database connection pools, where object uniqueness must be ensured. But can the Singleton Pattern truly guarantee a single instance? What are the consequences if uniqueness is not guaranteed?">
 
   
   
@@ -234,8 +236,8 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Articles",
-    "name": "Is the Singleton Pattern in C\u002b\u002b Truly \u0022Singleton\u0022?",
-    "headline": "Is the Singleton Pattern in C\u002b\u002b Truly \u0022Singleton\u0022?",
+    "name": "Is the singleton pattern in C\u002b\u002b truly a \u0027singleton\u0027?",
+    "headline": "Is the singleton pattern in C\u002b\u002b truly a \u0027singleton\u0027?",
     
     "inLanguage": "en",
     "url" : "https://www.ykiko.me/en/articles/696878184/",
@@ -244,15 +246,15 @@
       "name": "ykiko"
     },
     "copyrightYear": "2024",
-    "dateCreated": "2024-05-10T02:08:28\u002b00:00",
-    "datePublished": "2024-05-10T02:08:28\u002b00:00",
+    "dateCreated": "2024-05-09T18:08:28\u002b00:00",
+    "datePublished": "2024-05-09T18:08:28\u002b00:00",
     
-    "dateModified": "2024-05-10T02:08:28\u002b00:00",
+    "dateModified": "2024-05-09T18:08:28\u002b00:00",
     
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "1819"
+    "wordCount": "2025"
   }]
   </script>
 
@@ -407,20 +409,20 @@
         <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
     <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg></span>
       </span>
-      <span class="text-sm font-medium bf-icon-color-hover" title="Is the Singleton Pattern in C&#43;&#43; Truly &#34;Singleton&#34;?">EN</span>
+      <span class="text-sm font-medium bf-icon-color-hover" title="Is the singleton pattern in C&#43;&#43; truly a &#39;singleton&#39;?">EN</span>
     </button>
     <ul class="menuhide">
       <li class="rounded-xl backdrop-blur shadow-2xl p-2 flex flex-col gap-1">
         
-          <a href="/en/articles/696878184/" class="flex items-center bf-icon-color-hover px-3 py-1">
-            <span class="text-sm font-sm" title="Is the Singleton Pattern in C&#43;&#43; Truly &#34;Singleton&#34;?">
-              English
-            </span>
-          </a>
-        
           <a href="/zh-cn/articles/696878184/" class="flex items-center bf-icon-color-hover px-3 py-1">
             <span class="text-sm font-sm" title="C&#43;&#43; 中的单例模式真的“单例”吗？">
               简体中文
+            </span>
+          </a>
+        
+          <a href="/en/articles/696878184/" class="flex items-center bf-icon-color-hover px-3 py-1">
+            <span class="text-sm font-sm" title="Is the singleton pattern in C&#43;&#43; truly a &#39;singleton&#39;?">
+              English
             </span>
           </a>
         
@@ -583,20 +585,20 @@
         <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
     <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg></span>
       </span>
-      <span class="text-sm font-medium bf-icon-color-hover" title="Is the Singleton Pattern in C&#43;&#43; Truly &#34;Singleton&#34;?">EN</span>
+      <span class="text-sm font-medium bf-icon-color-hover" title="Is the singleton pattern in C&#43;&#43; truly a &#39;singleton&#39;?">EN</span>
     </button>
     <ul class="menuhide">
       <li class="rounded-xl backdrop-blur shadow-2xl p-2 flex flex-col gap-1">
         
-          <a href="/en/articles/696878184/" class="flex items-center bf-icon-color-hover px-3 py-1">
-            <span class="text-sm font-sm" title="Is the Singleton Pattern in C&#43;&#43; Truly &#34;Singleton&#34;?">
-              English
-            </span>
-          </a>
-        
           <a href="/zh-cn/articles/696878184/" class="flex items-center bf-icon-color-hover px-3 py-1">
             <span class="text-sm font-sm" title="C&#43;&#43; 中的单例模式真的“单例”吗？">
               简体中文
+            </span>
+          </a>
+        
+          <a href="/en/articles/696878184/" class="flex items-center bf-icon-color-hover px-3 py-1">
+            <span class="text-sm font-sm" title="Is the singleton pattern in C&#43;&#43; truly a &#39;singleton&#39;?">
+              English
             </span>
           </a>
         
@@ -768,7 +770,7 @@
   
   <li class="hidden">
     <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/en/articles/696878184/"
-      >Is the Singleton Pattern in C&#43;&#43; Truly &#34;Singleton&#34;?</a
+      >Is the singleton pattern in C&#43;&#43; truly a &#39;singleton&#39;?</a
     ><span class="px-1 text-primary-500">/</span>
   </li>
 
@@ -777,7 +779,7 @@
 
       
       <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-        Is the Singleton Pattern in C++ Truly "Singleton"?
+        Is the singleton pattern in C++ truly a 'singleton'?
       </h1>
       <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
         
@@ -833,7 +835,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2024-05-10T02:08:28&#43;00:00">10 May 2024</time><span class="px-2 text-primary-500">&middot;</span><span>1819 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">9 mins</span><span class="px-2 text-primary-500">&middot;</span>
+      <time datetime="2024-05-09T18:08:28&#43;00:00">9 May 2024</time><span class="px-2 text-primary-500">&middot;</span><span>2025 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">5 mins</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1070,12 +1072,12 @@
     <nav id="TableOfContents">
   <ul>
     <li><a href="#clarifying-the-problem">Clarifying the Problem</a></li>
-    <li><a href="#a-definition">A Definition</a></li>
+    <li><a href="#a-single-definition">A Single Definition</a></li>
     <li><a href="#multiple-definitions">Multiple Definitions</a></li>
-    <li><a href="#truly-singleton">Truly Singleton?</a></li>
+    <li><a href="#truly-a-singleton">Truly a Singleton?</a></li>
     <li><a href="#symbol-export">Symbol Export</a></li>
-    <li><a href="#what-if-not-unique">What If Not Unique?</a></li>
-    <li><a href="#solutions">Solutions</a></li>
+    <li><a href="#what-if-not-unique">What if Not Unique?</a></li>
+    <li><a href="#solution">Solution</a></li>
   </ul>
 </nav>
   </div>
@@ -1090,12 +1092,12 @@
     <nav id="TableOfContents">
   <ul>
     <li><a href="#clarifying-the-problem">Clarifying the Problem</a></li>
-    <li><a href="#a-definition">A Definition</a></li>
+    <li><a href="#a-single-definition">A Single Definition</a></li>
     <li><a href="#multiple-definitions">Multiple Definitions</a></li>
-    <li><a href="#truly-singleton">Truly Singleton?</a></li>
+    <li><a href="#truly-a-singleton">Truly a Singleton?</a></li>
     <li><a href="#symbol-export">Symbol Export</a></li>
-    <li><a href="#what-if-not-unique">What If Not Unique?</a></li>
-    <li><a href="#solutions">Solutions</a></li>
+    <li><a href="#what-if-not-unique">What if Not Unique?</a></li>
+    <li><a href="#solution">Solution</a></li>
   </ul>
 </nav>
   </div>
@@ -1212,8 +1214,9 @@
         
 
         <div class="article-content max-w-prose mb-20">
-          <p><strong>Singleton Pattern</strong> is a common design pattern often used in scenarios requiring object uniqueness, such as configuration systems, logging systems, and database connection pools. But does the Singleton Pattern truly guarantee a singleton? What consequences might arise if uniqueness is not ensured?</p>
-<p>Since this article is written, the answer is clearly no. There have been many discussions on Zhihu, such as <a href="https://www.zhihu.com/question/425920019/answer/2254241454"  target="_blank" rel="noreferrer">Does the C++ Singleton Pattern across DLLs cause issues?</a> and <a href="https://zhuanlan.zhihu.com/p/354694011"  target="_blank" rel="noreferrer">Singleton Pattern BUG in Mixed Use of Dynamic and Static Libraries</a>. However, most of these discussions only provide solutions after encountering problems, which are scattered and lack systematic analysis of the root causes. Therefore, I wrote this article to delve into this issue in detail.</p>
+          <blockquote><p>This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.</p>
+</blockquote><p><strong>Singleton Pattern</strong> is a common design pattern, often applied in scenarios such as configuration systems, logging systems, and database connection pools, where object uniqueness must be ensured. But can the Singleton Pattern truly guarantee a single instance? What are the consequences if uniqueness is not guaranteed?</p>
+<p>Since I&rsquo;ve written this article, the answer is definitely no. There have been many related discussions on Zhihu, such as <a href="https://www.zhihu.com/question/425920019/answer/2254241454"  target="_blank" rel="noreferrer">Will C++ Singleton Pattern across DLLs cause problems?</a> and <a href="https://zhuanlan.zhihu.com/p/354694011"  target="_blank" rel="noreferrer">Singleton Pattern BUG when mixing dynamic and static libraries</a>. However, most of them just post solutions after encountering problems, which are scattered and lack a systematic analysis of the root causes. Therefore, I wrote this article to discuss this issue in detail.</p>
 
 <h2 class="relative group">Clarifying the Problem
     <div id="clarifying-the-problem" class="anchor"></div>
@@ -1224,7 +1227,7 @@
     </span>
     
 </h2>
-<p>First, we need to clarify the problem under discussion. Taking a common C++11 Singleton Pattern implementation as an example:</p>
+<p>First, let&rsquo;s clarify the problem we are discussing, taking a common C++11 Singleton Pattern implementation as an example:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Singleton</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Singleton</span><span class="p">(</span><span class="k">const</span> <span class="n">Singleton</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
@@ -1238,25 +1241,25 @@
 </span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Singleton</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>We set the default constructor to <code>private</code> and explicitly <code>delete</code> the copy constructor and assignment operator, ensuring users can only obtain the pre-created object through the <code>instance</code> function and cannot create an object themselves via the constructor. Using a static local variable ensures thread safety during initialization.</p>
-<p>However, a singleton object is essentially no different from a regular global variable. In C++, both have <a href="https://en.cppreference.com/w/cpp/language/storage_duration"  target="_blank" rel="noreferrer">static storage duration</a>, and the compiler treats them similarly (with some differences in initialization). The Singleton Pattern merely uses language-level techniques to prevent users from accidentally creating multiple objects.</p>
-<p>Thus, the problem we are discussing can be equated to: <strong>Are global variables in C++ unique?</strong></p>
+<p>We set the default constructor to <code>private</code> and explicitly <code>delete</code> the copy constructor and assignment operator, so users can only obtain our pre-created object through the <code>instance</code> function and cannot create an object themselves via a constructor. The use of a static local variable is to ensure thread-safe initialization of this variable.</p>
+<p>However, in reality, a singleton object is no different from a regular global variable. In C++, both belong to <a href="https://en.cppreference.com/w/cpp/language/storage_duration"  target="_blank" rel="noreferrer">static storage duration</a>, and the compiler treats them similarly (with slight differences in initialization methods). The so-called Singleton Pattern merely uses language-level mechanisms to prevent users from accidentally creating multiple objects.</p>
+<p>So, the problem we are discussing can actually be equivalent to: <strong>Are global variables in C++ unique?</strong></p>
 
-<h2 class="relative group">A Definition
-    <div id="a-definition" class="anchor"></div>
+<h2 class="relative group">A Single Definition
+    <div id="a-single-definition" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#a-definition" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#a-single-definition" aria-label="Anchor">#</a>
     </span>
     
 </h2>
-<p>First, we need to distinguish between variable declaration and definition. We know that variable definitions generally cannot be written in header files. Otherwise, if the header file is included by multiple source files, multiple definitions will result, causing a <code>multiple definition of variable</code> error during linking. Therefore, we usually declare variables in header files using <code>extern</code> and define them in the corresponding source files.</p>
-<p>How does the compiler handle global variable definitions?</p>
-<p>Suppose we define a global variable:</p>
+<p>First, we need to distinguish between variable declaration and definition. As we all know, variable definitions generally cannot be written in header files. Otherwise, if the header file is included by multiple source files, multiple definitions will occur, leading to a <code>multiple definition of variable</code> error during linking. Therefore, we usually use <code>extern</code> to declare variables in header files and then define them in the corresponding source files.</p>
+<p>So, how does the compiler handle global variable definitions?</p>
+<p>Suppose we define a global variable</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span></span></code></pre></div></div>
-<p>This does not generate any instructions. The compiler adds a symbol <code>x</code> to the symbol table of the compilation unit (each source file). It reserves <code>4</code> bytes of space in static storage (possibly in the bss segment or rdata segment, etc.) for the symbol <code>x</code>. Depending on the initialization method (<a href="https://en.cppreference.com/w/cpp/language/initialization#Static_initialization"  target="_blank" rel="noreferrer">static initialization</a> or <a href="https://en.cppreference.com/w/cpp/language/initialization#Dynamic_initialization"  target="_blank" rel="noreferrer">dynamic initialization</a>), the data in this memory is filled accordingly.</p>
-<p>Since there is only one definition, this case is certainly globally unique.</p>
+<p>This actually doesn&rsquo;t generate any instructions; the compiler will add a symbol <code>x</code> to the symbol table of the compilation unit&rsquo;s (each source file&rsquo;s) compiled output. It reserves <code>4</code> bytes of space for the symbol <code>x</code> in static storage (the specific implementation might be the bss section or rdata section, etc.). The way this memory block is filled with data depends on the initialization method (<a href="https://en.cppreference.com/w/cpp/language/initialization#Static_initialization"  target="_blank" rel="noreferrer">static initialization</a> or <a href="https://en.cppreference.com/w/cpp/language/initialization#Dynamic_initialization"  target="_blank" rel="noreferrer">dynamic initialization</a>).</p>
+<p>Since there is only one definition, this situation is certainly globally unique.</p>
 
 <h2 class="relative group">Multiple Definitions
     <div id="multiple-definitions" class="anchor"></div>
@@ -1267,8 +1270,8 @@
     </span>
     
 </h2>
-<p>We know that C++ does not have an official build system. Different libraries use different build systems, making them inconvenient to use together (currently, cmake is the de facto standard). This situation has led to the increasing popularity of header-only libraries, which are easy to use by simply including them. But header-only means all code is written in header files. How can variables be defined in header files and directly included by multiple source files without causing linking errors?</p>
-<p>Before C++17, there was no direct way. However, there were indirect methods. Considering that <code>inline</code> functions or template function definitions can appear in multiple source files, and the C++ standard guarantees they have the same address (related discussions can be found in <a href="https://www.ykiko.me/zh-cn/articles/686296374"  target="_blank" rel="noreferrer">Where Does C++ Code Bloat Occur?</a>). Thus, defining static local variables within these functions effectively allows variable definitions in header files:</p>
+<p>As we all know, C++ doesn&rsquo;t have an official build system, and different libraries using different build systems make it inconvenient to use them together (CMake is the de facto standard currently). This situation has made header-only libraries increasingly popular; <code>include</code> and use, who doesn&rsquo;t like that? However, header-only also means all code is written in header files. How can one define variables in header files such that they can be directly included by multiple source files without causing linking errors?</p>
+<p>Before C++17, there was no direct way. But there were some indirect methods, considering that <code>inline</code> functions or template functions can have their definitions appear in multiple source files, and the C++ standard guarantees they have the same address (for related discussion, refer to <a href="https://www.ykiko.me/en/articles/686296374"  target="_blank" rel="noreferrer">Where exactly does C++ code bloat occur?</a>). Thus, by defining static local variables within these functions, it effectively becomes equivalent to defining variables in header files.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
@@ -1279,21 +1282,21 @@
 </span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">y</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>After C++17, we can directly use <code>inline</code> to mark variables, allowing their definitions to appear in multiple source files. Using this, we can directly define variables in header files:</p>
+<p>After C++17, we can directly use <code>inline</code> to mark variables, allowing their definitions to appear in multiple source files. Using it, we can directly define variables in header files.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kr">inline</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span></span></code></pre></div></div>
-<p>We know that marking a variable as <code>static</code> also allows its definition to appear in multiple source files. What is the difference between <code>inline</code> and <code>static</code>? The key difference is that <code>static</code> marked variables have internal linkage, with each compilation unit having its own instance, and addresses taken in different compilation units are different. In contrast, <code>inline</code> marked variables have external linkage, and the C++ standard guarantees that the address of the same <code>inline</code> variable taken in different compilation units is the same.</p>
+<p>We know that marking a variable as <code>static</code> also allows its definition to appear in multiple source files. So, what&rsquo;s the difference between <code>inline</code> and <code>static</code>? The key difference is that <code>static</code> variables have internal linkage; each compilation unit has its own instance, and their addresses will differ across compilation units. Conversely, <code>inline</code> variables have external linkage, and the C++ standard guarantees that the address of the same <code>inline</code> variable will be identical across different compilation units.</p>
 
-<h2 class="relative group">Truly Singleton?
-    <div id="truly-singleton" class="anchor"></div>
+<h2 class="relative group">Truly a Singleton?
+    <div id="truly-a-singleton" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#truly-singleton" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#truly-a-singleton" aria-label="Anchor">#</a>
     </span>
     
 </h2>
-<p>Practice is the sole criterion for testing truth. Let&rsquo;s experiment to see if the C++ standard is truthful.</p>
-<p>Sample code:</p>
+<p>Practice is the sole criterion for testing truth. Let&rsquo;s experiment to see if the C++ standard is deceiving us.</p>
+<p>Example code is as follows</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kr">inline</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
@@ -1311,21 +1314,21 @@
 </span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;addreress of x in main: %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">foo</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>First, compile these two source files into an executable and test on Windows (MSVC) and Linux (GCC):</p>
+<p>Let&rsquo;s start simple: compile these two source files together into a single executable, and try it on Windows (MSVC) and Linux (GCC) respectively.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Windows:</span>
 </span></span><span class="line"><span class="cl">addreress of x in main: 00007FF7CF84C000
 </span></span><span class="line"><span class="cl">addreress of x in src: 00007FF7CF84C000
 </span></span><span class="line"><span class="cl"><span class="c1"># Linux:</span>
 </span></span><span class="line"><span class="cl">addreress of x in main: 0x404018
 </span></span><span class="line"><span class="cl">addreress of x in src: 0x404018</span></span></code></pre></div></div>
-<p>The addresses are indeed the same. Next, compile <code>src.cpp</code> into a dynamic library and link <code>main.cpp</code> to this library, then compile and run. Let&rsquo;s see if, as many say, it fails when encountering dynamic libraries. Note that on Windows, <code>foo</code> must be explicitly marked with <code>__declspec(dllexport)</code>, otherwise the dynamic library will not export this symbol.</p>
+<p>We can see that the addresses are indeed the same. Next, let&rsquo;s try compiling <code>src.cpp</code> into a dynamic library, and <code>main.cpp</code> links to this library, then compile and run. Let&rsquo;s see if it fails when dynamic libraries are involved, as many people claim. Note that on Windows, <code>__declspec(dllexport)</code> must be explicitly added to <code>foo</code>, otherwise the dynamic library will not export this symbol.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Windows:</span>
 </span></span><span class="line"><span class="cl">addreress of x in main: 00007FF72F3FC000
 </span></span><span class="line"><span class="cl">addreress of x in src: 00007FFC4D91C000
 </span></span><span class="line"><span class="cl"><span class="c1"># Linux:</span>
 </span></span><span class="line"><span class="cl">addreress of x in main: 0x404020
 </span></span><span class="line"><span class="cl">addreress of x in src: 0x404020</span></span></code></pre></div></div>
-<p>Oh no, why are the results different on Windows and Linux?</p>
+<p>Oh no, why are the situations different for Windows and Linux?</p>
 
 <h2 class="relative group">Symbol Export
     <div id="symbol-export" class="anchor"></div>
@@ -1336,8 +1339,8 @@
     </span>
     
 </h2>
-<p>Initially, I thought it was simply due to the default symbol export rules of dynamic libraries. GCC exports all symbols by default when compiling dynamic libraries, while MSVC does the opposite, exporting no symbols by default, requiring manual export. Clearly, only when a symbol is exported can the linker &ldquo;see&rdquo; it and then merge symbols from different dynamic libraries.</p>
-<p>With this in mind, I tried to find ways to customize symbol export on GCC and eventually found <a href="https://gcc.gnu.org/wiki/Visibility"  target="_blank" rel="noreferrer">Visibility - GCC Wiki</a>. Using <code>-fvisibility=hidden</code> during compilation makes symbols default to hidden (not exported). Then, use <code>__attribute__((visibility(&quot;default&quot;)))</code> or its C++ equivalent <code>[[gnu::visibility(&quot;default&quot;)]]</code> to explicitly mark symbols for export. Thus, I modified the code:</p>
+<p>Initially, I simply thought it was a problem with the dynamic library&rsquo;s default symbol export rules. Because when GCC compiles dynamic libraries, it exports all symbols by default. MSVC, on the other hand, does the opposite; it exports no symbols by default, and all must be exported manually. Clearly, only when a symbol is exported can the linker &lsquo;see&rsquo; it and then merge symbols from different dynamic libraries.</p>
+<p>With this idea, I tried to find ways to customize symbol export on GCC and eventually found <a href="https://gcc.gnu.org/wiki/Visibility"  target="_blank" rel="noreferrer">Visibility - GCC Wiki</a>. When compiling, using <code>-fvisibility=hidden</code> makes all symbols hidden (not exported) by default. Then, use <code>__attribute__((visibility(&quot;default&quot;)))</code> or its C++ equivalent <code>[[gnu::visibility(&quot;default&quot;)]]</code> to explicitly mark symbols that need to be exported. So I modified the code</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// src.cpp
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kr">inline</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
@@ -1357,21 +1360,21 @@
 </span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;addreress of x in main: %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">foo</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>Note, I only exported <code>foo</code> for function calls; neither <code>inline</code> variable was exported. Compile and run:</p>
+<p>Note that I only exported <code>foo</code> for function calls; neither of the <code>inline</code> variables were exported. Compile and run</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">addreress of x in main: 0x404020
 </span></span><span class="line"><span class="cl">addreress of x in src: 0x7f5a45513010</span></span></code></pre></div></div>
-<p>As expected, the addresses are different. This verifies that symbol export is a necessary condition for the linker to merge symbols, but not sufficient. If changing the default symbol export rules on Windows could make <code>inline</code> variables have the same address, sufficiency would be verified. Excitedly, I began to try, only to find things were not so simple.</p>
-<p>Noting that GCC on Windows (MinGW64 toolchain) still exports all symbols by default, the variable addresses should be the same. The result:</p>
+<p>As we expected, the addresses are indeed different. This verifies that: symbol export is a necessary condition for the linker to merge symbols, but not a sufficient one. If, on Windows, changing the default symbol export rules could lead to <code>inline</code> variables having the same address, then sufficiency would be verified. When I excitedly started trying, I found that things were not that simple.</p>
+<p>I noticed that GCC on Windows (MinGW64 toolchain) still exports all symbols by default, so according to my hypothesis, the variable addresses should be the same. The results of the attempt are as follows</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">addreress of x in main: 00007ff664a68130
 </span></span><span class="line"><span class="cl">addreress of x in src: 00007ffef4348110</span></span></code></pre></div></div>
-<p>The results are different. I didn&rsquo;t understand and thought it was a compiler bug. Switching to MSVC, I found that CMake provides a <a href="https://cmake.org/cmake/help/latest/prop_tgt/WINDOWS_EXPORT_ALL_SYMBOLS.html"  target="_blank" rel="noreferrer">CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS</a> option, which automatically exports all symbols (via dumpbin). Trying this, compiling and running, the result:</p>
+<p>It can be seen that the results are not the same. I didn&rsquo;t understand why and considered it a compiler bug. I then switched to MSVC and found that CMake provides a <a href="https://cmake.org/cmake/help/latest/prop_tgt/WINDOWS_EXPORT_ALL_SYMBOLS.html"  target="_blank" rel="noreferrer">CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS</a> option, which, when enabled, automatically exports all symbols (implemented via dumpbin). So I tried it, compiled and ran, and the results are as follows</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">addreress of x in main: 00007FF60B11C000
 </span></span><span class="line"><span class="cl">addreress of x in src: 00007FFEF434C000</span></span></code></pre></div></div>
-<p>Oh, the results are still different. I realized my guess was wrong. After much research, I couldn&rsquo;t find why. Later, I got the answer by asking in the C++ group on TG.</p>
-<p>Simply put, ELF does not distinguish which <code>.so</code> a symbol comes from; it uses the first loaded one, so multiple <code>inline</code> variables use the first loaded one. However, the PE file&rsquo;s symbol table specifies which <code>dll</code> a symbol is imported from, meaning if a variable is <code>dllexport</code>ed, the dll will always use its own variable. Even if multiple <code>dll</code>s <code>dllexport</code> the same variable, they cannot be merged; the format of dlls on Windows inherently prevents this.</p>
-<p>The issue of symbol resolution during dynamic library linking is actually much more complex, with many other scenarios, such as actively loading dynamic libraries via <code>dlopen</code> and other functions. If time permits, I may write a dedicated article to analyze this issue; for now, I won&rsquo;t elaborate further.</p>
+<p>Oh, the results are still different. I realized my hypothesis was flawed. But after searching for a long time, I couldn&rsquo;t find out why. Later, I asked in a C++ group on TG and finally got the answer.</p>
+<p>Simply put, in ELF, it doesn&rsquo;t distinguish which <code>.so</code> a symbol comes from; it uses whichever is loaded first. So, when encountering multiple <code>inline</code> variables, it uses the first one loaded. However, the symbol table of <code>PE</code> files specifies which <code>dll</code> a certain symbol is imported from. This means that as long as a variable is <code>dllexport</code>ed, that DLL will definitely use its own variable. Even if multiple <code>dll</code>s simultaneously <code>dllexport</code> the same variable, they cannot be merged; the DLL format on Windows restricts this from happening.</p>
+<p>The problem of symbol resolution during dynamic library linking can actually be much more complex, with many other scenarios, such as actively loading dynamic libraries via functions like <code>dlopen</code>. If I have time later, I might write a dedicated article to analyze this issue, so I won&rsquo;t elaborate further here.</p>
 
-<h2 class="relative group">What If Not Unique?
+<h2 class="relative group">What if Not Unique?
     <div id="what-if-not-unique" class="anchor"></div>
     
     <span
@@ -1380,9 +1383,9 @@
     </span>
     
 </h2>
-<p>Why ensure the uniqueness of &ldquo;singleton&rdquo; variables? Here, I use the C++ standard library as an example.</p>
-<p>We know that <a href="https://en.cppreference.com/w/cpp/types/type_info"  target="_blank" rel="noreferrer">type_info</a> can distinguish different types at runtime, and the standard library&rsquo;s <code>std::function</code> and <code>std::any</code> rely on it for type erasure. Its <code>constructor</code> and <code>operator=</code> are <code>deleted</code>, and we can only obtain the corresponding <code>type_info</code> object reference via <code>typeid(T)</code>, with object creation handled by the compiler.</p>
-<p>Doesn&rsquo;t this fully conform to the Singleton Pattern? The next question is, how does the compiler determine if two <code>type_info</code> objects are the same? A typical implementation is as follows:</p>
+<p>Why is it necessary to ensure the uniqueness of &lsquo;singleton&rsquo; variables? Let&rsquo;s take the C++ standard library as an example.</p>
+<p>As we all know, <a href="https://en.cppreference.com/w/cpp/types/type_info"  target="_blank" rel="noreferrer">type_info</a> can be used to distinguish different types at runtime, and type-erasure facilities like <code>std::function</code> and <code>std::any</code> in the standard library rely on it for implementation. Its <code>constructor</code> and <code>operator=</code> are <code>deleted</code>, so we can only obtain a reference to the corresponding <code>type_info</code> object via <code>typeid(T)</code>, with object creation handled by the compiler.</p>
+<p>Well, doesn&rsquo;t that perfectly fit the Singleton Pattern? The next question is, how does the compiler determine if two <code>type_info</code> objects are the same? A typical implementation is as follows</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#if _PLATFORM_SUPPORTS_UNIQUE_TYPEINFO
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">type_info</span><span class="o">&amp;</span> <span class="n">__rhs</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">__mangled_name</span> <span class="o">==</span> <span class="n">__rhs</span><span class="p">.</span><span class="n">__mangled_name</span><span class="p">;</span>
@@ -1393,27 +1396,27 @@
 </span></span><span class="line"><span class="cl">             <span class="n">strcmp</span><span class="p">(</span><span class="n">__mangled_name</span><span class="p">,</span> <span class="n">__rhs</span><span class="p">.</span><span class="n">__mangled_name</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#endif</span></span></span></code></pre></div></div>
-<p>The above code is straightforward. If <code>type_info</code> addresses are guaranteed unique, directly compare <code>__mangled_name</code> (it&rsquo;s <code>const char*</code>, so pointer comparison). Otherwise, compare addresses first, then type names. Specific to the three major standard library implementations:</p>
+<p>The code above is easy to understand: if the address of <code>type_info</code> is guaranteed to be unique, then directly comparing <code>__mangled_name</code> is sufficient (since it&rsquo;s <code>const char*</code>, it&rsquo;s a pointer comparison). Otherwise, compare the addresses first, then the type names. Specifically, for the implementations of the three major standard libraries:</p>
 <ul>
-<li><a href="https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/libsupc%2B%2B/tinfo.cc#L39"  target="_blank" rel="noreferrer">libstdc++</a> uses <code>__GXX_MERGED_TYPEINFO_NAMES</code> to control enabling.</li>
-<li><a href="https://github.com/llvm/llvm-project/blob/main/libcxx/include/typeinfo#L197"  target="_blank" rel="noreferrer">libc++</a> uses <code>_LIBCPP_TYPEINFO_COMPARATION_IMPLEMENTATION</code> to decide the approach (actually, there&rsquo;s a special BIT_FLAG mode).</li>
-<li>msvc stl (crt/src/vcruntime/std_type_info.cpp) always uses the second method due to the aforementioned Windows dll limitations.</li>
+<li><a href="https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/libsupc%2B%2B/tinfo.cc#L39"  target="_blank" rel="noreferrer">libstdc++</a> uses <code>__GXX_MERGED_TYPEINFO_NAMES</code> to control whether it&rsquo;s enabled.</li>
+<li><a href="https://github.com/llvm/llvm-project/blob/main/libcxx/include/typeinfo#L197"  target="_blank" rel="noreferrer">libc++</a> uses <code>_LIBCPP_TYPEINFO_COMPARATION_IMPLEMENTATION</code> to determine the approach (there&rsquo;s also a special BIT_FLAG mode).</li>
+<li>msvc stl (crt/src/vcruntime/std_type_info.cpp) always uses the second approach due to the aforementioned DLL limitations on Windows.</li>
 </ul>
-<p>The purpose of this example is to illustrate that the uniqueness of singleton variable addresses affects how we write code. If not unique, we might be forced to write defensive code, potentially impacting performance, and if not written, it could directly cause logical errors.</p>
+<p>The purpose of this example is to illustrate that the uniqueness of a singleton variable&rsquo;s address affects how we write our code. If it&rsquo;s not unique, we might be forced to write defensive code, which could impact performance, and if not written, it could even directly lead to logical errors.</p>
 
-<h2 class="relative group">Solutions
-    <div id="solutions" class="anchor"></div>
+<h2 class="relative group">Solution
+    <div id="solution" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#solutions" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#solution" aria-label="Anchor">#</a>
     </span>
     
 </h2>
-<p>Merely raising problems is not enough; solutions are needed. How to ensure singleton uniqueness?</p>
-<p>On Linux, it&rsquo;s simple. If the same variable appears in multiple dynamic libraries, ensure all these dynamic libraries set this symbol to be externally visible. The compiler&rsquo;s default behavior is external visibility, so this issue is generally not a concern.</p>
-<p>On Windows, it&rsquo;s more complicated. Ensure only one dll uses <code>dllexport</code> to export this symbol, and all other dlls must use <code>dllimport</code>. This is often tricky; you might forget which dll is responsible for exporting the symbol. What to do? Use a dedicated dll to manage all singleton variables, meaning this dll is responsible for <code>dllexport</code>ing all singleton variables, while other dlls only <code>dllimport</code>. Adding and modifying variables are done in this dll, making management easier.</p>
-<p>This concludes the article. Honestly, I&rsquo;m not sure if the above discussion covers all scenarios. If there are errors, please leave a comment for discussion.</p>
+<p>Just raising problems isn&rsquo;t enough; they need to be solved. How can we ensure singleton uniqueness?</p>
+<p>On Linux, it&rsquo;s simple: if the same variable appears in multiple dynamic libraries, you just need to ensure that all these dynamic libraries make this symbol externally visible. And the compiler&rsquo;s default behavior is to make symbols externally visible, so there&rsquo;s generally no need to worry about this issue.</p>
+<p>What about Windows? It&rsquo;s very troublesome. You must ensure that only one DLL uses <code>dllexport</code> to export this symbol, and all other DLLs must use <code>dllimport</code>. This is often not easy to do; you might forget which DLL is responsible for exporting this symbol as you write code. What to do then? The solution is to use a dedicated DLL to manage all singleton variables. This means this DLL is responsible for <code>dllexport</code>ing all singleton variables, and all other DLLs simply <code>dllimport</code> them. Subsequent additions and modifications are then made within this DLL, making it easier to manage.</p>
+<p>This concludes the article. Honestly, I&rsquo;m not sure if the discussion above covers all scenarios. If there are any errors, feel free to leave a comment for discussion.</p>
 
           
           
@@ -1431,7 +1434,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/en/articles/696878184/&amp;title=Is%20the%20Singleton%20Pattern%20in%20C&#43;&#43;%20Truly%20%22Singleton%22?"
+          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/en/articles/696878184/&amp;title=Is%20the%20singleton%20pattern%20in%20C&#43;&#43;%20truly%20a%20%27singleton%27?"
           
           title="Share on LinkedIn"
           aria-label="Share on LinkedIn">
@@ -1445,7 +1448,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/en/articles/696878184/&amp;text=Is%20the%20Singleton%20Pattern%20in%20C&#43;&#43;%20Truly%20%22Singleton%22?"
+          href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/en/articles/696878184/&amp;text=Is%20the%20singleton%20pattern%20in%20C&#43;&#43;%20truly%20a%20%27singleton%27?"
           
           title="Tweet on Twitter"
           aria-label="Tweet on Twitter">
@@ -1458,7 +1461,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://reddit.com/submit/?url=https://www.ykiko.me/en/articles/696878184/&amp;resubmit=true&amp;title=Is%20the%20Singleton%20Pattern%20in%20C&#43;&#43;%20Truly%20%22Singleton%22?"
+          href="https://reddit.com/submit/?url=https://www.ykiko.me/en/articles/696878184/&amp;resubmit=true&amp;title=Is%20the%20singleton%20pattern%20in%20C&#43;&#43;%20truly%20a%20%27singleton%27?"
           
           title="Submit to Reddit"
           aria-label="Submit to Reddit">
@@ -1472,7 +1475,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://api.whatsapp.com/send?text=https://www.ykiko.me/en/articles/696878184/&amp;resubmit=true&amp;title=Is%20the%20Singleton%20Pattern%20in%20C&#43;&#43;%20Truly%20%22Singleton%22?"
+          href="https://api.whatsapp.com/send?text=https://www.ykiko.me/en/articles/696878184/&amp;resubmit=true&amp;title=Is%20the%20singleton%20pattern%20in%20C&#43;&#43;%20truly%20a%20%27singleton%27?"
           
           title="Share via WhatsApp"
           aria-label="Share via WhatsApp">
@@ -1486,7 +1489,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://t.me/share/url?url=https://www.ykiko.me/en/articles/696878184/&amp;resubmit=true&amp;title=Is%20the%20Singleton%20Pattern%20in%20C&#43;&#43;%20Truly%20%22Singleton%22?"
+          href="https://t.me/share/url?url=https://www.ykiko.me/en/articles/696878184/&amp;resubmit=true&amp;title=Is%20the%20singleton%20pattern%20in%20C&#43;&#43;%20truly%20a%20%27singleton%27?"
           
           title="Share via Telegram"
           aria-label="Share via Telegram">
@@ -1500,7 +1503,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/en/articles/696878184/&amp;description=Is%20the%20Singleton%20Pattern%20in%20C&#43;&#43;%20Truly%20%22Singleton%22?"
+          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/en/articles/696878184/&amp;description=Is%20the%20singleton%20pattern%20in%20C&#43;&#43;%20truly%20a%20%27singleton%27?"
           
           title="Pin on Pinterest"
           aria-label="Pin on Pinterest">
@@ -1514,7 +1517,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/en/articles/696878184/&amp;quote=Is%20the%20Singleton%20Pattern%20in%20C&#43;&#43;%20Truly%20%22Singleton%22?"
+          href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/en/articles/696878184/&amp;quote=Is%20the%20singleton%20pattern%20in%20C&#43;&#43;%20truly%20a%20%27singleton%27?"
           
           title="Share on Facebook"
           aria-label="Share on Facebook">
@@ -1531,7 +1534,7 @@
           href="#"
           
             data-email=""
-            data-subject="Reply to Is the Singleton Pattern in C&#43;&#43; Truly &#39;Singleton&#39;?"
+            data-subject="Reply to Is the singleton pattern in C&#43;&#43; truly a &#39;singleton&#39;?"
           
           title="Send via email"
           aria-label="Send via email">
@@ -1567,12 +1570,12 @@
               class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
               href="/en/articles/694365783/">
               <span class="leading-6">
-                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;Super Useful C++ Online Compiler (VSCode Edition)
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;Super easy-to-use C++ Online Compiler (VSCode Version)
               </span>
             </a>
             
               <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2024-04-24T21:35:41&#43;00:00">24 April 2024</time>
+                <time datetime="2024-04-24T13:35:41&#43;00:00">24 April 2024</time>
               </span>
             
           
@@ -1583,12 +1586,12 @@
               class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
               href="/en/articles/702197261/">
               <span class="leading-6">
-                The Perfect Integration of Python and C++: Object Design in pybind11&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+                The Perfect Combination of Python and C++: Object Design in pybind11&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
             </a>
             
               <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2024-06-07T15:28:11&#43;00:00">7 June 2024</time>
+                <time datetime="2024-06-07T07:28:11&#43;00:00">7 June 2024</time>
               </span>
             
           

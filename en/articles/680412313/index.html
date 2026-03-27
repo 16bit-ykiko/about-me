@@ -15,8 +15,8 @@
 
   
   
-    <title>How to Elegantly Convert Enum to String in C&#43;&#43;? &middot; ykiko&#39;s blog</title>
-    <meta name="title" content="How to Elegantly Convert Enum to String in C&#43;&#43;? &middot; ykiko&#39;s blog">
+    <title>How to elegantly convert enum to string in C&#43;&#43;? &middot; ykiko&#39;s blog</title>
+    <meta name="title" content="How to elegantly convert enum to string in C&#43;&#43;? &middot; ykiko&#39;s blog">
   
 
   
@@ -68,24 +68,22 @@
   
   <meta property="og:url" content="https://www.ykiko.me/en/articles/680412313/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="How to Elegantly Convert Enum to String in C&#43;&#43;?">
-  <meta property="og:description" content="Avoid Hardcoding # Define an enum
-enum Color { RED, GREEN, BLUE }; Attempt to print
-Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 0 If we need to output enums as logs, we don’t want to manually look up the corresponding strings based on the enum values when reviewing the logs, as it is cumbersome and unintuitive. We hope to directly output the strings corresponding to the enum values, such as RED, GREEN, BLUE.">
+  <meta property="og:title" content="How to elegantly convert enum to string in C&#43;&#43;?">
+  <meta property="og:description" content="This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+no hard code # Define an enum">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2024-01-29T17:03:28+00:00">
-    <meta property="article:modified_time" content="2024-01-29T17:03:28+00:00">
+    <meta property="article:published_time" content="2024-01-29T09:03:28+00:00">
+    <meta property="article:modified_time" content="2024-01-29T09:03:28+00:00">
     <meta property="og:image" content="https://www.ykiko.me/en/articles/680412313/featured.png">
 
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/en/articles/680412313/featured.png">
-  <meta name="twitter:title" content="How to Elegantly Convert Enum to String in C&#43;&#43;?">
-  <meta name="twitter:description" content="Avoid Hardcoding # Define an enum
-enum Color { RED, GREEN, BLUE }; Attempt to print
-Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 0 If we need to output enums as logs, we don’t want to manually look up the corresponding strings based on the enum values when reviewing the logs, as it is cumbersome and unintuitive. We hope to directly output the strings corresponding to the enum values, such as RED, GREEN, BLUE.">
+  <meta name="twitter:title" content="How to elegantly convert enum to string in C&#43;&#43;?">
+  <meta name="twitter:description" content="This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+no hard code # Define an enum">
 
   
   
@@ -238,8 +236,8 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Articles",
-    "name": "How to Elegantly Convert Enum to String in C\u002b\u002b?",
-    "headline": "How to Elegantly Convert Enum to String in C\u002b\u002b?",
+    "name": "How to elegantly convert enum to string in C\u002b\u002b?",
+    "headline": "How to elegantly convert enum to string in C\u002b\u002b?",
     
     "inLanguage": "en",
     "url" : "https://www.ykiko.me/en/articles/680412313/",
@@ -248,15 +246,15 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
       "name": "ykiko"
     },
     "copyrightYear": "2024",
-    "dateCreated": "2024-01-29T17:03:28\u002b00:00",
-    "datePublished": "2024-01-29T17:03:28\u002b00:00",
+    "dateCreated": "2024-01-29T09:03:28\u002b00:00",
+    "datePublished": "2024-01-29T09:03:28\u002b00:00",
     
-    "dateModified": "2024-01-29T17:03:28\u002b00:00",
+    "dateModified": "2024-01-29T09:03:28\u002b00:00",
     
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "1493"
+    "wordCount": "1538"
   }]
   </script>
 
@@ -411,20 +409,20 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
         <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
     <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg></span>
       </span>
-      <span class="text-sm font-medium bf-icon-color-hover" title="How to Elegantly Convert Enum to String in C&#43;&#43;?">EN</span>
+      <span class="text-sm font-medium bf-icon-color-hover" title="How to elegantly convert enum to string in C&#43;&#43;?">EN</span>
     </button>
     <ul class="menuhide">
       <li class="rounded-xl backdrop-blur shadow-2xl p-2 flex flex-col gap-1">
         
-          <a href="/en/articles/680412313/" class="flex items-center bf-icon-color-hover px-3 py-1">
-            <span class="text-sm font-sm" title="How to Elegantly Convert Enum to String in C&#43;&#43;?">
-              English
-            </span>
-          </a>
-        
           <a href="/zh-cn/articles/680412313/" class="flex items-center bf-icon-color-hover px-3 py-1">
             <span class="text-sm font-sm" title="C&#43;&#43; 中如何优雅进行 enum 到 string 的转换 ？">
               简体中文
+            </span>
+          </a>
+        
+          <a href="/en/articles/680412313/" class="flex items-center bf-icon-color-hover px-3 py-1">
+            <span class="text-sm font-sm" title="How to elegantly convert enum to string in C&#43;&#43;?">
+              English
             </span>
           </a>
         
@@ -587,20 +585,20 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
         <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
     <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg></span>
       </span>
-      <span class="text-sm font-medium bf-icon-color-hover" title="How to Elegantly Convert Enum to String in C&#43;&#43;?">EN</span>
+      <span class="text-sm font-medium bf-icon-color-hover" title="How to elegantly convert enum to string in C&#43;&#43;?">EN</span>
     </button>
     <ul class="menuhide">
       <li class="rounded-xl backdrop-blur shadow-2xl p-2 flex flex-col gap-1">
         
-          <a href="/en/articles/680412313/" class="flex items-center bf-icon-color-hover px-3 py-1">
-            <span class="text-sm font-sm" title="How to Elegantly Convert Enum to String in C&#43;&#43;?">
-              English
-            </span>
-          </a>
-        
           <a href="/zh-cn/articles/680412313/" class="flex items-center bf-icon-color-hover px-3 py-1">
             <span class="text-sm font-sm" title="C&#43;&#43; 中如何优雅进行 enum 到 string 的转换 ？">
               简体中文
+            </span>
+          </a>
+        
+          <a href="/en/articles/680412313/" class="flex items-center bf-icon-color-hover px-3 py-1">
+            <span class="text-sm font-sm" title="How to elegantly convert enum to string in C&#43;&#43;?">
+              English
             </span>
           </a>
         
@@ -772,7 +770,7 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
   
   <li class="hidden">
     <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/en/articles/680412313/"
-      >How to Elegantly Convert Enum to String in C&#43;&#43;?</a
+      >How to elegantly convert enum to string in C&#43;&#43;?</a
     ><span class="px-1 text-primary-500">/</span>
   </li>
 
@@ -781,7 +779,7 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
 
       
       <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-        How to Elegantly Convert Enum to String in C++?
+        How to elegantly convert enum to string in C++?
       </h1>
       <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
         
@@ -837,7 +835,7 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2024-01-29T17:03:28&#43;00:00">29 January 2024</time><span class="px-2 text-primary-500">&middot;</span><span>1493 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">8 mins</span><span class="px-2 text-primary-500">&middot;</span>
+      <time datetime="2024-01-29T09:03:28&#43;00:00">29 January 2024</time><span class="px-2 text-primary-500">&middot;</span><span>1538 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">8 mins</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1073,11 +1071,11 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
     class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#avoid-hardcoding">Avoid Hardcoding</a></li>
-    <li><a href="#template-table-generation">Template Table Generation</a></li>
-    <li><a href="#external-code-generation">External Code Generation</a></li>
-    <li><a href="#macros">Macros</a></li>
-    <li><a href="#summary">Summary</a></li>
+    <li><a href="#no-hard-code">no hard code</a></li>
+    <li><a href="#template">template</a></li>
+    <li><a href="#code-generation">code generation</a></li>
+    <li><a href="#xmacro">xmacro</a></li>
+    <li><a href="#conclusion">conclusion</a></li>
   </ul>
 </nav>
   </div>
@@ -1091,11 +1089,11 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
     class="py-2 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#avoid-hardcoding">Avoid Hardcoding</a></li>
-    <li><a href="#template-table-generation">Template Table Generation</a></li>
-    <li><a href="#external-code-generation">External Code Generation</a></li>
-    <li><a href="#macros">Macros</a></li>
-    <li><a href="#summary">Summary</a></li>
+    <li><a href="#no-hard-code">no hard code</a></li>
+    <li><a href="#template">template</a></li>
+    <li><a href="#code-generation">code generation</a></li>
+    <li><a href="#xmacro">xmacro</a></li>
+    <li><a href="#conclusion">conclusion</a></li>
   </ul>
 </nav>
   </div>
@@ -1212,13 +1210,14 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
         
 
         <div class="article-content max-w-prose mb-20">
-          
-<h2 class="relative group">Avoid Hardcoding
-    <div id="avoid-hardcoding" class="anchor"></div>
+          <blockquote><p>This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.</p>
+</blockquote>
+<h2 class="relative group">no hard code
+    <div id="no-hard-code" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#avoid-hardcoding" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#no-hard-code" aria-label="Anchor">#</a>
     </span>
     
 </h2>
@@ -1228,32 +1227,35 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
 </span></span><span class="line"><span class="cl">    <span class="n">GREEN</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">BLUE</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>Attempt to print</p>
+<p>Try to print</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Color</span> <span class="n">color</span> <span class="o">=</span> <span class="n">RED</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">color</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// output =&gt; 0
 </span></span></span></code></pre></div></div>
-<p>If we need to output enums as logs, we don&rsquo;t want to manually look up the corresponding strings based on the enum values when reviewing the logs, as it is cumbersome and unintuitive. We hope to directly output the strings corresponding to the enum values, such as <code>RED</code>, <code>GREEN</code>, <code>BLUE</code>.</p>
-<p>Consider using an array as a <code>map</code>, where the enum values are the <code>keys</code> and the strings are the <code>values</code>. This way, we can directly find the corresponding string through the enum value.</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">color_map</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;RED&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;GREEN&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;BLUE&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>However, when there are many enums, writing them manually is inconvenient and very tedious. <strong>Specifically, if we want to add several enum definitions, the corresponding content in the string mapping table also needs to be modified. When the number reaches hundreds, there may be omissions. Or, when taking over someone else&rsquo;s project, you might find a large number of enums, making manual writing very time-consuming.</strong></p>
-<p>We need to find a solution that can automatically make the relevant modifications. In other languages like Java, C#, and Python, this functionality can be easily achieved through reflection. However, C++ currently does not have reflection, so this approach is not feasible. Currently, there are three main solutions to this problem.</p>
+<p>If we need enums as log output, we don&rsquo;t want to manually look up the corresponding string based on the enum value when viewing logs, which is troublesome and not intuitive. We want to directly output the string corresponding to the enum value, such as <code>RED</code>, <code>GREEN</code>, <code>BLUE</code>.</p>
+<p>Manually write a <code>switch</code> to convert enum to string</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">enum_to_string</span><span class="p">(</span><span class="n">Color</span> <span class="n">color</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="n">Color</span><span class="o">::</span><span class="nl">RED</span><span class="p">:</span> <span class="k">return</span> <span class="s">&#34;RED&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="n">Color</span><span class="o">::</span><span class="nl">GREEN</span><span class="p">:</span> <span class="k">return</span> <span class="s">&#34;GREEN&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="n">Color</span><span class="o">::</span><span class="nl">BLUE</span><span class="p">:</span> <span class="k">return</span> <span class="s">&#34;BLUE&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;Unknown&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>However, when there are many enums, manual writing is not convenient and very tedious. <strong>Specifically, if we want to add several enum definitions, the corresponding content in the string mapping table also needs to be modified. When the number reaches hundreds, omissions are very likely. Or if we take over someone else&rsquo;s project and find that they have a lot of enums, with too much content, manual writing is very time-consuming.</strong></p>
+<p>We need to find a solution that can automatically make the relevant modifications. In other languages, such as Java, C#, and Python, this functionality can be easily achieved through reflection. However, C++ currently does not have reflection, so this path is blocked. Currently, there are three main solutions to this problem.</p>
 
-<h2 class="relative group">Template Table Generation
-    <div id="template-table-generation" class="anchor"></div>
+<h2 class="relative group">template
+    <div id="template" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#template-table-generation" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#template" aria-label="Anchor">#</a>
     </span>
     
 </h2>
-<p>The content introduced in this section has already been encapsulated by someone else and can be directly used via the <a href="https://github.com/Neargye/magic_enum"  target="_blank" rel="noreferrer">magic enum</a> library. Below is mainly an analysis of the principles of this library. For convenience, it will be implemented in C++20, although C++17 is actually sufficient.</p>
-<p>In the three major compilers, there are some special <strong>macro variables</strong>. <code>__PRETTY_FUNCTION__</code> in GCC and Clang, and <code>__FUNCSIG__</code> in MSVC. These macro variables are <strong>replaced with the function signature during compilation</strong>. If the function is a template function, the template instantiation information will also be output (you can also use <a href="https://en.cppreference.com/w/cpp/utility/source_location/function_name"  target="_blank" rel="noreferrer">source_location</a> added in C++20, which has a similar effect to these macros).</p>
+<p>The content introduced in this section has already been encapsulated by others, and you can directly use the <a href="https://github.com/Neargye/magic_enum"  target="_blank" rel="noreferrer">magic_enum</a> library. The following mainly analyzes the principle of this library. For convenience of demonstration, it will be implemented with C++20, but C++17 is actually sufficient.</p>
+<p>In the three major mainstream compilers, there are some special <strong>macro variables</strong>. <code>__PRETTY_FUNCTION__</code> in GCC and Clang, and <code>__FUNCSIG__</code> in MSVC. These macro variables will be <strong>replaced with the function signature during compilation</strong>. If the function is a template function, the template instantiation information will also be output (you can also use <code>source_location</code> added to the C++20 standard, which has a similar effect to these macros).</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">print_fn</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#if __GNUC__ || __clang__
@@ -1263,11 +1265,11 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
 </span></span><span class="line"><span class="cl"><span class="cp">#endif
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">print_fn</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">();</span> 
+</span></span><span class="line"><span class="cl"><span class="n">print_fn</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// gcc and clang =&gt; void print_fn() [with T = int]
 </span></span></span><span class="line"><span class="cl"><span class="c1">// msvc =&gt; void __cdecl print_fn&lt;int&gt;(void)
 </span></span></span></code></pre></div></div>
-<p>Specifically, when the template parameter is an enum constant, the name of the enum constant will be output.</p>
+<p>In particular, when the template parameter is an enum constant, the name of the enum constant will be output.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">print_fn</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#if __GNUC__ || __clang__
@@ -1287,7 +1289,7 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
 </span></span><span class="line"><span class="cl"><span class="c1">// gcc and clang =&gt; void print_fn() [with auto T = RED]
 </span></span></span><span class="line"><span class="cl"><span class="c1">// msvc =&gt; void __cdecl print_fn&lt;RED&gt;(void)
 </span></span></span></code></pre></div></div>
-<p>It can be observed that the enum name appears at a specific position. Through simple string trimming, we can obtain the desired content.</p>
+<p>As you can see, the enum name appears in a specific position. By simple string trimming, we can get the content we want.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">auto</span> <span class="n">value</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">enum_name</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">name</span><span class="p">;</span>
@@ -1319,13 +1321,13 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">enum_name</span><span class="o">&lt;</span><span class="n">RED</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// output =&gt; RED
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
-<p>Successfully meets our requirements. However, this is not the end. This form requires the enum to be a template parameter, meaning it only supports compile-time constants. But in most cases, we use enums as runtime variables. What to do? Convert static to dynamic by generating a table. Consider generating an <code>array</code> through template metaprogramming, where each element is the string representation of the enum corresponding to the <code>index</code>. One issue is determining the size of this array, which requires us to obtain the number of enum items. <strong>A straightforward method is to define a pair of start and end markers in the enum, so that the maximum number of enums can be obtained by subtraction</strong>. However, often we cannot modify the enum definition. Fortunately, there is a small trick to solve this problem.</p>
+<p>This successfully meets our needs. But the story doesn&rsquo;t end here; this form requires the enum to be a template parameter, which means it only supports compile-time constants. However, most of the time, the enums we use are runtime variables. What to do? To convert static to dynamic, we just need to create a lookup table. Consider generating an <code>array</code> through template metaprogramming, where each element is the string representation of the enum corresponding to its <code>index</code>. One problem is how large this array should be, which requires us to get the number of enum items. <strong>A more direct approach is to define a pair of start and end markers directly within the enum, so that subtracting them directly gives the maximum number of enums.</strong> However, often we cannot modify the enum definition. Fortunately, there is a small trick to solve this problem.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="n">Color</span> <span class="n">color</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Color</span><span class="o">&gt;</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">enum_name</span><span class="o">&lt;</span><span class="n">color</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// output =&gt; (Color)2
 </span></span></span></code></pre></div></div>
-<p>It can be seen that if the integer does not have a corresponding enum item, the output will not be the corresponding enum name but a cast expression with parentheses. Therefore, by checking if the obtained string contains <code>)</code>, we can determine if the corresponding enum item exists. Recursive judgment can find the maximum enum value (this method has limited applicability, such as for scattered enum values, it may be more difficult).</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span> 
+<p>As you can see, if an integer does not have a corresponding enum item, then the corresponding enum name will not be output, but rather a parenthesized cast expression. This way, we just need to check if the resulting string contains <code>)</code> to know if the corresponding enum item exists. We can recursively determine the largest enum value (this search method has limited applicability, e.g., for scattered enum values, it might be relatively difficult).</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">enum_max</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">value</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">N</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">enum_name</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span><span class="p">().</span><span class="n">find</span><span class="p">(</span><span class="s">&#34;)&#34;</span><span class="p">)</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
@@ -1333,18 +1335,18 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
 </span></span><span class="line"><span class="cl">    <span class="k">else</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">N</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>Then generate a corresponding length array through <code>make_index_sequence</code>.</p>
+<p>Then, generate a corresponding length array using <code>make_index_sequence</code>.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="k">requires</span> <span class="n">std</span><span class="o">::</span><span class="n">is_enum_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">enum_name</span><span class="p">(</span><span class="n">T</span> <span class="n">value</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">num</span> <span class="o">=</span> <span class="n">enum_max</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">...</span> <span class="n">Is</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">index_sequence</span><span class="o">&lt;</span><span class="n">Is</span><span class="p">...</span><span class="o">&gt;</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">,</span> <span class="n">num</span><span class="o">&gt;</span><span class="p">{</span> 
-</span></span><span class="line"><span class="cl">            <span class="n">enum_name</span><span class="o">&lt;</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Is</span><span class="p">)</span><span class="o">&gt;</span><span class="p">()...</span> 
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">,</span> <span class="n">num</span><span class="o">&gt;</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">enum_name</span><span class="o">&lt;</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Is</span><span class="p">)</span><span class="o">&gt;</span><span class="p">()...</span>
 </span></span><span class="line"><span class="cl">        <span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}(</span><span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="n">num</span><span class="o">&gt;</span><span class="p">{});</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">names</span><span class="p">[</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">)];</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>Test it</p>
+<p>Let&rsquo;s test it.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">enum</span> <span class="nc">Color</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">RED</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">GREEN</span><span class="p">,</span>
@@ -1356,19 +1358,19 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">enum_name</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// output =&gt; RED
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
-<p>Further, consider supporting bitwidth enums, such as <code>RED | BLUE</code>, which will not be expanded here.</p>
-<p>The disadvantage of this method is obvious. Generating tables through template instantiation can significantly slow down compilation speed. If there are many enums, on compilers with low constant evaluation efficiency, such as MSVC, it may increase compilation time by <strong>tens of seconds or even longer</strong>. Therefore, it is generally only suitable for small enums. The advantage is that it is lightweight and ready to use without any additional work.</p>
+<p>Further, we could consider supporting bitwidth enums, i.e., enums of the form <code>RED | BLUE</code>, but we won&rsquo;t go into that here.</p>
+<p>The disadvantage of this method is obvious: generating a lookup table through template instantiation can significantly slow down compilation. If the number of items in the <code>enum</code> is large, on some compilers with low constant evaluation efficiency, such as MSVC, it may increase compilation time by <strong>tens of seconds or even longer</strong>. Therefore, it is generally only suitable for small enums. The advantage is that it is lightweight and ready to use, requiring no other actions.</p>
 
-<h2 class="relative group">External Code Generation
-    <div id="external-code-generation" class="anchor"></div>
+<h2 class="relative group">code generation
+    <div id="code-generation" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#external-code-generation" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#code-generation" aria-label="Anchor">#</a>
     </span>
     
 </h2>
-<p>Since manually writing string-to-enum conversions is troublesome, why not write a script to generate the code? Indeed, we can easily accomplish this using the python bindings of libclang. For specific usage of this tool, refer to <a href="https://www.ykiko.me/zh-cn/articles/669360731"  target="_blank" rel="noreferrer">Use Clang Tools to Freely Manipulate C++ Code</a>. Below is only the code to demonstrate the effect.</p>
+<p>Since manually writing string-to-enum conversions is troublesome, why not write a script to generate the code? Indeed, we can easily accomplish this using libclang&rsquo;s Python bindings. For details on how to use this tool, you can refer to <a href="https://www.ykiko.me/en/articles/669360731"  target="_blank" rel="noreferrer">Use clang tools to freely control C++ code</a>. Below, only the code demonstrating the effect is shown.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">clang.cindex</span> <span class="k">as</span> <span class="nn">CX</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">generate_enum_to_string</span><span class="p">(</span><span class="n">enum</span><span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">Cursor</span><span class="p">):</span>
@@ -1376,9 +1378,11 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">enum</span><span class="o">.</span><span class="n">get_children</span><span class="p">():</span>
 </span></span><span class="line"><span class="cl">        <span class="n">branchs</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;case </span><span class="si">{</span><span class="n">child</span><span class="o">.</span><span class="n">enum_value</span><span class="si">}</span><span class="s1">: return &#34;</span><span class="si">{</span><span class="n">child</span><span class="o">.</span><span class="n">spelling</span><span class="si">}</span><span class="s1">&#34;;</span><span class="se">\n</span><span class="s1">&#39;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">code</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">std::string_view </span><span class="si">{</span><span class="n">enum</span><span class="o">.</span><span class="n">spelling</span><span class="si">}</span><span class="s2">_to_string(</span><span class="si">{</span><span class="n">enum</span><span class="o">.</span><span class="n">spelling</span><span class="si">}</span><span class="s2"> value) </span><span class="se">{{</span><span class="s2">
-</span></span></span><span class="line"><span class="cl"><span class="s2">    switch(value) </span><span class="se">{{</span><span class="s2">
-</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="si">{</span><span class="n">branchs</span><span class="si">}</span><span class="se">}}}}</span><span class="s2">&#34;&#34;&#34;</span>
+</span></span></span><span class="line"><span class="cl"><span class="s2">std::string_view </span><span class="si">{</span><span class="n">enum</span><span class="o">.</span><span class="n">spelling</span><span class="si">}</span><span class="s2">_to_string(</span><span class="si">{</span><span class="n">enum</span><span class="o">.</span><span class="n">spelling</span><span class="si">}</span><span class="s2"> color) </span><span class="se">{{</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    switch(color) </span><span class="se">{{</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="si">{</span><span class="n">branchs</span><span class="si">}</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    </span><span class="se">}}</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="se">}}</span><span class="s2">&#34;&#34;&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">code</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">traverse</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">CX</span><span class="o">.</span><span class="n">Cursor</span><span class="p">):</span>
@@ -1399,25 +1403,26 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
 </span></span><span class="line"><span class="cl">    <span class="n">GREEN</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">BLUE</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>This is the final generated code, which can be directly generated into a <code>.cpp</code> file, placed in a fixed directory, and then run this script before building.</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">enum_to_string</span><span class="p">(</span><span class="n">Color</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">switch</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+<p>This is the final generated code. You can directly generate a <code>.cpp</code> file, place it in a fixed directory, and then run this script before building.</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">enum_to_string</span><span class="p">(</span><span class="n">Color</span> <span class="n">color</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;RED&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;BLUE&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="mi">2</span><span class="o">:</span> <span class="k">return</span> <span class="s">&#34;GREEN&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}}</span></span></span></code></pre></div></div>
-<p>Advantages: Non-intrusive, suitable for large numbers of enums. Disadvantages: External dependencies, need to add code generation to the build process, which may complicate the build process.</p>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Advantages: Non-intrusive, can be used for a large number of enums. Disadvantages: Has external dependencies, requires integrating code generation into the build process. This might make the build process very complex.</p>
 
-<h2 class="relative group">Macros
-    <div id="macros" class="anchor"></div>
+<h2 class="relative group">xmacro
+    <div id="xmacro" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#macros" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#xmacro" aria-label="Anchor">#</a>
     </span>
     
 </h2>
-<p>The above two methods are non-intrusive. That is, you might get someone else&rsquo;s library and cannot modify its code, so you have to do it this way. What if the enums are entirely defined by yourself? You can handle them specially during the definition phase to facilitate subsequent use. For example (the comment at the beginning of the code indicates the current file name):</p>
+<p>The above two methods are non-intrusive. That is, you might get someone else&rsquo;s library and cannot modify its code, so you have to do it this way. What if you define the enums yourself entirely? In fact, you can handle them specially during the definition phase to facilitate subsequent use. For example (comments at the beginning of the code indicate the current filename):</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Color.def
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#ifndef COLOR_ENUM
 </span></span></span><span class="line"><span class="cl"><span class="cp">#define COLOR_ENUM(...)
@@ -1428,7 +1433,7 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
 </span></span><span class="line"><span class="cl"><span class="n">COLOR_ENUM</span><span class="p">(</span><span class="n">BLUE</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cp">#undef COLOR_ENUM</span></span></span></code></pre></div></div>
-<p>Then, where you need to use it, modify the macro definition to generate the code.</p>
+<p>Then, where it needs to be used, you can generate code by modifying the macro definition.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Color.h
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">enum</span> <span class="nc">Color</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#define COLOR_ENUM(x) x,
@@ -1441,23 +1446,23 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;Color.def&#34;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>In this way, you only need to add and modify the relevant content in the <code>def</code> file. Later, if you need to traverse the <code>enum</code>, you can directly define a macro to generate the code, which is very convenient. In fact, for large numbers of enums, many open-source projects adopt this approach. For example, when defining <code>TokenKind</code>, clang does this. The relevant code can be found in <a href="https://github.com/stuartcarnie/clang/blob/master/include/clang/Basic/TokenKinds.def"  target="_blank" rel="noreferrer">Token.def</a>. Since clang needs to adapt to multiple language front-ends, the total number of <code>TokenKind</code> is in the hundreds. Without this approach, adding and modifying <code>Token</code> would be very difficult.</p>
+<p>This way, you only need to add and modify relevant content in the <code>def</code> file. If you need to iterate through the <code>enum</code> later, you can also directly define a macro to generate the code, which is very convenient. In fact, for a large number of enums, many open-source projects adopt this solution. For example, when Clang defines <code>TokenKind</code>, it does so. Please refer to <a href="https://github.com/stuartcarnie/clang/blob/master/include/clang/Basic/TokenKinds.def"  target="_blank" rel="noreferrer">Token.def</a> for the relevant code. Since Clang needs to adapt to multiple language frontends, the total number of <code>TokenKind</code>s reaches several hundred. If this approach were not used, adding and modifying <code>Token</code>s would be extremely difficult.</p>
 
-<h2 class="relative group">Summary
-    <div id="summary" class="anchor"></div>
+<h2 class="relative group">conclusion
+    <div id="conclusion" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#summary" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#conclusion" aria-label="Anchor">#</a>
     </span>
     
 </h2>
 <ul>
-<li>Non-intrusive and the number of enums is small, compilation speed is not very important: use template table generation (requires at least C++17).</li>
-<li>Non-intrusive and the number of enums is large, compilation speed is important: use external code generation.</li>
+<li>Non-intrusive and a small number of enums, compilation speed is not very important: use template lookup tables (requires at least C++17).</li>
+<li>Non-intrusive and a large number of enums, compilation speed is important: use external code generation.</li>
 <li>Intrusive: directly use macros.</li>
 </ul>
-<p>Year after year, we look forward to reflection, but it&rsquo;s still unclear when it will enter the standard. For those who want to learn about C++ static reflection in advance, you can read <a href="https://www.ykiko.me/zh-cn/articles/661692275"  target="_blank" rel="noreferrer">C++26 Static Reflection Proposal Analysis</a>. Or for those who don&rsquo;t know what reflection is, you can refer to this article: <a href="https://www.ykiko.me/zh-cn/articles/669358870"  target="_blank" rel="noreferrer">A Reflection Tutorial for C++ Programmers</a>.</p>
+<p>Year after year, we await reflection, still unsure when it will enter the standard. For those interested in learning about C++ static reflection in advance, you can read <a href="https://www.ykiko.me/en/articles/661692275"  target="_blank" rel="noreferrer">Analysis of C++26 Static Reflection Proposal</a>. Or for those who don&rsquo;t know what reflection is, you can refer to this article: <a href="https://www.ykiko.me/en/articles/669358870"  target="_blank" rel="noreferrer">Reflection Tutorial for C++ Programmers</a>.</p>
 
           
           
@@ -1475,7 +1480,7 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/en/articles/680412313/&amp;title=How%20to%20Elegantly%20Convert%20Enum%20to%20String%20in%20C&#43;&#43;?"
+          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/en/articles/680412313/&amp;title=How%20to%20elegantly%20convert%20enum%20to%20string%20in%20C&#43;&#43;?"
           
           title="Share on LinkedIn"
           aria-label="Share on LinkedIn">
@@ -1489,7 +1494,7 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/en/articles/680412313/&amp;text=How%20to%20Elegantly%20Convert%20Enum%20to%20String%20in%20C&#43;&#43;?"
+          href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/en/articles/680412313/&amp;text=How%20to%20elegantly%20convert%20enum%20to%20string%20in%20C&#43;&#43;?"
           
           title="Tweet on Twitter"
           aria-label="Tweet on Twitter">
@@ -1502,7 +1507,7 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://reddit.com/submit/?url=https://www.ykiko.me/en/articles/680412313/&amp;resubmit=true&amp;title=How%20to%20Elegantly%20Convert%20Enum%20to%20String%20in%20C&#43;&#43;?"
+          href="https://reddit.com/submit/?url=https://www.ykiko.me/en/articles/680412313/&amp;resubmit=true&amp;title=How%20to%20elegantly%20convert%20enum%20to%20string%20in%20C&#43;&#43;?"
           
           title="Submit to Reddit"
           aria-label="Submit to Reddit">
@@ -1516,7 +1521,7 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://api.whatsapp.com/send?text=https://www.ykiko.me/en/articles/680412313/&amp;resubmit=true&amp;title=How%20to%20Elegantly%20Convert%20Enum%20to%20String%20in%20C&#43;&#43;?"
+          href="https://api.whatsapp.com/send?text=https://www.ykiko.me/en/articles/680412313/&amp;resubmit=true&amp;title=How%20to%20elegantly%20convert%20enum%20to%20string%20in%20C&#43;&#43;?"
           
           title="Share via WhatsApp"
           aria-label="Share via WhatsApp">
@@ -1530,7 +1535,7 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://t.me/share/url?url=https://www.ykiko.me/en/articles/680412313/&amp;resubmit=true&amp;title=How%20to%20Elegantly%20Convert%20Enum%20to%20String%20in%20C&#43;&#43;?"
+          href="https://t.me/share/url?url=https://www.ykiko.me/en/articles/680412313/&amp;resubmit=true&amp;title=How%20to%20elegantly%20convert%20enum%20to%20string%20in%20C&#43;&#43;?"
           
           title="Share via Telegram"
           aria-label="Share via Telegram">
@@ -1544,7 +1549,7 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/en/articles/680412313/&amp;description=How%20to%20Elegantly%20Convert%20Enum%20to%20String%20in%20C&#43;&#43;?"
+          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/en/articles/680412313/&amp;description=How%20to%20elegantly%20convert%20enum%20to%20string%20in%20C&#43;&#43;?"
           
           title="Pin on Pinterest"
           aria-label="Pin on Pinterest">
@@ -1558,7 +1563,7 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/en/articles/680412313/&amp;quote=How%20to%20Elegantly%20Convert%20Enum%20to%20String%20in%20C&#43;&#43;?"
+          href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/en/articles/680412313/&amp;quote=How%20to%20elegantly%20convert%20enum%20to%20string%20in%20C&#43;&#43;?"
           
           title="Share on Facebook"
           aria-label="Share on Facebook">
@@ -1575,7 +1580,7 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
           href="#"
           
             data-email=""
-            data-subject="Reply to How to Elegantly Convert Enum to String in C&#43;&#43;?"
+            data-subject="Reply to How to elegantly convert enum to string in C&#43;&#43;?"
           
           title="Send via email"
           aria-label="Send via email">
@@ -1611,12 +1616,12 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
               class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
               href="/en/articles/679782886/">
               <span class="leading-6">
-                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;Relocation Semantics in C++
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;Relocate Semantics in C++
               </span>
             </a>
             
               <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2024-01-25T17:22:29&#43;00:00">25 January 2024</time>
+                <time datetime="2024-01-25T09:22:29&#43;00:00">25 January 2024</time>
               </span>
             
           
@@ -1627,12 +1632,12 @@ Color color = RED; std::cout &lt;&lt; color &lt;&lt; std::endl; // output =&gt; 
               class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
               href="/en/articles/682031684/">
               <span class="leading-6">
-                C++ 中 constexpr 的发展史！（上篇）&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+                The History of constexpr in C++! (Part One)&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
             </a>
             
               <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2024-02-10T23:15:47&#43;00:00">10 February 2024</time>
+                <time datetime="2024-02-10T15:15:47&#43;00:00">10 February 2024</time>
               </span>
             
           

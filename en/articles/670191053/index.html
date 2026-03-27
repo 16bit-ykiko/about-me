@@ -15,8 +15,8 @@
 
   
   
-    <title>Implementing Object in C&#43;&#43;! &middot; ykiko&#39;s blog</title>
-    <meta name="title" content="Implementing Object in C&#43;&#43;! &middot; ykiko&#39;s blog">
+    <title>Implement Object in C&#43;&#43;! &middot; ykiko&#39;s blog</title>
+    <meta name="title" content="Implement Object in C&#43;&#43;! &middot; ykiko&#39;s blog">
   
 
   
@@ -68,13 +68,14 @@
   
   <meta property="og:url" content="https://www.ykiko.me/en/articles/670191053/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="Implementing Object in C&#43;&#43;!">
-  <meta property="og:description" content="Static vs Dynamic # The terms static typing and dynamic typing are familiar to many. The key distinction lies in the timing of type checking. What does this mean?">
+  <meta property="og:title" content="Implement Object in C&#43;&#43;!">
+  <meta property="og:description" content="This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+Static and Dynamic # The terms static typing and dynamic typing are probably familiar to everyone. The key to distinguishing between them lies in the timing of type checking. What does that mean?">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2023-12-03T23:40:52+00:00">
-    <meta property="article:modified_time" content="2023-12-03T23:40:52+00:00">
+    <meta property="article:published_time" content="2023-12-03T15:40:52+00:00">
+    <meta property="article:modified_time" content="2023-12-03T15:40:52+00:00">
     <meta property="og:image" content="https://www.ykiko.me/en/articles/670191053/featured.png">
       <meta property="og:see_also" content="https://www.ykiko.me/en/articles/670190357/">
       <meta property="og:see_also" content="https://www.ykiko.me/en/articles/669360731/">
@@ -85,8 +86,9 @@
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/en/articles/670191053/featured.png">
-  <meta name="twitter:title" content="Implementing Object in C&#43;&#43;!">
-  <meta name="twitter:description" content="Static vs Dynamic # The terms static typing and dynamic typing are familiar to many. The key distinction lies in the timing of type checking. What does this mean?">
+  <meta name="twitter:title" content="Implement Object in C&#43;&#43;!">
+  <meta name="twitter:description" content="This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+Static and Dynamic # The terms static typing and dynamic typing are probably familiar to everyone. The key to distinguishing between them lies in the timing of type checking. What does that mean?">
 
   
   
@@ -239,8 +241,8 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Articles",
-    "name": "Implementing Object in C\u002b\u002b!",
-    "headline": "Implementing Object in C\u002b\u002b!",
+    "name": "Implement Object in C\u002b\u002b!",
+    "headline": "Implement Object in C\u002b\u002b!",
     
     "inLanguage": "en",
     "url" : "https://www.ykiko.me/en/articles/670191053/",
@@ -249,15 +251,15 @@
       "name": "ykiko"
     },
     "copyrightYear": "2023",
-    "dateCreated": "2023-12-03T23:40:52\u002b00:00",
-    "datePublished": "2023-12-03T23:40:52\u002b00:00",
+    "dateCreated": "2023-12-03T15:40:52\u002b00:00",
+    "datePublished": "2023-12-03T15:40:52\u002b00:00",
     
-    "dateModified": "2023-12-03T23:40:52\u002b00:00",
+    "dateModified": "2023-12-03T15:40:52\u002b00:00",
     
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "1759"
+    "wordCount": "1839"
   }]
   </script>
 
@@ -412,13 +414,13 @@
         <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
     <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg></span>
       </span>
-      <span class="text-sm font-medium bf-icon-color-hover" title="Implementing Object in C&#43;&#43;!">EN</span>
+      <span class="text-sm font-medium bf-icon-color-hover" title="Implement Object in C&#43;&#43;!">EN</span>
     </button>
     <ul class="menuhide">
       <li class="rounded-xl backdrop-blur shadow-2xl p-2 flex flex-col gap-1">
         
           <a href="/en/articles/670191053/" class="flex items-center bf-icon-color-hover px-3 py-1">
-            <span class="text-sm font-sm" title="Implementing Object in C&#43;&#43;!">
+            <span class="text-sm font-sm" title="Implement Object in C&#43;&#43;!">
               English
             </span>
           </a>
@@ -588,13 +590,13 @@
         <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
     <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg></span>
       </span>
-      <span class="text-sm font-medium bf-icon-color-hover" title="Implementing Object in C&#43;&#43;!">EN</span>
+      <span class="text-sm font-medium bf-icon-color-hover" title="Implement Object in C&#43;&#43;!">EN</span>
     </button>
     <ul class="menuhide">
       <li class="rounded-xl backdrop-blur shadow-2xl p-2 flex flex-col gap-1">
         
           <a href="/en/articles/670191053/" class="flex items-center bf-icon-color-hover px-3 py-1">
-            <span class="text-sm font-sm" title="Implementing Object in C&#43;&#43;!">
+            <span class="text-sm font-sm" title="Implement Object in C&#43;&#43;!">
               English
             </span>
           </a>
@@ -773,7 +775,7 @@
   
   <li class="hidden">
     <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/en/articles/670191053/"
-      >Implementing Object in C&#43;&#43;!</a
+      >Implement Object in C&#43;&#43;!</a
     ><span class="px-1 text-primary-500">/</span>
   </li>
 
@@ -782,7 +784,7 @@
 
       
       <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-        Implementing Object in C++!
+        Implement Object in C++!
       </h1>
       <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
         
@@ -838,7 +840,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2023-12-03T23:40:52&#43;00:00">3 December 2023</time><span class="px-2 text-primary-500">&middot;</span><span>1759 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">9 mins</span><span class="px-2 text-primary-500">&middot;</span>
+      <time datetime="2023-12-03T15:40:52&#43;00:00">3 December 2023</time><span class="px-2 text-primary-500">&middot;</span><span>1839 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">4 mins</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1074,12 +1076,12 @@
     class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#static-vs-dynamic">Static vs Dynamic</a></li>
-    <li><a href="#meta-types">Meta Types</a></li>
+    <li><a href="#static-and-dynamic">Static and Dynamic</a></li>
+    <li><a href="#meta-type">Meta Type</a></li>
     <li><a href="#meta-information">Meta Information</a></li>
     <li><a href="#function-type-erasure">Function Type Erasure</a></li>
     <li><a href="#type-information-registration">Type Information Registration</a></li>
-    <li><a href="#complete-implementation-of-any">Complete Implementation of Any</a></li>
+    <li><a href="#complete-any-implementation">Complete Any Implementation</a></li>
     <li><a href="#example-code">Example Code</a></li>
     <li><a href="#extensions-and-optimizations">Extensions and Optimizations</a></li>
   </ul>
@@ -1095,12 +1097,12 @@
     class="py-2 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#static-vs-dynamic">Static vs Dynamic</a></li>
-    <li><a href="#meta-types">Meta Types</a></li>
+    <li><a href="#static-and-dynamic">Static and Dynamic</a></li>
+    <li><a href="#meta-type">Meta Type</a></li>
     <li><a href="#meta-information">Meta Information</a></li>
     <li><a href="#function-type-erasure">Function Type Erasure</a></li>
     <li><a href="#type-information-registration">Type Information Registration</a></li>
-    <li><a href="#complete-implementation-of-any">Complete Implementation of Any</a></li>
+    <li><a href="#complete-any-implementation">Complete Any Implementation</a></li>
     <li><a href="#example-code">Example Code</a></li>
     <li><a href="#extensions-and-optimizations">Extensions and Optimizations</a></li>
   </ul>
@@ -1243,7 +1245,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/670190357/">
           Part 2:
-          Why Do C/C&#43;&#43; Compilers Not Retain Metadata?
+          Why is it said that C/C&#43;&#43; compilers do not preserve metadata?
         </a>
       </div>
     
@@ -1261,7 +1263,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/669359855/">
           Part 4:
-          Various Approaches to Code Generation
+          Various approaches to code generation
         </a>
       </div>
     
@@ -1271,7 +1273,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/669360731/">
           Part 5:
-          Harness the Power of C&#43;&#43; Code with Clang Tools
+          Master your C&#43;&#43; code with Clang tools.
         </a>
       </div>
     
@@ -1281,7 +1283,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/661692275/">
           Part 6:
-          Analysis of the C&#43;&#43;26 Static Reflection Proposal
+          C&#43;&#43;26 Static Reflection Proposal Analysis
         </a>
       </div>
     
@@ -1292,53 +1294,54 @@
 
 
         <div class="article-content max-w-prose mb-20">
-          
-<h2 class="relative group">Static vs Dynamic
-    <div id="static-vs-dynamic" class="anchor"></div>
+          <blockquote><p>This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.</p>
+</blockquote>
+<h2 class="relative group">Static and Dynamic
+    <div id="static-and-dynamic" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#static-vs-dynamic" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#static-and-dynamic" aria-label="Anchor">#</a>
     </span>
     
 </h2>
-<p>The terms static typing and dynamic typing are familiar to many. The key distinction lies in the timing of type checking. What does this mean?</p>
-<p>Consider the following C++ code:</p>
+<p>The terms static typing and dynamic typing are probably familiar to everyone. The key to distinguishing between them lies in the timing of type checking. What does that mean?</p>
+<p>Suppose we have the following C++ code:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;123&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span></span></span></code></pre></div></div>
-<p>We know that <code>string</code> cannot be directly added to <code>int</code>, so this should result in a TypeError. C++ checks for type errors at compile time, so this code will trigger a <strong>compile-time error</strong>.</p>
-<p>Now, consider the corresponding Python code:</p>
+<p>As we know, a <code>string</code> cannot be directly added to an <code>int</code>, so there should be a TypeError here. C++ checks for type errors at compile time, so this code will trigger a <strong>compile time error</strong>.</p>
+<p>Consider the corresponding Python code:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="s2">&#34;123&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">1</span></span></span></code></pre></div></div>
 <p>Python, on the other hand, checks for errors at runtime, so the above code will actually produce a <strong>runtime error</strong>.</p>
-<p>It&rsquo;s important to emphasize the meanings of <strong>compile time</strong> and <strong>runtime</strong> in this context. These terms are often encountered, but their meanings can vary depending on the context. Here, we define them as follows:</p>
+<p>It&rsquo;s necessary to emphasize the meaning of <strong>compile time</strong> and <strong>runtime</strong> here. These terms might be encountered frequently, but their meanings can vary in different contexts. In our context:</p>
 <ul>
 <li>
-<p><strong>Compile time</strong>: Refers to the period when code is being compiled into target code, before the program is executed.</p>
+<p><strong>compile time</strong>: Generally refers to the process of compiling code into target code, before the program actually starts running.</p>
 <ul>
-<li>For AOT (Ahead-Of-Time) compiled languages like C++, this is the process of compiling C++ into machine code.</li>
-<li>For JIT (Just-In-Time) compiled languages like C#/Java, this generally refers to the process of compiling source code into IR (Intermediate Representation).</li>
-<li>For transpiled languages like TypeScript, this is the process of compiling TypeScript into JavaScript.</li>
+<li>For AOT-compiled languages, such as C++, it&rsquo;s the process of compiling C++ into machine code.</li>
+<li>For JIT-compiled languages, such as C#/Java, it generally refers to the process of compiling source code into IR.</li>
+<li>For transpiled languages, such as TypeScript, it&rsquo;s the process of compiling TypeScript into JavaScript.</li>
 </ul>
 </li>
 <li>
-<p><strong>Runtime</strong>: Refers to the period when the program is actually running, such as when machine code is executed on the CPU or bytecode is executed on a virtual machine.</p>
+<p><strong>runtime</strong>: Generally refers to when the program is actually running, for example, when machine code is executed on a CPU, or bytecode is executed on a virtual machine.</p>
 </li>
 </ul>
-<p>Thus, C++, Java, C#, and TypeScript are considered statically typed languages. Python, although it also compiles source code into bytecode, does not perform type checking during this stage, so Python is considered a dynamically typed language.</p>
-<p>However, this distinction is not absolute. The boundary between static and dynamic languages is not clear-cut. While C++, Java, C#, and TypeScript are statically typed, they provide various methods to bypass static type checking, such as <code>pointer</code> in C++, <code>Object</code> in Java/C#, and <code>Any</code> in TypeScript. Conversely, dynamically typed languages are increasingly incorporating static type checking, such as Python&rsquo;s <code>type hints</code> and JavaScript&rsquo;s TypeScript. Both paradigms are borrowing features from each other.</p>
-<p>Currently, C++ only provides <code>std::any</code> for type erasure, but it is often not flexible enough. We desire more advanced features, such as accessing members by <strong>field names</strong>, calling functions by <strong>function names</strong>, and creating class instances by <strong>type names</strong>. The goal of this article is to construct a dynamic type in C++ similar to Java/C#&rsquo;s <code>Object</code>.</p>
+<p>Therefore, C++, Java, C#, and TypeScript are called statically typed languages. Although Python also has a stage where source code is compiled into bytecode, type checking is not performed at this stage, so Python is called a dynamically typed language.</p>
+<p>However, this is not absolute; the boundary between static and dynamic languages is not so clear. Although C++, Java, C#, and TypeScript are statically typed languages, they all provide several ways to bypass static type checking, such as C++&rsquo;s <code>pointer</code>, Java/C#&rsquo;s <code>Object</code>, and TypeScript&rsquo;s <code>Any</code>. Dynamically typed languages are also gradually introducing static type checking, such as Python&rsquo;s <code>type hint</code> and JavaScript&rsquo;s <code>TypeScript</code>, etc. Both are borrowing features from each other.</p>
+<p>Currently, C++ only provides <code>std::any</code> for type erasure, but often it&rsquo;s not flexible enough. We want more advanced features, such as <strong>accessing members by field name</strong>, <strong>calling functions by function name</strong>, and <strong>creating class instances by type name</strong>. The goal of this article is to build a dynamic type in C++ similar to Java/C#&rsquo;s <code>Object</code>.</p>
 
-<h2 class="relative group">Meta Types
-    <div id="meta-types" class="anchor"></div>
+<h2 class="relative group">Meta Type
+    <div id="meta-type" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#meta-types" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#meta-type" aria-label="Anchor">#</a>
     </span>
     
 </h2>
-<p>Here, we do not adopt the intrusive design (inheritance) used in Java/C#&rsquo;s <code>Object</code>. Instead, we use a non-intrusive design called <strong>fat pointer</strong>. A fat pointer is essentially a structure containing a pointer to the actual data and a pointer to type information. In the case of inheritance, the virtual table pointer resides in the object&rsquo;s header.</p>
+<p>Here, we don&rsquo;t adopt an intrusive design like Java/C#&rsquo;s <code>Object</code> (inheritance), but rather a non-intrusive design called a fat pointer. A fat pointer is essentially a struct that contains a pointer to the actual data and a pointer to type information. In the case of inheritance, the vtable pointer would be present in the object header.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Any</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Type</span><span class="o">*</span> <span class="n">type</span><span class="p">;</span>    <span class="c1">// type info, similar to vtable
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">;</span>    <span class="c1">// pointer to the data
@@ -1365,7 +1368,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">foreach</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">,</span> <span class="n">Any</span><span class="o">&amp;</span><span class="p">)</span><span class="o">&gt;&amp;</span> <span class="n">fn</span><span class="p">);</span>  <span class="c1">// iterate fields
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></div></div>
-<p>The member functions will be implemented in subsequent sections. First, let&rsquo;s consider what is stored in the <code>Type</code> type.</p>
+<p>The member functions will be implemented step by step in later sections. Next, let&rsquo;s consider what is stored inside this <code>Type</code> type.</p>
 
 <h2 class="relative group">Meta Information
     <div id="meta-information" class="anchor"></div>
@@ -1387,7 +1390,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">,</span> <span class="n">Field</span><span class="o">&gt;</span> <span class="n">fields</span><span class="p">;</span>    <span class="c1">// field info
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">,</span> <span class="n">Method</span><span class="o">&gt;</span> <span class="n">methods</span><span class="p">;</span>  <span class="c1">// method info
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></div></div>
-<p>The content here is straightforward. We store the type name, destructor, move constructor, copy constructor, field information, and method information in <code>Type</code>. Field information includes the field type and name, while method information includes the method name and function address. If further expansion is desired, information about parent classes and overloaded functions can also be included. Since this is just an example, we will not consider them for now.</p>
+<p>The content here is simple: in <code>Type</code>, we store the type name, destructor, move constructor, copy constructor, field information, and method information. Field information stores the field type and field name, and method information stores the method name and function address. If we want to extend it further, we could also store parent class information and overloaded function information. Since this is just an example, we won&rsquo;t consider them for now.</p>
 
 <h2 class="relative group">Function Type Erasure
     <div id="function-type-erasure" class="anchor"></div>
@@ -1398,15 +1401,15 @@
     </span>
     
 </h2>
-<p>To store member functions of different types in the same container, we must perform type erasure on the functions. All types of functions are erased to the type <code>Any(*)(void*, std::span&lt;Any&gt;)</code>. Here, <code>Any</code> is the type we defined earlier, <code>void*</code> represents the <code>this</code> pointer, and <code>std::span&lt;Any&gt;</code> is the function&rsquo;s parameter list. Now, we need to consider how to perform this function type erasure.</p>
-<p>Take the member function <code>say</code> as an example:</p>
+<p>To store member functions of different types in the same container, we must perform function type erasure. All types of functions are erased into the type <code>Any(*)(void*, std::span&lt;Any&gt;)</code>. Here, <code>Any</code> is the <code>Any</code> type we defined above, <code>void*</code> actually represents the <code>this</code> pointer, and <code>std::span&lt;Any&gt;</code> is the function&rsquo;s parameter list. Now we need to consider how to perform this function type erasure.</p>
+<p>Let&rsquo;s take the given member function <code>say</code> as an example:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Person</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">name</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">age</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">say</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">msg</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; say: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">msg</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>First, for convenience, let&rsquo;s implement <code>Any</code>&rsquo;s <code>cast</code>:</p>
+<p>First, for convenience, let&rsquo;s implement <code>Any</code>&rsquo;s <code>cast</code> method:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="n">Type</span><span class="o">*</span> <span class="n">type_of</span><span class="p">();</span>  <span class="c1">// type_of&lt;T&gt; returns type info of T
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
@@ -1417,13 +1420,13 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>Using the feature in C++ that allows non-capturing <code>lambda</code> to implicitly convert to function pointers, we can easily implement this erasure.</p>
+<p>Leveraging the C++ feature where a non-capturing <code>lambda</code> can be implicitly converted to a function pointer, this erasure can be easily achieved.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">f</span> <span class="o">=</span> <span class="o">+</span><span class="p">[](</span><span class="kt">void</span><span class="o">*</span> <span class="n">object</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">Any</span><span class="o">&gt;</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">auto</span><span class="o">&amp;</span> <span class="n">self</span> <span class="o">=</span> <span class="o">*</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">object</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">self</span><span class="p">.</span><span class="n">say</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="o">&gt;</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Any</span><span class="p">{};</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>The principle is simple: write a wrapper function to perform type conversion and forward the call. However, writing such forwarding code for each member function is cumbersome. We can consider using template metaprogramming to generate the code automatically, simplifying the type erasure process.</p>
+<p>The principle is actually very simple: just write a wrapper function to perform type conversion and then forward the call. However, manually writing such a large block of forwarding code for each member function is still cumbersome. We can consider using template metaprogramming for code generation to automatically generate the above code, simplifying the type erasure process.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">member_fn_traits</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -1453,7 +1456,7 @@
 </span></span><span class="line"><span class="cl">        <span class="p">}(</span><span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">tuple_size_v</span><span class="o">&lt;</span><span class="n">args_type</span><span class="o">&gt;&gt;</span><span class="p">{});</span>
 </span></span><span class="line"><span class="cl">    <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>I won&rsquo;t explain the code here. If you don&rsquo;t understand, it&rsquo;s okay. Essentially, it automates the process of type erasure for member functions using template metaprogramming. Just know how to use it. Using it is very simple. Here, <code>&amp;Person::say</code> is the pointer-to-member syntax. If you&rsquo;re not familiar, refer to <a href="https://www.ykiko.me/zh-cn/articles/659510753"  target="_blank" rel="noreferrer">C++ Member Pointers Explained</a>.</p>
+<p>I won&rsquo;t explain the code here; it&rsquo;s okay if you don&rsquo;t understand it. Essentially, it automates the process of member function type erasure using template metaprogramming. You just need to know how to use it, and it&rsquo;s very simple to use. <code>&amp;Person::say</code> here is the syntax for a pointer to member; if you&rsquo;re not familiar with it, you can refer to <a href="https://www.ykiko.me/en/articles/659510753"  target="_blank" rel="noreferrer">Complete Analysis of C++ Member Pointers</a>.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">f</span> <span class="o">=</span> <span class="n">type_ensure</span><span class="o">&lt;&amp;</span><span class="n">Person</span><span class="o">::</span><span class="n">say</span><span class="o">&gt;</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// decltype(f) =&gt; Any (*)(void*, std::span&lt;Any&gt;)
 </span></span></span></code></pre></div></div>
@@ -1467,7 +1470,7 @@
     </span>
     
 </h2>
-<p>In fact, we need to generate a corresponding <code>Type</code> structure for each type to store its information, so that it can be accessed correctly. This functionality is handled by the <code>type_of</code> function mentioned earlier.</p>
+<p>In fact, we need to generate a corresponding <code>Type</code> struct for each type to store its information, so that it can be accessed correctly. This functionality is handled by the <code>type_of</code> function mentioned above.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="n">Type</span><span class="o">*</span> <span class="n">type_of</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="n">Type</span> <span class="n">type</span><span class="p">;</span>
@@ -1494,14 +1497,14 @@
 </span></span><span class="line"><span class="cl">    <span class="n">type</span><span class="p">.</span><span class="n">methods</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">&#34;say&#34;</span><span class="p">,</span> <span class="n">type_ensure</span><span class="o">&lt;&amp;</span><span class="n">Person</span><span class="o">::</span><span class="n">say</span><span class="o">&gt;</span><span class="p">()});</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">&amp;</span><span class="n">type</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>We provide a default implementation so that built-in basic types can automatically register some information. Then, we can specialize for custom types. Now, with this meta information, we can complete the implementation of <code>Any</code>&rsquo;s member functions.</p>
+<p>We provide a default implementation so that if built-in basic types are used, some information can be automatically registered. Then, through specialization, we can provide implementations for custom types. Now that we have this meta-information, we can complete the implementation of <code>Any</code>&rsquo;s member functions.</p>
 
-<h2 class="relative group">Complete Implementation of Any
-    <div id="complete-implementation-of-any" class="anchor"></div>
+<h2 class="relative group">Complete Any Implementation
+    <div id="complete-any-implementation" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#complete-implementation-of-any" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#complete-any-implementation" aria-label="Anchor">#</a>
     </span>
     
 </h2>
@@ -1544,7 +1547,7 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>The implementation of <code>foreach</code> is to iterate over all <code>Field</code>s, get the offset and type, and then wrap it into an <code>Any</code> type. Note that this is just a simple wrapper; since we set the <code>flag</code>, this wrapper will not cause multiple destructions. <code>invoke</code> is to find the corresponding function from the member function list and call it.</p>
+<p>The <code>foreach</code> implementation iterates through all <code>Field</code>s, gets their offset and type, and then wraps them into an <code>Any</code> type. Note that this is just a simple wrapper; in fact, because we set a <code>flag</code>, this wrapping will not lead to multiple destructions. <code>invoke</code> finds the corresponding function from the list of member functions and then calls it.</p>
 
 <h2 class="relative group">Example Code
     <div id="example-code" class="anchor"></div>
@@ -1574,7 +1577,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// age = 18
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>The complete code is available on <a href="https://github.com/16bit-ykiko/blog/blob/main/code/dynamic-type-demo.cpp"  target="_blank" rel="noreferrer">Github</a>. With this, we have implemented a highly dynamic, non-intrusive <code>Any</code>.</p>
+<p>The complete code is available on <a href="https://github.com/16bit-ykiko/blog/blob/main/code/dynamic-type-demo.cpp"  target="_blank" rel="noreferrer">Github</a>. With this, we have implemented an extremely dynamic, non-intrusive <code>Any</code>.</p>
 
 <h2 class="relative group">Extensions and Optimizations
     <div id="extensions-and-optimizations" class="anchor"></div>
@@ -1585,19 +1588,19 @@
     </span>
     
 </h2>
-<p>This article provides a very simple introduction to the principles, and the scenarios considered are also very simple. For example, inheritance and function overloading are not considered, and there are several areas where runtime efficiency can be optimized. Nevertheless, the functionality I&rsquo;ve implemented may still be more than you need. The main point of this article is to express that for a performance-focused language like C++, there are indeed scenarios where such dynamic features are needed. However, efficiency and generality are often contradictory. At the language level, because generality must be considered, efficiency often falls short. For example, <code>RTTI</code> and <code>dynamic_cast</code> are often complained about, but fortunately, compilers provide options to disable them. Similarly, my implementation may not fully fit your scenario, but understanding this not-too-difficult principle allows you to implement a version more suitable for your needs.</p>
-<p>Possible extensions:</p>
+<p>This article provides only a very simple introduction to the principles, and the scenarios considered are also quite basic. For example, inheritance and function overloading are not considered here, and there are several areas where runtime efficiency could be optimized. Nevertheless, the features I&rsquo;ve written might still be excessive for your needs. The main point this article aims to convey is that for a performance-oriented language like C++, there are indeed scenarios where these more dynamic features are required. However, efficiency and generality are often contradictory; at the language level, because generality must be considered, efficiency is often not ideal. For instance, <code>RTTI</code> and <code>dynamic_cast</code> are often complained about, but fortunately, compilers provide options to disable them. Similarly, my implementation may not perfectly fit your scenario, but once you understand these not-so-difficult principles, you can certainly implement a version that is more suitable for your specific needs.</p>
+<p>Points for extension:</p>
 <ul>
-<li>Support modifying members by <code>name</code>.</li>
-<li>Add a global <code>map</code> to record information for all types, enabling the creation of class instances by class name.</li>
+<li>Support modifying members by <code>name</code></li>
+<li>Add a global <code>map</code> to record information for all types, thereby supporting the creation of class instances by class name</li>
 <li><code>...</code></li>
 </ul>
-<p>Possible optimizations:</p>
+<p>Points for optimization:</p>
 <ul>
-<li>Reduce the number of <code>new</code> calls, or implement an object pool.</li>
-<li>Currently, too much meta information is stored; you can tailor it according to your needs.</li>
+<li>Reduce the number of <code>new</code> calls, or implement your own object pool</li>
+<li>Or, if too much meta-information is currently stored, trim it according to your own needs</li>
 </ul>
-<p>Additionally, a current pain point is that all this meta information must be written manually, making it difficult to maintain. If the class definition is modified, the registration code must also be modified, or errors will occur. A practical solution is to use a code generator to automatically generate this mechanical code. For more on how to do this, refer to other articles in this series.</p>
+<p>In addition, a current pain point is that all this meta-information has to be written manually, making it difficult to maintain. If internal class definitions are modified, these registration codes must also be modified, otherwise errors will occur. A practical solution here is to use a code generator to automatically generate this boilerplate code. For information on how to perform these operations, you can refer to other articles in this series.</p>
 
           
           
@@ -1629,7 +1632,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/670190357/">
           Part 2:
-          Why Do C/C&#43;&#43; Compilers Not Retain Metadata?
+          Why is it said that C/C&#43;&#43; compilers do not preserve metadata?
         </a>
       </div>
     
@@ -1647,7 +1650,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/669359855/">
           Part 4:
-          Various Approaches to Code Generation
+          Various approaches to code generation
         </a>
       </div>
     
@@ -1657,7 +1660,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/669360731/">
           Part 5:
-          Harness the Power of C&#43;&#43; Code with Clang Tools
+          Master your C&#43;&#43; code with Clang tools.
         </a>
       </div>
     
@@ -1667,7 +1670,7 @@
         class="py-1 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
         <a href="/en/articles/661692275/">
           Part 6:
-          Analysis of the C&#43;&#43;26 Static Reflection Proposal
+          C&#43;&#43;26 Static Reflection Proposal Analysis
         </a>
       </div>
     
@@ -1686,7 +1689,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/en/articles/670191053/&amp;title=Implementing%20Object%20in%20C&#43;&#43;!"
+          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/en/articles/670191053/&amp;title=Implement%20Object%20in%20C&#43;&#43;!"
           
           title="Share on LinkedIn"
           aria-label="Share on LinkedIn">
@@ -1700,7 +1703,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/en/articles/670191053/&amp;text=Implementing%20Object%20in%20C&#43;&#43;!"
+          href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/en/articles/670191053/&amp;text=Implement%20Object%20in%20C&#43;&#43;!"
           
           title="Tweet on Twitter"
           aria-label="Tweet on Twitter">
@@ -1713,7 +1716,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://reddit.com/submit/?url=https://www.ykiko.me/en/articles/670191053/&amp;resubmit=true&amp;title=Implementing%20Object%20in%20C&#43;&#43;!"
+          href="https://reddit.com/submit/?url=https://www.ykiko.me/en/articles/670191053/&amp;resubmit=true&amp;title=Implement%20Object%20in%20C&#43;&#43;!"
           
           title="Submit to Reddit"
           aria-label="Submit to Reddit">
@@ -1727,7 +1730,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://api.whatsapp.com/send?text=https://www.ykiko.me/en/articles/670191053/&amp;resubmit=true&amp;title=Implementing%20Object%20in%20C&#43;&#43;!"
+          href="https://api.whatsapp.com/send?text=https://www.ykiko.me/en/articles/670191053/&amp;resubmit=true&amp;title=Implement%20Object%20in%20C&#43;&#43;!"
           
           title="Share via WhatsApp"
           aria-label="Share via WhatsApp">
@@ -1741,7 +1744,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://t.me/share/url?url=https://www.ykiko.me/en/articles/670191053/&amp;resubmit=true&amp;title=Implementing%20Object%20in%20C&#43;&#43;!"
+          href="https://t.me/share/url?url=https://www.ykiko.me/en/articles/670191053/&amp;resubmit=true&amp;title=Implement%20Object%20in%20C&#43;&#43;!"
           
           title="Share via Telegram"
           aria-label="Share via Telegram">
@@ -1755,7 +1758,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/en/articles/670191053/&amp;description=Implementing%20Object%20in%20C&#43;&#43;!"
+          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/en/articles/670191053/&amp;description=Implement%20Object%20in%20C&#43;&#43;!"
           
           title="Pin on Pinterest"
           aria-label="Pin on Pinterest">
@@ -1769,7 +1772,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/en/articles/670191053/&amp;quote=Implementing%20Object%20in%20C&#43;&#43;!"
+          href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/en/articles/670191053/&amp;quote=Implement%20Object%20in%20C&#43;&#43;!"
           
           title="Share on Facebook"
           aria-label="Share on Facebook">
@@ -1786,7 +1789,7 @@
           href="#"
           
             data-email=""
-            data-subject="Reply to Implementing Object in C&#43;&#43;!"
+            data-subject="Reply to Implement Object in C&#43;&#43;!"
           
           title="Send via email"
           aria-label="Send via email">
@@ -1822,12 +1825,12 @@
               class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
               href="/en/articles/670190357/">
               <span class="leading-6">
-                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;Why Do C/C++ Compilers Not Retain Metadata?
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;Why is it said that C/C++ compilers do not preserve metadata?
               </span>
             </a>
             
               <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2023-12-03T23:37:51&#43;00:00">3 December 2023</time>
+                <time datetime="2023-12-03T15:37:51&#43;00:00">3 December 2023</time>
               </span>
             
           
@@ -1838,12 +1841,12 @@
               class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
               href="/en/articles/674157958/">
               <span class="leading-6">
-                A 7-Year Relay Race: Obtaining the Number of Fields in a C++ Struct&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+                A 7-Year Relay Race: Getting the Number of Fields in a C++ Struct&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
             </a>
             
               <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2023-12-26T04:45:30&#43;00:00">26 December 2023</time>
+                <time datetime="2023-12-25T20:45:30&#43;00:00">25 December 2023</time>
               </span>
             
           

@@ -7,15 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>©2024 ykiko</copyright>
-    <lastBuildDate>Wed, 18 Dec 2024 21:46:01 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/en/series/clice-dev-diary/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 Dec 2024 13:46:01 +0000</lastBuildDate><atom:link href="https://www.ykiko.me/en/series/clice-dev-diary/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Design and Implementation of a New C&#43;&#43; Language Server</title>
       <link>https://www.ykiko.me/en/articles/13394352064/</link>
-      <pubDate>Wed, 18 Dec 2024 21:46:01 +0000</pubDate>
+      <pubDate>Wed, 18 Dec 2024 13:46:01 +0000</pubDate>
       
       <guid>https://www.ykiko.me/en/articles/13394352064/</guid>
-      <description>&lt;p&gt;It has been several months since the last blog post. The reason for the long hiatus is that I have been busy working on &lt;a href=&#34;https://github.com/clice-project/clice&#34;  target=&#34;_blank&#34; rel=&#34;noreferrer&#34;&gt;clice&lt;/a&gt; — a brand-new C++ language server.&lt;/p&gt;</description>
+      <description>&lt;blockquote&gt;&lt;p&gt;This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&lt;p&gt;It&amp;rsquo;s been several months since my last blog post. The reason for this long hiatus is that I&amp;rsquo;ve been busy working on &lt;a href=&#34;https://github.com/clice-project/clice&#34;  target=&#34;_blank&#34; rel=&#34;noreferrer&#34;&gt;clice&lt;/a&gt; – a brand new C++ language server.&lt;/p&gt;</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ykiko.me/en/articles/13394352064/featured.png" />
     </item>
     

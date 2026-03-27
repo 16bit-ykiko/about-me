@@ -15,8 +15,8 @@
 
   
   
-    <title>std::variant is Hard to Use! &middot; ykiko&#39;s blog</title>
-    <meta name="title" content="std::variant is Hard to Use! &middot; ykiko&#39;s blog">
+    <title>std::variant is hard to use! &middot; ykiko&#39;s blog</title>
+    <meta name="title" content="std::variant is hard to use! &middot; ykiko&#39;s blog">
   
 
   
@@ -68,22 +68,22 @@
   
   <meta property="og:url" content="https://www.ykiko.me/en/articles/645810896/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="std::variant is Hard to Use!">
-  <meta property="og:description" content="std::variant was introduced into the C&#43;&#43; standard library in C&#43;&#43;17. This article will discuss the background of its inclusion in the standard and some issues with its usage.
-Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum type is a type that can hold one of several possible types.">
+  <meta property="og:title" content="std::variant is hard to use!">
+  <meta property="og:description" content="This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+std::variant was added to the standard library in C&#43;&#43;17. This article will discuss the background of its inclusion and some issues related to its usage.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2023-07-25T15:19:25+00:00">
-    <meta property="article:modified_time" content="2023-07-25T15:19:25+00:00">
+    <meta property="article:published_time" content="2023-07-25T07:19:25+00:00">
+    <meta property="article:modified_time" content="2023-07-25T07:19:25+00:00">
     <meta property="og:image" content="https://www.ykiko.me/en/articles/645810896/featured.png">
 
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/en/articles/645810896/featured.png">
-  <meta name="twitter:title" content="std::variant is Hard to Use!">
-  <meta name="twitter:description" content="std::variant was introduced into the C&#43;&#43; standard library in C&#43;&#43;17. This article will discuss the background of its inclusion in the standard and some issues with its usage.
-Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum type is a type that can hold one of several possible types.">
+  <meta name="twitter:title" content="std::variant is hard to use!">
+  <meta name="twitter:description" content="This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+std::variant was added to the standard library in C&#43;&#43;17. This article will discuss the background of its inclusion and some issues related to its usage.">
 
   
   
@@ -236,8 +236,8 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Articles",
-    "name": "std::variant is Hard to Use!",
-    "headline": "std::variant is Hard to Use!",
+    "name": "std::variant is hard to use!",
+    "headline": "std::variant is hard to use!",
     
     "inLanguage": "en",
     "url" : "https://www.ykiko.me/en/articles/645810896/",
@@ -246,15 +246,15 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
       "name": "ykiko"
     },
     "copyrightYear": "2023",
-    "dateCreated": "2023-07-25T15:19:25\u002b00:00",
-    "datePublished": "2023-07-25T15:19:25\u002b00:00",
+    "dateCreated": "2023-07-25T07:19:25\u002b00:00",
+    "datePublished": "2023-07-25T07:19:25\u002b00:00",
     
-    "dateModified": "2023-07-25T15:19:25\u002b00:00",
+    "dateModified": "2023-07-25T07:19:25\u002b00:00",
     
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "1354"
+    "wordCount": "1411"
   }]
   </script>
 
@@ -409,13 +409,13 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
         <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
     <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg></span>
       </span>
-      <span class="text-sm font-medium bf-icon-color-hover" title="std::variant is Hard to Use!">EN</span>
+      <span class="text-sm font-medium bf-icon-color-hover" title="std::variant is hard to use!">EN</span>
     </button>
     <ul class="menuhide">
       <li class="rounded-xl backdrop-blur shadow-2xl p-2 flex flex-col gap-1">
         
           <a href="/en/articles/645810896/" class="flex items-center bf-icon-color-hover px-3 py-1">
-            <span class="text-sm font-sm" title="std::variant is Hard to Use!">
+            <span class="text-sm font-sm" title="std::variant is hard to use!">
               English
             </span>
           </a>
@@ -585,13 +585,13 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
         <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
     <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg></span>
       </span>
-      <span class="text-sm font-medium bf-icon-color-hover" title="std::variant is Hard to Use!">EN</span>
+      <span class="text-sm font-medium bf-icon-color-hover" title="std::variant is hard to use!">EN</span>
     </button>
     <ul class="menuhide">
       <li class="rounded-xl backdrop-blur shadow-2xl p-2 flex flex-col gap-1">
         
           <a href="/en/articles/645810896/" class="flex items-center bf-icon-color-hover px-3 py-1">
-            <span class="text-sm font-sm" title="std::variant is Hard to Use!">
+            <span class="text-sm font-sm" title="std::variant is hard to use!">
               English
             </span>
           </a>
@@ -770,7 +770,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
   
   <li class="hidden">
     <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/en/articles/645810896/"
-      >std::variant is Hard to Use!</a
+      >std::variant is hard to use!</a
     ><span class="px-1 text-primary-500">/</span>
   </li>
 
@@ -779,7 +779,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
 
       
       <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-        std::variant is Hard to Use!
+        std::variant is hard to use!
       </h1>
       <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
         
@@ -835,7 +835,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2023-07-25T15:19:25&#43;00:00">25 July 2023</time><span class="px-2 text-primary-500">&middot;</span><span>1354 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">7 mins</span><span class="px-2 text-primary-500">&middot;</span>
+      <time datetime="2023-07-25T07:19:25&#43;00:00">25 July 2023</time><span class="px-2 text-primary-500">&middot;</span><span>1411 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">3 mins</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1071,8 +1071,8 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
     class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#sum-type">Sum Type</a></li>
-    <li><a href="#not-trivial">Not Trivial</a></li>
+    <li><a href="#sum-type">sum type</a></li>
+    <li><a href="#not-trivial">not trivial</a></li>
     <li><a href="#stdvariant">std::variant</a></li>
     <li><a href="#stdvisit">std::visit</a></li>
   </ul>
@@ -1088,8 +1088,8 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
     class="py-2 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#sum-type">Sum Type</a></li>
-    <li><a href="#not-trivial">Not Trivial</a></li>
+    <li><a href="#sum-type">sum type</a></li>
+    <li><a href="#not-trivial">not trivial</a></li>
     <li><a href="#stdvariant">std::variant</a></li>
     <li><a href="#stdvisit">std::visit</a></li>
   </ul>
@@ -1208,9 +1208,10 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
         
 
         <div class="article-content max-w-prose mb-20">
-          <p><code>std::variant</code> was introduced into the C++ standard library in C++17. This article will discuss the background of its inclusion in the standard and some issues with its usage.</p>
+          <blockquote><p>This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.</p>
+</blockquote><p><code>std::variant</code> was added to the standard library in C++17. This article will discuss the background of its inclusion and some issues related to its usage.</p>
 
-<h2 class="relative group">Sum Type
+<h2 class="relative group">sum type
     <div id="sum-type" class="anchor"></div>
     
     <span
@@ -1219,8 +1220,8 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
     </span>
     
 </h2>
-<p>First, let&rsquo;s discuss <strong>sum types</strong>, also known as <a href="https://en.wikipedia.org/wiki/Tagged_union"  target="_blank" rel="noreferrer">tagged unions</a>. A sum type is a type that can hold one of several possible types.</p>
-<p>For example, consider the following two types:</p>
+<p>First, let&rsquo;s discuss <strong>sum types</strong>, also known as <a href="https://en.wikipedia.org/wiki/Tagged_union"  target="_blank" rel="noreferrer">tagged unions</a>. A sum type is a type that can hold a value of only one of several possible types.</p>
+<p>For example, if we have the following two types:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Circle</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">radius</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
@@ -1229,7 +1230,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
 </span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">width</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">height</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>The sum type of <code>Circle</code> and <code>Rectangle</code>, let&rsquo;s call it <code>Shape</code>, can be implemented in C as follows:</p>
+<p>Then a sum type of <code>Circle</code> and <code>Rectangle</code>, let&rsquo;s call it <code>Shape</code>, can be implemented in C as follows:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Shape</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">enum</span> <span class="nc">Type</span> <span class="p">{</span> <span class="n">Circle</span><span class="p">,</span> <span class="n">Rectangle</span> <span class="p">}</span> <span class="n">type</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -1238,8 +1239,8 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
 </span></span><span class="line"><span class="cl">        <span class="k">struct</span> <span class="nc">Rectangle</span> <span class="n">rectangle</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<blockquote><p>Here, we use a feature called <a href="https://en.cppreference.com/w/cpp/language/union#Anonymous_unions"  target="_blank" rel="noreferrer">anonymous union</a>, which declares a union member of the corresponding type and injects the field names into the current scope.</p>
-</blockquote><p>This allows us to assign values of different types to a variable of type <code>Shape</code>, while updating the <code>type</code> to reflect the current assignment. When accessing the value, we can determine how to access it based on the <code>type</code>. For example:</p>
+<blockquote><p>This uses a feature called <a href="https://en.cppreference.com/w/cpp/language/union#Anonymous_unions"  target="_blank" rel="noreferrer">anonymous union</a>, which is equivalent to declaring a union member of the corresponding type and injecting its field names into the current scope.</p>
+</blockquote><p>This way, we can assign different types of values to a <code>Shape</code> variable, while also updating the <code>type</code> to record the type of the assigned value. When accessing, we can then use the <code>type</code> to determine which type to access it as. For example:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">Shape</span> <span class="n">shape</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">shape</span><span class="p">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">Shape</span><span class="o">::</span><span class="n">Circle</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">Circle</span> <span class="n">c</span> <span class="o">=</span> <span class="n">shape</span><span class="p">.</span><span class="n">circle</span><span class="p">;</span>
@@ -1261,7 +1262,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
 </span></span><span class="line"><span class="cl">    <span class="n">foo</span><span class="p">(</span><span class="n">shape</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
 
-<h2 class="relative group">Not Trivial
+<h2 class="relative group">not trivial
     <div id="not-trivial" class="anchor"></div>
     
     <span
@@ -1286,8 +1287,8 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
 </span></span><span class="line"><span class="cl">    <span class="n">settings</span><span class="p">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">Settings</span><span class="o">::</span><span class="n">Type</span><span class="o">::</span><span class="n">String</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">settings</span><span class="p">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>This code will not compile. The compiler will report an error: <code>use of deleted function Settings::Settings()</code>. Why is the constructor of <code>Settings</code> deleted? This is because the constructor of <code>std::string</code> is not trivial. When a <code>union</code> contains members of non-trivial types, the compiler cannot correctly generate constructors and destructors (it doesn&rsquo;t know which member to initialize or destruct). For more details, refer to the <a href="https://en.cppreference.com/w/cpp/language/union"  target="_blank" rel="noreferrer">union</a> section on cppreference.</p>
-<p>How can we solve this? We need to define the constructor and destructor for the <code>union</code> ourselves. For example, we can define an empty constructor and destructor that do nothing:</p>
+<p>This code actually won&rsquo;t compile. The compiler will report an error: <code>use of deleted function Settings::Settings()</code>. Why is the constructor for <code>Settings</code> deleted? This is because <code>std::string</code> has a non-trivial constructor. When a <code>union</code> contains members of non-trivial types, the compiler cannot correctly generate constructors and destructors (it doesn&rsquo;t know which member you intend to initialize or destroy). For more details, you can refer to the cppreference documentation on <a href="https://en.cppreference.com/w/cpp/language/union"  target="_blank" rel="noreferrer">union</a>.</p>
+<p>How to solve this? We need to define the <code>union</code>&rsquo;s constructor and destructor ourselves. For example, we can define an empty constructor and destructor for it, meaning they do nothing:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">union</span> <span class="nc">Value</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">d</span><span class="p">;</span>
@@ -1301,7 +1302,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
 </span></span><span class="line"><span class="cl">    <span class="k">enum</span> <span class="k">class</span> <span class="nc">Type</span> <span class="p">{</span> <span class="n">int_</span><span class="p">,</span> <span class="n">double_</span><span class="p">,</span> <span class="n">string</span> <span class="p">}</span> <span class="n">type</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Value</span> <span class="n">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>When using this, we need to explicitly call the constructor to initialize a member using <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new"  target="_blank" rel="noreferrer">placement new</a>, and similarly, we need to manually call the destructor to destroy a member.</p>
+<p>When using it, we are required to explicitly call the constructor to initialize a member using <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new"  target="_blank" rel="noreferrer">placement new</a>. Similarly, we must manually call the destructor to destroy a member.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Settings</span> <span class="n">settings</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -1315,8 +1316,8 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">settings</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">settings</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">i</span><span class="p">.</span><span class="o">~</span><span class="kt">int</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<blockquote><p>Note that you cannot <strong>directly assign</strong> here. The assignment operation actually calls the member function <code>operator=</code>, and only objects that have already been initialized can call member functions.</p>
-</blockquote><p>From the above code, it&rsquo;s clear that directly using <code>union</code> to represent sum types in C++ is very cumbersome. Not only do you need to update the <code>type</code> in time, but you also need to correctly call constructors and destructors, and be careful about the timing of assignments. If any step is forgotten, it can lead to undefined behavior, which is very frustrating. Fortunately, C++17 provides <code>std::variant</code> to solve this problem.</p>
+<blockquote><p>Note that you cannot <strong>directly assign</strong> here. This is because an assignment operation actually calls the member function <code>operator=</code>, and member functions can only be called on objects that have already been initialized.</p>
+</blockquote><p>From the code above, it&rsquo;s clear that directly using a union to represent a sum type in C++ is very cumbersome. Not only do you need to update <code>type</code> promptly, but you also need to correctly call constructors and destructors, and pay attention to the timing of assignments. Forgetting any of these steps can lead to undefined behavior, which is a major headache. Fortunately, C++17 provides <code>std::variant</code> to solve this problem.</p>
 
 <h2 class="relative group">std::variant
     <div id="stdvariant" class="anchor"></div>
@@ -1327,7 +1328,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
     </span>
     
 </h2>
-<p>Let&rsquo;s look at the code directly:</p>
+<p>Let&rsquo;s look directly at the code:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;variant&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
@@ -1338,24 +1339,24 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
 </span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>The above code is completely well-defined. Through template metaprogramming, <code>variant</code> handles object construction and destruction at the appropriate times.</p>
-<p>It has an <code>index</code> member function that can get the index of the current type in the type list you provided.</p>
+<p>The code above is completely well-defined. Through template metaprogramming, <code>variant</code> handles object construction and destruction at the appropriate times.</p>
+<p>It has an <code>index</code> member function that can retrieve the index of the current active type within the list of types you provided.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Settings</span> <span class="n">s</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span> <span class="c1">// s.index() =&gt; 2
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">s</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// s.index() =&gt; 0
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">s</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="c1">// s.index() =&gt; 1
 </span></span></span></code></pre></div></div>
-<p>You can use <code>std::get</code> to retrieve the corresponding value from the <code>variant</code>:</p>
+<p>You can use <code>std::get</code> to retrieve the corresponding value from the <code>variant</code>.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Settings</span> <span class="n">s</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="c1">// =&gt; hello
 </span></span></span></code></pre></div></div>
-<p>Some might wonder, if I already know that it contains a <code>string</code>, why use <code>std::variant</code>? Note that <code>get</code> also has an overload with an integer template parameter. Can it solve this problem?</p>
+<p>Some might wonder, &ldquo;If I already know it stores a <code>string</code>, why would I use <code>std::variant</code>?&rdquo; Notice that <code>get</code> also has an overload where the template parameter is an integer. Can that solve this problem?</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="c1">// =&gt; hello
 </span></span></span></code></pre></div></div>
-<p>Oh, I see. So if I can use <code>index</code> directly to get the value, why not write it like this?</p>
+<p>Oh, I see. Since I can get it directly using <code>index</code>, why not just write it like this?</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="n">s</span><span class="p">.</span><span class="n">index</span><span class="p">()</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">);</span></span></span></code></pre></div></div>
-<p>Unfortunately, this won&rsquo;t work. Template parameters must be compile-time constants, and <code>variant</code>, as a type-erasure mechanism, has an <code>index</code> that is definitely a runtime value. What to do? Dynamic to static, you can only dispatch one by one. For example:</p>
+<p>Unfortunately, while the idea is good, this won&rsquo;t work. Template parameters must be compile-time constants, and <code>variant</code>, as a means of type erasure, will have its <code>index</code> value determined at runtime. What to do then? To convert dynamic to static, you have to dispatch one by one. For example:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">index</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">index</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
@@ -1363,7 +1364,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
 </span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">index</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>Using numbers is not very readable. We can use <code>std::holds_alternative</code> to make decisions based on types:</p>
+<p>Using numbers for readability is quite poor. We can use <code>std::holds_alternative</code> to check based on type:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">holds_alternative</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">)){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">holds_alternative</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">)){</span>
@@ -1371,7 +1372,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
 </span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">holds_alternative</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">)){</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>Although this works, there&rsquo;s too much redundant code. Is there a better way to operate on the values inside a <code>variant</code>?</p>
+<p>While it works, there&rsquo;s too much redundant code. Is there a better way to operate on the value inside a <code>variant</code>?</p>
 
 <h2 class="relative group">std::visit
     <div id="stdvisit" class="anchor"></div>
@@ -1382,7 +1383,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
     </span>
     
 </h2>
-<p>The name <code>visit</code> actually comes from the <code>visitor</code> pattern in design patterns. Using it, we can write the following code:</p>
+<p>The name <code>visit</code> actually comes from the <code>visitor</code> design pattern. Using it, we can write code like this:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Settings</span> <span class="n">s</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">callback</span> <span class="o">=</span> <span class="p">[](</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">value</span><span class="p">){</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> <span class="p">};</span>
@@ -1390,8 +1391,8 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">settings</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">visit</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span> <span class="c1">// =&gt; 1
 </span></span></span></code></pre></div></div>
-<p>Isn&rsquo;t it magical? Just pass in a <code>callback</code>, and you can directly access the value inside the <code>variant</code> without any manual dispatching. In software engineering, there&rsquo;s a golden rule: complexity doesn&rsquo;t disappear, it just shifts. This is no exception. In fact, <code>visit</code> internally instantiates a function for each type in the <code>variant</code> for your <code>callback</code>, pre-generates a function table, and then at runtime, directly calls the function in the table based on the <code>index</code>.</p>
-<p>But more often, we want to do different things based on different types. In other languages, this can be conveniently achieved through pattern matching.</p>
+<p>Isn&rsquo;t that amazing? You just need to pass a <code>callback</code>, and you can directly access the value inside the <code>variant</code> without any manual dispatch. There&rsquo;s an iron rule in software engineering: complexity doesn&rsquo;t disappear, it just moves around, and this is no exception. In fact, <code>visit</code> internally instantiates a function for each type within the <code>variant</code> based on your <code>callback</code>, pre-builds a function table, and then at runtime, directly calls the function from that table based on the <code>index</code>.</p>
+<p>More often, however, we want to do different things based on different types. This can be conveniently achieved through pattern matching in other languages:</p>
 <p><strong>Haskell:</strong></p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-haskell" data-lang="haskell"><span class="line"><span class="cl"><span class="kr">data</span> <span class="kt">Settings</span> <span class="ow">=</span> <span class="kt">IntValue</span> <span class="kt">Int</span> <span class="o">|</span> <span class="kt">BoolValue</span> <span class="kt">Bool</span> <span class="o">|</span> <span class="kt">StringValue</span> <span class="kt">String</span>
 </span></span><span class="line"><span class="cl">  <span class="kr">deriving</span> <span class="p">(</span><span class="kt">Show</span><span class="p">,</span> <span class="kt">Eq</span><span class="p">)</span>
@@ -1415,8 +1416,8 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Settings</span>::<span class="nb">String</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;String: </span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34; &#34;</span><span class="p">),</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></div></div>
-<p>Unfortunately, as of C++23, C++ still lacks pattern matching. To achieve similar effects in C++, there are currently two ways to simulate it:</p>
-<p><strong>Function Overload:</strong></p>
+<p>Unfortunately, as of C++23, C++ still lacks pattern matching. To achieve an effect similar to the code above in C++, there are currently two ways to simulate it:</p>
+<p><strong>function overload:</strong></p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="p">...</span><span class="n">Ts</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Overload</span> <span class="o">:</span> <span class="n">Ts</span><span class="p">...</span> <span class="p">{</span> <span class="k">using</span> <span class="n">Ts</span><span class="o">::</span><span class="k">operator</span><span class="p">()...;</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">
@@ -1449,7 +1450,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
 </span></span><span class="line"><span class="cl">    <span class="n">Settings</span> <span class="n">settings</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">visit</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="n">settings</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>Both methods are somewhat awkward. Using templates for such tricks not only slows down compilation but also makes error messages harder to understand. This also means that <code>variant</code> is currently very difficult to use, lacking the necessary language facilities to simplify its operations, deeply entangled with templates, and discouraging to many.</p>
+<p>Both methods are quite awkward. Using templates for such tricks not only slows down compilation but also results in less readable error messages. This also means that the current <code>variant</code> is very difficult to use, lacking accompanying language features to simplify its operations, and is deeply entangled with templates, making it daunting for users.</p>
 
           
           
@@ -1467,7 +1468,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/en/articles/645810896/&amp;title=std::variant%20is%20Hard%20to%20Use!"
+          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/en/articles/645810896/&amp;title=std::variant%20is%20hard%20to%20use!"
           
           title="Share on LinkedIn"
           aria-label="Share on LinkedIn">
@@ -1481,7 +1482,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/en/articles/645810896/&amp;text=std::variant%20is%20Hard%20to%20Use!"
+          href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/en/articles/645810896/&amp;text=std::variant%20is%20hard%20to%20use!"
           
           title="Tweet on Twitter"
           aria-label="Tweet on Twitter">
@@ -1494,7 +1495,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://reddit.com/submit/?url=https://www.ykiko.me/en/articles/645810896/&amp;resubmit=true&amp;title=std::variant%20is%20Hard%20to%20Use!"
+          href="https://reddit.com/submit/?url=https://www.ykiko.me/en/articles/645810896/&amp;resubmit=true&amp;title=std::variant%20is%20hard%20to%20use!"
           
           title="Submit to Reddit"
           aria-label="Submit to Reddit">
@@ -1508,7 +1509,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://api.whatsapp.com/send?text=https://www.ykiko.me/en/articles/645810896/&amp;resubmit=true&amp;title=std::variant%20is%20Hard%20to%20Use!"
+          href="https://api.whatsapp.com/send?text=https://www.ykiko.me/en/articles/645810896/&amp;resubmit=true&amp;title=std::variant%20is%20hard%20to%20use!"
           
           title="Share via WhatsApp"
           aria-label="Share via WhatsApp">
@@ -1522,7 +1523,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://t.me/share/url?url=https://www.ykiko.me/en/articles/645810896/&amp;resubmit=true&amp;title=std::variant%20is%20Hard%20to%20Use!"
+          href="https://t.me/share/url?url=https://www.ykiko.me/en/articles/645810896/&amp;resubmit=true&amp;title=std::variant%20is%20hard%20to%20use!"
           
           title="Share via Telegram"
           aria-label="Share via Telegram">
@@ -1536,7 +1537,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/en/articles/645810896/&amp;description=std::variant%20is%20Hard%20to%20Use!"
+          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/en/articles/645810896/&amp;description=std::variant%20is%20hard%20to%20use!"
           
           title="Pin on Pinterest"
           aria-label="Pin on Pinterest">
@@ -1550,7 +1551,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/en/articles/645810896/&amp;quote=std::variant%20is%20Hard%20to%20Use!"
+          href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/en/articles/645810896/&amp;quote=std::variant%20is%20hard%20to%20use!"
           
           title="Share on Facebook"
           aria-label="Share on Facebook">
@@ -1567,7 +1568,7 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
           href="#"
           
             data-email=""
-            data-subject="Reply to std::variant is Hard to Use!"
+            data-subject="Reply to std::variant is hard to use!"
           
           title="Send via email"
           aria-label="Send via email">
@@ -1606,12 +1607,12 @@ Sum Type # First, let’s discuss sum types, also known as tagged unions. A sum 
               class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
               href="/en/articles/646752343/">
               <span class="leading-6">
-                C++ Forbidden Dark Arts: STMP (Part 1)&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+                C++ Forbidden Black Magic: STMP (Part 1)&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
             </a>
             
               <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2023-07-29T18:20:50&#43;00:00">29 July 2023</time>
+                <time datetime="2023-07-29T10:20:50&#43;00:00">29 July 2023</time>
               </span>
             
           

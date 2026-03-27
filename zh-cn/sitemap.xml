@@ -39,30 +39,80 @@
     <lastmod>2025-12-20T22:51:31+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+      rel="alternate"
+      hreflang="en"
+      href="https://www.ykiko.me/en/articles/1985940996270339378/"
+    />
+    <xhtml:link
+      rel="alternate"
+      hreflang="zh-cn"
+      href="https://www.ykiko.me/zh-cn/articles/1985940996270339378/"
+    />
   </url>
   <url>
     <loc>https://www.ykiko.me/zh-cn/articles/1971691994037334904/</loc>
     <lastmod>2025-11-11T13:38:08+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+      rel="alternate"
+      hreflang="en"
+      href="https://www.ykiko.me/en/articles/1971691994037334904/"
+    />
+    <xhtml:link
+      rel="alternate"
+      hreflang="zh-cn"
+      href="https://www.ykiko.me/zh-cn/articles/1971691994037334904/"
+    />
   </url>
   <url>
     <loc>https://www.ykiko.me/zh-cn/articles/1931855290430624907/</loc>
     <lastmod>2025-07-24T15:26:56+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+      rel="alternate"
+      hreflang="en"
+      href="https://www.ykiko.me/en/articles/1931855290430624907/"
+    />
+    <xhtml:link
+      rel="alternate"
+      hreflang="zh-cn"
+      href="https://www.ykiko.me/zh-cn/articles/1931855290430624907/"
+    />
   </url>
   <url>
     <loc>https://www.ykiko.me/zh-cn/articles/1919923607997518115/</loc>
     <lastmod>2025-06-21T17:33:11+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+      rel="alternate"
+      hreflang="en"
+      href="https://www.ykiko.me/en/articles/1919923607997518115/"
+    />
+    <xhtml:link
+      rel="alternate"
+      hreflang="zh-cn"
+      href="https://www.ykiko.me/zh-cn/articles/1919923607997518115/"
+    />
   </url>
   <url>
     <loc>https://www.ykiko.me/zh-cn/articles/21319978959/</loc>
     <lastmod>2025-02-04T21:00:55+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+      rel="alternate"
+      hreflang="en"
+      href="https://www.ykiko.me/en/articles/21319978959/"
+    />
+    <xhtml:link
+      rel="alternate"
+      hreflang="zh-cn"
+      href="https://www.ykiko.me/zh-cn/articles/21319978959/"
+    />
   </url>
   <url>
     <loc>https://www.ykiko.me/zh-cn/series/clice-dev-diary/</loc>

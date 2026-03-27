@@ -15,8 +15,8 @@
 
   
   
-    <title>The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11 &middot; ykiko&#39;s blog</title>
-    <meta name="title" content="The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11 &middot; ykiko&#39;s blog">
+    <title>The Perfect Combination of Python and C&#43;&#43;: Object Design in pybind11 &middot; ykiko&#39;s blog</title>
+    <meta name="title" content="The Perfect Combination of Python and C&#43;&#43;: Object Design in pybind11 &middot; ykiko&#39;s blog">
   
 
   
@@ -68,20 +68,22 @@
   
   <meta property="og:url" content="https://www.ykiko.me/en/articles/702197261/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11">
-  <meta property="og:description" content="I participated in Google Summer of Code 2024, where my main task was to implement a pybind11 compatibility interface for a Python interpreter. While it’s called implementing a compatibility interface, it essentially amounts to rewriting pybind11, so I’ve been diving deep into its source code recently.">
+  <meta property="og:title" content="The Perfect Combination of Python and C&#43;&#43;: Object Design in pybind11">
+  <meta property="og:description" content="This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+参加了 Google Summer of Code 2024。主要的任务就是为一个 Python 解释器 实现 pybind11 的兼容性接口。说是实现兼容性接口，实际上相当于重写 pybind11 了，所以最近一直在读它的源码。">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2024-06-07T15:28:11+00:00">
-    <meta property="article:modified_time" content="2024-06-07T15:28:11+00:00">
+    <meta property="article:published_time" content="2024-06-07T07:28:11+00:00">
+    <meta property="article:modified_time" content="2024-06-07T07:28:11+00:00">
     <meta property="og:image" content="https://www.ykiko.me/en/articles/702197261/featured.png">
 
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/en/articles/702197261/featured.png">
-  <meta name="twitter:title" content="The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11">
-  <meta name="twitter:description" content="I participated in Google Summer of Code 2024, where my main task was to implement a pybind11 compatibility interface for a Python interpreter. While it’s called implementing a compatibility interface, it essentially amounts to rewriting pybind11, so I’ve been diving deep into its source code recently.">
+  <meta name="twitter:title" content="The Perfect Combination of Python and C&#43;&#43;: Object Design in pybind11">
+  <meta name="twitter:description" content="This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+参加了 Google Summer of Code 2024。主要的任务就是为一个 Python 解释器 实现 pybind11 的兼容性接口。说是实现兼容性接口，实际上相当于重写 pybind11 了，所以最近一直在读它的源码。">
 
   
   
@@ -234,8 +236,8 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Articles",
-    "name": "The Perfect Integration of Python and C\u002b\u002b: Object Design in pybind11",
-    "headline": "The Perfect Integration of Python and C\u002b\u002b: Object Design in pybind11",
+    "name": "The Perfect Combination of Python and C\u002b\u002b: Object Design in pybind11",
+    "headline": "The Perfect Combination of Python and C\u002b\u002b: Object Design in pybind11",
     
     "inLanguage": "en",
     "url" : "https://www.ykiko.me/en/articles/702197261/",
@@ -244,15 +246,15 @@
       "name": "ykiko"
     },
     "copyrightYear": "2024",
-    "dateCreated": "2024-06-07T15:28:11\u002b00:00",
-    "datePublished": "2024-06-07T15:28:11\u002b00:00",
+    "dateCreated": "2024-06-07T07:28:11\u002b00:00",
+    "datePublished": "2024-06-07T07:28:11\u002b00:00",
     
-    "dateModified": "2024-06-07T15:28:11\u002b00:00",
+    "dateModified": "2024-06-07T07:28:11\u002b00:00",
     
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "1653"
+    "wordCount": "1717"
   }]
   </script>
 
@@ -407,20 +409,20 @@
         <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
     <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg></span>
       </span>
-      <span class="text-sm font-medium bf-icon-color-hover" title="The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11">EN</span>
+      <span class="text-sm font-medium bf-icon-color-hover" title="The Perfect Combination of Python and C&#43;&#43;: Object Design in pybind11">EN</span>
     </button>
     <ul class="menuhide">
       <li class="rounded-xl backdrop-blur shadow-2xl p-2 flex flex-col gap-1">
         
-          <a href="/en/articles/702197261/" class="flex items-center bf-icon-color-hover px-3 py-1">
-            <span class="text-sm font-sm" title="The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11">
-              English
-            </span>
-          </a>
-        
           <a href="/zh-cn/articles/702197261/" class="flex items-center bf-icon-color-hover px-3 py-1">
             <span class="text-sm font-sm" title="Python 与 C&#43;&#43; 的完美结合：pybind11 中的对象设计">
               简体中文
+            </span>
+          </a>
+        
+          <a href="/en/articles/702197261/" class="flex items-center bf-icon-color-hover px-3 py-1">
+            <span class="text-sm font-sm" title="The Perfect Combination of Python and C&#43;&#43;: Object Design in pybind11">
+              English
             </span>
           </a>
         
@@ -583,20 +585,20 @@
         <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
     <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg></span>
       </span>
-      <span class="text-sm font-medium bf-icon-color-hover" title="The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11">EN</span>
+      <span class="text-sm font-medium bf-icon-color-hover" title="The Perfect Combination of Python and C&#43;&#43;: Object Design in pybind11">EN</span>
     </button>
     <ul class="menuhide">
       <li class="rounded-xl backdrop-blur shadow-2xl p-2 flex flex-col gap-1">
         
-          <a href="/en/articles/702197261/" class="flex items-center bf-icon-color-hover px-3 py-1">
-            <span class="text-sm font-sm" title="The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11">
-              English
-            </span>
-          </a>
-        
           <a href="/zh-cn/articles/702197261/" class="flex items-center bf-icon-color-hover px-3 py-1">
             <span class="text-sm font-sm" title="Python 与 C&#43;&#43; 的完美结合：pybind11 中的对象设计">
               简体中文
+            </span>
+          </a>
+        
+          <a href="/en/articles/702197261/" class="flex items-center bf-icon-color-hover px-3 py-1">
+            <span class="text-sm font-sm" title="The Perfect Combination of Python and C&#43;&#43;: Object Design in pybind11">
+              English
             </span>
           </a>
         
@@ -768,7 +770,7 @@
   
   <li class="hidden">
     <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/en/articles/702197261/"
-      >The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11</a
+      >The Perfect Combination of Python and C&#43;&#43;: Object Design in pybind11</a
     ><span class="px-1 text-primary-500">/</span>
   </li>
 
@@ -777,7 +779,7 @@
 
       
       <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-        The Perfect Integration of Python and C++: Object Design in pybind11
+        The Perfect Combination of Python and C++: Object Design in pybind11
       </h1>
       <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
         
@@ -833,7 +835,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2024-06-07T15:28:11&#43;00:00">7 June 2024</time><span class="px-2 text-primary-500">&middot;</span><span>1653 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">8 mins</span><span class="px-2 text-primary-500">&middot;</span>
+      <time datetime="2024-06-07T07:28:11&#43;00:00">7 June 2024</time><span class="px-2 text-primary-500">&middot;</span><span>1717 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">4 mins</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1210,10 +1212,11 @@
         
 
         <div class="article-content max-w-prose mb-20">
-          <p>I participated in <a href="https://summerofcode.withgoogle.com/programs/2024/projects/Ji2Mi97o"  target="_blank" rel="noreferrer">Google Summer of Code 2024</a>, where my main task was to implement a <a href="https://github.com/pybind/pybind11"  target="_blank" rel="noreferrer">pybind11</a> compatibility interface for a <a href="https://pocketpy.dev/"  target="_blank" rel="noreferrer">Python interpreter</a>. While it&rsquo;s called implementing a compatibility interface, it essentially amounts to rewriting pybind11, so I&rsquo;ve been diving deep into its source code recently.</p>
-<blockquote><p>For readers who might not be familiar with pybind11, it is essentially a middleware that facilitates seamless interaction between Python and C++ code. For instance, embedding a Python interpreter within C++ or compiling C++ code into a dynamic library for Python to call. For more details, please refer to the official documentation.</p>
-</blockquote><p>I&rsquo;ve recently managed to grasp the overall operational logic of the framework. Looking back, pybind11 truly lives up to its reputation as the de facto standard for binding C++ and Python, with many ingenious designs. Its interaction logic can also be applied to interactions between C++ and other GC languages, such as JS and C# (though there are no equivalents like jsbind11 or csharpbind11 yet). I might write a series of articles on this topic, stripping away some of the intricate details to introduce some of the shared concepts.</p>
-<p>This article mainly discusses some interesting points about object design in pybind11.</p>
+          <blockquote><p>This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.</p>
+</blockquote><p>参加了 <a href="https://summerofcode.withgoogle.com/programs/2024/projects/Ji2Mi97o"  target="_blank" rel="noreferrer">Google Summer of Code 2024</a>。主要的任务就是为一个 <a href="https://pocketpy.dev/"  target="_blank" rel="noreferrer">Python 解释器</a> 实现 <a href="https://github.com/pybind/pybind11"  target="_blank" rel="noreferrer">pybind11</a> 的兼容性接口。说是实现兼容性接口，实际上相当于重写 pybind11 了，所以最近一直在读它的源码。</p>
+<blockquote><p>Some readers might not be familiar with pybind11. Simply put, pybind11 is middleware that facilitates interaction between Python and C++ code. For example, it allows embedding a Python interpreter in C++ or compiling C++ code into a dynamic library for Python to call. For more details, please refer to the official documentation.</p>
+</blockquote><p>Recently, I&rsquo;ve basically clarified the overall operational logic of the framework. Looking back now, pybind11 truly lives up to its reputation as the de facto standard for C++ and Python binding, featuring many ingenious designs. Its interaction logic could also be fully applied to interactions between C++ and other GC-enabled languages, such as JS and C# (although there aren&rsquo;t things like jsbind11 and csharpbind11 yet). I might write a series of related articles soon, stripping away some tedious details to introduce some of the common ideas.</p>
+<p>This article primarily discusses some interesting aspects of pybind11&rsquo;s object design.</p>
 
 <h2 class="relative group">PyObject
     <div id="pyobject" class="anchor"></div>
@@ -1224,16 +1227,16 @@
     </span>
     
 </h2>
-<p>We all know that in Python, everything is an object, all instances of <code>object</code>. However, pybind11 actually needs to interact with specific implementations of Python like CPython. So, how is &ldquo;everything is an object&rdquo; reflected in CPython? The answer is <code>PyObject*</code>. Let&rsquo;s &ldquo;see&rdquo; Python and understand how actual Python code operates within CPython.</p>
-<p>Creating an object essentially means creating a <code>PyObject*</code>.</p>
+<p>As we all know, in Python, everything is an object, all <code>object</code>s. However, pybind11 actually needs to interact with specific Python implementations like CPython. So, what is the manifestation of &ldquo;everything is an object&rdquo; in CPython? The answer is <code>PyObject*</code>. Let&rsquo;s now &ldquo;see&rdquo; Python and understand how actual Python code operates within CPython.</p>
+<p>Creating an object is essentially creating a <code>PyObject*</code></p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span></span></span></code></pre></div></div>
-<p>CPython has specific APIs to create objects of built-in types. The above statement would roughly translate to:</p>
+<p>CPython has dedicated APIs to create objects of built-in types. The above statement would likely be translated into:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">PyObject</span><span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="nf">PyList_New</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="nf">PyList_SetItem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nf">PyLong_FromLong</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl"><span class="nf">PyList_SetItem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nf">PyLong_FromLong</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span> 
+</span></span><span class="line"><span class="cl"><span class="nf">PyList_SetItem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nf">PyLong_FromLong</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl"><span class="nf">PyList_SetItem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="nf">PyLong_FromLong</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span></span></span></code></pre></div></div>
-<p>Thus, the role of <code>is</code> becomes clear—it checks whether the values of two pointers are the same. The reason for the default shallow copy is that the default assignment is merely a pointer assignment, not involving the elements it points to.</p>
-<p>CPython also provides a series of APIs to manipulate the objects pointed to by <code>PyObject*</code>, such as:</p>
+<p>In this way, the role of <code>is</code> becomes easy to understand: it&rsquo;s used to determine if the values of two pointers are the same. The reason for so-called default shallow copying is simply that default assignment is just pointer assignment, not involving the elements it points to.</p>
+<p>CPython also provides a series of APIs to operate on objects pointed to by <code>PyObject*</code>, for example:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">PyObject</span><span class="o">*</span> <span class="nf">PyObject_CallObject</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">callable_object</span><span class="p">,</span> <span class="n">PyObject</span> <span class="o">*</span><span class="n">args</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">PyObject</span><span class="o">*</span> <span class="nf">PyObject_CallFunction</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">callable_object</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">format</span><span class="p">,</span> <span class="p">...);</span>
 </span></span><span class="line"><span class="cl"><span class="n">PyObject</span><span class="o">*</span> <span class="nf">PyObject_CallMethod</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">o</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">method</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">format</span><span class="p">,</span> <span class="p">...);</span>
@@ -1248,7 +1251,7 @@
 </span></span><span class="line"><span class="cl"><span class="n">PyObject</span><span class="o">*</span> <span class="nf">PyObject_GetItem</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">o</span><span class="p">,</span> <span class="n">PyObject</span> <span class="o">*</span><span class="n">key</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">PyObject_SetItem</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">o</span><span class="p">,</span> <span class="n">PyObject</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">PyObject</span> <span class="o">*</span><span class="n">v</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">PyObject_DelItem</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">o</span><span class="p">,</span> <span class="n">PyObject</span> <span class="o">*</span><span class="n">key</span><span class="p">);</span></span></span></code></pre></div></div>
-<p>These functions generally have direct counterparts in Python, and their purposes are evident from their names.</p>
+<p>These functions generally have direct counterparts in Python, and their names indicate their purpose.</p>
 
 <h2 class="relative group">handle
     <div id="handle" class="anchor"></div>
@@ -1259,7 +1262,7 @@
     </span>
     
 </h2>
-<p>Since pybind11 needs to support manipulating Python objects in C++, its primary task is to encapsulate these C-style APIs. This is specifically achieved by the <code>handle</code> type. <code>handle</code> is a simple wrapper around <code>PyObject*</code> and encapsulates some member functions, such as:</p>
+<p>Since pybind11 needs to support operating on Python objects in C++, the primary task is to encapsulate these C-style APIs. This is specifically done by the <code>handle</code> type. <code>handle</code> is a simple wrapper around <code>PyObject*</code> and encapsulates some member functions, for example:</p>
 <p>Roughly like this:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">handle</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
@@ -1277,7 +1280,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></div></div>
-<p>Most functions are simply wrapped like above, but some functions are special.</p>
+<p>Most functions are simply wrapped like the above, but some functions are special.</p>
 
 <h2 class="relative group">get/set
     <div id="getset" class="anchor"></div>
@@ -1288,17 +1291,17 @@
     </span>
     
 </h2>
-<p>According to Bjarne Stroustrup, the father of C++, in &ldquo;The Design and Evolution of C++&rdquo;, part of the reason for introducing reference (lvalue) types was to allow users to assign to return values, making the overloading of operators like <code>[]</code> more natural. For example:</p>
+<p>According to Bjarne Stroustrup, the father of C++, in &ldquo;The Design and Evolution of C++&rdquo;, one reason for introducing reference (lvalue) types was to allow users to assign to return values, making operator overloading for <code>[]</code> more natural. For example:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// get
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>     <span class="c1">// set
 </span></span></span></code></pre></div></div>
-<p>Without references, one would have to return pointers, and the above code would have to be written as:</p>
+<p>Without references, one would have to return pointers, and the above code would have to be written like this:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// get
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>     <span class="c1">// set
 </span></span></span></code></pre></div></div>
-<p>In comparison, using references is much more aesthetically pleasing, isn&rsquo;t it? This issue exists in other programming languages as well, but not all languages adopt this solution. For example, Rust chooses automatic dereferencing, where the compiler automatically adds <code>*</code> to dereference at appropriate times, thus eliminating the need to write the extra <code>*</code>. However, neither of these methods works for Python because Python doesn&rsquo;t have the concept of dereferencing, nor does it distinguish between lvalues and rvalues. So, what&rsquo;s the solution? The answer is to distinguish between <code>getter</code> and <code>setter</code>.</p>
+<p>In comparison, isn&rsquo;t using references much more elegant? This problem also exists in other programming languages, but not all languages adopt this solution. For example, Rust chooses automatic dereferencing, where the compiler automatically adds <code>*</code> to dereference at appropriate times, thus eliminating the need to explicitly write <code>*</code>. However, neither of these methods works for Python, because Python fundamentally has no concept of dereferencing, nor does it distinguish between lvalues and rvalues. So what&rsquo;s the solution? The answer is to distinguish between <code>getter</code> and <code>setter</code>.</p>
 <p>For example, to overload <code>[]</code>:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">List</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
@@ -1311,8 +1314,8 @@
 </span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="n">List</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># __getitem__</span>
 </span></span><span class="line"><span class="cl"><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># __setitem__</span></span></span></code></pre></div></div>
-<p>Python checks the syntactic structure; if <code>[]</code> appears on the left side of <code>=</code>, it calls <code>__setitem__</code>; otherwise, it calls <code>__getitem__</code>. Actually, many languages adopt similar designs, such as C#&rsquo;s <code>this[]</code> operator overloading.</p>
-<p>Even the <code>.</code> operator can be overloaded by overriding <code>__getattr__</code> and <code>__setattr__</code>:</p>
+<p>Python checks the syntactic structure; if <code>[]</code> appears on the left side of <code>=</code>, <code>__setitem__</code> will be called, otherwise <code>__getitem__</code> will be called. Many languages actually adopt similar designs, such as C#&rsquo;s <code>this[]</code> operator overloading.</p>
+<p>Even the <code>.</code> operator can be overloaded, simply by overriding <code>__getattr__</code> and <code>__setattr__</code>:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;__getattr__&#34;</span><span class="p">)</span>
@@ -1324,7 +1327,7 @@
 </span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="c1"># __getattr__</span>
 </span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># __setattr__</span></span></span></code></pre></div></div>
-<p>pybind11 aims for the handle to achieve similar effects, calling <code>__getitem__</code> and <code>__setitem__</code> at appropriate times. For example:</p>
+<p>pybind11 aims for <code>handle</code> to achieve a similar effect, i.e., calling <code>__getitem__</code> and <code>__setitem__</code> at appropriate times. For example:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">py</span><span class="o">::</span><span class="n">handle</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">py</span><span class="o">::</span><span class="n">list</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="c1">// __setitem__
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// __getitem__
@@ -1344,7 +1347,7 @@
     </span>
     
 </h2>
-<p>Next, let&rsquo;s focus on how to achieve this effect. First, consider the return value of <code>operator[]</code>. Since it might need to call <code>__setitem__</code>, we return a proxy object here. It stores the <code>key</code> for subsequent calls.</p>
+<p>Next, let&rsquo;s focus on how to achieve this effect. First, consider the return value of <code>operator[]</code>. Since <code>__setitem__</code> might need to be called, we return a proxy object here. It will store the <code>key</code> for subsequent calls.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">accessor</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">handle</span> <span class="n">m_obj</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">ssize_t</span> <span class="n">m_key</span><span class="p">;</span>
@@ -1354,12 +1357,12 @@
 </span></span><span class="line"><span class="cl">        <span class="n">m_value</span> <span class="o">=</span> <span class="n">PyObject_GetItem</span><span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="n">ptr</span><span class="p">(),</span> <span class="n">key</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>The next question is how to distinguish between <code>obj[0] = 4</code> and <code>x = int_(1)</code>, so that the former calls <code>__setitem__</code> and the latter is a simple assignment to <code>x</code>. Notice the key difference between the two scenarios: lvalue and rvalue.</p>
+<p>The next problem is how to distinguish between <code>obj[0] = 4</code> and <code>x = int_(1)</code>, so that the former calls <code>__setitem__</code> and the latter is a simple assignment to <code>x</code>. Notice the key difference between the two cases above: lvalue and rvalue.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="c1">// assign to rvalue
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">auto</span> <span class="n">x</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// assign to lvalue
 </span></span></span></code></pre></div></div>
-<p>How can <code>operator=</code> call different functions based on the value category of the operand? This requires a relatively rare trick. We all know that we can add a <code>const</code> qualifier to a member function to allow it to be called on const objects.</p>
+<p>How can <code>operator=</code> call different functions based on the value category of its operand? This requires a somewhat less common trick: we know that a <code>const</code> qualifier can be added to a member function, allowing it to be called on a <code>const</code> object.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span> <span class="k">const</span> <span class="p">{}</span>
@@ -1367,10 +1370,10 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="n">A</span> <span class="n">a</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">a</span><span class="p">.</span><span class="n">foo</span><span class="p">();</span> <span class="c1">// error 
+</span></span><span class="line"><span class="cl">    <span class="n">a</span><span class="p">.</span><span class="n">foo</span><span class="p">();</span> <span class="c1">// error
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">a</span><span class="p">.</span><span class="n">bar</span><span class="p">();</span> <span class="c1">// ok
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
-<p>In addition, we can also add reference qualifiers <code>&amp;</code> and <code>&amp;&amp;</code>, which require <code>expr.f()</code> to be an lvalue or rvalue, respectively. This allows us to call different functions based on whether the expression is an lvalue or rvalue.</p>
+<p>Besides this, reference qualifiers <code>&amp;</code> and <code>&amp;&amp;</code> can also be added. The effect is to require that the <code>expr</code> in <code>expr.f()</code> be an lvalue or an rvalue. This way, we can call different functions based on whether it&rsquo;s an lvalue or an rvalue.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="p">{}</span>
@@ -1384,7 +1387,7 @@
 </span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="p">().</span><span class="n">bar</span><span class="p">();</span> <span class="c1">// ok
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">A</span><span class="p">().</span><span class="n">foo</span><span class="p">();</span> <span class="c1">// error
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
-<p>Using this feature, we can achieve the desired effect.</p>
+<p>Using this feature, we can achieve the above effect:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">accessor</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">handle</span> <span class="n">m_obj</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">ssize_t</span> <span class="n">m_key</span><span class="p">;</span>
@@ -1414,7 +1417,7 @@
     </span>
     
 </h2>
-<p>Going further, we want this proxy object to behave just like a <code>handle</code>, able to use all methods of <code>handle</code>. This is simple; just inherit from <code>handle</code>.</p>
+<p>Furthermore, we want this proxy object to behave just like a <code>handle</code>, capable of using all of <code>handle</code>&rsquo;s methods. This is simple: just inherit from <code>handle</code>.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">accessor</span> <span class="o">:</span> <span class="k">public</span> <span class="n">handle</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">handle</span> <span class="n">m_obj</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">ssize_t</span> <span class="n">m_key</span><span class="p">;</span>
@@ -1433,8 +1436,8 @@
 </span></span><span class="line"><span class="cl">        <span class="n">m_ptr</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>At this point, it seems we&rsquo;re done. However, note that our <code>__getitem__</code> is called in the constructor, meaning that even if the fetched value isn&rsquo;t used later, it will still be called. There seems to be room for further optimization. Can we somehow lazy-evaluate this, only calling <code>__getitem__</code> when we need to call these functions within <code>handle</code>?</p>
-<p>Currently, directly inheriting from <code>handle</code> certainly won&rsquo;t work. It&rsquo;s impossible to insert a check before every member function call to decide whether to call <code>__getitem__</code>. We can have both <code>handle</code> and <code>accessor</code> inherit from a base class, which has an interface to actually get the pointer to operate on.</p>
+<p>It seems to end here, but notice that our <code>__getitem__</code> is called in the constructor, meaning it will be invoked even if the retrieved value is not used later. There seems to be room for further optimization: can we make this evaluation lazy through some means? Only calling <code>__getitem__</code> when functions within <code>handle</code> actually need to be called?</p>
+<p>Directly inheriting <code>handle</code> as it is currently won&rsquo;t work; it&rsquo;s impossible to insert a check before every member function call to decide whether to invoke <code>__getitem__</code>. We can have both <code>handle</code> and <code>accessor</code> inherit from a base class, which provides an interface to actually retrieve the pointer to be operated on.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">object_api</span><span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">virtual</span> <span class="n">PyObject</span><span class="o">*</span> <span class="n">get</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -1445,14 +1448,14 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span></span></span></code></pre></div></div>
-<p>Then, both <code>handle</code> and <code>accessor</code> inherit from this base class. Now, <code>accessor</code> can perform lazy evaluation of <code>__getitem__</code> here.</p>
+<p>Then, both <code>handle</code> and <code>accessor</code> inherit from this base class, and <code>accessor</code> can perform lazy evaluation of <code>__getitem__</code> here.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">handle</span> <span class="o">:</span> <span class="k">public</span> <span class="n">object_api</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">PyObject</span><span class="o">*</span> <span class="nf">get</span><span class="p">()</span> <span class="k">override</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">m_ptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">accessor</span> <span class="o">:</span> <span class="k">public</span> <span class="n">handle</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">accessor</span> <span class="o">:</span> <span class="k">public</span> <span class="n">object_api</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">PyObject</span><span class="o">*</span> <span class="nf">get</span><span class="p">()</span> <span class="k">override</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">m_ptr</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="n">m_ptr</span> <span class="o">=</span> <span class="n">PyObject_GetItem</span><span class="p">(</span><span class="n">m_obj</span><span class="p">.</span><span class="n">ptr</span><span class="p">(),</span> <span class="n">m_key</span><span class="p">);</span>
@@ -1460,7 +1463,7 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">m_ptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>This doesn&rsquo;t involve type erasure; it just requires subclasses to expose an interface. Naturally, we can use <a href="https://en.cppreference.com/w/cpp/language/crtp"  target="_blank" rel="noreferrer">CRTP</a> to devirtualize.</p>
+<p>This doesn&rsquo;t involve type erasure; it merely requires subclasses to expose an interface. Therefore, we can naturally use <a href="https://en.cppreference.com/w/cpp/language/crtp"  target="_blank" rel="noreferrer">CRTP</a> to devirtualize.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Derived</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">object_api</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
@@ -1489,7 +1492,7 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">m_ptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
-<p>Thus, we&rsquo;ve lazy-evaluated the call to <code>__getitem__</code> without introducing additional runtime overhead.</p>
+<p>This way, we&rsquo;ve made the <code>__getitem__</code> call lazy without introducing additional runtime overhead.</p>
 
 <h2 class="relative group">Conclusion
     <div id="conclusion" class="anchor"></div>
@@ -1500,8 +1503,8 @@
     </span>
     
 </h2>
-<p>We often say that C++ is too complex, with a dazzling array of features that often conflict with each other. But from another perspective, having many features means users have more choices, more design space, and can assemble brilliant designs like the one above. It&rsquo;s hard to imagine another language achieving such effects. Perhaps this is the charm of C++.</p>
-<p>This concludes the article. Thank you for reading, and feel free to discuss in the comments.</p>
+<p>We often say that C++ is too complex, with too many dazzling features that often clash with each other. But looking at it from another perspective, having many features means users have more choices and more design space, allowing them to assemble brilliant designs like the one described above. I think it would be difficult for another language to achieve such an effect. Perhaps this is the charm of C++.</p>
+<p>This article concludes here. Thank you for reading, and feel free to discuss in the comments section.</p>
 
           
           
@@ -1519,7 +1522,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/en/articles/702197261/&amp;title=The%20Perfect%20Integration%20of%20Python%20and%20C&#43;&#43;:%20Object%20Design%20in%20pybind11"
+          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/en/articles/702197261/&amp;title=The%20Perfect%20Combination%20of%20Python%20and%20C&#43;&#43;:%20Object%20Design%20in%20pybind11"
           
           title="Share on LinkedIn"
           aria-label="Share on LinkedIn">
@@ -1533,7 +1536,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/en/articles/702197261/&amp;text=The%20Perfect%20Integration%20of%20Python%20and%20C&#43;&#43;:%20Object%20Design%20in%20pybind11"
+          href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/en/articles/702197261/&amp;text=The%20Perfect%20Combination%20of%20Python%20and%20C&#43;&#43;:%20Object%20Design%20in%20pybind11"
           
           title="Tweet on Twitter"
           aria-label="Tweet on Twitter">
@@ -1546,7 +1549,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://reddit.com/submit/?url=https://www.ykiko.me/en/articles/702197261/&amp;resubmit=true&amp;title=The%20Perfect%20Integration%20of%20Python%20and%20C&#43;&#43;:%20Object%20Design%20in%20pybind11"
+          href="https://reddit.com/submit/?url=https://www.ykiko.me/en/articles/702197261/&amp;resubmit=true&amp;title=The%20Perfect%20Combination%20of%20Python%20and%20C&#43;&#43;:%20Object%20Design%20in%20pybind11"
           
           title="Submit to Reddit"
           aria-label="Submit to Reddit">
@@ -1560,7 +1563,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://api.whatsapp.com/send?text=https://www.ykiko.me/en/articles/702197261/&amp;resubmit=true&amp;title=The%20Perfect%20Integration%20of%20Python%20and%20C&#43;&#43;:%20Object%20Design%20in%20pybind11"
+          href="https://api.whatsapp.com/send?text=https://www.ykiko.me/en/articles/702197261/&amp;resubmit=true&amp;title=The%20Perfect%20Combination%20of%20Python%20and%20C&#43;&#43;:%20Object%20Design%20in%20pybind11"
           
           title="Share via WhatsApp"
           aria-label="Share via WhatsApp">
@@ -1574,7 +1577,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://t.me/share/url?url=https://www.ykiko.me/en/articles/702197261/&amp;resubmit=true&amp;title=The%20Perfect%20Integration%20of%20Python%20and%20C&#43;&#43;:%20Object%20Design%20in%20pybind11"
+          href="https://t.me/share/url?url=https://www.ykiko.me/en/articles/702197261/&amp;resubmit=true&amp;title=The%20Perfect%20Combination%20of%20Python%20and%20C&#43;&#43;:%20Object%20Design%20in%20pybind11"
           
           title="Share via Telegram"
           aria-label="Share via Telegram">
@@ -1588,7 +1591,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/en/articles/702197261/&amp;description=The%20Perfect%20Integration%20of%20Python%20and%20C&#43;&#43;:%20Object%20Design%20in%20pybind11"
+          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/en/articles/702197261/&amp;description=The%20Perfect%20Combination%20of%20Python%20and%20C&#43;&#43;:%20Object%20Design%20in%20pybind11"
           
           title="Pin on Pinterest"
           aria-label="Pin on Pinterest">
@@ -1602,7 +1605,7 @@
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/en/articles/702197261/&amp;quote=The%20Perfect%20Integration%20of%20Python%20and%20C&#43;&#43;:%20Object%20Design%20in%20pybind11"
+          href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/en/articles/702197261/&amp;quote=The%20Perfect%20Combination%20of%20Python%20and%20C&#43;&#43;:%20Object%20Design%20in%20pybind11"
           
           title="Share on Facebook"
           aria-label="Share on Facebook">
@@ -1619,7 +1622,7 @@
           href="#"
           
             data-email=""
-            data-subject="Reply to The Perfect Integration of Python and C&#43;&#43;: Object Design in pybind11"
+            data-subject="Reply to The Perfect Combination of Python and C&#43;&#43;: Object Design in pybind11"
           
           title="Send via email"
           aria-label="Send via email">
@@ -1655,12 +1658,12 @@
               class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
               href="/en/articles/696878184/">
               <span class="leading-6">
-                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;Is the Singleton Pattern in C++ Truly "Singleton"?
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;Is the singleton pattern in C++ truly a 'singleton'?
               </span>
             </a>
             
               <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2024-05-10T02:08:28&#43;00:00">10 May 2024</time>
+                <time datetime="2024-05-09T18:08:28&#43;00:00">9 May 2024</time>
               </span>
             
           
@@ -1671,12 +1674,12 @@
               class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
               href="/en/articles/706509748/">
               <span class="leading-6">
-                Recap of the St. Louis WG21 Meeting&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+                St. Louis WG21 Meeting Review&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
             </a>
             
               <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2024-07-02T02:46:56&#43;00:00">2 July 2024</time>
+                <time datetime="2024-07-01T18:46:56&#43;00:00">1 July 2024</time>
               </span>
             
           

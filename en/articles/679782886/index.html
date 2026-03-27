@@ -15,8 +15,8 @@
 
   
   
-    <title>Relocation Semantics in C&#43;&#43; &middot; ykiko&#39;s blog</title>
-    <meta name="title" content="Relocation Semantics in C&#43;&#43; &middot; ykiko&#39;s blog">
+    <title>Relocate Semantics in C&#43;&#43; &middot; ykiko&#39;s blog</title>
+    <meta name="title" content="Relocate Semantics in C&#43;&#43; &middot; ykiko&#39;s blog">
   
 
   
@@ -68,22 +68,22 @@
   
   <meta property="og:url" content="https://www.ykiko.me/en/articles/679782886/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
-  <meta property="og:title" content="Relocation Semantics in C&#43;&#43;">
-  <meta property="og:description" content="As is well known, there are two special constructors in C&#43;&#43;: the copy constructor and the move constructor.
-The copy constructor was introduced as early as C&#43;&#43;98 to copy an object. For types like vector that own resources, copying will also duplicate the resources it owns.">
+  <meta property="og:title" content="Relocate Semantics in C&#43;&#43;">
+  <meta property="og:description" content="This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+As is well known, there are currently two special constructors in C&#43;&#43;: the copy constructor and the move constructor.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2024-01-25T17:22:29+00:00">
-    <meta property="article:modified_time" content="2024-01-25T17:22:29+00:00">
+    <meta property="article:published_time" content="2024-01-25T09:22:29+00:00">
+    <meta property="article:modified_time" content="2024-01-25T09:22:29+00:00">
     <meta property="og:image" content="https://www.ykiko.me/en/articles/679782886/featured.png">
 
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/en/articles/679782886/featured.png">
-  <meta name="twitter:title" content="Relocation Semantics in C&#43;&#43;">
-  <meta name="twitter:description" content="As is well known, there are two special constructors in C&#43;&#43;: the copy constructor and the move constructor.
-The copy constructor was introduced as early as C&#43;&#43;98 to copy an object. For types like vector that own resources, copying will also duplicate the resources it owns.">
+  <meta name="twitter:title" content="Relocate Semantics in C&#43;&#43;">
+  <meta name="twitter:description" content="This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+As is well known, there are currently two special constructors in C&#43;&#43;: the copy constructor and the move constructor.">
 
   
   
@@ -236,8 +236,8 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
     "@context": "https://schema.org",
     "@type": "Article",
     "articleSection": "Articles",
-    "name": "Relocation Semantics in C\u002b\u002b",
-    "headline": "Relocation Semantics in C\u002b\u002b",
+    "name": "Relocate Semantics in C\u002b\u002b",
+    "headline": "Relocate Semantics in C\u002b\u002b",
     
     "inLanguage": "en",
     "url" : "https://www.ykiko.me/en/articles/679782886/",
@@ -246,15 +246,15 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
       "name": "ykiko"
     },
     "copyrightYear": "2024",
-    "dateCreated": "2024-01-25T17:22:29\u002b00:00",
-    "datePublished": "2024-01-25T17:22:29\u002b00:00",
+    "dateCreated": "2024-01-25T09:22:29\u002b00:00",
+    "datePublished": "2024-01-25T09:22:29\u002b00:00",
     
-    "dateModified": "2024-01-25T17:22:29\u002b00:00",
+    "dateModified": "2024-01-25T09:22:29\u002b00:00",
     
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "2340"
+    "wordCount": "2392"
   }]
   </script>
 
@@ -409,20 +409,20 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
         <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
     <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg></span>
       </span>
-      <span class="text-sm font-medium bf-icon-color-hover" title="Relocation Semantics in C&#43;&#43;">EN</span>
+      <span class="text-sm font-medium bf-icon-color-hover" title="Relocate Semantics in C&#43;&#43;">EN</span>
     </button>
     <ul class="menuhide">
       <li class="rounded-xl backdrop-blur shadow-2xl p-2 flex flex-col gap-1">
         
-          <a href="/en/articles/679782886/" class="flex items-center bf-icon-color-hover px-3 py-1">
-            <span class="text-sm font-sm" title="Relocation Semantics in C&#43;&#43;">
-              English
-            </span>
-          </a>
-        
           <a href="/zh-cn/articles/679782886/" class="flex items-center bf-icon-color-hover px-3 py-1">
             <span class="text-sm font-sm" title="C&#43;&#43; 中的 relocate 语义">
               简体中文
+            </span>
+          </a>
+        
+          <a href="/en/articles/679782886/" class="flex items-center bf-icon-color-hover px-3 py-1">
+            <span class="text-sm font-sm" title="Relocate Semantics in C&#43;&#43;">
+              English
             </span>
           </a>
         
@@ -585,20 +585,20 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
         <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
     <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg></span>
       </span>
-      <span class="text-sm font-medium bf-icon-color-hover" title="Relocation Semantics in C&#43;&#43;">EN</span>
+      <span class="text-sm font-medium bf-icon-color-hover" title="Relocate Semantics in C&#43;&#43;">EN</span>
     </button>
     <ul class="menuhide">
       <li class="rounded-xl backdrop-blur shadow-2xl p-2 flex flex-col gap-1">
         
-          <a href="/en/articles/679782886/" class="flex items-center bf-icon-color-hover px-3 py-1">
-            <span class="text-sm font-sm" title="Relocation Semantics in C&#43;&#43;">
-              English
-            </span>
-          </a>
-        
           <a href="/zh-cn/articles/679782886/" class="flex items-center bf-icon-color-hover px-3 py-1">
             <span class="text-sm font-sm" title="C&#43;&#43; 中的 relocate 语义">
               简体中文
+            </span>
+          </a>
+        
+          <a href="/en/articles/679782886/" class="flex items-center bf-icon-color-hover px-3 py-1">
+            <span class="text-sm font-sm" title="Relocate Semantics in C&#43;&#43;">
+              English
             </span>
           </a>
         
@@ -770,7 +770,7 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
   
   <li class="hidden">
     <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/en/articles/679782886/"
-      >Relocation Semantics in C&#43;&#43;</a
+      >Relocate Semantics in C&#43;&#43;</a
     ><span class="px-1 text-primary-500">/</span>
   </li>
 
@@ -779,7 +779,7 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
 
       
       <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-        Relocation Semantics in C++
+        Relocate Semantics in C++
       </h1>
       <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
         
@@ -835,7 +835,7 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2024-01-25T17:22:29&#43;00:00">25 January 2024</time><span class="px-2 text-primary-500">&middot;</span><span>2340 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">11 mins</span><span class="px-2 text-primary-500">&middot;</span>
+      <time datetime="2024-01-25T09:22:29&#43;00:00">25 January 2024</time><span class="px-2 text-primary-500">&middot;</span><span>2392 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">5 mins</span><span class="px-2 text-primary-500">&middot;</span>
 
 
   
@@ -1071,18 +1071,19 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
     class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#is-that-all">Is That All?</a></li>
+    <li><a href="#is-that-all">Is that all?</a></li>
     <li><a href="#overkill">Overkill</a></li>
     <li><a href="#current-status">Current Status</a>
       <ul>
-        <li><a href="#conservative-faction">Conservative Faction</a></li>
-        <li><a href="#radical-faction">Radical Faction</a></li>
+        <li><a href="#conservatives">Conservatives</a></li>
+        <li><a href="#radicals">Radicals</a></li>
       </ul>
     </li>
-    <li><a href="#why-hasnt-it-entered-the-standard-after-so-long">Why Hasn&rsquo;t It Entered the Standard After So Long?</a></li>
+    <li><a href="#why-has-it-taken-so-long-to-enter-the-standard">Why has it taken so long to enter the standard?</a></li>
     <li><a href="#other-languages">Other Languages</a>
       <ul>
         <li><a href="#rust">Rust</a></li>
+        <li><a href="#mojo">Mojo</a></li>
       </ul>
     </li>
   </ul>
@@ -1098,18 +1099,19 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
     class="py-2 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#is-that-all">Is That All?</a></li>
+    <li><a href="#is-that-all">Is that all?</a></li>
     <li><a href="#overkill">Overkill</a></li>
     <li><a href="#current-status">Current Status</a>
       <ul>
-        <li><a href="#conservative-faction">Conservative Faction</a></li>
-        <li><a href="#radical-faction">Radical Faction</a></li>
+        <li><a href="#conservatives">Conservatives</a></li>
+        <li><a href="#radicals">Radicals</a></li>
       </ul>
     </li>
-    <li><a href="#why-hasnt-it-entered-the-standard-after-so-long">Why Hasn&rsquo;t It Entered the Standard After So Long?</a></li>
+    <li><a href="#why-has-it-taken-so-long-to-enter-the-standard">Why has it taken so long to enter the standard?</a></li>
     <li><a href="#other-languages">Other Languages</a>
       <ul>
         <li><a href="#rust">Rust</a></li>
+        <li><a href="#mojo">Mojo</a></li>
       </ul>
     </li>
   </ul>
@@ -1228,18 +1230,19 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
         
 
         <div class="article-content max-w-prose mb-20">
-          <p>As is well known, there are two special constructors in C++: the copy constructor and the move constructor.</p>
-<p>The copy constructor was introduced as early as C++98 to copy an object. For types like <code>vector</code> that own resources, copying will also duplicate the resources it owns.</p>
+          <blockquote><p>This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.</p>
+</blockquote><p>As is well known, there are currently two special constructors in C++: the copy constructor and the move constructor.</p>
+<p>The copy constructor was added in C++98 to copy an object. For resource-owning types like <code>vector</code>, copying involves copying the resources it owns.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v1</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">v1</span><span class="p">;</span> <span class="c1">// copy
 </span></span></span></code></pre></div></div>
-<p>Of course, the overhead of copying can sometimes be very large and completely unnecessary. Therefore, the move constructor was introduced in C++11 to transfer the resources of one object to another. This significantly reduces overhead compared to direct copying.</p>
+<p>Of course, the overhead of copying can sometimes be very large and completely unnecessary. Therefore, C++11 introduced the move constructor to transfer an object&rsquo;s resources to another object. This results in much lower overhead compared to direct copying.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v1</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span> <span class="c1">// move
 </span></span></span></code></pre></div></div>
-<p>Note that in C++, move is referred to as <em>non-destructive move</em>. The C++ standard specifies that the state of an object after being moved is a <em>valid state</em>, and the implementation must ensure that its destructor can be called normally. <strong>The moved object may still be used again</strong> (whether it can be used depends on the implementation).</p>
+<p>Note that move in C++ is called <em>non-destructive move</em>. The C++ standard specifies that the state of an object after being moved is a <em>valid state</em>, and the implementation must ensure that its destructor can be called normally. <strong>A moved-from object may still be used again</strong> (whether it can be used depends on the implementation).</p>
 
-<h2 class="relative group">Is That All?
+<h2 class="relative group">Is that all?
     <div id="is-that-all" class="anchor"></div>
     
     <span
@@ -1248,64 +1251,64 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
     </span>
     
 </h2>
-<p>Are these two constructors sufficient? Of course not. In fact, there is another widely used operation that can be called the <strong>relocate</strong> operation. Consider the following scenario:</p>
-<p>Suppose you are implementing a <code>vector</code>, and capacity expansion is necessary. So you write a private member function <code>grow</code> to handle the expansion (the following code example temporarily ignores exception safety).</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">grow</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">new_capacity</span><span class="p">)</span> 
+<p>Are these two constructors enough? Certainly not. In fact, there&rsquo;s another widely used operation that can be called <strong>relocate</strong>. Consider the following scenario:</p>
+<p>Suppose you are implementing a <code>vector</code>, and resizing is necessary. So you write a private member function <code>grow</code> for resizing (the following code example temporarily ignores exception safety).</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">grow</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">new_capacity</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">new_data</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">new_capacity</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m_Size</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m_Size</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">new</span> <span class="p">(</span><span class="n">new_data</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="n">T</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">m_Data</span><span class="p">[</span><span class="n">i</span><span class="p">]));</span>
 </span></span><span class="line"><span class="cl">        <span class="n">m_Data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="o">~</span><span class="n">T</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="n">free</span><span class="p">(</span><span class="n">m_Data</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">free</span><span class="p">(</span><span class="n">m_Data</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">m_Data</span> <span class="o">=</span> <span class="n">new_data</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">m_Capacity</span> <span class="o">=</span> <span class="n">new_capacity</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>The above code is simple: first, allocate new memory via <code>malloc</code>, then initialize it by calling the move constructor on the newly allocated memory using <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new"  target="_blank" rel="noreferrer">placement new</a>. Note, as mentioned earlier: move in C++ is non-destructive, so after calling the move constructor, the original object still needs to call the destructor to correctly end its lifetime. Finally, release the original memory and update the member variables.</p>
-<p><em>Note: The construction and destruction steps can also use <code>std::construct_at</code> and <code>std::destroy_at</code> added in C++20, which are essentially encapsulations of placement new and destroy.</em></p>
-<p>However, this implementation is not efficient. In C++, there is a concept called <a href="https://en.cppreference.com/w/cpp/named_req/TriviallyCopyable"  target="_blank" rel="noreferrer">trivially copyable</a>, which can be checked using the <code>is_trivially_copyable</code> trait. Types that satisfy this constraint can directly use <code>memcpy</code> or <code>memmove</code> to copy to create a new object. Consider the following example:</p>
+<p>The code above is simple: first, allocate new memory using <code>malloc</code>, then initialize objects in the newly allocated memory by calling the move constructor via <a href="https://en.cppreference.com/w/cpp/language/new#Placement_new"  target="_blank" rel="noreferrer">placement new</a>. Note, as mentioned earlier: move in C++ is non-destructive, so after calling the move constructor, the original object still needs its destructor called to correctly end its lifetime. Finally, free the original memory and update the member variables.</p>
+<p><em>Note: The construction and destruction steps can also use <code>std::construct_at</code> and <code>std::destroy_at</code> introduced in C++20, which are essentially wrappers for placement new and destroy.</em></p>
+<p>However, this implementation is not efficient. In C++, there is a concept called <a href="https://en.cppreference.com/w/cpp/named_req/TriviallyCopyable"  target="_blank" rel="noreferrer">trivially copyable</a>, which can be checked using the <code>is_trivially_copyable</code> trait. For types satisfying this constraint, a new object can be created by directly using <code>memcpy</code> or <code>memmove</code>. Consider this example:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Point</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">y</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span> 
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_trivially_copyable_v</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">Point</span> <span class="n">points</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">}};</span>
 </span></span><span class="line"><span class="cl"><span class="n">Point</span> <span class="n">new_points</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">memcpy</span><span class="p">(</span><span class="n">new_points</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">points</span><span class="p">));</span></span></span></code></pre></div></div>
-<p>Not only does this save multiple function calls, but <code>memcpy</code> and <code>memmove</code> are highly optimized built-in functions (which can be vectorized via SIMD). Therefore, the efficiency is much higher compared to directly calling the copy constructor for duplication.</p>
-<p>To make our <code>vector</code> faster, we can also apply this optimization. Using <code>if constexpr</code> added in C++17 for compile-time judgment, we can easily write the following code:</p>
-<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">grow</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">new_capacity</span><span class="p">)</span> 
+<p>This not only saves multiple function calls, but <code>memcpy</code> and <code>memmove</code> themselves are highly optimized builtin functions (which can be vectorized using SIMD). Therefore, their efficiency is much higher compared to direct copying via copy constructors.</p>
+<p>To make our <code>vector</code> faster, we can also apply this optimization. Using <code>if constexpr</code> introduced in C++17 for compile-time checks, we can easily write the following code:</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">grow</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">new_capacity</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">new_data</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">new_capacity</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="k">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_trivially_copyable_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="k">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_trivially_copyable_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">memcpy</span><span class="p">(</span><span class="n">new_data</span><span class="p">,</span> <span class="n">m_Data</span><span class="p">,</span> <span class="n">m_Size</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="k">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_move_constructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="k">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_move_constructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m_Size</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m_Size</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="n">std</span><span class="o">::</span><span class="n">construct_at</span><span class="p">(</span><span class="n">new_data</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">m_Data</span><span class="p">[</span><span class="n">i</span><span class="p">]));</span>
 </span></span><span class="line"><span class="cl">            <span class="n">std</span><span class="o">::</span><span class="n">destroy_at</span><span class="p">(</span><span class="n">m_Data</span> <span class="o">+</span> <span class="n">i</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="k">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_copy_constructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="k">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_copy_constructible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m_Size</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m_Size</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="n">std</span><span class="o">::</span><span class="n">construct_at</span><span class="p">(</span><span class="n">new_data</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">m_Data</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">            <span class="n">std</span><span class="o">::</span><span class="n">destroy_at</span><span class="p">(</span><span class="n">m_Data</span> <span class="o">+</span> <span class="n">i</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span> 
-</span></span><span class="line"><span class="cl">    <span class="n">free</span><span class="p">(</span><span class="n">m_Data</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">free</span><span class="p">(</span><span class="n">m_Data</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">m_Data</span> <span class="o">=</span> <span class="n">new_data</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">m_Capacity</span> <span class="o">=</span> <span class="n">new_capacity</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p><em>Note: You can also consider directly using <code>uninitialized_move_n</code> and <code>destroy_n</code> added in C++17 to avoid reinventing the wheel. These functions have already undergone similar optimizations. However, due to pointer alias issues, they may at most optimize to <code>memmove</code>, whereas in this vector expansion scenario, it can be further optimized to <code>memcpy</code>, so self-optimization yields better results.</em></p>
+<p><em>Note: One could also consider directly using <code>uninitialized_move_n</code> and <code>destroy_n</code> introduced in C++17 to avoid reinventing the wheel, as these functions already include similar optimizations. However, due to pointer aliasing issues, they might at most optimize to <code>memmove</code>. In the context of <code>vector</code> resizing, it can be further optimized to <code>memcpy</code>, so optimizing it ourselves yields better results.</em></p>
 
 <h2 class="relative group">Overkill
     <div id="overkill" class="anchor"></div>
@@ -1316,7 +1319,7 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
     </span>
     
 </h2>
-<p>This still feels a bit odd. Our main goal is to move all objects from the old memory to the new memory, but we are using the <a href="https://en.cppreference.com/w/cpp/named_req/TriviallyCopyable"  target="_blank" rel="noreferrer">trivially copyable</a> trait, which seems too restrictive. There seems to be a significant difference between creating a new object entirely and placing the original object in a new location. Consider the following example. It seems that directly using <code>memcpy</code> for types like <code>std::string</code> is also feasible. Since the memory is manually managed and the destructor is manually called, there will be no multiple calls to the destructor.</p>
+<p>This feels a bit strange. Our main goal is to move all objects from old memory to new memory, but we are using the <a href="https://en.cppreference.com/w/cpp/named_req/TriviallyCopyable"  target="_blank" rel="noreferrer">trivially copyable</a> trait, which seems too restrictive. Creating a completely new object and relocating an existing object to a new position feel quite different. Consider the following example. It seems that directly <code>memcpy</code>ing types like <code>std::string</code> is also possible. Since we manually manage memory and manually call destructors, there won&rsquo;t be multiple destructor calls.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">byte</span> <span class="n">buffer</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">)];</span>
 </span></span><span class="line"><span class="cl"><span class="k">auto</span><span class="o">&amp;</span> <span class="n">str1</span> <span class="o">=</span> <span class="o">*</span><span class="n">std</span><span class="o">::</span><span class="n">construct_at</span><span class="p">((</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*</span><span class="p">)</span> <span class="n">buffer</span><span class="p">,</span> <span class="s">&#34;hello world&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -1325,14 +1328,14 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
 </span></span><span class="line"><span class="cl"><span class="k">auto</span><span class="o">&amp;</span> <span class="n">str2</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*</span><span class="p">)</span> <span class="n">new_buffer</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">str2</span><span class="p">.</span><span class="o">~</span><span class="n">basic_string</span><span class="p">();</span></span></span></code></pre></div></div>
-<p>After carefully considering the data flow and destructor calls, there seems to be no issue. It seems we should look for a concept called trivially movable to relax the conditions, allowing more types to benefit from optimization. Unfortunately, there is currently no such concept in the C++ standard. To distinguish this from the existing move operation in C++, we call this operation relocate, which places the original object in a completely new location.</p>
-<p>In fact, many well-known open-source components have implemented similar functionality through template specialization, such as:</p>
+<p>Carefully considering the data flow and destructor calls, we find nothing amiss. It seems we should look for a concept called &ldquo;trivially moveable&rdquo; to relax the conditions and allow more types to be optimized. Unfortunately, there is no such concept in the current C++ standard. To distinguish it from the existing C++ move operation, we call this operation &ldquo;relocate,&rdquo; meaning to place the original object in a completely new location.</p>
+<p>In fact, many famous open-source components have also implemented similar functionalities through template specialization, such as:</p>
 <ul>
 <li><a href="https://github.com/bloomberg/bde/blob/962f7aa/groups/bsl/bslmf/bslmf_isbitwisemoveable.h#L8-L48"  target="_blank" rel="noreferrer">BSL</a>&rsquo;s <code>bslmf::IsBitwiseMoveable&lt;T&gt;</code></li>
 <li><a href="https://github.com/facebook/folly/blob/main/folly/docs/FBVector.md#object-relocation"  target="_blank" rel="noreferrer">Folly</a>&rsquo;s <code>folly::IsRelocatable&lt;T&gt;</code></li>
 <li><a href="https://github.com/qt/qtbase/"  target="_blank" rel="noreferrer">QT</a>&rsquo;s <code>QTypeInfo&lt;T&gt;::isRelocatable</code></li>
 </ul>
-<p>By marking specific types, they can benefit from this optimization. However, the above optimization is only logically equivalent; strictly speaking, writing it this way in C++ is considered undefined behavior. So what can we do? We can only try to propose new proposals to modify the standard wording to support the above optimization.</p>
+<p>By marking specific types, they can benefit from this optimization. However, the above optimization is only logically equivalent in our minds; strictly speaking, writing it this way is currently undefined behavior in C++. So what to do? We can only try to introduce a new proposal and modify the standard wording to support the above optimization.</p>
 
 <h2 class="relative group">Current Status
     <div id="current-status" class="anchor"></div>
@@ -1343,52 +1346,52 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
     </span>
     
 </h2>
-<p>This issue was discovered long ago, as evidenced by discussions on Zhihu:</p>
+<p>First, this problem has been discovered a long time ago. For example, there have been related discussions on Zhihu for a while:</p>
 <ul>
 <li><a href="https://www.zhihu.com/question/316026652/answer/623722536"  target="_blank" rel="noreferrer">Compared to malloc new / free old, how much performance advantage does realloc have?</a></li>
-<li><a href="https://www.zhihu.com/question/384869006/answer/1130101522"  target="_blank" rel="noreferrer">Why doesn&rsquo;t C++ vector&rsquo;s push_back expansion mechanism consider applying for memory in the space after the tail element?</a></li>
+<li><a href="https://www.zhihu.com/question/384869006/answer/1130101522"  target="_blank" rel="noreferrer">Why doesn&rsquo;t C++ vector&rsquo;s push_back resizing mechanism consider allocating memory after the tail element?</a></li>
 </ul>
-<p>There are quite a few similar questions. <code>realloc</code> will attempt to expand in place, and if it fails, it will try to allocate a new block of memory and then use <code>memcpy</code> to copy the original data to the new memory. Therefore, in the current C++ standard, if you want to directly use <code>realloc</code> for expansion, you must ensure that the object is trivially copyable. Of course, as mentioned earlier, this condition is quite strict, and a new concept needs to be introduced to relax the conditions.</p>
-<p>The relevant proposal was first proposed in 2015, and the main active proposals in 2023 are the following four (targeting C++26):</p>
+<p>There are quite a few similar issues. <code>realloc</code> attempts to resize in place; if it fails, it tries to allocate a new block of memory and then uses <code>memcpy</code> to copy the original data to the new memory. So, in the current C++ standard, if you want to use <code>realloc</code> directly for resizing, you must ensure that the object is trivially copyable. Of course, as mentioned earlier, this condition is quite strict, and a new concept needs to be introduced to relax it.</p>
+<p>Related proposals were first put forward in 2015. The main active proposals in 2023 (all targeting C++26) are the following four:</p>
 <ul>
 <li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p1144r9.html"  target="_blank" rel="noreferrer">std::is_trivially_relocatable</a></li>
 <li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2786r4.pdf"  target="_blank" rel="noreferrer">Trivial Relocatability For C++26</a></li>
 <li><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2785r3.html"  target="_blank" rel="noreferrer">Relocating prvalues</a></li>
 <li><a href="https://isocpp.org/files/papers/D2839R1.html#part-i-owning-references-and-defaulted-relocation-constructors"  target="_blank" rel="noreferrer">Nontrivial Relocation via a New owning reference Type</a></li>
 </ul>
-<p>They can be roughly divided into two factions: the conservative faction and the radical faction.</p>
+<p>They can roughly be divided into two factions: conservatives and radicals.</p>
 
-<h3 class="relative group">Conservative Faction
-    <div id="conservative-faction" class="anchor"></div>
+<h3 class="relative group">Conservatives
+    <div id="conservatives" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#conservative-faction" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#conservatives" aria-label="Anchor">#</a>
     </span>
     
 </h3>
-<p>The conservative faction&rsquo;s solution is to add the concepts of relocatable and trivially-relocatable, along with related traits for judgment.</p>
-<p>If a type is move-constructible and destructible, then it is relocatable.</p>
-<p>If a type satisfies one of the following conditions, then it is trivially-relocatable:</p>
+<p>The conservative solution is to add the concepts of <code>relocatable</code> and <code>trivially-relocatable</code>, along with corresponding traits for checking.</p>
+<p>A type is <code>relocatable</code> if it is move-constructible and destructible.</p>
+<p>A type is <code>trivially-relocatable</code> if it satisfies one of the following conditions:</p>
 <ul>
 <li>It is a trivially-copyable type.</li>
 <li>It is an array of trivially-relocatable types.</li>
-<li>It is a class type declared with the <code>trivially_relocatable</code> attribute set to true.</li>
-<li>It is a class type that satisfies the following conditions:
+<li>It is a class type declared with the <code>trivially_relocatable</code> attribute having a true value.</li>
+<li>It is a class type satisfying the following conditions:
 <ul>
 <li>No user-provided move constructor or move assignment operator.</li>
 <li>No user-provided copy constructor or copy assignment operator.</li>
 <li>No user-provided destructor.</li>
 <li>No virtual member functions.</li>
 <li>No virtual base classes.</li>
-<li>Each member is either a reference or a trivially-relocatable type, and all base classes are trivially-relocatable types.</li>
+<li>Every member is a reference or a trivially-relocatable type, and all base classes are trivially-relocatable types.</li>
 </ul>
 </li>
 </ul>
-<p>A new attribute, <code>trivially_relocatable</code>, can be used to explicitly mark a type as trivially-relocatable. It can take a constant expression as a parameter to support generic types.</p>
+<p>A new attribute, <code>trivially_relocatable</code>, can be used to explicitly mark a type as trivially-relocatable. It can take a constant expression as an argument to support generic types.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="na">[[trivially_relocatable(std::std::is_trivially_relocatable_v&lt;T&gt;)]]</span> <span class="nc">X</span> <span class="p">{</span> <span class="n">T</span> <span class="n">t</span><span class="p">;</span> <span class="p">};</span></span></span></code></pre></div></div>
-<p>Some new operations are also added:</p>
+<p>Some new operations have also been added:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="n">T</span> <span class="o">*</span><span class="n">relocate_at</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">source</span><span class="p">,</span> <span class="n">T</span><span class="o">*</span> <span class="n">dest</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -1397,33 +1400,33 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
 </span></span><span class="line"><span class="cl"><span class="c1">// ...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIterator</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Size</span><span class="p">,</span> <span class="k">class</span> <span class="nc">NoThrowForwardIterator</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">uninitialized_relocate_n</span><span class="p">(</span><span class="n">InputIterator</span> <span class="n">first</span><span class="p">,</span> <span class="n">Size</span> <span class="n">n</span><span class="p">,</span> <span class="n">NoThrowForwardIterator</span> <span class="n">result</span><span class="p">);</span></span></span></code></pre></div></div>
-<p>These functions are implemented by the compiler, and their effect is equivalent to move + destroy the original object. The compiler is allowed to optimize operations on trivially_relocatable types into <code>memcpy</code> or <code>memmove</code> under the as-if rule. For structures that cannot be optimized, such as those containing self-references, the move constructor + destructor will be called normally. This way, when implementing <code>vector</code>, you can directly use these standard library functions to enjoy the optimization.</p>
-<p>The reason this proposal is called conservative is that it neither affects the original API nor the original ABI, making it highly compatible and easy to introduce.</p>
+<p>These functions are implemented by the compiler and effectively perform a move + destroy of the original object. They also allow the compiler, under the as-if rule, to optimize operations on trivially_relocatable types into <code>memcpy</code> or <code>memmove</code>. For structures that cannot be optimized, such as those containing self-references, the move constructor + destructor is called normally. This way, when implementing <code>vector</code>, using these standard library functions directly allows for optimization.</p>
+<p>This proposal is called conservative primarily because it does not affect existing APIs or ABIs, offering strong compatibility and ease of introduction.</p>
 
-<h3 class="relative group">Radical Faction
-    <div id="radical-faction" class="anchor"></div>
+<h3 class="relative group">Radicals
+    <div id="radicals" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#radical-faction" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#radicals" aria-label="Anchor">#</a>
     </span>
     
 </h3>
-<p>The more radical approach is the main topic today, which advocates introducing the relocate constructor and a new keyword, <code>reloc</code>.</p>
-<p><code>reloc</code> is a unary operator that can be used for non-static local variables of functions. <code>reloc</code> performs the following operations:</p>
+<p>The more radical approach, which is the main topic today, advocates for introducing a relocate constructor and a new keyword <code>reloc</code>.</p>
+<p><code>reloc</code> is a unary operator that can be used on non-static local variables of functions. <code>reloc</code> performs the following operations:</p>
 <ul>
-<li>If the variable is a reference type, perfect forwarding is performed.</li>
-<li>If not, the source object is turned into a pure rvalue and returned.</li>
+<li>If the variable is a reference type, it performs perfect forwarding.</li>
+<li>Otherwise, it converts the source object into a prvalue and returns it.</li>
 </ul>
-<p>Using <code>reloc</code> on an object and then using it again is considered a compilation error (the actual judgment rules are more detailed, see the relevant sections in the proposal).</p>
-<p>A new constructor, the relocate constructor (relocation constructor), is introduced with the form <code>T(T)</code>, where the function parameter is a pure rvalue of type <code>T</code>. This function signature is chosen to complete the C++ value category system. Currently (C++17 and later), C++&rsquo;s copy constructor creates objects from lvalues, the move constructor creates objects from xvalues, and the relocation constructor creates objects from prvalues. This fully covers all value categories, making it very friendly to overload resolution and semantically harmonious.</p>
+<p>Furthermore, an object that has been <code>reloc</code>ated is considered a compile-time error if used again (the actual rules for determination are more detailed; see the relevant sections in the proposal).</p>
+<p>A new constructor, the relocate constructor, is introduced with the form <code>T(T)</code>, where the function parameter is a prvalue of type <code>T</code>. This signature was chosen to complete the C++ value category system. Currently (C++17) and beyond, C++ copy constructors create objects from lvalues, move constructors create objects from xvalues, and relocate constructors create objects from prvalues. This completely covers all value categories, is very friendly to overload resolution, and semantically harmonious.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">X</span><span class="p">(</span><span class="n">X</span> <span class="n">x</span><span class="p">)</span><span class="o">:</span> <span class="n">s</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">s</span><span class="p">))</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>Another benefit is that currently, constructors declared as <code>T(T)</code> are not allowed, so there will be no conflict with existing code. One thing to note is that you may have heard people explain why the copy constructor&rsquo;s parameter must be a reference: if it is not a reference, function parameter passing also requires copying, leading to infinite recursion.</p>
-<p>In fact, this explanation is outdated. Due to the mandatory <a href="https://en.cppreference.com/w/cpp/language/copy_elision"  target="_blank" rel="noreferrer">copy elision</a> introduced in C++17, even if a type does not have a copy constructor or move constructor, it can still be directly constructed from a pure rvalue without any copy/move constructor calls.</p>
+<p>Another benefit is that this form of constructor <code>T(T)</code> is currently disallowed, so it won&rsquo;t conflict with existing code. One point to note: you might have heard people explain why copy constructor parameters must be references. The reason given is that if it&rsquo;s not a reference, function arguments would also need to be copied, leading to infinite recursion.</p>
+<p>In fact, this explanation is outdated. Due to mandatory <a href="https://en.cppreference.com/w/cpp/language/copy_elision"  target="_blank" rel="noreferrer">copy elision</a> introduced in C++17, even if a type has no copy or move constructor, it can be constructed directly from a prvalue without any copy/move constructor calls.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">X</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
@@ -1434,26 +1437,26 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
 </span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="nf">f</span><span class="p">(){</span> <span class="k">return</span> <span class="n">X</span><span class="p">{};</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="n">x</span> <span class="o">=</span> <span class="n">f</span><span class="p">();</span></span></span></code></pre></div></div>
-<p>The above code can be compiled by major compilers after enabling C++17. Therefore, the <code>T(T)</code> form of the constructor will not cause infinite recursion. This proposal also introduces the relocation assignment function with the form <code>T&amp; operator=(T)</code>, where the function parameter is a pure rvalue of type <code>T</code>. Of course, there is also the concept of trivially-relocatable, allowing the relocation constructor that satisfies this condition to be optimized into <code>memcpy</code>. However, this is determined by the rules of the relocation constructor, and users cannot explicitly mark a type as trivially-relocatable via an attribute. I think this is not good; users should be allowed to manually mark a type as trivially-relocatable. Due to current implementation limitations, <code>tuple</code> must write a constructor, making it never trivially-copyable, and <code>pair</code> is also not trivially-copyable, which is clearly unreasonable. Therefore, I hope this proposal will support marking a type as trivially-relocatable via an attribute in the future.</p>
-<p>Personally, I quite like this proposal. With it, I even feel that C++&rsquo;s value category system can be associated with elegance. Before this, I always thought the value category system was chaotic and evil, a patch made to be compatible with old code. But if this proposal is accepted:</p>
+<p>The above code compiles successfully with major compilers when C++17 is enabled. Therefore, the <code>T(T)</code> form of constructor will not lead to infinite recursion here. This proposal also introduces a relocate assignment operator, with the form <code>T&amp; operator=(T)</code>, where the function parameter is a prvalue of type <code>T</code>. Of course, there is also the concept of trivially-relocatable, which allows relocate constructors satisfying this condition to be optimized to <code>memcpy</code>. However, this is determined by rules like the relocate constructor itself, and users cannot explicitly mark it with an attribute. I think this is not ideal; users should be allowed to manually mark a type as trivially-relocatable. <code>tuple</code> cannot be trivially-copyable due to current implementation limitations, as it must have a constructor, and <code>pair</code> is also not trivially-copyable, which is clearly unreasonable. So I hope this proposal will eventually support marking a type as trivially-relocatable via an attribute.</p>
+<p>I personally quite like this proposal. With it, I even feel that the C++ value category system can be associated with elegance. Before this, I always thought the value category system was chaotic and evil, a messy patch to maintain compatibility with old code. But if this proposal passes:</p>
 <ul>
-<li>Lvalue — copy construction</li>
-<li>Xvalue — move construction</li>
-<li>Prvalue — relocation construction</li>
+<li>Lvalue — Copy construction</li>
+<li>Xvalue — Move construction</li>
+<li>Prvalue — Relocate construction</li>
 </ul>
-<p>There is a sense of logical self-consistency and beauty. Other details in the proposal are more trivial and are omitted here. Interested readers can read it themselves.</p>
+<p>This has a sense of complete logical self-consistency and beauty. Other details in the proposal are more trivial, so I will omit them here. Interested readers can read them themselves.</p>
 
-<h2 class="relative group">Why Hasn&rsquo;t It Entered the Standard After So Long?
-    <div id="why-hasnt-it-entered-the-standard-after-so-long" class="anchor"></div>
+<h2 class="relative group">Why has it taken so long to enter the standard?
+    <div id="why-has-it-taken-so-long-to-enter-the-standard" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
-        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#why-hasnt-it-entered-the-standard-after-so-long" aria-label="Anchor">#</a>
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#why-has-it-taken-so-long-to-enter-the-standard" aria-label="Anchor">#</a>
     </span>
     
 </h2>
-<p>Regarding why this issue has not been resolved after so many years, it is actually a long history, caused by defects in C++&rsquo;s object model. Until the <a href="https://en.cppreference.com/w/cpp/language/lifetime"  target="_blank" rel="noreferrer">implicit lifetime proposal</a> was accepted in C++20, even optimizing trivially-copyable types into <code>memcpy</code> in the initial expansion function implementation was undefined behavior.</p>
-<p>Of course, don&rsquo;t be afraid when you hear undefined behavior, as if there is a psychological barrier. In fact, this has long been considered a defect in the standard, and this optimization has been widely practiced in various codebases, with its reliability already verified. It&rsquo;s just that the C++ standard has not had appropriate wording to describe this situation. Completely considering it as UB is certainly wrong, and using it without restrictions is also wrong. Therefore, the key issue is to find a suitable boundary between the two. I will write a dedicated article to introduce C++ object model-related content recently, so I won&rsquo;t expand on it here.</p>
+<p>Regarding why this problem has not been solved after so many years, it&rsquo;s actually a rather long history, caused by flaws in the C++ object model. Until the <a href="https://en.cppreference.com/w/cpp/language/lifetime"  target="_blank" rel="noreferrer">implicit lifetime proposal</a> was accepted in C++20, even optimizing trivially-copyable types to <code>memcpy</code> in the initial <code>grow</code> function implementation was undefined behavior.</p>
+<p>Of course, don&rsquo;t be afraid of &ldquo;undefined behavior&rdquo; as if it&rsquo;s an insurmountable obstacle. In fact, this has always been considered a defect in the standard. This optimization has long been widely practiced in various codebases, and its reliability has been verified. It&rsquo;s just that the C++ standard has never had appropriate wording to describe this situation. Considering it completely UB is certainly incorrect, and using it without restrictions is also incorrect. So the key is how to find an appropriate boundary between the two. I will write a dedicated article soon to introduce C++ object model related content, so I won&rsquo;t elaborate here.</p>
 
 <h2 class="relative group">Other Languages
     <div id="other-languages" class="anchor"></div>
@@ -1464,7 +1467,7 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
     </span>
     
 </h2>
-<p>C++ certainly has various shortcomings, and considering historical compatibility and other factors, the design cannot be too bold. What about new languages? How do they solve these problems?</p>
+<p>C++ certainly has its shortcomings. Considering historical compatibility and other factors, its design is constrained. What about new languages? How do they solve these problems?</p>
 
 <h3 class="relative group">Rust
     <div id="rust" class="anchor"></div>
@@ -1475,8 +1478,8 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
     </span>
     
 </h3>
-<p>First, let&rsquo;s look at Rust, which has been quite popular recently. In fact, as long as the structure does not contain self-referential members, using <code>memcpy</code> to move the old object to new memory is almost always feasible. Additionally, Rust does not have multiple inheritance, virtual functions (complex virtual table structures), virtual inheritance, and other strange things (which are rarely used in practice), so almost all types can directly use <code>memcpy</code> to create a new object from the old one. Coincidentally, the move semantics in Safe Rust are destructive moves, so its default move implementation is directly <code>memcpy</code>, which is much cleaner.</p>
-<p>However, the default move can only move local non-static variables. If a variable is a reference, you cannot move it. Fortunately, Safe Rust provides a <a href="https://doc.rust-lang.org/std/mem/fn.take.html"  target="_blank" rel="noreferrer">std::mem::take</a> function to solve this problem:</p>
+<p>First, let&rsquo;s look at Rust, which has been quite popular recently. In fact, as long as a structure does not contain self-referential members, using <code>memcpy</code> to move an old object to new memory is almost always feasible. Additionally, Rust doesn&rsquo;t have things like multiple inheritance, virtual functions (complex vtable structures), or virtual inheritance (which are quite strange and rarely used in practice), so almost all types can directly use <code>memcpy</code> to create a new object from an old one. Conveniently, the move semantic in Safe Rust is a destructive move, so its default implementation of move is directly <code>memcpy</code>, which is much cleaner.</p>
+<p>However, the default move can only move local non-static variables. If a variable is a reference, you cannot move it. But thankfully, Safe Rust provides a <a href="https://doc.rust-lang.org/std/mem/fn.take.html"  target="_blank" rel="noreferrer">std::mem::take</a> function to solve this problem:</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">mem</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">v</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">];</span><span class="w">
@@ -1484,8 +1487,26 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">old_v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mem</span>::<span class="n">take</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">v</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="fm">assert_eq!</span><span class="p">(</span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="n">old_v</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="fm">assert!</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">is_empty</span><span class="p">());</span></span></span></code></pre></div></div>
-<p>The effect is move + set the original object to empty, somewhat similar to move in C++. There are also <a href="https://doc.rust-lang.org/std/mem/fn.swap.html"  target="_blank" rel="noreferrer">std::mem::swap</a> and <a href="https://doc.rust-lang.org/std/mem/fn.replace.html"  target="_blank" rel="noreferrer">std::mem::replace</a> for other scenarios where moving from a reference is needed.</p>
-<p>Although there may not be many such cases, what if a type contains a self-referential structure? In fact, allowing users to customize constructors is a relatively simple solution, but the Rust community seems to be quite averse to this. The current solution is through Pin, but</p>
+<p>The effect is move + empty the original object, which is quite similar to C++&rsquo;s move. There are also <a href="https://doc.rust-lang.org/std/mem/fn.swap.html"  target="_blank" rel="noreferrer">std::mem::swap</a> and <a href="https://doc.rust-lang.org/std/mem/fn.replace.html"  target="_blank" rel="noreferrer">std::mem::replace</a> for other scenarios where moving from a reference is needed.</p>
+<p>Although it might not happen often, what if a type contains a self-referential structure? In fact, allowing users to define custom constructors is a relatively simple solution, but the Rust community seems quite averse to it. The current solution is through Pin, but the Rust community also seems dissatisfied with this solution; it&rsquo;s hard to understand and hard to use. Future new designs should be related to linear types; relevant discussions can be found in <a href="https://without.boats/blog/changing-the-rules-of-rust/"  target="_blank" rel="noreferrer">Changing the rules of Rust</a>.</p>
+
+<h3 class="relative group">Mojo
+    <div id="mojo" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#mojo" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<p>This language was also promoted on Zhihu some time ago, but it is still in a very early state. However, from the beginning, it considered providing four constructors:</p>
+<ul>
+<li><code>__init__()</code></li>
+<li><code>__copy__()</code></li>
+<li><code>__move__()</code></li>
+<li><code>__take__()</code></li>
+</ul>
+<p>Among them, <code>copy</code> is similar to the copy constructor, <code>move</code> is similar to the relocate constructor, and <code>take</code> is similar to the current move constructor. More details are currently unavailable.</p>
 
           
           
@@ -1503,7 +1524,7 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/en/articles/679782886/&amp;title=Relocation%20Semantics%20in%20C&#43;&#43;"
+          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/en/articles/679782886/&amp;title=Relocate%20Semantics%20in%20C&#43;&#43;"
           
           title="Share on LinkedIn"
           aria-label="Share on LinkedIn">
@@ -1517,7 +1538,7 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/en/articles/679782886/&amp;text=Relocation%20Semantics%20in%20C&#43;&#43;"
+          href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/en/articles/679782886/&amp;text=Relocate%20Semantics%20in%20C&#43;&#43;"
           
           title="Tweet on Twitter"
           aria-label="Tweet on Twitter">
@@ -1530,7 +1551,7 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://reddit.com/submit/?url=https://www.ykiko.me/en/articles/679782886/&amp;resubmit=true&amp;title=Relocation%20Semantics%20in%20C&#43;&#43;"
+          href="https://reddit.com/submit/?url=https://www.ykiko.me/en/articles/679782886/&amp;resubmit=true&amp;title=Relocate%20Semantics%20in%20C&#43;&#43;"
           
           title="Submit to Reddit"
           aria-label="Submit to Reddit">
@@ -1544,7 +1565,7 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://api.whatsapp.com/send?text=https://www.ykiko.me/en/articles/679782886/&amp;resubmit=true&amp;title=Relocation%20Semantics%20in%20C&#43;&#43;"
+          href="https://api.whatsapp.com/send?text=https://www.ykiko.me/en/articles/679782886/&amp;resubmit=true&amp;title=Relocate%20Semantics%20in%20C&#43;&#43;"
           
           title="Share via WhatsApp"
           aria-label="Share via WhatsApp">
@@ -1558,7 +1579,7 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://t.me/share/url?url=https://www.ykiko.me/en/articles/679782886/&amp;resubmit=true&amp;title=Relocation%20Semantics%20in%20C&#43;&#43;"
+          href="https://t.me/share/url?url=https://www.ykiko.me/en/articles/679782886/&amp;resubmit=true&amp;title=Relocate%20Semantics%20in%20C&#43;&#43;"
           
           title="Share via Telegram"
           aria-label="Share via Telegram">
@@ -1572,7 +1593,7 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/en/articles/679782886/&amp;description=Relocation%20Semantics%20in%20C&#43;&#43;"
+          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/en/articles/679782886/&amp;description=Relocate%20Semantics%20in%20C&#43;&#43;"
           
           title="Pin on Pinterest"
           aria-label="Pin on Pinterest">
@@ -1586,7 +1607,7 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
         <a
           class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
           target="_blank"
-          href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/en/articles/679782886/&amp;quote=Relocation%20Semantics%20in%20C&#43;&#43;"
+          href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/en/articles/679782886/&amp;quote=Relocate%20Semantics%20in%20C&#43;&#43;"
           
           title="Share on Facebook"
           aria-label="Share on Facebook">
@@ -1603,7 +1624,7 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
           href="#"
           
             data-email=""
-            data-subject="Reply to Relocation Semantics in C&#43;&#43;"
+            data-subject="Reply to Relocate Semantics in C&#43;&#43;"
           
           title="Send via email"
           aria-label="Send via email">
@@ -1639,12 +1660,12 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
               class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
               href="/en/articles/674157958/">
               <span class="leading-6">
-                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;A 7-Year Relay Race: Obtaining the Number of Fields in a C++ Struct
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;A 7-Year Relay Race: Getting the Number of Fields in a C++ Struct
               </span>
             </a>
             
               <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2023-12-26T04:45:30&#43;00:00">26 December 2023</time>
+                <time datetime="2023-12-25T20:45:30&#43;00:00">25 December 2023</time>
               </span>
             
           
@@ -1655,12 +1676,12 @@ The copy constructor was introduced as early as C&#43;&#43;98 to copy an object.
               class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
               href="/en/articles/680412313/">
               <span class="leading-6">
-                How to Elegantly Convert Enum to String in C++?&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+                How to elegantly convert enum to string in C++?&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
               </span>
             </a>
             
               <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                <time datetime="2024-01-29T17:03:28&#43;00:00">29 January 2024</time>
+                <time datetime="2024-01-29T09:03:28&#43;00:00">29 January 2024</time>
               </span>
             
           
