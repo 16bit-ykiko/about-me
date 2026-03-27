@@ -1,0 +1,1827 @@
+<!doctype html>
+<html
+  lang="zh-cn"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="dark"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8">
+  
+    <meta http-equiv="content-language" content="zh-cn">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color">
+
+  
+  
+    <title>深入探索 clang（上） &middot; ykiko&#39;s blog</title>
+    <meta name="title" content="深入探索 clang（上） &middot; ykiko&#39;s blog">
+  
+
+  
+  
+    <meta name="description" content="mainly about computer science and mathematics">
+  
+  
+  
+  
+  <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/21319978959/">
+  
+
+  
+  
+    <meta name="author" content="ykiko">
+  
+  
+    
+      
+        
+          <link href="https://github.com/16bit-ykiko" rel="me">
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <link href="https://www.zhihu.com/people/75-49-80-77" rel="me">
+        
+      
+    
+      
+        
+          <link href="https://space.bilibili.com/360835081" rel="me">
+        
+      
+    
+      
+        
+          <link href="https://bangumi.tv/user/857516" rel="me">
+        
+      
+    
+  
+
+  
+  <meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/21319978959/">
+  <meta property="og:site_name" content="ykiko&#39;s blog">
+  <meta property="og:title" content="深入探索 clang（上）">
+  <meta property="og:description" content="在上一篇关于 clice 的 文章 发布后，收到的反响远超我的预期，也有很多朋友说想要参与到开发中。有这份心是好的，但是参与进来的门槛却不低，主要难点就是在于和 clang 的 API 进行交互。难在哪呢？一方面在于无论是中文还是英文社区，互联网上关于 clang 的资料相对较少（这是预期的，因为相关的需求非常少，自然而然也就没什么人讨论了）。另一方面，由于 C&#43;&#43; 语言本身的复杂性，有很多细节需要对语言本身有较为深入的理解然后才能理解，把理论和实现联系起来也并不那么容易。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2025-02-04T21:00:55+00:00">
+    <meta property="article:modified_time" content="2025-02-04T21:00:55+00:00">
+    <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/21319978959/featured.png">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/21319978959/featured.png">
+  <meta name="twitter:title" content="深入探索 clang（上）">
+  <meta name="twitter:description" content="在上一篇关于 clice 的 文章 发布后，收到的反响远超我的预期，也有很多朋友说想要参与到开发中。有这份心是好的，但是参与进来的门槛却不低，主要难点就是在于和 clang 的 API 进行交互。难在哪呢？一方面在于无论是中文还是英文社区，互联网上关于 clang 的资料相对较少（这是预期的，因为相关的需求非常少，自然而然也就没什么人讨论了）。另一方面，由于 C&#43;&#43; 语言本身的复杂性，有很多细节需要对语言本身有较为深入的理解然后才能理解，把理论和实现联系起来也并不那么容易。">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+    
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.93c1106978281351eae66e32e131b4336ab340af8541f681ed9b2a296ddd9b42d62f5817e2263b9e17381848037d26495239ee78d409564e1847b469b2cf4ff3.css"
+    integrity="sha512-k8EQaXgoE1Hq5m4y4TG0M2qzQK&#43;FQfaB7ZsqKW3dm0LWL1gX4iY7nhc4GEgDfSZJUjnueNQJVk4YR7Rpss9P8w==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.95b0d9497a40ea6de914762e897e3c2422257a60a11559725f19171705e24adfeac245887f1b05960dcc446c2e791d3d98f21247d239356bb789fb78bdabcb17.js"
+      integrity="sha512-lbDZSXpA6m3pFHYuiX48JCIlemChFVlyXxkXFwXiSt/qwkWIfxsFlg3MRGwueR09mPISR9I5NWu3ift4vavLFw=="
+      data-copy="复制"
+      data-copied="已复制"></script>
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Articles",
+    "name": "深入探索 clang（上）",
+    "headline": "深入探索 clang（上）",
+    
+    "inLanguage": "zh-cn",
+    "url" : "https://www.ykiko.me/zh-cn/articles/21319978959/",
+    "author" : {
+      "@type": "Person",
+      "name": "ykiko"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-02-04T21:00:55\u002b00:00",
+    "datePublished": "2025-02-04T21:00:55\u002b00:00",
+    
+    "dateModified": "2025-02-04T21:00:55\u002b00:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "5010"
+  }]
+  </script>
+
+
+
+  
+  
+    
+
+  <script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=G-PEDMYR1V0K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PEDMYR1V0K');
+</script>
+
+
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+  
+</head>
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral bf-scrollbar">
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content">
+        <span class="font-bold text-primary-600 pe-2 dark:text-primary-400">&darr;</span>
+        跳过正文
+      </a>
+    </div>
+    
+    
+      <div class="min-h-[148px]"></div>
+<div class="fixed inset-x-0 z-100">
+  <div
+    id="menu-blur"
+    class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl bg-neutral/25 dark:bg-neutral-800/25"></div>
+  <div class="relative m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32">
+    <div class="main-menu flex items-center w-full gap-2 p-1 pl-0">
+  
+  
+    <a href="/zh-cn/" class="text-base font-medium truncate min-w-0 shrink">
+      ykiko&rsquo;s blog
+    </a>
+  
+  <div class="flex items-center ms-auto">
+    <div class="hidden md:flex">
+      <nav class="flex items-center gap-x-5 h-12">
+  
+    
+      
+  
+    <a
+      href=""
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="关于我"
+      title="">
+      
+      
+        <span class="text-base font-medium break-normal">
+          关于我
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="/zh-cn/articles/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="文章"
+      title="Articles">
+      
+      
+        <span class="text-base font-medium break-normal">
+          文章
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href=""
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="研究"
+      title="">
+      
+      
+        <span class="text-base font-medium break-normal">
+          研究
+        </span>
+      
+    </a>
+  
+
+    
+  
+
+  
+
+  
+
+  
+    <button
+      id="search-button"
+      aria-label="Search"
+      class="text-base bf-icon-color-hover"
+      title="搜索 (/)">
+      <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+    </button>
+  
+
+  
+    <div class="flex items-center">
+      <button
+        id="appearance-switcher"
+        aria-label="Dark mode switcher"
+        type="button"
+        class="text-base bf-icon-color-hover">
+        <div class="flex items-center justify-center dark:hidden">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+        </div>
+        <div class="items-center justify-center hidden dark:flex">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+        </div>
+      </button>
+    </div>
+  
+</nav>
+
+
+
+    </div>
+    <div class="flex md:hidden">
+      <div class="flex items-center h-14 gap-4">
+  
+    <button
+      id="search-button-mobile"
+      aria-label="Search"
+      class="flex items-center justify-center bf-icon-color-hover"
+      title="搜索 (/)">
+      <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+    </button>
+  
+
+  
+    <button
+      id="appearance-switcher-mobile"
+      type="button"
+      aria-label="Dark mode switcher"
+      class="flex items-center justify-center text-neutral-900 hover:text-primary-600 dark:text-neutral-200 dark:hover:text-primary-400">
+      <div class="dark:hidden">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+      </div>
+      <div class="hidden dark:block">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+      </div>
+    </button>
+  
+
+  
+    <input type="checkbox" id="mobile-menu-toggle" autocomplete="off" class="hidden peer">
+    <label for="mobile-menu-toggle" class="flex items-center justify-center cursor-pointer bf-icon-color-hover">
+      <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+    </label>
+
+    <div
+      role="dialog"
+      aria-modal="true"
+      style="scrollbar-gutter: stable;"
+      class="fixed inset-0 z-50 invisible overflow-y-auto px-6 py-20 opacity-0 transition-[opacity,visibility] duration-300 peer-checked:visible peer-checked:opacity-100 bg-neutral-50/97 dark:bg-neutral-900/99
+      bf-scrollbar">
+      <label
+        for="mobile-menu-toggle"
+        class="fixed end-8 top-5 flex items-center justify-center z-50 h-12 w-12 cursor-pointer select-none rounded-full bf-icon-color-hover border bf-border-color bf-border-color-hover bg-neutral-50 dark:bg-neutral-900">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </label>
+      <nav class="mx-auto max-w-md space-y-6">
+        
+  
+    
+    <div class="px-2">
+      <a
+        href=""
+        aria-label="关于我"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+        <span title="" class="text-2xl font-bold tracking-tight">
+          关于我
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="/zh-cn/articles/"
+        aria-label="文章"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+        <span title="Articles" class="text-2xl font-bold tracking-tight">
+          文章
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href=""
+        aria-label="研究"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+        <span title="" class="text-2xl font-bold tracking-tight">
+          研究
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+
+        
+  
+
+        
+  
+    <div
+      class="flex flex-wrap items-center [&_span]:text-2xl [&_.translation_button_.icon]:text-4xl! [&_.translation_button_span]:text-base! [&_.translation_.menuhide_span]:text-sm! gap-x-6 ps-2 mt-8 pt-8 border-t bf-border-color">
+      
+
+
+      
+    </div>
+  
+
+      </nav>
+    </div>
+  
+</div>
+
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+  <script>
+    (function () {
+      var mainmenu = document.querySelector(".main-menu");
+      if (!mainmenu) return;
+
+      var path = window.location.pathname;
+      var links = mainmenu.querySelectorAll('a[href="' + path + '"]');
+
+      links.forEach(function (link) {
+        var targets = link.querySelectorAll("span");
+        targets.forEach(function (el) {
+          el.classList.add("active");
+        });
+      });
+    })();
+  </script>
+
+
+  </div>
+</div>
+
+
+<script
+  type="text/javascript"
+  src="/js/background-blur.min.00a57c73ea12f2cab2980c3c3d649e89f6d82f190f74bbe2b67f2f5e39ab7d032ece47086400ca05396758aace13299da49aca43ea643d2625e62c506267a169.js"
+  integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
+  data-blur-id="menu-blur"></script>
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  
+  <article>
+    
+    
+      
+      
+      
+      
+        
+
+
+
+
+
+
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+  
+
+
+
+
+
+    <div id="hero" class="h-[150px] md:h-[200px]"></div>
+  
+  <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
+    
+    
+    
+    <img
+      id="background-image"
+      src="/zh-cn/articles/21319978959/featured_hu10970792958667734429.png"
+      role="presentation"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      >
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
+    <div
+      class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal"></div>
+  </div>
+
+  
+    <div
+      id="background-blur"
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/background-blur.min.00a57c73ea12f2cab2980c3c3d649e89f6d82f190f74bbe2b67f2f5e39ab7d032ece47086400ca05396758aace13299da49aca43ea643d2625e62c506267a169.js"
+      integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
+      data-blur-id="background-blur"
+      data-image-id="background-image"
+      data-image-url="/zh-cn/articles/21319978959/featured_hu10970792958667734429.png"></script>
+  
+      
+    
+
+    
+    <header id="single_header" class="mt-5 max-w-prose">
+      
+        <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/zh-cn/"
+      >ykiko&#39;s blog</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/zh-cn/articles/"
+      >Articles</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/zh-cn/articles/21319978959/"
+      >深入探索 clang（上）</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        深入探索 clang（上）
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2025-02-04T21:00:55&#43;00:00">February 4, 2025</time><span class="px-2 text-primary-500">&middot;</span><span>5010 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">10 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+
+
+  
+    
+  
+  
+
+<span class="mb-[2px]">
+  <a
+    href="#/articles/21319978959/index.md"
+    class="text-lg hover:text-primary-500"
+    rel="noopener noreferrer"
+    target="_blank"
+    title="编辑内容"
+    ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z"/></svg></span></span></a
+  >
+</span><span class="px-2 text-primary-500">&middot;</span><span class="mb-[2px]">
+  <span
+    id="zen-mode-button"
+    class="text-lg hover:text-primary-500"
+    title="啟用阅读模式"
+    data-title-i18n-disable="啟用阅读模式"
+    data-title-i18n-enable="停用阅读模式">
+    <span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
+    <path fill="currentColor" d="M 12.980469 4 C 9.1204688 4 5.9804688 7.14 5.9804688 11 L 6 26 L 9.9804688 26 L 9.9804688 11 C 9.9804688 9.35 11.320469 8 12.980469 8 L 40.019531 8 C 41.679531 8 43.019531 9.35 43.019531 11 L 43.019531 39 C 43.019531 40.65 41.679531 42 40.019531 42 L 29 42 C 29 43.54 28.420938 44.94 27.460938 46 L 40.019531 46 C 43.879531 46 47.019531 42.86 47.019531 39 L 47.019531 11 C 47.019531 7.14 43.879531 4 40.019531 4 L 12.980469 4 z M 7 28 C 4.794 28 3 29.794 3 32 L 3 42 C 3 44.206 4.794 46 7 46 L 23 46 C 25.206 46 27 44.206 27 42 L 27 32 C 27 29.794 25.206 28 23 28 L 7 28 z M 7 32 L 23 32 L 23.001953 42 L 7 42 L 7 32 z"/>
+</svg></span></span>
+  </span>
+</span>
+
+    
+
+    
+    
+  </div>
+
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  
+
+  
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+    </div>
+  
+
+  
+  
+
+
+
+      </div>
+      
+        
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    
+    
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+      
+      
+        
+        
+        
+      
+      <img
+        class="!mt-0 !mb-0 h-24 w-24 rounded-full me-4"
+        width="96"
+        height="96"
+        alt="ykiko"
+        src="/img/author_hu12645359616066712621.jpg"
+        data-zoom-src="/img/author_hu18173386983798328237.jpg">
+    
+  
+  <div class="place-self-center">
+    
+      <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+        作者
+      </div>
+      <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+        ykiko
+      </div>
+    
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500 space-x-2">
+    
+      
+        
+        <a
+          class=" hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/16bit-ykiko"
+          
+          target="_blank"
+          aria-label="Github"
+          title="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span></span></a
+        >
+      
+    
+      
+        
+        <a
+          class=" hover:text-primary-700 dark:hover:text-primary-400"
+          href="mailto:ykikoykikoykiko@gmail.com"
+          
+          target="_blank"
+          aria-label="Envelope-Solid"
+          title="Envelope-Solid"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path fill="currentColor" d="M464 64C490.5 64 512 85.49 512 112C512 127.1 504.9 141.3 492.8 150.4L275.2 313.6C263.8 322.1 248.2 322.1 236.8 313.6L19.2 150.4C7.113 141.3 0 127.1 0 112C0 85.49 21.49 64 48 64H464zM217.6 339.2C240.4 356.3 271.6 356.3 294.4 339.2L512 176V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V176L217.6 339.2z"/></svg></span></span></a
+        >
+      
+    
+      
+        
+        <a
+          class=" hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://www.zhihu.com/people/75-49-80-77"
+          
+          target="_blank"
+          aria-label="Zhihu"
+          title="Zhihu"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1719381188729" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6448" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M541.867 556.8s0-66.133-32-68.267c-32-4.266-132.267 0-132.267 0v-204.8h149.333s-2.133-68.266-29.866-68.266h-243.2l40.533-108.8s-59.733 4.266-83.2 42.666C189.867 187.733 121.6 384 121.6 384s23.467 10.667 61.867-19.2c38.4-27.733 51.2-78.933 51.2-78.933l70.4-4.267 2.133 206.933s-125.867-2.133-149.333 0c-25.6 2.134-38.4 68.267-38.4 68.267h189.866s-17.066 117.333-64 198.4C196.267 840.533 102.4 906.667 102.4 906.667S168.533 934.4 234.667 896s113.066-206.933 113.066-206.933L499.2 878.933s12.8-89.6-2.133-117.333C480 736 390.4 633.6 390.4 633.6L352 667.733l27.733-113.066 162.134 2.133z m38.4-345.6l-2.134 614.4H640l21.333 74.667 108.8-74.667H921.6V211.2H580.267z m273.066 546.133h-70.4l-89.6 68.267-19.2-68.267h-19.2V281.6h198.4v475.733z" fill="currentColor" p-id="6449"></path></svg></span></span></a
+        >
+      
+    
+      
+        
+        <a
+          class=" hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://space.bilibili.com/360835081"
+          
+          target="_blank"
+          aria-label="Bilibili"
+          title="Bilibili"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1719381779479" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9290" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M306.005333 117.632L444.330667 256h135.296l138.368-138.325333a42.666667 42.666667 0 0 1 60.373333 60.373333L700.330667 256H789.333333A149.333333 149.333333 0 0 1 938.666667 405.333333v341.333334a149.333333 149.333333 0 0 1-149.333334 149.333333h-554.666666A149.333333 149.333333 0 0 1 85.333333 746.666667v-341.333334A149.333333 149.333333 0 0 1 234.666667 256h88.96L245.632 177.962667a42.666667 42.666667 0 0 1 60.373333-60.373334zM789.333333 341.333333h-554.666666a64 64 0 0 0-63.701334 57.856L170.666667 405.333333v341.333334a64 64 0 0 0 57.856 63.701333L234.666667 810.666667h554.666666a64 64 0 0 0 63.701334-57.856L853.333333 746.666667v-341.333334A64 64 0 0 0 789.333333 341.333333zM341.333333 469.333333a42.666667 42.666667 0 0 1 42.666667 42.666667v85.333333a42.666667 42.666667 0 0 1-85.333333 0v-85.333333a42.666667 42.666667 0 0 1 42.666666-42.666667z m341.333334 0a42.666667 42.666667 0 0 1 42.666666 42.666667v85.333333a42.666667 42.666667 0 0 1-85.333333 0v-85.333333a42.666667 42.666667 0 0 1 42.666667-42.666667z" fill="currentColor" p-id="9291"></path></svg></span></span></a
+        >
+      
+    
+      
+        
+        <a
+          class=" hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://bangumi.tv/user/857516"
+          
+          target="_blank"
+          aria-label="Banguim"
+          title="Banguim"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1719382391801" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11123" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M1013.49888 192.13312l0-50.2016c0-133.98528-115.46112-133.98528-133.98528-133.98528l-49.9968 0c-1.69472-0.06656-3.25632-0.47616-5.02272-0.47616L197.31968 7.47008c-1.69472 0-3.32288 0.47616-5.02272 0.47616l-49.9968 0c-18.51904 0-133.98528 0-133.98528 133.98528l0 50.13504c-0.06656 1.62816-0.47616 3.18976-0.47616 4.81792l0 627.1744c0 1.62816 0.47616 3.18976 0.47616 4.81792l0 50.13504c0 133.98528 133.98528 133.98528 133.98528 133.98528l49.9968 0c1.69472 0.06656 3.25632 0.47616 4.95104 0.47616l627.1744 0c1.69472 0 3.25632-0.47616 4.95104-0.47616l50.06848 0c38.67136 0 65.87392-11.25888 85.4784-27.20256 1.22368-0.95232 2.5088-1.89952 3.73248-2.85184 4.47488-3.93216 8.61696-8.1408 12.2112-12.48256 1.01888-1.29024 1.89952-2.57536 2.85184-3.93216 29.57824-38.66624 29.78304-87.58272 29.78304-87.58272l0-50.2016c0.06656-1.62816 0.47616-3.1232 0.47616-4.81792L1013.97504 196.8128C1013.97504 195.32288 1013.56544 193.76128 1013.49888 192.13312zM162.11456 874.5984 61.0304 874.5984l0-101.07904 101.07904 0L162.10944 874.5984zM162.11456 717.824 61.0304 717.824l0-101.07904 101.07904 0L162.10944 717.824zM162.11456 561.04448 61.0304 561.04448 61.0304 459.96544l101.07904 0L162.10944 561.04448zM162.11456 404.27008 61.0304 404.27008 61.0304 303.18592l101.07904 0L162.10944 404.27008zM162.11456 247.49056 61.0304 247.49056 61.0304 146.41152l101.07904 0L162.10944 247.49056zM794.98752 899.63008 224.18432 899.63008 224.18432 121.4464l570.8032 0L794.98752 899.63008zM952.30464 873.4464l-101.07904 0 0-101.07904 101.07904 0L952.30464 873.4464zM952.30464 716.66688l-101.07904 0 0-101.07904 101.07904 0L952.30464 716.66688zM952.30464 559.89248l-101.07904 0L851.2256 458.81344l101.07904 0L952.30464 559.89248zM952.30464 403.11296l-101.07904 0L851.2256 302.03392l101.07904 0L952.30464 403.11296zM952.30464 246.33856l-101.07904 0L851.2256 145.25952l101.07904 0L952.30464 246.33856z" fill="currentColor" p-id="11124"></path><path d="M452.46464 680.91904 452.46464 680.91904 646.7584 543.744c20.48512-14.72 20.48512-51.42016 0-66.14528L452.46464 340.02432c-20.48512-14.72-54.272-4.13696-54.272 25.23648l0 290.82624C398.19264 685.46048 432.04608 695.57248 452.46464 680.91904z" fill="currentColor" p-id="11125"></path></svg></span></span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+  
+
+  
+
+  
+    <div class="mb-5"></div>
+  
+
+      
+    </header>
+
+    
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+      
+      
+      
+      
+        <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+          <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
+            <details
+  open
+  id="TOCView"
+  class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#development-environment">Development environment</a></li>
+    <li><a href="#ast">AST</a>
+      <ul>
+        <li><a href="#cast">Cast</a></li>
+        <li><a href="#declcontext">DeclContext</a></li>
+        <li><a href="#template">Template</a></li>
+      </ul>
+    </li>
+    <li><a href="#visitor">Visitor</a></li>
+    <li><a href="#preprocess">Preprocess</a></li>
+    <li><a href="#location">Location</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg -ms-5 ps-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#development-environment">Development environment</a></li>
+    <li><a href="#ast">AST</a>
+      <ul>
+        <li><a href="#cast">Cast</a></li>
+        <li><a href="#declcontext">DeclContext</a></li>
+        <li><a href="#template">Template</a></li>
+      </ul>
+    </li>
+    <li><a href="#visitor">Visitor</a></li>
+    <li><a href="#preprocess">Preprocess</a></li>
+    <li><a href="#location">Location</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+
+<script>
+  (function () {
+    'use strict'
+
+    const SCROLL_OFFSET_RATIO = 0.33
+    const TOC_SELECTOR = '#TableOfContents'
+    const ANCHOR_SELECTOR = '.anchor'
+    const TOC_LINK_SELECTOR = 'a[href^="#"]'
+    const NESTED_LIST_SELECTOR = 'li ul'
+    const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
+
+    function getActiveAnchorId(anchors, offsetRatio) {
+      const threshold = window.scrollY + window.innerHeight * offsetRatio
+      const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
+      const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) {
+            return anchor.id
+          }
+        }
+      }
+
+      for (let i = anchors.length - 1; i >= 0; i--) {
+        const top = anchors[i].getBoundingClientRect().top + window.scrollY
+        if (top <= threshold && tocIds.has(anchors[i].id)) {
+          return anchors[i].id
+        }
+      }
+      return anchors.find(anchor => tocIds.has(anchor.id))?.id || ''
+    }
+
+    function updateTOC({ toc, anchors, links, scrollOffset, collapseInactive }) {
+      const activeId = getActiveAnchorId(anchors, scrollOffset)
+      if (!activeId) return
+
+      links.forEach(link => {
+        const isActive = link.getAttribute('href') === `#${activeId}`
+        link.classList.toggle(ACTIVE_CLASS, isActive)
+
+        if (collapseInactive) {
+          const ul = link.closest('li')?.querySelector('ul')
+          if (ul) ul.style.display = isActive ? '' : 'none'
+        }
+      })
+
+      if (collapseInactive) {
+        const activeLink = toc.querySelector(`a[href="#${CSS.escape(activeId)}"]`)
+        let el = activeLink
+        while (el && el !== toc) {
+          if (el.tagName === 'UL') el.style.display = ''
+          if (el.tagName === 'LI') el.querySelector('ul')?.style.setProperty('display', '')
+          el = el.parentElement
+        }
+      }
+    }
+
+    function initTOC() {
+      const toc = document.querySelector(TOC_SELECTOR)
+      if (!toc) return
+
+      const collapseInactive = false
+      const anchors = [...document.querySelectorAll(ANCHOR_SELECTOR)]
+      const links = [...toc.querySelectorAll(TOC_LINK_SELECTOR)]
+
+      if (collapseInactive) {
+        toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
+      }
+
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          isJumpingToAnchor = true
+        })
+      })
+
+      const config = {
+        toc,
+        anchors,
+        links,
+        scrollOffset: SCROLL_OFFSET_RATIO,
+        collapseInactive
+      }
+
+      window.addEventListener('scroll', () => updateTOC(config), { passive: true })
+      window.addEventListener('hashchange', () => updateTOC(config), { passive: true })
+
+      updateTOC(config)
+    }
+
+    document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', initTOC)
+      : initTOC()
+  })()
+</script>
+
+
+          </div>
+        </div>
+      
+
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+
+        <div class="article-content max-w-prose mb-20">
+          <p>在上一篇关于 clice 的 <a href="https://www.ykiko.me/zh-cn/articles/13394352064"  target="_blank" rel="noreferrer">文章</a> 发布后，收到的反响远超我的预期，也有很多朋友说想要参与到开发中。有这份心是好的，但是参与进来的门槛却不低，主要难点就是在于和 clang 的 API 进行交互。难在哪呢？一方面在于无论是中文还是英文社区，互联网上关于 clang 的资料相对较少（这是预期的，因为相关的需求非常少，自然而然也就没什么人讨论了）。另一方面，由于 C++ 语言本身的复杂性，有很多细节需要对语言本身有较为深入的理解然后才能理解，把理论和实现联系起来也并不那么容易。</p>
+<p>所以我决定编写两篇关于 clang 的文章，第一篇的内容是介绍如何基于 clang 编写相关的代码生成或者静态检查工具以及对 clang AST 较为全面的介绍。第二篇则会更加深入的介绍 clang 作为编译器本身的架构，具体到各个流程的实现细节，以及 clice 是如何使用 clang 的。希望这两篇文章能扫清读者们参与到 clice 的开发中的障碍。如果你是想为 clang 做贡献或者编写 clang 工具，那么也可以继续往下阅读。</p>
+
+<h2 class="relative group">Development environment
+    <div id="development-environment" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#development-environment" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
+<p>第一步，首先就要搭建好开发环境。clang 是 llvm 的一个子项目，而 llvm 项目的构建是由 cmake 编写的，并且相对过时，只能通过 <code>find_package</code> 的方式来引入。这就意味着我们要提前编译安装好 llvm 和 clang。一种方式是下载编译好的二进制文件，llvm 的 <a href="https://github.com/llvm/llvm-project/releases"  target="_blank" rel="noreferrer">release</a> 这里就有针对各个平台的预编译包。</p>
+<p>不过我更推荐的方式是从源码构建 Debug 版本的二进制方便进行调试开发。具体的构建方式可以在 <a href="https://llvm.org/docs/CMake.html"  target="_blank" rel="noreferrer">llvm 的官方文档</a> 找到，这里不过多赘述。</p>
+<p>通过文档不难发现，它的构建有很多参数，这里是比较容易踩坑的地方。我这里把一些比较重要的参数重点强调一下：</p>
+<ul>
+<li><code>LLVM_ENABLE_PROJECTS</code> 是用来指定要构建除了 llvm 本身之外的哪些子项目，我们这里只需要 <code>clang</code> 就行了</li>
+<li><code>LLVM_TARGETS_TO_BUILD</code> 用于指定编译器支持的目标平台，开的越多编译 llvm 时间越长，对于开发来说一般选择 <code>X86</code> 就行了</li>
+<li><code>LLVM_BUILD_LLVM_DYLIB</code> 用于指定是否把 llvm 构建产物都构建为动态库，强烈推荐开启。构建为动态库之后，链接速度就会非常快，可以改善开发体验。此外，如果不打开这个选项，那么最后在调试模式下构建出来的二进制文件会非常大，可能会有上百 GB。不过遗憾的是，这个选项目前在 Windows 上的 MSVC target 下不支持，相关的工作仍然进行中，参阅 <a href="https://github.com/llvm/llvm-project/issues/109483"  target="_blank" rel="noreferrer">llvm-windows-support</a>。所以推荐开发平台是 Linux 或者 Windows 上使用 MinGW 或者 WSL</li>
+<li><code>LLVM_USE_SANITIZER</code> 用于指定要开启的 <a href="https://clang.llvm.org/docs/AddressSanitizer.html"  target="_blank" rel="noreferrer">sanitizer</a>，该选项在 MSVC target 下也几乎不可用。</li>
+</ul>
+<p>另外千万不要使用 GNU 的 ld 来链接，它的内存占用非常高，并发链接的情况下很容易爆内存。然后呢，作为参考我在 Linux 上的构建命令如下</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cmake <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -G Ninja -S ./llvm <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -B build-debug <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -DLLVM_USE_LINKER<span class="o">=</span>lld <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -DCMAKE_C_COMPILER<span class="o">=</span>clang <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -DCMAKE_CXX_COMPILER<span class="o">=</span>clang++ <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -DCMAKE_BUILD_TYPE<span class="o">=</span>Debug <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -DBUILD_SHARED_LIBS<span class="o">=</span>ON <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -DLLVM_TARGETS_TO_BUILD<span class="o">=</span>X86 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -DLLVM_USE_SANITIZER<span class="o">=</span>Address <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -DLLVM_ENABLE_PROJECTS<span class="o">=</span><span class="s2">&#34;clang&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -DCMAKE_INSTALL_PREFIX<span class="o">=</span>./build-debug-install</span></span></code></pre></div></div>
+<p>构建成功的话，最后的二进制文件应该就位于 llvm 项目的 <code>build-debug-install</code> 目录下了。然后新创建一个目录用于编写工具的代码，在该目录下创建一个 <code>CMakeLists.txt</code> 文件，内容如下</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmake" data-lang="cmake"><span class="line"><span class="cl"><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.10</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">project</span><span class="p">(</span><span class="s">clang-tutorial</span> <span class="s">VERSION</span> <span class="s">1.0</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span> <span class="s">17</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD_REQUIRED</span> <span class="s">True</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_EXPORT_COMPILE_COMMANDS</span> <span class="s">ON</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_PREFIX_PATH</span> <span class="s2">&#34;${LLVM_INSTALL_PATH}&#34;</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">find_package</span><span class="p">(</span><span class="s">LLVM</span> <span class="s">REQUIRED</span> <span class="s">CONFIG</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">find_package</span><span class="p">(</span><span class="s">Clang</span> <span class="s">REQUIRED</span> <span class="s">CONFIG</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&#34;Found LLVM ${LLVM_INCLUDE_DIRS}&#34;</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">add_executable</span><span class="p">(</span><span class="s">tooling</span> <span class="s">main.cpp</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_FLAGS</span> <span class="s2">&#34;${CMAKE_CXX_FLAGS} -fno-rtti -fno-exceptions -fsanitize=address&#34;</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_EXE_LINKER_FLAGS</span> <span class="s2">&#34;${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address&#34;</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">target_include_directories</span><span class="p">(</span><span class="s">tooling</span> <span class="s">PRIVATE</span> <span class="o">${</span><span class="nv">LLVM_INCLUDE_DIRS</span><span class="o">}</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">tooling</span> <span class="s">PRIVATE</span> 
+</span></span><span class="line"><span class="cl">    <span class="s">LLVMSupport</span>
+</span></span><span class="line"><span class="cl">    <span class="s">clangAST</span>
+</span></span><span class="line"><span class="cl">    <span class="s">clangBasic</span>
+</span></span><span class="line"><span class="cl">    <span class="s">clangLex</span>
+</span></span><span class="line"><span class="cl">    <span class="s">clangFrontend</span>
+</span></span><span class="line"><span class="cl">    <span class="s">clangSerialization</span>
+</span></span><span class="line"><span class="cl">    <span class="s">clangTooling</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></div></div>
+<p>内容很简单，就是引入 llvm 和 clang 的头文件和库文件。注意这里的 <code>LLVM_INSTALL_PATH</code> 就是你刚才安装的 llvm 路径，可以留意 <code>message</code> 函数输出的路径是否是预期的。</p>
+<p>再创建一个 <code>main.cpp</code> 文件，内容如下</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;clang/Tooling/Tooling.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ToolingASTConsumer</span> <span class="o">:</span> <span class="k">public</span> <span class="n">clang</span><span class="o">::</span><span class="n">ASTConsumer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">HandleTranslationUnit</span><span class="p">(</span><span class="n">clang</span><span class="o">::</span><span class="n">ASTContext</span><span class="o">&amp;</span> <span class="n">context</span><span class="p">)</span> <span class="k">override</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">context</span><span class="p">.</span><span class="n">getTranslationUnitDecl</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">dump</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ToolingAction</span> <span class="o">:</span> <span class="k">public</span> <span class="n">clang</span><span class="o">::</span><span class="n">ASTFrontendAction</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">clang</span><span class="o">::</span><span class="n">ASTConsumer</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">CreateASTConsumer</span><span class="p">(</span><span class="n">clang</span><span class="o">::</span><span class="n">CompilerInstance</span><span class="o">&amp;</span> <span class="n">instance</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">llvm</span><span class="o">::</span><span class="n">StringRef</span> <span class="n">file</span><span class="p">)</span> <span class="k">override</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">ToolingASTConsumer</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">content</span> <span class="o">=</span> <span class="n">R</span><span class="s">&#34;(</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="s">&#34;;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">success</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">        <span class="n">clang</span><span class="o">::</span><span class="n">tooling</span><span class="o">::</span><span class="n">runToolOnCode</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">ToolingAction</span><span class="o">&gt;</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">                                      <span class="n">content</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                      <span class="s">&#34;main.cpp&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">!</span><span class="n">success</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>编译运行，预期输出应该是</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">TranslationUnitDecl 0x7dabb8df5508 <span class="s">&lt;&lt;invalid sloc&gt;&gt; &lt;invalid</span> sloc&gt;
+</span></span><span class="line"><span class="cl"><span class="p">|</span>-TypedefDecl 0x7dabb8e4e238 <span class="s">&lt;&lt;invalid sloc&gt;&gt; &lt;invalid</span> sloc&gt; implicit __int128_t <span class="s1">&#39;__int128&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> <span class="sb">`</span>-BuiltinType 0x7dabb8df5d90 <span class="s1">&#39;__int128&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>-TypedefDecl 0x7dabb8e4e2b0 <span class="s">&lt;&lt;invalid sloc&gt;&gt; &lt;invalid</span> sloc&gt; implicit __uint128_t <span class="s1">&#39;unsigned __int128&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> <span class="sb">`</span>-BuiltinType 0x7dabb8df5dc0 <span class="s1">&#39;unsigned __int128&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>-TypedefDecl 0x7dabb8e4e698 <span class="s">&lt;&lt;invalid sloc&gt;&gt; &lt;invalid</span> sloc&gt; implicit __NSConstantString <span class="s1">&#39;__NSConstantString_tag&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> <span class="sb">`</span>-RecordType 0x7dabb8e4e3b0 <span class="s1">&#39;__NSConstantString_tag&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   <span class="sb">`</span>-CXXRecord 0x7dabb8e4e310 <span class="s1">&#39;__NSConstantString_tag&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>-TypedefDecl 0x7dabb8df61e0 <span class="s">&lt;&lt;invalid sloc&gt;&gt; &lt;invalid</span> sloc&gt; implicit __builtin_ms_va_list <span class="s1">&#39;char *&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> <span class="sb">`</span>-PointerType 0x7dabb8df6190 <span class="s1">&#39;char *&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   <span class="sb">`</span>-BuiltinType 0x7dabb8df55e0 <span class="s1">&#39;char&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>-TypedefDecl 0x7dabb8e4e1c0 <span class="s">&lt;&lt;invalid sloc&gt;&gt; &lt;invalid</span> sloc&gt; implicit __builtin_va_list <span class="s1">&#39;__va_list_tag[1]&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> <span class="sb">`</span>-ConstantArrayType 0x7dabb8e4e160 <span class="s1">&#39;__va_list_tag[1]&#39;</span> <span class="m">1</span> 
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   <span class="sb">`</span>-RecordType 0x7dabb8df62e0 <span class="s1">&#39;__va_list_tag&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>     <span class="sb">`</span>-CXXRecord 0x7dabb8df6240 <span class="s1">&#39;__va_list_tag&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="sb">`</span>-FunctionDecl 0x7dabb8e4e768 &lt;main.cpp:2:5, line:4:5&gt; line:2:9 main <span class="s1">&#39;int ()&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="sb">`</span>-CompoundStmt 0x7dabb8e4e8e8 &lt;col:16, line:4:5&gt;
+</span></span><span class="line"><span class="cl">    <span class="sb">`</span>-ReturnStmt 0x7dabb8e4e8d0 &lt;line:3:9, col:16&gt;
+</span></span><span class="line"><span class="cl">      <span class="sb">`</span>-IntegerLiteral 0x7dabb8e4e8a8 &lt;col:16&gt; <span class="s1">&#39;int&#39;</span> <span class="m">0</span></span></span></code></pre></div></div>
+<p>自此，开发环境就搭建好了，可以愉快的进行 clang 的开发了。</p>
+
+<h2 class="relative group">AST
+    <div id="ast" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#ast" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
+<p>AST（Abstract Syntax Tree，抽象语法树）是编译器在编译过程中生成的一个数据结构，用来表示源代码的语法结构。它是源代码的一个抽象层次，用于捕捉源代码的语法信息，同时去除具体的细节，比如分号、括号等。上面我们编写的小工具的作用就是编译输入的字符串文本并打印它的 AST。其实无论是静态检查工具还是代码生成工具，都是通过操作 AST 来实现的。我们需要知道如何从 AST 中筛选出我们感兴趣的节点，以及如何进一步获取节点的相关的更详细的信息。</p>
+<p>所有 AST 节点的生命周期都是相同的，并且相互之间可能有复杂的引用关系。对于 clang AST 来说，虽然名义上叫做 Abstract Syntax Tree 是一个 Tree，但实际上是一个有环的 Graph。在这个特殊的场景下，使用内存池统一分配所有 AST 节点的内存可以大大简化节点生命周期的管理。clang 也是这么做的，所有的 AST 节点都是通过 <code>clang::ASTContext</code> 来分配的。通过 <code>ASTContext::getTranslationUnitDecl</code> 我们就可以获取到 AST 的根节点，顾名思义，也就是代表一个编译单元。</p>
+<p>在遍历 AST 之前，我们首先需要理解 clang AST 的结构。clang 中最基本的两个节点类型是 <code>Decl</code> 和 <code>Stmt</code>，而 <code>Expr</code> 是 <code>Stmt</code> 的子类。<code>Decl</code> 代表的是声明，比如变量声明、函数声明等。<code>Stmt</code> 代表的是语句，比如赋值语句、函数调用语句等。<code>Expr</code> 代表的是表达式，比如加法表达式、函数调用表达式等。</p>
+<p>以 <code>int x = (1 + 2) * 3;</code> 为例，它的 AST 结构如下</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="sb">`</span>-VarDecl 0x7e0b3974e710 &lt;main.cpp:2:1, col:19&gt; col:5 x <span class="s1">&#39;int&#39;</span> cinit
+</span></span><span class="line"><span class="cl">  <span class="sb">`</span>-BinaryOperator 0x7e0b3974e898 &lt;col:9, col:19&gt; <span class="s1">&#39;int&#39;</span> <span class="s1">&#39;*&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">|</span>-ParenExpr 0x7e0b3974e848 &lt;col:9, col:15&gt; <span class="s1">&#39;int&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">|</span> <span class="sb">`</span>-BinaryOperator 0x7e0b3974e820 &lt;col:10, col:14&gt; <span class="s1">&#39;int&#39;</span> <span class="s1">&#39;+&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">|</span>   <span class="p">|</span>-IntegerLiteral 0x7e0b3974e7d0 &lt;col:10&gt; <span class="s1">&#39;int&#39;</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">|</span>   <span class="sb">`</span>-IntegerLiteral 0x7e0b3974e7f8 &lt;col:14&gt; <span class="s1">&#39;int&#39;</span> <span class="m">2</span>
+</span></span><span class="line"><span class="cl">    <span class="sb">`</span>-IntegerLiteral 0x7e0b3974e870 &lt;col:19&gt; <span class="s1">&#39;int&#39;</span> <span class="m">3</span></span></span></code></pre></div></div>
+<p>可以发现，还是非常清晰的，能和源代码中的语法结构一一对应起来。由于 C++ 的语法非常复杂，自然对应的节点类型也是非常多的。可以在 clang 源码目录下的 <code>clang/AST/DeclNodes.td</code> 和 <code>clang/AST/StmtNodes.td</code> 找到所有节点类型的继承图。注意是源码目录，而不是安装目录，<code>.td</code>后缀的文件是 <a href="https://llvm.org/docs/TableGen"  target="_blank" rel="noreferrer">llvm taben gen</a> 语言，是一种特殊格式的配置文件，用于进行代码生成之类的工作。由于 llvm 是关闭异常和 RTTI 的，但是诸如 <code>dynamic_cast</code> 这样的类型转换在对 AST 节点进行操作的时候又是非常常见的，所以 llvm 就通过代码生成自己实现了一套类似的机制。相关的内容可以参考 <a href="https://llvm.org/docs/ProgrammersManual.html#the-isa-cast-and-dyn-cast-templates"  target="_blank" rel="noreferrer">LLVM Programmer&rsquo;s Manual</a>。</p>
+<p>下面对于 AST 中一些比较重要的节点和 API 进行介绍（暂时只有很少一些，之后会根据反馈进行补充）</p>
+
+<h3 class="relative group">Cast
+    <div id="cast" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#cast" aria-label="锚点">#</a>
+    </span>
+    
+</h3>
+<p>首先最基础也是最重要的一个操作就是节点类型的 downcast 了，如前文所述相关的操作在 llvm 中共用一套逻辑。用的最做的 API 就是 <code>llvm::dyn_cast</code> 了，例如我们想判断一个声明是不是函数声明</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">clang</span><span class="o">::</span><span class="n">Decl</span><span class="o">*</span> <span class="n">decl</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="k">auto</span> <span class="n">FD</span> <span class="o">=</span> <span class="n">llvm</span><span class="o">::</span><span class="n">dyn_cast</span><span class="o">&lt;</span><span class="n">clang</span><span class="o">::</span><span class="n">FunctionDecl</span><span class="o">&gt;</span><span class="p">(</span><span class="n">decl</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">llvm</span><span class="o">::</span><span class="n">outs</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">FD</span><span class="o">-&gt;</span><span class="n">getName</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>用法和 C++ 标准库的 <a href="https://en.cppreference.com/w/cpp/language/dynamic_cast"  target="_blank" rel="noreferrer">dynamic_cast</a> 几乎完全一致。</p>
+
+<h3 class="relative group">DeclContext
+    <div id="declcontext" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#declcontext" aria-label="锚点">#</a>
+    </span>
+    
+</h3>
+<p>在 C++ 中，有一些我们可以在一些内部定义其它的声明的声明，例如</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>这是 <code>foo</code> 就作为 <code>x</code> 的声明上下文，为了描述这种关系，在 clang 中所有能作为声明上下文的 <code>Decl</code> 都会继承 <code>DeclContext</code>。典型案例就是上面说的 <code>NamespaceDecl</code> 了。可以通过 <code>DeclContext::decls()</code> 这个成员获取上下文中所有的声明。</p>
+
+<h3 class="relative group">Template
+    <div id="template" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#template" aria-label="锚点">#</a>
+    </span>
+    
+</h3>
+<p>对于模板的处理可谓是 clang AST 中最复杂的部分了，这里做一些简略的介绍。所有未实例化的模板声明都会继承 <code>clang::TemplateDecl</code> 这个类。通过查看继承图，有如下几个类型 <code>ClassTemplate</code>, <code>FunctionTemplate</code>, <code>VarTemplate</code>, <code>TypeAliasTemplate</code>, <code>TemplateTemplateParm</code> 和 <code>Concept</code>。分别对应 C++ 标准中的类模板、函数模板、变量模板、类型别名模板、模板模板参数和概念。</p>
+<p>欸，我有一个疑问。类模板的成员函数是如何表示的呢？</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">bar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>比如这里的 <code>bar</code> 在 AST 里面是什么节点。dump AST 就可以发现它是一个普通的 <code>CXXMethodDecl</code>，和普通的成员函数是一样的。实际上 <code>TemplateDecl</code> 有一个成员 <code>getTemplatedDecl</code>，可以获取到该模板类型的底层类型。其实就是把 <code>T</code> 当成一个普通类型来处理的。获取到底层声明之后一切就和普通的非模板类型一样了。只是 Parser 在解析 <a href="https://en.cppreference.com/w/cpp/language/dependent_name"  target="_blank" rel="noreferrer">dependent name</a> 的时候会有一些特殊的处理。</p>
+<p>所有模板的实例化同样在 AST 中有对应的表示，无论是显式实例化还是隐式实例化。可以通过 <code>getSpecializationKind</code> 来获取该模板实例化的类型。<code>TemplateSpecializationKind</code> 是一个枚举类型，有 <code>TSK_Undeclared</code>, <code>TSK_ImplicitInstantiation</code>, <code>TSK_ExplicitInstantiationDeclaration</code>, <code>TSK_ExplicitInstantiationDefinition</code>, <code>TSK_ExplicitSpecialization</code> 和 <code>TSK_ExplicitInstantiation</code>。分别对应未声明的实例化（模板实例化是 lazy 的）、隐式实例化、显式实例化声明、显式实例化定义、显式特化和显式实例化。</p>
+
+<h2 class="relative group">Visitor
+    <div id="visitor" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#visitor" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
+<p>在对 AST 的结构有了一些基本认识后，我们就可以来遍历 AST 收集信息了。进行这一步的关键类是 <code>clang::RecursiveASTVisitor</code>。</p>
+<p><code>RecursiveASTVisitor</code> 是一个 <a href="https://en.cppreference.com/w/cpp/language/crtp"  target="_blank" rel="noreferrer">CRTP</a> 的典型应用。它默认对整个 AST 进行深度优先遍历，并且提供了一组接口允许子类重写以改变默认行为。例如下面的代码就会遍历 AST 并且 dump 所有的函数声明。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;clang/Tooling/Tooling.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;clang/AST/RecursiveASTVisitor.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ToolingASTVisitor</span> <span class="o">:</span> <span class="k">public</span> <span class="n">clang</span><span class="o">::</span><span class="n">RecursiveASTVisitor</span><span class="o">&lt;</span><span class="n">ToolingASTVisitor</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">VisitFunctionDecl</span><span class="p">(</span><span class="n">clang</span><span class="o">::</span><span class="n">FunctionDecl</span><span class="o">*</span> <span class="n">FD</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">FD</span><span class="o">-&gt;</span><span class="n">dump</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ToolingASTConsumer</span> <span class="o">:</span> <span class="k">public</span> <span class="n">clang</span><span class="o">::</span><span class="n">ASTConsumer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">HandleTranslationUnit</span><span class="p">(</span><span class="n">clang</span><span class="o">::</span><span class="n">ASTContext</span><span class="o">&amp;</span> <span class="n">context</span><span class="p">)</span> <span class="k">override</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ToolingASTVisitor</span> <span class="n">visitor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">visitor</span><span class="p">.</span><span class="n">TraverseAST</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>关于 <code>RecursiveASTVisitor</code> 的工作原理这里就不过多介绍了，它的注释文档足够详细。简而言之，如果只是希望访问某个节点，重写 <code>VisitFoo</code>，如果想自定义遍历行为，例如过滤掉不感兴趣的节点以加快遍历速度，重写 <code>TraverseFoo</code> 就好了，其中 <code>Foo</code> 是节点的类型。</p>
+<p><strong>注意，直觉上来说遍历应该是个只读操作，应该是线程安全的。但是 clang AST 在遍历的时候会对一些结果做 cache，所以多线程并发遍历同一个 AST 并不线程安全。</strong></p>
+
+<h2 class="relative group">Preprocess
+    <div id="preprocess" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#preprocess" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
+<p>可以发现，在 AST 节点的定义中并没有任何和宏有关的节点。当然也没有预处理指令之类的节点。实际上 clang 的 AST 的构建是在完整的预处理之后进行的，无论是宏展开还是预处理指令都已经被处理掉了。但是如果我们想要获取相关的信息怎么办呢？</p>
+<p>clang 为我们提供了 <code>PPCallback</code> 这个类，允许我们重写里面的相关接口来获取一些信息。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;clang/Tooling/Tooling.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;clang/AST/RecursiveASTVisitor.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ToolingPPCallbacks</span> <span class="o">:</span> <span class="k">public</span> <span class="n">clang</span><span class="o">::</span><span class="n">PPCallbacks</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">MacroDefined</span><span class="p">(</span><span class="k">const</span> <span class="n">clang</span><span class="o">::</span><span class="n">Token</span><span class="o">&amp;</span> <span class="n">MacroNameTok</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                      <span class="k">const</span> <span class="n">clang</span><span class="o">::</span><span class="n">MacroDirective</span><span class="o">*</span> <span class="n">MD</span><span class="p">)</span> <span class="k">override</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">llvm</span><span class="o">::</span><span class="n">outs</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;MacroDefined: &#34;</span>
+</span></span><span class="line"><span class="cl">                     <span class="o">&lt;&lt;</span> <span class="n">MacroNameTok</span><span class="p">.</span><span class="n">getIdentifierInfo</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getName</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ToolingAction</span> <span class="o">:</span> <span class="k">public</span> <span class="n">clang</span><span class="o">::</span><span class="n">ASTFrontendAction</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">clang</span><span class="o">::</span><span class="n">ASTConsumer</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">CreateASTConsumer</span><span class="p">(</span><span class="n">clang</span><span class="o">::</span><span class="n">CompilerInstance</span><span class="o">&amp;</span> <span class="n">instance</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">llvm</span><span class="o">::</span><span class="n">StringRef</span> <span class="n">file</span><span class="p">)</span> <span class="k">override</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">ToolingASTConsumer</span><span class="o">&gt;</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="nf">BeginSourceFileAction</span><span class="p">(</span><span class="n">clang</span><span class="o">::</span><span class="n">CompilerInstance</span><span class="o">&amp;</span> <span class="n">instance</span><span class="p">)</span> <span class="k">override</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">llvm</span><span class="o">::</span><span class="n">outs</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;BeginSourceFileAction</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">instance</span><span class="p">.</span><span class="n">getPreprocessor</span><span class="p">().</span><span class="n">addPPCallbacks</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">ToolingPPCallbacks</span><span class="o">&gt;</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>上面的示例的效果就是打印出所有的宏定义。<code>PPCallbacks</code> 还提供了很多其它的接口，相关的注释也较为详细，可以按需使用。</p>
+
+<h2 class="relative group">Location
+    <div id="location" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#location" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
+<p>clang 会在 AST 中详细的记录节点的位置信息。表示位置信息的核心类是 <code>clang::SourceLocation</code>。为了在减少内存占用的同时能储存尽量多的信息，它本身只相当于一个 ID，大小只有 int 非常轻量。实际的位置信息则被储存在 <code>clang::SourceManager</code> 中。在需要详尽的信息的时候，需要通过 <code>SourceManager</code> 来进行解码。</p>
+<p>通过 <code>ASTContext::getSourceManager</code> 可以获取到对应的 <code>SourceManager</code>。然后就我们可以通过如下代码 dump 出节点的位置信息</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">dump</span><span class="p">(</span><span class="n">clang</span><span class="o">::</span><span class="n">SourceManager</span><span class="o">&amp;</span> <span class="n">SM</span><span class="p">,</span> <span class="n">clang</span><span class="o">::</span><span class="n">FunctionDecl</span><span class="o">*</span> <span class="n">FD</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">FD</span><span class="o">-&gt;</span><span class="n">getLocation</span><span class="p">().</span><span class="n">dump</span><span class="p">(</span><span class="n">SM</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>在 <code>SourceManager</code> 的成员函数中，你会发现很多 API 的前缀都带了 spelling 或者 expansion。比如 <code>getSpellingLineNumber</code> 和 <code>getExpansionLineNumber</code>。这是什么意思呢？首先要意识到一件事，AST 中所有的 <code>SourceLocation</code> 都代表的是一个 token 开始的起始位置。而一个 token 的来源有两种，一种就是直接对应源码中的一个 token，另一种则是来自于宏展开。可以通过 <code>SourceLocation::isMacroID</code> 来判断这个 token 的位置是不是由宏展开产生的。</p>
+<p>对于由宏展开产生的 token，clang 会跟踪它的两个信息。一个是宏展开的位置也就是 <code>ExpansionLocation</code>，另一个则展开产生该 token 的 token 的位置，也就是 <code>SpellingLocation</code>。</p>
+<p>例如对于下述代码</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define Self(name) name 
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">Self</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></span></span></code></pre></div></div>
+<p>使用如下代码打印出变量声明的位置信息</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">dump</span><span class="p">(</span><span class="n">clang</span><span class="o">::</span><span class="n">SourceManager</span><span class="o">&amp;</span> <span class="n">SM</span><span class="p">,</span> <span class="n">clang</span><span class="o">::</span><span class="n">SourceLocation</span> <span class="n">location</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">llvm</span><span class="o">::</span><span class="n">outs</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;is from macro expansion: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">location</span><span class="p">.</span><span class="n">isMacroID</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">llvm</span><span class="o">::</span><span class="n">outs</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;expansion location: &#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SM</span><span class="p">.</span><span class="n">getExpansionLoc</span><span class="p">(</span><span class="n">location</span><span class="p">).</span><span class="n">dump</span><span class="p">(</span><span class="n">SM</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">llvm</span><span class="o">::</span><span class="n">outs</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;spelling location: &#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SM</span><span class="p">.</span><span class="n">getSpellingLoc</span><span class="p">(</span><span class="n">location</span><span class="p">).</span><span class="n">dump</span><span class="p">(</span><span class="n">SM</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>预期输出是</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">is from macro expansion: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">expansion location: main.cpp:2:5
+</span></span><span class="line"><span class="cl">spelling location: main.cpp:2:10</span></span></code></pre></div></div>
+<p>该变量声明中 <code>x</code> 是由宏展开产生的，所以 <code>isMacroID</code> 就是 <code>true</code>。它的 expansion location 就是宏展开的位置，也就是 <code>Self(x)</code> 的起始位置。而 spelling location 则是展开产生 <code>x</code> 的 token 的位置，也就是 <code>Self(x)</code> 中 <code>x</code> 的位置。</p>
+<p>除此之外，根据 C++ 标准，还可以通过 <a href="https://en.cppreference.com/w/cpp/preprocessor/line"  target="_blank" rel="noreferrer">#line</a> 预处理指令来改变行号和文件名，例如</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string_view&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#line 10 &#34;fake.cpp&#34;
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">__LINE__</span> <span class="o">==</span> <span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">__FILE__</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">(</span><span class="s">&#34;fake.cpp&#34;</span><span class="p">));</span></span></span></code></pre></div></div>
+<p>这个会影响 clang 的位置记录吗？答案是肯定的。那么如果我想获取到真实的行号和文件名呢？可以通过 <code>getPresumedLoc</code> 来获取被 <code>#line</code> 指令修改过后或者没有修改过的位置信息。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">dump</span><span class="p">(</span><span class="n">clang</span><span class="o">::</span><span class="n">SourceManager</span><span class="o">&amp;</span> <span class="n">SM</span><span class="p">,</span> <span class="n">clang</span><span class="o">::</span><span class="n">SourceLocation</span> <span class="n">location</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">/// The second argument determines whether the location is modified by
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">/// `#line` directives.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">auto</span> <span class="n">loc</span> <span class="o">=</span> <span class="n">SM</span><span class="p">.</span><span class="n">getPresumedLoc</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">llvm</span><span class="o">::</span><span class="n">outs</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">loc</span><span class="p">.</span><span class="n">getFilename</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">loc</span><span class="p">.</span><span class="n">getLine</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;:&#34;</span>
+</span></span><span class="line"><span class="cl">                 <span class="o">&lt;&lt;</span> <span class="n">loc</span><span class="p">.</span><span class="n">getColumn</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">loc</span> <span class="o">=</span> <span class="n">SM</span><span class="p">.</span><span class="n">getPresumedLoc</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">llvm</span><span class="o">::</span><span class="n">outs</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">loc</span><span class="p">.</span><span class="n">getFilename</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">loc</span><span class="p">.</span><span class="n">getLine</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;:&#34;</span>
+</span></span><span class="line"><span class="cl">                 <span class="o">&lt;&lt;</span> <span class="n">loc</span><span class="p">.</span><span class="n">getColumn</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>第一个输出的就是被 <code>#line</code> 指令修改过后的位置信息，而第二个输出的就是真实的位置信息。<strong>注意，clang 默认使用的文件编码是 UTF-8，计算 line 和 column 也是按照 UTF-8 来计算的。</strong> 那假设我想获取到 UTF-16 编码下的 column 信息呢？实际上 vscode 默认用的就是这个，可以通过 <code>getDecomposedLoc</code> 来把 <code>SourceLocation</code> 分解为 <code>clang::FileID</code> 和相对于文件起始位置的 offset。有了 offset 之后结合源文件的文本内容，我们就可以自己根据 UTF-16 编码来计算 column 了。</p>
+<p>既然提到了 <code>clang::FileID</code> 那我们就接着说它。它和 <code>SourceLocation</code> 类似，也是一个 ID，只不过它代表的是一个文件。我们可以通过 <code>getIncludeLoc</code> 来获取到引入该文件的位置（也就是 <code>#include</code> 当前文件的预处理指令位置）。使用 <code>getFileEntryRefForID</code> 获取到它所引用的文件的信息，包括文件名，大小等。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">dump</span><span class="p">(</span><span class="n">clang</span><span class="o">::</span><span class="n">SourceManager</span><span class="o">&amp;</span> <span class="n">SM</span><span class="p">,</span> <span class="n">clang</span><span class="o">::</span><span class="n">SourceLocation</span> <span class="n">location</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="p">[</span><span class="n">fid</span><span class="p">,</span> <span class="n">offset</span><span class="p">]</span> <span class="o">=</span> <span class="n">SM</span><span class="p">.</span><span class="n">getDecomposedLoc</span><span class="p">(</span><span class="n">location</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">loc</span> <span class="o">=</span> <span class="n">SM</span><span class="p">.</span><span class="n">getIncludeLoc</span><span class="p">(</span><span class="n">fid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">llvm</span><span class="o">::</span><span class="n">outs</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">SM</span><span class="p">.</span><span class="n">getFileEntryRefForID</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getName</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<blockquote><p>一个头文件可能被包含多次，每次被包含都是一个新的 FileID，但是底层引用的是相同的文件。</p>
+</blockquote>
+<h2 class="relative group">Conclusion
+    <div id="conclusion" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#conclusion" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
+<p>在理解了上面这些内容之后，读者应该不难编写一个基于 clang 的工具了，例如一个基于 clang 的反射代码生成器。</p>
+<p>对于 clice 来说，很多的语言服务器请求都是通过遍历 AST 来完成的。例如 <a href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/"  target="_blank" rel="noreferrer">SemanticTokens</a>，它的效果是为源码中的 token 提供代码 kind 和 modifier 修饰，使得编辑器可以进一步根据主题进行高亮。</p>
+<p>那么如何实现它呢？其实就是遍历 AST，然后根据节点类型，返回 LSP 标准中定义的 kind，比如 variable 和 function。最后在根据 token 的位置进行排序就行了。原理十分简单，剩下的内容就是处理由于 C++ 语法的复杂性所来带的很多 corner case 了。</p>
+<p>到这里文章就结束了，感谢阅读。这里还有一些来自于 clang 官方的参考文档：</p>
+<ul>
+<li><a href="https://clang.llvm.org/docs/LibTooling.html"  target="_blank" rel="noreferrer">LibTooling</a></li>
+<li><a href="https://clang.llvm.org/docs/LibASTMatchers.html"  target="_blank" rel="noreferrer">AST Macther</a></li>
+<li><a href="https://clang.llvm.org/docs/ClangTransformerTutorial.html"  target="_blank" rel="noreferrer">Transformer</a></li>
+<li><a href="https://clang.llvm.org/docs/IntroductionToTheClangAST.html"  target="_blank" rel="noreferrer">Introduction to the Clang AST</a></li>
+<li><a href="https://clang.llvm.org/docs/InternalsManual.html"  target="_blank" rel="noreferrer">Clang CFE Internals Manual</a></li>
+</ul>
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+  
+  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+    
+      
+        
+        <a
+          class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          target="_blank"
+          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.ykiko.me/zh-cn/articles/21319978959/&amp;title=%e6%b7%b1%e5%85%a5%e6%8e%a2%e7%b4%a2%20clang%ef%bc%88%e4%b8%8a%ef%bc%89"
+          
+          title="分享到 LinkedIn"
+          aria-label="分享到 LinkedIn">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+</span>
+        </a>
+      
+    
+      
+        
+        <a
+          class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          target="_blank"
+          href="https://twitter.com/intent/tweet/?url=https://www.ykiko.me/zh-cn/articles/21319978959/&amp;text=%e6%b7%b1%e5%85%a5%e6%8e%a2%e7%b4%a2%20clang%ef%bc%88%e4%b8%8a%ef%bc%89"
+          
+          title="分享到 Twitter"
+          aria-label="分享到 Twitter">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg></span>
+        </a>
+      
+    
+      
+        
+        <a
+          class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          target="_blank"
+          href="https://reddit.com/submit/?url=https://www.ykiko.me/zh-cn/articles/21319978959/&amp;resubmit=true&amp;title=%e6%b7%b1%e5%85%a5%e6%8e%a2%e7%b4%a2%20clang%ef%bc%88%e4%b8%8a%ef%bc%89"
+          
+          title="提交到 Reddit"
+          aria-label="提交到 Reddit">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z"/></svg>
+</span>
+        </a>
+      
+    
+      
+        
+        <a
+          class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          target="_blank"
+          href="https://api.whatsapp.com/send?text=https://www.ykiko.me/zh-cn/articles/21319978959/&amp;resubmit=true&amp;title=%e6%b7%b1%e5%85%a5%e6%8e%a2%e7%b4%a2%20clang%ef%bc%88%e4%b8%8a%ef%bc%89"
+          
+          title="通过 WhatsApp 分享"
+          aria-label="通过 WhatsApp 分享">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+</span>
+        </a>
+      
+    
+      
+        
+        <a
+          class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          target="_blank"
+          href="https://t.me/share/url?url=https://www.ykiko.me/zh-cn/articles/21319978959/&amp;resubmit=true&amp;title=%e6%b7%b1%e5%85%a5%e6%8e%a2%e7%b4%a2%20clang%ef%bc%88%e4%b8%8a%ef%bc%89"
+          
+          title="通过 Telegram 分享"
+          aria-label="通过 Telegram 分享">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M248,8C111.033,8,0,119.033,0,256S111.033,504,248,504,496,392.967,496,256,384.967,8,248,8ZM362.952,176.66c-3.732,39.215-19.881,134.378-28.1,178.3-3.476,18.584-10.322,24.816-16.948,25.425-14.4,1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25,5.342-39.5,3.652-3.793,67.107-61.51,68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608,69.142-14.845,10.194-26.894,9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7,18.45-13.7,108.446-47.248,144.628-62.3c68.872-28.647,83.183-33.623,92.511-33.789,2.052-.034,6.639.474,9.61,2.885a10.452,10.452,0,0,1,3.53,6.716A43.765,43.765,0,0,1,362.952,176.66Z"/></svg>
+</span>
+        </a>
+      
+    
+      
+        
+        <a
+          class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          target="_blank"
+          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.ykiko.me/zh-cn/articles/21319978959/&amp;description=%e6%b7%b1%e5%85%a5%e6%8e%a2%e7%b4%a2%20clang%ef%bc%88%e4%b8%8a%ef%bc%89"
+          
+          title="钉到 Pinterest"
+          aria-label="钉到 Pinterest">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"/></svg>
+</span>
+        </a>
+      
+    
+      
+        
+        <a
+          class=" m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          target="_blank"
+          href="https://www.facebook.com/sharer/sharer.php?u=https://www.ykiko.me/zh-cn/articles/21319978959/&amp;quote=%e6%b7%b1%e5%85%a5%e6%8e%a2%e7%b4%a2%20clang%ef%bc%88%e4%b8%8a%ef%bc%89"
+          
+          title="分享到 Facebook"
+          aria-label="分享到 Facebook">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+</span>
+        </a>
+      
+    
+      
+        
+        <a
+          class="email-link m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          target="_blank"
+          href="#"
+          
+            data-email=""
+            data-subject="Reply to 深入探索 clang（上）"
+          
+          title="通过电子邮件发送"
+          aria-label="通过电子邮件发送">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span>
+        </a>
+      
+    
+  </section>
+
+
+        
+  
+  
+
+
+      </div>
+    </section>
+
+    
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+      <div class="flex justify-between pt-3">
+        <span class="flex flex-col">
+          
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/zh-cn/articles/13394352064/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;一个新 C++ language server 的设计与实现
+              </span>
+            </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2024-12-18T13:46:01&#43;00:00">December 18, 2024</time>
+              </span>
+            
+          
+        </span>
+        <span class="flex flex-col items-end">
+          
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/zh-cn/articles/1919923607997518115/">
+              <span class="leading-6">
+                Reflection for C++26!!!&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+              </span>
+            </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2025-06-21T17:33:11&#43;00:00">June 21, 2025</time>
+              </span>
+            
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+        
+          <div class="pt-3">
+            <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+            <div class="pt-3">
+              
+<script src="https://giscus.app/client.js" 
+    data-repo="16bit-ykiko/about-me" 
+    data-repo-id="R_kgDOLNvUfQ"
+    data-category="Announcements" 
+    data-category-id="DIC_kwDOLNvUfc4Ckzfl" 
+    data-mapping="title" data-strict="0"
+    data-reactions-enabled="1" 
+    data-emit-metadata="0" 
+    data-input-position="top" 
+    data-theme="noborder_gray"
+    data-lang="zh-CN" 
+    crossorigin="anonymous" async>
+</script>
+            </div>
+          </div>
+        
+      
+    </footer>
+  </article>
+
+        
+
+
+  
+
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-6 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
+  <a
+    href="#the-top"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部"
+    title="返回顶部">
+    &uarr;
+  </a>
+</div>
+
+      </main><footer id="site-footer" class="py-10 print:hidden">
+    <script src="/live2d/autoload.js"></script>
+
+    
+      
+    
+    <div class="flex items-center justify-between">
+  
+      
+      
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+        ©2024 ykiko
+      </p>
+      
+  
+      
+      
+      <p class="text-xs text-neutral-500 dark:text-neutral-400">
+        
+        
+        由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+          href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+          href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+      </p>
+      
+  
+    </div>
+    <script>
+      
+      mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+        margin: 24,
+        background: 'rgba(0,0,0,0.5)',
+        scrollOffset: 0,
+      })
+      
+    </script>
+    
+    
+    
+  </footer>
+  
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-500"
+  data-url="https://www.ykiko.me/zh-cn/">
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0">
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+  
+</html>
