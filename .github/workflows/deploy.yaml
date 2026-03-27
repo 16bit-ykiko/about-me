@@ -1,5 +1,8 @@
 name: pages
 
+permissions:
+  contents: write
+
 on:
   schedule:
     - cron: "0 0 * * *"
@@ -58,6 +61,19 @@ jobs:
         env:
           ZHIHU_COOKIE: ${{ secrets.ZHIHU_COOKIE }}
         run: uv run --frozen --only-group ci --no-sync python scripts/zhihu_cli.py sync
+
+      - name: Commit synced articles
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A website/content/zh-cn/articles
+          if git diff --cached --quiet; then
+            echo "No synced article changes."
+            exit 0
+          fi
+          git commit -m "chore: sync Zhihu articles [skip ci]"
+          git push
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
