@@ -1,10 +1,12 @@
 ---
-title: 'C++ 中如何优雅进行 enum 到 string 的转换 ？'
-date: 2024-01-29 17:03:28
-updated: 2024-12-18 11:44:59
+title: C++ 中如何优雅进行 enum 到 string 的转换 ？
+date: '2024-01-29 09:03:28'
+updated: '2025-07-08 08:16:05'
+zhihu_article_id: '680412313'
+zhihu_url: https://zhuanlan.zhihu.com/p/680412313
 ---
 
-## 拒绝硬编码 
+## no hard code 
 
 定义一个`enum` 
 
@@ -26,21 +28,24 @@ std::cout << color << std::endl;
 
 如果需要枚举作为日志输出，我们不希望在查看日志的时候，还要人工去根据枚举值去查找对应的字符串，麻烦并且不直观。我们希望直接输出枚举值对应的字符串，比如`RED`，`GREEN`，`BLUE`。
 
-考虑使用一个数组当`map`，将枚举值作为`key`，将字符串作为`value`，这样就可以通过枚举值直接查找到对应的字符串了
+手动编写 `switch` 完成枚举转字符串 
 
 ```cpp
-std::string_view color_map[] = {
-    "RED",
-    "GREEN",
-    "BLUE"
-};
+std::string enum_to_string(Color color) {
+    switch(color) {
+        case Color::RED: return "RED";
+        case Color::GREEN: return "GREEN";
+        case Color::BLUE: return "BLUE";
+    }
+    return "Unknown";
+}
 ```
 
 但是当枚举数量很多的时候，手写并不方便，非常繁琐。**具体表现为，如果我们想增加若干枚举定义，那字符串映射表相应的内容也需要修改，当数量达到上百个的时候，很可以会有疏漏。或者接手一个别人的项目，发现他有一大堆枚举，内容太多，手写非常耗时间。**
 
 需要寻找解决办法，能自动的进行相关的修改。在别的语言中，如 Java，C#，Python，可以轻松的通过反射实现这个功能。但是 C++ 目前并没有反射，故此路不通。目前这个问题主要有三种解决方案。
 
-## 模板打表 
+## template  
 
 这一小节介绍的内容已经有人提前封装好了，可以直接使用 [magic enum](https://github.com/Neargye/magic_enum) 这个库。下面主要是对这个库的原理进行解析，为了方便展示，将用 C++20 实现，实际上 C++17 就可以。
 
@@ -180,7 +185,7 @@ int main(){
 
 这种方法的缺点很明显，通过模板实例化来打表，其实会很大的拖慢编译速度。如果`enum`中的数量较多，在一些对常量求值效率较低的编译器上，如 MSVC，可能会增加**几十秒甚至更长**的编译时间。所以一般只适用于小型枚举。优点是轻量级，开箱即用，其它的什么也不用做。
 
-## 外部代码生成 
+## code generation 
 
 既然手写字符串转枚举很麻烦，那么写个脚本生成代码不就行了？的确如此，我们可以使用 libclang 的 python bind 轻松的完成这项工作。具体如何使用这个工具，可以参考 [使用 clang 工具自由的支配 C++ 代码吧](https://www.ykiko.me/zh-cn/articles/669360731)，下面只展示实现效果的代码
 
@@ -192,9 +197,11 @@ def generate_enum_to_string(enum: CX.Cursor):
     for child in enum.get_children():
         branchs += f'case {child.enum_value}: return "{child.spelling}";\n'
     code = f"""
-std::string_view {enum.spelling}_to_string({enum.spelling} value) {{
-    switch(value) {{
-{branchs}}}}}"""
+std::string_view {enum.spelling}_to_string({enum.spelling} color) {{
+    switch(color) {{
+{branchs}
+    }}
+}}"""
     return code
 
 def traverse(node: CX.Cursor):
@@ -224,17 +231,18 @@ enum Color {
 这是最后生成的代码，可以直接生成`.cpp`文件，放在固定目录下面，然后构建之前运行一下这个脚本就行了
 
 ```cpp
-std::string_view enum_to_string(Color value) {
-    switch(value) {
+std::string_view enum_to_string(Color color) {
+    switch(color) {
 case 0: return "RED";
 case 1: return "BLUE";
 case 2: return "GREEN";
-}}
+    }
+}
 ```
 
 优点，非侵入式，可以用于大数量的枚举。缺点，有外部依赖，需要将代码生成加入到编译流程里面。可能会使编译流程变得很复杂。
 
-## 宏 
+## xmacro 
 
 上面的两种方式都是非侵入式的。也就是说，可能你拿到了一个别人的库，不能修改它的代码，只好这么做了。如果是完全由自己定义枚举呢？其实可以在定义阶段就特殊处理，以方便后续的使用。比如（代码开头的注释表示当前文件名）：
 
@@ -270,7 +278,7 @@ std::string_view color_to_string(Color value){
 
 这样的话，只要在`def`文件里面进行相关的增加和修改就行了。之后如果要遍历`enum`什么的，也可以直接定义一个宏来生成代码就行了，非常方便。事实上，对于大数量的枚举，有很多开源项目都采取这种方案。例如 clang 在定义`TokenKind`的时候，就是这么做的，相关的代码请参考  [Token.def](https://github.com/stuartcarnie/clang/blob/master/include/clang/Basic/TokenKinds.def)。由于 clang 要适配多种语言前端，最后总计的`TokenKind`有几百个之多。如果不这样做，进行`Token`的增加和修改会十分困难。 
 
-## 总结 
+## conclusion 
 
 - 非侵入式且枚举数量较少，编译速度不是很重要，那就使用模板打表（至少要求 C++17）
 - 非侵入式且枚举数量较多，编译速度很重要，那就使用外部代码生成

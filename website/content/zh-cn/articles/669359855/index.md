@@ -1,9 +1,14 @@
 ---
-title: '各种姿势进行代码生成'
-date: 2023-11-29 09:14:16
-updated: 2024-11-30 18:01:14
-series: ['Reflection']
+series:
+- Reflection
 series_order: 4
+title: 各种姿势进行代码生成
+date: '2023-11-29 01:14:16'
+updated: '2024-11-30 10:01:14'
+zhihu_article_id: '669359855'
+zhihu_url: https://zhuanlan.zhihu.com/p/669359855
+zhihu_column_id: c_1707545619290316800
+zhihu_column_title: 编程语言中的反射
 ---
 
 ## 引入 

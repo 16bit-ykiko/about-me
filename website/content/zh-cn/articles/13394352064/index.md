@@ -1,9 +1,14 @@
 ---
-title: '一个新 C++ language server 的设计与实现'
-date: 2024-12-18 21:46:01
-updated: 2024-12-23 01:10:58
-series: ['clice dev diary']
+series:
+- clice dev diary
 series_order: 1
+title: 一个新 C++ language server 的设计与实现
+date: '2024-12-18 13:46:01'
+updated: '2025-11-27 06:12:20'
+zhihu_article_id: '13394352064'
+zhihu_url: https://zhuanlan.zhihu.com/p/13394352064
+zhihu_column_id: c_1852831599382646784
+zhihu_column_title: clice 开发日记
 ---
 
 距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 [clice](https://github.com/clice-project/clice) —— 一个全新的 C++ 语言服务器 (language server)。
@@ -73,9 +78,9 @@ void foo(std::vector<std::vector<T>> vec2) {
 
 ### Header context 
 
-为了让 clangd 正常工作，用户往往需要提供一份`compile_commands.json`文件（后文简称 CDB 文件）。C++ 的传统编译模型的基本编译单元是一个源文件（例如`.c`和`.cpp`文件），`#include`只是把头文件的内容粘贴复制到源文件中对应的位置。而上述 CDB 文件里面就储存了各个源文件对应编译命令，当你打开一个源文件的时候，clangd 会使用其在 CDB 中对应的编译命令来编译这个文件。
+为了让 clangd 正常工作，用户往往需要提供一份`compile_commands.json`文件（后文简称 CDB）。C++ 的传统编译模型的基本编译单元是一个源文件（例如`.c`和`.cpp`文件），`#include`只是把头文件的内容粘贴复制到源文件中对应的位置。而上述 CDB 文件里面就储存了各个源文件对应编译命令，当你打开一个源文件的时候，clangd 会使用其在 CDB 中对应的编译命令来编译这个文件。
 
-那很自然的就有一个疑问，如果 CDB 文件里面只有源文件的编译命令，没有头文件的，那么 clangd 是如何处理头文件的呢？clangd 会把头文件当做一个源文件进行处理，然后呢，根据一些规则，比如使用对应目录下的源文件的编译命令作为该头文件的编译命令。这样的模型简单有效，但是却忽略了一些情况。
+那很自然的就有一个疑问，既然 CDB 里面只有源文件的编译命令，没有头文件的，那么 clangd 是如何处理头文件的呢？其实 clangd 会把头文件当做一个源文件进行处理，然后呢，根据一些规则，比如使用对应目录下的源文件的编译命令作为该头文件的编译命令。这样的模型简单有效，但是却忽略了一些情况。
 
 由于头文件是源文件的一部分，那么就会出现它的内容根据它在源文件中前面的内容不同而不同的情况。例如：
 

@@ -1,7 +1,11 @@
 ---
-title: '彻底理解 C++ ABI'
-date: 2024-04-17 02:19:38
-updated: 2024-12-22 19:05:57
+title: 彻底理解 C++ ABI
+date: '2024-04-16 18:19:38'
+updated: '2025-12-24 05:15:12'
+zhihu_article_id: '692886292'
+zhihu_url: https://zhuanlan.zhihu.com/p/692886292
+zhihu_column_id: c_1656510843973046272
+zhihu_column_title: 魅力C++
 ---
 
 Application Binary Interface，也就是我们常说的 ABI，是个让人感觉到既熟悉又陌生的概念。熟悉在哪里？讨论问题的时候经常会讨论到它，看文章的时候经常会提到它，有时候又要处理它导致的兼容性。陌生在哪里？如果有人问你什么是 ABI，你会发现你知道它是怎么一回事，但是要用严谨的语言去描述它有些困难。最后只好照着 [WIKI](https://en.wikipedia.org/wiki/Application_binary_interface) 说：ABI 就是两个二进制程序模块之间的接口。有问题吗？没有问题，作为一个概括性的描述，已经足够了。但是让人感觉到有些空洞。

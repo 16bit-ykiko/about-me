@@ -1,9 +1,14 @@
 ---
-title: '使用 Clang 工具自由的支配 C++ 代码吧'
-date: 2023-11-29 09:14:27
-updated: 2024-11-30 18:01:57
-series: ['Reflection']
+series:
+- Reflection
 series_order: 5
+title: 使用 Clang 工具自由的支配 C++ 代码吧
+date: '2023-11-29 01:14:27'
+updated: '2024-11-30 10:01:57'
+zhihu_article_id: '669360731'
+zhihu_url: https://zhuanlan.zhihu.com/p/669360731
+zhihu_column_id: c_1707545619290316800
+zhihu_column_title: 编程语言中的反射
 ---
 
 Clang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最初开发的目的是替代 GNU Compiler Collection (GCC) 的 C 语言前端，目标是提供更快的编译速度、更好的诊断信息和更灵活的架构。Clang 包含一个 C、C++ 和 Objective-C 编译器前端，这些前端设计为可以嵌入到其他项目中。Clang 的一个重要特点是其模块化架构，使开发者能够更轻松地扩展和定制编译器的功能。Clang 被广泛应用于许多项目，包括 LLVM 自身、一些操作系统内核的开发以及一些编程语言的编译器实现。

@@ -1,9 +1,14 @@
 ---
-title: 'The History of constexpr in C++! (Part Two)'
-date: 2024-02-22 22:15:32
-updated: 2024-11-30 18:28:59
-series: ['Constexpr']
+series:
+- Constexpr
 series_order: 2
+title: The History of constexpr in C++! (Part Two)
+date: '2024-02-22 14:15:32'
+updated: '2024-11-30 10:28:59'
+zhihu_article_id: '683463723'
+zhihu_url: https://zhuanlan.zhihu.com/p/683463723
+zhihu_column_id: c_1656510843973046272
+zhihu_column_title: 魅力C++
 ---
 
 前情提要：[The History of constexpr in C++! (Part One)](https://www.ykiko.me/zh-cn/articles/682031684)

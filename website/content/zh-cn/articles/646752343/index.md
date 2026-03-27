@@ -1,9 +1,12 @@
 ---
-title: 'C++ 禁忌黑魔法：STMP （上）'
-date: 2023-07-29 18:20:50
-updated: 2025-01-01 13:53:54
-series: ['STMP']
+series:
+- STMP
 series_order: 1
+title: C++ 禁忌黑魔法：STMP （上）
+date: '2023-07-29 10:20:50'
+updated: '2026-03-14 15:05:50'
+zhihu_article_id: '646752343'
+zhihu_url: https://zhuanlan.zhihu.com/p/646752343
 ---
 
 众所周知，传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的状态。对于任意相同的输入，它的输出结果总是相同的，被认为是**纯函数式 (purely functional)** 的。**模板元编程 (Template Meta Programming)** 作为常量求值的一个子集，也应该遵守这个规则。 
@@ -53,7 +56,7 @@ static_assert(a == 0 && b == 1 && c == 2);
 
 如果你只对代码感兴趣，我已经将相关的代码放在 [Compiler Explorer](https://godbolt.org/z/T543Tvc3q) 上。三大编译器 C++20 均编译通过，你可以直接看到编译器的输出结果。为了防止链接失效，也放到 [GitHub](https://github.com/16bit-ykiko/blog/blob/main/code/compile-time-counter.cpp) 上。如果你想要了解它的原理，欢迎继续往下阅读。C++ 标准非常复杂，作者也没法保证文章内容完全正确，如果有任何错误，欢迎评论区讨论交流。
 
->  注意：本文仅仅是技术讨论，请不要将相关的代码运用于实际生产中。根据 [CWG 2118](https://cplusplus.github.io/CWG/issues/2118.html)，相关的代码似乎被认为是非良构的 (ill formed)。并且 STMP 较为容易造成 ODR 违背，需要十分谨慎。 
+> 根据 [CWG 2118](https://cplusplus.github.io/CWG/issues/2118.html)，相关的代被认为是非良构的 (ill formed)。但是后来引入的 C++26 静态反射，提案本身就提供了类似的计数器示例，似乎又肯定了这种做法。总的来说，我认为这是 C++ 区分声明顺序导致的固有缺陷，假设像许多现代编程语言那样做 lazy parse，不区分声明顺序，进行两遍扫描，或许这种编译期可变状态才能真正消除。如果你打算在代码中尝试它，务必十分谨慎，STMP 较容易造成 ODR 违背。 
 
 ## observable state 
 
