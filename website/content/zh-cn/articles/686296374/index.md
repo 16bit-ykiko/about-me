@@ -1,22 +1,22 @@
 ---
 title: C++ 究竟代码膨胀在哪里？
-date: "2024-03-11 01:33:37"
-updated: "2024-12-24 04:17:12"
-zhihu_article_id: "686296374"
+date: '2024-03-11 01:33:37'
+updated: '2024-12-24 04:17:12'
+zhihu_article_id: '686296374'
 zhihu_url: https://zhuanlan.zhihu.com/p/686296374
 zhihu_column_id: c_1656510843973046272
 zhihu_column_title: 魅力C++
 ---
 
-相信读者经常能听见有人说 C++ 代码二进制膨胀严重，但是一般很少会有人指出具体的原因。在网络上一番搜索过后，发现深入讨论这个问题的文章的并不多。上面那句话更像是八股文的一部分，被口口相传，但是没什么人能说出个所以然。今天小编 ykiko 就带大家一起来探秘 C++ 代码膨胀那些事 (^ω^)
+相信读者经常能听见有人说 C++ 代码二进制膨胀严重，但是一般很少会有人指出具体的原因。在网络上一番搜索过后，发现深入讨论这个问题的文章的并不多。上面那句话更像是八股文的一部分，被口口相传，但是没什么人能说出个所以然。今天小编 ykiko 就带大家一起来探秘 C++ 代码膨胀那些事  (^ω^)
 
 首先要讨论的是，什么叫做代码膨胀？如果一个函数被大量内联，那相比于不被内联，最终生成的可执行文件是更大了对吧。那这样算膨胀吗？我认为不算，这是我们预期范围内的，可接受的，正常行为。那反过来，不在我们预期范围内的，理论上能消除，但迫于现有的实现却没有消除的代码膨胀，我把它叫做"真正的代码膨胀"。后文所讨论的膨胀都是这个意思。
 
-## 用 inline 标记函数会导致膨胀吗？
+## 用 inline 标记函数会导致膨胀吗？ 
 
 首先要明确，这里的`inline`是 C++ 中的`inline`，标准中规定的语义是，**允许一个函数的在多个源文件中定义**。被`inline`标记的函数可以直接定义在头文件中，即使被多个源文件`#include`，也不会导致链接错误，这样可以方便的支持 header-only 的库。
 
-### 多份实例的情况
+### 多份实例的情况 
 
 既然可以在多个源文件中定义，那是不是就意味着每个源文件都有一份代码实例，会不会导致代码膨胀呢?
 
@@ -82,7 +82,7 @@ $ objdump -d main.exe | c++filt
 
 发现链接器只保留了两份`add`实例中的一份，所以并没有**额外的代码膨胀**。并且 C++ 标准要求，内联函数在不同编译单元的定义必须相同，所以无论选哪一份代码保留都没区别。但是如果你问：万一定义不同呢？那就会导致 ODR 违反，严格意义来说算 undefined behavior，究竟保留哪一个可能就看具体实现了，甚至和链接顺序有关。关于 ODR 违反相关的内容，我最近可能会单独写一个文章介绍，这里就不说太多了。**只需要知道 C++ 标准保证 inline 函数在不同编译单元定义相同就行了**。
 
-### 完全内联的情况
+### 完全内联的情况 
 
 前面我特意强调了，不打开优化，如果打开了优化会怎么样呢？仍然是上面的代码，我们尝试打开`O2`优化。最后的 [结果](https://godbolt.org/z/jfx8jrnzf) 如下图所示
 
@@ -116,21 +116,23 @@ int main() {
 
 但是我们想知道的是，这样做符合 C++ 标准吗？
 
-三大编译器都这样，似乎没有不符合的道理。但是在 inline 那一小节并没有明确说明，而在 [One Definition Rule](https://en.cppreference.com/w/cpp/language/definition#One_Definition_Rule) 这里有如下两句话
+三大编译器都这样，似乎没有不符合的道理。但是在 inline 那一小节并没有明确说明，而在 [One Definition Rule](https://en.cppreference.com/w/cpp/language/definition#One_Definition_Rule)  这里有如下两句话 
 
-- For an inline function or inline variable(since C++17), a definition is required in every translation unit where it is odr-used.
+- For an inline function or inline variable(since C++17), a definition is required in every translation unit where it is odr-used. 
 - a function is odr-used if a function call to it is made or its address is taken
+
 
 两句话啥意思呢？意思就是，一个 inline 函数，如果在某个编译单元被 [odr-used](https://en.cppreference.com/w/cpp/language/definition#ODR-use) 了，那么这个编译单元必须要有该函数的定义。啥情况是 odr-used 呢？后面一句话就是在解释，如果**函数被调用**或者**取函数的地址**就算是 odr-used。
 
 那我们看看之前的代码，在 main.cpp 中调用一个 inline 函数，但是却没有定义，所以其实是违背了 C++ 标准的约定的。到这里，算是松了一口气了。虽然有点反直觉，但是事实的确如此，三大编译器都没错！
 
-### 其它情况
+### 其它情况 
 
 我们这一小节主要讨论了两种情况：
 
 - 第一种即`inline`函数在多个编译单元都有实例（生成符号），那么这时候目前主流的链接器都只会选择其中一份保留，不会有额外的代码膨胀
 - 第二种情况是`inline`函数被完全内联，并且不生成符号。这时候就如同普通的函数被内联一样，不属于"额外的开销"
+
 
 可能会有人觉得 C++ 优化怎么规则这么多啊。但是实际上核心的规则只有一条，那就是`as-if`原则，也就是编译器可以对代码进行任何优化，只要最后生成的代码运行效果和不优化的一样就行了。编译器绝大部分时候都是按照这个原则来进行优化的，只有少数几个例外可以不满足这个原则。上述对 inline 函数的优化也是满足这个原则的，如果不显式对 inline 函数取地址，那的确没必要保留符号。
 
@@ -138,11 +140,11 @@ int main() {
 
 注意：本小节，只讨论了仅被`inline`标记的函数，除此之外还有`inline static`和`inline extern`这样的组合，感兴趣的读者可以阅读官方文档或者自行尝试效果如何。
 
-## 模板导致代码膨胀的真正原因？
+## 模板导致代码膨胀的真正原因？ 
 
 如果有人给出 C++ 二进制膨胀的理由，那么几乎它的答案一定是模板。果真如此吗？模板究竟是怎么导致二进制膨胀的？在什么情况导致的？难道我用了就导致吗？
 
-### 隐式实例化如同 inline 标记
+### 隐式实例化如同 inline 标记 
 
 我们知道模板实例化发生在当前编译单元，实例化一份就会产生一份代码。考虑下面这个例子
 
@@ -182,7 +184,7 @@ int main() {
 
 也和 inline 标记的效果一样，编译器直接把函数内联了，然后实例化出的函数的符号都扔了。那这样的话，要么内联了符号都没生成，要么生成了符号，最后函数合并了。和 inline 一样，这种情况似乎没有额外的膨胀啊，那经常说的模板膨胀，究竟膨胀在哪呢？
 
-### 显式实例化和 extern 模板
+### 显式实例化和 extern 模板 
 
 在介绍真正膨胀的原因之前，我们先来讨论一下显式实例化。
 
@@ -230,7 +232,7 @@ extern template void f<int>(int, int); // 显式实例化 f<int> 声明
 
 这两种都能正确引用到上面那个函数`f`，这样就可以调用其它文件的模板实例化了！
 
-### 真正的模板膨胀开销
+### 真正的模板膨胀开销 
 
 接下来是最重要的部分了，我们将会介绍模板膨胀的真正原因。由于一些历史遗留问题，C++ 中`char`,`unsigned char`,`signed char`三种类型永远互不相同
 
@@ -273,16 +275,16 @@ void g()
 #include <cstdio>
 #include <utility>
 
-template <std::size_t I>
+template <std::size_t I> 
 struct X {
     std::size_t x;
 
-    [[gnu::noinline]] void f() {
-        printf("X<%zu>::f() called\n", x);
+    [[gnu::noinline]] void f() { 
+        printf("X<%zu>::f() called\n", x); 
     }
 };
 
-template <std::size_t... Is>
+template <std::size_t... Is> 
 void call_f(std::index_sequence<Is...>) {
     ((X<Is>{Is}).f(), ...);
 }
@@ -300,7 +302,7 @@ $ g++ -O2 -ffunction-sections -fuse-ld=gold -Wl,--icf=all main.cpp -o main.o
 $ objdump -d main.o | c++filt
 ```
 
-使用`-fue-ld=gold`指定链接器，`-Wl,--icf=all`指定链接器选项。`icf`即意味着`identical code folding`，即相同代码折叠。因为链接器只在 section 级别上工作，所以 GCC 则需要配合开启`-ffunction-sections`，上面的编译器也可以替换成`clang`
+使用`-fue-ld=gold`指定链接器，`-Wl,--icf=all`指定链接器选项。`icf`即意味着`identical code folding`，即相同代码折叠。因为链接器只在 section 级别上工作，所以 GCC 则需要配合开启`-ffunction-sections`，上面的编译器也可以替换成`clang` 
 
 ```bash
 0000000000000740 <X<99ul>::f() [clone .isra.0]>:
@@ -310,7 +312,7 @@ $ objdump -d main.o | c++filt
  74f:   31 c0                   xor    %eax,%eax
  751:   e9 ca fe ff ff          jmp    620 <_init+0x68>
  756:   66 2e 0f 1f 84 00 00    cs nopw 0x0(%rax,%rax,1)
- 75d:   00 00 00
+ 75d:   00 00 00 
 
 0000000000000760 <void call_f<0..99>(std::integer_sequence<unsigned long, 0..99>) [clone .isra.0]>:
  760:   48 83 ec 08             sub    $0x8,%rsp
@@ -325,7 +327,7 @@ $ objdump -d main.o | c++filt
 
 但是 gold 并不是万能的，有些情况不能很好的处理。假设这 100 个函数，前`90%`的代码相同，但是最后`10%`的代码不相同，那么它就无能为力了。它只是简单的对比最终生成的二进制，然后合并完全相同的函数。那么还有其他的解决办法吗？**自动挡没有，咱们还有手动挡呢，咱写 C++ 的没什么别的擅长的，就擅长开手动挡。 **
 
-### 手动优化模板膨胀问题
+### 手动优化模板膨胀问题 
 
 下面以大家最常用的`vector`为例，展示一下解决模板膨胀的主要思路。前面已经提到了，像迭代器接口这样的短函数，我们是不需要去管的。我们主要来处理那些逻辑比较复杂的函数，对 vector 来说，首当其冲的就是扩容函数了
 
@@ -383,7 +385,7 @@ void trivially_grow(char*& begin, char*& end, char*& capacity, std::size_t n, st
 template <typename T>
 void vector<T>::grow(std::size_t n) {
     if constexpr (is_trivially_relocatable_v<T>) {
-        trivially_grow(reinterpret_cast<char*&>(m_Begin), reinterpret_cast<char*&>(m_End),
+        trivially_grow(reinterpret_cast<char*&>(m_Begin), reinterpret_cast<char*&>(m_End), 
                 reinterpret_cast<char*&>(m_Capacity), n, sizeof(T));
     } else {
         // 原来的实现
@@ -393,7 +395,7 @@ void vector<T>::grow(std::size_t n) {
 
 这样就完成了抽取公共逻辑。于是所有的`T`只要满足`trivially_relocatable`，就可以全都这共享一份代码了。而几乎所有不含有自引用的类型都符合这个条件，于是`99%`的类型都使用同一套扩容逻辑！这样的优化效果是非常显著的！实际上 LLVM 很多容器的源码，比如 `SmallVector`,`StringMap`等等，都使用了这样的技巧。另外如果你觉得上面的`reinterpret_cast`破坏了严格别名，用起来有点害怕，你可以通过继承来实现相同的效果（基类成员用`void*`），具体的代码就不展示了。
 
-## 异常导致的代码膨胀！
+## 异常导致的代码膨胀！ 
 
 为什么 LLVM 源码禁用异常？很多人可能会下意识的认为，原因是异常很慢，效率很低。但其实，根据 [LLVM Coding Standard](https://llvm.org/docs/CodingStandards.html#do-not-use-rtti-or-exceptions) 里面的内容，关闭异常和`RTTI`的主要目的是为了减少二进制大小。据说，打开异常和`RTTI`会导致 LLVM 的编译结果膨胀`10%-15%`，那么实际情况究竟如何？
 
@@ -453,11 +455,11 @@ bar():
 
 可以发现没有生成清理栈的代码了，很合理。原因很简单，如果`foo`抛出异常，控制流直接跳转走了，那`vector`都没构造呢，自然也不需要析构了。通过简单的调整调用顺序就减少了二进制大小！但是，只有这种特别简单的情况下，依赖关系才比较明显。如果实际抛出异常的函数很多的话，就很难分析了。
 
-### noexcept
+### noexcept 
 
 先讨论 C++11 加入的这个`noexcept`。注意即使加了`noexcept`，这个函数还是可能会抛出异常的，如果该函数抛出异常，程序直接`terminate`。那你可能要问了，这玩意有啥用呢？我异常抛了，不捕获不也是`terminate`吗？
 
-其实这个和 const 有点类似，你想改 const 变量，虽然是 undefined behavior，但是运行时随便改呀，限制不多。那你要问了， const 有什么意义？一个重要的意义是给编译器提供优化指示信息。编译器可以利用这个做 _constant folding（常量折叠）_ 和 _common subexpression elimination（公共子表达式消除）_ 。
+其实这个和 const 有点类似，你想改 const 变量，虽然是 undefined behavior，但是运行时随便改呀，限制不多。那你要问了， const 有什么意义？一个重要的意义是给编译器提供优化指示信息。编译器可以利用这个做 *constant folding（常量折叠）*  和 *common subexpression elimination（公共子表达式消除）* 。
 
 `noexcept`也是类似的，它让编译器假设这个函数不会抛出异常，从而可以进行一些额外的优化。 还是第一个例子里面的代码为例，唯一的改变是把`foo`函数声明为了`noexcept`，然后再次编译
 
@@ -472,9 +474,9 @@ bar():
         jmp     operator delete(void*, unsigned long)
 ```
 
-可以发现，用于异常处理的代码路径，同样没有了，这就是`noexpect`的功劳。
+可以发现，用于异常处理的代码路径，同样没有了，这就是`noexpect`的功劳。 
 
-### fno-exceptions
+### fno-exceptions 
 
 终于讲到重头戏了：`-fno-exceptions`，注意这个选项非标准。但是三大编译器都有提供，不过具体的实现效果有些许差异。好像并没有十分详细的文档，我仅凭经验说一下 GCC 相关的，对于 GCC 来说，该选项会禁止用户的代码里面使用`try`,`catch`,`throw`等关键字，如果使用则导致编译错误。但是特别的，允许使用标准库。如果异常被抛出，就和`noexcept`一样，程序直接`terminate`。所以如果打开了这个选项，GCC 会默认假设所有函数不会抛出异常。
 

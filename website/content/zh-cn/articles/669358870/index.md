@@ -1,21 +1,21 @@
 ---
 series:
-  - Reflection
+- Reflection
 series_order: 1
 title: 写给 C++ 程序员的反射教程
-date: "2023-11-29 01:14:02"
-updated: "2024-10-21 01:35:13"
-zhihu_article_id: "669358870"
+date: '2023-11-29 01:14:02'
+updated: '2024-10-21 01:35:13'
+zhihu_article_id: '669358870'
 zhihu_url: https://zhuanlan.zhihu.com/p/669358870
 zhihu_column_id: c_1707545619290316800
 zhihu_column_title: 编程语言中的反射
 ---
 
-## What is Reflection?
+## What is Reflection? 
 
 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的**惯用词**一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 [std::Any 模块](https://doc.rust-lang.org/stable/std/any/index.html) 的介绍。里面提到了
 
-> Utilities for dynamic typing or type reflection 用于动态类型或类型反射的工具
+>  Utilities for dynamic typing or type reflection 用于动态类型或类型反射的工具 
 
 但是尴尬就尴尬在，你说它是反射吧，功能非常鸡肋，你说它不是吧，硬要说有这种体现也不是不行。
 
@@ -26,19 +26,20 @@ zhihu_column_title: 编程语言中的反射
 - 编译期反射 (compile time reflection)
 - 运行期反射 (runtime reflection)
 
+
 这样一大堆名词实在是让人听的云里雾里，晕头转向。而且 static, dynamic, compile time, runtime 这些前缀词本身也都是惯用词，经常和各种词组合起来，于语境不同有非常多的含义。
 
 有的读者可能会说，我查了 WIKI，[反射](https://en.wikipedia.org/wiki/Reflective_programming) 明明就是有定义的啊，如下：
 
-> In computer science, reflective programming or reflection is the ability of a process to examine, introspect, and modify its own structure and behavior. <br>反射是程序具有自省，检查和修改它自身结构和行为的一种能力。
+>  In computer science, reflective programming or reflection is the ability of a process to examine, introspect, and modify its own structure and behavior. <br>反射是程序具有自省，检查和修改它自身结构和行为的一种能力。 
 
 那首先，WIKI 也是人写的，不具有绝对的权威性，如果你对这个定义不满意，是可以自己修改的。其次这里的用词也是很模糊的，什么叫自省 (introspect)？自我反省，在 CS 中这个词又是什么意思呢？所以这个定义也是很尴尬的。那怎么办呢？我选择把它拆分成几个过程进行解释，这样我们就不用去纠结「**反射究竟是什么**」这个概念问题了。取而代之的是，弄明白了这几个过程，自然而然的你就明白反射是在做什么事情了。
 
-## How to Understand Reflection?
+## How to Understand Reflection? 
 
 所有语言的反射都可以看成下面这三步：
 
-### Generate Metadata
+### Generate Metadata 
 
 首先什么是元数据 (Metadata) 呢？我们在写代码的时候都会给变量，类型，结构体字段什么的取名字。这些名字主要是为了方便程序员理解和维护源代码。对于 C/C++ 来说，这些名字在编译之后通常会被丢弃，为了节省二进制空间嘛，可以理解。详细的讨论请见 [为什么说 C/C++编译器不保留元信息](https://www.ykiko.me/zh-cn/articles/670190357)。
 
@@ -48,7 +49,7 @@ zhihu_column_title: 编程语言中的反射
 
 对于 C++ 来说呢？目前 C++ 编译器只会保留类型名用于实现 RTTI，即标准中`std::type_info`的相关设施。其它的信息，编译器都会抹除掉。怎么办呢？手动编写元数据对于少量的类来说还可以接受，但当项目规模增大时，例如有几十或上百个类时，将变得非常繁琐和容易出错。其实，我们可以在实际编译之前，运行一个脚本来负责生成这些数据，也就是所谓的代码生成 (Code Generation)。相关内容请参考 [使用 clang 工具自由的支配 C++ 代码吧](https://www.ykiko.me/zh-cn/articles/669360731)。
 
-### Query Metadata
+### Query Metadata 
 
 生成完之后，接下来就是查询元数据了。很多语言内置的反射模块，例如 Python 的`inspect`，Java 的`Reflection`，C# 的`System.Reflection`，其实就是封装了一些操作，使得用户不用直接接触原始的元数据，用起来更加方便。
 
@@ -60,17 +61,18 @@ zhihu_column_title: 编程语言中的反射
 
 当然了，编译期可做的事情肯定是没有运行期那么多的，例如希望根据运行时的类型名创建类实例，无论如何编译期肯定没法做到。但你可以基于这些静态的元信息构建动态反射。相关内容请见 [在 C++ 中实现 Object](https://www.ykiko.me/zh-cn/articles/670191053)。
 
-### Operate Metadata
+### Operate Metadata 
 
 然后，就是根据元数据进行进一步的操作，比如代码生成。这个在 C++ 中可以理解为编译期的代码生成，在 Java 和 C# 则可以认为是运行期的代码生成。详见 [各种姿势进行代码生成](https://www.ykiko.me/zh-cn/articles/669359855) 。
 
-## Conclusion
+## Conclusion 
 
 最后，我们来用上面三个步骤分解一下不同语言中的反射：
 
-- Python, JavaScript, Java, C#：由编译器/解释器生成元数据，标准库提供接口，用户可以在运行时查询元数据，同时由于有虚拟机（VM），可以方便地生成代码。
-- Go：由编译器生成元数据，标准库提供接口，用户可以在运行时查询元数据。但是由于 Go 主要是 AOT（Ahead-of-Time）编译，运行时生成代码并不方便。
-- Zig, C++26 静态反射：由编译器生成元数据，标准库提供接口，用户可以在编译时查询元数据。同样由于是 AOT 编译，运行时生成代码并不方便，但是可以在编译期进行代码生成。<br>
+-  Python, JavaScript, Java, C#：由编译器/解释器生成元数据，标准库提供接口，用户可以在运行时查询元数据，同时由于有虚拟机（VM），可以方便地生成代码。
+-  Go：由编译器生成元数据，标准库提供接口，用户可以在运行时查询元数据。但是由于 Go 主要是 AOT（Ahead-of-Time）编译，运行时生成代码并不方便。
+-  Zig, C++26 静态反射：由编译器生成元数据，标准库提供接口，用户可以在编译时查询元数据。同样由于是 AOT 编译，运行时生成代码并不方便，但是可以在编译期进行代码生成。<br> 
+
 
 而 QT 和 UE 则是通过代码生成，自己生成了元数据，封装了接口，用户可以在运行时查询元数据。实现原理上类似 Go 的反射。
 

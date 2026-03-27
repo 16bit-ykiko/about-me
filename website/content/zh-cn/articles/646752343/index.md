@@ -1,19 +1,19 @@
 ---
 series:
-  - STMP
+- STMP
 series_order: 1
 title: C++ 禁忌黑魔法：STMP （上）
-date: "2023-07-29 10:20:50"
-updated: "2026-03-14 15:05:50"
-zhihu_article_id: "646752343"
+date: '2023-07-29 10:20:50'
+updated: '2026-03-14 15:05:50'
+zhihu_article_id: '646752343'
 zhihu_url: https://zhuanlan.zhihu.com/p/646752343
 ---
 
-众所周知，传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的状态。对于任意相同的输入，它的输出结果总是相同的，被认为是**纯函数式 (purely functional)** 的。**模板元编程 (Template Meta Programming)** 作为常量求值的一个子集，也应该遵守这个规则。
+众所周知，传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的状态。对于任意相同的输入，它的输出结果总是相同的，被认为是**纯函数式 (purely functional)** 的。**模板元编程 (Template Meta Programming)** 作为常量求值的一个子集，也应该遵守这个规则。 
 
 ![](https://pica.zhimg.com/v2-310046d2ded45ca99cb74d992a94a51e_r.jpg)
 
-但事实真的如此吗？在不违背 C++ 标准的情况下，下面的代码可能通过编译吗？
+ 但事实真的如此吗？在不违背 C++ 标准的情况下，下面的代码可能通过编译吗？
 
 ```cpp
 constexpr auto a = value();
@@ -56,9 +56,9 @@ static_assert(a == 0 && b == 1 && c == 2);
 
 如果你只对代码感兴趣，我已经将相关的代码放在 [Compiler Explorer](https://godbolt.org/z/T543Tvc3q) 上。三大编译器 C++20 均编译通过，你可以直接看到编译器的输出结果。为了防止链接失效，也放到 [GitHub](https://github.com/16bit-ykiko/blog/blob/main/code/compile-time-counter.cpp) 上。如果你想要了解它的原理，欢迎继续往下阅读。C++ 标准非常复杂，作者也没法保证文章内容完全正确，如果有任何错误，欢迎评论区讨论交流。
 
-> 根据 [CWG 2118](https://cplusplus.github.io/CWG/issues/2118.html)，相关的代被认为是非良构的 (ill formed)。但是后来引入的 C++26 静态反射，提案本身就提供了类似的计数器示例，似乎又肯定了这种做法。总的来说，我认为这是 C++ 区分声明顺序导致的固有缺陷，假设像许多现代编程语言那样做 lazy parse，不区分声明顺序，进行两遍扫描，或许这种编译期可变状态才能真正消除。如果你打算在代码中尝试它，务必十分谨慎，STMP 较容易造成 ODR 违背。
+> 根据 [CWG 2118](https://cplusplus.github.io/CWG/issues/2118.html)，相关的代被认为是非良构的 (ill formed)。但是后来引入的 C++26 静态反射，提案本身就提供了类似的计数器示例，似乎又肯定了这种做法。总的来说，我认为这是 C++ 区分声明顺序导致的固有缺陷，假设像许多现代编程语言那样做 lazy parse，不区分声明顺序，进行两遍扫描，或许这种编译期可变状态才能真正消除。如果你打算在代码中尝试它，务必十分谨慎，STMP 较容易造成 ODR 违背。 
 
-## observable state
+## observable state 
 
 在改变之前，我们首先得能在编译期观测到全局状态的变化。由于 C++ 支持**向前声明 (forward declaration)**，而一个`struct`在看到 definition 之前被认为是**不完整类型 (incomplete type)**，即类的完整性在不同的上下文中是不同的。
 
@@ -69,7 +69,7 @@ template <typename T>
 constexpr inline bool is_complete_v = requires { sizeof(T); };
 ```
 
-> 可能有读者会问，都 C++20 了为什么不使用 concept 呢？这里用 concept 会有一些奇怪的效果，是标准中有关原子约束 (atomic constraint) 的措辞导致的。就不深究了，感兴趣的读者可以自行尝试。
+> 可能有读者会问，都 C++20 了为什么不使用 concept 呢？这里用 concept 会有一些奇怪的效果，是标准中有关原子约束 (atomic constraint) 的措辞导致的。就不深究了，感兴趣的读者可以自行尝试。 
 
 尝试使用它来观测类型完整性
 
@@ -157,7 +157,7 @@ static_assert(is_complete_v<X>);
 
 编译通过！至此，我们成功观察到了编译期全局状态的变化。
 
-## modifiable state
+## modifiable state 
 
 再可以观测到状态变化之后，下面我们要考虑能否通过代码来主动进行状态更改。很可惜，对于绝大多数 declaration 来说，你唯一能改变它们的状态的办法就是通过修改源代码来添加 definition，没有其它的手段实现这个效果。
 
@@ -213,7 +213,7 @@ static_assert(is_complete_v<>); // #3
 
 注意到 #1 处模板`X`没有任何的实例化，故此时`foo`函数还未有定义，于是`is_complete_v`返回`false`。而在 #2 处，我们实例化了一个`X<void>`，进而导致`X`内的`foo`函数被实例化，给`foo`添加了一个定义，于是 #3 处的`is_complete_v`返回`true`。当然了，函数定义最多只能有一个，如果你再尝试实例化一个`X<int>`，这时候编译器就会报`foo`被重定义的错误了。
 
-## constant switch
+## constant switch 
 
 结合上面提到的技巧，我们可以轻松实例化一个编译时的开关了
 
@@ -243,9 +243,9 @@ int main() {
 
 它的原理很简单。第一次的时候，`setter`尚未有任何实例化，所以`flag`函数也没有定义，于是`exist`求值为`false`，走到了`if constexpr`里面那个分支，实例化了一个`setter<false>`，并且返回`false`。第二次的时候，`setter`有了一个实例化，`flag`函数也有了定义，于是`exist`求值为`true`，直接返回`true`。
 
-> 注意，这里的 N 的类型必须写成 auto，而不能使用 std::size_t。只有这样`flag(N)`才是 [dependent name](https://en.cppreference.com/w/cpp/language/dependent_name)，才能被 requires 检测表达式合法性。由于模板的 [two phase lookup](https://en.cppreference.com/w/cpp/language/two-phase_lookup)，如果写成`flag(0)`，会在第一阶段就进行查找，然后发现调用失败，产生一个 hard error，导致编译错误。
+> 注意，这里的 N 的类型必须写成 auto，而不能使用 std::size_t。只有这样`flag(N)`才是 [dependent name](https://en.cppreference.com/w/cpp/language/dependent_name)，才能被 requires 检测表达式合法性。由于模板的 [two phase lookup](https://en.cppreference.com/w/cpp/language/two-phase_lookup)，如果写成`flag(0)`，会在第一阶段就进行查找，然后发现调用失败，产生一个 hard error，导致编译错误。 
 
-## constant counter
+## constant counter 
 
 更进一步，我们可以直接实现一个编译期的计数器
 
@@ -281,13 +281,13 @@ int main() {
 
 它的逻辑是，从`N`为 0 开始，检测`flag(reader<N>)`是否有定义，如果没有定义就实例化一个`setter<N>`，也就是给`flag(reader<N>)`添加定义，并返回`N`。否则递归调用`next<N + 1>()`，检测`N+1`的情况。所以这个计数器记录的实际上是`setter`的实例化次数。
 
-## §: access private
+## §: access private 
 
 首先要明确一个观点：类的访问权限说明符`private`, `public`, `protected`仅仅只作用于编译期的检查。如果能通过某种手段绕过这个编译期检查，那完全就可以合法的访问类的任意成员。
 
 那么存在这样的方法吗？有的：**模板显示实例化的时候会忽略类作用域的访问权限：**
 
-> The C++11/14 standards state the following in note 14.7.2/12 [temp.explicit]: The usual access checking rules do not apply to names used to specify explicit instantiations. [ Note: In particular, the template arguments and names used in the function declarator (including parameter types, return types and exception speciﬁcations) may be private types or objects which would normally not be accessible and the template may be a member template or member function which would not normally be accessible. — end note ]
+>  The C++11/14 standards state the following in note 14.7.2/12 [temp.explicit]: The usual access checking rules do not apply to names used to specify explicit instantiations. [ Note: In particular, the template arguments and names used in the function declarator (including parameter types, return types and exception speciﬁcations) may be private types or objects which would normally not be accessible and the template may be a member template or member function which would not normally be accessible. — end note ]  
 
 也就是说在模板**显示实例化 (explicit instantiate)** 的时候，我们可以直接访问类的私有成员。
 

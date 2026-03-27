@@ -1,8 +1,8 @@
 ---
 title: std::variant 很难用！
-date: "2023-07-25 07:19:25"
-updated: "2024-07-20 14:31:19"
-zhihu_article_id: "645810896"
+date: '2023-07-25 07:19:25'
+updated: '2024-07-20 14:31:19'
+zhihu_article_id: '645810896'
 zhihu_url: https://zhuanlan.zhihu.com/p/645810896
 zhihu_column_id: c_1656510843973046272
 zhihu_column_title: 魅力C++
@@ -10,7 +10,7 @@ zhihu_column_title: 魅力C++
 
 `std::variant`于 C++17 加入标准库，本文将讨论其加入标准的背景，以及一些使用上的问题。
 
-## sum type
+## sum type 
 
 首先来讨论一下**和类型 (sum type)**，或者叫做 [tagged union](https://en.wikipedia.org/wiki/Tagged_union)。和类型就是只能在几种可能的类型中取值的类型。
 
@@ -40,7 +40,7 @@ struct Shape {
 };
 ```
 
-> 这里使用了叫做 [anonymous union](https://en.cppreference.com/w/cpp/language/union#Anonymous_unions) 的特性，相当于声明了一个对应类型的 union 成员，并且把字段名字注入到当前作用域。
+>  这里使用了叫做 [anonymous union](https://en.cppreference.com/w/cpp/language/union#Anonymous_unions) 的特性，相当于声明了一个对应类型的 union 成员，并且把字段名字注入到当前作用域。  
 
 这样我们就可以给`Shape`类型的变量赋不同类型的值，同时更新记录下赋值时的`type`。访问的时候反过来根据`type`来决定按照哪种类型访问即可。例如
 
@@ -67,7 +67,7 @@ int main() {
 }
 ```
 
-## not trivial
+## not trivial 
 
 但在 C++ 中事情就没这么简单了，考虑如下代码
 
@@ -127,11 +127,11 @@ int main(){
 }
 ```
 
-> 注意，这里不能**直接赋值 (assign)**。因为赋值操作其实是在调用成员函数`operator=`，而只有已经初始化过后的对象才能调用成员函数。
+>  注意，这里不能**直接赋值 (assign)**。因为赋值操作其实是在调用成员函数`operator=`，而只有已经初始化过后的对象才能调用成员函数。 
 
 从上面的代码不难看出，如果要在 C++ 里面直接使用 union 来表示 sum type，非常麻烦。不仅要及时更新`type`，还要正确调用构造函数和析构函数，还要留意赋值的时机问题赋值。如果其中的某一步忘记了，就会导致 undefined behavior，这非常让人头疼。不过还好，C++17 给我们提供了`std::variant`来解决这个问题。
 
-## std::variant
+## std::variant 
 
 直接看代码
 
@@ -205,7 +205,7 @@ if (std::holds_alternative<std::string>(s)){
 
 虽然能行，但是太多冗余代码了，有没有什么更好的办法来操作`variant`里面的值呢？
 
-## std::visit
+## std::visit 
 
 `visit`这个名字其实就来源于设计模式里面的那个`visitor`模式。利用它，我们可以写出如下代码
 
