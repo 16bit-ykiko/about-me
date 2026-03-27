@@ -10,18 +10,18 @@ zhihu_column_title: 魅力C++
 
 > This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
 
-在 C++ 中，模板（Template）这个概念已经存在二十多年了。作为 C++ 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。
+The concept of templates in C++ has existed for over twenty years. As one of the language's most important constructs, there is no shortage of related discussion. Unfortunately, truly in-depth and valuable discussions are rare — especially those that examine the feature from multiple perspectives. Many articles on templates tend to entangle the topic with various syntactic details, easily leaving readers with a hazy impression. Similar things happen elsewhere: introductions to coroutines often mix them with all kinds of I/O concerns, and discussions of reflection seem confined to reflection in Java or C#. This isn't unreasonable, but it often leaves readers unable to grasp the essence. After consuming a lot of content, one still can't get to the heart of the matter, and it becomes easy to conflate different concepts.
 
-就我个人而言，讨论一个问题喜欢多层次，多角度的去讨论，而不仅限于某一特定的方面。这样一来，既能更好的理解问题本身，也不至于让自己的视野太狭隘。故本文将尝试从模板诞生之初开始，以四个角度来观察，理清模板这一特性在 C++ 中的发展脉络。注意，本文并不是教学文章，不会深入语法细节。更多的谈论设计哲学和 trade-off 。掌握一些模板的基础知识就能看懂，请放心阅读。当然，这样可能严谨性有所缺失，如有错误欢迎评论区讨论。
+Personally, I prefer to discuss a topic from multiple levels and angles rather than limiting myself to one particular aspect. This leads to a better understanding of the subject itself and prevents one's perspective from becoming too narrow. This article will therefore attempt to trace the evolution of templates in C++ from their origins, examining the feature through four lenses. Note that this is not a tutorial — it will not dive into syntactic minutiae. The focus is on design philosophy and trade-offs. A basic familiarity with templates is sufficient to follow along. Some rigor may be sacrificed as a result; if there are any errors, please feel free to discuss them in the comments.
 
-**我们主要讨论四个主题：**
+**We will primarily discuss four themes:**
 
-- 代码生成 (Code Generation)
-- 类型约束 (Type Constraint)
-- 编译时计算 (Compile-time Computing)
-- 操纵类型 (Type Manipulation)
+- Code Generation
+- Type Constraint
+- Compile-time Computing
+- Type Manipulation
 
-其中第一个主题一般认为就是普通的 Template。而后三者一般被规划到 TMP 中去。TMP 即 Template meta programming 也就是模板元编程。因为模板设计之初的意图并不是实现后面这三个功能，但是最后却通过一些奇怪的 trick 实现了这些功能，代码写起来也比较晦涩难懂，所以一般叫做元编程。
+The first theme is generally considered to be ordinary Template usage. The latter three are usually grouped under TMP — Template Meta-programming. Because the original intent of template design was not to realize these three functions, yet they ended up being implemented through some clever (and often arcane) tricks, with the resulting code being quite obscure and hard to read, they are generally called metaprogramming.
 
 ## Code Generation
 

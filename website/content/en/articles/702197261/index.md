@@ -10,7 +10,7 @@ zhihu_column_title: 魅力C++
 
 > This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
 
-参加了 [Google Summer of Code 2024](https://summerofcode.withgoogle.com/programs/2024/projects/Ji2Mi97o)。主要的任务就是为一个 [Python 解释器](https://pocketpy.dev/) 实现 [pybind11](https://github.com/pybind/pybind11) 的兼容性接口。说是实现兼容性接口，实际上相当于重写 pybind11 了，所以最近一直在读它的源码。
+I participated in [Google Summer of Code 2024](https://summerofcode.withgoogle.com/programs/2024/projects/Ji2Mi97o). The main task was to implement a [pybind11](https://github.com/pybind/pybind11)-compatible interface for a [Python interpreter](https://pocketpy.dev/). Saying "implement a compatible interface" is somewhat of an understatement — it was essentially a rewrite of pybind11, so I've been spending a lot of time reading through its source code lately.
 
 > Some readers might not be familiar with pybind11. Simply put, pybind11 is middleware that facilitates interaction between Python and C++ code. For example, it allows embedding a Python interpreter in C++ or compiling C++ code into a dynamic library for Python to call. For more details, please refer to the official documentation.
 
