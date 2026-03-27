@@ -6,7 +6,7 @@ on:
 
   push:
     branches:
-      - main
+      - "**"
 
 jobs:
   deploy:
@@ -16,18 +16,35 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        run: python3 -m pip install uv
+
+      - name: Sync Python dependencies
+        run: uv sync --frozen --only-group ci
+
+      - name: Sync articles from Zhihu
+        env:
+          ZHIHU_COOKIE: ${{ secrets.ZHIHU_COOKIE }}
+        run: uv run --frozen --only-group ci --no-sync python scripts/zhihu_cli.py sync
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: "0.141.0"
 
       - name: Build
-        run: | 
+        run: |
           cd website
           git clone https://github.com/nunocoracao/blowfish.git themes/blowfish --depth=1
           hugo
 
       - name: Deploy
+        if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
