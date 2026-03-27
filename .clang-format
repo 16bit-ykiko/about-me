@@ -1,4 +1,3 @@
-
 # clang-format configuration
 # compatible with clang-format 18
 
@@ -28,7 +27,6 @@ KeepEmptyLinesAtEOF: true
 AlignAfterOpenBracket: true
 AlignTrailingComments:
   Kind: Always
-
 
 PointerAlignment: Left
 

@@ -1,0 +1,38 @@
+[workspace]
+name = "about-me"
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-64", "osx-arm64"]
+
+[feature.format.dependencies]
+ruff = "*"
+tombi = "*"
+stylua = "*"
+fd-find = "*"
+prettier = "*"
+clang-format = "==21.1.7"
+
+[feature.format.tasks]
+format-cpp = "fd -H -e cpp -e h -e cc -e hpp -x clang-format -i"
+format-python = "ruff format ."
+format-lua = "stylua ."
+format-web = "fd -H -e js -e ts -e css -x prettier --write"
+format-markdown = "fd -H -e md -x prettier --write"
+format-json = "fd -H -e json -E package-lock.json -x prettier --write"
+format-toml = "fd -H -e toml -x tombi format"
+format-yaml = """
+fd -H -e yaml -e yml -E pnpm-lock.yaml -x prettier --write && \
+fd -H "^\\.clang-(format|tidy)$" -x prettier --write --parser yaml
+"""
+format = { depends-on = [
+  "format-cpp",
+  "format-python",
+  "format-lua",
+  "format-web",
+  "format-markdown",
+  "format-json",
+  "format-toml",
+  "format-yaml",
+] }
+
+[environments]
+format = { features = ["format"] }

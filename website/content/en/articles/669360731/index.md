@@ -1,36 +1,43 @@
 ---
-title: 'Harness the Power of C++ Code with Clang Tools'
-date: 2023-11-29 09:14:27
-updated: 2024-11-30 18:01:57
-series: ['Reflection']
+series:
+  - Reflection
 series_order: 5
+title: Master your C++ code with Clang tools.
+date: "2023-11-29 01:14:27"
+updated: "2024-11-30 10:01:57"
+zhihu_article_id: "669360731"
+zhihu_url: https://zhuanlan.zhihu.com/p/669360731
+zhihu_column_id: c_1707545619290316800
+zhihu_column_title: 编程语言中的反射
 ---
 
-Clang is a compiler front-end for the C family of languages provided by the LLVM project. It was initially developed to replace the C front-end of the GNU Compiler Collection (GCC), aiming to offer faster compilation, better diagnostic information, and a more flexible architecture. Clang includes front-ends for C, C++, and Objective-C, designed to be embeddable in other projects. A key feature of Clang is its modular architecture, which allows developers to easily extend and customize the compiler's functionality. Clang is widely used in many projects, including LLVM itself, the development of some operating system kernels, and the implementation of compilers for some programming languages.
+> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
 
-In addition to being used as a compiler, Clang can also be provided as a library, enabling developers to leverage the compiler's capabilities in their applications, such as source code analysis and generation. Clang can be used to obtain the Abstract Syntax Tree (AST) of C++ source files for further processing. This article will introduce how to use Clang tools.
+Clang is a C-language family compiler frontend provided by the LLVM project. It was originally developed to replace the C language frontend of the GNU Compiler Collection (GCC), with the goal of providing faster compilation speeds, better diagnostic information, and a more flexible architecture. Clang includes C, C++, and Objective-C compiler frontends, which are designed to be embedded in other projects. A key feature of Clang is its modular architecture, which makes it easier for developers to extend and customize compiler functionality. Clang is widely used in many projects, including LLVM itself, the development of some operating system kernels, and the implementation of compilers for some programming languages.
 
-## Installation & Usage 
+In addition to being used as a compiler, Clang can also be provided as a library, allowing developers to leverage compiler features in their applications, such as source code analysis and generation. Clang can be used to obtain the Abstract Syntax Tree (AST) of C++ source files for further processing. This article will introduce how to use Clang tools.
 
-Currently, Clang is divided into the following libraries and tools: libsupport, libsystem, libbasic, libast, liblex, libparse, libsema, libcodegen, librewrite, libanalysis. Since Clang itself is written in C++, the related interfaces are all in C++. However, due to the complexity and instability of C++ interfaces (for example, DLLs compiled by GCC on Windows cannot be used by MSVC, or API changes due to Clang version upgrades leading to incompatibility), the official does not recommend prioritizing the use of C++ interfaces.
+## Installation & Usage
 
-In addition to C++ interfaces, the official also provides a C interface called [libclang](https://clang.llvm.org/doxygen/group__CINDEX.html), which is not only relatively simple to use but also quite stable. The only drawback is that it cannot obtain the complete C++ Abstract Syntax Tree (AST), but given that the complete syntax tree of C++ is extremely complex, often we only need a small part of the information, so this issue can usually be ignored unless you really have such a requirement.
+Currently, Clang is divided into the following libraries and tools: libsupport, libsystem, libbasic, libast, liblex, libparse, libsema, libcodegen, librewrite, libanalysis. Since Clang itself is written in C++, the related interfaces are all C++. However, due to the complexity and instability of the C++ interface itself (e.g., a DLL compiled by GCC on Windows cannot be used by MSVC, or API changes due to Clang version upgrades leading to incompatibility), the official recommendation is not to prioritize the C++ interface.
 
-If you want to use libclang, you need to install LLVM and Clang first. On the [LLVM Release](https://github.com/llvm/llvm-project/releases) page, there are several pre-release binary packages available for download. If you have customization needs, please refer to the [Getting Started](https://llvm.org/docs/GettingStarted.html#id4) page for manual compilation. After installation, simply link the `libclang.dll` from the `llvm/lib` directory to your program and include the `clang-c/Index.h` header file from the `llvm/include` directory to use it.
+In addition to the C++ interface, the official project also provides a C language interface called [libclang](https://clang.llvm.org/doxygen/group__CINDEX.html). This interface is not only relatively simple to use but also quite stable. The only drawback is that it cannot obtain a complete C++ Abstract Syntax Tree (AST). However, given that a complete C++ AST is inherently extremely complex, and often we only need a small portion of its information, this issue can usually be ignored unless you genuinely have such a requirement.
 
-However, since C language lacks some high-level abstractions, even manipulating strings can be cumbersome. If used on a large scale, we need to encapsulate a layer in C++ ourselves. Fortunately, the official also provides a Python binding based on this C interface, namely the [clang](https://pypi.org/project/clang/) package, which makes it more convenient to use. However, the Python binding provided by the official does not package the libclang DLL, so you still need to manually configure the LLVM environment on your computer, which can be a bit troublesome. However, someone in the community has provided a packaged version on PyPI: [libclang](https://pypi.org/project/libclang/).
+If you want to use libclang, you need to install LLVM and Clang first. On the [LLVM Release](https://github.com/llvm/llvm-project/releases) page, several pre-built binary packages are available for download. If you have custom requirements, please refer to the [Getting Started](https://llvm.org/docs/GettingStarted.html#id4) page for manual compilation. After installation, you only need to link `libclang.dll` from the `llvm/lib` directory to your program and include the `clang-c/Index.h` header file from the `llvm/include` directory to use it.
 
-So if you want to use libclang to obtain the C++ syntax tree, you just need
+However, since the C language lacks some high-level abstractions, manipulating strings can be cumbersome. For large-scale use, we would need to wrap it with a C++ layer ourselves. Fortunately, the official project also provides a Python binding based on this C interface, namely the [clang](https://pypi.org/project/clang/) package, which makes it even more convenient to use. However, the official Python binding does not package the libclang DLL, so you still need to manually configure the LLVM environment on your computer, which can be a bit troublesome. Nevertheless, someone in the community has provided a packaged version on PyPI: [libclang](https://pypi.org/project/libclang/).
+
+So, if you want to use libclang to get a C++ syntax tree, you just need to
 
 ```bash
 pip install libclang
 ```
 
-No additional steps are required. This article is based on this Python binding version. The C version API and the Python version API are basically identical. If you find Python performance insufficient, you can also refer to this tutorial to write C version code. Additionally, the official package does not provide type hints, so writing in Python lacks code completion and is not comfortable to use. I have added a type hint [cindex.pyi](https://github.com/16bit-ykiko/about-me/blob/main/code/cindex.pyi), which can be downloaded and placed in the same folder to enable code hints.
+No extra steps are required. This article will introduce it based on this Python binding version. The C version API and the Python version API are basically identical. If you feel that Python's performance is insufficient, you can also refer to this tutorial to write C version code. Additionally, the official package does not provide type hints, which means there's no code completion when writing in Python, making it less comfortable to use. I've added a type-hinted [cindex.pyi](https://github.com/16bit-ykiko/about-me/blob/main/code/cindex.pyi); just download it and place it in the same folder to get code completion.
 
-## Quick Start 
+## Quick Start
 
-The example C++ source file code is as follows
+The example C++ source file code is as follows:
 
 ```cpp
 // main.cpp
@@ -45,7 +52,7 @@ int main() {
 }
 ```
 
-The Python code to parse it is as follows
+The Python code to parse it is as follows:
 
 ```python
 import clang.cindex as CX
@@ -71,7 +78,7 @@ tu = index.parse('main.cpp', args=['-std=c++20'])
 traverse(tu.cursor)
 ```
 
-The output is as follows
+The output is as follows:
 
 ```bash
 TRANSLATION_UNIT: main.cpp
@@ -90,22 +97,22 @@ TRANSLATION_UNIT: main.cpp
             └── INTEGER_LITERAL: 0
 ```
 
-The front part is the syntax tree node type, and the back part is the node content. It can be seen that it is very clear and almost corresponds to the source code one by one.
+The first part is the syntax tree node type, and the second part is the node content. As you can see, it's very clear and almost corresponds one-to-one with the source code.
 
-## Basic Types 
+## Basic Types
 
-Note, this article assumes that the reader has some understanding of syntax trees and will not introduce them in detail here. If you don't know what a syntax tree is, you can take a look at [Why C/C++ Compilers Do Not Retain Meta Information](https://16bit-ykiko.github.io/about-me/670190357). Below is an introduction to some commonly used types in cindex
+Note that this article assumes the reader has some understanding of syntax trees and will not go into too much detail here. If you don't know what a syntax tree is, you can refer to [Why C/C++ Compilers Don't Retain Metadata](https://16bit-ykiko.github.io/about-me/670190357). Below are some common types in cindex.
 
-### Cursor 
+### Cursor
 
-Equivalent to the basic node of the syntax tree, the entire syntax tree is composed of `Cursor`. The `kind` property returns a `CursorKind` type enumeration value, which represents the actual type corresponding to this node.
+Equivalent to a basic node in the syntax tree, the entire syntax tree is composed of `Cursor`s. The `kind` attribute returns a `CursorKind` enumeration value, which represents the actual type corresponding to this node.
 
 ```python
 for kind in CursorKind.get_all_kinds():
     print(kind)
 ```
 
-This can print all supported node types, or you can directly view the source code. `Cursor` also has some other properties and methods for us to use, commonly used are as follows:
+This can print all supported node types, or you can directly check the source code. `Cursor` also has other attributes and methods for us to use, commonly including the following:
 
 ```python
 @property
@@ -118,47 +125,47 @@ def displayname(self) -> str:
 def mangled_name(self) -> str:
 ```
 
-Get the name of the node, for example, for a variable declaration node, its `spelling` is the name of the variable. The `displayname` is the short name of the node, which is usually the same as `spelling`. But sometimes there are differences, for example, the `spelling` of a function will include the parameter types, such as `func(int)`, but its `displayname` is just `func`. The `mangled_name` is the name of the symbol after name mangling for linking.
+Gets the name of the node. For example, for a variable declaration node, its `spelling` is the name of the variable. `displayname` is the short name of the node, which is the same as `spelling` most of the time. However, there are sometimes differences; for example, a function's `spelling` might include parameter types, such as `func(int)`, but its `displayname` would just be `func`. `mangled_name` is the name of the symbol after name mangling, used for linking.
 
 ```python
 @property
 def type(self) -> Type:
 ```
 
-The type of the node element, for example, for a variable declaration node, its `type` is the type of the variable. Or for a field declaration node, its `type` is the type of the field. The return type is `Type`.
+The type of the node element. For example, for a variable declaration node, its `type` is the type of the variable. Or for a field declaration node, its `type` is the type of the field. The return type is `Type`.
 
 ```python
 @property
 def location(self) -> SourceLocation:
 ```
 
-The location information of the node, the return type is `SourceLocation`, which carries the line number, column number, file name and other information of the node in the source code.
+The location information of the node, returning a `SourceLocation` type, which carries information such as the line number, column number, and filename of the node in the source code.
 
 ```python
 @property
 def extent(self) -> SourceRange:
 ```
 
-The range information of the node, the return type is `SourceRange`, composed of two `SourceLocation`, which carries the start and end positions of the node in the source code.
+The range information of the node, returning a `SourceRange` type, composed of two `SourceLocation`s, which carry the start and end positions of the node in the source code.
 
 ```python
 @property
 def access_specifier(self) -> AccessSpecifier:
 ```
 
-The access permission of the node, the return type is `AccessSpecifier`. There are five types: `PUBLIC`, `PROTECTED`, `PRIVATE`, `NONE`, `INVALID`.
+The access specifier of the node, returning an `AccessSpecifier` type. There are five types: `PUBLIC`, `PROTECTED`, `PRIVATE`, `NONE`, `INVALID`.
 
 ```python
 def get_children(self) -> iterable[Cursor]:
 ```
 
-Get all child nodes, the return type is `iterable` of `Cursor`. This function is the most commonly used, because we can traverse the entire syntax tree recursively.
+Gets all child nodes, returning an `iterable` of `Cursor`s. This function is the most commonly used because we can traverse the entire syntax tree recursively.
 
 ```python
 def get_tokens(self) -> iterable[Token]:
 ```
 
-Get all `token`s representing the node, the return type is `iterable` of `Token`. `token` is the smallest unit of the syntax tree, for example, for a variable declaration node, its `token`s are `int`, `a`, `;`. This function can be used to obtain some detailed information, such as obtaining the values of integer literals and floating-point literals.
+Gets all `token`s representing this node, returning an `iterable` of `Token`s. A `token` is the smallest unit of a syntax tree. For example, for a variable declaration node, its `token`s are `int`, `a`, `;`. This function can be used to obtain detailed information, such as the values of integer and floating-point literals.
 
 ```python
 def is_definition(self) -> bool:
@@ -179,18 +186,18 @@ def is_abstract_record(self) -> bool:
 def is_scoped_enum(self) -> bool:
 ```
 
-These functions are basically self-explanatory, for example, `is_definition` is to determine whether the node is a definition, `is_const_method` is to determine whether the node is a `const` method.
+These functions are mostly self-explanatory. For example, `is_definition` checks if the node is a definition, and `is_const_method` checks if the node is a `const` method.
 
-### Type 
+### Type
 
-If the node has a type, it represents the type of the node. Commonly used properties are
+If the node has a type, this represents the type of that node. Common attributes include:
 
 ```python
 @property
 def kind(self) -> TypeKind:
 ```
 
-The type of the type, the return type is `TypeKind`. For example, `INT`, `FLOAT`, `POINTER`, `FUNCTIONPROTO`, etc.
+The kind of the type, returning a `TypeKind`. For example, `INT`, `FLOAT`, `POINTER`, `FUNCTIONPROTO`, etc.
 
 ```python
 @property
@@ -205,35 +212,35 @@ def get_size(self) -> int:
 def get_offset(self, fieldname: str) -> int:
 ```
 
-Get the alignment, size, field offset, etc. of the type.
+Gets the alignment, size, field offset, etc., of the type.
 
-And some functions starting with `is`, such as `is_const_qualified`, `is_function_variadic`, `is_pod`, etc. I won't go into detail here.
+And some `is` prefixed functions, such as `is_const_qualified`, `is_function_variadic`, `is_pod`, etc. We won't elaborate on them here.
 
-### TranslationUnit 
+### TranslationUnit
 
-Generally, a C++ source file represents a `TranslationUnit`, which is what we often call a compilation unit.
+Generally, a C++ source file represents a `TranslationUnit`, which is what we commonly refer to as a compilation unit.
 
-Commonly used are
+Commonly used are:
 
 ```python
 @property
 def cursor(self) -> Cursor:
 ```
 
-Get the root node of the `TranslationUnit`, which is the `Cursor` of type `TRANSLATION_UNIT`.
+Gets the root node of this `TranslationUnit`, which is a `Cursor` of type `TRANSLATION_UNIT`.
 
 ```python
 @property
 def spelling(self) -> str:
 ```
 
-Get the file name of the `TranslationUnit`.
+Gets the filename of this `TranslationUnit`.
 
 ```python
 def get_includes(self, depth: int = -1) -> iterable[FileInclusion]:
 ```
 
-Get all `include`s of the `TranslationUnit`, the return type is a `list` of `FileInclusion`. Note that since the included files may contain other files, you can use the `depth` parameter to limit it. For example, if you only want to get the first layer, that is, the directly included header files, you can write it like this.
+Gets all `include`s of this `TranslationUnit`, returning a `list` of `FileInclusion`s. Note that since included files might contain other files, you can use the `depth` parameter to limit this. For example, if you only want to get the first level, i.e., directly included header files, you can write it like this:
 
 ```python
 index = CX.Index.create()
@@ -245,11 +252,11 @@ for file in tu.get_includes():
 
 This will print all directly used header files.
 
-### Index 
+### Index
 
-An `Index` is a collection of `TranslationUnit`s, which are eventually linked together to form an executable file or library.
+An `Index` is a collection of `TranslationUnit`s that are ultimately linked together to form an executable or library.
 
-There is a static method `create` to create a new `Index`, and then the member method `parse` can parse a `C++` source file and return a `TranslationUnit`.
+There is a static method `create` to create a new `Index`, and then the member method `parse` can parse a C++ source file, returning a `TranslationUnit`.
 
 ```python
 def parse(self, path: str,
@@ -258,13 +265,13 @@ def parse(self, path: str,
                 options: int = ...) -> TranslationUnit:
 ```
 
-`path` is the source file path, `args` is the compilation parameters, `unsaved_files` is the unsaved files, `options` are some parameters defined in `TranslationUnit.PARSE_XXX`, such as `PARSE_SKIP_FUNCTION_BODIES` and `PARSE_INCOMPLETE`. It can be used to customize the parsing process, speed up parsing, or retain macro information, etc.
+`path` is the source file path, `args` are compilation arguments, `unsaved_files` are unsaved files, and `options` are parameters defined in `TranslationUnit.PARSE_XXX`, such as `PARSE_SKIP_FUNCTION_BODIES` and `PARSE_INCOMPLETE`. These can be used to customize the parsing process, speed up parsing, or retain macro information, etc.
 
-## Examples 
+## Examples
 
-### Namespace 
+### Namespace
 
-Since clang will expand all header files when parsing, the output content is too much. But we may mainly want the information of our own code, so we can use namespaces for filtering. The example is as follows:
+Since Clang expands all header files during parsing, the complete output is too extensive. However, we might primarily be interested in information from our own code. In such cases, we can use namespaces for filtering. Here's an example:
 
 ```cpp
 #include <iostream>
@@ -277,7 +284,7 @@ namespace local {
 }
 ```
 
-The parsing code is as follows
+The parsing code is as follows:
 
 ```python
 import clang.cindex as CX
@@ -295,11 +302,11 @@ tu = index.parse('main.cpp', args=['-std=c++20'])
 traverse_my(tu.cursor)
 ```
 
-Write a function to filter the namespace name, and then forward it to our previous function, so that only the content in the namespace we want will be output.
+We write a function to filter by namespace name and then forward to our previous function. This way, only the content within the desired namespace will be output.
 
-### Class & Struct 
+### Class & Struct
 
-We mainly want to get the field names, types, method names, types, etc. inside them, the example is as follows:
+We mainly want to get their field names, types, method names, types, etc. Here's an example:
 
 ```cpp
 struct Person {
@@ -310,7 +317,7 @@ struct Person {
 };
 ```
 
-The parsing code is as follows
+The parsing code is as follows:
 
 ```python
 def traverse_class(node: CX.Cursor):
@@ -335,9 +342,9 @@ def traverse_class(node: CX.Cursor):
 #         Param: b: char
 ```
 
-### Comment 
+### Comment
 
-You can get Doxygen-style comments
+Doxygen-style comments can be retrieved:
 
 ```python
 @property
@@ -347,7 +354,7 @@ def brief_comment(self) -> str:
 def raw_comment(self) -> str:
 ```
 
-`brief_comment` gets the content after `@brief`, `raw_comment` gets the entire comment content.
+`brief_comment` gets the content after `@brief`, and `raw_comment` gets the entire comment content.
 
 ```cpp
 /**
@@ -360,7 +367,7 @@ int func(int param1){
 }
 ```
 
-The parsing code is as follows
+The parsing code is as follows:
 
 ```python
 def traverse_comment(node: CX.Cursor):
@@ -379,9 +386,9 @@ def traverse_comment(node: CX.Cursor):
 #  */
 ```
 
-### Enum 
+### Enum
 
-Get the enumeration name and corresponding enumeration constant values, as well as its underlying type
+Get the enum name, its corresponding enum constant values, and its underlying type.
 
 ```cpp
 enum class Color{
@@ -391,7 +398,7 @@ enum class Color{
 };
 ```
 
-The parsing code is as follows
+The parsing code is as follows:
 
 ```python
 def traverse_enum(node: CX.Cursor):
@@ -410,12 +417,111 @@ def traverse_enum(node: CX.Cursor):
 #     enum_value: BLUE: 2
 ```
 
-### Attribute 
+### Attribute
 
-C++11 introduced a new attribute syntax: `[[ ... ]]`, which can be used to add additional information to functions or variables. For example, `[[nodiscard]]` and `[[deprecated]]`. But sometimes we define some markers ourselves for our preprocessing tools to use, such as marking whether a type needs to generate meta-information, and we also hope that these markers can be recognized by libclang. Unfortunately, if you directly write attributes not supported by the standard, they will be ignored by libclang, that is, they will not appear in the final AST.
+C++11 introduced new attribute syntax: `[[ ... ]]`, which can be used to add extra information to functions or variables. Examples include `[[nodiscard]]` and `[[deprecated]]`. However, sometimes we define our own markers for our pre-processing tools, such as marking whether a type needs metadata generation. We also hope that these markers can be recognized by libclang. Unfortunately, if non-standard attributes are written directly, they will be ignored by libclang, meaning they won't appear in the final AST.
 
 ```cpp
 struct [[Reflect]] Person{}; // ignored
 ```
 
-A feasible solution is to use `get_tokens` to get all `token`s in the declaration
+A feasible solution is to use `get_tokens` to retrieve all `token`s in the declaration and then manually extract the desired information. For example, the result obtained here would be `struct`, `[`, `[`, `Reflect`, `]`, `]`, `Person`, `{`, `}`, from which we can extract the information we want.
+
+However, Clang provides a better way: using the `clang::annotate(...)` Clang extension attribute. For example, like this:
+
+```cpp
+#define Reflect clang::annotate("reflect")
+
+struct [[Reflect]] A {};
+```
+
+With this, for the `A` `Cursor`, its child nodes will include an `ANNOTATE_ATTR` type `Cursor`, and its `spelling` will contain the stored information, which is `reflect` in this case. This allows us to easily retrieve our custom attributes. Furthermore, the C++ standard specifies that when a compiler encounters an unrecognized attribute, it ignores it rather than reporting an error. This means the attribute only affects our preprocessor and does not interfere with normal compilation.
+
+### Macro
+
+Before actually parsing the syntax tree, Clang replaces all preprocessor directives with actual code. Therefore, these directives are no longer present in the final syntax tree information. However, sometimes we do want to obtain this information, for example, if we want to get information about `#define`. To do this, the `options` parameter of `parse` needs to be set to `TranslationUnit.PARSE_DETAILED_PROCESSING_RECORD`. If you want to get the content of a macro, just use `get_tokens`.
+
+```cpp
+#define CONCAT(a, b) a#b
+auto x = CONCAT(1, 2);
+```
+
+The parsing code is as follows:
+
+```python
+def traverse_macro(node: CX.Cursor):
+    if node.kind == CX.CursorKind.MACRO_DEFINITION:
+        if not node.spelling.startswith('_'):  # Exclude internal macros
+            print(f"MACRO: {node.spelling}")
+            print([token.spelling for token in node.get_tokens()])
+    elif node.kind == CX.CursorKind.MACRO_INSTANTIATION:
+        print(f"MACRO_INSTANTIATION: {node.spelling}")
+        print([token.spelling for token in node.get_tokens()])
+
+    for child in node.get_children():
+        traverse_macro(child)
+
+# MACRO: CONCAT
+# ['CONCAT', '(', 'a', ',', 'b', ')', 'a', '#', 'b']
+# MACRO_INSTANTIATION: CONCAT
+# ['CONCAT', '(', '1', ',', '2', ')']
+```
+
+## Rewrite
+
+Sometimes we want to make simple modifications to the source code, such as inserting or deleting a piece of code at a certain position. In such cases, we can use the `Rewriter` class. Here's an example:
+
+```cpp
+void func(){
+    int a = 1;
+    int b = 2;
+    int c = 3;
+}
+```
+
+Use the following code to modify the source file:
+
+```python
+def rewrite(node: CX.Cursor, rewriter: CX.Rewriter):
+    if node.kind == CX.CursorKind.VAR_DECL:
+        if node.spelling == "a":
+            rewriter.replace_text(node.extent, "int a = 100")
+        elif node.spelling == "b":
+            rewriter.remove_text(node.extent)
+        elif node.spelling == "c":
+            rewriter.insert_text_before(node.extent.start, "[[maybe_unused]]")
+
+    for child in node.get_children():
+        rewrite(child, rewriter)
+
+
+index = CX.Index.create()
+tu = index.parse('main.cpp', args=['-std=c++20'])
+rewriter = CX.Rewriter.create(tu)
+rewrite(tu.cursor, rewriter)
+rewriter.overwrite_changed_files()
+```
+
+After running, the content of `main.cpp` becomes:
+
+```cpp
+void func() {
+    int a = 100;
+    ;
+    [[maybe_unused]] int c = 3;
+}
+```
+
+## Conclusion
+
+When retrieving ABI-related information such as type `size`, `align`, and `offset`, it's important to consider the platform. Their values might differ across different ABIs; for example, MSVC and GCC generally have different values for these. You can specify the target platform by using `-target` in the compilation arguments. If you need results consistent with MSVC, you can use `--target=x86_64-pc-windows-msvc`. For GCC, you can use `--target=x86_64-pc-linux-gnu`.
+
+As mentioned earlier, libclang cannot provide a complete C++ syntax tree. For instance, it lacks many interfaces for parsing `Expr`essions. This means that if you need to parse specific expression content, using its C++ interface might be more suitable, as it provides a complete and complex syntax tree.
+
+There are relatively few articles in China specifically on the practical use of Clang tools. This article attempts to provide a concrete introduction to some common functionalities, although it is not entirely comprehensive. If you have any questions, you can directly read the `Index.h` source code, which contains very detailed comments. Alternatively, you can leave a comment in the comments section, and I will do my best to answer. Furthermore, if you need information not provided by libclang, you can use the `get_tokens` function to retrieve it yourself. For example, libclang does not support getting the values of integer and floating-point literals, in which case you can manually retrieve them via `get_tokens`.
+
+After extracting this information from the syntax tree, you can further process it, such as generating metadata or directly generating code. Of course, these are subsequent steps, depending on your specific needs.
+
+---
+
+This article concludes here. This is one of the articles in the reflection series; feel free to read other articles in the series!

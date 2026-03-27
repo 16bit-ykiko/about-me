@@ -4,25 +4,24 @@ version = "0.1.0"
 description = "Local and CI tooling for syncing and publishing Zhihu content."
 requires-python = ">=3.12"
 dependencies = [
-    "beautifulsoup4>=4.12.3",
-    "google-genai>=1.9.0",
-    "markdown>=3.7",
-    "pyyaml>=6.0.2",
-    "qrcode>=8.0",
-    "requests>=2.32.3",
-    "rich>=13.9.4",
-    "textual>=0.79.1",
+  "beautifulsoup4>=4.12.3",
+  "markdown>=3.7",
+  "pyyaml>=6.0.2",
+  "qrcode>=8.0",
+  "requests>=2.32.3",
+  "rich>=13.9.4",
+  "textual>=0.79.1",
 ]
 
 [dependency-groups]
-ci = [
-    "beautifulsoup4>=4.12.3",
-    "pyyaml>=6.0.2",
-    "requests>=2.32.3",
-    "rich>=13.9.4",
-]
 dev = [
-    "ruff>=0.11.0",
+  "ruff>=0.11.0",
+]
+ci = [
+  "beautifulsoup4>=4.12.3",
+  "pyyaml>=6.0.2",
+  "requests>=2.32.3",
+  "rich>=13.9.4",
 ]
 
 [tool.ruff]

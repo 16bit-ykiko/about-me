@@ -1,27 +1,32 @@
 ---
-title: 'C++ Forbidden Dark Magic: STMP (Part 2)'
-date: 2023-07-30 09:29:27
-updated: 2024-12-18 11:33:47
-series: ['STMP']
+series:
+  - STMP
 series_order: 2
+title: "C++ Forbidden Black Magic: STMP (Part 2)"
+date: "2023-07-30 01:29:27"
+updated: "2026-03-14 15:14:29"
+zhihu_article_id: "646812253"
+zhihu_url: https://zhuanlan.zhihu.com/p/646812253
 ---
 
-In the previous [article](https://www.ykiko.me/zh-cn/articles/646752343), we gained a preliminary understanding of the principles of STMP and used it to implement a simple compile-time counter. However, its power extends far beyond that. This article will discuss some advanced applications based on STMP.
+> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
 
-## type <=> value 
+In the previous [article](https://www.ykiko.me/en/articles/646752343), we gained a preliminary understanding of the principles of STMP and used it to implement a simple compile-time counter. However, its power extends far beyond that. This article will discuss some advanced applications based on STMP.
 
-In C++, the need to perform calculations on types has always existed, such as:
+## type <=> value
 
-- `std::variant` requires that its template parameters must not be duplicated, so we need to deduplicate the type list.
-- Sorting the type list of `variant` so that identical types, such as `std::variant<int, double>` and `std::variant<double, int>`, can share the same code, reducing binary bloat.
-- Retrieving a type from a type list based on a given index.
-- Mapping function parameters with variable order.
+In C++, the need for computations on types has always existed, for example:
 
-And so on, the list goes on. However, in C++, types are not first-class citizens and can only be passed as template parameters. To perform calculations on types, we often have to resort to obscure template metaprogramming. If types could be passed to constexpr functions like values for computation, calculations on types would become much simpler. Directly passing types is impossible, so consider establishing a one-to-one mapping between types and values. Before computation, map types to values, and after computation, map values back to types, thus achieving our goal.
+- `std::variant` allows duplicate template parameters, but this requires constructing it with `in_place_index`, which is cumbersome. We can deduplicate the type list before using `variant` to solve this problem.
+- It's necessary to sort `variant` type lists. After sorting, identical types, such as `std::variant<int, double>` and `std::variant<double, int>`, can share the same code, reducing binary bloat.
+- Get a type from a type list based on a given index.
+- Map function parameters in a reordered way, often used for automatic cross-language binding generation.
 
-### type -> value 
+And so on, I won't list them all here. However, in C++, types are not first-class citizens and can only be passed as template parameters. To perform computations on types, we often have to resort to obscure template metaprogramming. It would be great if types could be passed to `constexpr` functions for computation just like values, making type computations much simpler. Direct passing is certainly impossible. Consider establishing a one-to-one mapping between types and values: map types to values before computation, and then map values back to types after computation. This can also fulfill our requirements.
 
-First, consider mapping types to values.
+### type -> value
+
+First, consider mapping types to values:
 
 ```cpp
 struct identity {
@@ -41,11 +46,11 @@ consteval meta_value value_of() {
 }
 ```
 
-By leveraging the fact that the addresses of static variables in different template instantiations are also different, we can easily map types to unique values (addresses).
+By leveraging the characteristic that static variable addresses of different template instantiations are also different, we can easily map types to unique values (addresses).
 
-### value -> type 
+### value -> type
 
-How do we map values back to types? Consider using straightforward template specialization.
+How do we map values back to types? Consider using naive template specialization:
 
 ```cpp
 template <meta_value value>
@@ -59,7 +64,7 @@ struct type_of<value_of<int>()> {
 // ...
 ```
 
-This works, but it requires us to specialize all the types we want to use in advance, which is impractical for most programs. Is there a way to add this specialization during evaluation? The answer is the friend injection technique we discussed in the previous article.
+This certainly works, but it requires us to specialize all types we intend to use beforehand, which is impractical for most programs. Is there a way to add this specialization at evaluation time? The answer is the friend injection we mentioned in the previous article.
 
 ```cpp
 template <typename T>
@@ -80,7 +85,7 @@ struct setter {
 };
 ```
 
-Then, we just need to instantiate a `setter` while instantiating `value_of` to complete the registration.
+Then, we just need to instantiate a `setter` simultaneously with `value_of` to complete the registration:
 
 ```cpp
 template <typename T>
@@ -91,16 +96,16 @@ consteval meta_value value_of() {
 }
 ```
 
-Finally, we can directly read the registration result through `reader` to implement `type_of`.
+Finally, `type_of` can be implemented by directly reading the registered result through `reader`:
 
 ```cpp
 template <meta_value value>
 using type_of = typename decltype(to_type(reader<value>{}))::type;
 ```
 
-### sort types! 
+### sort types!
 
-Without further ado, let's try using `std::sort` to sort a `type_list`.
+Without further ado, let's try to sort a `type_list` using `std::sort`:
 
 ```cpp
 #include <array>
@@ -132,9 +137,9 @@ struct sort_list<type_list<Ts...>> {
 };
 ```
 
-`type_list` is a simple type container, `array_to_list` is used to map the types in `std::array` back to `type_list`, and `sort_list` is the specific implementation of sorting. The process involves first mapping all types to a `std::array`, then sorting this array with `std::ranges::sort`, and finally mapping the sorted `std::array` back to `type_list`.
+`type_list` is a simple type container. `array_to_list` is used to map types from `std::array` back to `type_list`. `sort_list` is the specific implementation of sorting. The process is to first map all types into a `std::array`, then sort this array using `std::ranges::sort`, and finally map the sorted `std::array` back to `type_list`.
 
-Let's test it.
+Let's test it:
 
 ```cpp
 using list = type_list<int, char, int, double, char, char, double>;
@@ -143,19 +148,19 @@ using expected = type_list<char, char, char, int, int, double, double>;
 static_assert(std::is_same_v<sorted, expected>);
 ```
 
-All three major compilers pass with C++20! The code is available on [Compiler Explorer](https://godbolt.org/z/4qW7MhfWP), and to prevent link failure, it's also on [Github](https://github.com/16bit-ykiko/about-me/blob/main/code/type-list-sort.cpp).
+All three major compilers compile this successfully with C++20! The code is available on [Compiler Explorer](https://godbolt.org/z/4qW7MhfWP). To prevent link rot, a copy is also available on [Github](https://github.com/16bit-ykiko/about-me/blob/main/code/type-list-sort.cpp).
 
-> It's worth mentioning that this bidirectional mapping between types and values has become a built-in feature in Reflection for C++26. We no longer need to rely on friend injection tricks; we can directly use the `^` and `[: :]` operators to complete the mapping. For more details, see [C++26 Static Reflection Proposal Analysis](https://www.ykiko.me/zh-cn/articles/661692275).  
+> It's worth noting that this bidirectional mapping between types and values has become a built-in language feature in Reflection for C++26. We no longer need to use clever tricks like friend injection; we can directly use the `^^` and `[: :]` operators to achieve the mapping. See [Reflection for C++26!!!](https://www.ykiko.me/en/articles/1919923607997518115) for details.
 
-## the true any 
+## the true any
 
-`std::any` is often used for type erasure, allowing completely different types to be erased and placed in the same container. However, erasure is easy, but restoration is difficult, especially when you want to print the object stored in `any` to see what it is, you have to `cast` it one by one. Is it possible to write a true `any` type that doesn't require manual `cast` and can directly call the member functions of the type it contains?
+`std::any` is often used for type erasure, allowing completely different types to be stored in the same container. However, erasure is easy, but restoration is difficult, especially when you want to print the object stored in `any`; you have to `cast` each type individually. Is there a possibility of writing a "true" `any` type? One that doesn't require us to manually `cast` and can directly call member functions corresponding to the type it holds?
 
-For a single translation unit, this is entirely possible because the set of types constructed as `any` within a single translation unit is determined at compile time. We just need to record all instantiated types and use template metaprogramming to automatically try each type.
+For a single compilation unit, this is entirely possible, because the set of types constructed into `any` within a single compilation unit is determined at compile time. We only need to record all instantiated types and then automatically try each type using template metaprogramming.
 
-### type register 
+### type register
 
-First, consider how to register types.
+First, let's consider how to register types:
 
 ```cpp
 template <typename T>
@@ -202,11 +207,11 @@ consteval int count() {
 }
 ```
 
-We still use `setter` to register types. `lookup` is used to find the index of a type in the type set. The principle is to traverse the set and compare each one with `is_same_v`. If found, return the corresponding index. If not found by the end, register a new type. `count` is used to calculate the size of the type set.
+We still use `setter` to register types. `lookup` is used to find the index of a type in the type set. The principle is to iterate through the set, compare each type with `is_same_v`, and return the corresponding index if found. If not found by the end, a new type is registered. `count` is used to calculate the size of the type set.
 
-### any type 
+### any type
 
-Next, we define a simple `any` type and a `make_any` function to construct `any` objects.
+Next, we define a simple `any` type and a `make_any` function to construct `any` objects:
 
 ```cpp
 struct any {
@@ -238,11 +243,11 @@ auto make_any(T&& value) {
 }
 ```
 
-> Why write a separate `make_any` instead of a template constructor? Because in my actual attempts, I found that the three major compilers have different and somewhat strange instantiation locations for template constructors, leading to different evaluation results. However, for ordinary template functions, the instantiation locations are the same, so I wrote it as a separate function. 
+> Why write a separate `make_any` instead of directly writing a template constructor? This is because after my actual attempts, I found that the three major compilers instantiate template constructors in different and sometimes strange locations, leading to different evaluation results. However, for ordinary template functions, the instantiation locations are consistent, so I wrote it as a separate function.
 
-### visit it! 
+### visit it!
 
-The highlight is here. We can implement a function similar to `std::visit` to access `any` objects. It accepts a callback function, then traverses the type set of the `any` object. If it finds the corresponding type, it converts `any` to that type and calls the callback function.
+Here comes the highlight: we can implement a function similar to `std::visit` to access `any` objects. It takes a callback function, then iterates through the `any` object's type set. If it finds the corresponding type, it converts `any` to that type and then calls the callback function.
 
 ```cpp
 template <typename Callback, auto seed = [] {}>
@@ -261,7 +266,7 @@ constexpr void visit(any& any, Callback&& callback) {
 }
 ```
 
-Then let's try it out.
+Now let's try it:
 
 ```cpp
 struct String {
@@ -292,12 +297,10 @@ int main() {
 }
 ```
 
-All three major compilers output the results as expected! The code is also available on [Compiler Explorer](https://godbolt.org/z/aP3zs7479) and [Github](https://github.com/16bit-ykiko/about-me/blob/main/code/the-true-any.cpp).
+All three major compilers output the results as we expected! The code is also available on [Compiler Explorer](https://godbolt.org/z/aP3zs7479) and [Github](https://github.com/16bit-ykiko/about-me/blob/main/code/the-true-any.cpp).
 
-## conclusion 
+## conclusion
 
-These two articles on STMP fulfill a long-standing wish of mine. Before this, I had been pondering how to implement a true `any` type like the code above, without requiring users to register in advance. I tried many methods but never succeeded. However, the emergence of STMP gave me hope. After realizing the heights it could reach, I immediately stayed up all night to write the article and examples.
+These two articles on STMP fulfill a long-standing wish of mine. Before this, I had been thinking about how to implement a "true" `any` type, like the code above, without requiring the user to register types beforehand. I tried many methods, but none succeeded. However, the emergence of STMP gave me hope. After realizing the heights it could reach, I immediately stayed up all night to write the articles and examples.
 
-Of course, I do not recommend using this technique in any form in actual projects. Since this code heavily relies on the location of template instantiation, it is very prone to ODR violations, and repeated instantiation can significantly increase compilation time. For such stateful code requirements, we can often refactor them into stateless code. However, manually writing this can be very labor-intensive, so it's more recommended to use code generators for additional code generation to meet this requirement. For example, we can use libclang to collect all instantiation information of `any` in the translation unit and then create a corresponding table.
-
-Finally, thank you for reading. I hope these two articles have given you a deeper understanding of C++ templates.
+Of course, it's not recommended to use this technique in actual projects. Because this kind of code relies heavily on the instantiation location of templates, it can easily lead to ODR violations, and repeated instantiations will significantly increase compilation time. For such stateful code requirements, we can often transform them into stateless code, but pure manual implementation might be extremely laborious. It's more recommended to use code generators for additional code generation to fulfill this requirement. For example, we could use `libclang` to collect all `any` instantiation information across compilation units and then generate a corresponding table.

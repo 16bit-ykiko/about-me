@@ -1,16 +1,20 @@
 ---
-title: 'Super Useful C++ Online Compiler (VSCode Edition)'
-date: 2024-04-24 21:35:41
-updated: 2024-05-04 16:48:53
+title: Super easy-to-use C++ Online Compiler (VSCode Version)
+date: "2024-04-24 13:35:41"
+updated: "2024-05-04 08:48:53"
+zhihu_article_id: "694365783"
+zhihu_url: https://zhuanlan.zhihu.com/p/694365783
 ---
 
-[Compiler Explorer](https://godbolt.org/) is a highly popular online C++ compiler that can be used to test different compilation and execution environments or to share code. As a C++ enthusiast, I interact with it almost daily, far more frequently than I initially imagined. Additionally, I am a heavy VSCode user, handling almost all tasks within VSCode. Considering the frequent need to write code locally and then copy it to Compiler Explorer, it often feels cumbersome. Sometimes, I directly modify the code in its web editor, but without code completion, it's equally uncomfortable. Therefore, in collaboration with [@iiirhe](https://www.zhihu.com/people/32ffceca937677f7950b64e5186bb998), we developed this plugin [Compiler Explorer for VSCode](https://marketplace.visualstudio.com/items?itemName=ykiko.vscode-compiler-explorer), which integrates Compiler Explorer into VSCode using the [API](https://github.com/compiler-explorer/compiler-explorer/blob/main/docs/API.md) provided by Compiler Explorer, allowing users to directly utilize Compiler Explorer's functionalities within VSCode.
+> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
 
-Now you can search for this plugin in the VSCode marketplace.
+[Compiler Explorer](https://godbolt.org/) is a very popular online C++ compiler, which can be used to test different compilation and execution environments, or to share code. As a C++ enthusiast, I interact with it almost every day, and its frequency of use far exceeds my imagination. At the same time, I am also a heavy VSCode user, completing almost everything within VSCode. Considering that I often write code locally and then copy it to Compiler Explorer, it always felt uncomfortable. Sometimes I would directly modify it on its web editor, but without code completion, that was also uncomfortable. Therefore, I collaborated with [@iiirhe](https://www.zhihu.com/people/32ffceca937677f7950b64e5186bb998) to write this extension [Compiler Explorer for VSCode](https://marketplace.visualstudio.com/items?itemName=ykiko.vscode-compiler-explorer), which integrates Compiler Explorer into VSCode based on the [API](https://github.com/compiler-explorer/compiler-explorer/blob/main/docs/API.md) provided by Compiler Explorer, allowing users to directly use Compiler Explorer's features within VSCode.
+
+You can now search for this extension in the VSCode Marketplace.
 
 ![](https://picx.zhimg.com/v2-ebff5a9177bf7dbab863e321db8f05f3_r.jpg)
 
-### Demonstration
+### Demo
 
 ![](https://pic2.zhimg.com/v2-4d92bdc32a6479e20a8b54b776b4618f_r.jpg)
 
@@ -18,61 +22,61 @@ Now you can search for this plugin in the VSCode marketplace.
 
 ![](https://picx.zhimg.com/v2-f8b679e187c025f49cac898d60a66653_r.jpg)
 
-Let's introduce from top to bottom.
+Let's introduce them from top to bottom.
 
 ![](https://pic1.zhimg.com/v2-702bddfa45a016fdad36c70cc95d88fa_r.jpg)
 
-The functions of these three buttons are as follows:
+The functions of these three buttons are, in order:
 
-- `Compile All`: Compile all compiler instances.
-- `Add New`: Add a new compiler instance.
-- `Share Link`: Generate a link based on the current compiler instance and copy it to the clipboard.
+- `Compile All`: Compiles all compiler instances
+- `Add New`: Adds a new compiler instance
+- `Share Link`: Generates a link based on the current compiler instance and copies it to the clipboard
 
 ![](https://pic1.zhimg.com/v2-abca330d863e476211dc21f969616da0_b.jpg)
 
-The functions of these four buttons are as follows:
+The functions of these four buttons are, in order:
 
-- `Add CMake`: Add a CMake compiler instance (details will be discussed later).
-- `Clear All`: Close all displayed `webview` panels.
-- `Load Link`: Load compiler instance information based on the input link.
-- `Remove All`: Delete all compiler instances.
+- `Add CMake`: Adds a CMake compiler instance (more details later)
+- `Clear All`: Closes all `webview` panels used for display
+- `Load Link`: Loads compiler instance information based on the input link
+- `Remove All`: Removes all compiler instances
 
-![](https://pic1.zhimg.com/v2-4563375d43c5084354585cec8dc1c692_r.jpg)
+![](https://pic1.zhimg.com/v2-4563375d454585cec8dc1c692_r.jpg)
 
-The functions of these three buttons are as follows:
+The functions of these three buttons are, in order:
 
-- `Run`: Compile this compiler instance.
-- `Clone`: Clone this compiler instance.
-- `Remove`: Delete this compiler instance.
+- `Run`: Compiles this compiler instance
+- `Clone`: Clones this compiler instance
+- `Remove`: Removes this compiler instance
 
-Below are the parameters for setting up the compiler instance:
+The following parameters are used to configure compiler instances:
 
-- `Compiler`: Click the button on the right to select the compiler version.
-- `Input`: Select the source code file, default is `active`, i.e., the currently active editor.
-- `Output`: The file to output the compilation results, default uses `webview`.
-- `Options`: Compilation options, click the button on the right to open the input box.
-- `Execute Arguments`: Arguments passed to the executable.
-- `Stdin`: Buffer for standard input.
-- `Filters`: Some options.
+- `Compiler`: Click the button on the right to select the compiler version
+- `Input`: Select the source code file, default is `active` (the currently active editor)
+- `Output`: Output file for compilation results, `webview` by default
+- `Options`: Compilation options, click the button on the right to open the input box
+- `Execute Arguments`: Arguments passed to the executable
+- `Stdin`: Buffer for standard input
+- `Filters`: Some options
 
-### Multi-File Support
+### Multi-file Support
 
-Using the `Add CMake` button, you can add a CMake compiler instance, which can be used to compile multiple files.
+You can add a CMake compiler instance using the `Add CMake` button, which can be used to compile multiple files.
 
 ![](https://picx.zhimg.com/v2-e22f7b14430ce8bfb84ad9be28f2e55f_r.jpg)
 
 <br>
 
-Most options are the same as the single-file compiler instance, with two additional ones:
+Most options are the same as for single-file compiler instances, with two additional ones:
 
-- `CMake Arguments`: Arguments passed to CMake.
-- `Source`: The path to the folder containing CMakelists.txt.
+- `CMake Arguments`: Arguments passed to CMake
+- `Source`: Path to the folder containing CMakeLists.txt
 
-Note, since multi-file compilation requires uploading all used files to the server, we default to reading all files in the specified directory (regardless of the file extension), **so please do not specify folders with too many files at this time**. We may add options to allow users to filter out some files in the future, but not currently.
+Note that since multi-file compilation requires uploading all used files to the server, we will by default read all files (regardless of extension) in the directory you specify. **Therefore, please do not specify folders with too many files for now.** Options to allow users to filter out some files might be added later, but are not available yet.
 
-### Some User Settings
+### User Settings
 
-`compiler-explorer.default.options`: Default parameters when creating a compiler with the `+` sign.
+`compiler-explorer.default.options`: Default parameters when creating a compiler using the `+` sign
 
 ```json
 "compiler-explorer.default.options": {
@@ -103,7 +107,7 @@ Note, since multi-file compilation requires uploading all used files to the serv
 }
 ```
 
-`compiler-explorer.default.color`: Used to specify the color for highlighting assembly code.
+`compiler-explorer.default.color`: Used to specify the color for highlighting assembly code
 
 ```json
 "compiler-explorer.default.color":{
@@ -117,7 +121,7 @@ Note, since multi-file compilation requires uploading all used files to the serv
 }
 ```
 
-`compiler-explorer.default.url`: The default link loaded when opening the plugin, default is empty.
+`compiler-explorer.default.url`: The default link loaded when opening the extension, empty by default
 
 ```json
 "compiler-explorer.default.url": {
@@ -127,10 +131,10 @@ Note, since multi-file compilation requires uploading all used files to the serv
 
 ### Feedback
 
-This plugin is still in its early stages. If you encounter any issues during use or have any suggestions, please feel free to leave a message on [GitHub](https://github.com/16bit-ykiko/vscode-compiler-explorer) for discussion. Or join the QQ group: `662499937`.
+This extension is still in its early stages. If you encounter any problems during use, or have any suggestions, please feel free to leave a message and discuss it on [GitHub](https://github.com/16bit-ykiko/vscode-compiler-explorer). Alternatively, join the QQ group: `662499937`.
 
-https://qm.qq.com/q/DiO6rvnbHi (QR code automatically recognized)
+https://qm.qq.com/q/DiO6rvnbHi (QR code auto-recognition)
 
-Additionally, the Output window may provide some useful information, so please pay attention to it.
+Additionally, the Output window may provide some useful information, which you can check.
 
 ![](https://picx.zhimg.com/v2-6164a9cf19c1c1e4fc1d44809c726441_r.jpg)

@@ -1,8 +1,8 @@
 ---
 title: 超好用的 C++ 在线编译器（VSCode 版）
-date: '2024-04-24 13:35:41'
-updated: '2024-05-04 08:48:53'
-zhihu_article_id: '694365783'
+date: "2024-04-24 13:35:41"
+updated: "2024-05-04 08:48:53"
+zhihu_article_id: "694365783"
 zhihu_url: https://zhuanlan.zhihu.com/p/694365783
 ---
 
@@ -12,43 +12,40 @@ zhihu_url: https://zhuanlan.zhihu.com/p/694365783
 
 ![](https://picx.zhimg.com/v2-ebff5a9177bf7dbab863e321db8f05f3_r.jpg)
 
-### 效果展示 
+### 效果展示
 
 ![](https://pic2.zhimg.com/v2-4d92bdc32a6479e20a8b54b776b4618f_r.jpg)
 
-### 单文件支持 
+### 单文件支持
 
 ![](https://picx.zhimg.com/v2-f8b679e187c025f49cac898d60a66653_r.jpg)
 
-让我们从上往下以此介绍 
+让我们从上往下以此介绍
 
 ![](https://pic1.zhimg.com/v2-702bddfa45a016fdad36c70cc95d88fa_r.jpg)
 
-这个三个按钮的功能依次是： 
+这个三个按钮的功能依次是：
 
-- `Compile All`：编译所有的编译器实例 
-- `Add New`：添加一个新的编译器实例 
+- `Compile All`：编译所有的编译器实例
+- `Add New`：添加一个新的编译器实例
 - `Share Link`：根据当前的编译器实例生成一个链接，并复制到剪贴板
-
 
 ![](https://pic1.zhimg.com/v2-abca330d863e476211dc21f969616da0_b.jpg)
 
- 这四个按钮的功能依次是： 
+这四个按钮的功能依次是：
 
-- `Add CMake`：添加一个 CMake 编译器实例（后面会细说） 
-- `Clear All`：关闭所有用于展示的`webview`面板 
-- `Load Link`：根据输入的链接加载编译器实例的信息 
+- `Add CMake`：添加一个 CMake 编译器实例（后面会细说）
+- `Clear All`：关闭所有用于展示的`webview`面板
+- `Load Link`：根据输入的链接加载编译器实例的信息
 - `Remove All`：删除所有的编译器实例
-
 
 ![](https://pic1.zhimg.com/v2-4563375d43c5084354585cec8dc1c692_r.jpg)
 
- 这个三个按钮的功能依次是： 
+这个三个按钮的功能依次是：
 
-- `Run`：编译这个编译器实例 
-- `Clone`：克隆这个编译器实例 
+- `Run`：编译这个编译器实例
+- `Clone`：克隆这个编译器实例
 - `Remove`：删除这个编译器实例
-
 
 下面这些用于设置编译器实例的参数：
 
@@ -60,8 +57,7 @@ zhihu_url: https://zhuanlan.zhihu.com/p/694365783
 - `Stdin`：用于标准输入的缓冲区
 - `Filters`：一些选项
 
-
-### 多文件支持 
+### 多文件支持
 
 使用`Add CMake`按钮可以添加一个 CMake 编译器实例，这个实例可以用于编译多个文件。
 
@@ -69,15 +65,14 @@ zhihu_url: https://zhuanlan.zhihu.com/p/694365783
 
 <br>
 
-大部分选项和单文件的编译器实例一样，额外多出了两个 
+大部分选项和单文件的编译器实例一样，额外多出了两个
 
 - `CMake Arguments`：传递给 CMake 的参数
 - `Source`：CMakelists.txt 所在的文件夹路径
 
-
 注意，由于多文件编译需要把所有用到的文件都上传到服务器，所以我们默认会读取你指定的目录下的所有文件（无论后缀名），**所以目前请不要指定文件数量过多的文件夹**。之后可能会添加一些选项允许用户过滤掉一些文件，但是目前还没有。
 
-### 一些用户设置 
+### 一些用户设置
 
 `compiler-explorer.default.options`：使用`+`号创建编译器时的默认参数
 
@@ -132,7 +127,7 @@ zhihu_url: https://zhuanlan.zhihu.com/p/694365783
 }
 ```
 
-### 问题反馈 
+### 问题反馈
 
 该插件还处于早期阶段，如果你在使用过程中遇到了问题，或者有任何建议，欢迎在 [GitHub](https://github.com/16bit-ykiko/vscode-compiler-explorer) 上留言讨论。或者添加 QQ 群：`662499937`。
 
