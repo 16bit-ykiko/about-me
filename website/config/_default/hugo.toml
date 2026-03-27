@@ -1,23 +1,28 @@
 baseURL = "https://www.ykiko.me"
+theme = "PaperMod"
 
-theme = "blowfish"
 defaultContentLanguage = "zh-cn"
 defaultContentLanguageInSubdir = true
 
 enableRobotsTXT = true
-paginate = 100
 summaryLength = 30
 hasCJKLanguage = true
+enableEmoji = true
 
 buildDrafts = false
 buildFuture = false
 
-enableEmoji = true
+[pagination]
+pagerSize = 100
 
-googleAnalytics = "G-PEDMYR1V0K"
+[services.googleAnalytics]
+ID = "G-PEDMYR1V0K"
 
 [imaging]
 anchor = "Center"
+
+[frontmatter]
+lastmod = ["lastmod", "modified", "updated", "date", "publishDate"]
 
 [taxonomies]
 tag = "tags"

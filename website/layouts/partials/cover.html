@@ -1,0 +1,43 @@
+{{- with .cxt -}}
+{{- $coverParam := .Params.cover.image -}}
+{{- $bundleCover := "" -}}
+{{- if .Resources -}}
+  {{- $bundleCover = (.Resources.ByType "image").GetMatch "{featured,cover}*" -}}
+{{- end -}}
+{{- $hasCover := or $coverParam $bundleCover -}}
+{{- if and $hasCover (not $.isHidden) -}}
+<figure class="entry-cover">
+  {{- $loading := cond $.IsSingle "eager" "lazy" -}}
+  {{- $addLink := and site.Params.cover.linkFullImages $.IsSingle -}}
+  {{- $cover := $bundleCover -}}
+  {{- if $coverParam -}}
+    {{- $pageBundleCover := (.Resources.ByType "image").GetMatch (printf "*%s*" $coverParam) -}}
+    {{- $globalResourcesCover := (resources.ByType "image").GetMatch (printf "*%s*" $coverParam) -}}
+    {{- $cover = or $pageBundleCover $globalResourcesCover $bundleCover -}}
+  {{- end -}}
+  {{- $alt := .Params.cover.alt | default .Params.cover.caption | default .Title | plainify -}}
+  {{- $imgdl := "" -}}
+  {{- if $cover -}}
+    {{- $imgdl = $cover.Permalink -}}
+  {{- else if $coverParam -}}
+    {{- $imgdl = $coverParam | absURL -}}
+  {{- end -}}
+
+  {{- if $addLink -}}
+  <a href="{{ $imgdl }}" target="_blank" rel="noopener noreferrer">
+  {{- end -}}
+
+  <img loading="{{ $loading }}" src="{{ $imgdl }}" alt="{{ $alt }}">
+
+  {{- if $addLink -}}
+  </a>
+  {{- end -}}
+
+  {{- if $.IsSingle -}}
+    {{- with .Params.cover.caption -}}
+    <figcaption>{{ . | markdownify }}</figcaption>
+    {{- end -}}
+  {{- end -}}
+</figure>
+{{- end -}}
+{{- end -}}
