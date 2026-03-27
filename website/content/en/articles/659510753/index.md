@@ -1,12 +1,16 @@
 ---
-title: 'Comprehensive Analysis of C++ Member Pointers'
-date: 2023-10-04 14:50:12
-updated: 2024-12-18 11:24:06
+title: "C++ Pointers to Members: A Comprehensive Guide"
+date: "2023-10-04 06:50:12"
+updated: "2024-12-18 03:24:06"
+zhihu_article_id: "659510753"
+zhihu_url: https://zhuanlan.zhihu.com/p/659510753
 ---
 
-## 引言
+> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
 
-在 C++ 中，形如`&T::name`的表达式返回的结果就是成员指针。写代码的时候偶尔会用到，但是这个概念可能很多人都并不熟悉。考虑如下代码
+## Introduction
+
+In C++, an expression like `&T::name` returns a pointer to member. It's occasionally used when writing code, but this concept might not be familiar to many. Consider the following code:
 
 ```cpp
 struct Point {
@@ -21,13 +25,13 @@ int main() {
 }
 ```
 
-在 C 语言中，我们经常通过这样计算 offset 的方式来访问结构体成员。如果把它封装成函数，还能用来根据传入的参数动态访问结构体的成员变量。然而上面的代码在 C++ 中是 undefined behavior，具体的原因可以参考 [Stack Overflow](https://stackoverflow.com/questions/66800315/can-i-manually-access-fields-by-their-raw-offset-in-c) 上的这个讨论。但是如果我们确实有这样需求，那该怎么合法的实现需求呢？C++ 为我们提供了一层抽象：[pointers to members](https://en.cppreference.com/w/cpp/language/pointer#Pointers_to_members)，用来合法进行这样的操作。
+In C, we often access struct members by calculating their offsets in this manner. If encapsulated into a function, it could even be used to dynamically access struct members based on passed parameters. However, the code above results in undefined behavior in C++. For specific reasons, you can refer to this discussion on [Stack Overflow](https://stackoverflow.com/questions/66800315/can-i-manually-access-fields-by-their-raw-offset-in-c). But if we indeed have such a requirement, how can we implement it legally? C++ provides an abstraction for us: [pointers to members](https://en.cppreference.com/w/cpp/language/pointer#Pointers_to_members), which allows such operations legally.
 
-## 使用
+## Usage
 
-### 指向数据成员的指针
+### pointer to data member
 
-一个指向类`C`非静态成员`m`的成员指针可以用`&C::m`进行初始化。当在`C`的成员函数里面使用`&C::m`会出现二义性。即既可以指代对`m`成员取地址`&this->m`，也可以指代成员指针。为此标准规定，`&C::m`表示成员指针，`&(C::m)`或者`&m`表示对`m`成员取地址。可以通过运算符`.*`和`->*`来访问对应的成员。示例代码如下
+A pointer to a non-static member `m` of class `C` can be initialized with `&C::m`. When `&C::m` is used inside a member function of `C`, it can be ambiguous. That is, it could refer to taking the address of member `m` (`&this->m`), or it could refer to a pointer to member. To resolve this, the standard specifies that `&C::m` denotes a pointer to member, while `&(C::m)` or `&m` denotes taking the address of the member `m`. The corresponding member can be accessed using the operators `.*` and `->*`. The example code is as follows:
 
 ```cpp
 struct C {
@@ -54,8 +58,7 @@ int main() {
 }
 ```
 
-- 指向基类的数据成员指针 可以隐式转换成 **非虚继承 **的派生类数据成员指针
-
+- A pointer to a data member of a base class can be implicitly converted to a pointer to a data member of a **non-virtually inherited** derived class.
 
 ```cpp
 struct Base {
@@ -77,8 +80,7 @@ int main() {
 }
 ```
 
-- 根据传入的指针，动态访问结构体字段
-
+- Dynamically access struct fields based on the passed pointer.
 
 ```cpp
 struct Point {
@@ -96,9 +98,9 @@ int main() {
 }}
 ```
 
-### 指向成员函数的指针
+### pointer to member function
 
-一个指向非静态成员函数`f`的成员指针可以用`&C::f`进行初始化。由于不能对非静态成员函数取地址，`&(C::f)`和`&f`什么都不表示。类似的可以通过运算符`.*`和`->*`来访问对应的成员函数。如果成员函数是重载函数，想要获取对应的成员函数指针，请参考 [如何获取重载函数的地址](https://en.cppreference.com/w/cpp/language/overloaded_address)。示例代码如下
+A pointer to a non-static member function `f` can be initialized with `&C::f`. Since the address of a non-static member function cannot be taken, `&(C::f)` and `&f` mean nothing. Similarly, the corresponding member function can be accessed using the operators `.*` and `->*`. If the member function is an overloaded function, to get the corresponding member function pointer, please refer to [How to get the address of an overloaded function](https://en.cppreference.com/w/cpp/language/overloaded_address). The example code is as follows:
 
 ```cpp
 struct C {
@@ -123,8 +125,7 @@ int main() {
 }
 ```
 
-- 指向基类的成员函数指针 可以隐式转换成 **非虚继承 **的派生类成员函数指针
-
+- A pointer to a member function of a base class can be implicitly converted to a pointer to a member function of a **non-virtually inherited** derived class.
 
 ```cpp
 struct Base {
@@ -144,12 +145,11 @@ int main() {
 }
 ```
 
-- 根据传入参数动态调用成员函数
-
+- Dynamically call member functions based on passed parameters.
 
 ```cpp
-struct C { 
-    void f(int x) { std::cout << x << std::endl;} 
+struct C {
+    void f(int x) { std::cout << x << std::endl;}
     void g(int x) { std::cout << x + 1 << std::endl;}
 };
 
@@ -164,24 +164,23 @@ int main(){
 }
 ```
 
-## 实现
+## Implementation
 
-首先要明确的是，C++ 标准并没有规定成员指针是什么实现的。在这一点上和虚函数一样，即标准没有规定虚函数是怎么实现的，只规定了虚函数的行为。所以成员指针相关的实现完全是 **implementation defined**。本来只需要了解怎么使用就足够了，不要关心底层实现。但是奈何网络上相关话题的错误文章太多了，已经严重的产生了误导，所以有必要进行澄清。
+First, it must be clear that the C++ standard does not specify how member pointers are implemented. In this regard, it's similar to virtual functions; the standard does not specify how virtual functions are implemented, only their behavior. Therefore, the implementation of member pointers is entirely **implementation defined**. Originally, it would be sufficient to understand how to use them without caring about the underlying implementation. However, there are too many incorrect articles on this topic online that have severely misled people, so clarification is necessary.
 
-对于三大主流编译器，GCC 遵循 Itanium C++ ABI ，MSVC 则遵守 MSVC C++ ABI，Clang 通过不同的编译选项可以分别设置为这两种 ABI。关于 ABI 的详细讨论请移步 [彻底理解 C++ ABI](https://www.ykiko.me/zh-cn/articles/692886292) 和 [MSVC 与 GCC 产生的动态库如何才能相互替换](https://www.zhihu.com/question/653778109/answer/3480007666)，这里不过多介绍。
+For the three major compilers, GCC follows the Itanium C++ ABI, MSVC follows the MSVC C++ ABI, and Clang can be configured for either ABI through different compilation options. For a detailed discussion of ABIs, please refer to [Thoroughly Understanding C++ ABI](https://www.ykiko.me/en/articles/692886292) and [How to make dynamic libraries generated by MSVC and GCC interchangeable](https://www.zhihu.com/question/653778109/answer/3480007666); we won't go into too much detail here.
 
-- [Itanium ABI](https://itanium-cxx-abi.github.io/cxx-abi/abi.html#data-member-pointers) 具有公开的文档，之后的相关描述主要参考这个文档
-- MSVC ABI 没有公开的文档，之后的相关描述主要参考 [MSVC C++ ABI Member Function Pointers](https://rants.vastheman.com/2021/09/21/msvc/) 这篇博客
+- [Itanium ABI](https://itanium-cxx-abi.github.io/cxx-abi/abi.html#data-member-pointers) has public documentation, and the following descriptions mainly refer to this document.
+- MSVC ABI has no public documentation, and the following descriptions mainly refer to the blog post [MSVC C++ ABI Member Function Pointers](https://rants.vastheman.com/2021/09/21/msvc/).
 
+**Please note: This article is time-sensitive; future implementations may change. It is for reference only, and official documentation should be considered authoritative.**
 
-**请注意：文章具有时效性，未来的实现可能会改变，仅作参考，以官方文档为准。**
-
-首先尝试打印一个成员指针的值
+First, let's try to print the value of a member pointer:
 
 ```cpp
-struct C { 
+struct C {
     int m;
-    void foo(int x) { std::cout << x << std::endl;} 
+    void foo(int x) { std::cout << x << std::endl;}
 };
 
 int main(){
@@ -192,21 +191,21 @@ int main(){
 }
 ```
 
-输出的结果都是`1`。鼠标移到`<<`就会发现，这是发生了到`bool`的隐式类型转换。`<<`并没有重载成员指针类型。我们只能通过一些手段查看它的二进制值表示。
+The output is `1` for both. If you hover over `<<`, you'll find that an implicit type conversion to `bool` occurred. `<<` is not overloaded for member pointer types. We can only inspect their binary representation through other means.
 
-## Itanium C++ ABI 
+## Itanium C++ ABI
 
-### 指向数据成员的指针
+### pointer to data member
 
-一般来说可以用下述结构体表示，数据成员指针。表示相对于对象首地址的偏移量。如果是`nullptr`则里面存的是`-1`。此时成员指针大小就是`sizeof(ptrdiff_t)`。
+Generally, a data member pointer can be represented by the following struct, indicating the offset relative to the object's base address. If it's `nullptr`, it stores `-1`. In this case, the size of the member pointer is `sizeof(ptrdiff_t)`.
 
 ```cpp
-struct data_member_pointer{ 
-    ptrdiff_t offset; 
+struct data_member_pointer{
+    ptrdiff_t offset;
 };
 ```
 
-如前文所述，C++ 标准不允许沿着虚继承链进行成员指针转换。所以在编译期根据继承关系就可以算出转换需要的 offset，而不需要在运行期去查虚表。
+As mentioned earlier, the C++ standard does not allow member pointer conversion along virtual inheritance chains. Therefore, the offset required for conversion can be calculated at compile time based on the inheritance relationship, without needing to look up the vtable at runtime.
 
 ```cpp
 struct A {
@@ -241,9 +240,9 @@ int main() {
 }
 ```
 
-### 指向成员函数的指针
+### pointer to member function
 
-在主流的平台上，一般来说可以用下述结构体表示，成员函数指针:
+On mainstream platforms, a member function pointer can generally be represented by the following struct:
 
 ```cpp
 struct member_function_pointer {
@@ -253,17 +252,16 @@ struct member_function_pointer {
 };
 ```
 
-这个实现依赖于一些大多数平台的假定： 
+This implementation relies on some assumptions made by most platforms:
 
-- 考虑到地址对齐，**非静态成员函数的地址**最低位几乎总是 0 
-- 空的函数指针是 0，所以**空函数指针**可以和**虚表偏移量**区分开来
-- 体系结构是字节寻址，并且指针大小是偶数，所以**虚表偏移量是偶数**
-- 只要知道虚表的地址，虚表偏移量和函数类型就可以进行函数调用，具体的实现细节由编译器根据 ABI 来决定 
+- Considering address alignment, the lowest bit of a **non-static member function's address** is almost always 0.
+- A null function pointer is 0, so a **null function pointer** can be distinguished from a **vtable offset**.
+- The architecture is byte-addressable, and pointer size is even, so the **vtable offset is even**.
+- As long as the vtable address, vtable offset, and function type are known, a function call can be made; the specific implementation details are determined by the compiler according to the ABI.
 
+Of course, some platforms do not satisfy the above assumptions, such as certain cases on ARM32 platforms, where the implementation method differs from what we just described. So now you should better understand what "implementation-defined behavior" means: even with the same compiler, the implementation might differ across target platforms.
 
-当然也有一些平台不满足上述假设，例如 ARM32 平台的某些情况，这时候它的实现方式就和我们刚才说的不同了。所以你现在应该能更加理解什么叫实现定义的行为了，即使编译器相同，但是目标平台不同，实现都有可能不同。
-
-在我的环境 x64 windows 上，符合主流实现的要求。于是对着这个 ABI，进行了"解糖"。
+In my environment, x64 Windows, it conforms to the requirements of mainstream implementations. So, based on this ABI, a "de-sugaring" was performed.
 
 ```cpp
 struct member_func_pointer {
@@ -310,11 +308,11 @@ int main() {
 }
 ```
 
-## MSVC C++ ABI 
+## MSVC C++ ABI
 
-MSVC 对于此的实现非常复杂，还对 C++ 标准进行了扩展。如果想要细致全面的了解，还是建议阅读上面那篇博客。
+MSVC's implementation for this is very complex and also extends the C++ standard. If you want a detailed and comprehensive understanding, it is still recommended to read the blog post mentioned above.
 
-C++ 标准不允许虚基类成员指针向子类成员指针转换，但是 MSVC 允许。
+The C++ standard does not allow conversion of virtual base class member pointers to derived class member pointers, but MSVC does.
 
 ```cpp
 struct Base {
@@ -332,21 +330,21 @@ int main() {
 }
 ```
 
-为了不浪费空间，即使在同一程序中 MSVC 的成员指针大小也可能是不同的大小（Itanium 中由于统一实现，所以都是一样大的）。MSVC 对不同情况做了不同处理。
+To avoid wasting space, even within the same program, MSVC's member pointer size can vary (whereas in Itanium, due to uniform implementation, they are always the same size). MSVC handles different situations differently.
 
-> 另外请注意 MSVC 对于虚继承的是实现和 Itanium 也是不一样的。可以参考 [C++中虚函数、虚继承内存模型](https://zhuanlan.zhihu.com/p/41309205) 这篇文章中的相关介绍。 
+> Also note that MSVC's implementation of virtual inheritance differs from Itanium's. You can refer to the relevant introduction in the article [C++ Virtual Function and Virtual Inheritance Memory Model](https://zhuanlan.zhihu.com/p/41309205).
 
-### 指向数据成员的指针
+### pointer to data member
 
-对于非虚继承的情况下，实现的和 GCC 类似。除了大小有点区别。`64`位程序中 GCC 是`8`字节，MSVC 是`4`字节。都是用`-1`表示`nullptr`。
+For non-virtual inheritance, the implementation is similar to GCC's, except for some size differences. In 64-bit programs, GCC uses 8 bytes, while MSVC uses 4 bytes. Both use `-1` to represent `nullptr`.
 
 ```cpp
-struct data_member_pointer { 
-    int offset; 
+struct data_member_pointer {
+    int offset;
 };
 ```
 
-对于虚继承的情况下（标准扩展），需要额外存储一个 voffset。用于运行期从虚表里面找到对应虚基类成员的 offset。
+For virtual inheritance (a standard extension), an additional `voffset` needs to be stored. This is used at runtime to find the offset of the corresponding virtual base class member from the vtable.
 
 ```cpp
 struct Base {
@@ -382,59 +380,55 @@ int main() {
 }
 ```
 
-### 指向成员函数的指针
+### pointer to member function
 
-对于成员函数指针就更复杂了，有四种情况： 
+Member function pointers are even more complex, with four cases:
 
-- 非虚继承，非多继承
-
+- Non-virtual inheritance, non-multiple inheritance
 
 ```cpp
-struct member_function_ptr{ 
-    void* address; 
+struct member_function_ptr{
+    void* address;
 };
 ```
 
-- 非虚继承，多继承
-
+- Non-virtual inheritance, multiple inheritance
 
 ```cpp
-struct member_function_ptr{ 
+struct member_function_ptr{
     void* address;
     int offset;
 };
 ```
 
-- 虚继承，多继承
-
+- Virtual inheritance, multiple inheritance
 
 ```cpp
-struct member_function_ptr{ 
-    void* address; 
+struct member_function_ptr{
+    void* address;
     int offset;
     int vindex;
 };
 ```
 
-- 未知继承
-
+- Unknown inheritance
 
 ```cpp
 struct member_function_ptr{
-    void*   address; 
+    void*   address;
     int     offset;
-    int     vadjust; // use to find vptr 
-    int     vindex; 
+    int     vadjust; // use to find vptr
+    int     vindex;
 };
 ```
 
-还要注意：`32`程序中成员函数的调用约定和普通函数不一样。所以如果希望转换成函数指针并调用，需要在函数指针里面把函数调用约定写上才行，不然会导致调用失败。 
+Also note: In 32-bit programs, the calling convention for member functions is different from ordinary functions. So, if you want to convert to a function pointer and call it, you need to specify the calling convention in the function pointer, otherwise the call will fail.
 
-## 结论
+## Conclusion
 
-讨论 C++ 问题千万不要想当然，你在特定平台上的测试结果，不代表所有可能的实现。而且 MSVC 已经告诉你了，即使是同一个程序内，你的测试也可能没有覆盖到所有的 case。之前发现 MSVC 的成员函数指针大小变来变去的时候给我吓了一跳，以为是我的代码出了问题。如果希望自己写一个类似`std::function`的容器，并希望执行 SBO 优化，最好把 SBO 大小设置在`16`字节以上，这样能覆盖掉绝大部分的成员函数指针。 
+When discussing C++ issues, never take things for granted; your test results on a specific platform do not represent all possible implementations. Moreover, MSVC has already told you that even within the same program, your tests might not cover all cases. I was startled when I first discovered that MSVC's member function pointer sizes varied, thinking there was an issue with my code. If you wish to write a `std::function`-like container and want to perform SBO optimization, it's best to set the SBO size to `16` bytes or more to cover most member function pointers.
 
-如果需要成员函数作为回调函数的，推荐使用 lambda 表达式包裹一层。 像下面这样
+If member functions are needed as callbacks, it is recommended to wrap them with a lambda expression, like this:
 
 ```cpp
 struct A {
@@ -450,7 +444,7 @@ int main() {
 }
 ```
 
-在 C++23 之后，如果使用 [explicit this](https://en.cppreference.com/w/cpp/language/member_functions#Explicit_object_member_functions) 定义成员函数，则`&C::f`可以直接获取对应成员函数的函数指针，不需要像上面那样多一层包裹了 
+After C++23, if member functions are defined using [explicit this](https://en.cppreference.com/w/cpp/language/member_functions#Explicit_object_member_functions), then `&C::f` can directly obtain the function pointer for the corresponding member function, without needing an extra wrapper like above.
 
 ```cpp
 struct A {

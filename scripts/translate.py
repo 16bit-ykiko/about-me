@@ -1,17 +1,48 @@
 import argparse
 import os
 import sys
+import time
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+import requests
 import yaml
-from google import genai
-from google.genai import types
 
 DEFAULT_MODEL = "gemini-2.5-pro"
 DEFAULT_FRONT_MATTER_KEYS = ("title", "description", "summary")
 MARKDOWN_SUFFIXES = {".md", ".markdown"}
+DEFAULT_BASE_URL = "https://generativelanguage.googleapis.com"
+DEFAULT_API_VERSION = "v1beta"
+DEFAULT_INCLUDE_THOUGHTS = False
+DEFAULT_TIMEOUT_SECONDS = 180
+DEFAULT_MAX_RETRIES = 3
+MARKDOWN_SYSTEM_INSTRUCTION = """
+You are an expert technical translator. Translate the user's Markdown into the target language.
+Preserve Markdown structure, headings, list structure, block quotes, tables, and emphasis markers.
+Do not add explanations. Do not wrap the answer in code fences.
+Preserve URLs exactly. Preserve fenced code blocks, inline code, and code identifiers unless a human-language
+comment inside code clearly needs translation.
+""".strip()
+TEXT_SYSTEM_INSTRUCTION = """
+You are an expert bilingual translator. Translate the user's text into the target language naturally and accurately.
+Return only the translated text without commentary.
+""".strip()
+
+
+def format_model_label(model: str) -> str:
+    normalized = model.strip()
+    if normalized == "gemini-2.5-pro":
+        return "Gemini 2.5 Pro"
+    return normalized
+
+
+def build_english_ai_translation_notice(model: str) -> str:
+    model_label = format_model_label(model)
+    return (
+        f"> This article was translated by AI using {model_label} from the original "
+        "Chinese version. Minor inaccuracies may remain."
+    )
 
 
 def extract_front_matter(markdown_text: str) -> tuple[dict[str, Any], str, bool]:
@@ -37,6 +68,13 @@ def render_front_matter(metadata: dict[str, Any], body: str) -> str:
     return f"---\n{header}\n---\n\n{normalized_body}\n"
 
 
+def prepend_notice(body: str, notice: str) -> str:
+    normalized_body = body.lstrip("\n")
+    if normalized_body.startswith(notice):
+        return normalized_body
+    return f"{notice}\n\n{normalized_body}"
+
+
 @dataclass(frozen=True)
 class TranslationOptions:
     source_lang: str = "auto"
@@ -56,22 +94,115 @@ class GeminiTranslator:
         resolved_key = (api_key or os.environ.get("GEMINI_API_KEY", "")).strip()
         if not resolved_key:
             raise RuntimeError("Missing GEMINI_API_KEY.")
-        self.client = genai.Client(api_key=resolved_key)
+        self.api_key = resolved_key
+        self.base_url = (
+            os.environ.get("GOOGLE_GEMINI_BASE_URL", "").strip() or DEFAULT_BASE_URL
+        ).rstrip("/")
+        self.api_version = (
+            os.environ.get("GOOGLE_GEMINI_API_VERSION", "").strip()
+            or DEFAULT_API_VERSION
+        )
+        thinking_budget = os.environ.get("GOOGLE_GEMINI_THINKING_BUDGET", "").strip()
+        self.thinking_budget = int(thinking_budget) if thinking_budget else None
+        include_thoughts = os.environ.get("GOOGLE_GEMINI_INCLUDE_THOUGHTS", "").strip()
+        self.include_thoughts = (
+            include_thoughts.lower() in {"1", "true", "yes", "on"}
+            if include_thoughts
+            else DEFAULT_INCLUDE_THOUGHTS
+        )
+        timeout_seconds = os.environ.get("GOOGLE_GEMINI_TIMEOUT_SECONDS", "").strip()
+        self.timeout_seconds = (
+            int(timeout_seconds) if timeout_seconds else DEFAULT_TIMEOUT_SECONDS
+        )
+        max_retries = os.environ.get("GOOGLE_GEMINI_MAX_RETRIES", "").strip()
+        self.max_retries = int(max_retries) if max_retries else DEFAULT_MAX_RETRIES
         self.model = model
         self.temperature = temperature
 
+    def _build_endpoint(self) -> str:
+        return f"{self.base_url}/{self.api_version}/models/{self.model}:generateContent"
+
     def _generate(self, prompt: str, *, system_instruction: str) -> str:
-        response = self.client.models.generate_content(
-            model=self.model,
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                system_instruction=system_instruction,
-                temperature=self.temperature,
-            ),
-        )
-        text = (response.text or "").strip()
+        generation_config: dict[str, Any] = {
+            "temperature": self.temperature,
+            "thinkingConfig": {
+                "includeThoughts": self.include_thoughts,
+            },
+        }
+        if self.thinking_budget is not None:
+            generation_config["thinkingConfig"]["thinkingBudget"] = self.thinking_budget
+        last_error: Exception | None = None
+        response: requests.Response | None = None
+        for attempt in range(1, self.max_retries + 1):
+            print(
+                f"[gemini] request model={self.model} attempt={attempt}/{self.max_retries}",
+                flush=True,
+            )
+            try:
+                response = requests.post(
+                    self._build_endpoint(),
+                    headers={
+                        "x-goog-api-key": self.api_key,
+                        "content-type": "application/json",
+                    },
+                    json={
+                        "generationConfig": generation_config,
+                        "systemInstruction": {
+                            "parts": [{"text": system_instruction}],
+                        },
+                        "contents": [
+                            {
+                                "role": "user",
+                                "parts": [{"text": prompt}],
+                            }
+                        ],
+                    },
+                    timeout=self.timeout_seconds,
+                )
+                if response.ok:
+                    break
+                if response.status_code not in {408, 429, 500, 502, 503, 504}:
+                    raise RuntimeError(
+                        f"Gemini request failed with {response.status_code}: {response.text}"
+                    )
+                print(
+                    f"[gemini] retryable status={response.status_code} model={self.model}",
+                    flush=True,
+                )
+                last_error = RuntimeError(
+                    f"Gemini request failed with {response.status_code}: {response.text}"
+                )
+            except requests.RequestException as exc:
+                print(
+                    f"[gemini] request error model={self.model}: {exc}",
+                    flush=True,
+                )
+                last_error = exc
+
+            if attempt == self.max_retries:
+                if last_error is not None:
+                    raise RuntimeError(
+                        f"Gemini request failed after {self.max_retries} attempts: {last_error}"
+                    ) from last_error
+                raise RuntimeError("Gemini request failed without a response.")
+            time.sleep(min(2**attempt, 10))
+
+        if response is None or not response.ok:
+            if last_error is not None:
+                raise RuntimeError(
+                    f"Gemini request failed after {self.max_retries} attempts: {last_error}"
+                ) from last_error
+            raise RuntimeError("Gemini request failed without a response.")
+
+        payload = response.json()
+        candidates = payload.get("candidates") or []
+        parts = []
+        if candidates:
+            content = candidates[0].get("content") or {}
+            parts = content.get("parts") or []
+        text = "".join(part.get("text", "") for part in parts).strip()
         if not text:
-            raise RuntimeError("Gemini returned an empty response.")
+            raise RuntimeError(f"Gemini returned an empty response: {payload}")
         return text
 
     def translate_text(self, text: str, options: TranslationOptions) -> str:
@@ -79,32 +210,23 @@ class GeminiTranslator:
             return text
 
         if options.markdown:
-            system_instruction = (
-                "You are an expert technical translator. Translate the user's Markdown into the target language. "
-                "Preserve Markdown structure, headings, list structure, block quotes, tables, and emphasis markers. "
-                "Do not add explanations. Do not wrap the answer in code fences. "
-                "Preserve URLs exactly. Preserve fenced code blocks, inline code, and code identifiers unless a human-language "
-                "comment inside code clearly needs translation."
-            )
             prompt = (
                 f"Source language: {options.source_lang}\n"
                 f"Target language: {options.target_lang}\n\n"
                 "Translate the following Markdown and return only the translated Markdown:\n\n"
                 f"{text}"
             )
-            return self._generate(prompt, system_instruction=system_instruction)
+            return self._generate(
+                prompt, system_instruction=MARKDOWN_SYSTEM_INSTRUCTION
+            )
 
-        system_instruction = (
-            "You are an expert bilingual translator. Translate the user's text into the target language naturally and accurately. "
-            "Return only the translated text without commentary."
-        )
         prompt = (
             f"Source language: {options.source_lang}\n"
             f"Target language: {options.target_lang}\n\n"
             "Translate the following text:\n\n"
             f"{text}"
         )
-        return self._generate(prompt, system_instruction=system_instruction)
+        return self._generate(prompt, system_instruction=TEXT_SYSTEM_INSTRUCTION)
 
     def translate_value(self, value: Any, *, source_lang: str, target_lang: str) -> Any:
         if isinstance(value, str):
@@ -158,6 +280,10 @@ class GeminiTranslator:
                 markdown=True,
             ),
         )
+        if target_lang.strip().lower().startswith("english"):
+            translated_body = prepend_notice(
+                translated_body, build_english_ai_translation_notice(self.model)
+            )
         if not has_front_matter:
             return translated_body
 

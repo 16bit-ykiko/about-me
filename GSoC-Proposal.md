@@ -8,16 +8,16 @@
   - [Detailed](#detailed)
   - [About Me](#about-me)
   - [Contributions](#contributions)
-      - [Open Source Contributions](#open-source-contributions)
-      - [Personal Projects](#personal-projects)
+    - [Open Source Contributions](#open-source-contributions)
+    - [Personal Projects](#personal-projects)
 - [Project Abstract](#project-abstract)
 - [Project Description](#project-description)
   - [Motivation](#motivation)
   - [Prototype](#prototype)
   - [Implementation](#implementation)
-      - [Bind Functions](#bind-functions)
-      - [Bind Classes](#bind-classes)
-      - [Other](#other)
+    - [Bind Functions](#bind-functions)
+    - [Bind Classes](#bind-classes)
+    - [Other](#other)
 - [Development Process](#development-process)
   - [Community Bonding](#community-bonding)
   - [Week 1 - 3](#week-1---3)
@@ -33,7 +33,7 @@
 
 # Personal Information
 
-## Detailed 
+## Detailed
 
 - **Name**: ykiko
 - **Github Profile** [ykiko](https://github.com/16bit-ykiko)
@@ -69,10 +69,10 @@ The following are some of the projects I have worked on:
 
 - [magic cpp](https://github.com/16bit-ykiko/magic-cpp)： magic cpp is a header-only C++ library. It aims to make it easier for you to use C++, including a series of functions such as visualizing type names, reflection of structs and enumerations, etc. It can help you get rid of the compiler's error messages which are difficult to read.
 
-
 - [clanglite](https://github.com/16bit-ykiko/clanglite)：It is usually difficult to get the AST of C++ source code because of the complexity of the C++ syntax and semantics. Luckily, the [Clang](https://github.com/llvm/llvm-project/tree/main/clang) project can also be used as a library to parse C++ source code. However, the Clang API is not user-friendly, and it is difficult to use. Besides, it is not easy to install the dependencies of the Clang project. Most of the time, you need to compile the Clang project from the source. So I created this project; it aims to provide a Python binding for the Clang C++ API through pybind11, making it easier to use. Additionally, all dependencies will be packaged into a wheel file, so you can install it via pip. Then parse the C++ source code and get the AST easily.
 
 # Project Abstract
+
 The project aims to introduce a pybind11-compatible interface to pocketpy as an alternative method for creating bindings for functions and classes, thereby facilitating easier interaction between the Python virtual machine and C++ native code.
 
 # Project Description
@@ -87,7 +87,7 @@ If we can introduce a pybind11-compatible solution to pocketpy, existing pybind1
 
 ## Prototype
 
-I have built a prototype for this proposal: [basic implementation of pybind11](https://github.com/16bit-ykiko/pkpy_with_pybind11/commits?author=16bit-ykiko). 
+I have built a prototype for this proposal: [basic implementation of pybind11](https://github.com/16bit-ykiko/pkpy_with_pybind11/commits?author=16bit-ykiko).
 
 ```cpp
 struct Point {
@@ -114,6 +114,7 @@ void register_point(module_ &m) {
 This prototype implements the commonly used interfaces from pybind11 and can be simply used to create bindings for functions and classes. However, it is not complete and has some limitations. There are still a lot of corner cases that need to be handled.
 
 ## Implementation
+
 This project includes two key aspects in its implementation: creating function bindings and creating class bindings.
 
 #### Bind Functions
@@ -138,14 +139,14 @@ The Python interpreter cannot call the add function directly. Instead, before ca
 
 ```cpp
 PyObject* call_wrapper(PyObject** args, size_t count){
-    // check the underlying type of PyObject in runtime  
+    // check the underlying type of PyObject in runtime
     check_types<int, int>(args, count);
 
     // cast arguments and call C++ function
     int ret = add(args[0]->cast<int>, args[1]->cast<int>);
 
     // create a PyObject from int
-    return py_create(ret); 
+    return py_create(ret);
 }
 ```
 
@@ -234,7 +235,7 @@ Let's illustrate with pseudocode.
 ```python
 PyObject* _1 = vm-create(1)
 PyObject* _2 = vm-create(2)
-PyObject* point = vm-new(Point) 
+PyObject* point = vm-new(Point)
 point.attr("x") = _1
 point.attr("y") = _2
 ```
@@ -251,7 +252,7 @@ struct Point {
 
 Point* p = new Point{1, 2};
 
-// actually 
+// actually
 // p = malloc(sizeof(Point));
 // p + offsetof(Point, x) = 1;
 // p + offsetof(Point, y) = 2;
@@ -269,7 +270,7 @@ struct CXXObject: PyObject {
 }
 ```
 
-`data` is a pointer to the actual C++ class instance. `type_record` is a singleton object that stores the type info of the C++ class. 
+`data` is a pointer to the actual C++ class instance. `type_record` is a singleton object that stores the type info of the C++ class.
 
 ```cpp
 struct type_record {
@@ -299,6 +300,7 @@ class_<Point>(m, "Point")
 // cls->attr("x") = py::function(&Point::x)
 // cls->attr("y") = py::function(&Point::y)
 ```
+
 `py::function` has been solved in the first part. It can make a C++ function callable in Python. Then just set the attributes of the class to the functions.
 
 Then let's take a look at how to create a class in Python.
@@ -315,15 +317,15 @@ p = Point(1, 2)
 x = p.x # property access
 
 ### underlying code
-# x = vm-create CXXObject() 
+# x = vm-create CXXObject()
 # x->type = record_of<int>()
 # x->data = &p->data->x
 # x->flags = no_delete
 ```
 
-Now we can discuss the effect of the `CXXObject::flags` field because Python and C++ use fundamentally different ways of object memory and lifetime management. This can lead to issues when creating bindings for functions that return a non-trivial type. The return type does not specify whether Python should take charge of the returned value and eventually free its resources, or if this is handled on the C++ side. 
+Now we can discuss the effect of the `CXXObject::flags` field because Python and C++ use fundamentally different ways of object memory and lifetime management. This can lead to issues when creating bindings for functions that return a non-trivial type. The return type does not specify whether Python should take charge of the returned value and eventually free its resources, or if this is handled on the C++ side.
 
-pybind11 supports an `enum` called `return_value_policy` that can be passed to the `def` function to specify how the return value should be handled. This argument can be used to specify whether the Python virtual machine should take charge of the returned value or if the C++ side should handle it. 
+pybind11 supports an `enum` called `return_value_policy` that can be passed to the `def` function to specify how the return value should be handled. This argument can be used to specify whether the Python virtual machine should take charge of the returned value or if the C++ side should handle it.
 
 ```cpp
 Point& get_point() {
@@ -372,7 +374,7 @@ Also, because we're trying to achieve full compatibility with pybind11, we can u
 ## Week 1 - 3
 
 - Write wrappers for Python built-in types, such as `int`, `float`, `str`, `list`, `tuple`, and `dict`.
-- Write type cast function to verify whether the PyObject* can be cast to the C++ type.
+- Write type cast function to verify whether the PyObject\* can be cast to the C++ type.
 - Support a basic interface for class binding, achieved through a class template `py::class_` to bind a C++ class to Python.
 
 ## Week 4 - 6
@@ -381,7 +383,6 @@ Also, because we're trying to achieve full compatibility with pybind11, we can u
 - Support all return value policies in pybind11, including `take_ownership`, `copy`, `move`, `reference`, `reference_internal`, `automatic`, `automatic_reference`.
 - Support for binding member functions and properties, constructors, and destructors. Mainly implement the interface for `py::class_`, such as `def`, `def_property`, `def_readwrite`, `def_static`, etc.
 
-
 ## Week 7 - 9
 
 - Support for binding operators conveniently, such as `def(py::self == py::self)`, rather than `def("__eq__", &T::operator==)`.
@@ -389,17 +390,14 @@ Also, because we're trying to achieve full compatibility with pybind11, we can u
 - Support for class inheritance, including multiple inheritance and inheritance from Python classes.
 - Support for exceptions.
 
-
 ## Week 10 - 12
 
 - Review the code beforehand and write unit tests for it.
 - One of my mentors has a game engine project built with pybind11. I will assist them in migrating the codebase from pybind11 to pocketpy. This migration aims to ensure that the code remains compatible and functional in a production environment. If any incorrect behavior is detected, I will fix it.
 
-
 ## Week 13
 
 Buffer time for any unexpected issues.
-
 
 <div class="page"/>
 
@@ -416,5 +414,3 @@ I might not implement everything about pybind11 because it has lots of features.
 Special thanks to [@blueloveTH](https://github.com/blueloveTH) for their guidance and assistance throughout the development of this proposal. I would also like to express my gratitude to my mentors [@lancern](https://github.com/Lancern/Lancern) and [@UnidayStudio](https://github.com/UnidayStudio) for their invaluable feedback.
 
 I'm eagerly looking forward to the upcoming summer break, where I'll have the opportunity to contribute to pocketpy. It's an exciting prospect, and I can't wait to collaborate with the developers in the PocketPy community to drive the project forward.
-
-

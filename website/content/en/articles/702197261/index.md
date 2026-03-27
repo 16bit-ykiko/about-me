@@ -1,39 +1,45 @@
 ---
-title: 'The Perfect Integration of Python and C++: Object Design in pybind11'
-date: 2024-06-07 15:28:11
-updated: 2024-12-02 21:20:31
+title: "The Perfect Combination of Python and C++: Object Design in pybind11"
+date: "2024-06-07 07:28:11"
+updated: "2024-12-02 13:20:31"
+zhihu_article_id: "702197261"
+zhihu_url: https://zhuanlan.zhihu.com/p/702197261
+zhihu_column_id: c_1656510843973046272
+zhihu_column_title: 魅力C++
 ---
 
-I participated in [Google Summer of Code 2024](https://summerofcode.withgoogle.com/programs/2024/projects/Ji2Mi97o), where my main task was to implement a [pybind11](https://github.com/pybind/pybind11) compatibility interface for a [Python interpreter](https://pocketpy.dev/). While it's called implementing a compatibility interface, it essentially amounts to rewriting pybind11, so I've been diving deep into its source code recently.
+> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
 
-> For readers who might not be familiar with pybind11, it is essentially a middleware that facilitates seamless interaction between Python and C++ code. For instance, embedding a Python interpreter within C++ or compiling C++ code into a dynamic library for Python to call. For more details, please refer to the official documentation.
+参加了 [Google Summer of Code 2024](https://summerofcode.withgoogle.com/programs/2024/projects/Ji2Mi97o)。主要的任务就是为一个 [Python 解释器](https://pocketpy.dev/) 实现 [pybind11](https://github.com/pybind/pybind11) 的兼容性接口。说是实现兼容性接口，实际上相当于重写 pybind11 了，所以最近一直在读它的源码。
 
-I've recently managed to grasp the overall operational logic of the framework. Looking back, pybind11 truly lives up to its reputation as the de facto standard for binding C++ and Python, with many ingenious designs. Its interaction logic can also be applied to interactions between C++ and other GC languages, such as JS and C# (though there are no equivalents like jsbind11 or csharpbind11 yet). I might write a series of articles on this topic, stripping away some of the intricate details to introduce some of the shared concepts.
+> Some readers might not be familiar with pybind11. Simply put, pybind11 is middleware that facilitates interaction between Python and C++ code. For example, it allows embedding a Python interpreter in C++ or compiling C++ code into a dynamic library for Python to call. For more details, please refer to the official documentation.
 
-This article mainly discusses some interesting points about object design in pybind11.
+Recently, I've basically clarified the overall operational logic of the framework. Looking back now, pybind11 truly lives up to its reputation as the de facto standard for C++ and Python binding, featuring many ingenious designs. Its interaction logic could also be fully applied to interactions between C++ and other GC-enabled languages, such as JS and C# (although there aren't things like jsbind11 and csharpbind11 yet). I might write a series of related articles soon, stripping away some tedious details to introduce some of the common ideas.
 
-## PyObject 
+This article primarily discusses some interesting aspects of pybind11's object design.
 
-We all know that in Python, everything is an object, all instances of `object`. However, pybind11 actually needs to interact with specific implementations of Python like CPython. So, how is "everything is an object" reflected in CPython? The answer is `PyObject*`. Let's "see" Python and understand how actual Python code operates within CPython.
+## PyObject
 
-Creating an object essentially means creating a `PyObject*`.
+As we all know, in Python, everything is an object, all `object`s. However, pybind11 actually needs to interact with specific Python implementations like CPython. So, what is the manifestation of "everything is an object" in CPython? The answer is `PyObject*`. Let's now "see" Python and understand how actual Python code operates within CPython.
+
+Creating an object is essentially creating a `PyObject*`
 
 ```python
 x = [1, 2, 3]
 ```
 
-CPython has specific APIs to create objects of built-in types. The above statement would roughly translate to:
+CPython has dedicated APIs to create objects of built-in types. The above statement would likely be translated into:
 
 ```c
 PyObject* x = PyList_New(3);
 PyList_SetItem(x, 0, PyLong_FromLong(1));
-PyList_SetItem(x, 1, PyLong_FromLong(2)); 
+PyList_SetItem(x, 1, PyLong_FromLong(2));
 PyList_SetItem(x, 2, PyLong_FromLong(3));
 ```
 
-Thus, the role of `is` becomes clear—it checks whether the values of two pointers are the same. The reason for the default shallow copy is that the default assignment is merely a pointer assignment, not involving the elements it points to.
+In this way, the role of `is` becomes easy to understand: it's used to determine if the values of two pointers are the same. The reason for so-called default shallow copying is simply that default assignment is just pointer assignment, not involving the elements it points to.
 
-CPython also provides a series of APIs to manipulate the objects pointed to by `PyObject*`, such as:
+CPython also provides a series of APIs to operate on objects pointed to by `PyObject*`, for example:
 
 ```cpp
 PyObject* PyObject_CallObject(PyObject *callable_object, PyObject *args);
@@ -52,11 +58,11 @@ int PyObject_SetItem(PyObject *o, PyObject *key, PyObject *v);
 int PyObject_DelItem(PyObject *o, PyObject *key);
 ```
 
-These functions generally have direct counterparts in Python, and their purposes are evident from their names.
+These functions generally have direct counterparts in Python, and their names indicate their purpose.
 
-## handle 
+## handle
 
-Since pybind11 needs to support manipulating Python objects in C++, its primary task is to encapsulate these C-style APIs. This is specifically achieved by the `handle` type. `handle` is a simple wrapper around `PyObject*` and encapsulates some member functions, such as:
+Since pybind11 needs to support operating on Python objects in C++, the primary task is to encapsulate these C-style APIs. This is specifically done by the `handle` type. `handle` is a simple wrapper around `PyObject*` and encapsulates some member functions, for example:
 
 Roughly like this:
 
@@ -79,11 +85,11 @@ public:
 };
 ```
 
-Most functions are simply wrapped like above, but some functions are special.
+Most functions are simply wrapped like the above, but some functions are special.
 
-## get/set 
+## get/set
 
-According to Bjarne Stroustrup, the father of C++, in "The Design and Evolution of C++", part of the reason for introducing reference (lvalue) types was to allow users to assign to return values, making the overloading of operators like `[]` more natural. For example:
+According to Bjarne Stroustrup, the father of C++, in "The Design and Evolution of C++", one reason for introducing reference (lvalue) types was to allow users to assign to return values, making operator overloading for `[]` more natural. For example:
 
 ```cpp
 std::vector<int> v = {1, 2, 3};
@@ -91,7 +97,7 @@ int x = v[0]; // get
 v[0] = 4;     // set
 ```
 
-Without references, one would have to return pointers, and the above code would have to be written as:
+Without references, one would have to return pointers, and the above code would have to be written like this:
 
 ```cpp
 std::vector<int> v = {1, 2, 3};
@@ -99,7 +105,7 @@ int x = *v[0]; // get
 *v[0] = 4;     // set
 ```
 
-In comparison, using references is much more aesthetically pleasing, isn't it? This issue exists in other programming languages as well, but not all languages adopt this solution. For example, Rust chooses automatic dereferencing, where the compiler automatically adds `*` to dereference at appropriate times, thus eliminating the need to write the extra `*`. However, neither of these methods works for Python because Python doesn't have the concept of dereferencing, nor does it distinguish between lvalues and rvalues. So, what's the solution? The answer is to distinguish between `getter` and `setter`.
+In comparison, isn't using references much more elegant? This problem also exists in other programming languages, but not all languages adopt this solution. For example, Rust chooses automatic dereferencing, where the compiler automatically adds `*` to dereference at appropriate times, thus eliminating the need to explicitly write `*`. However, neither of these methods works for Python, because Python fundamentally has no concept of dereferencing, nor does it distinguish between lvalues and rvalues. So what's the solution? The answer is to distinguish between `getter` and `setter`.
 
 For example, to overload `[]`:
 
@@ -117,9 +123,9 @@ x = a[0] # __getitem__
 a[0] = 1 # __setitem__
 ```
 
-Python checks the syntactic structure; if `[]` appears on the left side of `=`, it calls `__setitem__`; otherwise, it calls `__getitem__`. Actually, many languages adopt similar designs, such as C#'s `this[]` operator overloading.
+Python checks the syntactic structure; if `[]` appears on the left side of `=`, `__setitem__` will be called, otherwise `__getitem__` will be called. Many languages actually adopt similar designs, such as C#'s `this[]` operator overloading.
 
-Even the `.` operator can be overloaded by overriding `__getattr__` and `__setattr__`:
+Even the `.` operator can be overloaded, simply by overriding `__getattr__` and `__setattr__`:
 
 ```python
 class Point:
@@ -135,7 +141,7 @@ x = p.x # __getattr__
 p.x = 1 # __setattr__
 ```
 
-pybind11 aims for the handle to achieve similar effects, calling `__getitem__` and `__setitem__` at appropriate times. For example:
+pybind11 aims for `handle` to achieve a similar effect, i.e., calling `__getitem__` and `__setitem__` at appropriate times. For example:
 
 ```cpp
 py::handle obj = py::list(1, 2, 3);
@@ -153,9 +159,9 @@ x = obj[0]
 x = 1
 ```
 
-## accessor 
+## accessor
 
-Next, let's focus on how to achieve this effect. First, consider the return value of `operator[]`. Since it might need to call `__setitem__`, we return a proxy object here. It stores the `key` for subsequent calls.
+Next, let's focus on how to achieve this effect. First, consider the return value of `operator[]`. Since `__setitem__` might need to be called, we return a proxy object here. It will store the `key` for subsequent calls.
 
 ```cpp
 class accessor {
@@ -169,15 +175,15 @@ public:
 };
 ```
 
-The next question is how to distinguish between `obj[0] = 4` and `x = int_(1)`, so that the former calls `__setitem__` and the latter is a simple assignment to `x`. Notice the key difference between the two scenarios: lvalue and rvalue.
+The next problem is how to distinguish between `obj[0] = 4` and `x = int_(1)`, so that the former calls `__setitem__` and the latter is a simple assignment to `x`. Notice the key difference between the two cases above: lvalue and rvalue.
 
 ```cpp
 obj[0] = 4; // assign to rvalue
-auto x = obj[0]; 
+auto x = obj[0];
 x = 1; // assign to lvalue
 ```
 
-How can `operator=` call different functions based on the value category of the operand? This requires a relatively rare trick. We all know that we can add a `const` qualifier to a member function to allow it to be called on const objects.
+How can `operator=` call different functions based on the value category of its operand? This requires a somewhat less common trick: we know that a `const` qualifier can be added to a member function, allowing it to be called on a `const` object.
 
 ```cpp
 struct A {
@@ -187,12 +193,12 @@ struct A {
 
 int main() {
     const A a;
-    a.foo(); // error 
+    a.foo(); // error
     a.bar(); // ok
 }
 ```
 
-In addition, we can also add reference qualifiers `&` and `&&`, which require `expr.f()` to be an lvalue or rvalue, respectively. This allows us to call different functions based on whether the expression is an lvalue or rvalue.
+Besides this, reference qualifiers `&` and `&&` can also be added. The effect is to require that the `expr` in `expr.f()` be an lvalue or an rvalue. This way, we can call different functions based on whether it's an lvalue or an rvalue.
 
 ```cpp
 struct A {
@@ -210,7 +216,7 @@ int main() {
 }
 ```
 
-Using this feature, we can achieve the desired effect.
+Using this feature, we can achieve the above effect:
 
 ```cpp
 class accessor {
@@ -234,9 +240,9 @@ public:
 };
 ```
 
-## lazy evaluation 
+## lazy evaluation
 
-Going further, we want this proxy object to behave just like a `handle`, able to use all methods of `handle`. This is simple; just inherit from `handle`.
+Furthermore, we want this proxy object to behave just like a `handle`, capable of using all of `handle`'s methods. This is simple: just inherit from `handle`.
 
 ```cpp
 class accessor : public handle {
@@ -259,9 +265,9 @@ public:
 };
 ```
 
-At this point, it seems we're done. However, note that our `__getitem__` is called in the constructor, meaning that even if the fetched value isn't used later, it will still be called. There seems to be room for further optimization. Can we somehow lazy-evaluate this, only calling `__getitem__` when we need to call these functions within `handle`?
+It seems to end here, but notice that our `__getitem__` is called in the constructor, meaning it will be invoked even if the retrieved value is not used later. There seems to be room for further optimization: can we make this evaluation lazy through some means? Only calling `__getitem__` when functions within `handle` actually need to be called?
 
-Currently, directly inheriting from `handle` certainly won't work. It's impossible to insert a check before every member function call to decide whether to call `__getitem__`. We can have both `handle` and `accessor` inherit from a base class, which has an interface to actually get the pointer to operate on.
+Directly inheriting `handle` as it is currently won't work; it's impossible to insert a check before every member function call to decide whether to invoke `__getitem__`. We can have both `handle` and `accessor` inherit from a base class, which provides an interface to actually retrieve the pointer to be operated on.
 
 ```cpp
 class object_api{
@@ -276,7 +282,7 @@ public:
 };
 ```
 
-Then, both `handle` and `accessor` inherit from this base class. Now, `accessor` can perform lazy evaluation of `__getitem__` here.
+Then, both `handle` and `accessor` inherit from this base class, and `accessor` can perform lazy evaluation of `__getitem__` here.
 
 ```cpp
 class handle : public object_api {
@@ -285,7 +291,7 @@ class handle : public object_api {
     }
 };
 
-class accessor : public handle {
+class accessor : public object_api {
     PyObject* get() override {
         if (!m_ptr) {
             m_ptr = PyObject_GetItem(m_obj.ptr(), m_key);
@@ -295,7 +301,7 @@ class accessor : public handle {
 };
 ```
 
-This doesn't involve type erasure; it just requires subclasses to expose an interface. Naturally, we can use [CRTP](https://en.cppreference.com/w/cpp/language/crtp) to devirtualize.
+This doesn't involve type erasure; it merely requires subclasses to expose an interface. Therefore, we can naturally use [CRTP](https://en.cppreference.com/w/cpp/language/crtp) to devirtualize.
 
 ```cpp
 template <typename Derived>
@@ -328,10 +334,10 @@ class accessor : public object_api<accessor> {
 };
 ```
 
-Thus, we've lazy-evaluated the call to `__getitem__` without introducing additional runtime overhead.
+This way, we've made the `__getitem__` call lazy without introducing additional runtime overhead.
 
-## Conclusion 
+## Conclusion
 
-We often say that C++ is too complex, with a dazzling array of features that often conflict with each other. But from another perspective, having many features means users have more choices, more design space, and can assemble brilliant designs like the one above. It's hard to imagine another language achieving such effects. Perhaps this is the charm of C++.
+We often say that C++ is too complex, with too many dazzling features that often clash with each other. But looking at it from another perspective, having many features means users have more choices and more design space, allowing them to assemble brilliant designs like the one described above. I think it would be difficult for another language to achieve such an effect. Perhaps this is the charm of C++.
 
-This concludes the article. Thank you for reading, and feel free to discuss in the comments.
+This article concludes here. Thank you for reading, and feel free to discuss in the comments section.

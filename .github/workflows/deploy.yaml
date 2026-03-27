@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -44,6 +46,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -56,23 +60,45 @@ jobs:
       - name: Sync Python dependencies
         run: uv sync --frozen --only-group ci
 
-      - name: Sync articles from Zhihu
+      - name: Sync articles from zhihu
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false
         env:
           ZHIHU_COOKIE: ${{ secrets.ZHIHU_COOKIE }}
         run: uv run --frozen --only-group ci --no-sync python scripts/zhihu_cli.py sync
+
+      - name: Translate changed articles
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GOOGLE_GEMINI_BASE_URL: ${{ secrets.GOOGLE_GEMINI_BASE_URL }}
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PUSH_BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          base_ref=""
+          if [ "$EVENT_NAME" = "pull_request" ] && [ -n "$PR_BASE_SHA" ]; then
+            base_ref="$PR_BASE_SHA"
+          elif [ -n "$PUSH_BEFORE_SHA" ] && [ "$PUSH_BEFORE_SHA" != "0000000000000000000000000000000000000000" ]; then
+            base_ref="$PUSH_BEFORE_SHA"
+          fi
+
+          if [ -n "$base_ref" ]; then
+            uv run --frozen --only-group ci --no-sync python scripts/translate_articles.py --base-ref "$base_ref"
+          else
+            uv run --frozen --only-group ci --no-sync python scripts/translate_articles.py
+          fi
 
       - name: Commit synced articles
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A website/content/zh-cn/articles
+          git add -A website/content/zh-cn/articles website/content/en/articles
           if git diff --cached --quiet; then
             echo "No synced article changes."
             exit 0
           fi
-          git commit -m "chore: sync Zhihu articles [skip ci]"
+          git commit -m "chore: sync zhihu articles and translations [skip ci]"
           git push
 
       - name: Setup Hugo

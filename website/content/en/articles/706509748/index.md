@@ -1,103 +1,107 @@
 ---
-title: 'Recap of the St. Louis WG21 Meeting'
-date: 2024-07-02 02:46:56
-updated: 2024-07-02 03:35:56
+title: St. Louis WG21 Meeting Review
+date: "2024-07-01 18:46:56"
+updated: "2024-07-01 19:35:56"
+zhihu_article_id: "706509748"
+zhihu_url: https://zhuanlan.zhihu.com/p/706509748
 ---
 
-Due to a series of coincidences, I had the opportunity to attend last week's WG21 meeting (the C++ Standards Committee meeting). Although I frequently browse new proposals for the C++ standard, I never imagined that one day I would actually participate in a WG21 meeting and get real-time updates on the latest developments in the C++ standard. Of course, this was my first time attending, and I was very excited. Here, I’ll document my impressions and the progress of the meeting.
+> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
 
-## The Backstory
+Due to a series of coincidences, I participated in last week's WG21 meeting (the C++ Standards Committee meeting). Although I often browse new proposals for the C++ standard, I never expected to one day actually attend a WG21 meeting and get real-time updates on the latest progress of the C++ standard. Of course, this was my first time attending, and I was very excited. I'm writing this to record my feelings and the progress of the meeting.
 
-The story began in January of this year when I was pondering how to write an efficient `small_vector`. I referred to the LLVM source code and found that it specialized implementations for types that are trivially destructible, using bitwise copy for operations like expansion. At the time, I didn’t understand why this was possible. Later, I learned about the concept of trivially copyable and further delved into the concept of relocatable. After reading several related proposals, I wrote this [article](https://www.ykiko.me/zh-cn/articles/679782886) discussing trivially relocatable.
+## How It Started
 
-A few days later, a friend of mine, [blueloveTH](https://github.com/blueloveTH), asked if I could help write a lightweight `small_vector` for his project. This project is [pocketpy](https://github.com/pocketpy/pocketpy), a lightweight Python interpreter. I thought, what a coincidence! I had just researched this topic a few days prior, so I spent a few hours writing a very lightweight [small_vector](https://github.com/pocketpy/pocketpy/pull/208) that supports trivially relocatable optimizations. Coincidentally, this project is also the one I applied to participate in for this year’s GSoC.
+It all started this January when I was figuring out how to write an efficient `small_vector`. I looked at the LLVM source code for reference and found that it had a specialized implementation for types that are trivially destructible, using bitwise copy for operations like resizing. At the time, I didn't quite understand why this was possible. Later, I learned about the concept of `trivially copyable` and then the concept of `relocatable`. After reading a few related proposals, I wrote this [article](https://www.ykiko.me/en/articles/679782886) discussing `trivially relocatable`.
 
-On May 1st, I received two emails: one from the GSoC committee informing me that my application had been accepted, and the other from Arthur O'Dwyer, the author of P1144 (trivially relocatable). I was puzzled at first—why would he suddenly email me? We didn’t know each other. It turned out that he periodically searches for C++ projects related to trivially relocatable on GitHub and exchanges ideas with the authors. He found the code in pocketpy and thus sent us an email. He also seemed to have found my personal blog post discussing trivially relocatable [here](https://www.ykiko.me/zh-cn/articles/679782886/). We initially exchanged a few emails and later discussed some content of the proposal on Slack.
+A few days later, a good friend of mine, [blueloveTH](https://github.com/blueloveTH), asked if I could write a lightweight `small_vector` for his project. The project is [pocketpy](https://github.com/pocketpy/pocketpy), a lightweight Python interpreter. I thought, what a coincidence! I had just been researching this very thing a few days ago. So, I spent a few hours and wrote a very lightweight [small_vector](https://github.com/pocketpy/pocketpy/pull/208) with support for `trivially relocatable` optimization. Coincidentally, this was also the project I applied to for this year's GSoC.
 
-At the end of our discussion, he invited me to attend this WG21 meeting. The reason was that the current state of trivially relocatable in C++ is such that the committee is considering adopting an unreliable proposal, P2786, instead of the more comprehensive P1144. Arthur O'Dwyer hoped that supporters of P1144 could express their approval. Later, I sent an email to ISO applying to participate as a guest (guest) online. After three weeks without a reply, I almost thought I wouldn’t be able to attend. However, three days before the meeting, Herb Sutter finally replied, saying that he thought all emails had been replied to, but somehow mine was missed. He then informed me that my application had been approved and welcomed me to the meeting.
+On May 1st, I received two emails. One was from the GSoC committee informing me that my application was accepted. The other was from Arthur O'Dwyer, the author of P1144 (trivially relocatable). I was very confused at the time. Why would he suddenly email me? I didn't know him at all. It turns out he regularly searches GitHub for C++ projects using the keyword `trivially relocatable` to exchange ideas with the project authors. He found the code in pocketpy, which is why he emailed us. It seems he also found the [article](https://www.ykiko.me/en/articles/679782886) on my personal blog discussing `trivially relocatable`. We had a brief exchange via email at first, and later we discussed some of the proposal's content on Slack.
 
-> There was a small hiccup here. During the opening event, Herb Sutter was counting the number of participating countries. The method was to call out each country one by one, and if someone was participating, they would raise their hand. When he called out China, I was a bit excited and couldn’t find the hand-raising button. Finally, when he noticed no one raised their hand, he mentioned that he remembered there was a Chinese participant in this meeting.
+At the end of our discussion, he invited me to attend this WG21 meeting. The reason was that the current situation for `trivially relocatable` in C++ was that the committee was planning to adopt a flawed proposal, P2786, instead of the more complete proposal, P1144. Arthur O'Dwyer hoped that we, as supporters of P1144, could express our approval. So, I wrote an email to ISO to apply to attend the meeting online as a guest. After three weeks with no reply, I was starting to think I wouldn't be able to attend. Then, three days before the meeting started, Herb Sutter finally replied to my email, saying he thought all emails had been answered but had somehow missed mine. He then said my application was approved and welcomed me to the meeting.
+
+> There was a small mishap here. During the opening session, Herb Sutter was counting the number of participating countries. He did this by calling out each country, and attendees would raise their hands. When he called 'China,' I got a bit flustered and couldn't find the 'raise hand' button. In the end, when he saw no one raised their hand, he even commented that he was sure there was a participant from China in this meeting.
 
 ## How the C++ Standard Evolves
 
-To make it easier to introduce the meeting progress later, let me briefly explain how the C++ committee operates.
+To make it easier to explain the meeting's progress later, I'll first briefly introduce how the C++ committee operates.
 
 ![](https://picx.zhimg.com/v2-a137c1b90d4aaa8058e217cd136d736f_r.jpg)
 
-C++ has 23 study groups, SG1 to SG23, each responsible for discussing different topics. For example, compile-time metaprogramming is discussed by SG7.
+C++ has 23 study groups, from SG1 to SG23, each responsible for discussing different topics. For example, compile-time metaprogramming is discussed by the SG7 group.
 
-After a proposal is discussed and passed by a study group, depending on whether it pertains to language features or standard library features, it is reviewed by EWG (Evolution Working Group) or LEWG (Library Evolution Working Group). If approved, it is then submitted to CWG (Core Working Group) or LWG (Library Working Group) to refine the wording of the proposal so that it can be incorporated into the C++ standard.
+After a proposal passes a study group, it is forwarded to either the EWG (Evolution Working Group) or the LEWG (Library Evolution Working Group) for review, depending on whether it concerns a language feature or a standard library feature. If the review is successful, it is then submitted to the CWG (Core Working Group) or LWG (Library Working Group) to refine the wording in the proposal so that it can be incorporated into the C++ standard.
 
 Finally, proposals that pass CWG or LWG are voted on in a plenary session. If the vote passes, they are officially added to the C++ standard.
 
-> The process of this St. Louis meeting was as follows: the opening event was on Monday morning. In the afternoon, each study group began discussing their respective agendas simultaneously. I mainly stayed in the EWG meeting room. Guests could participate in group voting but not in the final plenary session voting.
+> The schedule for this St. Louis meeting was: opening session on Monday morning. In the afternoon, the various groups began discussing their respective agendas, all happening concurrently. I spent most of my time in the EWG meeting room. Guests are allowed to participate in group polls but cannot vote in the final plenary session.
 
 ## Meeting Progress
 
-First, let’s briefly discuss the proposals that were confirmed to pass, and then talk about the current progress of some important proposals.
+First, I'll briefly talk about the proposals that were confirmed to pass, and then discuss the current progress of some important proposals.
 
-## Passed Proposals
+## Approved Proposals
 
-In terms of core language, the following proposals were passed:
+For the core language, the main proposals that passed were:
 
-- [constexpr placement new](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2747r2.html) supports directly using placement new to call object constructors during constant evaluation. Previously, only `std::construct_at` could be used, which is a specialized version of placement new with parentheses. For a detailed discussion on this, you can read my [blog](https://www.ykiko.me/zh-cn/articles/683463723) on the history of constexpr development.
-- [deleting a pointer to an incomplete type should be ill-formed](https://wg21.link/P3144R2) Now, deleting a pointer to an incomplete type will result in a compilation error instead of undefined behavior.
+- [constexpr placement new](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2747r2.html) supports using placement new directly in constant evaluation to call an object's constructor. Before this, one could only use `std::construct_at`, which is essentially a parenthesized version of placement new. For a detailed discussion on this, you can read my [blog post](https://www.ykiko.me/en/articles/683463723) on the history of `constexpr`.
+- [deleting a pointer to an incomplete type should be ill-formed](https://wg21.link/P3144R2) deleting a pointer to an incomplete type will now result in a compile error instead of causing undefined behavior.
 - [ordering of constraints involving fold expressions](https://isocpp.org/files/papers/P2963R3.pdf) clarifies the partial ordering rules for constraints involving fold expressions.
-- [structured binding declaration as a condition](https://wg21.link/P0963R3) Structured bindings can now be used in the condition of an if statement.
+- [structured binding declaration as a condition](https://wg21.link/P0963R3) structured bindings can now be used in the condition of an `if` statement.
 
-In terms of the standard library, the following proposals were passed:
+For the standard library, the main proposals that passed were:
 
-- [inplace_vector](https://isocpp.org/files/papers/P0843R14.html) Note that inplace_vector is different from small_vector; the latter performs dynamic memory allocation when the SBO capacity is insufficient, while the former does not. It is equivalent to a dynamic array and can be conveniently used as a buffer.
-- [std::is_virtual_base_of](https://wg21.link/P2985R0) Used to determine if a class is a virtual base class of another class.
-- [std::optional range support](https://wg21.link/P3168R2) Supports range operations for optional.
-- [std::execution](https://isocpp.org/files/papers/P2300R10.html) The long-debated std::execution has finally been included in the standard.
+- [inplace_vector](https://isocpp.org/files/papers/P0843R14.html) Note that `inplace_vector` is different from `small_vector`. The latter performs dynamic memory allocation when its SBO capacity is insufficient, while the former does not. It's like a dynamic array and can be conveniently used as a buffer.
+- [std::is_virtual_base_of](https://wg21.link/P2985R0) used to determine if one class is a virtual base class of another.
+- [std::optional range support](https://wg21.link/P3168R2) adds range support for `std::optional`.
+- [std::execution](https://isocpp.org/files/papers/P2300R10.html) The long-debated `std::execution` has finally made it into the standard.
 
 ## Proposals with Significant Progress
 
-I spent most of my time in the EWG meeting room, so I’ll mainly discuss some progress in core language aspects.
+I spent almost all my time in the EWG meeting room these past few days, so I'll mainly talk about some progress on the core language side.
 
-On Monday afternoon and all day Tuesday, EWG discussed Contracts. Compared to the last Tokyo meeting, some consensus was reached on certain disputes regarding Contracts, but there are still unresolved issues. Personally, I think the hope of including it in C++26 is still slim.
+On Monday afternoon and all of Tuesday, EWG was discussing Contracts. Compared to the last meeting in Tokyo, some consensus was reached on certain debates about Contracts, but there are still areas without consensus. I personally think the chances of it being included in C++26 are still slim.
 
-On Wednesday morning, EWG discussed Reflection for C++26. It was passed with 0 votes against (including my super favor vote) and handed over to CWG for wording revisions to be included in the C++ standard. On Thursday and Friday, CWG reviewed part of the content, but the proposal is too extensive and wasn’t fully reviewed. If everything goes smoothly, it is expected to be officially added to C++26 in two to three more meetings. The voting results show that everyone believes C++ needs reflection, and reflection is very likely to be included in C++26.
+On Wednesday morning, EWG discussed Reflection for C++26. It was ultimately passed with 0 votes against (including my own 'super favor' vote) and was forwarded to CWG for wording revisions to be included in the C++ standard. On Thursday and Friday, CWG reviewed a portion of the content, but the proposal is too large to be finished. If all goes well, it is expected to be officially added to C++26 after two or three more meetings. The voting results show that everyone believes C++ needs reflection, and it has a very high chance of being included in C++26.
 
-On Friday morning, EWG mainly discussed trivially relocatable. In previous meetings, [P2786](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2786r6.pdf) had already passed EWG voting and was handed over to CWG. However, it is not perfect and has many issues. Including such a proposal in the standard would undoubtedly be detrimental to the development of C++. Since the last Tokyo meeting, several new proposals discussing trivially relocatable have emerged:
+On Friday morning, EWG mainly discussed `trivially relocatable`. In a previous meeting, [P2786](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/p2786r6.pdf) had already passed the EWG vote and was forwarded to CWG. However, it is incomplete and has many issues. Adding such a proposal to the standard would undoubtedly be detrimental to the development of C++. Since the last Tokyo meeting, several new proposals discussing `trivially relocatable` have emerged:
 
 - [Issues with P2786](https://wg21.link/p3233r0)
 - [Please reject P2786 and adopt P1144 ](https://wg21.link/p3236r1)
 - [Analysis of interaction between relocation, assignment, and swap](https://wg21.link/p3278r0)
 
-Clearly, they all pointed fingers at P2786. After the authors of these proposals presented, a vote was needed to decide whether to return P2786 from CWG back to EWG, essentially reconsidering the trivially relocatable model that C++26 would adopt. In the end, P2786 was returned to EWG with an overwhelming majority. Of course, I voted super favor, as this was the main reason I attended this meeting. As for P1144, it might have to wait until the next meeting, as it wasn’t discussed this time.
+Clearly, they all took aim at P2786. After the authors of these proposals gave their presentations, a vote was held to decide whether to return P2786 from CWG to EWG, which means reconsidering the `trivially relocatable` model for C++26. In the end, P2786 was returned to EWG by an overwhelming majority. Of course, I voted 'super favor,' as this was the main reason I attended the meeting. As for P1144, we'll probably have to wait for the next meeting; it wasn't discussed this time.
 
-The rest are some minor proposal progresses. Notably, many proposals related to constexpr passed EWG, including:
+The rest is progress on some smaller proposals. It's worth mentioning that many `constexpr`-related proposals passed EWG, namely:
 
 - [Less transient constexpr allocation](https://wg21.link/p3032r2)
 - [Allowing exception throwing in constant-evaluation](https://wg21.link/p3068r2)
 - [Emitting messages at compile time](https://wg21.link/p2758r3)
 
-However, it’s still uncertain how likely they are to pass CWG. If you’re interested in the latest progress of a specific proposal, you can search for the proposal number in the ISO C++ GitHub [issues](https://github.com/cplusplus/papers/issues), where the latest progress of each proposal is recorded in detail.
+However, it's hard to say what their chances are of passing CWG later. If you're interested in the latest progress of a specific proposal, you can just search for the proposal number in the [issues](https://github.com/cplusplus/papers/issues) on the ISO C++ GitHub, which will have detailed records of its latest progress.
 
-## Some Personal Reflections
+## Some Impressions
 
-Now that the meeting progress is covered, let me share some personal reflections.
+That's it for the meeting progress. Now, I'd like to share some of my personal feelings.
 
-First, regarding the trivially relocatable vote, after voting, I suddenly felt a sense of guilt. The reason was that before the final vote, the author of P2786 said:
+First, regarding the vote on `trivially relocatable`, I actually felt a sudden sense of guilt after casting my vote. The reason is that before the final vote, the author of P2786 said:
 
-> If other people want to make modifications and bring forward their own paper, you know, as an author, I am not going to say, 'No, don't; it's my paper.' If it's a good change, you know, that's good.
+> if other people want to make modifications and bring forward their own paper, you know, as an author, I am not going to say, 'No, don't; it's my paper.' If it's a good change, you know, that's good.
 
-I could clearly hear the emotion in his voice when he said this. Putting myself in his shoes, I can understand his feelings. He must have poured a lot of effort into this proposal, and having it withdrawn in such an unceremonious manner is hard to accept. But in reality, the author of P1144 has invested even more effort, with the proposal already at version R11, and the content itself is more comprehensive, yet it has been consistently overlooked. I find it hard to understand why this situation has arisen.
+I could clearly hear his voice was trembling as he said this. Putting myself in his shoes, I think I can understand his feelings. He must have poured a lot of effort into this proposal, and having it withdrawn in such a dishonorable way is hard to accept. But in reality, the author of P1144 put in even more effort; the proposal is already at version R11 and is more complete, yet it has been consistently ignored. I find it hard to understand why this situation occurred.
 
-Another point is about the plenary session voting. The proposal [Structured Bindings can introduce a Pack](https://wg21.link/p1061r8), which supports introducing parameter packs in structured bindings:
+Another thing was the situation during the plenary vote for the proposal [Structured Bindings can introduce a Pack](https://wg21.link/p1061r8), which is about introducing parameter packs in structured bindings:
 
 ```cpp
 auto [x, ...pack] = std::tuple{1, 2, 3, 4};
 ```
 
-It had already passed CWG, but during the plenary session, a compiler vendor pointed out that some examples in the wording of the proposal’s reference implementation could cause the compiler to crash. As a result, the plenary session vote did not pass.
+It had already passed CWG, but during the plenary session, a compiler vendor pointed out at the last minute that some examples in the wording would cause a compiler crash with the proposal's reference implementation. As a result, it failed the final plenary vote.
 
-A similar situation occurred with std::execution. Before the plenary session vote, someone pointed out that std::execution should not be included in C++26, as it is overly complex and not mature enough. The authors were merely theorizing without considering practical application scenarios. Additionally, heavy use of templates leads to very slow compilation speeds and frequent internal compiler errors. Although the final vote result was more in favor than against, the C++ committee emphasizes **consensus** rather than majority rule. A certain proportion must be reached for a proposal to pass, so theoretically, this proposal should not have passed this meeting. However, due to **certain reasons**, it was ultimately passed. I didn’t pay close attention to the specifics, so I can’t say for sure.
+A similar situation happened with `std::execution`. Before the plenary vote, someone argued that `std::execution` should not be added to C++26, claiming it is too complex and not mature enough, that the authors were just talking in the abstract without considering practical application scenarios. Furthermore, its heavy use of templates leads to very slow compilation speeds and frequently causes internal compiler errors. Although the final vote had more in favor than against, the C++ committee emphasizes achieving **consensus**, not simple majority rule. The ratio has to reach a certain threshold to pass. So, logically, the proposal shouldn't have passed in this meeting, but it did for **certain reasons**. I'm not sure about the exact details, as I wasn't paying close attention at that moment, so it's hard for me to say.
 
-Honestly, attending this meeting didn’t yield much in terms of knowledge, but it did broaden my horizons. Some debates felt no different from online arguments. From each side’s perspective, both viewpoints are correct, which is reasonable. Not everything has a clear right or wrong, and many problems don’t have perfect solutions, especially in software engineering. To be included in the standard, compromises must be made. Where to compromise and who compromises to whom often involves intense debates and sometimes even factors outside the issue itself.
+To be honest, I didn't gain much in terms of knowledge from attending this meeting, but I certainly broadened my horizons. Some of the debates felt no different from online arguments. From their respective perspectives, both sides' views are correct, which is reasonable. Not everything has an absolute right or wrong, and many problems don't have a perfect solution, especially in the field of software engineering. So, to get into the standard, compromises must be made. But where to compromise, and who compromises for whom? This is often accompanied by heated debates and is sometimes even decided by other external factors (outside of the issue itself).
 
-If I have the opportunity in the future, I might attend again, preferably in person. However, I definitely won’t attend every single meeting punctually like I did this time (it was my first time, so I was excited). I might mainly focus on the parts I’m interested in. I’m really looking forward to seeing reflection included in C++26.
+If I have the chance in the future, I might attend again, preferably in person. But I definitely won't be attending every single session on time every day like I did this time (I was a bit too excited for my first time). I'll probably just listen in on the parts that interest me. I really, really want to see the moment reflection gets into C++26.
 
-That’s it for this article. Thank you for reading.
+Alright, that's the end of the article. Thanks for reading.

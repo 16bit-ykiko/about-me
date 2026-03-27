@@ -1,18 +1,18 @@
 ---
 title: 为 CuTe DSL 支持 AOT
-date: '2025-11-11 13:38:08'
-updated: '2025-11-17 09:09:26'
-zhihu_article_id: '1971691994037334904'
+date: "2025-11-11 13:38:08"
+updated: "2025-11-17 09:09:26"
+zhihu_article_id: "1971691994037334904"
 zhihu_url: https://zhuanlan.zhihu.com/p/1971691994037334904
 ---
 
-## Why do we need AOT for CuTe DSL? 
+## Why do we need AOT for CuTe DSL?
 
 CUTLASS C++ 是一个用来编写高性能 CUDA 算子的库，以复杂难学著称。为了降低学习成本，NVIDIA 推出了基于 Python 的 [CuTe DSL](https://docs.nvidia.com/cutlass/latest/media/docs/pythonDSL/overview.html)。使用 Python 而不是 C++ 模板来进行元编程具有很多好处，首先就是用户不必和 C++ 那些晦涩难懂的模板报错作斗争了，这对于 C++ 初学者来说是非常头疼的一件事情，现在他们可以专注于代码逻辑。另外，nvcc 编译很慢，而其中大部分时间是花在编译器前端，也就是解析 C++ 代码上。尤其是对于 CUTLASS 这样 template heavy 的库，主要的时间都花在处理模板实例化上了，使用 CuTe DSL 可以绕过这个问题。相比于使用 CUTLASS 的 C++ 代码，它编译的速度能提升几十甚至上百倍。除此之外，现在算子和单测都可以一起在 Python 里写了，也方便了很多。
 
 使用 Python 来编写原型是很好的，但是在部署推理服务时，我们希望依赖尽可能简单，像 Python 那样要装一大堆随时可能因为版本问题导致崩溃的依赖就不好了。如果能把使用 CuTe DSL 编写的算子编译成 library 供 C++ 代码调用就好了。这正是我们想要为 CuTe DSL 支持 AOT 的目的。
 
-## Export Binary 
+## Export Binary
 
 CuTe DSL 在 [v4.3](https://docs.nvidia.com/cutlass/latest/media/docs/pythonDSL/cute_dsl_general/debugging.html) 添加了导出编译好的 kernel 对应的 ptx 和 cubin 的选项。设置下面几个环境变量即可
 
@@ -37,8 +37,7 @@ with open("foo.cubin", "wb") as f:
 2. 如何把 cubin 文件嵌入到 C++ 代码中一起编译成 library
 3. 生成 h 头文件供下游用户调用
 
-
-## CUDA Driver API 
+## CUDA Driver API
 
 对于问题 1，我们可以调用 [CUDA Driver API](https://docs.nvidia.com/cuda/cuda-driver-api/index.html) 来实现。
 
@@ -65,7 +64,7 @@ CUresult CUDAAPI cuLaunchKernel(CUfunction f,
 
 再通过 `cuLaunchKernel` 启动这个 kernel 即可，值得注意的点是 kernel 参数都通过 `void**` 也就是 `void*` 数组传递，也就是我们需要知道 kernel 的函数签名，才能启动 kernel。
 
-## Embed Binary 
+## Embed Binary
 
 对于问题 2，我们需要某种将二进制文件嵌入到 cpp 文件中的手段，然后直接在 cpp 文件中引用这个 kernel 即可。关于如何在 C++ 代码中嵌入二进制文件的讨论也值得单开一个文章进行介绍了，这里不过多展开。只说一下我这里选用的方法。使用 `objcopy` 将二进制文件变成 elf 格式的文件，同时会在其中插入几个符号用于引用二进制数据，比如
 
@@ -81,7 +80,7 @@ objcopy -I binary test.txt -O elf64-x86-64 -B i386:x86-64 test.o
 0000000000000000 D _binary_test_txt_start
 ```
 
->  注意这里生成的符号名和输入的文件的路径有关，会将输入路径中的所有 `/` 和 `.` 替换成 `_`，推荐使用相对路径来获取可控的符号名。 
+> 注意这里生成的符号名和输入的文件的路径有关，会将输入路径中的所有 `/` 和 `.` 替换成 `_`，推荐使用相对路径来获取可控的符号名。
 
 只需在 C++ 里面声明 `_binary_test_txt_start` 上面这些符号，同时最终把 `test.o` 文件和源文件链接在一起即可。
 
@@ -110,7 +109,7 @@ $ g++ -std=c++17 main.cpp test.o -o main
 $ ./main
 ```
 
-## Function Signature 
+## Function Signature
 
 从上面讨论中可以看出，无论是导出 kernel 函数的头文件，还是给 `cuLaunchKernel` 函数传递 kernel 函数，我们都需要获取到 kernel 的函数签名才行。然而在 CuTe DSL v4.3 中，这件事情做不完美。考虑下面这个简单的示例
 
@@ -165,7 +164,7 @@ def kernel(
 
 这么多函数参数哪些是常量会被保留，哪些是变量不会保留呢？遗憾的是，后面这些参数在 python 侧都是不透明的，无法进行判断，因为它们是从 C++ 侧通过 nanobind 绑定来的类型。如果你调试进去查看 kernel 最初的 mlir 的话，会发现确实会为后面这些类型生成参数，但是在后续的 pass 会删掉，而这些 pass 也是不透明的。所以我放弃了自动为 kernel 生成函数签名这一念头。
 
-## Final Effect 
+## Final Effect
 
 采用的 workaround 则是，手动指定签名。比如我们可以人为的限制所有的算子签名都使用 `cutlass.Pointer` 和 `cute.Integer` 然后在 kernel 里面创建 `tensor`，效果上没有区别，只是人工降低了函数签名的复杂程度。或者直接看生成的 ptx 来把签名硬编码。基于这种假设和前面的步骤，我们最终可以实现如下的效果
 

@@ -1,10 +1,14 @@
 ---
-title: 'How to Elegantly Convert Enum to String in C++?'
-date: 2024-01-29 17:03:28
-updated: 2024-12-18 11:44:59
+title: How to elegantly convert enum to string in C++?
+date: "2024-01-29 09:03:28"
+updated: "2025-07-08 08:16:05"
+zhihu_article_id: "680412313"
+zhihu_url: https://zhuanlan.zhihu.com/p/680412313
 ---
 
-## Avoid Hardcoding
+> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
+
+## no hard code
 
 Define an `enum`
 
@@ -16,7 +20,7 @@ enum Color {
 };
 ```
 
-Attempt to print
+Try to print
 
 ```cpp
 Color color = RED;
@@ -24,27 +28,30 @@ std::cout << color << std::endl;
 // output => 0
 ```
 
-If we need to output enums as logs, we don't want to manually look up the corresponding strings based on the enum values when reviewing the logs, as it is cumbersome and unintuitive. We hope to directly output the strings corresponding to the enum values, such as `RED`, `GREEN`, `BLUE`.
+If we need enums as log output, we don't want to manually look up the corresponding string based on the enum value when viewing logs, which is troublesome and not intuitive. We want to directly output the string corresponding to the enum value, such as `RED`, `GREEN`, `BLUE`.
 
-Consider using an array as a `map`, where the enum values are the `keys` and the strings are the `values`. This way, we can directly find the corresponding string through the enum value.
+Manually write a `switch` to convert enum to string
 
 ```cpp
-std::string_view color_map[] = {
-    "RED",
-    "GREEN",
-    "BLUE"
-};
+std::string enum_to_string(Color color) {
+    switch(color) {
+        case Color::RED: return "RED";
+        case Color::GREEN: return "GREEN";
+        case Color::BLUE: return "BLUE";
+    }
+    return "Unknown";
+}
 ```
 
-However, when there are many enums, writing them manually is inconvenient and very tedious. **Specifically, if we want to add several enum definitions, the corresponding content in the string mapping table also needs to be modified. When the number reaches hundreds, there may be omissions. Or, when taking over someone else's project, you might find a large number of enums, making manual writing very time-consuming.**
+However, when there are many enums, manual writing is not convenient and very tedious. **Specifically, if we want to add several enum definitions, the corresponding content in the string mapping table also needs to be modified. When the number reaches hundreds, omissions are very likely. Or if we take over someone else's project and find that they have a lot of enums, with too much content, manual writing is very time-consuming.**
 
-We need to find a solution that can automatically make the relevant modifications. In other languages like Java, C#, and Python, this functionality can be easily achieved through reflection. However, C++ currently does not have reflection, so this approach is not feasible. Currently, there are three main solutions to this problem.
+We need to find a solution that can automatically make the relevant modifications. In other languages, such as Java, C#, and Python, this functionality can be easily achieved through reflection. However, C++ currently does not have reflection, so this path is blocked. Currently, there are three main solutions to this problem.
 
-## Template Table Generation
+## template
 
-The content introduced in this section has already been encapsulated by someone else and can be directly used via the [magic enum](https://github.com/Neargye/magic_enum) library. Below is mainly an analysis of the principles of this library. For convenience, it will be implemented in C++20, although C++17 is actually sufficient.
+The content introduced in this section has already been encapsulated by others, and you can directly use the [magic_enum](https://github.com/Neargye/magic_enum) library. The following mainly analyzes the principle of this library. For convenience of demonstration, it will be implemented with C++20, but C++17 is actually sufficient.
 
-In the three major compilers, there are some special **macro variables**. `__PRETTY_FUNCTION__` in GCC and Clang, and `__FUNCSIG__` in MSVC. These macro variables are **replaced with the function signature during compilation**. If the function is a template function, the template instantiation information will also be output (you can also use [source_location](https://en.cppreference.com/w/cpp/utility/source_location/function_name) added in C++20, which has a similar effect to these macros).
+In the three major mainstream compilers, there are some special **macro variables**. `__PRETTY_FUNCTION__` in GCC and Clang, and `__FUNCSIG__` in MSVC. These macro variables will be **replaced with the function signature during compilation**. If the function is a template function, the template instantiation information will also be output (you can also use `source_location` added to the C++20 standard, which has a similar effect to these macros).
 
 ```cpp
 template <typename T>
@@ -56,12 +63,12 @@ void print_fn(){
 #endif
 }
 
-print_fn<int>(); 
+print_fn<int>();
 // gcc and clang => void print_fn() [with T = int]
 // msvc => void __cdecl print_fn<int>(void)
 ```
 
-Specifically, when the template parameter is an enum constant, the name of the enum constant will be output.
+In particular, when the template parameter is an enum constant, the name of the enum constant will be output.
 
 ```cpp
 template <auto T>
@@ -84,7 +91,7 @@ print_fn<RED>();
 // msvc => void __cdecl print_fn<RED>(void)
 ```
 
-It can be observed that the enum name appears at a specific position. Through simple string trimming, we can obtain the desired content.
+As you can see, the enum name appears in a specific position. By simple string trimming, we can get the content we want.
 
 ```cpp
 template<auto value>
@@ -124,7 +131,7 @@ int main(){
 }
 ```
 
-Successfully meets our requirements. However, this is not the end. This form requires the enum to be a template parameter, meaning it only supports compile-time constants. But in most cases, we use enums as runtime variables. What to do? Convert static to dynamic by generating a table. Consider generating an `array` through template metaprogramming, where each element is the string representation of the enum corresponding to the `index`. One issue is determining the size of this array, which requires us to obtain the number of enum items. **A straightforward method is to define a pair of start and end markers in the enum, so that the maximum number of enums can be obtained by subtraction**. However, often we cannot modify the enum definition. Fortunately, there is a small trick to solve this problem.
+This successfully meets our needs. But the story doesn't end here; this form requires the enum to be a template parameter, which means it only supports compile-time constants. However, most of the time, the enums we use are runtime variables. What to do? To convert static to dynamic, we just need to create a lookup table. Consider generating an `array` through template metaprogramming, where each element is the string representation of the enum corresponding to its `index`. One problem is how large this array should be, which requires us to get the number of enum items. **A more direct approach is to define a pair of start and end markers directly within the enum, so that subtracting them directly gives the maximum number of enums.** However, often we cannot modify the enum definition. Fortunately, there is a small trick to solve this problem.
 
 ```cpp
 constexpr Color color = static_cast<Color>(-1);
@@ -132,10 +139,10 @@ std::cout << enum_name<color>() << std::endl;
 // output => (Color)2
 ```
 
-It can be seen that if the integer does not have a corresponding enum item, the output will not be the corresponding enum name but a cast expression with parentheses. Therefore, by checking if the obtained string contains `)`, we can determine if the corresponding enum item exists. Recursive judgment can find the maximum enum value (this method has limited applicability, such as for scattered enum values, it may be more difficult).
+As you can see, if an integer does not have a corresponding enum item, then the corresponding enum name will not be output, but rather a parenthesized cast expression. This way, we just need to check if the resulting string contains `)` to know if the corresponding enum item exists. We can recursively determine the largest enum value (this search method has limited applicability, e.g., for scattered enum values, it might be relatively difficult).
 
 ```cpp
-template<typename T, std::size_t N = 0> 
+template<typename T, std::size_t N = 0>
 constexpr auto enum_max(){
     constexpr auto value = static_cast<T>(N);
     if constexpr (enum_name<value>().find(")") == std::string_view::npos)
@@ -145,22 +152,22 @@ constexpr auto enum_max(){
 }
 ```
 
-Then generate a corresponding length array through `make_index_sequence`.
+Then, generate a corresponding length array using `make_index_sequence`.
 
 ```cpp
 template<typename T> requires std::is_enum_v<T>
 constexpr auto enum_name(T value){
     constexpr auto num = enum_max<T>();
     constexpr auto names = []<std::size_t... Is>(std::index_sequence<Is...>){
-        return std::array<std::string_view, num>{ 
-            enum_name<static_cast<T>(Is)>()... 
+        return std::array<std::string_view, num>{
+            enum_name<static_cast<T>(Is)>()...
         };
     }(std::make_index_sequence<num>{});
     return names[static_cast<std::size_t>(value)];
 }
 ```
 
-Test it
+Let's test it.
 
 ```cpp
 enum Color {
@@ -176,13 +183,13 @@ int main(){
 }
 ```
 
-Further, consider supporting bitwidth enums, such as `RED | BLUE`, which will not be expanded here.
+Further, we could consider supporting bitwidth enums, i.e., enums of the form `RED | BLUE`, but we won't go into that here.
 
-The disadvantage of this method is obvious. Generating tables through template instantiation can significantly slow down compilation speed. If there are many enums, on compilers with low constant evaluation efficiency, such as MSVC, it may increase compilation time by **tens of seconds or even longer**. Therefore, it is generally only suitable for small enums. The advantage is that it is lightweight and ready to use without any additional work.
+The disadvantage of this method is obvious: generating a lookup table through template instantiation can significantly slow down compilation. If the number of items in the `enum` is large, on some compilers with low constant evaluation efficiency, such as MSVC, it may increase compilation time by **tens of seconds or even longer**. Therefore, it is generally only suitable for small enums. The advantage is that it is lightweight and ready to use, requiring no other actions.
 
-## External Code Generation
+## code generation
 
-Since manually writing string-to-enum conversions is troublesome, why not write a script to generate the code? Indeed, we can easily accomplish this using the python bindings of libclang. For specific usage of this tool, refer to [Use Clang Tools to Freely Manipulate C++ Code](https://www.ykiko.me/zh-cn/articles/669360731). Below is only the code to demonstrate the effect.
+Since manually writing string-to-enum conversions is troublesome, why not write a script to generate the code? Indeed, we can easily accomplish this using libclang's Python bindings. For details on how to use this tool, you can refer to [Use clang tools to freely control C++ code](https://www.ykiko.me/en/articles/669360731). Below, only the code demonstrating the effect is shown.
 
 ```python
 import clang.cindex as CX
@@ -192,9 +199,11 @@ def generate_enum_to_string(enum: CX.Cursor):
     for child in enum.get_children():
         branchs += f'case {child.enum_value}: return "{child.spelling}";\n'
     code = f"""
-std::string_view {enum.spelling}_to_string({enum.spelling} value) {{
-    switch(value) {{
-{branchs}}}}}"""
+std::string_view {enum.spelling}_to_string({enum.spelling} color) {{
+    switch(color) {{
+{branchs}
+    }}
+}}"""
     return code
 
 def traverse(node: CX.Cursor):
@@ -221,22 +230,23 @@ enum Color {
 };
 ```
 
-This is the final generated code, which can be directly generated into a `.cpp` file, placed in a fixed directory, and then run this script before building.
+This is the final generated code. You can directly generate a `.cpp` file, place it in a fixed directory, and then run this script before building.
 
 ```cpp
-std::string_view enum_to_string(Color value) {
-    switch(value) {
+std::string_view enum_to_string(Color color) {
+    switch(color) {
 case 0: return "RED";
 case 1: return "BLUE";
 case 2: return "GREEN";
-}}
+    }
+}
 ```
 
-Advantages: Non-intrusive, suitable for large numbers of enums. Disadvantages: External dependencies, need to add code generation to the build process, which may complicate the build process.
+Advantages: Non-intrusive, can be used for a large number of enums. Disadvantages: Has external dependencies, requires integrating code generation into the build process. This might make the build process very complex.
 
-## Macros
+## xmacro
 
-The above two methods are non-intrusive. That is, you might get someone else's library and cannot modify its code, so you have to do it this way. What if the enums are entirely defined by yourself? You can handle them specially during the definition phase to facilitate subsequent use. For example (the comment at the beginning of the code indicates the current file name):
+The above two methods are non-intrusive. That is, you might get someone else's library and cannot modify its code, so you have to do it this way. What if you define the enums yourself entirely? In fact, you can handle them specially during the definition phase to facilitate subsequent use. For example (comments at the beginning of the code indicate the current filename):
 
 ```cpp
 // Color.def
@@ -251,7 +261,7 @@ COLOR_ENUM(BLUE)
 #undef COLOR_ENUM
 ```
 
-Then, where you need to use it, modify the macro definition to generate the code.
+Then, where it needs to be used, you can generate code by modifying the macro definition.
 
 ```cpp
 // Color.h
@@ -268,12 +278,12 @@ std::string_view color_to_string(Color value){
 }
 ```
 
-In this way, you only need to add and modify the relevant content in the `def` file. Later, if you need to traverse the `enum`, you can directly define a macro to generate the code, which is very convenient. In fact, for large numbers of enums, many open-source projects adopt this approach. For example, when defining `TokenKind`, clang does this. The relevant code can be found in [Token.def](https://github.com/stuartcarnie/clang/blob/master/include/clang/Basic/TokenKinds.def). Since clang needs to adapt to multiple language front-ends, the total number of `TokenKind` is in the hundreds. Without this approach, adding and modifying `Token` would be very difficult.
+This way, you only need to add and modify relevant content in the `def` file. If you need to iterate through the `enum` later, you can also directly define a macro to generate the code, which is very convenient. In fact, for a large number of enums, many open-source projects adopt this solution. For example, when Clang defines `TokenKind`, it does so. Please refer to [Token.def](https://github.com/stuartcarnie/clang/blob/master/include/clang/Basic/TokenKinds.def) for the relevant code. Since Clang needs to adapt to multiple language frontends, the total number of `TokenKind`s reaches several hundred. If this approach were not used, adding and modifying `Token`s would be extremely difficult.
 
-## Summary
+## conclusion
 
-- Non-intrusive and the number of enums is small, compilation speed is not very important: use template table generation (requires at least C++17).
-- Non-intrusive and the number of enums is large, compilation speed is important: use external code generation.
+- Non-intrusive and a small number of enums, compilation speed is not very important: use template lookup tables (requires at least C++17).
+- Non-intrusive and a large number of enums, compilation speed is important: use external code generation.
 - Intrusive: directly use macros.
 
-Year after year, we look forward to reflection, but it's still unclear when it will enter the standard. For those who want to learn about C++ static reflection in advance, you can read [C++26 Static Reflection Proposal Analysis](https://www.ykiko.me/zh-cn/articles/661692275). Or for those who don't know what reflection is, you can refer to this article: [A Reflection Tutorial for C++ Programmers](https://www.ykiko.me/zh-cn/articles/669358870).
+Year after year, we await reflection, still unsure when it will enter the standard. For those interested in learning about C++ static reflection in advance, you can read [Analysis of C++26 Static Reflection Proposal](https://www.ykiko.me/en/articles/661692275). Or for those who don't know what reflection is, you can refer to this article: [Reflection Tutorial for C++ Programmers](https://www.ykiko.me/en/articles/669358870).

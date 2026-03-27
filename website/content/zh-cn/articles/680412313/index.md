@@ -1,14 +1,14 @@
 ---
 title: C++ 中如何优雅进行 enum 到 string 的转换 ？
-date: '2024-01-29 09:03:28'
-updated: '2025-07-08 08:16:05'
-zhihu_article_id: '680412313'
+date: "2024-01-29 09:03:28"
+updated: "2025-07-08 08:16:05"
+zhihu_article_id: "680412313"
 zhihu_url: https://zhuanlan.zhihu.com/p/680412313
 ---
 
-## no hard code 
+## no hard code
 
-定义一个`enum` 
+定义一个`enum`
 
 ```cpp
 enum Color {
@@ -28,7 +28,7 @@ std::cout << color << std::endl;
 
 如果需要枚举作为日志输出，我们不希望在查看日志的时候，还要人工去根据枚举值去查找对应的字符串，麻烦并且不直观。我们希望直接输出枚举值对应的字符串，比如`RED`，`GREEN`，`BLUE`。
 
-手动编写 `switch` 完成枚举转字符串 
+手动编写 `switch` 完成枚举转字符串
 
 ```cpp
 std::string enum_to_string(Color color) {
@@ -45,7 +45,7 @@ std::string enum_to_string(Color color) {
 
 需要寻找解决办法，能自动的进行相关的修改。在别的语言中，如 Java，C#，Python，可以轻松的通过反射实现这个功能。但是 C++ 目前并没有反射，故此路不通。目前这个问题主要有三种解决方案。
 
-## template  
+## template
 
 这一小节介绍的内容已经有人提前封装好了，可以直接使用 [magic enum](https://github.com/Neargye/magic_enum) 这个库。下面主要是对这个库的原理进行解析，为了方便展示，将用 C++20 实现，实际上 C++17 就可以。
 
@@ -61,7 +61,7 @@ void print_fn(){
 #endif
 }
 
-print_fn<int>(); 
+print_fn<int>();
 // gcc and clang => void print_fn() [with T = int]
 // msvc => void __cdecl print_fn<int>(void)
 ```
@@ -140,7 +140,7 @@ std::cout << enum_name<color>() << std::endl;
 可以发现，如果这个整数没有对应的枚举项，那么最后就不会输出对应的枚举名，而是带有括号的强制转换表达式。这样只需要判断下得到的字符串中有没有`)`就知道对应的枚举项是否存在了。递归判断就可以找出最大的枚举值了（这样查找适用范围有限，如分散枚举值，可能相对困难一点）
 
 ```cpp
-template<typename T, std::size_t N = 0> 
+template<typename T, std::size_t N = 0>
 constexpr auto enum_max(){
     constexpr auto value = static_cast<T>(N);
     if constexpr (enum_name<value>().find(")") == std::string_view::npos)
@@ -157,8 +157,8 @@ template<typename T> requires std::is_enum_v<T>
 constexpr auto enum_name(T value){
     constexpr auto num = enum_max<T>();
     constexpr auto names = []<std::size_t... Is>(std::index_sequence<Is...>){
-        return std::array<std::string_view, num>{ 
-            enum_name<static_cast<T>(Is)>()... 
+        return std::array<std::string_view, num>{
+            enum_name<static_cast<T>(Is)>()...
         };
     }(std::make_index_sequence<num>{});
     return names[static_cast<std::size_t>(value)];
@@ -185,7 +185,7 @@ int main(){
 
 这种方法的缺点很明显，通过模板实例化来打表，其实会很大的拖慢编译速度。如果`enum`中的数量较多，在一些对常量求值效率较低的编译器上，如 MSVC，可能会增加**几十秒甚至更长**的编译时间。所以一般只适用于小型枚举。优点是轻量级，开箱即用，其它的什么也不用做。
 
-## code generation 
+## code generation
 
 既然手写字符串转枚举很麻烦，那么写个脚本生成代码不就行了？的确如此，我们可以使用 libclang 的 python bind 轻松的完成这项工作。具体如何使用这个工具，可以参考 [使用 clang 工具自由的支配 C++ 代码吧](https://www.ykiko.me/zh-cn/articles/669360731)，下面只展示实现效果的代码
 
@@ -242,7 +242,7 @@ case 2: return "GREEN";
 
 优点，非侵入式，可以用于大数量的枚举。缺点，有外部依赖，需要将代码生成加入到编译流程里面。可能会使编译流程变得很复杂。
 
-## xmacro 
+## xmacro
 
 上面的两种方式都是非侵入式的。也就是说，可能你拿到了一个别人的库，不能修改它的代码，只好这么做了。如果是完全由自己定义枚举呢？其实可以在定义阶段就特殊处理，以方便后续的使用。比如（代码开头的注释表示当前文件名）：
 
@@ -276,13 +276,12 @@ std::string_view color_to_string(Color value){
 }
 ```
 
-这样的话，只要在`def`文件里面进行相关的增加和修改就行了。之后如果要遍历`enum`什么的，也可以直接定义一个宏来生成代码就行了，非常方便。事实上，对于大数量的枚举，有很多开源项目都采取这种方案。例如 clang 在定义`TokenKind`的时候，就是这么做的，相关的代码请参考  [Token.def](https://github.com/stuartcarnie/clang/blob/master/include/clang/Basic/TokenKinds.def)。由于 clang 要适配多种语言前端，最后总计的`TokenKind`有几百个之多。如果不这样做，进行`Token`的增加和修改会十分困难。 
+这样的话，只要在`def`文件里面进行相关的增加和修改就行了。之后如果要遍历`enum`什么的，也可以直接定义一个宏来生成代码就行了，非常方便。事实上，对于大数量的枚举，有很多开源项目都采取这种方案。例如 clang 在定义`TokenKind`的时候，就是这么做的，相关的代码请参考 [Token.def](https://github.com/stuartcarnie/clang/blob/master/include/clang/Basic/TokenKinds.def)。由于 clang 要适配多种语言前端，最后总计的`TokenKind`有几百个之多。如果不这样做，进行`Token`的增加和修改会十分困难。
 
-## conclusion 
+## conclusion
 
 - 非侵入式且枚举数量较少，编译速度不是很重要，那就使用模板打表（至少要求 C++17）
 - 非侵入式且枚举数量较多，编译速度很重要，那就使用外部代码生成
 - 侵入式，可以直接使用宏
-
 
 年年月月盼反射，还是不知道什么时候才能进入标准呢。想要提前了解 C++ 静态反射的小伙伴，可以看 [C++26 静态反射提案解析](https://www.ykiko.me/zh-cn/articles/661692275)。或者还不知道反射是什么的小伙伴，可以参考这篇文章的内容：[写给 C++ 程序员的反射教程](https://www.ykiko.me/zh-cn/articles/669358870)。

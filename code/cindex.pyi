@@ -3,7 +3,6 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from typing import Iterator, Iterable, Optional, Any
 
-
 class c_interop_string(c_char_p):
     def __init__(self, p=...) -> None: ...
     @property
@@ -13,10 +12,7 @@ class c_interop_string(c_char_p):
     @staticmethod
     def to_python_string(x, *args): ...
 
-
-class TranslationUnitLoadError(Exception):
-    ...
-
+class TranslationUnitLoadError(Exception): ...
 
 class TranslationUnitSaveError(Exception):
     ERROR_UNKNOWN: int
@@ -25,31 +21,24 @@ class TranslationUnitSaveError(Exception):
     save_error: Incomplete
     def __init__(self, enumeration, message) -> None: ...
 
-
 class CachedProperty:
     wrapped: Incomplete
     __doc__: Incomplete
     def __init__(self, wrapped) -> None: ...
     def __get__(self, instance, instance_type: Incomplete | None = ...): ...
 
-
 class _CXString(Structure):
     def __del__(self) -> None: ...
-
     @staticmethod
-    def from_result(res: _CXString, fn: Any = None,
-                    args: Any = None) -> _CXString: ...
-
+    def from_result(res: _CXString, fn: Any = None, args: Any = None) -> _CXString: ...
 
 class SourceLocation(Structure):
     @staticmethod
-    def from_position(tu: TranslationUnit, file: File,
-                      line: int, column: int) -> SourceLocation: ...
-
+    def from_position(
+        tu: TranslationUnit, file: File, line: int, column: int
+    ) -> SourceLocation: ...
     @staticmethod
-    def from_offset(tu: TranslationUnit, file: File,
-                    offset: int) -> SourceLocation: ...
-
+    def from_offset(tu: TranslationUnit, file: File, offset: int) -> SourceLocation: ...
     @property
     def file(self) -> File: ...
     @property
@@ -61,12 +50,9 @@ class SourceLocation(Structure):
     def __eq__(self, other: SourceLocation) -> bool: ...
     def __ne__(self, other: SourceLocation) -> bool: ...
 
-
 class SourceRange(Structure):
     @staticmethod
-    def from_locations(start: SourceLocation,
-                       end: SourceLocation) -> SourceRange: ...
-
+    def from_locations(start: SourceLocation, end: SourceLocation) -> SourceRange: ...
     @property
     def start(self) -> SourceLocation: ...
     @property
@@ -74,7 +60,6 @@ class SourceRange(Structure):
     def __eq__(self, other: SourceRange) -> bool: ...
     def __ne__(self, other: SourceLocation) -> bool: ...
     def __contains__(self, other: SourceLocation) -> bool: ...
-
 
 class Diagnostic:
     Ignored: int
@@ -116,23 +101,18 @@ class Diagnostic:
     def format(self, options: int = ...) -> str: ...
     def from_param(self) -> Any: ...
 
-
 class FixIt:
     range: Incomplete
     value: Incomplete
     def __init__(self, range: Any, value: Any) -> None: ...
 
-
 class TokenGroup:
-    def __init__(self, tu: TranslationUnit,
-                 memory: Any, count: int) -> None: ...
-
+    def __init__(self, tu: TranslationUnit, memory: Any, count: int) -> None: ...
     def __del__(self) -> None: ...
-
     @staticmethod
-    def get_tokens(tu: TranslationUnit,
-                   extent: SourceRange) -> Generator[Token, None, None]: ...
-
+    def get_tokens(
+        tu: TranslationUnit, extent: SourceRange
+    ) -> Generator[Token, None, None]: ...
 
 class TokenKind:
     value: int
@@ -143,7 +123,6 @@ class TokenKind:
     @staticmethod
     def register(value: int, name: str) -> None: ...
 
-
 class BaseEnumeration:
     value: Incomplete
     def __init__(self, value: int) -> None: ...
@@ -152,7 +131,6 @@ class BaseEnumeration:
     def name(self) -> str: ...
     @classmethod
     def from_id(cls, id: int) -> Any: ...
-
 
 class CursorKind(BaseEnumeration):
     @staticmethod
@@ -944,34 +922,29 @@ class CursorKind(BaseEnumeration):
     # A code completion overload candidate.
     OVERLOAD_CANDIDATE: CursorKind
 
-
 class TemplateArgumentKind(BaseEnumeration):
-    NULL: 'TemplateArgumentKind'
-    TYPE: 'TemplateArgumentKind'
-    DECLARATION: 'TemplateArgumentKind'
-    NULLPTR: 'TemplateArgumentKind'
-    INTEGRAL: 'TemplateArgumentKind'
+    NULL: "TemplateArgumentKind"
+    TYPE: "TemplateArgumentKind"
+    DECLARATION: "TemplateArgumentKind"
+    NULLPTR: "TemplateArgumentKind"
+    INTEGRAL: "TemplateArgumentKind"
     ...
-
 
 class ExceptionSpecificationKind(BaseEnumeration):
-    NONE: 'ExceptionSpecificationKind'
-    DYNAMIC_NONE: 'ExceptionSpecificationKind'
-    DYNAMIC: 'ExceptionSpecificationKind'
-    MS_ANY: 'ExceptionSpecificationKind'
-    BASIC_NOEXCEPT: 'ExceptionSpecificationKind'
-    COMPUTED_NOEXCEPT: 'ExceptionSpecificationKind'
-    UNEVALUATED: 'ExceptionSpecificationKind'
-    UNINSTANTIATED: 'ExceptionSpecificationKind'
-    UNPARSED: 'ExceptionSpecificationKind'
+    NONE: "ExceptionSpecificationKind"
+    DYNAMIC_NONE: "ExceptionSpecificationKind"
+    DYNAMIC: "ExceptionSpecificationKind"
+    MS_ANY: "ExceptionSpecificationKind"
+    BASIC_NOEXCEPT: "ExceptionSpecificationKind"
+    COMPUTED_NOEXCEPT: "ExceptionSpecificationKind"
+    UNEVALUATED: "ExceptionSpecificationKind"
+    UNINSTANTIATED: "ExceptionSpecificationKind"
+    UNPARSED: "ExceptionSpecificationKind"
     ...
-
 
 class Cursor(Structure):
     @staticmethod
-    def from_location(tu: TranslationUnit,
-                      location: SourceLocation) -> Cursor: ...
-
+    def from_location(tu: TranslationUnit, location: SourceLocation) -> Cursor: ...
     def __hash__(self) -> int: ...
     def __eq__(self, other: Cursor) -> bool: ...
     def __ne__(self, other: Cursor) -> bool: ...
@@ -1064,7 +1037,6 @@ class Cursor(Structure):
     @staticmethod
     def from_cursor_result(res: Cursor, fn, args) -> Optional[Cursor]: ...
 
-
 class StorageClass:
     value: int
     def __init__(self, value: int) -> None: ...
@@ -1074,158 +1046,151 @@ class StorageClass:
     @staticmethod
     def from_id(id: int) -> StorageClass: ...
 
-    INVALID: 'StorageClass'
-    NONE: 'StorageClass'
-    EXTERN: 'StorageClass'
-    STATIC: 'StorageClass'
-    PRIVATEEXTERN: 'StorageClass'
-    OPENCLWORKGROUPLOCAL: 'StorageClass'
-    AUTO: 'StorageClass'
-    REGISTER: 'StorageClass'
-
+    INVALID: "StorageClass"
+    NONE: "StorageClass"
+    EXTERN: "StorageClass"
+    STATIC: "StorageClass"
+    PRIVATEEXTERN: "StorageClass"
+    OPENCLWORKGROUPLOCAL: "StorageClass"
+    AUTO: "StorageClass"
+    REGISTER: "StorageClass"
 
 class AvailabilityKind(BaseEnumeration):
-    AVAILABLE: 'AvailabilityKind'
-    DEPRECATED: 'AvailabilityKind'
-    NOT_AVAILABLE: 'AvailabilityKind'
-    NOT_ACCESSIBLE: 'AvailabilityKind'
+    AVAILABLE: "AvailabilityKind"
+    DEPRECATED: "AvailabilityKind"
+    NOT_AVAILABLE: "AvailabilityKind"
+    NOT_ACCESSIBLE: "AvailabilityKind"
     ...
-
 
 class AccessSpecifier(BaseEnumeration):
     def from_param(self) -> int: ...
-    INVALID: 'AccessSpecifier'
-    PUBLIC: 'AccessSpecifier'
-    PROTECTED: 'AccessSpecifier'
-    PRIVATE: 'AccessSpecifier'
-    NONE: 'AccessSpecifier'
-
+    INVALID: "AccessSpecifier"
+    PUBLIC: "AccessSpecifier"
+    PROTECTED: "AccessSpecifier"
+    PRIVATE: "AccessSpecifier"
+    NONE: "AccessSpecifier"
 
 class TypeKind(BaseEnumeration):
     @property
     def spelling(self) -> str: ...
 
     # Enum values
-    Invalid: 'TypeKind'
-    Unexposed: 'TypeKind'
-    Void: 'TypeKind'
-    Bool: 'TypeKind'
-    Char_U: 'TypeKind'
-    UChar: 'TypeKind'
-    Char16: 'TypeKind'
-    Char32: 'TypeKind'
-    UShort: 'TypeKind'
-    UInt: 'TypeKind'
-    ULong: 'TypeKind'
-    ULongLong: 'TypeKind'
-    UInt128: 'TypeKind'
-    Char_S: 'TypeKind'
-    SChar: 'TypeKind'
-    WChar: 'TypeKind'
-    Short: 'TypeKind'
-    Int: 'TypeKind'
-    Long: 'TypeKind'
-    LongLong: 'TypeKind'
-    Int128: 'TypeKind'
-    Float: 'TypeKind'
-    Double: 'TypeKind'
-    LongDouble: 'TypeKind'
-    NullPtr: 'TypeKind'
-    Overload: 'TypeKind'
-    Dependent: 'TypeKind'
-    ObjCId: 'TypeKind'
-    ObjCClass: 'TypeKind'
-    ObjCSel: 'TypeKind'
-    Float128: 'TypeKind'
-    Half: 'TypeKind'
-    Ibm128: 'TypeKind'
-    Complex: 'TypeKind'
-    Pointer: 'TypeKind'
-    BlockPointer: 'TypeKind'
-    LValueReference: 'TypeKind'
-    RValueReference: 'TypeKind'
-    Record: 'TypeKind'
-    Enum: 'TypeKind'
-    Typedef: 'TypeKind'
-    ObjCInterface: 'TypeKind'
-    ObjCObjectPointer: 'TypeKind'
-    FunctionNoProto: 'TypeKind'
-    FunctionProto: 'TypeKind'
-    ConstantArray: 'TypeKind'
-    Vector: 'TypeKind'
-    IncompleteArray: 'TypeKind'
-    VariableArray: 'TypeKind'
-    DependentSizedArray: 'TypeKind'
-    MemberPointer: 'TypeKind'
-    Auto: 'TypeKind'
-    Elaborated: 'TypeKind'
-    Pipe: 'TypeKind'
-    OCLImage1dRO: 'TypeKind'
-    OCLImage1dArrayRO: 'TypeKind'
-    OCLImage1dBufferRO: 'TypeKind'
-    OCLImage2dRO: 'TypeKind'
-    OCLImage2dArrayRO: 'TypeKind'
-    OCLImage2dDepthRO: 'TypeKind'
-    OCLImage2dArrayDepthRO: 'TypeKind'
-    OCLImage2dMSAARO: 'TypeKind'
-    OCLImage2dArrayMSAARO: 'TypeKind'
-    OCLImage2dMSAADepthRO: 'TypeKind'
-    OCLImage2dArrayMSAADepthRO: 'TypeKind'
-    OCLImage3dRO: 'TypeKind'
-    OCLImage1dWO: 'TypeKind'
-    OCLImage1dArrayWO: 'TypeKind'
-    OCLImage1dBufferWO: 'TypeKind'
-    OCLImage2dWO: 'TypeKind'
-    OCLImage2dArrayWO: 'TypeKind'
-    OCLImage2dDepthWO: 'TypeKind'
-    OCLImage2dArrayDepthWO: 'TypeKind'
-    OCLImage2dMSAAWO: 'TypeKind'
-    OCLImage2dArrayMSAAWO: 'TypeKind'
-    OCLImage2dMSAADepthWO: 'TypeKind'
-    OCLImage2dArrayMSAADepthWO: 'TypeKind'
-    OCLImage3dWO: 'TypeKind'
-    OCLImage1dRW: 'TypeKind'
-    OCLImage1dArrayRW: 'TypeKind'
-    OCLImage1dBufferRW: 'TypeKind'
-    OCLImage2dRW: 'TypeKind'
-    OCLImage2dArrayRW: 'TypeKind'
-    OCLImage2dDepthRW: 'TypeKind'
-    OCLImage2dArrayDepthRW: 'TypeKind'
-    OCLImage2dMSAARW: 'TypeKind'
-    OCLImage2dArrayMSAARW: 'TypeKind'
-    OCLImage2dMSAADepthRW: 'TypeKind'
-    OCLImage2dArrayMSAADepthRW: 'TypeKind'
-    OCLImage3dRW: 'TypeKind'
-    OCLSampler: 'TypeKind'
-    OCLEvent: 'TypeKind'
-    OCLQueue: 'TypeKind'
-    OCLReserveID: 'TypeKind'
-    ExtVector: 'TypeKind'
-    Atomic: 'TypeKind'
-
+    Invalid: "TypeKind"
+    Unexposed: "TypeKind"
+    Void: "TypeKind"
+    Bool: "TypeKind"
+    Char_U: "TypeKind"
+    UChar: "TypeKind"
+    Char16: "TypeKind"
+    Char32: "TypeKind"
+    UShort: "TypeKind"
+    UInt: "TypeKind"
+    ULong: "TypeKind"
+    ULongLong: "TypeKind"
+    UInt128: "TypeKind"
+    Char_S: "TypeKind"
+    SChar: "TypeKind"
+    WChar: "TypeKind"
+    Short: "TypeKind"
+    Int: "TypeKind"
+    Long: "TypeKind"
+    LongLong: "TypeKind"
+    Int128: "TypeKind"
+    Float: "TypeKind"
+    Double: "TypeKind"
+    LongDouble: "TypeKind"
+    NullPtr: "TypeKind"
+    Overload: "TypeKind"
+    Dependent: "TypeKind"
+    ObjCId: "TypeKind"
+    ObjCClass: "TypeKind"
+    ObjCSel: "TypeKind"
+    Float128: "TypeKind"
+    Half: "TypeKind"
+    Ibm128: "TypeKind"
+    Complex: "TypeKind"
+    Pointer: "TypeKind"
+    BlockPointer: "TypeKind"
+    LValueReference: "TypeKind"
+    RValueReference: "TypeKind"
+    Record: "TypeKind"
+    Enum: "TypeKind"
+    Typedef: "TypeKind"
+    ObjCInterface: "TypeKind"
+    ObjCObjectPointer: "TypeKind"
+    FunctionNoProto: "TypeKind"
+    FunctionProto: "TypeKind"
+    ConstantArray: "TypeKind"
+    Vector: "TypeKind"
+    IncompleteArray: "TypeKind"
+    VariableArray: "TypeKind"
+    DependentSizedArray: "TypeKind"
+    MemberPointer: "TypeKind"
+    Auto: "TypeKind"
+    Elaborated: "TypeKind"
+    Pipe: "TypeKind"
+    OCLImage1dRO: "TypeKind"
+    OCLImage1dArrayRO: "TypeKind"
+    OCLImage1dBufferRO: "TypeKind"
+    OCLImage2dRO: "TypeKind"
+    OCLImage2dArrayRO: "TypeKind"
+    OCLImage2dDepthRO: "TypeKind"
+    OCLImage2dArrayDepthRO: "TypeKind"
+    OCLImage2dMSAARO: "TypeKind"
+    OCLImage2dArrayMSAARO: "TypeKind"
+    OCLImage2dMSAADepthRO: "TypeKind"
+    OCLImage2dArrayMSAADepthRO: "TypeKind"
+    OCLImage3dRO: "TypeKind"
+    OCLImage1dWO: "TypeKind"
+    OCLImage1dArrayWO: "TypeKind"
+    OCLImage1dBufferWO: "TypeKind"
+    OCLImage2dWO: "TypeKind"
+    OCLImage2dArrayWO: "TypeKind"
+    OCLImage2dDepthWO: "TypeKind"
+    OCLImage2dArrayDepthWO: "TypeKind"
+    OCLImage2dMSAAWO: "TypeKind"
+    OCLImage2dArrayMSAAWO: "TypeKind"
+    OCLImage2dMSAADepthWO: "TypeKind"
+    OCLImage2dArrayMSAADepthWO: "TypeKind"
+    OCLImage3dWO: "TypeKind"
+    OCLImage1dRW: "TypeKind"
+    OCLImage1dArrayRW: "TypeKind"
+    OCLImage1dBufferRW: "TypeKind"
+    OCLImage2dRW: "TypeKind"
+    OCLImage2dArrayRW: "TypeKind"
+    OCLImage2dDepthRW: "TypeKind"
+    OCLImage2dArrayDepthRW: "TypeKind"
+    OCLImage2dMSAARW: "TypeKind"
+    OCLImage2dArrayMSAARW: "TypeKind"
+    OCLImage2dMSAADepthRW: "TypeKind"
+    OCLImage2dArrayMSAADepthRW: "TypeKind"
+    OCLImage3dRW: "TypeKind"
+    OCLSampler: "TypeKind"
+    OCLEvent: "TypeKind"
+    OCLQueue: "TypeKind"
+    OCLReserveID: "TypeKind"
+    ExtVector: "TypeKind"
+    Atomic: "TypeKind"
 
 class RefQualifierKind(BaseEnumeration):
     def from_param(self) -> int: ...
-    NONE: 'RefQualifierKind'
-    LVALUE: 'RefQualifierKind'
-    RVALUE: 'RefQualifierKind'
-
+    NONE: "RefQualifierKind"
+    LVALUE: "RefQualifierKind"
+    RVALUE: "RefQualifierKind"
 
 class LinkageKind(BaseEnumeration):
     def from_param(self) -> int: ...
-    INVALID: 'LinkageKind'
-    NO_LINKAGE: 'LinkageKind'
-    INTERNAL: 'LinkageKind'
-    UNIQUE_EXTERNAL: 'LinkageKind'
-    EXTERNAL: 'LinkageKind'
-
+    INVALID: "LinkageKind"
+    NO_LINKAGE: "LinkageKind"
+    INTERNAL: "LinkageKind"
+    UNIQUE_EXTERNAL: "LinkageKind"
+    EXTERNAL: "LinkageKind"
 
 class TLSKind(BaseEnumeration):
     def from_param(self) -> int: ...
-    NONE: 'TLSKind'
-    DYNAMIC: 'TLSKind'
-    STATIC: 'TLSKind'
-
+    NONE: "TLSKind"
+    DYNAMIC: "TLSKind"
+    STATIC: "TLSKind"
 
 class Type(Structure):
     @property
@@ -1263,29 +1228,24 @@ class Type(Structure):
     def get_offset(self, fieldname: str) -> int: ...
     def get_ref_qualifier(self) -> RefQualifierKind: ...
     def get_fields(self) -> Iterator[Cursor]: ...
-    def get_exception_specification_kind(
-        self) -> ExceptionSpecificationKind: ...
-
+    def get_exception_specification_kind(self) -> ExceptionSpecificationKind: ...
     @property
     def spelling(self) -> str: ...
     def __eq__(self, other: Any) -> bool: ...
     def __ne__(self, other: Any) -> bool: ...
-
 
 class ClangObject:
     obj: Incomplete
     def __init__(self, obj) -> None: ...
     def from_param(self): ...
 
-
-class _CXUnsavedFile(Structure):
-    ...
-
+class _CXUnsavedFile(Structure): ...
 
 class CompletionChunk:
     class Kind:
         name: Incomplete
         def __init__(self, name: str) -> None: ...
+
     cs: Incomplete
     key: int
     def __init__(self, completionString: CompletionString, key) -> None: ...
@@ -1297,7 +1257,6 @@ class CompletionChunk:
     def isKindPlaceHolder(self) -> bool: ...
     def isKindInformative(self) -> bool: ...
     def isKindResultType(self) -> bool: ...
-
 
 class CompletionString(ClangObject):
     class Availability:
@@ -1314,18 +1273,15 @@ class CompletionString(ClangObject):
     @property
     def briefComment(self) -> str: ...
 
-
 class CodeCompletionResult(Structure):
     @property
     def kind(self): ...
     @property
     def string(self): ...
 
-
 class CCRStructure(Structure):
     def __len__(self) -> int: ...
     def __getitem__(self, key): ...
-
 
 class CodeCompletionResults(ClangObject):
     ptr: Incomplete
@@ -1338,15 +1294,18 @@ class CodeCompletionResults(ClangObject):
     @property
     def diagnostics(self) -> Iterable[Diagnostic]: ...
 
-
 class Index(ClangObject):
     @staticmethod
     def create(excludeDecls: bool = ...) -> Index: ...
     def __del__(self) -> None: ...
     def read(self, path: str) -> TranslationUnit: ...
-    def parse(self, path: str, args: list[str] | None = ...,
-              unsaved_files: list[tuple[str, str]] | None = ..., options: int = ...) -> 'TranslationUnit': ...
-
+    def parse(
+        self,
+        path: str,
+        args: list[str] | None = ...,
+        unsaved_files: list[tuple[str, str]] | None = ...,
+        options: int = ...,
+    ) -> "TranslationUnit": ...
 
 class TranslationUnit(ClangObject):
     PARSE_NONE: int
@@ -1358,13 +1317,18 @@ class TranslationUnit(ClangObject):
     PARSE_INCLUDE_BRIEF_COMMENTS_IN_CODE_COMPLETION: int
 
     @classmethod
-    def from_source(cls, filename: str, args: Optional[list[str]] = ...,
-                    unsaved_files: Optional[list[tuple[str, str]]] = None,
-                    options: int = 0, index: Optional[Index] = None) -> TranslationUnit: ...
-
+    def from_source(
+        cls,
+        filename: str,
+        args: Optional[list[str]] = ...,
+        unsaved_files: Optional[list[tuple[str, str]]] = None,
+        options: int = 0,
+        index: Optional[Index] = None,
+    ) -> TranslationUnit: ...
     @classmethod
-    def from_ast_file(cls, filename: str,
-                      index: Optional[Index] = None) -> TranslationUnit: ...
+    def from_ast_file(
+        cls, filename: str, index: Optional[Index] = None
+    ) -> TranslationUnit: ...
     index: Index
     def __init__(self, ptr, index: Index) -> None: ...
     def __del__(self) -> None: ...
@@ -1374,39 +1338,44 @@ class TranslationUnit(ClangObject):
     def spelling(self) -> str: ...
     def get_includes(self) -> Iterator[FileInclusion]: ...
     def get_file(self, filename: str) -> File: ...
-
-    def get_location(self, filename: str,
-                     position: tuple[int, int]) -> SourceLocation: ...
-
-    def get_extent(self, filename: str,
-                   locations: list[tuple[int, int]] | tuple[int, int]) -> SourceRange: ...
+    def get_location(
+        self, filename: str, position: tuple[int, int]
+    ) -> SourceLocation: ...
+    def get_extent(
+        self, filename: str, locations: list[tuple[int, int]] | tuple[int, int]
+    ) -> SourceRange: ...
     tu: TranslationUnit
     @property
     def diagnostics(self) -> Iterable[Diagnostic]: ...
     def reparse(
-        self, unsaved_files: Optional[list[tuple[str, str]]] = None, options: int = 0) -> None: ...
-
+        self, unsaved_files: Optional[list[tuple[str, str]]] = None, options: int = 0
+    ) -> None: ...
     def save(self, filename: str) -> None: ...
-
-    def codeComplete(self, path: Any, line: int, column: int, unsaved_files: Optional[list[tuple[str, str]]] = None,
-                     include_macros: bool = False, include_code_patterns: bool = False,
-                     include_brief_comments: bool = False) -> Optional[CodeCompletionResults]: ...
-    def get_tokens(self, locations: Optional[tuple[int, int]] = None,
-                   extent: Optional[SourceRange] = None) -> Generator[Token, None, None]: ...
-
+    def codeComplete(
+        self,
+        path: Any,
+        line: int,
+        column: int,
+        unsaved_files: Optional[list[tuple[str, str]]] = None,
+        include_macros: bool = False,
+        include_code_patterns: bool = False,
+        include_brief_comments: bool = False,
+    ) -> Optional[CodeCompletionResults]: ...
+    def get_tokens(
+        self,
+        locations: Optional[tuple[int, int]] = None,
+        extent: Optional[SourceRange] = None,
+    ) -> Generator[Token, None, None]: ...
 
 class File(ClangObject):
     @staticmethod
-    def from_name(translation_unit: TranslationUnit,
-                  file_name: str) -> File: ...
-
+    def from_name(translation_unit: TranslationUnit, file_name: str) -> File: ...
     @property
     def name(self) -> str: ...
     @property
     def time(self) -> int: ...
     @staticmethod
     def from_result(res: Any, fn: Any, args: Any) -> File: ...
-
 
 class FileInclusion:
     source: File
@@ -1417,13 +1386,11 @@ class FileInclusion:
     @property
     def is_input_file(self) -> bool: ...
 
-
 class CompilationDatabaseError(Exception):
     ERROR_UNKNOWN: int
     ERROR_CANNOTLOADDATABASE: int
     cdb_error: Incomplete
     def __init__(self, enumeration, message) -> None: ...
-
 
 class CompileCommand:
     cmd: Incomplete
@@ -1436,7 +1403,6 @@ class CompileCommand:
     @property
     def arguments(self) -> Generator[Incomplete, None, None]: ...
 
-
 class CompileCommands:
     ccmds: Incomplete
     def __init__(self, ccmds) -> None: ...
@@ -1446,7 +1412,6 @@ class CompileCommands:
     @staticmethod
     def from_result(res, fn, args): ...
 
-
 class CompilationDatabase(ClangObject):
     def __del__(self) -> None: ...
     @staticmethod
@@ -1455,7 +1420,6 @@ class CompilationDatabase(ClangObject):
     def fromDirectory(buildDir): ...
     def getCompileCommands(self, filename: str): ...
     def getAllCompileCommands(self): ...
-
 
 class Token(Structure):
     @property
@@ -1469,11 +1433,9 @@ class Token(Structure):
     @property
     def cursor(self) -> Cursor: ...
 
-
 class LibclangError(Exception):
     m: Incomplete
     def __init__(self, message) -> None: ...
-
 
 class Config:
     library_path: Incomplete

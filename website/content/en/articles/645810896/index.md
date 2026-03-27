@@ -1,16 +1,22 @@
 ---
-title: 'std::variant is Hard to Use!'
-date: 2023-07-25 15:19:25
-updated: 2024-07-20 22:31:19
+title: std::variant is hard to use!
+date: "2023-07-25 07:19:25"
+updated: "2024-07-20 14:31:19"
+zhihu_article_id: "645810896"
+zhihu_url: https://zhuanlan.zhihu.com/p/645810896
+zhihu_column_id: c_1656510843973046272
+zhihu_column_title: 魅力C++
 ---
 
-`std::variant` was introduced into the C++ standard library in C++17. This article will discuss the background of its inclusion in the standard and some issues with its usage.
+> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
 
-## Sum Type
+`std::variant` was added to the standard library in C++17. This article will discuss the background of its inclusion and some issues related to its usage.
 
-First, let's discuss **sum types**, also known as [tagged unions](https://en.wikipedia.org/wiki/Tagged_union). A sum type is a type that can hold one of several possible types.
+## sum type
 
-For example, consider the following two types:
+First, let's discuss **sum types**, also known as [tagged unions](https://en.wikipedia.org/wiki/Tagged_union). A sum type is a type that can hold a value of only one of several possible types.
+
+For example, if we have the following two types:
 
 ```cpp
 struct Circle {
@@ -23,7 +29,7 @@ struct Rectangle {
 };
 ```
 
-The sum type of `Circle` and `Rectangle`, let's call it `Shape`, can be implemented in C as follows:
+Then a sum type of `Circle` and `Rectangle`, let's call it `Shape`, can be implemented in C as follows:
 
 ```cpp
 struct Shape {
@@ -36,9 +42,9 @@ struct Shape {
 };
 ```
 
-> Here, we use a feature called [anonymous union](https://en.cppreference.com/w/cpp/language/union#Anonymous_unions), which declares a union member of the corresponding type and injects the field names into the current scope.
+> This uses a feature called [anonymous union](https://en.cppreference.com/w/cpp/language/union#Anonymous_unions), which is equivalent to declaring a union member of the corresponding type and injecting its field names into the current scope.
 
-This allows us to assign values of different types to a variable of type `Shape`, while updating the `type` to reflect the current assignment. When accessing the value, we can determine how to access it based on the `type`. For example:
+This way, we can assign different types of values to a `Shape` variable, while also updating the `type` to record the type of the assigned value. When accessing, we can then use the `type` to determine which type to access it as. For example:
 
 ```cpp
 void foo(Shape shape) {
@@ -63,7 +69,7 @@ int main() {
 }
 ```
 
-## Not Trivial
+## not trivial
 
 However, things are not so simple in C++. Consider the following code:
 
@@ -85,9 +91,9 @@ int main(){
 }
 ```
 
-This code will not compile. The compiler will report an error: `use of deleted function Settings::Settings()`. Why is the constructor of `Settings` deleted? This is because the constructor of `std::string` is not trivial. When a `union` contains members of non-trivial types, the compiler cannot correctly generate constructors and destructors (it doesn't know which member to initialize or destruct). For more details, refer to the [union](https://en.cppreference.com/w/cpp/language/union) section on cppreference.
+This code actually won't compile. The compiler will report an error: `use of deleted function Settings::Settings()`. Why is the constructor for `Settings` deleted? This is because `std::string` has a non-trivial constructor. When a `union` contains members of non-trivial types, the compiler cannot correctly generate constructors and destructors (it doesn't know which member you intend to initialize or destroy). For more details, you can refer to the cppreference documentation on [union](https://en.cppreference.com/w/cpp/language/union).
 
-How can we solve this? We need to define the constructor and destructor for the `union` ourselves. For example, we can define an empty constructor and destructor that do nothing:
+How to solve this? We need to define the `union`'s constructor and destructor ourselves. For example, we can define an empty constructor and destructor for it, meaning they do nothing:
 
 ```cpp
 union Value {
@@ -105,7 +111,7 @@ struct Settings {
 };
 ```
 
-When using this, we need to explicitly call the constructor to initialize a member using [placement new](https://en.cppreference.com/w/cpp/language/new#Placement_new), and similarly, we need to manually call the destructor to destroy a member.
+When using it, we are required to explicitly call the constructor to initialize a member using [placement new](https://en.cppreference.com/w/cpp/language/new#Placement_new). Similarly, we must manually call the destructor to destroy a member.
 
 ```cpp
 int main(){
@@ -123,13 +129,13 @@ int main(){
 }
 ```
 
-> Note that you cannot **directly assign** here. The assignment operation actually calls the member function `operator=`, and only objects that have already been initialized can call member functions.
+> Note that you cannot **directly assign** here. This is because an assignment operation actually calls the member function `operator=`, and member functions can only be called on objects that have already been initialized.
 
-From the above code, it's clear that directly using `union` to represent sum types in C++ is very cumbersome. Not only do you need to update the `type` in time, but you also need to correctly call constructors and destructors, and be careful about the timing of assignments. If any step is forgotten, it can lead to undefined behavior, which is very frustrating. Fortunately, C++17 provides `std::variant` to solve this problem.
+From the code above, it's clear that directly using a union to represent a sum type in C++ is very cumbersome. Not only do you need to update `type` promptly, but you also need to correctly call constructors and destructors, and pay attention to the timing of assignments. Forgetting any of these steps can lead to undefined behavior, which is a major headache. Fortunately, C++17 provides `std::variant` to solve this problem.
 
 ## std::variant
 
-Let's look at the code directly:
+Let's look directly at the code:
 
 ```cpp
 #include <string>
@@ -144,9 +150,9 @@ int main() {
 }
 ```
 
-The above code is completely well-defined. Through template metaprogramming, `variant` handles object construction and destruction at the appropriate times.
+The code above is completely well-defined. Through template metaprogramming, `variant` handles object construction and destruction at the appropriate times.
 
-It has an `index` member function that can get the index of the current type in the type list you provided.
+It has an `index` member function that can retrieve the index of the current active type within the list of types you provided.
 
 ```cpp
 Settings s;
@@ -155,7 +161,7 @@ s = 1; // s.index() => 0
 s = true; // s.index() => 1
 ```
 
-You can use `std::get` to retrieve the corresponding value from the `variant`:
+You can use `std::get` to retrieve the corresponding value from the `variant`.
 
 ```cpp
 Settings s;
@@ -163,19 +169,19 @@ s = std::string("hello");
 std::cout << std::get<std::string>(s); // => hello
 ```
 
-Some might wonder, if I already know that it contains a `string`, why use `std::variant`? Note that `get` also has an overload with an integer template parameter. Can it solve this problem?
+Some might wonder, "If I already know it stores a `string`, why would I use `std::variant`?" Notice that `get` also has an overload where the template parameter is an integer. Can that solve this problem?
 
 ```cpp
 std::cout << std::get<2>(s); // => hello
 ```
 
-Oh, I see. So if I can use `index` directly to get the value, why not write it like this?
+Oh, I see. Since I can get it directly using `index`, why not just write it like this?
 
 ```cpp
 std::cout << std::get<s.index()>(s);
 ```
 
-Unfortunately, this won't work. Template parameters must be compile-time constants, and `variant`, as a type-erasure mechanism, has an `index` that is definitely a runtime value. What to do? Dynamic to static, you can only dispatch one by one. For example:
+Unfortunately, while the idea is good, this won't work. Template parameters must be compile-time constants, and `variant`, as a means of type erasure, will have its `index` value determined at runtime. What to do then? To convert dynamic to static, you have to dispatch one by one. For example:
 
 ```cpp
 if (s.index() == 0){
@@ -187,7 +193,7 @@ if (s.index() == 0){
 }
 ```
 
-Using numbers is not very readable. We can use `std::holds_alternative` to make decisions based on types:
+Using numbers for readability is quite poor. We can use `std::holds_alternative` to check based on type:
 
 ```cpp
 if (std::holds_alternative<std::string>(s)){
@@ -199,11 +205,11 @@ if (std::holds_alternative<std::string>(s)){
 }
 ```
 
-Although this works, there's too much redundant code. Is there a better way to operate on the values inside a `variant`?
+While it works, there's too much redundant code. Is there a better way to operate on the value inside a `variant`?
 
 ## std::visit
 
-The name `visit` actually comes from the `visitor` pattern in design patterns. Using it, we can write the following code:
+The name `visit` actually comes from the `visitor` design pattern. Using it, we can write code like this:
 
 ```cpp
 Settings s;
@@ -214,9 +220,9 @@ settings = 1;
 std::visit(callback, s); // => 1
 ```
 
-Isn't it magical? Just pass in a `callback`, and you can directly access the value inside the `variant` without any manual dispatching. In software engineering, there's a golden rule: complexity doesn't disappear, it just shifts. This is no exception. In fact, `visit` internally instantiates a function for each type in the `variant` for your `callback`, pre-generates a function table, and then at runtime, directly calls the function in the table based on the `index`.
+Isn't that amazing? You just need to pass a `callback`, and you can directly access the value inside the `variant` without any manual dispatch. There's an iron rule in software engineering: complexity doesn't disappear, it just moves around, and this is no exception. In fact, `visit` internally instantiates a function for each type within the `variant` based on your `callback`, pre-builds a function table, and then at runtime, directly calls the function from that table based on the `index`.
 
-But more often, we want to do different things based on different types. In other languages, this can be conveniently achieved through pattern matching.
+More often, however, we want to do different things based on different types. This can be conveniently achieved through pattern matching in other languages:
 
 **Haskell:**
 
@@ -249,9 +255,9 @@ fn main(){
 }
 ```
 
-Unfortunately, as of C++23, C++ still lacks pattern matching. To achieve similar effects in C++, there are currently two ways to simulate it:
+Unfortunately, as of C++23, C++ still lacks pattern matching. To achieve an effect similar to the code above in C++, there are currently two ways to simulate it:
 
-**Function Overload:**
+**function overload:**
 
 ```cpp
 template<typename ...Ts>
@@ -292,4 +298,4 @@ int main() {
 }
 ```
 
-Both methods are somewhat awkward. Using templates for such tricks not only slows down compilation but also makes error messages harder to understand. This also means that `variant` is currently very difficult to use, lacking the necessary language facilities to simplify its operations, deeply entangled with templates, and discouraging to many.
+Both methods are quite awkward. Using templates for such tricks not only slows down compilation but also results in less readable error messages. This also means that the current `variant` is very difficult to use, lacking accompanying language features to simplify its operations, and is deeply entangled with templates, making it daunting for users.
