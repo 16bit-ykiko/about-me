@@ -87,7 +87,7 @@
       <description>&lt;blockquote&gt;
 &lt;p&gt;This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;参加了 &lt;a href=&#34;https://summerofcode.withgoogle.com/programs/2024/projects/Ji2Mi97o&#34;&gt;Google Summer of Code 2024&lt;/a&gt;。主要的任务就是为一个 &lt;a href=&#34;https://pocketpy.dev/&#34;&gt;Python 解释器&lt;/a&gt; 实现 &lt;a href=&#34;https://github.com/pybind/pybind11&#34;&gt;pybind11&lt;/a&gt; 的兼容性接口。说是实现兼容性接口，实际上相当于重写 pybind11 了，所以最近一直在读它的源码。&lt;/p&gt;</description>
+&lt;p&gt;I participated in &lt;a href=&#34;https://summerofcode.withgoogle.com/programs/2024/projects/Ji2Mi97o&#34;&gt;Google Summer of Code 2024&lt;/a&gt;. The main task was to implement a &lt;a href=&#34;https://github.com/pybind/pybind11&#34;&gt;pybind11&lt;/a&gt;-compatible interface for a &lt;a href=&#34;https://pocketpy.dev/&#34;&gt;Python interpreter&lt;/a&gt;. Saying &amp;ldquo;implement a compatible interface&amp;rdquo; is somewhat of an understatement — it was essentially a rewrite of pybind11, so I&amp;rsquo;ve been spending a lot of time reading through its source code lately.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Is the singleton pattern in C&#43;&#43; truly a &#39;singleton&#39;?</title>
@@ -272,7 +272,7 @@
       <description>&lt;blockquote&gt;
 &lt;p&gt;This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;在 C++ 中，模板（Template）这个概念已经存在二十多年了。作为 C++ 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。&lt;/p&gt;</description>
+&lt;p&gt;The concept of templates in C++ has existed for over twenty years. As one of the language&amp;rsquo;s most important constructs, there is no shortage of related discussion. Unfortunately, truly in-depth and valuable discussions are rare — especially those that examine the feature from multiple perspectives. Many articles on templates tend to entangle the topic with various syntactic details, easily leaving readers with a hazy impression. Similar things happen elsewhere: introductions to coroutines often mix them with all kinds of I/O concerns, and discussions of reflection seem confined to reflection in Java or C#. This isn&amp;rsquo;t unreasonable, but it often leaves readers unable to grasp the essence. After consuming a lot of content, one still can&amp;rsquo;t get to the heart of the matter, and it becomes easy to conflate different concepts.&lt;/p&gt;</description>
     </item>
     <item>
       <title>C&#43;&#43; Forbidden Black Magic: STMP (Part 2)</title>
