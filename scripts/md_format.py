@@ -34,17 +34,15 @@ ARTICLE_DIR = (
 # CJK ideograph ranges only — deliberately excludes CJK Symbols & Punctuation
 # (\u3000-\u303f) so that 。，！？ etc. don't trigger spacing rules.
 CJK_RE = re.compile(
-    r"[\u3040-\u30ff"    # Hiragana + Katakana
-    r"\u3400-\u4dbf"     # CJK Extension A
-    r"\u4e00-\u9fff"     # CJK Unified Ideographs (main block)
-    r"\uf900-\ufaff"     # CJK Compatibility Ideographs
+    r"[\u3040-\u30ff"  # Hiragana + Katakana
+    r"\u3400-\u4dbf"  # CJK Extension A
+    r"\u4e00-\u9fff"  # CJK Unified Ideographs (main block)
+    r"\uf900-\ufaff"  # CJK Compatibility Ideographs
     r"]"
 )
 
 # Single CJK char pattern for boundary checks
-_CJK = (
-    r"[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]"
-)
+_CJK = r"[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]"
 
 # Atomic ASCII term: letters/digits optionally linked by +, -, #, .
 # Covers: C++17, C#, x86-64, Node.js, ARMv8, Python3.12, etc.
@@ -116,20 +114,22 @@ TYPO_MAP: dict[str, str] = {
 }
 
 # Full-width digits/letters → half-width offset
-_FW_DIGIT_START = 0xFF10   # ０
-_FW_UPPER_START = 0xFF21   # Ａ
-_FW_LOWER_START = 0xFF41   # ａ
+_FW_DIGIT_START = 0xFF10  # ０
+_FW_UPPER_START = 0xFF21  # Ａ
+_FW_LOWER_START = 0xFF41  # ａ
 
 
 # ---------------------------------------------------------------------------
 # Inline tokeniser
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class Span:
     """A segment of a source line."""
-    kind: str    # "text" | "code" | "link" | "image" | "url" | "md_syntax"
-    text: str    # raw source text of this span
+
+    kind: str  # "text" | "code" | "link" | "image" | "url" | "md_syntax"
+    text: str  # raw source text of this span
     inner: str = ""  # for link/image: the alt/label text; for code: content
 
 
@@ -137,12 +137,11 @@ class Span:
 # Regions: inline code `...`, links [label](url), images ![alt](url),
 # bold/italic markers (**/*), everything else is "text".
 _INLINE_RE = re.compile(
-    r"(`+)(.+?)\1"                              # inline code
-    r"|!\[([^\]]*)\]\(([^)]*)\)"                # image ![alt](url)
-    r"|\[([^\]]*)\]\(([^)]*)\)"                 # link [label](url)
-    r"|(\*{1,3}|_{1,3})"                        # bold/italic marker
-    r"|(\\[\S])"                                 # escape sequence
-    ,
+    r"(`+)(.+?)\1"  # inline code
+    r"|!\[([^\]]*)\]\(([^)]*)\)"  # image ![alt](url)
+    r"|\[([^\]]*)\]\(([^)]*)\)"  # link [label](url)
+    r"|(\*{1,3}|_{1,3})"  # bold/italic marker
+    r"|(\\[\S])",  # escape sequence
     re.DOTALL,
 )
 
@@ -152,7 +151,7 @@ def tokenise(line: str) -> list[Span]:
     pos = 0
     for m in _INLINE_RE.finditer(line):
         if m.start() > pos:
-            spans.append(Span("text", line[pos:m.start()]))
+            spans.append(Span("text", line[pos : m.start()]))
         if m.group(1):  # inline code
             spans.append(Span("code", m.group(0), inner=m.group(2)))
         elif m.group(3) is not None:  # image
@@ -173,6 +172,7 @@ def tokenise(line: str) -> list[Span]:
 # Issue dataclass
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class Issue:
     line_no: int
@@ -186,6 +186,7 @@ class Issue:
 # Each returns (fixed_line, list[Issue]).
 # They operate on the full raw line; block-level skipping is done upstream.
 # ---------------------------------------------------------------------------
+
 
 def _is_cjk(ch: str) -> bool:
     return bool(CJK_RE.match(ch))
@@ -203,13 +204,19 @@ def fix_fullwidth(line: str, lno: int) -> tuple[str, list[Issue]]:
         cp = ord(ch)
         if _FW_DIGIT_START <= cp <= _FW_DIGIT_START + 9:
             out.append(chr(cp - _FW_DIGIT_START + ord("0")))
-            issues.append(Issue(lno, "fullwidth", f"全角字符「{ch}」→半角", fixable=True))
+            issues.append(
+                Issue(lno, "fullwidth", f"全角字符「{ch}」→半角", fixable=True)
+            )
         elif _FW_UPPER_START <= cp <= _FW_UPPER_START + 25:
             out.append(chr(cp - _FW_UPPER_START + ord("A")))
-            issues.append(Issue(lno, "fullwidth", f"全角字符「{ch}」→半角", fixable=True))
+            issues.append(
+                Issue(lno, "fullwidth", f"全角字符「{ch}」→半角", fixable=True)
+            )
         elif _FW_LOWER_START <= cp <= _FW_LOWER_START + 25:
             out.append(chr(cp - _FW_LOWER_START + ord("a")))
-            issues.append(Issue(lno, "fullwidth", f"全角字符「{ch}」→半角", fixable=True))
+            issues.append(
+                Issue(lno, "fullwidth", f"全角字符「{ch}」→半角", fixable=True)
+            )
         else:
             out.append(ch)
     return "".join(out), issues
@@ -229,7 +236,7 @@ def fix_spacing_text(text: str, lno: int) -> tuple[str, list[Issue]]:
     pos = 0
     for m in re.finditer(_ASCII_ATOM, text):
         if m.start() > pos:
-            atoms.extend(list(text[pos:m.start()]))
+            atoms.extend(list(text[pos : m.start()]))
         atoms.append(m.group(0))
         pos = m.end()
     if pos < len(text):
@@ -241,25 +248,25 @@ def fix_spacing_text(text: str, lno: int) -> tuple[str, list[Issue]]:
             prev = atoms[i - 1]
             prev_last = prev[-1]
             cur_first = tok[0]
-            need_space = (
-                (_is_cjk(prev_last) and _is_ascii_alnum(cur_first))
-                or (_is_ascii_alnum(prev_last) and _is_cjk(cur_first))
+            need_space = (_is_cjk(prev_last) and _is_ascii_alnum(cur_first)) or (
+                _is_ascii_alnum(prev_last) and _is_cjk(cur_first)
             )
             if need_space:
                 if out and out[-1] != " ":
-                    issues.append(Issue(
-                        lno, "spacing",
-                        f"缺少空格：「{prev_last}{cur_first}」→「{prev_last} {cur_first}」",
-                        fixable=True,
-                    ))
+                    issues.append(
+                        Issue(
+                            lno,
+                            "spacing",
+                            f"缺少空格：「{prev_last}{cur_first}」→「{prev_last} {cur_first}」",
+                            fixable=True,
+                        )
+                    )
                     out.append(" ")
         out.append(tok)
     return "".join(out), issues
 
 
-def fix_spacing_boundary(
-    spans: list[Span], lno: int
-) -> tuple[list[Span], list[Issue]]:
+def fix_spacing_boundary(spans: list[Span], lno: int) -> tuple[list[Span], list[Issue]]:
     """
     Insert spaces at boundaries between text/code/link/image spans and CJK text.
     Only checks the outermost char of each span so there's no overlap with
@@ -281,20 +288,26 @@ def fix_spacing_boundary(
             if prev.kind == "text" and span.kind in ("code", "link", "image"):
                 lc = last_nonspace(prev)
                 if lc and _is_cjk(lc) and not prev.text.endswith(" "):
-                    issues.append(Issue(
-                        lno, "spacing",
-                        f"「{lc}」与 {span.kind} 之间缺少空格",
-                        fixable=True,
-                    ))
+                    issues.append(
+                        Issue(
+                            lno,
+                            "spacing",
+                            f"「{lc}」与 {span.kind} 之间缺少空格",
+                            fixable=True,
+                        )
+                    )
                     result.append(Span("text", " "))
             elif prev.kind in ("code", "link", "image") and span.kind == "text":
                 fc = first_nonspace(span)
                 if fc and _is_cjk(fc) and not span.text.startswith(" "):
-                    issues.append(Issue(
-                        lno, "spacing",
-                        f"{prev.kind} 与「{fc}」之间缺少空格",
-                        fixable=True,
-                    ))
+                    issues.append(
+                        Issue(
+                            lno,
+                            "spacing",
+                            f"{prev.kind} 与「{fc}」之间缺少空格",
+                            fixable=True,
+                        )
+                    )
                     result.append(Span("text", " "))
         result.append(span)
     return result, issues
@@ -305,10 +318,14 @@ def fix_nouns(text: str, lno: int) -> tuple[str, list[Issue]]:
     issues: list[Issue] = []
     # Sorted by length descending so longer matches win
     for wrong, correct in sorted(NOUN_MAP.items(), key=lambda x: -len(x[0])):
-        pattern = re.compile(r"(?<![A-Za-z0-9+#])" + re.escape(wrong) + r"(?![A-Za-z0-9+#])")
+        pattern = re.compile(
+            r"(?<![A-Za-z0-9+#])" + re.escape(wrong) + r"(?![A-Za-z0-9+#])"
+        )
+
         def _repl(m: re.Match, c: str = correct, w: str = wrong, l: int = lno) -> str:
             issues.append(Issue(l, "noun", f"「{w}」→「{c}」", fixable=True))
             return c
+
         text = pattern.sub(_repl, text)
     return text, issues
 
@@ -321,7 +338,9 @@ def fix_typos(text: str, lno: int) -> tuple[str, list[Issue]]:
             count = text.count(wrong)
             text = text.replace(wrong, correct)
             for _ in range(count):
-                issues.append(Issue(lno, "typo", f"「{wrong}」→「{correct}」", fixable=True))
+                issues.append(
+                    Issue(lno, "typo", f"「{wrong}」→「{correct}」", fixable=True)
+                )
     return text, issues
 
 
@@ -332,21 +351,23 @@ def fix_ellipsis_dash(text: str, lno: int) -> tuple[str, list[Issue]]:
     issues: list[Issue] = []
 
     def _ellipsis_repl(m: re.Match) -> str:
-        before = text[:m.start()].rstrip()
-        after = text[m.end():].lstrip()
+        before = text[: m.start()].rstrip()
+        after = text[m.end() :].lstrip()
         if (before and _is_cjk(before[-1])) or (after and _is_cjk(after[0])):
             issues.append(Issue(lno, "punct", "「...」→「……」", fixable=True))
             return "\u2026\u2026"
         return m.group(0)
+
     text = re.sub(r"\.{3,}", _ellipsis_repl, text)
 
     def _dash_repl(m: re.Match) -> str:
-        before = text[:m.start()].rstrip()
-        after = text[m.end():].lstrip()
+        before = text[: m.start()].rstrip()
+        after = text[m.end() :].lstrip()
         if (before and _is_cjk(before[-1])) or (after and _is_cjk(after[0])):
             issues.append(Issue(lno, "punct", "「--」→「——」", fixable=True))
             return "\u2014\u2014"
         return m.group(0)
+
     text = re.sub(r"--(?!-)", _dash_repl, text)
     return text, issues
 
@@ -358,9 +379,15 @@ def fix_dup_punct(text: str, lno: int) -> tuple[str, list[Issue]]:
     issues: list[Issue] = []
     # Exclude . since ... is handled by fix_ellipsis_dash
     STOP = r"[，。,]"
+
     def _repl(m: re.Match) -> str:
-        issues.append(Issue(lno, "punct", f"重复标点「{m.group(0)}」→「{m.group(1)}」", fixable=True))
+        issues.append(
+            Issue(
+                lno, "punct", f"重复标点「{m.group(0)}」→「{m.group(1)}」", fixable=True
+            )
+        )
         return m.group(1)
+
     text = re.sub(r"(" + STOP + r")\1+", _repl, text)
     return text, issues
 
@@ -374,19 +401,35 @@ def fix_number_unit(text: str, lno: int) -> tuple[str, list[Issue]]:
     """
     issues: list[Issue] = []
     # Require unit to be either 2+ chars, or exactly one of the known SI/storage letters
-    KNOWN_SINGLE = r"[BKMGT]"   # uppercase only for single-char units
+    KNOWN_SINGLE = r"[BKMGT]"  # uppercase only for single-char units
     _UNIT_RE = re.compile(r"(\d)([A-Za-z]{2,}|" + KNOWN_SINGLE + r")(?![+\-#.A-Za-z])")
 
     def _unit_repl(m: re.Match) -> str:
-        issues.append(Issue(lno, "spacing", f"「{m.group(0)}」→「{m.group(1)} {m.group(2)}」", fixable=True))
+        issues.append(
+            Issue(
+                lno,
+                "spacing",
+                f"「{m.group(0)}」→「{m.group(1)} {m.group(2)}」",
+                fixable=True,
+            )
+        )
         return m.group(1) + " " + m.group(2)
+
     text = _UNIT_RE.sub(_unit_repl, text)
 
     # Remove space before % and °
     def _pct_repl(m: re.Match) -> str:
         if m.group(1):  # had a space
-            issues.append(Issue(lno, "spacing", f"「{m.group(0).strip()}」前不应有空格", fixable=True))
+            issues.append(
+                Issue(
+                    lno,
+                    "spacing",
+                    f"「{m.group(0).strip()}」前不应有空格",
+                    fixable=True,
+                )
+            )
         return m.group(2)
+
     text = re.sub(r"(\s?)([%°])", _pct_repl, text)
     return text, issues
 
@@ -397,15 +440,19 @@ def fix_quotes(text: str, lno: int) -> tuple[str, list[Issue]]:
     # Simple heuristic: if the surrounding text contains CJK, convert.
     if not CJK_RE.search(text):
         return text, issues
+
     # Match paired "..." → 「...」
     def _dq(m: re.Match) -> str:
-        issues.append(Issue(lno, "quote", '「」替换弯引号', fixable=True))
+        issues.append(Issue(lno, "quote", "「」替换弯引号", fixable=True))
         return "\u300c" + m.group(1) + "\u300d"
+
     text = re.sub(r"\u201c([^\u201d]*)\u201d", _dq, text)  # " "
+
     # Match paired '...' → 『...』
     def _sq(m: re.Match) -> str:
         issues.append(Issue(lno, "quote", "『』替换弯引号", fixable=True))
         return "\u300e" + m.group(1) + "\u300f"
+
     text = re.sub(r"\u2018([^\u2019]*)\u2019", _sq, text)  # ' '
     return text, issues
 
@@ -417,12 +464,17 @@ def lint_punct_ascii(text: str, lno: int) -> list[Issue]:
         return issues
     for m in re.finditer(r"([A-Za-z`])[,\.!?:;](\s|$)", text):
         # Skip if this looks like a list item marker at start (e.g. "1. " already handled)
-        ctx = text[:m.start()].lstrip()
+        ctx = text[: m.start()].lstrip()
         if not ctx:  # at start of (stripped) segment, likely a list marker
             continue
-        issues.append(Issue(lno, "punct",
-            f"中文语境下「{m.group(0).strip()}」后应用中文标点",
-            fixable=False))
+        issues.append(
+            Issue(
+                lno,
+                "punct",
+                f"中文语境下「{m.group(0).strip()}」后应用中文标点",
+                fixable=False,
+            )
+        )
     return issues
 
 
@@ -433,7 +485,9 @@ def fix_heading_space(line: str, lno: int) -> tuple[str, list[Issue]]:
         return line, []
     hashes, spaces, rest = m.group(1), m.group(2), m.group(3)
     if spaces != " ":
-        return hashes + " " + rest, [Issue(lno, "structure", f"标题「#」后应有且仅有一个空格", fixable=True)]
+        return hashes + " " + rest, [
+            Issue(lno, "structure", f"标题「#」后应有且仅有一个空格", fixable=True)
+        ]
     return line, []
 
 
@@ -442,7 +496,7 @@ def fix_list_space(line: str, lno: int) -> tuple[str, list[Issue]]:
     m = re.match(r"^(\s*)([-*+]|(\d+)\.)(\S)", line)
     if not m:
         return line, []
-    return line[:m.start(4)] + " " + line[m.start(4):], [
+    return line[: m.start(4)] + " " + line[m.start(4) :], [
         Issue(lno, "structure", "列表标记符后缺少空格", fixable=True)
     ]
 
@@ -451,13 +505,16 @@ def lint_code_block_lang(fence: str, lno: int) -> list[Issue]:
     """Lint: fenced code block must have a language identifier."""
     m = re.match(r"^(`{3,}|~{3,})\s*$", fence)
     if m:
-        return [Issue(lno, "code_block", "代码块未声明语言（如 ```python）", fixable=False)]
+        return [
+            Issue(lno, "code_block", "代码块未声明语言（如 ```python）", fixable=False)
+        ]
     return []
 
 
 # ---------------------------------------------------------------------------
 # Process a single file
 # ---------------------------------------------------------------------------
+
 
 @dataclass
 class FileResult:
@@ -479,7 +536,7 @@ def process_file(path: Path, fix: bool) -> FileResult:
 
     for lno, raw_line in enumerate(lines, start=1):
         line = raw_line.rstrip("\n").rstrip("\r")
-        suffix = raw_line[len(line):]  # original line ending
+        suffix = raw_line[len(line) :]  # original line ending
 
         # ---- Block-level state ----
 
@@ -520,7 +577,11 @@ def process_file(path: Path, fix: bool) -> FileResult:
             result.issues.extend(iss)
 
         # List marker — exclude ** and __ (bold markers)
-        if re.match(r"^\s*[-+]\S", line) or re.match(r"^\s*\*(?!\*)\S", line) or re.match(r"^\s*\d+\.\S", line):
+        if (
+            re.match(r"^\s*[-+]\S", line)
+            or re.match(r"^\s*\*(?!\*)\S", line)
+            or re.match(r"^\s*\d+\.\S", line)
+        ):
             line, iss = fix_list_space(line, lno)
             result.issues.extend(iss)
 
@@ -588,7 +649,9 @@ def process_file(path: Path, fix: bool) -> FileResult:
 
     # File-level: EOF newline
     if out_lines and not out_lines[-1].endswith("\n"):
-        result.issues.append(Issue(len(lines), "structure", "文件末尾缺少换行符", fixable=True))
+        result.issues.append(
+            Issue(len(lines), "structure", "文件末尾缺少换行符", fixable=True)
+        )
         out_lines[-1] = out_lines[-1] + "\n"
 
     # Consecutive blank lines
@@ -598,7 +661,9 @@ def process_file(path: Path, fix: bool) -> FileResult:
         if raw.strip() == "":
             blank_count += 1
             if blank_count > 1:
-                result.issues.append(Issue(0, "structure", "连续空行已压缩", fixable=True))
+                result.issues.append(
+                    Issue(0, "structure", "连续空行已压缩", fixable=True)
+                )
                 continue
         else:
             blank_count = 0
@@ -615,11 +680,11 @@ def process_file(path: Path, fix: bool) -> FileResult:
 # ---------------------------------------------------------------------------
 
 RESET = "\033[0m"
-RED   = "\033[31m"
+RED = "\033[31m"
 GREEN = "\033[32m"
-YELLOW= "\033[33m"
-CYAN  = "\033[36m"
-BOLD  = "\033[1m"
+YELLOW = "\033[33m"
+CYAN = "\033[36m"
+BOLD = "\033[1m"
 
 
 def report(results: list[FileResult], fix: bool) -> None:
@@ -629,8 +694,10 @@ def report(results: list[FileResult], fix: bool) -> None:
 
     print(f"\n{BOLD}=== md_format ==={RESET}")
     mode = "fix" if fix else "lint"
-    print(f"Mode: {mode}  Files: {len(results)}  Issues: {total_issues}  "
-          f"(auto-fixed: {fixable if fix else 0}  lint-only: {lint_only})\n")
+    print(
+        f"Mode: {mode}  Files: {len(results)}  Issues: {total_issues}  "
+        f"(auto-fixed: {fixable if fix else 0}  lint-only: {lint_only})\n"
+    )
 
     for r in results:
         if not r.issues:
@@ -638,8 +705,10 @@ def report(results: list[FileResult], fix: bool) -> None:
             continue
         fixable_count = sum(1 for i in r.issues if i.fixable)
         lintonly_count = len(r.issues) - fixable_count
-        print(f"{RED}✗{RESET} {r.path}  "
-              f"({fixable_count} fixable, {lintonly_count} lint-only)")
+        print(
+            f"{RED}✗{RESET} {r.path}  "
+            f"({fixable_count} fixable, {lintonly_count} lint-only)"
+        )
         for issue in r.issues:
             color = YELLOW if not issue.fixable else (GREEN if fix else RED)
             tag = f"[{issue.rule}]"
@@ -651,10 +720,15 @@ def report(results: list[FileResult], fix: bool) -> None:
 # Main
 # ---------------------------------------------------------------------------
 
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--fix", action="store_true", help="Auto-fix safe violations in-place")
-    p.add_argument("files", nargs="*", help="Markdown files to check (default: all zh-cn articles)")
+    p.add_argument(
+        "--fix", action="store_true", help="Auto-fix safe violations in-place"
+    )
+    p.add_argument(
+        "files", nargs="*", help="Markdown files to check (default: all zh-cn articles)"
+    )
     return p
 
 
@@ -679,9 +753,7 @@ def main() -> None:
 
     report(results, fix=args.fix)
 
-    lint_only_issues = sum(
-        sum(1 for i in r.issues if not i.fixable) for r in results
-    )
+    lint_only_issues = sum(sum(1 for i in r.issues if not i.fixable) for r in results)
     if lint_only_issues > 0 or (not args.fix and any(r.issues for r in results)):
         sys.exit(1)
 
