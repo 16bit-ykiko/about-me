@@ -461,7 +461,12 @@ def build_parser() -> argparse.ArgumentParser:
     update_parser = subparsers.add_parser(
         "update-article", help="Update an existing Zhihu article from a markdown file."
     )
-    update_parser.add_argument("markdown_path")
+    update_parser.add_argument(
+        "markdown_path",
+        nargs="?",
+        default="",
+        help="Path to the markdown file. Defaults to website/content/zh-cn/articles/<article-id>/index.md.",
+    )
     update_parser.add_argument("--article-id", default="")
 
     return parser
@@ -523,15 +528,21 @@ def main() -> None:
         )
         print(f"Published new article: https://zhuanlan.zhihu.com/p/{article_id}")
     elif args.command == "update-article":
-        markdown_path = Path(args.markdown_path).expanduser().resolve()
+        article_id = args.article_id.strip() if args.article_id else ""
+        raw_path = args.markdown_path.strip() if args.markdown_path else ""
+        if not raw_path:
+            if not article_id:
+                parser.error(
+                    "Either provide markdown_path or --article-id to derive the local file path."
+                )
+            raw_path = str(ARTICLE_OUTPUT_DIR / article_id / "index.md")
+        markdown_path = Path(raw_path).expanduser().resolve()
         if not markdown_path.exists():
             raise FileNotFoundError(markdown_path)
-        article_id = args.article_id.strip() if args.article_id else ""
         if not article_id:
-            metadata_path = markdown_path
             from zhihu_client import read_markdown_document
 
-            metadata, _ = read_markdown_document(metadata_path)
+            metadata, _ = read_markdown_document(markdown_path)
             article_id = str(metadata.get("zhihu_article_id", "")).strip()
         if not article_id:
             raise RuntimeError(
