@@ -1,20 +1,22 @@
 ---
-title: 为 CuTe DSL 支持 AOT
+title: Support AOT for CuTe DSL
 date: "2025-11-11 13:38:08"
-updated: "2025-11-17 09:09:26"
+updated: "2026-03-28 04:18:38"
 zhihu_article_id: "1971691994037334904"
 zhihu_url: https://zhuanlan.zhihu.com/p/1971691994037334904
 ---
 
+>
+
 ## Why do we need AOT for CuTe DSL?
 
-CUTLASS C++ 是一个用来编写高性能 CUDA 算子的库，以复杂难学著称。为了降低学习成本，NVIDIA 推出了基于 Python 的 [CuTe DSL](https://docs.nvidia.com/cutlass/latest/media/docs/pythonDSL/overview.html)。使用 Python 而不是 C++ 模板来进行元编程具有很多好处，首先就是用户不必和 C++ 那些晦涩难懂的模板报错作斗争了，这对于 C++ 初学者来说是非常头疼的一件事情，现在他们可以专注于代码逻辑。另外，nvcc 编译很慢，而其中大部分时间是花在编译器前端，也就是解析 C++ 代码上。尤其是对于 CUTLASS 这样 template heavy 的库，主要的时间都花在处理模板实例化上了，使用 CuTe DSL 可以绕过这个问题。相比于使用 CUTLASS 的 C++ 代码，它编译的速度能提升几十甚至上百倍。除此之外，现在算子和单测都可以一起在 Python 里写了，也方便了很多。
+CUTLASS C++ is a library for writing high-performance CUDA operators, known for its complexity and difficulty. To reduce the learning curve, NVIDIA introduced the Python-based [CuTe DSL](https://docs.nvidia.com/cutlass/latest/media/docs/pythonDSL/overview.html). Using Python instead of C++ templates for metaprogramming offers many benefits. First, users no longer have to struggle with the obscure template errors of C++, which is a major headache for C++ beginners; now they can focus on the code logic. Additionally, `nvcc` compilation is slow, and most of that time is spent in the compiler frontend, parsing C++ code. Especially for template-heavy libraries like CUTLASS, most of the time is spent processing template instantiations. Using CuTe DSL can bypass this issue. Compared to C++ code using CUTLASS, its compilation speed can be tens or even hundreds of times faster. Furthermore, operators and unit tests can now be written together in Python, which is much more convenient.
 
-使用 Python 来编写原型是很好的，但是在部署推理服务时，我们希望依赖尽可能简单，像 Python 那样要装一大堆随时可能因为版本问题导致崩溃的依赖就不好了。如果能把使用 CuTe DSL 编写的算子编译成 library 供 C++ 代码调用就好了。这正是我们想要为 CuTe DSL 支持 AOT 的目的。
+Using Python for prototyping is excellent, but when deploying inference services, we want dependencies to be as simple as possible. Having a large number of Python dependencies that could crash due to version issues is undesirable. It would be great if operators written with CuTe DSL could be compiled into a library for C++ code to call. This is precisely why we want to support AOT for CuTe DSL.
 
 ## Export Binary
 
-CuTe DSL 在 [v4.3](https://docs.nvidia.com/cutlass/latest/media/docs/pythonDSL/cute_dsl_general/debugging.html) 添加了导出编译好的 kernel 对应的 ptx 和 cubin 的选项。设置下面几个环境变量即可
+CuTe DSL in [v4.3](https://docs.nvidia.com/cutlass/latest/media/docs/pythonDSL/cute_dsl_general/debugging.html) added options to export the ptx and cubin for compiled kernels. Set the following environment variables:
 
 ```bash
 export CUTE_DSL_KEEP_PTX=1
@@ -22,33 +24,33 @@ export CUTE_DSL_KEEP_CUBIN=1
 export CUTE_DSL_DUMP_DIR=/tmp
 ```
 
-直接访问 kernel 对应的 `__ptx__` 或者 `__cubin__` 属性，即可获取对应的值：
+You can directly access the `__ptx__` or `__cubin__` attributes of the kernel to get the corresponding values:
 
-```python
+```bash
 compiled_foo = cute.compile(foo, ...)
 print(f"PTX: {compiled_foo.__ptx__}")
 with open("foo.cubin", "wb") as f:
     f.write(compiled_foo.__cubin__)
 ```
 
-所以现在我们有了算子对应的 cubin 文件，剩下的问题就是：
+So now we have the cubin file for the operator. The remaining questions are:
 
-1. 如何在 C++ 代码加载 cubin 格式的算子
-2. 如何把 cubin 文件嵌入到 C++ 代码中一起编译成 library
-3. 生成 h 头文件供下游用户调用
+1. How to load cubin-formatted operators in C++ code.
+2. How to embed the cubin file into C++ code and compile it into a library.
+3. How to generate a `.h` header file for downstream users to call.
 
 ## CUDA Driver API
 
-对于问题 1，我们可以调用 [CUDA Driver API](https://docs.nvidia.com/cuda/cuda-driver-api/index.html) 来实现。
+For question 1, we can use the [CUDA Driver API](https://docs.nvidia.com/cuda/cuda-driver-api/index.html).
 
-```cpp
+```bash
 CUresult CUDAAPI cuModuleLoadData(CUmodule *module, const void *image);
 CUresult CUDAAPI cuModuleGetFunction(CUfunction *hfunc, CUmodule hmod, const char *name);
 ```
 
-通过 `cuModuleLoadData` 加载 cubin 文件，`cuModuleGetFunction` 获取其中的 kernel 函数
+Load the cubin file with `cuModuleLoadData` and get the kernel function with `cuModuleGetFunction`.
 
-```cpp
+```bash
 CUresult CUDAAPI cuLaunchKernel(CUfunction f,
                                 unsigned int gridDimX,
                                 unsigned int gridDimY,
@@ -62,17 +64,17 @@ CUresult CUDAAPI cuLaunchKernel(CUfunction f,
                                 void **extra);
 ```
 
-再通过 `cuLaunchKernel` 启动这个 kernel 即可，值得注意的点是 kernel 参数都通过 `void**` 也就是 `void*` 数组传递，也就是我们需要知道 kernel 的函数签名，才能启动 kernel。
+Then launch the kernel with `cuLaunchKernel`. It's worth noting that kernel parameters are passed via `void**`, i.e., an array of `void*`, which means we need to know the kernel's function signature to launch it.
 
 ## Embed Binary
 
-对于问题 2，我们需要某种将二进制文件嵌入到 cpp 文件中的手段，然后直接在 cpp 文件中引用这个 kernel 即可。关于如何在 C++ 代码中嵌入二进制文件的讨论也值得单开一个文章进行介绍了，这里不过多展开。只说一下我这里选用的方法。使用 `objcopy` 将二进制文件变成 elf 格式的文件，同时会在其中插入几个符号用于引用二进制数据，比如
+For question 2, we need a way to embed binary files into C++ files, and then directly reference the kernel in the C++ file. The discussion on how to embed binary files in C++ code deserves a separate article, so I won't elaborate too much here. I'll just mention the method I chose. Use `objcopy` to convert the binary file into an ELF-formatted file, and at the same time, it will insert several symbols for referencing the binary data, for example:
 
 ```bash
 objcopy -I binary test.txt -O elf64-x86-64 -B i386:x86-64 test.o
 ```
 
-再使用 `nm test.o` 查看里面的符号便可以得到
+Then use `nm test.o` to view the symbols within:
 
 ```bash
 000000000000000d D _binary_test_txt_end
@@ -80,11 +82,11 @@ objcopy -I binary test.txt -O elf64-x86-64 -B i386:x86-64 test.o
 0000000000000000 D _binary_test_txt_start
 ```
 
-> 注意这里生成的符号名和输入的文件的路径有关，会将输入路径中的所有 `/` 和 `.` 替换成 `_`，推荐使用相对路径来获取可控的符号名。
+>
 
-只需在 C++ 里面声明 `_binary_test_txt_start` 上面这些符号，同时最终把 `test.o` 文件和源文件链接在一起即可。
+You just need to declare these symbols like `_binary_test_txt_start` in C++, and finally link the `test.o` file with the source file.
 
-```cpp
+```bash
 /// main.cpp
 #include <iostream>
 #include <string_view>
@@ -102,7 +104,7 @@ int main() {
 }
 ```
 
-使用如下命令编译运行，就会输出 `test.txt` 里面的内容了
+Compile and run with the following commands, and it will output the content of `test.txt`:
 
 ```bash
 $ g++ -std=c++17 main.cpp test.o -o main
@@ -111,9 +113,9 @@ $ ./main
 
 ## Function Signature
 
-从上面讨论中可以看出，无论是导出 kernel 函数的头文件，还是给 `cuLaunchKernel` 函数传递 kernel 函数，我们都需要获取到 kernel 的函数签名才行。然而在 CuTe DSL v4.3 中，这件事情做不完美。考虑下面这个简单的示例
+From the discussion above, it's clear that whether exporting header files for kernel functions or passing kernel functions to `cuLaunchKernel`, we need to obtain the kernel's function signature. However, in CuTe DSL v4.3, this cannot be done perfectly. Consider this simple example:
 
-```python
+```bash
 import torch
 import cutlass.cute as cute
 
@@ -131,19 +133,19 @@ kernel = cute.compile(test, a)
 print(kernel.__ptx__)
 ```
 
-根据官网的文档，如果直接用 `torch.Tensor` 来实例化函数编译，那么会把它默认当做 dynamic layout。检查生成的 ptx 可以发现，kernel 的签名是
+According to the official documentation, if `torch.Tensor` is used directly to instantiate the function for compilation, it will be treated as a dynamic layout by default. Inspecting the generated ptx reveals that the kernel's signature is:
 
-```c
+```bash
 .visible .entry kernel_cutlass_test_kernel_tensorptrf32_gmem_o_1_0(
         .param .align 8 .b8 kernel_cutlass_test_kernel_tensorptrf32_gmem_o_1_0_param_0[40]
 )
 ```
 
-也就是一个 40 字节的结构体，前 8 字节显然是一个 `float` 的指针。剩下 32 字节呢？通过进一步分析汇编可以发现，`shape` 用了 3 个 `u32` 来传参，然后有 4 字节的 padding。`stride` 用了两个 `u64` 进行传递，由于最后一维的 `stride` 是 1，所以被省略了。嗯 ... 这其实只是一个非常简单的情况，对于一些动静态 layout 混杂的情况目前我没发现通用的方法来自动生成可靠的签名。
+This is a 40-byte struct, where the first 8 bytes are clearly a `float` pointer. What about the remaining 32 bytes? Further analysis of the assembly shows that `shape` uses 3 `u32`s for parameters, followed by 4 bytes of padding. `stride` uses two `u64`s for passing, and since the stride of the last dimension is 1, it is omitted. Well... this is actually a very simple case. For situations where dynamic and static layouts are mixed, I haven't found a general method to automatically generate reliable signatures.
 
-除了 `Tensor` 直接做函数签名以外还有一些问题，比如在官方示例的 flash attn 算子里面，算子的函数签名是这样的：
+Besides `Tensor` directly serving as a function signature, there are other issues. For example, in the official flash attention operator example, the operator's function signature is like this:
 
-```python
+```bash
 @cute.kernel
 def kernel(
     self,
@@ -162,13 +164,13 @@ def kernel(
 ):
 ```
 
-这么多函数参数哪些是常量会被保留，哪些是变量不会保留呢？遗憾的是，后面这些参数在 python 侧都是不透明的，无法进行判断，因为它们是从 C++ 侧通过 nanobind 绑定来的类型。如果你调试进去查看 kernel 最初的 mlir 的话，会发现确实会为后面这些类型生成参数，但是在后续的 pass 会删掉，而这些 pass 也是不透明的。所以我放弃了自动为 kernel 生成函数签名这一念头。
+Among these many function parameters, which ones are constants that will be preserved, and which ones are variables that will not? Unfortunately, these latter parameters are opaque on the Python side and cannot be determined because they are types bound from the C++ side via nanobind. If you debug and look at the kernel's initial MLIR, you will find that parameters are indeed generated for these types, but they are deleted in subsequent passes, and these passes are also opaque. So I gave up on the idea of automatically generating function signatures for kernels.
 
 ## Final Effect
 
-采用的 workaround 则是，手动指定签名。比如我们可以人为的限制所有的算子签名都使用 `cutlass.Pointer` 和 `cute.Integer` 然后在 kernel 里面创建 `tensor`，效果上没有区别，只是人工降低了函数签名的复杂程度。或者直接看生成的 ptx 来把签名硬编码。基于这种假设和前面的步骤，我们最终可以实现如下的效果
+The workaround adopted is to manually specify the signature. For example, we can artificially restrict all operator signatures to use `cutlass.Pointer` and `cute.Integer` and then create the `tensor` inside the kernel. The effect is the same, it just manually reduces the complexity of the function signature. Or, one could directly hardcode the signature by looking at the generated ptx. Based on this assumption and the previous steps, we can ultimately achieve the following effect:
 
-```python3
+```bash
 cc = Compiler()
 
 t = from_dlpack(torch.randn(M, N, device="cuda",
@@ -184,11 +186,11 @@ cc.compile(naive_elementwise_add, [
 cc.link()
 ```
 
-`compile` 就是收集对应的 kernel 生成的 cubin 以及 cubin 里面的函数名。`link` 就是把 cubin 变成 .o 文件，再生成一个 cpp 文件里面有所有的这些二进制数组的符号。它会为每个 kernel 生成一个对应的 wrapper，就是调用 `cuLaunchKernel` 执行对应的 kernel。最后调用 nvcc 把它们一起编译成动态库。
+`compile` collects the cubin generated for the corresponding kernel and the function names within the cubin. `link` converts the cubin into `.o` files and then generates a C++ file containing symbols for all these binary arrays. It will generate a corresponding wrapper for each kernel, which calls `cuLaunchKernel` to execute the respective kernel. Finally, `nvcc` compiles them together into a dynamic library.
 
-最后会生成这样一个头文件，以及一个动态库，供 cpp 程序调用。
+This will ultimately generate a header file and a dynamic library, for C++ programs to call.
 
-```cpp
+```bash
 namespace cutedsl_aot {
 
 struct LaunchParams {
@@ -207,4 +209,4 @@ void naive_elementwise_add(const LaunchParams& params, float* a, float* b, float
 }  // namespace cutedsl_aot
 ```
 
-这样的实现很不优雅，但从用户侧来说似乎只能做到这样了。据小道消息，CuTe DSL 的 AOT 已经**正在支持**了，让我们期待未来的更新！
+This implementation is not very elegant, but from the user's perspective, it seems to be the best we can do. According to unofficial sources, AOT for CuTe DSL is **currently being supported**. Let's look forward to future updates!
