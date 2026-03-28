@@ -1,7 +1,7 @@
 ---
 title: 雾里看花：真正意义上的理解 C++ 模板
 date: "2023-09-12 23:46:11"
-updated: "2025-12-24 13:14:54"
+updated: "2026-03-28 23:51:39"
 zhihu_article_id: "655902377"
 zhihu_url: https://zhuanlan.zhihu.com/p/655902377
 zhihu_column_id: c_1656510843973046272

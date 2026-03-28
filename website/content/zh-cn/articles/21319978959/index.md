@@ -1,7 +1,7 @@
 ---
 title: 深入探索 clang（上）
 date: "2025-02-05 05:00:55"
-updated: "2025-02-05 13:13:00"
+updated: "2026-03-28 23:51:28"
 zhihu_article_id: "21319978959"
 zhihu_url: https://zhuanlan.zhihu.com/p/21319978959
 zhihu_column_id: c_1852831599382646784

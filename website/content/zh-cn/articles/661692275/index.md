@@ -4,7 +4,7 @@ series:
 series_order: 6
 title: C++26 静态反射提案解析
 date: "2023-10-17 02:38:26"
-updated: "2025-06-22 11:33:38"
+updated: "2026-03-28 23:51:44"
 zhihu_article_id: "661692275"
 zhihu_url: https://zhuanlan.zhihu.com/p/661692275
 zhihu_column_id: c_1656510843973046272
