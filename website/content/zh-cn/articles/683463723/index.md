@@ -4,7 +4,7 @@ series:
 series_order: 2
 title: The History of constexpr in C++! (Part Two)
 date: "2024-02-22 22:15:32"
-updated: "2026-03-29 02:03:54"
+updated: "2026-03-29 02:24:59"
 zhihu_article_id: "683463723"
 zhihu_url: https://zhuanlan.zhihu.com/p/683463723
 zhihu_column_id: c_1656510843973046272
@@ -17,7 +17,7 @@ zhihu_column_title: 魅力C++
 
 在 C++ 中支持 [全特化 (full specialization)](https://en.cppreference.com/w/cpp/language/template_specialization) 的模板很多，但是支持 [偏特化 (partial specialization)](https://en.cppreference.com/w/cpp/language/partial_specialization) 的模板并不多，事实上其实只有类模板 (class template) 和变量模板 (variable template) 两种支持，而变量模板其实可以看做类模板的语法糖，四舍五入一下其实只有类模板支持偏特化。不支持偏特化会导致有些代码十分难写
 
-假设我们想实现一个 `destroy_at` 函数，效果就是调用对象的析构函数。特别的，如果析构函数是 trivial 的，那我们就省去这次无意义的析构函数调用。
+假设我们想实现一个`destroy_at`函数，效果就是调用对象的析构函数。特别的，如果析构函数是 trivial 的，那我们就省去这次无意义的析构函数调用。
 
 直觉上我们能写出下面这样的代码
 
@@ -41,9 +41,9 @@ template<typename T, std::enable_if_t<std::is_trivially_destructible_v<T>>* = nu
 void destroy_at(T* p) {}
 ```
 
-具体的原理这里就不叙述了，虽然少了一层包装，但是仍然有很多与代码逻辑无关的东西出现。这里的 `std::enable_if_t` 就是典型例子，严重影响了代码的可读性。
+具体的原理这里就不叙述了，虽然少了一层包装，但是仍然有很多与代码逻辑无关的东西出现。这里的`std::enable_if_t`就是典型例子，严重影响了代码的可读性。
 
-提案 [N4461](https://open-std.org/JTC1/SC22/WG21/docs/papers/2015/n4461.html) 希望引入 `static_if`（借鉴自 D 语言）可以用来编译期控制代码生成，只会把实际用到的分支编译进最终的二进制代码。这样就可以写出下面这样的代码，其中 `static_if` 的条件必须是常量表达式
+提案 [N4461](https://open-std.org/JTC1/SC22/WG21/docs/papers/2015/n4461.html) 希望引入`static_if`（借鉴自 D 语言）可以用来编译期控制代码生成，只会把实际用到的分支编译进最终的二进制代码。这样就可以写出下面这样的代码，其中`static_if`的条件必须是常量表达式
 
 ```cpp
 template<typename T>
@@ -54,7 +54,7 @@ void destroy_at(T* p){
 }
 ```
 
-可以发现逻辑非常清晰，但是委员会一般对于加新的关键字比较谨慎。后来 `static_if` 被重命名为 `constexpr_if`，再后来变成了我们今天熟悉的这种形式并且进入 [C++17](https://en.cppreference.com/w/cpp/language/if#Constexpr_if)
+可以发现逻辑非常清晰，但是委员会一般对于加新的关键字比较谨慎。后来`static_if`被重命名为`constexpr_if`，再后来变成了我们今天熟悉的这种形式并且进入 [C++17](https://en.cppreference.com/w/cpp/language/if#Constexpr_if)
 
 ```cpp
 if constexpr (...){...}
@@ -80,7 +80,7 @@ void foo() {
 }
 ```
 
-从直觉上来说，由于 `x` 是常量表达式，没有必要给它分配空间来储存。那么 `f` 其实里面没有任何成员，在 C++ 中空类的 size 至少是 `1`。上面的代码挺合理的，但是在文章的上篇也说到了，constexpr 变量其实也是可以占用内存的，我们可以显式取它的地址
+从直觉上来说，由于`x`是常量表达式，没有必要给它分配空间来储存。那么`f`其实里面没有任何成员，在 C++ 中空类的 size 至少是`1`。上面的代码挺合理的，但是在文章的上篇也说到了，constexpr 变量其实也是可以占用内存的，我们可以显式取它的地址
 
 ```cpp
 void foo() {
@@ -90,13 +90,13 @@ void foo() {
 }
 ```
 
-可以发现这种情况下，编译器不得不给 `x` 分配内存。实际上的判断规则更复杂一些，感兴趣的可以自行参考 [lambda capture](https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture)。最终这个提案被接受，进入了 [C++17](<https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture:~:text=This%20function%20is%20constexpr%20if%20the%20function%20call%20operator%20(or%20specialization%2C%20for%20generic%20lambdas)%20 is%20constexpr.>)。
+可以发现这种情况下，编译器不得不给`x`分配内存。实际上的判断规则更复杂一些，感兴趣的可以自行参考 [lambda capture](https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture)。最终这个提案被接受，进入了 [C++17](<https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture:~:text=This%20function%20is%20constexpr%20if%20the%20function%20call%20operator%20(or%20specialization%2C%20for%20generic%20lambdas)%20is%20constexpr.>)。
 
-## 2017-2019：编译期和运行期……不同?
+## 2017-2019：编译期和运行期...不同?
 
-通过不断放宽 constexpr 的限制，越来越多的函数可以在编译期执行。但是具有外部链接（也就是被 `extern` 的函数）无论如何是无法在编译期执行的。绝大部分从 C 继承过来的函数都是这样的，例如 `memcpy`, `memmove` 等等。
+通过不断放宽 constexpr 的限制，越来越多的函数可以在编译期执行。但是具有外部链接（也就是被`extern`的函数）无论如何是无法在编译期执行的。绝大部分从 C 继承过来的函数都是这样的，例如`memcpy`, `memmove`等等。
 
-假设我写了一个 constexpr 的 `memcpy`
+假设我写了一个 constexpr 的`memcpy`
 
 ```cpp
 template <typename T>
@@ -110,7 +110,7 @@ constexpr T* memcpy(T* dest, const T* src, std::size_t count) {
 
 虽然能在编译期用了，编译期执行效率倒是无所谓，但是运行期效率肯定不如标准库的实现。如果能在编译期使用我的实现，运行期使用外部链接的标准库函数就好了。
 
-提案 [P0595](https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0595r0.html) 希望加入一个新的 magic function 也就是 `constexpr()` 用来判断当前的函数是否在编译期执行，后来被更名为 `is_constant_evaluated` 并且进入 C++20。使用起来就像下面这样
+提案 [P0595](https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0595r0.html) 希望加入一个新的 magic function 也就是 `constexpr()` 用来判断当前的函数是否在编译期执行，后来被更名为`is_constant_evaluated`并且进入 C++20。使用起来就像下面这样
 
 ```cpp
 constexpr int foo(int x) {
@@ -124,7 +124,7 @@ constexpr int foo(int x) {
 
 这样的话编译期和运行期就可以采用不同的逻辑实现了，我们可以对外部链接的函数进行一层封装，使得它们在内部暴露为 constexpr 的函数接口，既可以代码复用又可以保证运行期效率，两全其美。
 
-唯一的问题是，假设上面的 `foo` 在运行期运行，你会发现第一个分支仍然被编译了，虽然可能编译器最终应该会把 `if(false)` 这个分支优化掉。但是这个分支里面仍然会进行语法检查之类的工作，如果里面用到了模板，那么模板实例化仍然会被触发（甚至产生预料外的实例化导致编译错误），显然这不是我们想要的结果。尝试使用 `if constexpr` 改写上面的代码呢？
+唯一的问题是，假设上面的`foo`在运行期运行，你会发现第一个分支仍然被编译了，虽然可能编译器最终应该会把`if(false)`这个分支优化掉。但是这个分支里面仍然会进行语法检查之类的工作，如果里面用到了模板，那么模板实例化仍然会被触发（甚至产生预料外的实例化导致编译错误），显然这不是我们想要的结果。尝试使用`if constexpr`改写上面的代码呢？
 
 ```cpp
 constexpr int foo(int x) {
@@ -134,7 +134,7 @@ constexpr int foo(int x) {
 }
 ```
 
-这种写法被认为是 **obviously incorrect**，因为 `if constexpr` 的条件只能在编译期执行，所以这里 `is_constant_evaluated` 永远会返回 `true`，这与我们最开始的目的相悖了。 所以提案 [P1938R3](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p1938r3.html) 提议加入新的语法来解决这个问题
+这种写法被认为是 **obviously incorrect**，因为`if constexpr`的条件只能在编译期执行，所以这里`is_constant_evaluated`永远会返回`true`，这与我们最开始的目的相悖了。 所以提案 [P1938R3](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p1938r3.html) 提议加入新的语法来解决这个问题
 
 ```cpp
 if consteval /* !consteval */ {
@@ -165,13 +165,13 @@ error: overflow in constant expression [-fpermissive]
   233 | constexpr auto x = bar();
 ```
 
-如果函数嵌套多了，报错信息也非常糟糕。不同于模板的地方在于，constexpr 函数也可以在运行期运行。所以我们可以在运行期调试代码，最后在编译期执行就好了。但是如果考虑到上一小节加的 `is_constant_evaluated`，就会发现这种做法并不完全可行，因为编译期和运行期的代码逻辑可能不同。提案 [P0596](https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0596r0.html) 希望引入 `constexpr_trace` 和 `constexpr_assert` 来方便编译期调试代码，虽然投票一致赞成，但是暂时未进入 C++ 标准。
+如果函数嵌套多了，报错信息也非常糟糕。不同于模板的地方在于，constexpr 函数也可以在运行期运行。所以我们可以在运行期调试代码，最后在编译期执行就好了。但是如果考虑到上一小节加的`is_constant_evaluated`，就会发现这种做法并不完全可行，因为编译期和运行期的代码逻辑可能不同。提案 [P0596](https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0596r0.html) 希望引入`constexpr_trace`和`constexpr_assert`来方便编译期调试代码，虽然投票一致赞成，但是暂时未进入 C++ 标准。
 
 ## 2017： 编译期可变容器
 
-尽管在先前的提案中，允许了 constexpr 函数使用和修改变量，但是动态内存分配还是不允许的。如果有未知长度的数据需要处理，一般就是在栈上开一个大数组，这没什么问题。但是从实践上来说，有特别多的函数依赖于动态内存分配，支持 constexpr 函数中使用 `vector` 势在必得。
+尽管在先前的提案中，允许了 constexpr 函数使用和修改变量，但是动态内存分配还是不允许的。如果有未知长度的数据需要处理，一般就是在栈上开一个大数组，这没什么问题。但是从实践上来说，有特别多的函数依赖于动态内存分配，支持 constexpr 函数中使用`vector`势在必得。
 
-在当时，直接允许在 constexpr 函数中使用 `new`/`delete` 似乎过于让人惊讶了，所以提案 [P0597](https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0597r0.html) 想了一个折中的办法，先提供一个 magic container 叫做 `std::constexpr_vector`，它由编译器实现，并且支持在 constexpr 函数中使用和修改。
+在当时，直接允许在 constexpr 函数中使用`new`/`delete`似乎过于让人惊讶了，所以提案 [P0597](https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0597r0.html) 想了一个折中的办法，先提供一个 magic container 叫做`std::constexpr_vector`，它由编译器实现，并且支持在 constexpr 函数中使用和修改。
 
 ```cpp
 constexpr constexpr_vector<int> x;  // ok
@@ -209,11 +209,11 @@ constexpr auto foo() {
 }
 ```
 
-似乎没有任何理由拒绝上面这段代码编译通过。由于是在编译期执行，编译器当然能知道 `p` 指向的是 `Derived`，然后调用 `Derived::f`，实践上没有任何难度。的确如此，之后又有一个新的提案 [P1327R1](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1327r1.html) 进一步希望 `dynamic_cast` 和 `typeid` 也能在常量求值中使用，最终它们都被接受并且加入了 [C++20](https://en.cppreference.com/w/cpp/language/constexpr#:~:text=it%20must%20not%20be%20virtual)，现在可以自由的在编译期使用这些特性了。
+似乎没有任何理由拒绝上面这段代码编译通过。由于是在编译期执行，编译器当然能知道`p`指向的是`Derived`，然后调用`Derived::f`，实践上没有任何难度。的确如此，之后又有一个新的提案 [P1327R1](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1327r1.html) 进一步希望`dynamic_cast`和`typeid`也能在常量求值中使用，最终它们都被接受并且加入了 [C++20](https://en.cppreference.com/w/cpp/language/constexpr#:~:text=it%20must%20not%20be%20virtual)，现在可以自由的在编译期使用这些特性了。
 
 ## 2017-2019： 真正的动态内存分配！
 
-在 [constexpr everything](https://www.youtube.com/watch?v=HMB9oXFobJc) 的这个演示视频中，展示了一个能在编译期处理 `JSON` 对象的例子
+在 [constexpr everything](https://www.youtube.com/watch?v=HMB9oXFobJc) 的这个演示视频中，展示了一个能在编译期处理`JSON`对象的例子
 
 ```cpp
 constexpr auto jsv= R"({
@@ -231,7 +231,7 @@ if constexpr (jsv["feature-x-enabled"]) {
 }
 ```
 
-希望能直接通过解析常量字符串起到配置文件的作用（字符串文本可以由 `#include` 引入）。作者们因为不能使用 STL 的容器受到了严重影响，并且自己编写了替代品。通过 `std::array` 来实现 `std::vector` 和 `std::map` 这样的容器，由于没有动态内存分配，只能预先计算出需要的大小（可能导致多次遍历）或者在栈上开块大内存。
+希望能直接通过解析常量字符串起到配置文件的作用（字符串文本可以由`#include`引入）。作者们因为不能使用 STL 的容器受到了严重影响，并且自己编写了替代品。通过`std::array`来实现`std::vector`和`std::map`这样的容器，由于没有动态内存分配，只能预先计算出需要的大小（可能导致多次遍历）或者在栈上开块大内存。
 
 提案 [P0784R7](https://open-std.org/JTC1/SC22/WG21/docs/papers/2019/p0784r7.html) 重新讨论了在常量求值中支持标准库容器的可能性
 
@@ -247,10 +247,10 @@ if constexpr (jsv["feature-x-enabled"]) {
 
 常量求值器需要跟踪许多对象的的元信息，并找出这些错误
 
-- 记录 `union` 哪个 field 是 active 的，访问 unactive 的成员导致未定义行为，这由 [P1330](https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1330r0.pdf) 阐明
+- 记录`union`哪个 field 是 active 的，访问 unactive 的成员导致未定义行为，这由 [P1330](https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1330r0.pdf) 阐明
 - 正确记录对象的 [lifetime](https://en.cppreference.com/w/cpp/language/lifetime)，访问未初始化的内存和已经析构的对象都是不允许的
 
-当时还不允许在常量求值中把 `void*` 转换成 `T*`，所以理所当然的
+当时还不允许在常量求值中把`void*`转换成`T*`，所以理所当然的
 
 ```cpp
 void* operator new(std::size_t);
@@ -269,15 +269,15 @@ auto pb = alloc.allocate(1);
 alloc.deallocate(pb, 1);
 ```
 
-它们返回的都是 `T*`，并且由编译器实现，这对于支持标准库容器来说已经足够了。
+它们返回的都是`T*`，并且由编译器实现，这对于支持标准库容器来说已经足够了。
 
-对于第三个问题，则是添加了一个 magic function 即 [std::construct_at](https://en.cppreference.com/w/cpp/memory/construct_at)，它的作用是在指定的内存位置上调用对象的构造函数，用来在常量求值中取代 `placement new`。这样的话我们就可以先通过 `std::allocator` 分配内存，再通过 `std::construct_at` 来构造对象了。该提案最终被接受，进入了 [C++20](https://en.cppreference.com/w/cpp/memory/construct_at)，同时使得 `std::vector`，`std::string` 在常量求值中可用（其他的容器理论上也行，但是目前的实现还没支持，如果非常想要只能自己搓一个了）。
+对于第三个问题，则是添加了一个 magic function 即 [std::construct_at](https://en.cppreference.com/w/cpp/memory/construct_at)，它的作用是在指定的内存位置上调用对象的构造函数，用来在常量求值中取代`placement new`。这样的话我们就可以先通过`std::allocator`分配内存，再通过`std::construct_at`来构造对象了。该提案最终被接受，进入了 [C++20](https://en.cppreference.com/w/cpp/memory/construct_at)，同时使得`std::vector`，`std::string`在常量求值中可用（其它的容器理论上也行，但是目前的实现还没支持，如果非常想要只能自己搓一个了）。
 
 虽然支持了动态内存分配，但并不是毫无限制。**在一次常量求值中分配的内存必须要在这次常量求值结束之前释放完全，不能有内存泄漏，否则会导致编译错误**。这种类型的内存分配被叫做 _transient constexpr allocations（瞬态内存分配）_。该提案也讨论了 _non-transient allocation（非瞬态内存分配）_，在编译期未被释放的内存，将被转为静态储存（其实就是存在数据区，就像全局变量那样）。但是，委员会认为这种可能性 "too brittle"，出于多种原因，目前尚未采纳。
 
 ## 2018：更多的 constexpr
 
-提案 [P1002](https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1002r1.pdf) 希望在 constexpr 函数中支持 `try-catch` 块。但是不能 `throw`，这样是为了能把更多的标准库容器的成员函数标记为 `constexpr`。
+提案 [P1002](https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1002r1.pdf) 希望在 constexpr 函数中支持`try-catch`块。但是不能`throw`，这样是为了能把更多的标准库容器的成员函数标记为`constexpr`。
 
 ```cpp
 constexpr int foo(){
@@ -291,7 +291,7 @@ constexpr auto x = foo();  // error
 //    233 |     throw 1;
 ```
 
-如果在编译期 `throw` 会直接导致编译错误，由于 `throw` 不会发生，那自然也不会有异常被捕获。
+如果在编译期`throw`会直接导致编译错误，由于`throw`不会发生，那自然也不会有异常被捕获。
 
 ## 2018：保证编译期执行！
 
@@ -305,14 +305,14 @@ constexpr int bar(int x){ return x; }
 foo(bar(1)); // evaluate at compile time ?
 ```
 
-事实上 `g` 无论是在编译期还是运行期执行，理论上都可以。为了保证它在编译期执行，我们需要多写一些代码
+事实上`g`无论是在编译期还是运行期执行，理论上都可以。为了保证它在编译期执行，我们需要多写一些代码
 
 ```cpp
 constexpr auto x = bar(1);
 foo(x);
 ```
 
-这样就保证了 `g` 在编译期执行，同样，这种没意义的局部变量实在是多余。提案 [P1073](https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1073r0.html) 希望增加一个标记 `constexpr!` 来确保一个函数在编译期执行，如果不满足则导致编译错误。最终该标记被更名为 [consteval](https://en.cppreference.com/w/cpp/language/consteval) 并进入了 C++20。
+这样就保证了`g`在编译期执行，同样，这种没意义的局部变量实在是多余。提案 [P1073](https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1073r0.html) 希望增加一个标记 `constexpr!`来确保一个函数在编译期执行，如果不满足则导致编译错误。最终该标记被更名为 [consteval](https://en.cppreference.com/w/cpp/language/consteval) 并进入了 C++20。
 
 ```cpp
 extern int foo(int x);
@@ -322,11 +322,11 @@ consteval int bar(int x){ return x; }
 foo(bar(1)); // ensure evaluation at compile time
 ```
 
-`consteval` 函数不能在常量求值上下文外获取指针或引用，编译器后端既不需要，也不应该知道这些函数的存在。事实上该提案也为未来打算加入标准的 static reflection 做了铺垫，它将会添加非常多的只能在编译期执行的函数。
+`consteval`函数不能在常量求值上下文外获取指针或引用，编译器后端既不需要，也不应该知道这些函数的存在。事实上该提案也为未来打算加入标准的 static reflection 做了铺垫，它将会添加非常多的只能在编译期执行的函数。
 
 ## 2018：默认 constexpr ？
 
-在当时，有很多提案的内容仅仅是把标准库的某个部分标记为 `constexpr`，在本文中没有讨论它们，因为它们具有相同的模式。
+在当时，有很多提案的内容仅仅是把标准库的某个部分标记为`constexpr`，在本文中没有讨论它们，因为它们具有相同的模式。
 
 提案 [P1235](https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1235r0.pdf) 希望把所有函数都标记为 implicit constexpr 的
 
@@ -339,13 +339,13 @@ foo(bar(1)); // ensure evaluation at compile time
 
 ## 2020：更强的动态内存分配？
 
-正如之前提到的，在 constexpr 函数中支持内存分配已经被允许了，也可以在 constexpr 函数中使用 `std::vector` 这样的容器，但是由于是瞬态内存分配，无法创建全局的 `std::vector`
+正如之前提到的，在 constexpr 函数中支持内存分配已经被允许了，也可以在 constexpr 函数中使用`std::vector`这样的容器，但是由于是瞬态内存分配，无法创建全局的`std::vector`
 
 ```cpp
 constexpr std::vector<int> v{1, 2, 3};  // error
 ```
 
-所以如果一个 constexpr 函数返回一个 `std::vector`，只能额外包装一层把这个 `std::vector` 转成 `std::array` 然后作为全局变量
+所以如果一个 constexpr 函数返回一个`std::vector`，只能额外包装一层把这个`std::vector`转成`std::array`然后作为全局变量
 
 ```cpp
 constexpr auto f() { return std::vector<int>{1, 2, 3}; }
@@ -361,7 +361,7 @@ constexpr auto arr = [](){
 };
 ```
 
-提案 [P1974](https://open-std.org/JTC1/SC22/WG21/docs/papers/2020/p1974r0.pdf) 提议使用 `propconst` 来支持非瞬态内存分配，这样上述的额外的包装代码就不需要了。
+提案 [P1974](https://open-std.org/JTC1/SC22/WG21/docs/papers/2020/p1974r0.pdf) 提议使用`propconst`来支持非瞬态内存分配，这样上述的额外的包装代码就不需要了。
 
 非瞬态内存分配的原理很简单
 
@@ -380,7 +380,7 @@ constexpr std::vector vec{
 };
 ```
 
-其实就是把本来应该指向动态分配的内存的指针改为指向静态内存。原理并不复杂，真正的难点是如何保证程序的正确性。**显然上述的 vec 即使在程序结束的时候也不应该调用析构函数，否则会导致段错误**。这个问题要解决很简单，我们可以约定，**任何 constexpr 标记的变量都不会调用析构函数**。
+其实就是把本来应该指向动态分配的内存的指针改为指向静态内存。原理并不复杂，真正的难点是如何保证程序的正确性。**显然上述的vec即使在程序结束的时候也不应该调用析构函数，否则会导致段错误**。这个问题要解决很简单，我们可以约定，**任何constexpr标记的变量都不会调用析构函数**。
 
 但是考虑如下情况：
 
@@ -396,19 +396,19 @@ int main(){
 }
 ```
 
-由于 `pp1` 是 `constexpr` 的，那么它的析构函数不应该调用。对 `ppi` 尝试调用 `reset` 是不允许的，因为 `constexpr` 标记的变量隐含 `const`，而 `reset` 并不是一个 `const` 方法。但是对 `pi` 调用 `reset` 是允许的，因为外层 `const` 不影响内层指针。
+由于`pp1`是`constexpr`的，那么它的析构函数不应该调用。对`ppi`尝试调用`reset`是不允许的，因为`constexpr`标记的变量隐含`const`，而`reset`并不是一个`const`方法。但是对`pi`调用`reset`是允许的，因为外层`const`不影响内层指针。
 
-如果允许 `pi` 调用 `reset`，显然这是一次运行期调用，会在运行期动态内存分配，而由于 `ppi` 不会调用析构函数，里面的 `pi` 当然也不会调用析构函数，于是内存就泄露了，显然这种做法不应该被允许。
+如果允许`pi`调用`reset`，显然这是一次运行期调用，会在运行期动态内存分配，而由于`ppi`不会调用析构函数，里面的`pi`当然也不会调用析构函数，于是内存就泄露了，显然这种做法不应该被允许。
 
-解决办法自然是想办法禁止 `pi` 调用 `reset`，提案提出了 `propconst` 关键字，它可以把外层的 `constexpr` 传递给内层，这样 `pi` 也是 `const` 的了，也就不能调用 `reset` 了，就不会出现代码逻辑问题了。
+解决办法自然是想办法禁止`pi`调用`reset`，提案提出了`propconst`关键字，它可以把外层的`constexpr`传递给内层，这样`pi`也是`const`的了，也就不能调用`reset`了，就不会出现代码逻辑问题了。
 
 可惜的的是暂时还未被标准接受，在那之后还有一些新的的提案希望能够支持这个特性比如 [P2670R1](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2670r1.html)，相关的讨论还在继续。
 
 ## 2021：constexpr 类
 
-C++ 标准库中的很多类型，比如 `vector`, `string`, `unique_ptr` 中的所有方法都被标记为 constexpr，并且真正可以在编译期执行。很自然的，我们希望能直接标记整个类为 constexpr，这样可以省去哪些重复的说明符编写。
+C++ 标准库中的很多类型，比如`vector`, `string`, `unique_ptr`中的所有方法都被标记为 constexpr，并且真正可以在编译期执行。很自然的，我们希望能直接标记整个类为 constexpr，这样可以省去哪些重复的说明符编写。
 
-提案 [P2350](https://open-std.org/JTC1/SC22/WG21/docs/papers/2021/p2350r1.pdf) 希望支持这个特性，constexpr 标记的 `class` 中的所有方法都被隐式标记为 constexpr
+提案 [P2350](https://open-std.org/JTC1/SC22/WG21/docs/papers/2021/p2350r1.pdf) 希望支持这个特性，constexpr 标记的`class`中的所有方法都被隐式标记为 constexpr
 
 ```cpp
 // before
@@ -436,14 +436,14 @@ constexpr struct SomeType {
 
 ## 2023：编译期类型擦除！
 
-在常量求值中，一直不允许把 `void*` 转换成 `T*`，这样导致诸如 `std::any`，`std::function` 等类型擦除实现的容器无法在常量求值中使用。原因呢，是因为我们可以通过 `void*` 来绕过类型系统，把一个类型转换为不相干的类型
+在常量求值中，一直不允许把`void*`转换成`T*`，这样导致诸如`std::any`，`std::function`等类型擦除实现的容器无法在常量求值中使用。原因呢，是因为我们可以通过`void*`来绕过类型系统，把一个类型转换为不相干的类型
 
 ```cpp
 int* p = new int(42);
 double* p1 = static_cast<float*>(static_cast<void*>(p));
 ```
 
-如果对 `p1` 解引用实际上是未定义的行为，所以禁止了这种转换（**注意 reinterpret_cast 一直在常量求值中禁用**）。但是显然这种做法已经误伤了正确的写法了，因为像 `std::any` 这种实现，显然不会把一个从 `void*` 转换成无关的类型，而是会把它转换回原来的类型，完全不允许这种转换是不合理的。提案 [P2738R0](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2738r0.pdf) 希望在常量求值中支持这种转换，编译器理论上能在编译期记录一个 `void*` 指针原本的类型，如果转换的不是原本的类型，就报错。
+如果对`p1`解引用实际上是未定义的行为，所以禁止了这种转换（**注意 reinterpret_cast 一直在常量求值中禁用**）。但是显然这种做法已经误伤了正确的写法了，因为像`std::any`这种实现，显然不会把一个从`void*`转换成无关的类型，而是会把它转换回原来的类型，完全不允许这种转换是不合理的。提案 [P2738R0](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2738r0.pdf) 希望在常量求值中支持这种转换，编译器理论上能在编译期记录一个`void*`指针原本的类型，如果转换的不是原本的类型，就报错。
 
 最终该提案被接受，并且加入 C++26，现在可以进行 `T*` -> `void*` -> `T*` 的转换了
 
@@ -458,14 +458,14 @@ constexpr void f(){
 
 ## 2023：支持 placement new？
 
-前面我们提到，为了支持 `vector` 在常量求值中使用，加入了 `construct_at` 用于在常量求值中调用构造函数。它具有如下形式
+前面我们提到，为了支持`vector`在常量求值中使用，加入了`construct_at`用于在常量求值中调用构造函数。它具有如下形式
 
 ```cpp
 template<typename T, typename... Args>
 constexpr T* construct_at(T* p, Args&&... args);
 ```
 
-虽然一定程度上解决了问题，但是它并不能完全提供 `placement new` 的功能
+虽然一定程度上解决了问题，但是它并不能完全提供`placement new`的功能
 
 - value initialization
 
@@ -495,13 +495,13 @@ new (p) T{.x = 1, .y = 2} // placement new version
 // construct_at version cannot exist
 ```
 
-提案 [P2747R1](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2747r1.html) 希望在常量求值中直接支持 `placement new`。暂时还未被加入标准。
+提案 [P2747R1](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2747r1.html) 希望在常量求值中直接支持`placement new`。暂时还未被加入标准。
 
 ## 2024-∞：未来无极限！
 
 截止目前，C++ 的常量求值已经支持了非常丰富的功能，支持条件，变量，循环，虚函数调用，动态内存分配等等一系列特性。但是受限于日常开发使用的 C++ 版本，有很多功能可能暂时没法使用，可以在 [这里](https://en.cppreference.com/w/cpp/feature_test#:~:text=P2564R3-,__cpp_constexpr,-constexpr) 方便的查看哪个版本支持了什么特性。
 
-未来的 constexpr 中仍然有很多可能性，比如像 `memcpy` 这样的函数或许也能在常量求值中使用？又或者目前的 `small_vector` 的**某些实现不能在不改动任何代码的前提**下变成 constexpr 的，因为它们使用 `char` 数组为栈上的对象提供储存（为了避免默认构造）
+未来的 constexpr 中仍然有很多可能性，比如像`memcpy`这样的函数或许也能在常量求值中使用？又或者目前的`small_vector`的**某些实现不能在不改动任何代码的前提**下变成 constexpr 的，因为它们使用`char`数组为栈上的对象提供储存（为了避免默认构造）
 
 ```cpp
 constexpr void foo(){
@@ -510,4 +510,4 @@ constexpr void foo(){
 }
 ```
 
-但是目前在常量求值中无法直接在 `char` 数组上构造对象。更进一步，在 C++20 加入的 [implicit lifetime](https://en.cppreference.com/w/cpp/named_req/ImplicitLifetimeType) 是否可能在常量求值中表现出来呢？这些理论上都是可能实现的，只是要求编译器记录更多的元信息。而在未来，一切皆有可能！最终我们或许真的能 constexpr everything！
+但是目前在常量求值中无法直接在`char`数组上构造对象。更进一步，在 C++20 加入的 [implicit lifetime](https://en.cppreference.com/w/cpp/named_req/ImplicitLifetimeType) 是否可能在常量求值中表现出来呢？这些理论上都是可能实现的，只是要求编译器记录更多的元信息。而在未来，一切皆有可能！最终我们或许真的能 constexpr everything！
