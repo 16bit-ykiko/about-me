@@ -4,7 +4,7 @@ series:
 series_order: 2
 title: 为什么说 C/C++ 编译器不保留元信息？
 date: "2023-12-03 23:37:51"
-updated: "2026-03-29 03:47:55"
+updated: "2026-03-29 04:07:35"
 zhihu_article_id: "670190357"
 zhihu_url: https://zhuanlan.zhihu.com/p/670190357
 zhihu_column_id: c_1707545619290316800

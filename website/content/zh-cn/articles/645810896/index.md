@@ -1,7 +1,7 @@
 ---
 title: std::variant 很难用！
 date: "2023-07-25 15:19:25"
-updated: "2026-03-29 03:47:40"
+updated: "2026-03-29 04:07:19"
 zhihu_article_id: "645810896"
 zhihu_url: https://zhuanlan.zhihu.com/p/645810896
 zhihu_column_id: c_1656510843973046272

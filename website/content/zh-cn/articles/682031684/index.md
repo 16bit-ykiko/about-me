@@ -4,7 +4,7 @@ series:
 series_order: 1
 title: The History of constexpr in C++! (Part One)
 date: "2024-02-10 23:15:47"
-updated: "2026-03-29 03:48:03"
+updated: "2026-03-29 04:07:43"
 zhihu_article_id: "682031684"
 zhihu_url: https://zhuanlan.zhihu.com/p/682031684
 zhihu_column_id: c_1656510843973046272
@@ -63,7 +63,7 @@ int f1 = foo<1 + 2 + 3>();
 int f2 = foo<((1 < 2) ? 10 * 11 : VEGETABLE)>();
 ```
 
-这些表达式在 `[expr.const]` 小节中被定义，并且被叫做*常量表达式（constant expression）*。它们只能包含：
+这些表达式在 `[expr.const]` 小节中被定义，并且被叫做\_常量表达式（constant expression）\_。它们只能包含：
 
 - 字面量：`1`,`'A'`,`true`,`...`
 - 枚举值
@@ -284,7 +284,7 @@ constexpr complex I(0, 1); // OK
 
 现在 constexpr 变量不仅可以是数字和枚举，还可以是 [literal type](https://en.cppreference.com/w/cpp/named_req/LiteralType)，在此提案中引入了（尚不支持引用类型）。literal type 是可以传递给 constexpr 函数的类型，这些类型足够简单，以至于编译器可以在常量计算中支持它们。
 
-constexpr 关键字最后成为了一个 _specifier（说明符_），类似于 *override *这样仅用作标记。在讨论后，决定不创建新的 [储存期类型](https://en.cppreference.com/w/cpp/language/storage_duration) 和新的类型限定符，并且也决定不允许将其用于函数参数，以免使得函数的 [overload resolution](https://en.cppreference.com/w/cpp/language/overload_resolution) 规则变得过于复杂。
+constexpr 关键字最后成为了一个 _specifier（说明符_），类似于 \_override \_这样仅用作标记。在讨论后，决定不创建新的 [储存期类型](https://en.cppreference.com/w/cpp/language/storage_duration) 和新的类型限定符，并且也决定不允许将其用于函数参数，以免使得函数的 [overload resolution](https://en.cppreference.com/w/cpp/language/overload_resolution) 规则变得过于复杂。
 
 ## 2007：试着让标准库更加 constexpr？
 

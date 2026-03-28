@@ -1,7 +1,7 @@
 ---
 title: 跨越 7 年的接力赛：获取 C++ 结构体字段数量
 date: "2023-12-26 04:45:30"
-updated: "2026-03-29 03:47:58"
+updated: "2026-03-29 04:07:39"
 zhihu_article_id: "674157958"
 zhihu_url: https://zhuanlan.zhihu.com/p/674157958
 zhihu_column_id: c_1656510843973046272
@@ -23,7 +23,7 @@ auto [x, y] = p;
 // x = 1, y = 2
 ```
 
-利用它我们能实现一些有趣的功能，包括 *有限的 *对结构体的反射功能，比如实现一个 `for_each` 函数
+利用它我们能实现一些有趣的功能，包括 \_有限的 \_对结构体的反射功能，比如实现一个 `for_each` 函数
 
 ```cpp
 void for_each(auto&& object, auto&& func) {

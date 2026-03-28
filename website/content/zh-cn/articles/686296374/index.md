@@ -1,7 +1,7 @@
 ---
 title: C++ 究竟代码膨胀在哪里？
 date: "2024-03-11 09:33:37"
-updated: "2026-03-29 03:48:06"
+updated: "2026-03-29 04:07:46"
 zhihu_article_id: "686296374"
 zhihu_url: https://zhuanlan.zhihu.com/p/686296374
 zhihu_column_id: c_1656510843973046272
