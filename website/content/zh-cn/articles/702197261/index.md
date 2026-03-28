@@ -1,7 +1,7 @@
 ---
 title: Python 与 C++ 的完美结合：pybind11 中的对象设计
 date: "2024-06-07 15:28:11"
-updated: "2026-03-29 03:03:59"
+updated: "2026-03-29 03:48:12"
 zhihu_article_id: "702197261"
 zhihu_url: https://zhuanlan.zhihu.com/p/702197261
 zhihu_column_id: c_1656510843973046272

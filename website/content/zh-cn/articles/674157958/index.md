@@ -1,7 +1,7 @@
 ---
 title: 跨越 7 年的接力赛：获取 C++ 结构体字段数量
 date: "2023-12-26 04:45:30"
-updated: "2026-03-29 03:03:44"
+updated: "2026-03-29 03:47:58"
 zhihu_article_id: "674157958"
 zhihu_url: https://zhuanlan.zhihu.com/p/674157958
 zhihu_column_id: c_1656510843973046272

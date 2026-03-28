@@ -1,7 +1,7 @@
 ---
 title: C++ 中如何优雅进行 enum 到 string 的转换 ？
 date: "2024-01-29 17:03:28"
-updated: "2026-03-29 03:03:48"
+updated: "2026-03-29 03:48:01"
 zhihu_article_id: "680412313"
 zhihu_url: https://zhuanlan.zhihu.com/p/680412313
 ---

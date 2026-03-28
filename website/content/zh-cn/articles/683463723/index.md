@@ -4,7 +4,7 @@ series:
 series_order: 2
 title: The History of constexpr in C++! (Part Two)
 date: "2024-02-22 22:15:32"
-updated: "2026-03-29 03:03:51"
+updated: "2026-03-29 03:48:04"
 zhihu_article_id: "683463723"
 zhihu_url: https://zhuanlan.zhihu.com/p/683463723
 zhihu_column_id: c_1656510843973046272
@@ -90,7 +90,7 @@ void foo() {
 }
 ```
 
-可以发现这种情况下，编译器不得不给 `x` 分配内存。实际上的判断规则更复杂一些，感兴趣的可以自行参考 [lambda capture](https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture)。最终这个提案被接受，进入了 [C++17](<https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture:~:text=This%20function%20is%20constexpr%20if%20the%20function%20call%20operator%20(or%20specialization%2C%20for%20generic%20lambdas)%20%20 is%20constexpr.>)。
+可以发现这种情况下，编译器不得不给 `x` 分配内存。实际上的判断规则更复杂一些，感兴趣的可以自行参考 [lambda capture](https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture)。最终这个提案被接受，进入了 [C++17](<https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture:~:text=This%20function%20is%20constexpr%20if%20the%20function%20call%20operator%20(or%20specialization%2C%20for%20generic%20lambdas)%20%20%20is%20constexpr.>)。
 
 ## 2017-2019：编译期和运行期……不同?
 
