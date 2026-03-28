@@ -17,6 +17,23 @@ import yaml
 
 from zhihu_parser import Parser
 
+
+class _PrettierDumper(yaml.Dumper):
+    """yaml.Dumper that matches prettier's YAML formatting:
+    - 2-space indented block sequences
+    """
+
+    def increase_indent(self, flow=False, indentless=False):
+        return super().increase_indent(flow=flow, indentless=False)
+
+
+def _to_double_quotes(yaml_text: str) -> str:
+    """Convert single-quoted YAML scalar values to double-quoted."""
+    import re
+
+    return re.sub(r"(?m)^(\s*[\w-]+:) '((?:[^'\\]|\\.)*)'$", r'\1 "\2"', yaml_text)
+
+
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -222,13 +239,17 @@ def extract_front_matter(markdown_text: str) -> tuple[dict[str, Any], str]:
 
 
 def render_front_matter(metadata: dict[str, Any], body: str) -> str:
-    front_matter = yaml.safe_dump(
-        metadata,
-        allow_unicode=True,
-        sort_keys=False,
-        default_flow_style=False,
+    front_matter = _to_double_quotes(
+        yaml.dump(
+            metadata,
+            Dumper=_PrettierDumper,
+            allow_unicode=True,
+            sort_keys=False,
+            default_flow_style=False,
+        )
     ).strip()
-    return f"---\n{front_matter}\n---\n\n{body.rstrip()}\n"
+    stripped_body = "\n".join(line.rstrip() for line in body.split("\n")).rstrip()
+    return f"---\n{front_matter}\n---\n\n{stripped_body}\n"
 
 
 def read_markdown_document(path: Path) -> tuple[dict[str, Any], str]:

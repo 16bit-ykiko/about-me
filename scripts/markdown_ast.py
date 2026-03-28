@@ -1,3 +1,6 @@
+import re
+
+
 class Node:
     def __str__(self) -> str:
         raise NotImplementedError
@@ -12,7 +15,9 @@ class Paragraph(Node):
         self.children = children
 
     def __str__(self) -> str:
-        return "".join(str(child) for child in self.children)
+        return re.sub(
+            r" {2,}", " ", "".join(str(child) for child in self.children)
+        ).strip()
 
 
 class Text(Node):
@@ -36,7 +41,7 @@ class Emphasis(Node):
         self.text = text
 
     def __str__(self) -> str:
-        return f"*{self.text}* "
+        return f"_{self.text}_"
 
 
 class Strong(Node):
@@ -116,7 +121,7 @@ class Header(Node):
         self.text = text
 
     def __str__(self) -> str:
-        return f"{'#' * self.level} {self.text} "
+        return f"{'#' * self.level} {self.text}"
 
 
 class List(Node):
@@ -135,8 +140,11 @@ class List(Node):
         indent = "  " * depth
         for index, item in enumerate(self.items):
             prefix = f"{index + 1}. " if self.ordered else "- "
-            text = item.__str__(depth + 1) if isinstance(item, List) else str(item)
-            result += f"{indent}{prefix}{text}\n"
+            if isinstance(item, List):
+                text = item.__str__(depth + 1)
+                result += f"{indent}{prefix}{text}"
+            else:
+                result += f"{indent}{prefix}{str(item)}\n"
         return result
 
 
@@ -149,7 +157,7 @@ class BlockQuote(Node):
         self.children = children
 
     def __str__(self) -> str:
-        return f"> {self.children} "
+        return f"> {str(self.children).strip()}"
 
 
 class HorizontalRule(Node):
@@ -199,4 +207,4 @@ class Document:
         pass
 
     def dump(self):
-        return "\n\n".join(str(child) for child in self.children)
+        return "\n\n".join(str(child).rstrip() for child in self.children)

@@ -9,6 +9,18 @@ from typing import Any
 import requests
 import yaml
 
+
+class _PrettierDumper(yaml.Dumper):
+    def increase_indent(self, flow=False, indentless=False):
+        return super().increase_indent(flow=flow, indentless=False)
+
+
+def _to_double_quotes(yaml_text: str) -> str:
+    import re
+
+    return re.sub(r"(?m)^(\s*[\w-]+:) '((?:[^'\\]|\\.)*)'$", r'\1 "\2"', yaml_text)
+
+
 DEFAULT_MODEL = "gemini-2.5-pro"
 DEFAULT_FRONT_MATTER_KEYS = ("title", "description", "summary")
 MARKDOWN_SUFFIXES = {".md", ".markdown"}
@@ -63,8 +75,12 @@ def extract_front_matter(markdown_text: str) -> tuple[dict[str, Any], str, bool]
 
 
 def render_front_matter(metadata: dict[str, Any], body: str) -> str:
-    header = yaml.safe_dump(metadata, allow_unicode=True, sort_keys=False).strip()
-    normalized_body = body.lstrip("\n")
+    header = _to_double_quotes(
+        yaml.dump(metadata, Dumper=_PrettierDumper, allow_unicode=True, sort_keys=False)
+    ).strip()
+    normalized_body = "\n".join(
+        line.rstrip() for line in body.lstrip("\n").split("\n")
+    ).rstrip()
     return f"---\n{header}\n---\n\n{normalized_body}\n"
 
 

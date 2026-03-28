@@ -1,4 +1,5 @@
 import json
+import re
 import markdown_ast as markdown
 
 from urllib.parse import unquote
@@ -116,20 +117,26 @@ class Parser:
 
         return markdown.Document(nodes)
 
+    @staticmethod
+    def _norm(text: str) -> str:
+        text = re.sub(r" {2,}", " ", text)
+        text = re.sub(r"\\([_*\[\]()~`>#+\-.!|{}])", r"\1", text)
+        return text
+
     def parse_paragraph(self, element: Tag) -> markdown.Paragraph:
         nodes = []
         for child in element.children:
             if child.name is None:
                 if child.text:
-                    nodes.append(markdown.Text(child.text))
+                    nodes.append(markdown.Text(self._norm(child.text)))
                 continue
             match child.name:
                 case "a":
                     nodes.append(self.parse_link(child))
                 case "b" | "strong":
-                    nodes.append(markdown.Strong(child.text))
+                    nodes.append(markdown.Strong(self._norm(child.text)))
                 case "i" | "em":
-                    nodes.append(markdown.Emphasis(child.text))
+                    nodes.append(markdown.Emphasis(self._norm(child.text)))
                 case "code":
                     nodes.append(markdown.InlineCode(child.text))
                 case "br":
@@ -140,10 +147,10 @@ class Parser:
                     # span 对应知乎新加的可以点击的标签，例如：
                     # <span data-search-entity="7">五月一号</span>
                     if child.text:
-                        nodes.append(markdown.Text(child.text))
+                        nodes.append(markdown.Text(self._norm(child.text)))
                 case "sup" | "sub" | "section":
                     if child.text:
-                        nodes.append(markdown.Text(child.text))
+                        nodes.append(markdown.Text(self._norm(child.text)))
                 case _:
                     self.warn_skip(child.name, "paragraph")
 
