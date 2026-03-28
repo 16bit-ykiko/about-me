@@ -6,7 +6,7 @@
     <description>Recent content on ykiko&#39;s blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 29 Mar 2026 02:31:03 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 29 Mar 2026 02:43:26 +0000</lastBuildDate>
     <atom:link href="https://www.ykiko.me/zh-cn/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>打造优雅的 C&#43;&#43; 跨平台开发与构建 Workflow</title>
@@ -52,7 +52,7 @@
       <link>https://www.ykiko.me/zh-cn/articles/21319978959/</link>
       <pubDate>Wed, 05 Feb 2025 05:00:55 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/21319978959/</guid>
-      <description>&lt;p&gt;在上一篇关于 clice 的 &lt;a href=&#34;https://www.ykiko.me/zh-cn/articles/13394352064&#34;&gt;文章&lt;/a&gt; 发布后，收到的反响远超我的预期，也有很多朋友说想要参与到开发中。有这份心是好的，但是参与进来的门槛却不低，主要难点就是在于和 clang 的 API 进行交互。难在哪呢？一方面在于无论是中文还是英文社区，互联网上关于 clang 的资料相对较少（这是预期的，因为相关的需求非常少，自然而然也就没什么人讨论了）。另一方面，由于 C++ 语言本身的复杂性，有很多细节需要对语言本身有较为深入的理解然后才能理解，把理论和实现联系起来也并不那么容易。&lt;/p&gt;</description>
+      <description>&lt;p&gt;在上一篇关于 clice 的 &lt;a href=&#34;https://www.ykiko.me/zh-cn/articles/13394352064&#34;&gt;文章&lt;/a&gt; 发布后，收到的反响远超我的预期，也有很多朋友说想要参与到开发中。有这份心是好的，但是参与进来的门槛却不低，主要难点就是在于和 Clang 的 API 进行交互。难在哪呢？一方面在于无论是中文还是英文社区，互联网上关于 Clang 的资料相对较少（这是预期的，因为相关的需求非常少，自然而然也就没什么人讨论了）。另一方面，由于 C++ 语言本身的复杂性，有很多细节需要对语言本身有较为深入的理解然后才能理解，把理论和实现联系起来也并不那么容易。&lt;/p&gt;</description>
     </item>
     <item>
       <title>一个新 C&#43;&#43; language server 的设计与实现</title>
@@ -118,7 +118,7 @@
       <pubDate>Sat, 10 Feb 2024 23:15:47 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/682031684/</guid>
       <description>&lt;p&gt;几个月前，我写了一篇介绍 C++ 模板的文章：&lt;a href=&#34;https://www.ykiko.me/zh-cn/articles/655902377&#34;&gt;雾里看花：真正意义上的理解 C++ 模板&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;理清了现代 C++ 中模板的地位。其中用 constexpr function 替代模板进行编译期计算可以说是现代 C++ 最重要的改进之一了。 constexpr 本身其实并不难以理解，非常直观。但是由于几乎每个 C++ 版本都在改进它，所以不同的 C++ 版本可以使用的内容差别很大，有时候可能给人一种&lt;code&gt;inconsistency&lt;/code&gt;的感觉。&lt;/p&gt;</description>
+&lt;p&gt;理清了现代 C++ 中模板的地位。其中用 constexpr function 替代模板进行编译期计算可以说是现代 C++ 最重要的改进之一了。 constexpr 本身其实并不难以理解，非常直观。但是由于几乎每个 C++ 版本都在改进它，所以不同的 C++ 版本可以使用的内容差别很大，有时候可能给人一种 &lt;code&gt;inconsistency&lt;/code&gt; 的感觉。&lt;/p&gt;</description>
     </item>
     <item>
       <title>C&#43;&#43; 中如何优雅进行 enum 到 string 的转换 ？</title>
@@ -126,7 +126,7 @@
       <pubDate>Mon, 29 Jan 2024 17:03:28 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/680412313/</guid>
       <description>&lt;h2 id=&#34;no-hard-code&#34;&gt;no hard code&lt;/h2&gt;
-&lt;p&gt;定义一个&lt;code&gt;enum&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;定义一个 &lt;code&gt;enum&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;enum&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Color&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;RED&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;GREEN&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
@@ -136,7 +136,7 @@
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Color&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;color&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;RED&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;color&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;endl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// output =&amp;gt; 0
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果需要枚举作为日志输出，我们不希望在查看日志的时候，还要人工去根据枚举值去查找对应的字符串，麻烦并且不直观。我们希望直接输出枚举值对应的字符串，比如&lt;code&gt;RED&lt;/code&gt;，&lt;code&gt;GREEN&lt;/code&gt;，&lt;code&gt;BLUE&lt;/code&gt;。&lt;/p&gt;</description>
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果需要枚举作为日志输出，我们不希望在查看日志的时候，还要人工去根据枚举值去查找对应的字符串，麻烦并且不直观。我们希望直接输出枚举值对应的字符串，比如 &lt;code&gt;RED&lt;/code&gt;，&lt;code&gt;GREEN&lt;/code&gt;，&lt;code&gt;BLUE&lt;/code&gt;。&lt;/p&gt;</description>
     </item>
     <item>
       <title>C&#43;&#43; 中的 relocate 语义</title>
@@ -144,7 +144,7 @@
       <pubDate>Thu, 25 Jan 2024 17:22:29 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/679782886/</guid>
       <description>&lt;p&gt;众所周知，现在 C++ 里面有两种特殊的构造函数，即 copy constructor 和 move constructor&lt;/p&gt;
-&lt;p&gt;copy constructor 早在 C++98 的时候就加入了，用来拷贝一个对象，像&lt;code&gt;vector&lt;/code&gt;这种拥有资源的类型，拷贝的时候会把它拥有的资源也拷贝一份&lt;/p&gt;</description>
+&lt;p&gt;copy constructor 早在 C++98 的时候就加入了，用来拷贝一个对象，像 &lt;code&gt;vector&lt;/code&gt; 这种拥有资源的类型，拷贝的时候会把它拥有的资源也拷贝一份&lt;/p&gt;</description>
     </item>
     <item>
       <title>跨越 7 年的接力赛：获取 C&#43;&#43; 结构体字段数量</title>
@@ -152,7 +152,7 @@
       <pubDate>Tue, 26 Dec 2023 04:45:30 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/674157958/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;在&lt;code&gt;C++17&lt;/code&gt;中引入了叫做「&lt;strong&gt;结构化绑定&lt;/strong&gt;」的特性也就是&lt;code&gt;Struct Binding&lt;/code&gt;，这一特性类似于别的语言中的模式匹配，可以让我们方便的对结构体的成员进行访问&lt;/p&gt;</description>
+&lt;p&gt;在 &lt;code&gt;C++17&lt;/code&gt; 中引入了叫做「&lt;strong&gt;结构化绑定&lt;/strong&gt;」的特性也就是 &lt;code&gt;Struct Binding&lt;/code&gt;，这一特性类似于别的语言中的模式匹配，可以让我们方便的对结构体的成员进行访问&lt;/p&gt;</description>
     </item>
     <item>
       <title>在 C&#43;&#43; 中实现 Object!</title>
@@ -168,7 +168,7 @@
       <pubDate>Sun, 03 Dec 2023 23:37:51 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/670190357/</guid>
       <description>&lt;h2 id=&#34;首先什么是元信息&#34;&gt;首先什么是元信息？&lt;/h2&gt;
-&lt;p&gt;来看下面一段&lt;code&gt;python&lt;/code&gt;代码，我们希望能够根据传入的字符串来自动修改对应的字段值&lt;/p&gt;</description>
+&lt;p&gt;来看下面一段 &lt;code&gt;python&lt;/code&gt; 代码，我们希望能够根据传入的字符串来自动修改对应的字段值&lt;/p&gt;</description>
     </item>
     <item>
       <title>使用 Clang 工具自由的支配 C&#43;&#43; 代码吧</title>
@@ -183,7 +183,7 @@
       <pubDate>Wed, 29 Nov 2023 09:14:16 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/669359855/</guid>
       <description>&lt;h2 id=&#34;引入&#34;&gt;引入&lt;/h2&gt;
-&lt;p&gt;刚好拿最近的一个需求作为引入吧。我们都知道 markdown 可以用&lt;code&gt;lang&lt;/code&gt;来填入代码块，并支持代码高亮。可是我想支持自己定义的代码高亮规则，遇到了如下问题：&lt;/p&gt;</description>
+&lt;p&gt;刚好拿最近的一个需求作为引入吧。我们都知道 markdown 可以用 &lt;code&gt;lang&lt;/code&gt; 来填入代码块，并支持代码高亮。可是我想支持自己定义的代码高亮规则，遇到了如下问题：&lt;/p&gt;</description>
     </item>
     <item>
       <title>写给 C&#43;&#43; 程序员的反射教程</title>
@@ -191,7 +191,7 @@
       <pubDate>Wed, 29 Nov 2023 09:14:02 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/669358870/</guid>
       <description>&lt;h2 id=&#34;what-is-reflection&#34;&gt;What is Reflection?&lt;/h2&gt;
-&lt;p&gt;反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的&lt;strong&gt;惯用词&lt;/strong&gt;一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 &lt;a href=&#34;https://doc.rust-lang.org/stable/std/any/index.html&#34;&gt;std::Any 模块&lt;/a&gt; 的介绍。里面提到了&lt;/p&gt;</description>
+&lt;p&gt;反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其他的&lt;strong&gt;惯用词&lt;/strong&gt;一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 &lt;a href=&#34;https://doc.rust-lang.org/stable/std/any/index.html&#34;&gt;std::Any 模块&lt;/a&gt; 的介绍。里面提到了&lt;/p&gt;</description>
     </item>
     <item>
       <title>C&#43;&#43;26 静态反射提案解析</title>
@@ -206,14 +206,14 @@
       <pubDate>Wed, 04 Oct 2023 14:50:12 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/659510753/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;在 C++ 中，形如&lt;code&gt;&amp;amp;T::name&lt;/code&gt;的表达式返回的结果就是成员指针。写代码的时候偶尔会用到，但是这个概念可能很多人都并不熟悉。考虑如下代码&lt;/p&gt;</description>
+&lt;p&gt;在 C++ 中，形如 &lt;code&gt;&amp;amp;T::name&lt;/code&gt; 的表达式返回的结果就是成员指针。写代码的时候偶尔会用到，但是这个概念可能很多人都并不熟悉。考虑如下代码&lt;/p&gt;</description>
     </item>
     <item>
       <title>雾里看花：真正意义上的理解 C&#43;&#43; 模板</title>
       <link>https://www.ykiko.me/zh-cn/articles/655902377/</link>
       <pubDate>Tue, 12 Sep 2023 23:46:11 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/655902377/</guid>
-      <description>&lt;p&gt;在 C++ 中，模板（Template）这个概念已经存在二十多年了。作为 C++ 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。&lt;/p&gt;</description>
+      <description>&lt;p&gt;在 C++ 中，模板（Template）这个概念已经存在二十多年了。作为 C++ 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其他话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。&lt;/p&gt;</description>
     </item>
     <item>
       <title>C&#43;&#43; 禁忌黑魔法：STMP （下）</title>
@@ -234,7 +234,7 @@
       <link>https://www.ykiko.me/zh-cn/articles/645810896/</link>
       <pubDate>Tue, 25 Jul 2023 15:19:25 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/645810896/</guid>
-      <description>&lt;p&gt;&lt;code&gt;std::variant&lt;/code&gt;于 C++17 加入标准库，本文将讨论其加入标准的背景，以及一些使用上的问题。&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;code&gt;std::variant&lt;/code&gt; 于 C++17 加入标准库，本文将讨论其加入标准的背景，以及一些使用上的问题。&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

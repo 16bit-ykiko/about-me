@@ -8,7 +8,7 @@
 <title>写给 C&#43;&#43; 程序员的反射教程 | ykiko&#39;s blog</title>
 <meta name="keywords" content="">
 <meta name="description" content="What is Reflection?
-反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的惯用词一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C&#43;&#43;, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 std::Any 模块 的介绍。里面提到了">
+反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其他的惯用词一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C&#43;&#43;, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 std::Any 模块 的介绍。里面提到了">
 <meta name="author" content="ykiko">
 <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/669358870/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.497bbe86f976d8babb698f161028591a57fd8bb07879b6c8583470451e59b8bf.css" integrity="sha256-SXu&#43;hvl22Lq7aY8WEChZGlf9i7B4ebbIWDRwRR5ZuL8=" rel="preload stylesheet" as="style">
@@ -89,12 +89,12 @@
       </script><meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/669358870/">
   <meta property="og:site_name" content="ykiko&#39;s blog">
   <meta property="og:title" content="写给 C&#43;&#43; 程序员的反射教程">
-  <meta property="og:description" content="What is Reflection? 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的惯用词一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C&#43;&#43;, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 std::Any 模块 的介绍。里面提到了">
+  <meta property="og:description" content="What is Reflection? 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其他的惯用词一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C&#43;&#43;, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 std::Any 模块 的介绍。里面提到了">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
     <meta property="article:published_time" content="2023-11-29T09:14:02+00:00">
-    <meta property="article:modified_time" content="2026-03-29T02:24:27+00:00">
+    <meta property="article:modified_time" content="2026-03-29T02:43:01+00:00">
       <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/669358870/featured.png">
       <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/670191053/">
       <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/670190357/">
@@ -105,7 +105,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/669358870/featured.png">
   <meta name="twitter:title" content="写给 C&#43;&#43; 程序员的反射教程">
-  <meta name="twitter:description" content="What is Reflection? 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的惯用词一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C&#43;&#43;, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 std::Any 模块 的介绍。里面提到了">
+  <meta name="twitter:description" content="What is Reflection? 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其他的惯用词一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C&#43;&#43;, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 std::Any 模块 的介绍。里面提到了">
 
 
 <script type="application/ld+json">
@@ -134,15 +134,15 @@
   "@type": "BlogPosting",
   "headline": "写给 C++ 程序员的反射教程",
   "name": "写给 C\u002b\u002b 程序员的反射教程",
-  "description": "What is Reflection? 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的惯用词一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 std::Any 模块 的介绍。里面提到了\n",
+  "description": "What is Reflection? 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其他的惯用词一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 std::Any 模块 的介绍。里面提到了\n",
   "keywords": [
     
   ],
-  "articleBody": "What is Reflection? 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的惯用词一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 std::Any 模块 的介绍。里面提到了\nUtilities for dynamic typing or type reflection 用于动态类型或类型反射的工具\n但是尴尬就尴尬在，你说它是反射吧，功能非常鸡肋，你说它不是吧，硬要说有这种体现也不是不行。\n类似的情况在 C++ 中也经常发生。相信你也经常能听到如下观点：C++ 只有非常弱的反射即 RTTI(Run Time Type Information)，但是 C++ 的一些框架比如 QT，UE 自己实现了反射。在最近的讨论中，网上的博客中又或者 C++ 新标准的提案中，你可能又会听到所谓：\n静态反射 (static reflection) 动态反射 (dynamic reflection) 编译期反射 (compile time reflection) 运行期反射 (runtime reflection) 这样一大堆名词实在是让人听的云里雾里，晕头转向。而且 static, dynamic, compile time, runtime 这些前缀词本身也都是惯用词，经常和各种词组合起来，于语境不同有非常多的含义。\n有的读者可能会说，我查了 WIKI，反射 明明就是有定义的啊，如下：\nIn computer science, reflective programming or reflection is the ability of a process to examine, introspect, and modify its own structure and behavior. 反射是程序具有自省，检查和修改它自身结构和行为的一种能力。\n那首先，WIKI 也是人写的，不具有绝对的权威性，如果你对这个定义不满意，是可以自己修改的。其次这里的用词也是很模糊的，什么叫自省 (introspect)？自我反省，在 CS 中这个词又是什么意思呢？所以这个定义也是很尴尬的。那怎么办呢？我选择把它拆分成几个过程进行解释，这样我们就不用去纠结「反射究竟是什么」这个概念问题了。取而代之的是，弄明白了这几个过程，自然而然的你就明白反射是在做什么事情了。\nHow to Understand Reflection? 所有语言的反射都可以看成下面这三步：\nGenerate Metadata 首先什么是元数据 (Metadata) 呢？我们在写代码的时候都会给变量，类型，结构体字段什么的取名字。这些名字主要是为了方便程序员理解和维护源代码。对于 C/C++ 来说，这些名字在编译之后通常会被丢弃，为了节省二进制空间嘛，可以理解。详细的讨论请见 为什么说 C/C++编译器不保留元信息。\n但是渐渐地，我们发现某些情况下是需要这些数据的。比如把结构体序列化成json的时候就需要结构体字段名，在打印日志的时候不希望打印枚举值，而是直接打印对应的枚举名。怎么办呢？早期，只能通过 hard code 的方式，也就是手写，高级点的可能来点宏。这样其实是很不方便的，不利于后续的代码维护。\n后来有一些语言，例如 Java 和 C#。他们的编译器在编译的时候会保留包括这些名字在内的很多数据，这些数据就叫做元数据（Metadata）。同时，也有一些手段允许程序员自己附加元数据在某些结构上，例如 C# 的attribute，Java 的annotation。\n对于 C++ 来说呢？目前 C++ 编译器只会保留类型名用于实现 RTTI，即标准中std::type_info的相关设施。其它的信息，编译器都会抹除掉。怎么办呢？手动编写元数据对于少量的类来说还可以接受，但当项目规模增大时，例如有几十或上百个类时，将变得非常繁琐和容易出错。其实，我们可以在实际编译之前，运行一个脚本来负责生成这些数据，也就是所谓的代码生成 (Code Generation)。相关内容请参考 使用 clang 工具自由的支配 C++ 代码吧。\nQuery Metadata 生成完之后，接下来就是查询元数据了。很多语言内置的反射模块，例如 Python 的inspect，Java 的Reflection，C# 的System.Reflection，其实就是封装了一些操作，使得用户不用直接接触原始的元数据，用起来更加方便。\n值得注意的是，上面这些案例中的查询都是发生在运行时的。在运行时根据字符串进行搜索和匹配，这其实是一个比较慢的过程，所以我们常说反射调用方法比正常调用方法慢。\n对于 C++ 来说，编译器提供了一些有限的接口让我们在编译时访问（反射）一些信息，例如使用decltype可以获取一个变量的类型，进一步还能判断两个变量类型是否相等，是否是某个类型的子类等等，但是功能十分有限。\n不过，可以按照上一小节的方法自己生成元信息，把它们都标记为 constexpr，然后就可以在编译期进行查询。事实上 C++26 的静态反射也就是这个思路，由编译器生成元信息，暴露给用户一些接口进行查询。相关内容请见 C++26 静态反射提案解析。而查询的时机也就是所谓的动态反射和静态反射的区别。\n当然了，编译期可做的事情肯定是没有运行期那么多的，例如希望根据运行时的类型名创建类实例，无论如何编译期肯定没法做到。但你可以基于这些静态的元信息构建动态反射。相关内容请见 在 C++ 中实现 Object。\nOperate Metadata 然后，就是根据元数据进行进一步的操作，比如代码生成。这个在 C++ 中可以理解为编译期的代码生成，在 Java 和 C# 则可以认为是运行期的代码生成。详见 各种姿势进行代码生成 。\nConclusion 最后，我们来用上面三个步骤分解一下不同语言中的反射：\nPython, JavaScript, Java, C#：由编译器/解释器生成元数据，标准库提供接口，用户可以在运行时查询元数据，同时由于有虚拟机（VM），可以方便地生成代码。 Go：由编译器生成元数据，标准库提供接口，用户可以在运行时查询元数据。但是由于 Go 主要是 AOT（Ahead-of-Time）编译，运行时生成代码并不方便。 Zig, C++26 静态反射：由编译器生成元数据，标准库提供接口，用户可以在编译时查询元数据。同样由于是 AOT 编译，运行时生成代码并不方便，但是可以在编译期进行代码生成。\n而 QT 和 UE 则是通过代码生成，自己生成了元数据，封装了接口，用户可以在运行时查询元数据。实现原理上类似 Go 的反射。\n希望这个系列教程对你有所帮助！如果有错误欢迎评论区讨论，感谢你的阅读。\n",
-  "wordCount" : "2340",
+  "articleBody": "What is Reflection? 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其他的惯用词一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 std::Any 模块 的介绍。里面提到了\nUtilities for dynamic typing or type reflection 用于动态类型或类型反射的工具\n但是尴尬就尴尬在，你说它是反射吧，功能非常鸡肋，你说它不是吧，硬要说有这种体现也不是不行。\n类似的情况在 C++ 中也经常发生。相信你也经常能听到如下观点：C++ 只有非常弱的反射即 RTTI(Run Time Type Information)，但是 C++ 的一些框架比如 QT，UE 自己实现了反射。在最近的讨论中，网上的博客中又或者 C++ 新标准的提案中，你可能又会听到所谓：\n静态反射 (static reflection) 动态反射 (dynamic reflection) 编译期反射 (compile time reflection) 运行期反射 (runtime reflection) 这样一大堆名词实在是让人听的云里雾里，晕头转向。而且 static, dynamic, compile time, runtime 这些前缀词本身也都是惯用词，经常和各种词组合起来，于语境不同有非常多的含义。\n有的读者可能会说，我查了 WIKI，反射 明明就是有定义的啊，如下：\nIn computer science, reflective programming or reflection is the ability of a process to examine, introspect, and modify its own structure and behavior. 反射是程序具有自省，检查和修改它自身结构和行为的一种能力。\n那首先，WIKI 也是人写的，不具有绝对的权威性，如果你对这个定义不满意，是可以自己修改的。其次这里的用词也是很模糊的，什么叫自省 (introspect)？自我反省，在 CS 中这个词又是什么意思呢？所以这个定义也是很尴尬的。那怎么办呢？我选择把它拆分成几个过程进行解释，这样我们就不用去纠结「反射究竟是什么」这个概念问题了。取而代之的是，弄明白了这几个过程，自然而然的你就明白反射是在做什么事情了。\nHow to Understand Reflection? 所有语言的反射都可以看成下面这三步：\nGenerate Metadata 首先什么是元数据 (Metadata) 呢？我们在写代码的时候都会给变量，类型，结构体字段什么的取名字。这些名字主要是为了方便程序员理解和维护源代码。对于 C/C++ 来说，这些名字在编译之后通常会被丢弃，为了节省二进制空间嘛，可以理解。详细的讨论请见 为什么说 C/C++编译器不保留元信息。\n但是渐渐地，我们发现某些情况下是需要这些数据的。比如把结构体序列化成 json 的时候就需要结构体字段名，在打印日志的时候不希望打印枚举值，而是直接打印对应的枚举名。怎么办呢？早期，只能通过 hard code 的方式，也就是手写，高级点的可能来点宏。这样其实是很不方便的，不利于后续的代码维护。\n后来有一些语言，例如 Java 和 C#。他们的编译器在编译的时候会保留包括这些名字在内的很多数据，这些数据就叫做元数据（Metadata）。同时，也有一些手段允许程序员自己附加元数据在某些结构上，例如 C# 的 attribute，Java 的 annotation。\n对于 C++ 来说呢？目前 C++ 编译器只会保留类型名用于实现 RTTI，即标准中 std::type_info 的相关设施。其他的信息，编译器都会抹除掉。怎么办呢？手动编写元数据对于少量的类来说还可以接受，但当项目规模增大时，例如有几十或上百个类时，将变得非常繁琐和容易出错。其实，我们可以在实际编译之前，运行一个脚本来负责生成这些数据，也就是所谓的代码生成 (Code Generation)。相关内容请参考 使用 Clang 工具自由的支配 C++ 代码吧。\nQuery Metadata 生成完之后，接下来就是查询元数据了。很多语言内置的反射模块，例如 Python 的 inspect，Java 的 Reflection，C# 的 System.Reflection，其实就是封装了一些操作，使得用户不用直接接触原始的元数据，用起来更加方便。\n值得注意的是，上面这些案例中的查询都是发生在运行时的。在运行时根据字符串进行搜索和匹配，这其实是一个比较慢的过程，所以我们常说反射调用方法比正常调用方法慢。\n对于 C++ 来说，编译器提供了一些有限的接口让我们在编译时访问（反射）一些信息，例如使用 decltype 可以获取一个变量的类型，进一步还能判断两个变量类型是否相等，是否是某个类型的子类等等，但是功能十分有限。\n不过，可以按照上一小节的方法自己生成元信息，把它们都标记为 constexpr，然后就可以在编译期进行查询。事实上 C++26 的静态反射也就是这个思路，由编译器生成元信息，暴露给用户一些接口进行查询。相关内容请见 C++26 静态反射提案解析。而查询的时机也就是所谓的动态反射和静态反射的区别。\n当然了，编译期可做的事情肯定是没有运行期那么多的，例如希望根据运行时的类型名创建类实例，无论如何编译期肯定没法做到。但你可以基于这些静态的元信息构建动态反射。相关内容请见 在 C++ 中实现 Object。\nOperate Metadata 然后，就是根据元数据进行进一步的操作，比如代码生成。这个在 C++ 中可以理解为编译期的代码生成，在 Java 和 C# 则可以认为是运行期的代码生成。详见 各种姿势进行代码生成 。\nConclusion 最后，我们来用上面三个步骤分解一下不同语言中的反射：\nPython, JavaScript, Java, C#：由编译器/解释器生成元数据，标准库提供接口，用户可以在运行时查询元数据，同时由于有虚拟机（VM），可以方便地生成代码。 Go：由编译器生成元数据，标准库提供接口，用户可以在运行时查询元数据。但是由于 Go 主要是 AOT（Ahead-of-Time）编译，运行时生成代码并不方便。 Zig, C++26 静态反射：由编译器生成元数据，标准库提供接口，用户可以在编译时查询元数据。同样由于是 AOT 编译，运行时生成代码并不方便，但是可以在编译期进行代码生成。\n而 QT 和 UE 则是通过代码生成，自己生成了元数据，封装了接口，用户可以在运行时查询元数据。实现原理上类似 Go 的反射。\n希望这个系列教程对你有所帮助！如果有错误欢迎评论区讨论，感谢你的阅读。\n",
+  "wordCount" : "2317",
   "inLanguage": "zh-cn",
   "image": "https://www.ykiko.me/zh-cn/articles/669358870/featured.png","datePublished": "2023-11-29T09:14:02Z",
-  "dateModified": "2026-03-29T02:24:27Z",
+  "dateModified": "2026-03-29T02:43:01Z",
   "author":{
     "@type": "Person",
     "name": "ykiko"
@@ -218,7 +218,7 @@
     <h1 class="post-title entry-hint-parent">
       写给 C&#43;&#43; 程序员的反射教程
     </h1>
-    <div class="post-meta"><span title='2023-11-29 09:14:02 +0000 UTC'>2023-11-29</span>&nbsp;·&nbsp;<span>更新于 2026-03-29</span>&nbsp;·&nbsp;<span>5 min</span>&nbsp;·&nbsp;<span>2340 words</span>&nbsp;·&nbsp;<span>ykiko</span>&nbsp;|&nbsp;<span>Translations:</span>
+    <div class="post-meta"><span title='2023-11-29 09:14:02 +0000 UTC'>2023-11-29</span>&nbsp;·&nbsp;<span>更新于 2026-03-29</span>&nbsp;·&nbsp;<span>5 min</span>&nbsp;·&nbsp;<span>2317 words</span>&nbsp;·&nbsp;<span>ykiko</span>&nbsp;|&nbsp;<span>Translations:</span>
 <ul class="i18n_list">
     <li>
         <a href="https://www.ykiko.me/en/articles/669358870/">English</a>
@@ -254,7 +254,7 @@
 </div>
 
   <div class="post-content"><h2 id="what-is-reflection">What is Reflection?<a hidden class="anchor" aria-hidden="true" href="#what-is-reflection">#</a></h2>
-<p>反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的<strong>惯用词</strong>一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 <a href="https://doc.rust-lang.org/stable/std/any/index.html">std::Any 模块</a> 的介绍。里面提到了</p>
+<p>反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其他的<strong>惯用词</strong>一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 <a href="https://doc.rust-lang.org/stable/std/any/index.html">std::Any 模块</a> 的介绍。里面提到了</p>
 <blockquote>
 <p>Utilities for dynamic typing or type reflection 用于动态类型或类型反射的工具</p>
 </blockquote>
@@ -276,13 +276,13 @@
 <p>所有语言的反射都可以看成下面这三步：</p>
 <h3 id="generate-metadata">Generate Metadata<a hidden class="anchor" aria-hidden="true" href="#generate-metadata">#</a></h3>
 <p>首先什么是元数据 (Metadata) 呢？我们在写代码的时候都会给变量，类型，结构体字段什么的取名字。这些名字主要是为了方便程序员理解和维护源代码。对于 C/C++ 来说，这些名字在编译之后通常会被丢弃，为了节省二进制空间嘛，可以理解。详细的讨论请见 <a href="https://www.ykiko.me/zh-cn/articles/670190357">为什么说 C/C++编译器不保留元信息</a>。</p>
-<p>但是渐渐地，我们发现某些情况下是需要这些数据的。比如把结构体序列化成<code>json</code>的时候就需要结构体字段名，在打印日志的时候不希望打印枚举值，而是直接打印对应的枚举名。怎么办呢？早期，只能通过 hard code 的方式，也就是手写，高级点的可能来点宏。这样其实是很不方便的，不利于后续的代码维护。</p>
-<p>后来有一些语言，例如 Java 和 C#。他们的编译器在编译的时候会保留包括这些名字在内的很多数据，这些数据就叫做元数据（Metadata）。同时，也有一些手段允许程序员自己附加元数据在某些结构上，例如 C# 的<code>attribute</code>，Java 的<code>annotation</code>。</p>
-<p>对于 C++ 来说呢？目前 C++ 编译器只会保留类型名用于实现 RTTI，即标准中<code>std::type_info</code>的相关设施。其它的信息，编译器都会抹除掉。怎么办呢？手动编写元数据对于少量的类来说还可以接受，但当项目规模增大时，例如有几十或上百个类时，将变得非常繁琐和容易出错。其实，我们可以在实际编译之前，运行一个脚本来负责生成这些数据，也就是所谓的代码生成 (Code Generation)。相关内容请参考 <a href="https://www.ykiko.me/zh-cn/articles/669360731">使用 clang 工具自由的支配 C++ 代码吧</a>。</p>
+<p>但是渐渐地，我们发现某些情况下是需要这些数据的。比如把结构体序列化成 <code>json</code> 的时候就需要结构体字段名，在打印日志的时候不希望打印枚举值，而是直接打印对应的枚举名。怎么办呢？早期，只能通过 hard code 的方式，也就是手写，高级点的可能来点宏。这样其实是很不方便的，不利于后续的代码维护。</p>
+<p>后来有一些语言，例如 Java 和 C#。他们的编译器在编译的时候会保留包括这些名字在内的很多数据，这些数据就叫做元数据（Metadata）。同时，也有一些手段允许程序员自己附加元数据在某些结构上，例如 C# 的 <code>attribute</code>，Java 的 <code>annotation</code>。</p>
+<p>对于 C++ 来说呢？目前 C++ 编译器只会保留类型名用于实现 RTTI，即标准中 <code>std::type_info</code> 的相关设施。其他的信息，编译器都会抹除掉。怎么办呢？手动编写元数据对于少量的类来说还可以接受，但当项目规模增大时，例如有几十或上百个类时，将变得非常繁琐和容易出错。其实，我们可以在实际编译之前，运行一个脚本来负责生成这些数据，也就是所谓的代码生成 (Code Generation)。相关内容请参考 <a href="https://www.ykiko.me/zh-cn/articles/669360731">使用 Clang 工具自由的支配 C++ 代码吧</a>。</p>
 <h3 id="query-metadata">Query Metadata<a hidden class="anchor" aria-hidden="true" href="#query-metadata">#</a></h3>
-<p>生成完之后，接下来就是查询元数据了。很多语言内置的反射模块，例如 Python 的<code>inspect</code>，Java 的<code>Reflection</code>，C# 的<code>System.Reflection</code>，其实就是封装了一些操作，使得用户不用直接接触原始的元数据，用起来更加方便。</p>
+<p>生成完之后，接下来就是查询元数据了。很多语言内置的反射模块，例如 Python 的 <code>inspect</code>，Java 的 <code>Reflection</code>，C# 的 <code>System.Reflection</code>，其实就是封装了一些操作，使得用户不用直接接触原始的元数据，用起来更加方便。</p>
 <p>值得注意的是，上面这些案例中的查询都是发生在运行时的。在运行时根据字符串进行搜索和匹配，这其实是一个比较慢的过程，所以我们常说反射调用方法比正常调用方法慢。</p>
-<p>对于 C++ 来说，编译器提供了一些有限的接口让我们在编译时访问（反射）一些信息，例如使用<code>decltype</code>可以获取一个变量的类型，进一步还能判断两个变量类型是否相等，是否是某个类型的子类等等，但是功能十分有限。</p>
+<p>对于 C++ 来说，编译器提供了一些有限的接口让我们在编译时访问（反射）一些信息，例如使用 <code>decltype</code> 可以获取一个变量的类型，进一步还能判断两个变量类型是否相等，是否是某个类型的子类等等，但是功能十分有限。</p>
 <p>不过，可以按照上一小节的方法自己生成元信息，把它们都标记为 constexpr，然后就可以在编译期进行查询。事实上 C++26 的静态反射也就是这个思路，由编译器生成元信息，暴露给用户一些接口进行查询。相关内容请见 <a href="https://www.ykiko.me/zh-cn/articles/661692275">C++26 静态反射提案解析</a>。而查询的时机也就是所谓的<strong>动态反射</strong>和<strong>静态反射</strong>的区别。</p>
 <p>当然了，编译期可做的事情肯定是没有运行期那么多的，例如希望根据运行时的类型名创建类实例，无论如何编译期肯定没法做到。但你可以基于这些静态的元信息构建动态反射。相关内容请见 <a href="https://www.ykiko.me/zh-cn/articles/670191053">在 C++ 中实现 Object</a>。</p>
 <h3 id="operate-metadata">Operate Metadata<a hidden class="anchor" aria-hidden="true" href="#operate-metadata">#</a></h3>

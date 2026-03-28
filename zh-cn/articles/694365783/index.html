@@ -93,7 +93,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
     <meta property="article:published_time" content="2024-04-24T21:35:41+00:00">
-    <meta property="article:modified_time" content="2026-03-29T02:25:11+00:00">
+    <meta property="article:modified_time" content="2026-03-29T02:43:21+00:00">
       <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/694365783/featured.png">
 
   <meta name="twitter:card" content="summary_large_image">
@@ -132,11 +132,11 @@
   "keywords": [
     
   ],
-  "articleBody": "Compiler Explorer 是一个非常流行的 C++ 在线编译器，可用于测试不同的编译执行环境，或者分享代码。作为一个 C++ 爱好者，我几乎每天都要和它打交道，使用频率之高远超我的想象。同时，我也是一个重度 VSCode 用户，几乎所有的事情都在 VSCode 中完成。考虑到经常在本地写代码然后拷贝到 Compiler Explorer 上去，总觉得不太舒服，有时候直接就在它的网页编辑器上改了，但是又没有代码补全，也不舒服。所以我和 @iiirhe 合作编写了这个插件 Compiler Explorer for VSCode，基于 Compiler Explorer 提供的 API 将 Compiler Explorer 集成到 VSCode 中，使得用户可以在 VSCode 中直接使用 Compiler Explorer 的功能。\n现在你可以在 VSCode 插件市场搜索到这个插件\n效果展示 单文件支持 让我们从上往下以此介绍\n这个三个按钮的功能依次是：\nCompile All：编译所有的编译器实例 Add New：添加一个新的编译器实例 Share Link：根据当前的编译器实例生成一个链接，并复制到剪贴板 这四个按钮的功能依次是：\nAdd CMake：添加一个 CMake 编译器实例（后面会细说） Clear All：关闭所有用于展示的webview面板 Load Link：根据输入的链接加载编译器实例的信息 Remove All：删除所有的编译器实例 这个三个按钮的功能依次是：\nRun：编译这个编译器实例 Clone：克隆这个编译器实例 Remove：删除这个编译器实例 下面这些用于设置编译器实例的参数：\nCompiler：点击右侧的按钮可以选择编译器版本 Input：选择源代码文件，默认是active即当前活跃的编辑器 Output：输出编译结果的文件，默认使用webview Options：编译选项，点击右侧按钮可以打开输入框 Execute Arguments：传递给可执行文件的参数 Stdin：用于标准输入的缓冲区 Filters：一些选项 多文件支持 使用Add CMake按钮可以添加一个 CMake 编译器实例，这个实例可以用于编译多个文件。\n大部分选项和单文件的编译器实例一样，额外多出了两个\nCMake Arguments：传递给 CMake 的参数 Source：CMakelists.txt 所在的文件夹路径 注意，由于多文件编译需要把所有用到的文件都上传到服务器，所以我们默认会读取你指定的目录下的所有文件（无论后缀名），所以目前请不要指定文件数量过多的文件夹。之后可能会添加一些选项允许用户过滤掉一些文件，但是目前还没有。\n一些用户设置 compiler-explorer.default.options：使用+号创建编译器时的默认参数\n\"compiler-explorer.default.options\": { \"type\": \"object\", \"description\": \"The default compiler configuration\", \"default\": { \"compiler\": \"x86-64 gcc 13.2\", \"language\": \"c++\", \"options\": \"-std=c++17\", \"exec\": \"\", \"stdin\": \"\", \"cmakeArgs\": \"\", \"src\": \"workspace\", \"filters\": { \"binaryObject\": false, \"binary\": false, \"execute\": false, \"intel\": true, \"demangle\": true, \"labels\": true, \"libraryCode\": true, \"directives\": true, \"commentOnly\": true, \"trim\": false, \"debugCalls\": false } } } compiler-explorer.default.color：用于指定高亮汇编代码时的颜色\n\"compiler-explorer.default.color\":{ \"symbol\": \"#61AFEF\", \"string\": \"#98C379\", \"number\": \"#D19A66\", \"register\": \"#E5C07B\", \"instruction\": \"#C678DD\", \"comment\": \"#7F848E\", \"operator\": \"#ABB2BF\" } compiler-explorer.default.url：用于打开插件时默认加载的链接，默认是空\n\"compiler-explorer.default.url\": { \"default\": \"\" } 问题反馈 该插件还处于早期阶段，如果你在使用过程中遇到了问题，或者有任何建议，欢迎在 GitHub 上留言讨论。或者添加 QQ 群：662499937。\nhttps://qm.qq.com/q/DiO6rvnbHi (二维码自动识别)\n另外 Output 窗口可能会提供一些有用的信息，可以注意检索\n",
-  "wordCount" : "1217",
+  "articleBody": "Compiler Explorer 是一个非常流行的 C++ 在线编译器，可用于测试不同的编译执行环境，或者分享代码。作为一个 C++ 爱好者，我几乎每天都要和它打交道，使用频率之高远超我的想象。同时，我也是一个重度 VSCode 用户，几乎所有的事情都在 VSCode 中完成。考虑到经常在本地写代码然后拷贝到 Compiler Explorer 上去，总觉得不太舒服，有时候直接就在它的网页编辑器上改了，但是又没有代码补全，也不舒服。所以我和 @iiirhe 合作编写了这个插件 Compiler Explorer for VSCode，基于 Compiler Explorer 提供的 API 将 Compiler Explorer 集成到 VSCode 中，使得用户可以在 VSCode 中直接使用 Compiler Explorer 的功能。\n现在你可以在 VSCode 插件市场搜索到这个插件\n效果展示 单文件支持 让我们从上往下以此介绍\n这个三个按钮的功能依次是：\nCompile All：编译所有的编译器实例 Add New：添加一个新的编译器实例 Share Link：根据当前的编译器实例生成一个链接，并复制到剪贴板 这四个按钮的功能依次是：\nAdd CMake：添加一个 CMake 编译器实例（后面会细说） Clear All：关闭所有用于展示的 webview 面板 Load Link：根据输入的链接加载编译器实例的信息 Remove All：删除所有的编译器实例 这个三个按钮的功能依次是：\nRun：编译这个编译器实例 Clone：克隆这个编译器实例 Remove：删除这个编译器实例 下面这些用于设置编译器实例的参数：\nCompiler：点击右侧的按钮可以选择编译器版本 Input：选择源代码文件，默认是 active 即当前活跃的编辑器 Output：输出编译结果的文件，默认使用 webview Options：编译选项，点击右侧按钮可以打开输入框 Execute Arguments：传递给可执行文件的参数 Stdin：用于标准输入的缓冲区 Filters：一些选项 多文件支持 使用 Add CMake 按钮可以添加一个 CMake 编译器实例，这个实例可以用于编译多个文件。\n大部分选项和单文件的编译器实例一样，额外多出了两个\nCMake Arguments：传递给 CMake 的参数 Source：CMakelists.txt 所在的文件夹路径 注意，由于多文件编译需要把所有用到的文件都上传到服务器，所以我们默认会读取你指定的目录下的所有文件（无论后缀名），所以目前请不要指定文件数量过多的文件夹。之后可能会添加一些选项允许用户过滤掉一些文件，但是目前还没有。\n一些用户设置 compiler-explorer.default.options：使用 + 号创建编译器时的默认参数\n\"compiler-explorer.default.options\": { \"type\": \"object\", \"description\": \"The default compiler configuration\", \"default\": { \"compiler\": \"x86-64 gcc 13.2\", \"language\": \"c++\", \"options\": \"-std=c++17\", \"exec\": \"\", \"stdin\": \"\", \"cmakeArgs\": \"\", \"src\": \"workspace\", \"filters\": { \"binaryObject\": false, \"binary\": false, \"execute\": false, \"intel\": true, \"demangle\": true, \"labels\": true, \"libraryCode\": true, \"directives\": true, \"commentOnly\": true, \"trim\": false, \"debugCalls\": false } } } compiler-explorer.default.color：用于指定高亮汇编代码时的颜色\n\"compiler-explorer.default.color\":{ \"symbol\": \"#61AFEF\", \"string\": \"#98C379\", \"number\": \"#D19A66\", \"register\": \"#E5C07B\", \"instruction\": \"#C678DD\", \"comment\": \"#7F848E\", \"operator\": \"#ABB2BF\" } compiler-explorer.default.url：用于打开插件时默认加载的链接，默认是空\n\"compiler-explorer.default.url\": { \"default\": \"\" } 问题反馈 该插件还处于早期阶段，如果你在使用过程中遇到了问题，或者有任何建议，欢迎在 GitHub 上留言讨论。或者添加 QQ 群：662499937。\nhttps://qm.qq.com/q/DiO6 rvnbHi (二维码自动识别)\n另外 Output 窗口可能会提供一些有用的信息，可以注意检索\n",
+  "wordCount" : "1195",
   "inLanguage": "zh-cn",
   "image": "https://www.ykiko.me/zh-cn/articles/694365783/featured.png","datePublished": "2024-04-24T21:35:41Z",
-  "dateModified": "2026-03-29T02:25:11Z",
+  "dateModified": "2026-03-29T02:43:21Z",
   "author":{
     "@type": "Person",
     "name": "ykiko"
@@ -212,7 +212,7 @@
     <h1 class="post-title entry-hint-parent">
       超好用的 C&#43;&#43; 在线编译器（VSCode 版）
     </h1>
-    <div class="post-meta"><span title='2024-04-24 21:35:41 +0000 UTC'>2024-04-24</span>&nbsp;·&nbsp;<span>更新于 2026-03-29</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>1217 words</span>&nbsp;·&nbsp;<span>ykiko</span>&nbsp;|&nbsp;<span>Translations:</span>
+    <div class="post-meta"><span title='2024-04-24 21:35:41 +0000 UTC'>2024-04-24</span>&nbsp;·&nbsp;<span>更新于 2026-03-29</span>&nbsp;·&nbsp;<span>3 min</span>&nbsp;·&nbsp;<span>1195 words</span>&nbsp;·&nbsp;<span>ykiko</span>&nbsp;|&nbsp;<span>Translations:</span>
 <ul class="i18n_list">
     <li>
         <a href="https://www.ykiko.me/en/articles/694365783/">English</a>
@@ -245,28 +245,28 @@
 
   <div class="post-content"><p><a href="https://godbolt.org/">Compiler Explorer</a> 是一个非常流行的 C++ 在线编译器，可用于测试不同的编译执行环境，或者分享代码。作为一个 C++ 爱好者，我几乎每天都要和它打交道，使用频率之高远超我的想象。同时，我也是一个重度 VSCode 用户，几乎所有的事情都在 VSCode 中完成。考虑到经常在本地写代码然后拷贝到 Compiler Explorer 上去，总觉得不太舒服，有时候直接就在它的网页编辑器上改了，但是又没有代码补全，也不舒服。所以我和 <a href="https://www.zhihu.com/people/32ffceca937677f7950b64e5186bb998">@iiirhe</a> 合作编写了这个插件 <a href="https://marketplace.visualstudio.com/items?itemName=ykiko.vscode-compiler-explorer">Compiler Explorer for VSCode</a>，基于 Compiler Explorer 提供的 <a href="https://github.com/compiler-explorer/compiler-explorer/blob/main/docs/API.md">API</a> 将 Compiler Explorer 集成到 VSCode 中，使得用户可以在 VSCode 中直接使用 Compiler Explorer 的功能。</p>
 <p>现在你可以在 VSCode 插件市场搜索到这个插件</p>
-<p><img loading="lazy" src="https://picx.zhimg.com/v2-ebff5a9177bf7dbab863e321db8f05f3_r.jpg"></p>
+<p><img loading="lazy" src="https://picx.zhimg.com/v2-ebff5a9177bf7dbab863e321db8f05f3_1440w.jpg"></p>
 <h3 id="效果展示">效果展示<a hidden class="anchor" aria-hidden="true" href="#效果展示">#</a></h3>
-<p><img loading="lazy" src="https://pic2.zhimg.com/v2-4d92bdc32a6479e20a8b54b776b4618f_r.jpg"></p>
+<p><img loading="lazy" src="https://pic2.zhimg.com/v2-4d92bdc32a6479e20a8b54b776b4618f_1440w.jpg"></p>
 <h3 id="单文件支持">单文件支持<a hidden class="anchor" aria-hidden="true" href="#单文件支持">#</a></h3>
-<p><img loading="lazy" src="https://picx.zhimg.com/v2-f8b679e187c025f49cac898d60a66653_r.jpg"></p>
+<p><img loading="lazy" src="https://picx.zhimg.com/v2-f8b679e187c025f49cac898d60a66653_1440w.jpg"></p>
 <p>让我们从上往下以此介绍</p>
-<p><img loading="lazy" src="https://pic1.zhimg.com/v2-702bddfa45a016fdad36c70cc95d88fa_r.jpg"></p>
+<p><img loading="lazy" src="https://pic1.zhimg.com/v2-702bddfa45a016fdad36c70cc95d88fa_1440w.jpg"></p>
 <p>这个三个按钮的功能依次是：</p>
 <ul>
 <li><code>Compile All</code>：编译所有的编译器实例</li>
 <li><code>Add New</code>：添加一个新的编译器实例</li>
 <li><code>Share Link</code>：根据当前的编译器实例生成一个链接，并复制到剪贴板</li>
 </ul>
-<p><img loading="lazy" src="https://pic1.zhimg.com/v2-abca330d863e476211dc21f969616da0_b.jpg"></p>
+<p><img loading="lazy" src="https://pic1.zhimg.com/v2-abca330d863e476211dc21f969616da0_1440w.jpg"></p>
 <p>这四个按钮的功能依次是：</p>
 <ul>
 <li><code>Add CMake</code>：添加一个 CMake 编译器实例（后面会细说）</li>
-<li><code>Clear All</code>：关闭所有用于展示的<code>webview</code>面板</li>
+<li><code>Clear All</code>：关闭所有用于展示的 <code>webview</code> 面板</li>
 <li><code>Load Link</code>：根据输入的链接加载编译器实例的信息</li>
 <li><code>Remove All</code>：删除所有的编译器实例</li>
 </ul>
-<p><img loading="lazy" src="https://pic1.zhimg.com/v2-4563375d43c5084354585cec8dc1c692_r.jpg"></p>
+<p><img loading="lazy" src="https://pic1.zhimg.com/v2-4563375d43c5084354585cec8dc1c692_1440w.jpg"></p>
 <p>这个三个按钮的功能依次是：</p>
 <ul>
 <li><code>Run</code>：编译这个编译器实例</li>
@@ -276,16 +276,16 @@
 <p>下面这些用于设置编译器实例的参数：</p>
 <ul>
 <li><code>Compiler</code>：点击右侧的按钮可以选择编译器版本</li>
-<li><code>Input</code>：选择源代码文件，默认是<code>active</code>即当前活跃的编辑器</li>
-<li><code>Output</code>：输出编译结果的文件，默认使用<code>webview</code></li>
+<li><code>Input</code>：选择源代码文件，默认是 <code>active</code> 即当前活跃的编辑器</li>
+<li><code>Output</code>：输出编译结果的文件，默认使用 <code>webview</code></li>
 <li><code>Options</code>：编译选项，点击右侧按钮可以打开输入框</li>
 <li><code>Execute Arguments</code>：传递给可执行文件的参数</li>
 <li><code>Stdin</code>：用于标准输入的缓冲区</li>
 <li><code>Filters</code>：一些选项</li>
 </ul>
 <h3 id="多文件支持">多文件支持<a hidden class="anchor" aria-hidden="true" href="#多文件支持">#</a></h3>
-<p>使用<code>Add CMake</code>按钮可以添加一个 CMake 编译器实例，这个实例可以用于编译多个文件。</p>
-<p><img loading="lazy" src="https://picx.zhimg.com/v2-e22f7b14430ce8bfb84ad9be28f2e55f_r.jpg"></p>
+<p>使用 <code>Add CMake</code> 按钮可以添加一个 CMake 编译器实例，这个实例可以用于编译多个文件。</p>
+<p><img loading="lazy" src="https://picx.zhimg.com/v2-e22f7b14430ce8bfb84ad9be28f2e55f_1440w.jpg"></p>
 <br>
 <p>大部分选项和单文件的编译器实例一样，额外多出了两个</p>
 <ul>
@@ -294,7 +294,7 @@
 </ul>
 <p>注意，由于多文件编译需要把所有用到的文件都上传到服务器，所以我们默认会读取你指定的目录下的所有文件（无论后缀名），<strong>所以目前请不要指定文件数量过多的文件夹</strong>。之后可能会添加一些选项允许用户过滤掉一些文件，但是目前还没有。</p>
 <h3 id="一些用户设置">一些用户设置<a hidden class="anchor" aria-hidden="true" href="#一些用户设置">#</a></h3>
-<p><code>compiler-explorer.default.options</code>：使用<code>+</code>号创建编译器时的默认参数</p>
+<p><code>compiler-explorer.default.options</code>：使用 <code>+</code> 号创建编译器时的默认参数</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="s2">&#34;compiler-explorer.default.options&#34;</span><span class="err">:</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;object&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;The default compiler configuration&#34;</span><span class="p">,</span>
@@ -337,9 +337,9 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><h3 id="问题反馈">问题反馈<a hidden class="anchor" aria-hidden="true" href="#问题反馈">#</a></h3>
 <p>该插件还处于早期阶段，如果你在使用过程中遇到了问题，或者有任何建议，欢迎在 <a href="https://github.com/16bit-ykiko/vscode-compiler-explorer">GitHub</a> 上留言讨论。或者添加 QQ 群：<code>662499937</code>。</p>
-<p><a href="https://qm.qq.com/q/DiO6rvnbHi">https://qm.qq.com/q/DiO6rvnbHi</a> (二维码自动识别)</p>
+<p><a href="https://qm.qq.com/q/DiO6">https://qm.qq.com/q/DiO6</a> rvnbHi (二维码自动识别)</p>
 <p>另外 Output 窗口可能会提供一些有用的信息，可以注意检索</p>
-<p><img loading="lazy" src="https://picx.zhimg.com/v2-6164a9cf19c1c1e4fc1d44809c726441_r.jpg"></p>
+<p><img loading="lazy" src="https://picx.zhimg.com/v2-6164a9cf19c1c1e4fc1d44809c726441_1440w.jpg"></p>
 
 
   </div>
