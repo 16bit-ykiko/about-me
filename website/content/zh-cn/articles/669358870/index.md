@@ -4,7 +4,7 @@ series:
 series_order: 1
 title: 写给 C++ 程序员的反射教程
 date: "2023-11-29 09:14:02"
-updated: "2026-03-29 02:43:01"
+updated: "2026-03-29 03:03:36"
 zhihu_article_id: "669358870"
 zhihu_url: https://zhuanlan.zhihu.com/p/669358870
 zhihu_column_id: c_1707545619290316800

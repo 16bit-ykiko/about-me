@@ -4,7 +4,7 @@ series:
 series_order: 2
 title: The History of constexpr in C++! (Part Two)
 date: "2024-02-22 22:15:32"
-updated: "2026-03-29 02:43:16"
+updated: "2026-03-29 03:03:51"
 zhihu_article_id: "683463723"
 zhihu_url: https://zhuanlan.zhihu.com/p/683463723
 zhihu_column_id: c_1656510843973046272

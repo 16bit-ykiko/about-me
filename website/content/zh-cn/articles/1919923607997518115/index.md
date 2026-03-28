@@ -1,7 +1,7 @@
 ---
 title: Reflection for C++26!!!
 date: "2025-06-22 01:33:11"
-updated: "2026-03-29 02:42:42"
+updated: "2026-03-29 03:03:18"
 zhihu_article_id: "1919923607997518115"
 zhihu_url: https://zhuanlan.zhihu.com/p/1919923607997518115
 zhihu_column_id: c_1707545619290316800
@@ -15,7 +15,7 @@ zhihu_column_title: 编程语言中的反射
 - [Annotations for Reflection](https://isocpp.org/files/papers/P3394R4.html)
 - [Splicing a base class subobject](https://isocpp.org/files/papers/P3293R3.html)
 - [Expansion Statements](https://isocpp.org/files/papers/P1306R5.html)
-- [define*static*{string,object,array}](https://isocpp.org/files/papers/P3491R3.html)
+- [definestatic{string,object,array}](https://isocpp.org/files/papers/P3491R3.html)
 - [Error Handling in Reflection](https://isocpp.org/files/papers/P3560R2.html)
 
 全都通过了 plenary 得以被**正式纳入 C++26 标准**，这是一个令人激动的时刻。在我看来，静态反射无疑是 20 年来 C++ 最重要的一个新特性。它彻底改变了以前使用模板进行元编程的模式，让**元编程 (meta programming)** 的代码可以像普通的代码逻辑一样易于阅读、编写、使用，而不再是以前基于模板的 DSL。
