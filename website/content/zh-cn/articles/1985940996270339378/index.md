@@ -92,7 +92,6 @@ Runtime 就是上面选项里隐式链接的各种库，它们是必不可少的
 - Compiler Support Libraries：对应日志中的 `-lgcc_s`，是一类容易被忽视但至关重要的库，它们主要负责两件事
 - - 内建函数 (Builtins)：处理目标 CPU 指令集无法直接支持的操作。例如在 32 位 CPU 上进行 64 位除法，或在不支持浮点的 CPU 上进行软浮点运算，编译器会将这些操作翻译成对 `__udivdi3` 等函数的调用
 - 语言运行时支持 (Language Runtime Support)：C++ 中一些高级特性的实现，比如 Exception Handling（异常捕获与栈展开）通常由 `libunwind` 或 `libgcc_eh` 提供；而 C++ ABI（如 `dynamic_cast`、`RTTI`）则由 `libcxxabi` 或 `libsupc++` 提供。在 Windows MSVC 环境下，这些通常被统一封装在 `vcruntime140.dll` 中
-
 - Sanitizer Runtimes：当你开启 `-fsanitize=address/thread/memory` 时链接的库（如 `libclang_rt.asan.so`）。它们通过在编译期插入桩代码 (Instrumentation)，并在运行时接管内存分配器 (malloc/free)，利用 Shadow Memory 技术来检测内存越界、数据竞争等未定义行为
 
 Environment 就是编译执行的上下文，包括：

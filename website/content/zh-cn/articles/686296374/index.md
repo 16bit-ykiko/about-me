@@ -457,7 +457,7 @@ bar():
 
 先讨论 C++11 加入的这个`noexcept`。注意即使加了`noexcept`，这个函数还是可能会抛出异常的，如果该函数抛出异常，程序直接`terminate`。那你可能要问了，这玩意有啥用呢？我异常抛了，不捕获不也是`terminate`吗？
 
-其实这个和 const 有点类似，你想改 const 变量，虽然是 undefined behavior，但是运行时随便改呀，限制不多。那你要问了， const 有什么意义？一个重要的意义是给编译器提供优化指示信息。编译器可以利用这个做 _constant folding（常量折叠）_ 和 _common subexpression elimination（公共子表达式消除）_ 。
+其实这个和 const 有点类似，你想改 const 变量，虽然是 undefined behavior，但是运行时随便改呀，限制不多。那你要问了， const 有什么意义？一个重要的意义是给编译器提供优化指示信息。编译器可以利用这个做 _constant folding（常量折叠）_ 和 _common subexpression elimination（公共子表达式消除）_。
 
 `noexcept`也是类似的，它让编译器假设这个函数不会抛出异常，从而可以进行一些额外的优化。 还是第一个例子里面的代码为例，唯一的改变是把`foo`函数声明为了`noexcept`，然后再次编译
 

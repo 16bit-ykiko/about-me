@@ -63,7 +63,7 @@ int f1 = foo<1 + 2 + 3>();
 int f2 = foo<((1 < 2) ? 10 * 11 : VEGETABLE)>();
 ```
 
-这些表达式在`[expr.const]`小节中被定义，并且被叫做*常量表达式（constant expression）* 。它们只能包含：
+这些表达式在`[expr.const]`小节中被定义，并且被叫做*常量表达式（constant expression）*。它们只能包含：
 
 - 字面量：`1`,`'A'`,`true`,`...`
 - 枚举值
@@ -162,7 +162,7 @@ lambda-expr
 
 因此，常量表达式的计算（以及相关的事情，如模板实例化）严格发生在 C++ 编译器的前端，而 LLVM 不涉及此类工作。这种处理常量表达式（从 C++98 的简单表达式到 C++23 的复杂表达式）的工具被称为**常量求值器 (constant evaluator)**。
 
-多年来，对常量表达式的限制一直在不断放宽，而 Clang 的常量求值器相应地变得越来越复杂，直到管理 memory model（内存模型）。有一份旧的 [文档](https://clang.llvm.org/docs/InternalsManual.html#constant-folding-in-the-clang-ast)，描述 C++98/03 的常量求值。由于当时的常量表达式非常简单，它们是通过分析语法树进行 _constant folding_ （常量折叠）来进行的。由于在语法树中，所有的算术表达式都已经被解析为子树的形式，因此计算常量就是简单地遍历子树。
+多年来，对常量表达式的限制一直在不断放宽，而 Clang 的常量求值器相应地变得越来越复杂，直到管理 memory model（内存模型）。有一份旧的 [文档](https://clang.llvm.org/docs/InternalsManual.html#constant-folding-in-the-clang-ast)，描述 C++98/03 的常量求值。由于当时的常量表达式非常简单，它们是通过分析语法树进行 _constant folding_（常量折叠）来进行的。由于在语法树中，所有的算术表达式都已经被解析为子树的形式，因此计算常量就是简单地遍历子树。
 
 常量计算器的源代码位于 [lib/AST/ExprConstant.cpp](https://clang.llvm.org/doxygen/ExprConstant_8cpp_source.html)，在撰写本文时已经扩展到将近 17000 行。随着时间的推移，它学会了解释许多内容，例如循环（`EvaluateLoopBody`），所有这些都是在语法树上进行的。
 
@@ -259,7 +259,7 @@ const int z = std::numeric_limits<int>::max(); // dynamic initialization
 
 根据程序员的设想，`limit`应该被常量初始化，但事实并非如此，因为`S::size`被定义在`limit`之后，定义的太晚了。可以通过 C++20 加入的 [constinit](https://en.cppreference.com/w/cpp/language/constinit) 来验证这一点，`constinit`保证一个变量进行常量初始化，如果不能进行常量初始化，则会编译错误。
 
-在新的提案中，常值函数被**重命名**为 _constexpr function_ ，对它们的要求保持不变。但现在，为了能够在常量表达式中使用它们，**必须**使用 constexpr 关键字进行声明。此外，如果函数体不符合相关的要求，将会编译失败。同时建议将一些标准库的函数（如`std::numeric_limits`中的函数）标记为 constexpr，因为它们符合相关的要求。**变量**或类成员也可以声明为 constexpr，这样的话，如果变量不是通过常量表达式进行初始化，将会编译失败。
+在新的提案中，常值函数被**重命名**为 _constexpr function_，对它们的要求保持不变。但现在，为了能够在常量表达式中使用它们，**必须**使用 constexpr 关键字进行声明。此外，如果函数体不符合相关的要求，将会编译失败。同时建议将一些标准库的函数（如`std::numeric_limits`中的函数）标记为 constexpr，因为它们符合相关的要求。**变量**或类成员也可以声明为 constexpr，这样的话，如果变量不是通过常量表达式进行初始化，将会编译失败。
 
 用户自定义`class`的 constexpr 构造函数也合法化了。该构造函数必须具有空函数体，并用常量表达式初始化成员。隐式生成的构造函数将尽可能的被标记为 constexpr。对于 constexpr 的对象，析构函数必须是平凡的，因为非平凡的析构函数通常会在正在执行的程序上下文中做一些改变，而在 constexpr 计算中不存在这样的上下文。
 
@@ -284,7 +284,7 @@ constexpr complex I(0, 1); // OK
 
 现在 constexpr 变量不仅可以是数字和枚举，还可以是 [literal type](https://en.cppreference.com/w/cpp/named_req/LiteralType)，在此提案中引入了（尚不支持引用类型）。literal type 是可以传递给 constexpr 函数的类型，这些类型足够简单，以至于编译器可以在常量计算中支持它们。
 
-constexpr 关键字最后成为了一个 _specifier（说明符_ ），类似于 _override _ 这样仅用作标记。在讨论后，决定不创建新的 [储存期类型](https://en.cppreference.com/w/cpp/language/storage_duration) 和新的类型限定符，并且也决定不允许将其用于函数参数，以免使得函数的[overload resolution](https://en.cppreference.com/w/cpp/language/overload_resolution)规则变得过于复杂。
+constexpr 关键字最后成为了一个 _specifier（说明符_），类似于 *override *这样仅用作标记。在讨论后，决定不创建新的 [储存期类型](https://en.cppreference.com/w/cpp/language/storage_duration) 和新的类型限定符，并且也决定不允许将其用于函数参数，以免使得函数的[overload resolution](https://en.cppreference.com/w/cpp/language/overload_resolution)规则变得过于复杂。
 
 ## 2007：试着让标准库更加 constexpr？
 
@@ -315,7 +315,7 @@ constexpr unsigned int factorial(unsigned int n){
 }
 ```
 
-最初，提案提出者希望允许在 constexpr 函数中进行递归调用，但出于谨慎起见，这一做法被禁止了。然而，在审查过程中，由于措辞的变化，意外地允许了这种做法。CWG 认为递归具有足够的使用情景，因此应该允许它们。如果允许函数之间相互递归调用，还需要允许 constexpr 函数的 _forward declaration（向前声明）_ 。在 constexpr 函数中调用未定义的 constexpr 函数时，应该在需要常量求值的上下文中进行诊断。这一点在 [N2826](https://open-std.org/JTC1/SC22/WG21/docs/papers/2009/n2826.html) 被澄清
+最初，提案提出者希望允许在 constexpr 函数中进行递归调用，但出于谨慎起见，这一做法被禁止了。然而，在审查过程中，由于措辞的变化，意外地允许了这种做法。CWG 认为递归具有足够的使用情景，因此应该允许它们。如果允许函数之间相互递归调用，还需要允许 constexpr 函数的 _forward declaration（向前声明）_。在 constexpr 函数中调用未定义的 constexpr 函数时，应该在需要常量求值的上下文中进行诊断。这一点在 [N2826](https://open-std.org/JTC1/SC22/WG21/docs/papers/2009/n2826.html) 被澄清
 
 既然有递归，那就可能出现无穷递归。一个函数究竟会不会无穷递归？在一些简单的情况下，静态分析工具可以分析无穷递归是否会发生。而在一般情况下，这其实是个 [停机问题](https://en.wikipedia.org/wiki/Halting_problem)，无法解决。
 

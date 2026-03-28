@@ -24,7 +24,7 @@ std::vector<int> v1 = {1, 2, 3};
 std::vector<int> v2 = std::move(v1); // move
 ```
 
-注意 C++ 中的 move 被叫做 _non-destructive move。_ C++ 标准规定了，被移动过后的对象状态是一种 _valid state_ ，实现需要保证它能够正常调用析构函数。**被移动的对象仍然可能被再次使用**（具体能否使用取决于实现）。
+注意 C++ 中的 move 被叫做 _non-destructive move。\_C++ 标准规定了，被移动过后的对象状态是一种 \_valid state_，实现需要保证它能够正常调用析构函数。**被移动的对象仍然可能被再次使用**（具体能否使用取决于实现）。
 
 ## 结束了？
 

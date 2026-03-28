@@ -273,7 +273,7 @@ alloc.deallocate(pb, 1);
 
 对于第三个问题，则是添加了一个 magic function 即 [std::construct_at](https://en.cppreference.com/w/cpp/memory/construct_at)，它的作用是在指定的内存位置上调用对象的构造函数，用来在常量求值中取代`placement new`。这样的话我们就可以先通过`std::allocator`分配内存，再通过`std::construct_at`来构造对象了。该提案最终被接受，进入了 [C++20](https://en.cppreference.com/w/cpp/memory/construct_at)，同时使得`std::vector`，`std::string`在常量求值中可用（其它的容器理论上也行，但是目前的实现还没支持，如果非常想要只能自己搓一个了）。
 
-虽然支持了动态内存分配，但并不是毫无限制。**在一次常量求值中分配的内存必须要在这次常量求值结束之前释放完全，不能有内存泄漏，否则会导致编译错误**。这种类型的内存分配被叫做 _transient constexpr allocations（瞬态内存分配）_ 。该提案也讨论了 _non-transient allocation（非瞬态内存分配）_ ，在编译期未被释放的内存，将被转为静态储存（其实就是存在数据区，就像全局变量那样）。但是，委员会认为这种可能性 "too brittle"，出于多种原因，目前尚未采纳。
+虽然支持了动态内存分配，但并不是毫无限制。**在一次常量求值中分配的内存必须要在这次常量求值结束之前释放完全，不能有内存泄漏，否则会导致编译错误**。这种类型的内存分配被叫做 _transient constexpr allocations（瞬态内存分配）_。该提案也讨论了 _non-transient allocation（非瞬态内存分配）_，在编译期未被释放的内存，将被转为静态储存（其实就是存在数据区，就像全局变量那样）。但是，委员会认为这种可能性 "too brittle"，出于多种原因，目前尚未采纳。
 
 ## 2018：更多的 constexpr
 
