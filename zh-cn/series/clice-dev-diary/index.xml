@@ -6,7 +6,7 @@
     <description>Recent content in Clice Dev Diary on ykiko&#39;s blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 29 Mar 2026 02:42:41 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 29 Mar 2026 03:03:16 +0000</lastBuildDate>
     <atom:link href="https://www.ykiko.me/zh-cn/series/clice-dev-diary/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>一个新 C&#43;&#43; language server 的设计与实现</title>
