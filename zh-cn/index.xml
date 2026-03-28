@@ -6,7 +6,7 @@
     <description>Recent content on ykiko&#39;s blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 29 Mar 2026 03:04:01 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 29 Mar 2026 03:48:14 +0000</lastBuildDate>
     <atom:link href="https://www.ykiko.me/zh-cn/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>打造优雅的 C&#43;&#43; 跨平台开发与构建 Workflow</title>
@@ -42,7 +42,7 @@
 &lt;li&gt;&lt;a href=&#34;https://isocpp.org/files/papers/P3394R4.html&#34;&gt;Annotations for Reflection&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://isocpp.org/files/papers/P3293R3.html&#34;&gt;Splicing a base class subobject&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://isocpp.org/files/papers/P1306R5.html&#34;&gt;Expansion Statements&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://isocpp.org/files/papers/P3491R3.html&#34;&gt;definestatic{string,object,array}&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://isocpp.org/files/papers/P3491R3.html&#34;&gt;define&lt;em&gt;static&lt;/em&gt;{string,object,array}&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://isocpp.org/files/papers/P3560R2.html&#34;&gt;Error Handling in Reflection&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;全都通过了 plenary 得以被&lt;strong&gt;正式纳入 C++26 标准&lt;/strong&gt;，这是一个令人激动的时刻。在我看来，静态反射无疑是 20 年来 C++ 最重要的一个新特性。它彻底改变了以前使用模板进行元编程的模式，让&lt;strong&gt;元编程 (meta programming)&lt;/strong&gt; 的代码可以像普通的代码逻辑一样易于阅读、编写、使用，而不再是以前基于模板的 DSL。&lt;/p&gt;</description>
@@ -101,7 +101,7 @@
       <link>https://www.ykiko.me/zh-cn/articles/686296374/</link>
       <pubDate>Mon, 11 Mar 2024 09:33:37 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/686296374/</guid>
-      <description>&lt;p&gt;相信读者经常能听见有人说 C++ 代码二进制膨胀严重，但是一般很少会有人指出具体的原因。在网络上一番搜索过后，发现深入讨论这个问题的文章的并不多。上面那句话更像是八股文的一部分，被口口相传，但是没什么人能说出个所以然。今天小编 ykiko 就带大家一起来探秘 C++ 代码膨胀那些事 (^ω^)&lt;/p&gt;</description>
+      <description>&lt;p&gt;相信读者经常能听见有人说 C++ 代码二进制膨胀严重，但是一般很少会有人指出具体的原因。在网络上一番搜索过后，发现深入讨论这个问题的文章并不多。上面那句话更像是八股文的一部分，被口口相传，但是没什么人能说出个所以然。今天小编 ykiko 就带大家一起来探秘 C++ 代码膨胀那些事 (^ω^)&lt;/p&gt;</description>
     </item>
     <item>
       <title>The History of constexpr in C&#43;&#43;! (Part Two)</title>
@@ -191,7 +191,7 @@
       <pubDate>Wed, 29 Nov 2023 09:14:02 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/669358870/</guid>
       <description>&lt;h2 id=&#34;what-is-reflection&#34;&gt;What is Reflection?&lt;/h2&gt;
-&lt;p&gt;反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其他的&lt;strong&gt;惯用词&lt;/strong&gt;一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 &lt;a href=&#34;https://doc.rust-lang.org/stable/std/any/index.html&#34;&gt;std::Any 模块&lt;/a&gt; 的介绍。里面提到了&lt;/p&gt;</description>
+&lt;p&gt;反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其他的&lt;strong&gt;惯用词&lt;/strong&gt;一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 &lt;a href=&#34;https://doc.rust-lang.org/stable/std/any/index.html&#34;&gt;std::Any 模块&lt;/a&gt; 的介绍。里面提到了&lt;/p&gt;</description>
     </item>
     <item>
       <title>C&#43;&#43;26 静态反射提案解析</title>
