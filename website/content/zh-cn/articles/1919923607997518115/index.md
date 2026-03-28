@@ -1,7 +1,7 @@
 ---
 title: Reflection for C++26!!!
-date: "2025-06-21 17:33:11"
-updated: "2025-07-08 09:07:33"
+date: "2025-06-22 01:33:11"
+updated: "2025-07-08 17:07:33"
 zhihu_article_id: "1919923607997518115"
 zhihu_url: https://zhuanlan.zhihu.com/p/1919923607997518115
 zhihu_column_id: c_1707545619290316800

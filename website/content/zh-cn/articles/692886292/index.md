@@ -1,7 +1,7 @@
 ---
 title: 彻底理解 C++ ABI
-date: "2024-04-16 18:19:38"
-updated: "2025-12-24 05:15:12"
+date: "2024-04-17 02:19:38"
+updated: "2025-12-24 13:15:12"
 zhihu_article_id: "692886292"
 zhihu_url: https://zhuanlan.zhihu.com/p/692886292
 zhihu_column_id: c_1656510843973046272

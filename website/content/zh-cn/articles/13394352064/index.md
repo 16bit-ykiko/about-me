@@ -3,12 +3,10 @@ series:
   - clice dev diary
 series_order: 1
 title: 一个新 C++ language server 的设计与实现
-date: "2024-12-18 13:46:01"
-updated: "2025-11-27 06:12:20"
+date: "2024-12-18 21:46:01"
+updated: "2026-03-28 12:40:13"
 zhihu_article_id: "13394352064"
 zhihu_url: https://zhuanlan.zhihu.com/p/13394352064
-zhihu_column_id: c_1852831599382646784
-zhihu_column_title: clice 开发日记
 ---
 
 距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 [clice](https://github.com/clice-project/clice) —— 一个全新的 C++ 语言服务器 (language server)。

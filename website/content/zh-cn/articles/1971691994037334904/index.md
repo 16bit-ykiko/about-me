@@ -1,7 +1,7 @@
 ---
 title: 为 CuTe DSL 支持 AOT
-date: "2025-11-11 13:38:08"
-updated: "2026-03-28 04:23:20"
+date: "2025-11-11 21:38:08"
+updated: "2026-03-28 12:41:50"
 zhihu_article_id: "1971691994037334904"
 zhihu_url: https://zhuanlan.zhihu.com/p/1971691994037334904
 ---
@@ -24,7 +24,7 @@ export CUTE_DSL_DUMP_DIR=/tmp
 
 直接访问 kernel 对应的 `__ptx__` 或者 `__cubin__` 属性，即可获取对应的值：
 
-```bash
+```python
 compiled_foo = cute.compile(foo, ...)
 print(f"PTX: {compiled_foo.__ptx__}")
 with open("foo.cubin", "wb") as f:
@@ -41,14 +41,14 @@ with open("foo.cubin", "wb") as f:
 
 对于问题 1，我们可以调用 [CUDA Driver API](https://docs.nvidia.com/cuda/cuda-driver-api/index.html) 来实现。
 
-```bash
+```cpp
 CUresult CUDAAPI cuModuleLoadData(CUmodule *module, const void *image);
 CUresult CUDAAPI cuModuleGetFunction(CUfunction *hfunc, CUmodule hmod, const char *name);
 ```
 
 通过 `cuModuleLoadData` 加载 cubin 文件，`cuModuleGetFunction` 获取其中的 kernel 函数
 
-```bash
+```cpp
 CUresult CUDAAPI cuLaunchKernel(CUfunction f,
                                 unsigned int gridDimX,
                                 unsigned int gridDimY,
@@ -80,11 +80,11 @@ objcopy -I binary test.txt -O elf64-x86-64 -B i386:x86-64 test.o
 0000000000000000 D _binary_test_txt_start
 ```
 
->
+> 注意这里生成的符号名和输入的文件的路径有关，会将输入路径中的所有 `/` 和 `.` 替换成 `_`，推荐使用相对路径来获取可控的符号名。
 
 只需在 C++ 里面声明 `_binary_test_txt_start` 上面这些符号，同时最终把 `test.o` 文件和源文件链接在一起即可。
 
-```bash
+```cpp
 /// main.cpp
 #include <iostream>
 #include <string_view>
@@ -113,7 +113,7 @@ $ ./main
 
 从上面讨论中可以看出，无论是导出 kernel 函数的头文件，还是给 `cuLaunchKernel` 函数传递 kernel 函数，我们都需要获取到 kernel 的函数签名才行。然而在 CuTe DSL v4.3 中，这件事情做不完美。考虑下面这个简单的示例
 
-```bash
+```python
 import torch
 import cutlass.cute as cute
 
@@ -133,7 +133,7 @@ print(kernel.__ptx__)
 
 根据官网的文档，如果直接用 `torch.Tensor` 来实例化函数编译，那么会把它默认当做 dynamic layout。检查生成的 ptx 可以发现，kernel 的签名是
 
-```bash
+```c
 .visible .entry kernel_cutlass_test_kernel_tensorptrf32_gmem_o_1_0(
         .param .align 8 .b8 kernel_cutlass_test_kernel_tensorptrf32_gmem_o_1_0_param_0[40]
 )
@@ -143,7 +143,7 @@ print(kernel.__ptx__)
 
 除了 `Tensor` 直接做函数签名以外还有一些问题，比如在官方示例的 flash attn 算子里面，算子的函数签名是这样的：
 
-```bash
+```python
 @cute.kernel
 def kernel(
     self,
@@ -168,7 +168,7 @@ def kernel(
 
 采用的 workaround 则是，手动指定签名。比如我们可以人为的限制所有的算子签名都使用 `cutlass.Pointer` 和 `cute.Integer` 然后在 kernel 里面创建 `tensor`，效果上没有区别，只是人工降低了函数签名的复杂程度。或者直接看生成的 ptx 来把签名硬编码。基于这种假设和前面的步骤，我们最终可以实现如下的效果
 
-```bash
+```python3
 cc = Compiler()
 
 t = from_dlpack(torch.randn(M, N, device="cuda",
@@ -188,7 +188,7 @@ cc.link()
 
 最后会生成这样一个头文件，以及一个动态库，供 cpp 程序调用。
 
-```bash
+```cpp
 namespace cutedsl_aot {
 
 struct LaunchParams {

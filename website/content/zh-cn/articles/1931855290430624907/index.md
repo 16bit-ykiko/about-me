@@ -1,7 +1,7 @@
 ---
 title: clice 最近怎么样？
-date: "2025-07-24 15:26:56"
-updated: "2025-07-25 02:52:25"
+date: "2025-07-24 23:26:56"
+updated: "2025-07-25 10:52:25"
 zhihu_article_id: "1931855290430624907"
 zhihu_url: https://zhuanlan.zhihu.com/p/1931855290430624907
 zhihu_column_id: c_1852831599382646784

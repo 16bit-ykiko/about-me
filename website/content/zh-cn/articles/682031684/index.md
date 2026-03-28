@@ -3,8 +3,8 @@ series:
   - Constexpr
 series_order: 1
 title: The History of constexpr in C++! (Part One)
-date: "2024-02-10 15:15:47"
-updated: "2024-12-18 03:21:51"
+date: "2024-02-10 23:15:47"
+updated: "2024-12-18 11:21:51"
 zhihu_article_id: "682031684"
 zhihu_url: https://zhuanlan.zhihu.com/p/682031684
 zhihu_column_id: c_1656510843973046272
