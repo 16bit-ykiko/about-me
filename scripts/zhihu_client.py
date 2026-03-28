@@ -261,6 +261,153 @@ def write_markdown_document(path: Path, metadata: dict[str, Any], body: str) -> 
     path.write_text(render_front_matter(metadata, body), encoding="utf-8")
 
 
+def _merge_split_ordered_lists(html: str) -> str:
+    """Merge consecutive <ol> tags broken up by paragraph content.
+
+    python-markdown renders a loose ordered list as multiple <ol start="N"> fragments.
+    Zhihu ignores start="N" and resets each <ol> to 1. This function:
+    - Merges all fragments into one <ol>, moving intermediate content into each <li>
+    - When the continuation's start skips numbers (e.g. <ol start="4"> after 2 items),
+      detects bold paragraphs like "3. Title" in the gap and promotes them to real <li>
+      elements, stripping the redundant number prefix.
+    """
+    from bs4 import BeautifulSoup, NavigableString, Tag
+
+    def strip_number_prefix(node: Tag, num: int) -> None:
+        first_text = node.find(string=True)
+        if first_text:
+            new_val = re.sub(rf"^\s*{num}\s*[\.、]\s*", "", str(first_text))
+            first_text.replace_with(new_val)
+
+    soup = BeautifulSoup(f"<div>{html}</div>", "html.parser")
+    root = soup.find("div")
+
+    while True:
+        continuation = None
+        for ol in root.find_all("ol"):
+            try:
+                if int(ol.get("start", 1)) > 1:
+                    continuation = ol
+                    break
+            except (ValueError, TypeError):
+                pass
+        if continuation is None:
+            break
+
+        continuation_start = int(continuation.get("start"))
+
+        prev_ol = None
+        between_nodes = []
+        sibling = continuation.previous_sibling
+        while sibling is not None:
+            if isinstance(sibling, Tag) and sibling.name == "ol":
+                prev_ol = sibling
+                break
+            between_nodes.insert(0, sibling)
+            sibling = sibling.previous_sibling
+
+        if prev_ol is None:
+            del continuation["start"]
+            continue
+
+        current_lis = prev_ol.find_all("li", recursive=False)
+        prev_last_idx = len(current_lis)
+        missing_count = continuation_start - prev_last_idx - 1
+
+        for node in between_nodes:
+            node.extract()
+        between_nodes = [
+            n
+            for n in between_nodes
+            if not (isinstance(n, NavigableString) and not n.strip())
+        ]
+
+        if missing_count <= 0:
+            # No gap: all intermediate content belongs to the last existing <li>
+            last_li = current_lis[-1]
+            for node in between_nodes:
+                last_li.append(node)
+        else:
+            # Gap detected: split intermediate content into segments.
+            # A new segment starts when a <p> whose text matches "N. ..." is found,
+            # where N is the next expected missing item number.
+            segments: list[list] = [[]]
+            for node in between_nodes:
+                if isinstance(node, Tag) and node.name == "p":
+                    expected_num = prev_last_idx + len(segments)
+                    text = node.get_text().strip()
+                    if len(segments) <= missing_count and re.match(
+                        rf"^{re.escape(str(expected_num))}\s*[\.、]", text
+                    ):
+                        strip_number_prefix(node, expected_num)
+                        segments.append([node])
+                        continue
+                segments[-1].append(node)
+
+            # segments[0] → extra content for the last existing item
+            last_li = current_lis[-1]
+            for node in segments[0]:
+                last_li.append(node)
+            # segments[1..] → new <li> elements for each promoted missing item
+            for seg in segments[1:]:
+                new_li = soup.new_tag("li")
+                for node in seg:
+                    new_li.append(node)
+                prev_ol.append(new_li)
+
+        for li in list(continuation.find_all("li", recursive=False)):
+            prev_ol.append(li.extract())
+
+        continuation.decompose()
+
+    return root.decode_contents()
+
+
+def _postprocess_zhihu_html(html: str) -> str:
+    # Code blocks with language: <pre><code class="language-X">...</code></pre>
+    # → <pre lang="X">...</pre>
+    html = re.sub(
+        r'<pre><code class="language-([^"]+)">(.*?)</code></pre>',
+        lambda m: f'<pre lang="{m.group(1)}">{m.group(2)}</pre>',
+        html,
+        flags=re.DOTALL,
+    )
+    # Code blocks without language
+    html = re.sub(
+        r"<pre><code>(.*?)</code></pre>",
+        lambda m: f"<pre>{m.group(1)}</pre>",
+        html,
+        flags=re.DOTALL,
+    )
+
+    # Headings: Zhihu only supports h2 (TOC-level) and h3 (sub-section).
+    # Synced articles use ## for h2 and ### for h3, so we keep them as-is.
+    # Only h1 needs shifting up to h2; h4+ collapse to bold paragraphs.
+    def _shift_heading(m: re.Match) -> str:
+        level = int(m.group(1))
+        content = m.group(2)
+        if level == 1:
+            return f"<h2>{content}</h2>"
+        if level <= 3:
+            return f"<h{level}>{content}</h{level}>"
+        return f"<p><strong>{content}</strong></p>"
+
+    html = re.sub(r"<h([1-6])>(.*?)</h\1>", _shift_heading, html, flags=re.DOTALL)
+    # Normalize language identifiers Zhihu doesn't recognise → known aliases
+    html = html.replace('<pre lang="x86asm">', '<pre lang="nasm">')
+    # Tables: add Zhihu draft attributes and merge <thead> into <tbody>
+    # Zhihu requires all rows in a single <tbody> (no <thead>); header cells use <th>
+    html = html.replace(
+        "<table>",
+        '<table data-draft-node="block" data-draft-type="table" data-size="normal">',
+    )
+    html = re.sub(
+        r"<thead>\s*(.*?)\s*</thead>\s*<tbody>", r"<tbody>\1", html, flags=re.DOTALL
+    )
+    html = _merge_split_ordered_lists(html)
+    return html
+
+
 def markdown_to_html(markdown_text: str) -> str:
     try:
         import markdown as markdown_lib
@@ -276,11 +423,12 @@ def markdown_to_html(markdown_text: str) -> str:
         ),
         markdown_text,
     )
-    return markdown_lib.markdown(
+    html = markdown_lib.markdown(
         body,
         extensions=["fenced_code", "tables", "nl2br", "sane_lists"],
         output_format="html5",
     )
+    return _postprocess_zhihu_html(html)
 
 
 def prompt_input(label: str, default: str = "") -> str:
@@ -737,6 +885,7 @@ class ZhihuClient:
                 "title": title,
                 "titleImage": title_image,
                 "isTitleImageFullScreen": False,
+                "table_of_contents": True,
             },
             headers=ZHUANLAN_HEADERS,
             timeout=REQUEST_TIMEOUT_SECONDS,
@@ -768,6 +917,29 @@ class ZhihuClient:
             metadata["zhihu_column_title"] = column.title
         write_markdown_document(markdown_path, metadata, body_markdown)
         return target_id
+
+    def preview_article(self, markdown_path: Path, article_id: str) -> str:
+        """Push content to draft (no publish) and return the preview URL."""
+        metadata, body_markdown = read_markdown_document(markdown_path)
+        title = metadata.get("title") or markdown_path.stem
+        html = markdown_to_html(body_markdown)
+        title_image = metadata.get("zhihu_title_image_url") or metadata.get(
+            "title_image_url"
+        )
+        patch_response = self.session.patch(
+            f"{ZHUANLAN_API}/{article_id}/draft",
+            json={
+                "content": html,
+                "title": title,
+                "titleImage": title_image,
+                "isTitleImageFullScreen": False,
+                "table_of_contents": True,
+            },
+            headers=ZHUANLAN_HEADERS,
+            timeout=REQUEST_TIMEOUT_SECONDS,
+        )
+        patch_response.raise_for_status()
+        return f"https://zhuanlan.zhihu.com/p/{article_id}/preview?comment=0&catalog=1"
 
     def request_new_column(self) -> None:
         print(f"Open this page to request a new column: {COLUMN_REQUEST_URL}")

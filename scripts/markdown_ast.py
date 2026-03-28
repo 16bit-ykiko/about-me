@@ -141,7 +141,7 @@ class List(Node):
         for index, item in enumerate(self.items):
             prefix = f"{index + 1}. " if self.ordered else "- "
             if isinstance(item, List):
-                text = item.__str__(depth + 1)
+                text = item.__str__(depth)
                 result += f"{indent}{prefix}{text}"
             else:
                 result += f"{indent}{prefix}{str(item)}\n"
@@ -193,6 +193,27 @@ class LinkCard(Node):
 
     def __str__(self) -> str:
         return "{{< " + f'linkcard url="{self.url}" title="{self.label}"' + " >}}"
+
+
+class Table(Node):
+    """Represents a markdown table. rows[0] is the header row."""
+
+    def __init__(self, rows: list[list[str]]):
+        assert rows, "Table must have at least one row"
+        self.rows = rows
+
+    def __str__(self) -> str:
+        if not self.rows:
+            return ""
+        header = self.rows[0]
+        sep = ["-" * max(4, len(h)) for h in header]
+        lines = [
+            "| " + " | ".join(header) + " |",
+            "| " + " | ".join(sep) + " |",
+        ]
+        for row in self.rows[1:]:
+            lines.append("| " + " | ".join(row) + " |")
+        return "\n".join(lines)
 
 
 class Document:

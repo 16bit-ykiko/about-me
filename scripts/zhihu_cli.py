@@ -472,6 +472,17 @@ def build_parser() -> argparse.ArgumentParser:
     )
     update_parser.add_argument("--article-id", default="")
 
+    preview_parser = subparsers.add_parser(
+        "preview", help="Push draft content and print the Zhihu preview URL."
+    )
+    preview_parser.add_argument(
+        "markdown_path",
+        nargs="?",
+        default="",
+        help="Path to the markdown file. Defaults to website/content/zh-cn/articles/<article-id>/index.md.",
+    )
+    preview_parser.add_argument("--article-id", default="")
+
     return parser
 
 
@@ -556,6 +567,29 @@ def main() -> None:
             markdown_path, article_id=article_id, column=column
         )
         print(f"Updated article: https://zhuanlan.zhihu.com/p/{updated_id}")
+    elif args.command == "preview":
+        article_id = args.article_id.strip() if args.article_id else ""
+        raw_path = args.markdown_path.strip() if args.markdown_path else ""
+        if not raw_path:
+            if not article_id:
+                parser.error(
+                    "Either provide markdown_path or --article-id to derive the local file path."
+                )
+            raw_path = str(ARTICLE_OUTPUT_DIR / article_id / "index.md")
+        markdown_path = Path(raw_path).expanduser().resolve()
+        if not markdown_path.exists():
+            raise FileNotFoundError(markdown_path)
+        if not article_id:
+            from zhihu_client import read_markdown_document
+
+            metadata, _ = read_markdown_document(markdown_path)
+            article_id = str(metadata.get("zhihu_article_id", "")).strip()
+        if not article_id:
+            raise RuntimeError(
+                "No article id provided. Use --article-id or add zhihu_article_id to front matter."
+            )
+        preview_url = client.preview_article(markdown_path, article_id)
+        print(f"Preview URL: {preview_url}")
     else:
         parser.error(f"Unknown command: {args.command}")
 

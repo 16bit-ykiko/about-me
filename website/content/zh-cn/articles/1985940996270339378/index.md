@@ -108,11 +108,11 @@ Environment 就是编译执行的上下文，包括：
 
 我们可以沿着时间线，从“复杂度”演进的视角来审视 C++ 构建系统的发展：
 
-1. 原始时代：脚本 (Shell Scripts)
+**1. 原始时代：脚本 (Shell Scripts)**
 
 在最早期，构建项目就是写一个 Shell 脚本。逻辑非常粗暴：把所有 `.c` 文件列出来，写死编译器路径，直接调用。随着项目膨胀，每次修改一行代码都要全量重新编译几百个文件，等待时间从几秒变成几十分钟，开发体验极差。
 
-2. 构建系统的基石 (1976)
+**2. 构建系统的基石 (1976)**
 
 为了解决重复编译的问题，Stuart Feldman 在贝尔实验室写出了 **Make**。通过引入了**依赖图 (Dependency Graph)** 和**增量构建 (Incremental Build)**。通过对比文件的时间戳 (mtime)，如果 `main.cpp` 的修改时间晚于 `main.o`，那就重编，否则跳过。这一简单的规则奠定了构建系统的基石。
 
@@ -120,14 +120,14 @@ Environment 就是编译执行的上下文，包括：
 
 90 年代操作系统百花齐放（Solaris, HP-UX, Linux, BSD, Windows）。Make 虽然解决了自动化，但 Makefile 是不可移植的。不同 OS 的 Shell 命令、编译器参数、库路径完全不同。世界分裂成了两派：
 
-- Unix 阵营 - Autotools (GNU)：著名的 `./configure && make`。它的核心思路是“探测”——在构建前运行大量脚本扫描系统环境（有没有 `unistd.h`？`libz` 在哪？），然后动态生成适配当前系统的 Makefile。
+- Unix 阵营 - Autotools (GNU)：著名的 `./configure && make`。它的核心思路是”探测”——在构建前运行大量脚本扫描系统环境（有没有 `unistd.h`？`libz` 在哪？），然后动态生成适配当前系统的 Makefile。
 - IDE 阵营 (Visual Studio / Xcode)：Windows 和 Mac 选择了另一条路——将构建系统与编辑器深度绑定。Visual Studio 的 `.sln` 和 Xcode 的 `.xcodeproj` 提供了开箱即用的体验，但代价是牺牲了自动化和灵活性，且完全无法跨平台使用。
 
-4. 真正的跨平台 (CMake, 2000s)
+**4. 真正的跨平台 (CMake, 2000s)**
 
-随着开源软件爆发，代码需要同时在 Linux 服务器和 Windows 桌面运行。为了结束“维护两套构建脚本”的噩梦，CMake 诞生了。CMake 不是构建工具，它是一个**元构建系统 (Meta-Build System)**，或者叫**构建系统生成器 (Generator)**。开发者编写抽象的 `CMakeLists.txt`，CMake 负责将其“翻译”成各平台的原生方言——在 Windows 上生成 `.sln`，在 Mac 上生成 `.xcodeproj`，在 Linux 上生成 `Makefile`。
+随着开源软件爆发，代码需要同时在 Linux 服务器和 Windows 桌面运行。为了结束”维护两套构建脚本”的噩梦，CMake 诞生了。CMake 不是构建工具，它是一个**元构建系统 (Meta-Build System)**，或者叫**构建系统生成器 (Generator)**。开发者编写抽象的 `CMakeLists.txt`，CMake 负责将其”翻译”成各平台的原生方言——在 Windows 上生成 `.sln`，在 Mac 上生成 `.xcodeproj`，在 Linux 上生成 `Makefile`。
 
-5. 现代工程化：规模与可复现的挑战 (2010s - Present)
+**5. 现代工程化：规模与可复现的挑战 (2010s - Present)**
 
 进入移动互联网与云原生时代，巨头（Google/Meta）的代码仓库膨胀到亿行级别（Monorepo），多语言混合编程成为常态。新的场景当然会带来新的问题：
 

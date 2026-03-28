@@ -112,6 +112,10 @@ class Parser:
                     node = self.parse_image(child)
                     if node is not None:
                         nodes.append(node)
+                case "table":
+                    node = self.parse_table(child)
+                    if node is not None:
+                        nodes.append(node)
                 case _:
                     self.warn_skip(child.name, "article body")
 
@@ -151,6 +155,11 @@ class Parser:
                 case "sup" | "sub" | "section":
                     if child.text:
                         nodes.append(markdown.Text(self._norm(child.text)))
+                case "figure":
+                    # Images may appear inside <p> in Zhihu's rendered HTML
+                    node = self.parse_image(child)
+                    if node is not None:
+                        nodes.append(node)
                 case _:
                     self.warn_skip(child.name, "paragraph")
 
@@ -162,7 +171,8 @@ class Parser:
 
     def parse_link(self, element: Tag) -> markdown.Link:
         url = self.normalize_url(element["href"])
-        return markdown.Link(element.text, url)
+        label = str(self.parse_paragraph(element))
+        return markdown.Link(label, url)
 
     def parse_linkcard(self, element: Tag) -> markdown.LinkCard:
         title = element.attrs.get("data-text")
@@ -200,7 +210,7 @@ class Parser:
                 continue
             match child.name:
                 case "li":
-                    nodes.append(self.parse_paragraph(child))
+                    nodes.append(self._parse_li_content(child))
                 case "ul" | "ol":
                     node = self.parse_list(child)
                     if node is not None:
@@ -211,6 +221,27 @@ class Parser:
         if not nodes:
             return None
         return markdown.List(element.name == "ol", nodes)
+
+    def _parse_li_content(self, element: Tag) -> markdown.Node:
+        """Parse <li>, handling Zhihu's habit of wrapping content in <p> children."""
+        child_names = {c.name for c in element.children if c.name is not None}
+        if "p" in child_names:
+            # Loose list: Zhihu wraps each item's text in <p> tags
+            parts = []
+            for child in element.children:
+                if child.name == "p":
+                    parts.extend(self.parse_paragraph(child).children)
+                elif child.name is None and child.text.strip():
+                    parts.append(markdown.Text(self._norm(child.text)))
+            return markdown.Paragraph(parts)
+        if child_names & {"ul", "ol"}:
+            # Nested list directly inside <li> (e.g. "- - item")
+            for child in element.children:
+                if child.name in ("ul", "ol"):
+                    nested = self.parse_list(child)
+                    if nested is not None:
+                        return nested
+        return self.parse_paragraph(element)
 
     def parse_div(self, element: Tag) -> markdown.Node | None:
         pre = element.find("pre")
@@ -228,4 +259,26 @@ class Parser:
         return markdown.BlockCode(text, language)
 
     def parse_blockquote(self, element: PageElement) -> markdown.BlockQuote:
+        # Zhihu may render a blockquote with multiple <p> children
+        # (e.g. when the original had <br><br> separating paragraphs).
+        if any(getattr(c, "name", None) == "p" for c in element.children):
+            parts = []
+            for child in element.children:
+                if child.name == "p":
+                    if parts:
+                        parts.append(markdown.NewLine())
+                        parts.append(markdown.NewLine())
+                    parts.extend(self.parse_paragraph(child).children)
+                elif child.name is None and child.text.strip():
+                    parts.append(markdown.Text(self._norm(child.text)))
+            return markdown.BlockQuote(markdown.Paragraph(parts))
         return markdown.BlockQuote(self.parse_paragraph(element))
+
+    def parse_table(self, element: Tag) -> markdown.Table | None:
+        rows: list[list[str]] = []
+        tbody = element.find("tbody") or element
+        for tr in tbody.find_all("tr"):
+            cells = [self._norm(cell.get_text()) for cell in tr.find_all(["th", "td"])]
+            if cells:
+                rows.append(cells)
+        return markdown.Table(rows) if rows else None
