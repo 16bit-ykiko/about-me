@@ -6,19 +6,19 @@
     <description>Recent content on ykiko&#39;s blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 28 Mar 2026 04:23:20 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 28 Mar 2026 12:41:50 +0000</lastBuildDate>
     <atom:link href="https://www.ykiko.me/zh-cn/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>打造优雅的 C&#43;&#43; 跨平台开发与构建 Workflow</title>
       <link>https://www.ykiko.me/zh-cn/articles/1985940996270339378/</link>
-      <pubDate>Sat, 20 Dec 2025 22:51:31 +0000</pubDate>
+      <pubDate>Sun, 21 Dec 2025 06:51:31 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/1985940996270339378/</guid>
       <description>&lt;p&gt;C++ 的构建问题一直是热门话题，尤其在各种语言论战中，常常被当作反面教材。有趣的是，大多数 C++ 程序员往往是参与到现有系统的维护中，面对的是高度固化、无法改动的构建流程，真正需要从零搭建项目的人反倒是少数。&lt;/p&gt;</description>
     </item>
     <item>
       <title>为 CuTe DSL 支持 AOT</title>
       <link>https://www.ykiko.me/zh-cn/articles/1971691994037334904/</link>
-      <pubDate>Tue, 11 Nov 2025 13:38:08 +0000</pubDate>
+      <pubDate>Tue, 11 Nov 2025 21:38:08 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/1971691994037334904/</guid>
       <description>&lt;h2 id=&#34;why-do-we-need-aot-for-cute-dsl&#34;&gt;Why do we need AOT for CuTe DSL?&lt;/h2&gt;
 &lt;p&gt;CUTLASS C++ 是一个用来编写高性能 CUDA 算子的库，以复杂难学著称。为了降低学习成本，NVIDIA 推出了基于 Python 的 &lt;a href=&#34;https://docs.nvidia.com/cutlass/latest/media/docs/pythonDSL/overview.html&#34;&gt;CuTe DSL&lt;/a&gt;。使用 Python 而不是 C++ 模板来进行元编程具有很多好处，首先就是用户不必和 C++ 那些晦涩难懂的模板报错作斗争了，这对于 C++ 初学者来说是非常头疼的一件事情，现在他们可以专注于代码逻辑。另外，nvcc 编译很慢，而其中大部分时间是花在编译器前端，也就是解析 C++ 代码上。尤其是对于 CUTLASS 这样 template heavy 的库，主要的时间都花在处理模板实例化上了，使用 CuTe DSL 可以绕过这个问题。相比于使用 CUTLASS 的 C++ 代码，它编译的速度能提升几十甚至上百倍。除此之外，现在算子和单测都可以一起在 Python 里写了，也方便了很多。&lt;/p&gt;</description>
@@ -26,14 +26,14 @@
     <item>
       <title>clice 最近怎么样？</title>
       <link>https://www.ykiko.me/zh-cn/articles/1931855290430624907/</link>
-      <pubDate>Thu, 24 Jul 2025 15:26:56 +0000</pubDate>
+      <pubDate>Thu, 24 Jul 2025 23:26:56 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/1931855290430624907/</guid>
       <description>&lt;p&gt;昨晚买下了 &lt;a href=&#34;https://clice.io/&#34;&gt;clice.io&lt;/a&gt; 这个域名，并且在它上面部署了 clice 的文档网站，心底有一种难以言喻的喜悦。一方面是我真的很喜欢 &lt;code&gt;clice.io&lt;/code&gt; 这个域名，看起来很精致漂亮。其实还有几个候选项，比如 &lt;code&gt;.dev&lt;/code&gt; 等，最终还是选了相对较贵（一年 500）但看起来更好看的这个域名。另一方面，它代表着 clice 又进入了一个新的阶段。&lt;/p&gt;</description>
     </item>
     <item>
       <title>Reflection for C&#43;&#43;26!!!</title>
       <link>https://www.ykiko.me/zh-cn/articles/1919923607997518115/</link>
-      <pubDate>Sat, 21 Jun 2025 17:33:11 +0000</pubDate>
+      <pubDate>Sun, 22 Jun 2025 01:33:11 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/1919923607997518115/</guid>
       <description>&lt;p&gt;在昨天刚才结束的 C++26 Sofia 会议上，有关&lt;strong&gt;静态反射 (Static Reflection)&lt;/strong&gt; 的七个提案：&lt;/p&gt;
 &lt;ul&gt;
@@ -50,63 +50,63 @@
     <item>
       <title>深入探索 clang（上）</title>
       <link>https://www.ykiko.me/zh-cn/articles/21319978959/</link>
-      <pubDate>Tue, 04 Feb 2025 21:00:55 +0000</pubDate>
+      <pubDate>Wed, 05 Feb 2025 05:00:55 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/21319978959/</guid>
       <description>&lt;p&gt;在上一篇关于 clice 的 &lt;a href=&#34;https://www.ykiko.me/zh-cn/articles/13394352064&#34;&gt;文章&lt;/a&gt; 发布后，收到的反响远超我的预期，也有很多朋友说想要参与到开发中。有这份心是好的，但是参与进来的门槛却不低，主要难点就是在于和 clang 的 API 进行交互。难在哪呢？一方面在于无论是中文还是英文社区，互联网上关于 clang 的资料相对较少（这是预期的，因为相关的需求非常少，自然而然也就没什么人讨论了）。另一方面，由于 C++ 语言本身的复杂性，有很多细节需要对语言本身有较为深入的理解然后才能理解，把理论和实现联系起来也并不那么容易。&lt;/p&gt;</description>
     </item>
     <item>
       <title>一个新 C&#43;&#43; language server 的设计与实现</title>
       <link>https://www.ykiko.me/zh-cn/articles/13394352064/</link>
-      <pubDate>Wed, 18 Dec 2024 13:46:01 +0000</pubDate>
+      <pubDate>Wed, 18 Dec 2024 21:46:01 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/13394352064/</guid>
       <description>&lt;p&gt;距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 &lt;a href=&#34;https://github.com/clice-project/clice&#34;&gt;clice&lt;/a&gt; —— 一个全新的 C++ 语言服务器 (language server)。&lt;/p&gt;</description>
     </item>
     <item>
       <title>St. Louis WG21 会议回顾</title>
       <link>https://www.ykiko.me/zh-cn/articles/706509748/</link>
-      <pubDate>Mon, 01 Jul 2024 18:46:56 +0000</pubDate>
+      <pubDate>Tue, 02 Jul 2024 02:46:56 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/706509748/</guid>
       <description>&lt;p&gt;因为某些机缘巧合参与了上周的 WG21 会议（C++ 标准委员会会议）。虽然我经常浏览 C++ 标准的新提案，但是确实没想到有一天真的能参加 WG21 会议，实时了解 C++ 标准的最新进展。当然，这也是第一次参加，非常激动，在这里记录一下自己的感受和会议的进展。&lt;/p&gt;</description>
     </item>
     <item>
       <title>Python 与 C&#43;&#43; 的完美结合：pybind11 中的对象设计</title>
       <link>https://www.ykiko.me/zh-cn/articles/702197261/</link>
-      <pubDate>Fri, 07 Jun 2024 07:28:11 +0000</pubDate>
+      <pubDate>Fri, 07 Jun 2024 15:28:11 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/702197261/</guid>
       <description>&lt;p&gt;参加了 &lt;a href=&#34;https://summerofcode.withgoogle.com/programs/2024/projects/Ji2Mi97o&#34;&gt;Google Summer of Code 2024&lt;/a&gt;，主要的任务就是为一个 &lt;a href=&#34;https://pocketpy.dev/&#34;&gt;Python 解释器&lt;/a&gt; 实现 &lt;a href=&#34;https://github.com/pybind/pybind11&#34;&gt;pybind11&lt;/a&gt; 的兼容性接口。说是实现兼容性接口，实际上相当于重写 pybind11 了，所以最近一直在读它的源码。&lt;/p&gt;</description>
     </item>
     <item>
       <title>C&#43;&#43; 中的单例模式真的“单例”吗？</title>
       <link>https://www.ykiko.me/zh-cn/articles/696878184/</link>
-      <pubDate>Thu, 09 May 2024 18:08:28 +0000</pubDate>
+      <pubDate>Fri, 10 May 2024 02:08:28 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/696878184/</guid>
       <description>&lt;p&gt;&lt;strong&gt;单例模式 (Singleton Pattern)&lt;/strong&gt; 是一种常见的设计模式，往往应用于配置系统，日志系统，数据库连接池等需要确保对象唯一性的场景。但是单例模式真的能保证单例吗？如果唯一性得不到保证会产生什么后果呢？&lt;/p&gt;</description>
     </item>
     <item>
       <title>超好用的 C&#43;&#43; 在线编译器（VSCode 版）</title>
       <link>https://www.ykiko.me/zh-cn/articles/694365783/</link>
-      <pubDate>Wed, 24 Apr 2024 13:35:41 +0000</pubDate>
+      <pubDate>Wed, 24 Apr 2024 21:35:41 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/694365783/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://godbolt.org/&#34;&gt;Compiler Explorer&lt;/a&gt; 是一个非常流行的 C++ 在线编译器，可用于测试不同的编译执行环境，或者分享代码。作为一个 C++ 爱好者，我几乎每天都要和它打交道，使用频率之高远超我的想象。同时，我也是一个重度 VSCode 用户，几乎所有的事情都在 VSCode 中完成。考虑到经常在本地写代码然后拷贝到 Compiler Explorer 上去，总觉得不太舒服，有时候直接就在它的网页编辑器上改了，但是又没有代码补全，也不舒服。所以我和 &lt;a href=&#34;https://www.zhihu.com/people/32ffceca937677f7950b64e5186bb998&#34;&gt;@iiirhe&lt;/a&gt; 合作编写了这个插件 &lt;a href=&#34;https://marketplace.visualstudio.com/items?itemName=ykiko.vscode-compiler-explorer&#34;&gt;Compiler Explorer for VSCode&lt;/a&gt;，基于 Compiler Explorer 提供的 &lt;a href=&#34;https://github.com/compiler-explorer/compiler-explorer/blob/main/docs/API.md&#34;&gt;API&lt;/a&gt; 将 Compiler Explorer 集成到 VSCode 中，使得用户可以在 VSCode 中直接使用 Compiler Explorer 的功能。&lt;/p&gt;</description>
     </item>
     <item>
       <title>彻底理解 C&#43;&#43; ABI</title>
       <link>https://www.ykiko.me/zh-cn/articles/692886292/</link>
-      <pubDate>Tue, 16 Apr 2024 18:19:38 +0000</pubDate>
+      <pubDate>Wed, 17 Apr 2024 02:19:38 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/692886292/</guid>
       <description>&lt;p&gt;Application Binary Interface，也就是我们常说的 ABI，是个让人感觉到既熟悉又陌生的概念。熟悉在哪里？讨论问题的时候经常会讨论到它，看文章的时候经常会提到它，有时候又要处理它导致的兼容性。陌生在哪里？如果有人问你什么是 ABI，你会发现你知道它是怎么一回事，但是要用严谨的语言去描述它有些困难。最后只好照着 &lt;a href=&#34;https://en.wikipedia.org/wiki/Application_binary_interface&#34;&gt;WIKI&lt;/a&gt; 说：ABI 就是两个二进制程序模块之间的接口。有问题吗？没有问题，作为一个概括性的描述，已经足够了。但是让人感觉到有些空洞。&lt;/p&gt;</description>
     </item>
     <item>
       <title>C&#43;&#43; 究竟代码膨胀在哪里？</title>
       <link>https://www.ykiko.me/zh-cn/articles/686296374/</link>
-      <pubDate>Mon, 11 Mar 2024 01:33:37 +0000</pubDate>
+      <pubDate>Mon, 11 Mar 2024 09:33:37 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/686296374/</guid>
       <description>&lt;p&gt;相信读者经常能听见有人说 C++ 代码二进制膨胀严重，但是一般很少会有人指出具体的原因。在网络上一番搜索过后，发现深入讨论这个问题的文章的并不多。上面那句话更像是八股文的一部分，被口口相传，但是没什么人能说出个所以然。今天小编 ykiko 就带大家一起来探秘 C++ 代码膨胀那些事 (^ω^)&lt;/p&gt;</description>
     </item>
     <item>
       <title>The History of constexpr in C&#43;&#43;! (Part Two)</title>
       <link>https://www.ykiko.me/zh-cn/articles/683463723/</link>
-      <pubDate>Thu, 22 Feb 2024 14:15:32 +0000</pubDate>
+      <pubDate>Thu, 22 Feb 2024 22:15:32 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/683463723/</guid>
       <description>&lt;p&gt;前情提要：&lt;a href=&#34;https://www.ykiko.me/zh-cn/articles/682031684&#34;&gt;The History of constexpr in C++! (Part One)&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;2015-2016模板的语法糖&#34;&gt;2015-2016：模板的语法糖&lt;/h2&gt;
@@ -115,7 +115,7 @@
     <item>
       <title>The History of constexpr in C&#43;&#43;! (Part One)</title>
       <link>https://www.ykiko.me/zh-cn/articles/682031684/</link>
-      <pubDate>Sat, 10 Feb 2024 15:15:47 +0000</pubDate>
+      <pubDate>Sat, 10 Feb 2024 23:15:47 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/682031684/</guid>
       <description>&lt;p&gt;几个月前，我写了一篇介绍 C++ 模板的文章：&lt;a href=&#34;https://www.ykiko.me/zh-cn/articles/655902377&#34;&gt;雾里看花：真正意义上的理解 C++ 模板&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;理清了现代 C++ 中模板的地位。其中用 constexpr function 替代模板进行编译期计算可以说是现代 C++ 最重要的改进之一了。 constexpr 本身其实并不难以理解，非常直观。但是由于几乎每个 C++ 版本都在改进它，所以不同的 C++ 版本可以使用的内容差别很大，有时候可能给人一种&lt;code&gt;inconsistency&lt;/code&gt;的感觉。&lt;/p&gt;</description>
@@ -123,7 +123,7 @@
     <item>
       <title>C&#43;&#43; 中如何优雅进行 enum 到 string 的转换 ？</title>
       <link>https://www.ykiko.me/zh-cn/articles/680412313/</link>
-      <pubDate>Mon, 29 Jan 2024 09:03:28 +0000</pubDate>
+      <pubDate>Mon, 29 Jan 2024 17:03:28 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/680412313/</guid>
       <description>&lt;h2 id=&#34;no-hard-code&#34;&gt;no hard code&lt;/h2&gt;
 &lt;p&gt;定义一个&lt;code&gt;enum&lt;/code&gt;&lt;/p&gt;
@@ -141,7 +141,7 @@
     <item>
       <title>C&#43;&#43; 中的 relocate 语义</title>
       <link>https://www.ykiko.me/zh-cn/articles/679782886/</link>
-      <pubDate>Thu, 25 Jan 2024 09:22:29 +0000</pubDate>
+      <pubDate>Thu, 25 Jan 2024 17:22:29 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/679782886/</guid>
       <description>&lt;p&gt;众所周知，现在 C++ 里面有两种特殊的构造函数，即 copy constructor 和 move constructor&lt;/p&gt;
 &lt;p&gt;copy constructor 早在 C++98 的时候就加入了，用来拷贝一个对象，像&lt;code&gt;vector&lt;/code&gt;这种拥有资源的类型，拷贝的时候会把它拥有的资源也拷贝一份&lt;/p&gt;</description>
@@ -149,7 +149,7 @@
     <item>
       <title>跨越 7 年的接力赛：获取 C&#43;&#43; 结构体字段数量</title>
       <link>https://www.ykiko.me/zh-cn/articles/674157958/</link>
-      <pubDate>Mon, 25 Dec 2023 20:45:30 +0000</pubDate>
+      <pubDate>Tue, 26 Dec 2023 04:45:30 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/674157958/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;在&lt;code&gt;C++17&lt;/code&gt;中引入了叫做「&lt;strong&gt;结构化绑定&lt;/strong&gt;」的特性也就是&lt;code&gt;Struct Binding&lt;/code&gt;，这一特性类似于别的语言中的模式匹配，可以让我们方便的对结构体的成员进行访问&lt;/p&gt;</description>
@@ -157,7 +157,7 @@
     <item>
       <title>在 C&#43;&#43; 中实现 Object!</title>
       <link>https://www.ykiko.me/zh-cn/articles/670191053/</link>
-      <pubDate>Sun, 03 Dec 2023 15:40:52 +0000</pubDate>
+      <pubDate>Sun, 03 Dec 2023 23:40:52 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/670191053/</guid>
       <description>&lt;h2 id=&#34;静态与动态&#34;&gt;静态与动态&lt;/h2&gt;
 &lt;p&gt;静态类型和动态类型这两个词语相信大家都不陌生了，区分二者的关键在于类型检查的时机。什么意思呢？&lt;/p&gt;</description>
@@ -165,7 +165,7 @@
     <item>
       <title>为什么说 C/C&#43;&#43; 编译器不保留元信息？</title>
       <link>https://www.ykiko.me/zh-cn/articles/670190357/</link>
-      <pubDate>Sun, 03 Dec 2023 15:37:51 +0000</pubDate>
+      <pubDate>Sun, 03 Dec 2023 23:37:51 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/670190357/</guid>
       <description>&lt;h2 id=&#34;首先什么是元信息&#34;&gt;首先什么是元信息？&lt;/h2&gt;
 &lt;p&gt;来看下面一段&lt;code&gt;python&lt;/code&gt;代码，我们希望能够根据传入的字符串来自动修改对应的字段值&lt;/p&gt;</description>
@@ -173,14 +173,14 @@
     <item>
       <title>使用 Clang 工具自由的支配 C&#43;&#43; 代码吧</title>
       <link>https://www.ykiko.me/zh-cn/articles/669360731/</link>
-      <pubDate>Wed, 29 Nov 2023 01:14:27 +0000</pubDate>
+      <pubDate>Wed, 29 Nov 2023 09:14:27 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/669360731/</guid>
       <description>&lt;p&gt;Clang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最初开发的目的是替代 GNU Compiler Collection (GCC) 的 C 语言前端，目标是提供更快的编译速度、更好的诊断信息和更灵活的架构。Clang 包含一个 C、C++ 和 Objective-C 编译器前端，这些前端设计为可以嵌入到其他项目中。Clang 的一个重要特点是其模块化架构，使开发者能够更轻松地扩展和定制编译器的功能。Clang 被广泛应用于许多项目，包括 LLVM 自身、一些操作系统内核的开发以及一些编程语言的编译器实现。&lt;/p&gt;</description>
     </item>
     <item>
       <title>各种姿势进行代码生成</title>
       <link>https://www.ykiko.me/zh-cn/articles/669359855/</link>
-      <pubDate>Wed, 29 Nov 2023 01:14:16 +0000</pubDate>
+      <pubDate>Wed, 29 Nov 2023 09:14:16 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/669359855/</guid>
       <description>&lt;h2 id=&#34;引入&#34;&gt;引入&lt;/h2&gt;
 &lt;p&gt;刚好拿最近的一个需求作为引入吧。我们都知道 markdown 可以用&lt;code&gt;lang&lt;/code&gt;来填入代码块，并支持代码高亮。可是我想支持自己定义的代码高亮规则，遇到了如下问题：&lt;/p&gt;</description>
@@ -188,7 +188,7 @@
     <item>
       <title>写给 C&#43;&#43; 程序员的反射教程</title>
       <link>https://www.ykiko.me/zh-cn/articles/669358870/</link>
-      <pubDate>Wed, 29 Nov 2023 01:14:02 +0000</pubDate>
+      <pubDate>Wed, 29 Nov 2023 09:14:02 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/669358870/</guid>
       <description>&lt;h2 id=&#34;what-is-reflection&#34;&gt;What is Reflection?&lt;/h2&gt;
 &lt;p&gt;反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其它的&lt;strong&gt;惯用词&lt;/strong&gt;一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人问告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 &lt;a href=&#34;https://doc.rust-lang.org/stable/std/any/index.html&#34;&gt;std::Any 模块&lt;/a&gt; 的介绍。里面提到了&lt;/p&gt;</description>
@@ -196,14 +196,14 @@
     <item>
       <title>C&#43;&#43;26 静态反射提案解析</title>
       <link>https://www.ykiko.me/zh-cn/articles/661692275/</link>
-      <pubDate>Mon, 16 Oct 2023 18:38:26 +0000</pubDate>
+      <pubDate>Tue, 17 Oct 2023 02:38:26 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/661692275/</guid>
       <description>&lt;p&gt;最近打算写一个系列文章详细讨论反射（reflection）这一概念，刚好 C++26 有了新的反射提案，发现知乎上又没有相关的文章，而这个话题又经常被讨论。所以借此机会来聊一聊属于 C++ 的静态反射（static reflection），作为系列预热了。&lt;/p&gt;</description>
     </item>
     <item>
       <title>C&#43;&#43; 成员指针完全解析</title>
       <link>https://www.ykiko.me/zh-cn/articles/659510753/</link>
-      <pubDate>Wed, 04 Oct 2023 06:50:12 +0000</pubDate>
+      <pubDate>Wed, 04 Oct 2023 14:50:12 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/659510753/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;在 C++ 中，形如&lt;code&gt;&amp;amp;T::name&lt;/code&gt;的表达式返回的结果就是成员指针。写代码的时候偶尔会用到，但是这个概念可能很多人都并不熟悉。考虑如下代码&lt;/p&gt;</description>
@@ -211,28 +211,28 @@
     <item>
       <title>雾里看花：真正意义上的理解 C&#43;&#43; 模板</title>
       <link>https://www.ykiko.me/zh-cn/articles/655902377/</link>
-      <pubDate>Tue, 12 Sep 2023 15:46:11 +0000</pubDate>
+      <pubDate>Tue, 12 Sep 2023 23:46:11 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/655902377/</guid>
       <description>&lt;p&gt;在 C++ 中，模板（Template）这个概念已经存在二十多年了。作为 C++ 最重要的一个语言构成之一，相关的讨论数不胜数。很可惜的是，深入有价值的讨论很少，尤其是以多个视角来看待这个特性。很多文章在谈论模板的时候往往会把它和各种语法细节缠绕在一起，容易给人一种云里雾里的感觉。类似的例子还发生在其它话题上面，比如介绍协程就和各种 IO 混在一起谈，谈到反射似乎就限定了 Java，C# 中的反射。这样做并不无道理，但是往往让人感觉抓不到本质。看了很多内容，但却不得其要领，反倒容易把不同的概念混淆在一起。&lt;/p&gt;</description>
     </item>
     <item>
       <title>C&#43;&#43; 禁忌黑魔法：STMP （下）</title>
       <link>https://www.ykiko.me/zh-cn/articles/646812253/</link>
-      <pubDate>Sun, 30 Jul 2023 01:29:27 +0000</pubDate>
+      <pubDate>Sun, 30 Jul 2023 09:29:27 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/646812253/</guid>
       <description>&lt;p&gt;上一篇 &lt;a href=&#34;https://www.ykiko.me/zh-cn/articles/646752343&#34;&gt;文章&lt;/a&gt; 我们初步了解了 STMP 的原理，并且利用它实现了简单的一个编译期的计数器。然而，它的威力远不止如此，这篇文章就来讨论一些基于 STMP 的高级应用。&lt;/p&gt;</description>
     </item>
     <item>
       <title>C&#43;&#43; 禁忌黑魔法：STMP （上）</title>
       <link>https://www.ykiko.me/zh-cn/articles/646752343/</link>
-      <pubDate>Sat, 29 Jul 2023 10:20:50 +0000</pubDate>
+      <pubDate>Sat, 29 Jul 2023 18:20:50 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/646752343/</guid>
       <description>&lt;p&gt;众所周知，传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的状态。对于任意相同的输入，它的输出结果总是相同的，被认为是&lt;strong&gt;纯函数式 (purely functional)&lt;/strong&gt; 的。&lt;strong&gt;模板元编程 (Template Meta Programming)&lt;/strong&gt; 作为常量求值的一个子集，也应该遵守这个规则。&lt;/p&gt;</description>
     </item>
     <item>
       <title>std::variant 很难用！</title>
       <link>https://www.ykiko.me/zh-cn/articles/645810896/</link>
-      <pubDate>Tue, 25 Jul 2023 07:19:25 +0000</pubDate>
+      <pubDate>Tue, 25 Jul 2023 15:19:25 +0000</pubDate>
       <guid>https://www.ykiko.me/zh-cn/articles/645810896/</guid>
       <description>&lt;p&gt;&lt;code&gt;std::variant&lt;/code&gt;于 C++17 加入标准库，本文将讨论其加入标准的背景，以及一些使用上的问题。&lt;/p&gt;</description>
     </item>
