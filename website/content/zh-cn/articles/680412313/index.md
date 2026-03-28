@@ -1,14 +1,14 @@
 ---
 title: C++ 中如何优雅进行 enum 到 string 的转换 ？
 date: "2024-01-29 17:03:28"
-updated: "2026-03-28 23:52:07"
+updated: "2026-03-29 02:03:46"
 zhihu_article_id: "680412313"
 zhihu_url: https://zhuanlan.zhihu.com/p/680412313
 ---
 
 ## no hard code
 
-定义一个 `enum`
+定义一个`enum`
 
 ```cpp
 enum Color {
@@ -26,7 +26,7 @@ std::cout << color << std::endl;
 // output => 0
 ```
 
-如果需要枚举作为日志输出，我们不希望在查看日志的时候，还要人工去根据枚举值去查找对应的字符串，麻烦并且不直观。我们希望直接输出枚举值对应的字符串，比如 `RED`，`GREEN`，`BLUE`。
+如果需要枚举作为日志输出，我们不希望在查看日志的时候，还要人工去根据枚举值去查找对应的字符串，麻烦并且不直观。我们希望直接输出枚举值对应的字符串，比如`RED`，`GREEN`，`BLUE`。
 
 手动编写 `switch` 完成枚举转字符串
 
@@ -49,7 +49,7 @@ std::string enum_to_string(Color color) {
 
 这一小节介绍的内容已经有人提前封装好了，可以直接使用 [magic enum](https://github.com/Neargye/magic_enum) 这个库。下面主要是对这个库的原理进行解析，为了方便展示，将用 C++20 实现，实际上 C++17 就可以。
 
-在三大主流编译器中，有一些特殊**宏变量**。GCC 和 Clang 中的 `__PRETTY_FUNCTION__`，MSVC 中的 `__FUNCSIG__`。这几个宏变量会在**编译期间被替换成函数的签名**，如果该函数是模板函数则会将模板实例化的信息也输出（也可以使用 C++20 加入标准的 [source_location](https://en.cppreference.com/w/cpp/utility/source_location/function_name)，它具有和这些宏类似的效果）
+在三大主流编译器中，有一些特殊**宏变量**。GCC 和 Clang 中的`__PRETTY_FUNCTION__`，MSVC 中的`__FUNCSIG__`。这几个宏变量会在**编译期间被替换成函数的签名**，如果该函数是模板函数则会将模板实例化的信息也输出（也可以使用 C++20 加入标准的 [source_location](https://en.cppreference.com/w/cpp/utility/source_location/function_name)，它具有和这些宏类似的效果）
 
 ```cpp
 template <typename T>
@@ -129,7 +129,7 @@ int main(){
 }
 ```
 
-成功满足我们的需求。但是事情并没有结束，这种形式要求枚举是模板参数，那就只支持编译期常量。但是其实绝大部分时候，我们用的枚举都是运行期变量，怎么办呢？静态转动态，只要打个表就行了，考虑通过模板元编程生成一个 `array`，其中每个元素就是 `index` 对应枚举的字符串表示。一个问题是，这个数组应该多大，这就需要我们来获取枚举项的数量了。**一种比较直接的办法是，直接在枚举中定义一对用来标记的首尾项，这样直接相减就能获取到枚举的最大数量了**。但是很多时候，我们并不能修改枚举定义，还好这里有一个小 trick 能解决这个问题
+成功满足我们的需求。但是事情并没有结束，这种形式要求枚举是模板参数，那就只支持编译期常量。但是其实绝大部分时候，我们用的枚举都是运行期变量，怎么办呢？静态转动态，只要打个表就行了，考虑通过模板元编程生成一个`array`，其中每个元素就是`index`对应枚举的字符串表示。一个问题是，这个数组应该多大，这就需要我们来获取枚举项的数量了。**一种比较直接的办法是，直接在枚举中定义一对用来标记的首尾项，这样直接相减就能获取到枚举的最大数量了**。但是很多时候，我们并不能修改枚举定义，还好这里有一个小 trick 能解决这个问题
 
 ```cpp
 constexpr Color color = static_cast<Color>(-1);
@@ -137,7 +137,7 @@ std::cout << enum_name<color>() << std::endl;
 // output => (Color)2
 ```
 
-可以发现，如果这个整数没有对应的枚举项，那么最后就不会输出对应的枚举名，而是带有括号的强制转换表达式。这样只需要判断下得到的字符串中有没有 `)` 就知道对应的枚举项是否存在了。递归判断就可以找出最大的枚举值了（这样查找适用范围有限，如分散枚举值，可能相对困难一点）
+可以发现，如果这个整数没有对应的枚举项，那么最后就不会输出对应的枚举名，而是带有括号的强制转换表达式。这样只需要判断下得到的字符串中有没有`)`就知道对应的枚举项是否存在了。递归判断就可以找出最大的枚举值了（这样查找适用范围有限，如分散枚举值，可能相对困难一点）
 
 ```cpp
 template<typename T, std::size_t N = 0>
@@ -150,7 +150,7 @@ constexpr auto enum_max(){
 }
 ```
 
-然后通过 `make_index_sequence` 生成一个对应的长度数组就行了
+然后通过`make_index_sequence`生成一个对应的长度数组就行了
 
 ```cpp
 template<typename T> requires std::is_enum_v<T>
@@ -181,13 +181,13 @@ int main(){
 }
 ```
 
-更进一步可以考虑支持 bitwidth enum，也就是 `RED | BLUE` 这种形式的枚举，这里就不继续展开了。
+更进一步可以考虑支持 bitwidth enum，也就是`RED | BLUE`这种形式的枚举，这里就不继续展开了。
 
-这种方法的缺点很明显，通过模板实例化来打表，其实会很大的拖慢编译速度。如果 `enum` 中的数量较多，在一些对常量求值效率较低的编译器上，如 MSVC，可能会增加**几十秒甚至更长**的编译时间。所以一般只适用于小型枚举。优点是轻量级，开箱即用，其他的什么也不用做。
+这种方法的缺点很明显，通过模板实例化来打表，其实会很大的拖慢编译速度。如果`enum`中的数量较多，在一些对常量求值效率较低的编译器上，如 MSVC，可能会增加**几十秒甚至更长**的编译时间。所以一般只适用于小型枚举。优点是轻量级，开箱即用，其它的什么也不用做。
 
 ## code generation
 
-既然手写字符串转枚举很麻烦，那么写个脚本生成代码不就行了？的确如此，我们可以使用 libclang 的 Python bind 轻松的完成这项工作。具体如何使用这个工具，可以参考 [使用 Clang 工具自由的支配 C++ 代码吧](https://www.ykiko.me/zh-cn/articles/669360731)，下面只展示实现效果的代码
+既然手写字符串转枚举很麻烦，那么写个脚本生成代码不就行了？的确如此，我们可以使用 libclang 的 python bind 轻松的完成这项工作。具体如何使用这个工具，可以参考 [使用 clang 工具自由的支配 C++ 代码吧](https://www.ykiko.me/zh-cn/articles/669360731)，下面只展示实现效果的代码
 
 ```python
 import clang.cindex as CX
@@ -228,7 +228,7 @@ enum Color {
 };
 ```
 
-这是最后生成的代码，可以直接生成 `.cpp` 文件，放在固定目录下面，然后构建之前运行一下这个脚本就行了
+这是最后生成的代码，可以直接生成`.cpp`文件，放在固定目录下面，然后构建之前运行一下这个脚本就行了
 
 ```cpp
 std::string_view enum_to_string(Color color) {
@@ -276,7 +276,7 @@ std::string_view color_to_string(Color value){
 }
 ```
 
-这样的话，只要在 `def` 文件里面进行相关的增加和修改就行了。之后如果要遍历 `enum` 什么的，也可以直接定义一个宏来生成代码就行了，非常方便。事实上，对于大数量的枚举，有很多开源项目都采取这种方案。例如 Clang 在定义 `TokenKind` 的时候，就是这么做的，相关的代码请参考 [Token.def](https://github.com/stuartcarnie/clang/blob/master/include/clang/Basic/TokenKinds.def)。由于 Clang 要适配多种语言前端，最后总计的 `TokenKind` 有几百个之多。如果不这样做，进行 `Token` 的增加和修改会十分困难。
+这样的话，只要在`def`文件里面进行相关的增加和修改就行了。之后如果要遍历`enum`什么的，也可以直接定义一个宏来生成代码就行了，非常方便。事实上，对于大数量的枚举，有很多开源项目都采取这种方案。例如 clang 在定义`TokenKind`的时候，就是这么做的，相关的代码请参考 [Token.def](https://github.com/stuartcarnie/clang/blob/master/include/clang/Basic/TokenKinds.def)。由于 clang 要适配多种语言前端，最后总计的`TokenKind`有几百个之多。如果不这样做，进行`Token`的增加和修改会十分困难。
 
 ## conclusion
 
