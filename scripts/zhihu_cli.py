@@ -253,7 +253,10 @@ def update_existing_article(client: ZhihuClient) -> None:
     article = select_article(client)
     if article is None:
         return
-    markdown_path = prompt_markdown_path()
+    default_local_path = ARTICLE_OUTPUT_DIR / article.id / "index.md"
+    markdown_path = prompt_markdown_path(
+        initial_value=str(default_local_path) if default_local_path.exists() else ""
+    )
     if markdown_path is None:
         return
     default_column = None
