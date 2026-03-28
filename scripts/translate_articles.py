@@ -4,10 +4,36 @@ import shutil
 import subprocess
 import time
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from rewrite_en_article_links import collect_article_ids, rewrite_article_links
-from translate import GeminiTranslator
+from translate import GeminiTranslator, extract_front_matter, render_front_matter
+
+_TZ_SHANGHAI = ZoneInfo("Asia/Shanghai")
+_TZ_NEW_YORK = ZoneInfo("America/New_York")
+_DATE_FMT = "%Y-%m-%d %H:%M:%S"
+
+
+def convert_dates_to_new_york(markdown_text: str) -> str:
+    metadata, body, has_front_matter = extract_front_matter(markdown_text)
+    if not has_front_matter:
+        return markdown_text
+    changed = False
+    for key in ("date", "updated"):
+        value = metadata.get(key)
+        if not isinstance(value, str):
+            continue
+        try:
+            dt = datetime.strptime(value, _DATE_FMT).replace(tzinfo=_TZ_SHANGHAI)
+            metadata[key] = dt.astimezone(_TZ_NEW_YORK).strftime(_DATE_FMT)
+            changed = True
+        except ValueError:
+            pass
+    if not changed:
+        return markdown_text
+    return render_front_matter(metadata, body)
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -172,6 +198,7 @@ def translate_markdown_files(
             translated, rewritten_links = rewrite_article_links(
                 translated, known_article_ids
             )
+            translated = convert_dates_to_new_york(translated)
         else:
             rewritten_links = 0
         target_path.parent.mkdir(parents=True, exist_ok=True)

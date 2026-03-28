@@ -6,6 +6,9 @@ import time
 import webbrowser
 from dataclasses import dataclass
 from datetime import datetime
+from zoneinfo import ZoneInfo
+
+_TZ_SHANGHAI = ZoneInfo("Asia/Shanghai")
 from pathlib import Path
 from typing import Any
 
@@ -653,8 +656,10 @@ class ZhihuClient:
         metadata.update(
             {
                 "title": title,
-                "date": datetime.fromtimestamp(created).strftime("%Y-%m-%d %H:%M:%S"),
-                "updated": datetime.fromtimestamp(updated).strftime(
+                "date": datetime.fromtimestamp(created, tz=_TZ_SHANGHAI).strftime(
+                    "%Y-%m-%d %H:%M:%S"
+                ),
+                "updated": datetime.fromtimestamp(updated, tz=_TZ_SHANGHAI).strftime(
                     "%Y-%m-%d %H:%M:%S"
                 ),
                 "zhihu_article_id": article_id,
