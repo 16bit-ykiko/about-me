@@ -861,12 +861,12 @@ class ZhihuClient:
     ) -> str:
         metadata, body_markdown = read_markdown_document(markdown_path)
         title = metadata.get("title") or markdown_path.stem
-        body_markdown = re.sub(
+        zhihu_markdown = re.sub(
             r"https://www\.ykiko\.me/zh-cn/articles/(\d+)",
             r"https://zhuanlan.zhihu.com/p/\1",
             body_markdown,
         )
-        html = markdown_to_html(body_markdown)
+        html = markdown_to_html(zhihu_markdown)
         title_image = metadata.get("zhihu_title_image_url") or metadata.get(
             "title_image_url"
         )
@@ -927,12 +927,12 @@ class ZhihuClient:
         """Push content to draft (no publish) and return the preview URL."""
         metadata, body_markdown = read_markdown_document(markdown_path)
         title = metadata.get("title") or markdown_path.stem
-        body_markdown = re.sub(
+        zhihu_markdown = re.sub(
             r"https://www\.ykiko\.me/zh-cn/articles/(\d+)",
             r"https://zhuanlan.zhihu.com/p/\1",
             body_markdown,
         )
-        html = markdown_to_html(body_markdown)
+        html = markdown_to_html(zhihu_markdown)
         title_image = metadata.get("zhihu_title_image_url") or metadata.get(
             "title_image_url"
         )
