@@ -566,7 +566,7 @@
 </span></span></code></pre></div><p>可以发现没有生成清理栈的代码了，很合理。原因很简单，如果<code>foo</code>抛出异常，控制流直接跳转走了，那<code>vector</code>都没构造呢，自然也不需要析构了。通过简单的调整调用顺序就减少了二进制大小！但是，只有这种特别简单的情况下，依赖关系才比较明显。如果实际抛出异常的函数很多的话，就很难分析了。</p>
 <h3 id="noexcept">noexcept<a hidden class="anchor" aria-hidden="true" href="#noexcept">#</a></h3>
 <p>先讨论 C++11 加入的这个<code>noexcept</code>。注意即使加了<code>noexcept</code>，这个函数还是可能会抛出异常的，如果该函数抛出异常，程序直接<code>terminate</code>。那你可能要问了，这玩意有啥用呢？我异常抛了，不捕获不也是<code>terminate</code>吗？</p>
-<p>其实这个和 const 有点类似，你想改 const 变量，虽然是 undefined behavior，但是运行时随便改呀，限制不多。那你要问了， const 有什么意义？一个重要的意义是给编译器提供优化指示信息。编译器可以利用这个做 <em>constant folding（常量折叠）</em> 和 <em>common subexpression elimination（公共子表达式消除）</em> 。</p>
+<p>其实这个和 const 有点类似，你想改 const 变量，虽然是 undefined behavior，但是运行时随便改呀，限制不多。那你要问了， const 有什么意义？一个重要的意义是给编译器提供优化指示信息。编译器可以利用这个做 <em>constant folding（常量折叠）</em> 和 <em>common subexpression elimination（公共子表达式消除）</em>。</p>
 <p><code>noexcept</code>也是类似的，它让编译器假设这个函数不会抛出异常，从而可以进行一些额外的优化。 还是第一个例子里面的代码为例，唯一的改变是把<code>foo</code>函数声明为了<code>noexcept</code>，然后再次编译</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bar<span class="o">()</span>:
 </span></span><span class="line"><span class="cl">        push    rbx
