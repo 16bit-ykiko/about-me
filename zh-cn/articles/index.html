@@ -194,15 +194,15 @@
 
 <article class="post-entry">
   <header class="entry-header">
-    <h2 class="entry-hint-parent">为 CuTe DSL 支持 AOT
+    <h2 class="entry-hint-parent">Support AOT for CuTe DSL
     </h2>
   </header>
   <div class="entry-content">
-    <p>Why do we need AOT for CuTe DSL? CUTLASS C&#43;&#43; 是一个用来编写高性能 CUDA 算子的库，以复杂难学著称。为了降低学习成本，NVIDIA 推出了基于 Python 的 CuTe DSL。使用 Python 而不是 C&#43;&#43; 模板来进行元编程具有很多好处，首先就是用户不必和 C&#43;&#43; 那些晦涩难懂的模板报错作斗争了，这对于 C&#43;&#43; 初学者来说是非常头疼的一件事情，现在他们可以专注于代码逻辑。另外，nvcc 编译很慢，而其中大部分时间是花在编译器前端，也就是解析 C&#43;&#43; 代码上。尤其是对于 CUTLASS 这样 template heavy 的库，主要的时间都花在处理模板实例化上了，使用 CuTe DSL 可以绕过这个问题。相比于使用 CUTLASS 的 C&#43;&#43; 代码，它编译的速度能提升几十甚至上百倍。除此之外，现在算子和单测都可以一起在 Python 里写了，也方便了很多。
+    <p> Why do we need AOT for CuTe DSL? CUTLASS C&#43;&#43; is a library for writing high-performance CUDA operators, known for its complexity and difficulty. To reduce the learning curve, NVIDIA introduced the Python-based CuTe DSL. Using Python instead of C&#43;&#43; templates for metaprogramming offers many benefits. First, users no longer have to struggle with the obscure template errors of C&#43;&#43;, which is a major headache for C&#43;&#43; beginners; now they can focus on the code logic. Additionally, nvcc compilation is slow, and most of that time is spent in the compiler frontend, parsing C&#43;&#43; code. Especially for template-heavy libraries like CUTLASS, most of the time is spent processing template instantiations. Using CuTe DSL can bypass this issue. Compared to C&#43;&#43; code using CUTLASS, its compilation speed can be tens or even hundreds of times faster. Furthermore, operators and unit tests can now be written together in Python, which is much more convenient.
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-11-11 13:38:08 +0000 UTC'>2025-11-11</span>&nbsp;·&nbsp;<span>更新于 2025-11-17</span>&nbsp;·&nbsp;<span>5 min</span>&nbsp;·&nbsp;<span>2036 words</span>&nbsp;·&nbsp;<span>ykiko</span></footer>
-  <a class="entry-link" aria-label="post link to 为 CuTe DSL 支持 AOT" href="https://www.ykiko.me/zh-cn/articles/1971691994037334904/"></a>
+  <footer class="entry-footer"><span title='2025-11-11 13:38:08 +0000 UTC'>2025-11-11</span>&nbsp;·&nbsp;<span>更新于 2026-03-28</span>&nbsp;·&nbsp;<span>6 min</span>&nbsp;·&nbsp;<span>1256 words</span>&nbsp;·&nbsp;<span>ykiko</span></footer>
+  <a class="entry-link" aria-label="post link to Support AOT for CuTe DSL" href="https://www.ykiko.me/zh-cn/articles/1971691994037334904/"></a>
 </article>
 
 <article class="post-entry">
