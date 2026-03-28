@@ -22,7 +22,7 @@ zhihu_column_title: 编程语言中的反射
 
 在一年多前，P2996R1 的时候我就编写过一篇 [文章](https://www.ykiko.me/zh-cn/articles/661692275) 来介绍静态反射这个令人激动的提案。过了这么久，静态反射提案本身的内容有了较大的改变，上面文章的内容已经过时了，而且还新增了很多的附属提案。所以我决定编写一篇新文章来介绍静态反射及其附属提案的内容。
 
-> 如果想体验静态反射，有两种方式，一种是通过 [Compiler Explorer](https://godbolt.org/z/1977T9GfP) 这个在线编辑器，把上面的编译器调成 P2996 clang 就行了。另外一种是自己编译 [https://github.com/bloomberg/clang-p2996/tree/p2996](https://github.com/bloomberg/clang-p2996/tree/p2996) 这个 P2996 分支的 clang 和 libc++。然后，参考 [use libc++](https://releases.llvm.org/16.0.0/projects/libcxx/docs/UsingLibcxx.html#id4) 这个页面，在编译的时候使用刚编译出的 libc++ 作为标准库，就可以本地使用了，记得要开启 C++26 标准。
+> 如果想体验静态反射，有两种方式，一种是通过 [Compiler Explorer](https://godbolt.org/z/1977T9GfP) 这个在线编辑器，把上面的编译器调成 P2996 Clang 就行了。另外一种是自己编译 [https://github.com/bloomberg/clang-p2996/tree/p2996](https://github.com/bloomberg/clang-p2996/tree/p2996) 这个 P2996 分支的 Clang 和 libc++。然后，参考 [use libc++](https://releases.llvm.org/16.0.0/projects/libcxx/docs/UsingLibcxx.html#id4) 这个页面，在编译的时候使用刚编译出的 libc++ 作为标准库，就可以本地使用了，记得要开启 C++26 标准。
 
 ## What is Static Reflection?
 
@@ -36,7 +36,7 @@ zhihu_column_title: 编程语言中的反射
 constexpr std::meta::info rint = ^^int;
 ```
 
-`std::meta::info` 是一种新的、特殊的、`consteval only` 的 builtin 类型。它**只能存在于编译期**，你可以把它当成编译器中对这个 name entity 的 handle，后续可以基于这个不透明的 handle 做一些其它的操作。
+`std::meta::info` 是一种新的、特殊的、`consteval only` 的 builtin 类型。它**只能存在于编译期**，你可以把它当成编译器中对这个 name entity 的 handle，后续可以基于这个不透明的 handle 做一些其他的操作。
 
 具体来说 `^^` 支持下面四种 name entity，
 
@@ -54,7 +54,7 @@ constexpr std::meta::info rint = ^^int;
 using int2 = [:rint:];
 ```
 
-使用 `[:rint:]` 就将 `rint` 映射回了 `int` 类型，对于其它的 name entity 也是类似的，使用 `[:rint:]` 可以将它们映射回去。注意在**某些**可能造成歧义的上下文中需要在 `[: :]` 前面加上 `typename` 或者 `template` 关键字来消除歧义。
+使用 `[:rint:]` 就将 `rint` 映射回了 `int` 类型，对于其他的 name entity 也是类似的，使用 `[:rint:]` 可以将它们映射回去。注意在**某些**可能造成歧义的上下文中需要在 `[: :]` 前面加上 `typename` 或者 `template` 关键字来消除歧义。
 
 > 需要消歧义的地方基本上还是 dependent name 的情况，也就是说当 `r` 是模板参数的时候，没法直接确定 `[:r:]` 是表达式，还是类型，还是模板，所以要手动来消除歧义。
 
@@ -62,7 +62,7 @@ using int2 = [:rint:];
 
 ## Meta Function
 
-我们都知道，仅仅获取一个 handle 并没有什么用，关键在其它于基于 handle 的一些操作。例如获取了一个文件的 handle，可以基于这个 handle 读取内容或者关闭文件什么的。在静态反射中，对这些 handle 的操作就是**元函数 (meta function)**。在 `<meta>` 头文件中，提供了一组非常广泛的函数用于操作这些 handle。下面对其中一些非常常用的元函数进行介绍
+我们都知道，仅仅获取一个 handle 并没有什么用，关键在其他于基于 handle 的一些操作。例如获取了一个文件的 handle，可以基于这个 handle 读取内容或者关闭文件什么的。在静态反射中，对这些 handle 的操作就是**元函数 (meta function)**。在 `<meta>` 头文件中，提供了一组非常广泛的函数用于操作这些 handle。下面对其中一些非常常用的元函数进行介绍
 
 > 反射目前使用编译期的异常来处理元函数中遇到的错误
 
@@ -81,7 +81,7 @@ namespace std::meta {
 }
 ```
 
-在**序列化 (serialization)** 和**反序列化 (deserialization)** 中的一个常见诉求就是获取到某个 struct 的 members，然后递归进行序列化。在静态反射之前，我们只能通过各种 hack 的方式来做到这一点，而且并不完美。例如 [reflect-cpp](https://github.com/getml/reflect-cpp) 支持 C++20 下获取**聚合类 (aggregate class)** 的数据成员 和 [magic-enum](https://github.com/Neargye/magic_enum) 支持枚举值在 `[-127, 128]` 范围内的枚举成员。实现方式非常的 hack 而且对编译器不友好，实例化大量模板导致编译速度降低，而且限制也很多。
+在**序列化 (serialization)** 和**反序列化 (deserialization)** 中的一个常见诉求就是获取到某个 struct 的 members，然后递归进行序列化。在静态反射之前，我们只能通过各种 hack 的方式来做到这一点，而且并不完美。例如 [reflect-C++](https://github.com/getml/reflect-cpp) 支持 C++20 下获取**聚合类 (aggregate class)** 的数据成员 和 [magic-enum](https://github.com/Neargye/magic_enum) 支持枚举值在 `[-127, 128]` 范围内的枚举成员。实现方式非常的 hack 而且对编译器不友好，实例化大量模板导致编译速度降低，而且限制也很多。
 
 现在在静态反射中，我们可以轻松的利用这几个元函数来获取命名空间或者类型的成员，而且不仅限于**数据成员**，**成员函数**和别名之类的成员也可以轻松获取，还可以获取**基类**信息，这在之前无论如何也是做不到的。也支持反向操作，通过 `parent_of` 获取某个成员的 parent，也就是定义这个 entity 的 namespace, class 或者 function。
 
@@ -106,7 +106,7 @@ int main() {
 
 输出 `p: 3, 4`，成功通过反射访问成员！
 
-> `access_context` 参数用于控制访问权限，它决定了我们是否能“看到”私有或保护成员，`unchecked()` 则代表拥有完全的访问权限，也就是说不进行任何访问检查。除了 `unchecked` 以外还有 `current` 表示使用当前作用域的访问权限，以及 `unprivileged` 只能访问非私有成员。上述获取成员的元函数会根据 access_context 对返回结果进行过滤。
+> `access_context` 参数用于控制访问权限，它决定了我们是否能「看到」私有或保护成员，`unchecked()` 则代表拥有完全的访问权限，也就是说不进行任何访问检查。除了 `unchecked` 以外还有 `current` 表示使用当前作用域的访问权限，以及 `unprivileged` 只能访问非私有成员。上述获取成员的元函数会根据 access_context 对返回结果进行过滤。
 
 ### identifiers
 
@@ -174,7 +174,7 @@ constexpr auto rint = ^^int;
 constexpr auto rint1 = ^^int1;
 ```
 
-这里的 `rint` 和 `rint1` 应该相等吗？毫无疑问它们表示相同的**类型**，但是前面我们说过，`std::meta::info` 是一个编译器内部表示的 `handle`，显然编译器会单独的跟踪类型别名的信息，所以 `rint` 和 `rint1` 其实是不同的 name entity 的 handle，那么它们**不相等**。关于判断两个 `std::meta::info` 是否相等的完整规则这里就略去了，有一些其它的 case 需要考虑，具体的细节可以之后去 cppreference 或者标准草案上查阅。对于本文的例子，理解上述这个别名的例子就足够了。
+这里的 `rint` 和 `rint1` 应该相等吗？毫无疑问它们表示相同的**类型**，但是前面我们说过，`std::meta::info` 是一个编译器内部表示的 `handle`，显然编译器会单独的跟踪类型别名的信息，所以 `rint` 和 `rint1` 其实是不同的 name entity 的 handle，那么它们**不相等**。关于判断两个 `std::meta::info` 是否相等的完整规则这里就略去了，有一些其他的 case 需要考虑，具体的细节可以之后去 cppreference 或者标准草案上查阅。对于本文的例子，理解上述这个别名的例子就足够了。
 
 ```cpp
 namespace std::meta {
@@ -436,7 +436,7 @@ consteval auto is_user_declared(info r) -> bool;
 
 ## Function Reflection
 
-上面介绍了反射主体提案的内容，没有涉及的函数参数反射的部分，也就说你没法获取到注入函数参数名这样的信息。但是这个信息在某些场景比如在 pybind11 将 C++ 函数绑定到 python 中还是非常有用的。P3096R12 允许引入了如下的元函数从而对允许反射函数参数
+上面介绍了反射主体提案的内容，没有涉及的函数参数反射的部分，也就说你没法获取到注入函数参数名这样的信息。但是这个信息在某些场景比如在 pybind11 将 C++ 函数绑定到 Python 中还是非常有用的。P3096R12 允许引入了如下的元函数从而对允许反射函数参数
 
 ```cpp
 namespace std::meta {
@@ -478,7 +478,7 @@ void foo(const int x, float y) {
 
 从这个例子中就可以看出二者的区别了。C++ 会**隐式忽略**掉类型中函数参数上的 `const`，例如 `decltype(foo)` 的结果就是 `void(int, float)`，于是你在函数的外部是永远观察不到这一点的，`parameters_of` 反射的是函数的**接口**，用于从函数外部反射观察函数，它的行为和上述行为保持一致。而 `variable_of` 反射的是函数**定义**，用于从函数内部观察函数，如果在 `foo` 内部 `decltype(x)` 的话，会发现是 `const int`，没有忽略 `const`，于是 `variable_of` 也是这样。
 
-还有其它一些细致的区别，比如同一个函数的多次声明中，某个函数参数的名称不同：
+还有其他一些细致的区别，比如同一个函数的多次声明中，某个函数参数的名称不同：
 
 ```cpp
 void foo(int x);
@@ -825,4 +825,4 @@ Order { order_id: 20240621, buyer: User { id: 101, username: Alice } }
 
 到这里这篇关于静态反射的介绍文章就结束了，我尽量涵盖了反射中一些较为重要的核心特性，并附上合适的案例。静态反射是简洁的，强大的和易于理解的。这也象征着 C++ 数十年来 constexpr 演进取得了阶段性的里程碑。在文章的最后，让我引用 Herb Sutter 的 [一段话](https://herbsutter.com/2025/06/21/trip-report-june-2025-iso-c-standards-meeting-sofia-bulgaria/) 来结束这篇文章：
 
-> 在今天之前，C++ 历史上最重要的单项特性投票或许是 2007 年 7 月在多伦多举行的那次，该投票决定将 Bjarne Stroustrup 和 Gabriel Dos Reis 的第一份 “constexpr” 提案纳入 C++11 草案。如今回首，我们可以看到那为 C++ 带来了多么巨大的结构性转变。<br><br>我坚信，在未来的许多年里，当我们回望今天，这个反射特性首次被采纳为标准 C++ 的日子，会视其为该语言历史上的一个关键日期。反射将从根本上改善我们编写 C++ 代码的方式，其对语言表达能力的扩展将超过我们至少 20 年来所见的任何特性，并将极大地简化现实世界中的 C++ 工具链和环境。即使仅凭我们今天拥有的部分反射能力，我们已经能够反射 C++ 类型，并利用这些信息加上普通的 std::cout 来生成任意额外的 C++ 源代码，这些代码基于反射信息，并且可以在程序构建时被编译并链接到同一程序中（未来我们还将获得 token injection 功能，从而可以在同一源文件中直接生成 C++ 源码）。但我们实际上可以生成任何东西：任意的二进制元数据，例如 .WINMD 文件；任意的其他语言代码，例如自动生成用于封装 C++ 类型的 Python 或 JS 绑定。所有这一切都可以通过可移植的标准 C++ 实现。<br><br>这是一件非常了不起的大事。听着，大家都知道我偏爱说 C++ 的好话，但我不喜欢夸大其词，也从未说过这样的话。今天确实是独一无二的：反射带来的变革性，比我们以往投票纳入标准的所有其他 10 个主要特性的总和还要大。在未来的十年（甚至更久）里，它将主导 C++ 的发展，我们将通过增加更多功能来完善这一特性（就像我们随着时间推移为 constexpr 添加功能以使其完备一样），并学习如何在我们的程序和构建环境中使用它。
+> 在今天之前，C++ 历史上最重要的单项特性投票或许是 2007 年 7 月在多伦多举行的那次，该投票决定将 Bjarne Stroustrup 和 Gabriel Dos Reis 的第一份 「constexpr」 提案纳入 C++11 草案。如今回首，我们可以看到那为 C++ 带来了多么巨大的结构性转变。<br><br>我坚信，在未来的许多年里，当我们回望今天，这个反射特性首次被采纳为标准 C++ 的日子，会视其为该语言历史上的一个关键日期。反射将从根本上改善我们编写 C++ 代码的方式，其对语言表达能力的扩展将超过我们至少 20 年来所见的任何特性，并将极大地简化现实世界中的 C++ 工具链和环境。即使仅凭我们今天拥有的部分反射能力，我们已经能够反射 C++ 类型，并利用这些信息加上普通的 std::cout 来生成任意额外的 C++ 源代码，这些代码基于反射信息，并且可以在程序构建时被编译并链接到同一程序中（未来我们还将获得 token injection 功能，从而可以在同一源文件中直接生成 C++ 源码）。但我们实际上可以生成任何东西：任意的二进制元数据，例如 .WINMD 文件；任意的其他语言代码，例如自动生成用于封装 C++ 类型的 Python 或 JS 绑定。所有这一切都可以通过可移植的标准 C++ 实现。<br><br>这是一件非常了不起的大事。听着，大家都知道我偏爱说 C++ 的好话，但我不喜欢夸大其词，也从未说过这样的话。今天确实是独一无二的：反射带来的变革性，比我们以往投票纳入标准的所有其他 10 个主要特性的总和还要大。在未来的十年（甚至更久）里，它将主导 C++ 的发展，我们将通过增加更多功能来完善这一特性（就像我们随着时间推移为 constexpr 添加功能以使其完备一样），并学习如何在我们的程序和构建环境中使用它。

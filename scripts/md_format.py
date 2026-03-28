@@ -96,6 +96,13 @@ NOUN_MAP: dict[str, str] = {
     "X86-64": "x86-64",
     "arm": "ARM",
     "Arm": "ARM",
+    "vscode": "VSCode",
+    "VSCODE": "VSCode",
+    "docker": "Docker",
+    "DOCKER": "Docker",
+    # Command names: wrap in inline code rather than capitalise
+    "clang++": "`clang++`",
+    "g++": "`g++`",
 }
 
 # Chinese tech typos: wrong → correct
@@ -319,22 +326,23 @@ def fix_typos(text: str, lno: int) -> tuple[str, list[Issue]]:
 
 
 def fix_ellipsis_dash(text: str, lno: int) -> tuple[str, list[Issue]]:
-    """Replace ... with …… and -- with —— in CJK context."""
+    """Replace ... with …… and -- with —— in CJK context.
+    Allows optional spaces between CJK and the punctuation.
+    """
     issues: list[Issue] = []
-    # ... → …… only when adjacent to CJK or at start/end of segment
+
     def _ellipsis_repl(m: re.Match) -> str:
-        before = text[:m.start()]
-        after = text[m.end():]
+        before = text[:m.start()].rstrip()
+        after = text[m.end():].lstrip()
         if (before and _is_cjk(before[-1])) or (after and _is_cjk(after[0])):
             issues.append(Issue(lno, "punct", "「...」→「……」", fixable=True))
             return "\u2026\u2026"
         return m.group(0)
-    text = re.sub(r"\.{3}", _ellipsis_repl, text)
+    text = re.sub(r"\.{3,}", _ellipsis_repl, text)
 
-    # -- → —— only when adjacent to CJK
     def _dash_repl(m: re.Match) -> str:
-        before = text[:m.start()]
-        after = text[m.end():]
+        before = text[:m.start()].rstrip()
+        after = text[m.end():].lstrip()
         if (before and _is_cjk(before[-1])) or (after and _is_cjk(after[0])):
             issues.append(Issue(lno, "punct", "「--」→「——」", fixable=True))
             return "\u2014\u2014"
@@ -344,13 +352,15 @@ def fix_ellipsis_dash(text: str, lno: int) -> tuple[str, list[Issue]]:
 
 
 def fix_dup_punct(text: str, lno: int) -> tuple[str, list[Issue]]:
-    """Collapse repeated stop/pause punctuation (not tone marks like ！？)."""
+    """Collapse repeated stop/pause punctuation (not tone marks like ！？).
+    Excludes : and ; to avoid false positives with C++ :: and other technical usage.
+    """
     issues: list[Issue] = []
-    STOP = r"[，。；：,\.;:]"
+    # Exclude . since ... is handled by fix_ellipsis_dash
+    STOP = r"[，。,]"
     def _repl(m: re.Match) -> str:
         issues.append(Issue(lno, "punct", f"重复标点「{m.group(0)}」→「{m.group(1)}」", fixable=True))
         return m.group(1)
-    # Don't collapse …… (U+2026 U+2026) or —— (U+2014 U+2014)
     text = re.sub(r"(" + STOP + r")\1+", _repl, text)
     return text, issues
 
@@ -509,8 +519,8 @@ def process_file(path: Path, fix: bool) -> FileResult:
             line, iss = fix_heading_space(line, lno)
             result.issues.extend(iss)
 
-        # List marker
-        if re.match(r"^\s*[-*+]\S", line) or re.match(r"^\s*\d+\.\S", line):
+        # List marker — exclude ** and __ (bold markers)
+        if re.match(r"^\s*[-+]\S", line) or re.match(r"^\s*\*(?!\*)\S", line) or re.match(r"^\s*\d+\.\S", line):
             line, iss = fix_list_space(line, lno)
             result.issues.extend(iss)
 
@@ -546,12 +556,13 @@ def process_file(path: Path, fix: bool) -> FileResult:
                 result.issues.extend(lint_punct_ascii(t, lno))
                 new_spans.append(Span("text", t))
             elif span.kind in ("link", "image"):
-                # Fix the inner label text
+                # Fix the inner label text, but skip if the label is itself a URL
                 inner = span.inner
-                inner, iss = fix_spacing_text(inner, lno)
-                result.issues.extend(iss)
-                inner, iss = fix_nouns(inner, lno)
-                result.issues.extend(iss)
+                if not inner.startswith(("http://", "https://")):
+                    inner, iss = fix_spacing_text(inner, lno)
+                    result.issues.extend(iss)
+                    inner, iss = fix_nouns(inner, lno)
+                    result.issues.extend(iss)
                 # Rebuild the span text with fixed inner
                 if span.kind == "link":
                     # [label](url) — replace label part
