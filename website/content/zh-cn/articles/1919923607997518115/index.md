@@ -15,7 +15,7 @@ zhihu_column_title: 编程语言中的反射
 - [Annotations for Reflection](https://isocpp.org/files/papers/P3394R4.html)
 - [Splicing a base class subobject](https://isocpp.org/files/papers/P3293R3.html)
 - [Expansion Statements](https://isocpp.org/files/papers/P1306R5.html)
-- [define*static*{string,object,array}](https://isocpp.org/files/papers/P3491R3.html)
+- [`define_static_{string,object,array}`](https://isocpp.org/files/papers/P3491R3.html)
 - [Error Handling in Reflection](https://isocpp.org/files/papers/P3560R2.html)
 
 全都通过了 plenary 得以被**正式纳入 C++26 标准**，这是一个令人激动的时刻。在我看来，静态反射无疑是 20 年来 C++ 最重要的一个新特性。它彻底改变了以前使用模板进行元编程的模式，让**元编程 (meta programming)** 的代码可以像普通的代码逻辑一样易于阅读、编写、使用，而不再是以前基于模板的 DSL。
@@ -637,7 +637,7 @@ template for (auto elem : t) { ... }
 
 template for **还支持** `continue` 和 `break` 语句，可以跳过剩余部分未实例化的代码
 
-### define_static_array
+### `define_static_array`
 
 好的，你现在已经学会 template for 了，于是想要兴致冲冲的编写一个能打印任何结构体的函数，用于调试
 
@@ -659,7 +659,7 @@ void print_struct(auto&& value) {
 
 发现报错了，说 template for 的初始化表达式不是常量表达式，这是为什么呢？这个事情就说来话长了。你会发现 `nonstatic_data_members_of` 的返回值竟然是一个 `vector`。我们前面说过 C++ 的反射是在编译期完成的，编译期还有 `vector` 用吗？还真有，C++20 允许了编译期的动态内存分配，于是你可以在 `constexpr/consteval` 函数中使用 `vector` 来处理中间状态了。但限制是编译期分配的内存必须在同一段编译期求值上下文中释放，如果在**一次编译期求值**中，有未释放的内存，则会导致编译错误。这个也可以理解，毕竟编译期分配的内存保留到运行期没任何含义了对吧。而每个 top level 的 constexpr 变量，模板参数等，包括 template for 的初始化表达式都视为**一次单独的常量求值**。
 
-所以上面的错误就很好理解了，template for 的初始化表达式被视为一次单独的常量求值，但是返回 `vector` 导致还有未释放的编译期内存，于是报错了。那怎么解决呢？P3491R3(define*static*{string,object,array}) 引入了一组函数作为这个问题的临时解决方案：
+所以上面的错误就很好理解了，template for 的初始化表达式被视为一次单独的常量求值，但是返回 `vector` 导致还有未释放的编译期内存，于是报错了。那怎么解决呢？P3491R3(`define_static_{string,object,array}`) 引入了一组函数作为这个问题的临时解决方案：
 
 ```cpp
 namespace std {

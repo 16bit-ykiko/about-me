@@ -140,7 +140,31 @@ class Parser:
                 case "b" | "strong":
                     nodes.append(markdown.Strong(self._norm(child.text)))
                 case "i" | "em":
-                    nodes.append(markdown.Emphasis(self._norm(child.text)))
+                    # Detect false-positive emphasis: if the <em> is
+                    # adjacent to word/underscore characters on either side,
+                    # it's part of an identifier (e.g. define_static_) that
+                    # Zhihu mistakenly rendered as italic.
+                    prev_text = (
+                        nodes[-1].text if nodes and hasattr(nodes[-1], "text") else ""
+                    )
+                    next_sib = child.next_sibling
+                    next_text = (
+                        str(next_sib)[:1] if next_sib and next_sib.name is None else ""
+                    )
+                    text = self._norm(child.text)
+                    prev_is_word = bool(prev_text) and (
+                        prev_text[-1].isalnum() or prev_text[-1] == "_"
+                    )
+                    next_is_word = bool(next_text) and (
+                        next_text[0].isalnum()
+                        or next_text[0] == "_"
+                        or next_text[0] == "{"
+                    )
+                    if prev_is_word or next_is_word:
+                        # Escape underscores to preserve the identifier
+                        nodes.append(markdown.Text(f"\\_{text}\\_"))
+                    else:
+                        nodes.append(markdown.Emphasis(text))
                 case "code":
                     nodes.append(markdown.InlineCode(child.text))
                 case "br":

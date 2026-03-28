@@ -137,6 +137,9 @@ def check_article(
             l = re.sub(r"\[([^\]]+?) +\]", r"[\1]", l)
             # Backslash escapes: \_ → _ (parser strips them, source may keep them)
             l = re.sub(r"\\([_*\[\]()~`>#+\-.!|{}])", r"\1", l)
+            # Zhihu strips <code> inside <a> and headings — normalise
+            l = re.sub(r"\[`([^`]+)`\]", r"[\1]", l)
+            l = re.sub(r"^(#{1,6}) `(.+)`$", r"\1 \2", l)
             result.append(l)
         return result
 
