@@ -15,7 +15,7 @@ zhihu_column_title: 编程语言中的反射
 - [Annotations for Reflection](https://isocpp.org/files/papers/P3394R4.html)
 - [Splicing a base class subobject](https://isocpp.org/files/papers/P3293R3.html)
 - [Expansion Statements](https://isocpp.org/files/papers/P1306R5.html)
-- [definestatic{string,object,array}](https://isocpp.org/files/papers/P3491R3.html)
+- [define_static\_{string,object,array}](https://isocpp.org/files/papers/P3491R3.html)
 - [Error Handling in Reflection](https://isocpp.org/files/papers/P3560R2.html)
 
 全都通过了 plenary 得以被**正式纳入 C++26 标准**，这是一个令人激动的时刻。在我看来，静态反射无疑是 20 年来 C++ 最重要的一个新特性。它彻底改变了以前使用模板进行元编程的模式，让**元编程 (meta programming)** 的代码可以像普通的代码逻辑一样易于阅读、编写、使用，而不再是以前基于模板的 DSL。
@@ -45,7 +45,7 @@ constexpr std::meta::info rint = ^^int;
 - `type-id`：类型
 - `id-expression`：绝大多数具有名字的东西，比如变量，静态成员变量，字段，函数，模板，枚举等
 
-那怎么可以这个 `handle` 还原回去吗？欸，可以的，使用**拼接器 (splicer)**：`[: :]` 将 `std::meta::info` 还原回 name entity。
+那怎么用这个 `handle` 还原回去呢？欸，可以的，使用**拼接器 (splicer)**：`[: :]` 将 `std::meta::info` 还原回 name entity。
 
 例如
 
@@ -62,7 +62,7 @@ using int2 = [:rint:];
 
 ## Meta Function
 
-我们都知道，仅仅获取一个 handle 并没有什么用，关键在其他于基于 handle 的一些操作。例如获取了一个文件的 handle，可以基于这个 handle 读取内容或者关闭文件什么的。在静态反射中，对这些 handle 的操作就是**元函数 (meta function)**。在 `<meta>` 头文件中，提供了一组非常广泛的函数用于操作这些 handle。下面对其中一些非常常用的元函数进行介绍
+我们都知道，仅仅获取一个 handle 并没有什么用，关键在于基于 handle 的一些操作。例如获取了一个文件的 handle，可以基于这个 handle 读取内容或者关闭文件什么的。在静态反射中，对这些 handle 的操作就是**元函数 (meta function)**。在 `<meta>` 头文件中，提供了一组非常广泛的函数用于操作这些 handle。下面对其中一些非常常用的元函数进行介绍
 
 > 反射目前使用编译期的异常来处理元函数中遇到的错误
 
@@ -158,7 +158,7 @@ namespace std::meta {
 }
 ```
 
-`offset_of` 返回给定字段 offset 信息，由两部分构成字节数 `bytes` 和位数 `bits`，用 `total_bits` 就可以获取具体的偏移了。这样设计的主要是考虑到字段可能是位域，偏移量不一定就是字节数。`size_of` 和 `alignment_of` 顾名思义就是获取 size 和 alignment。而 `bit_size_of` 则是获取位域的大小。
+`offset_of` 返回给定字段 offset 信息，由两部分构成：字节数 `bytes` 和位数 `bits`，用 `total_bits` 就可以获取具体的偏移了。这样设计的主要是考虑到字段可能是位域，偏移量不一定就是字节数。`size_of` 和 `alignment_of` 顾名思义就是获取 size 和 alignment。而 `bit_size_of` 则是获取位域的大小。
 
 通过这一组元函数，也不再需要通过各种 hack 的手段获取字段偏移量了，比如 `bit_cast` 成员指针来根据 ABI 细节获取到偏移量。在某些二进制序列化的场景是十分有用的。
 
@@ -436,7 +436,7 @@ consteval auto is_user_declared(info r) -> bool;
 
 ## Function Reflection
 
-上面介绍了反射主体提案的内容，没有涉及的函数参数反射的部分，也就说你没法获取到注入函数参数名这样的信息。但是这个信息在某些场景比如在 pybind11 将 C++ 函数绑定到 Python 中还是非常有用的。P3096R12 允许引入了如下的元函数从而对允许反射函数参数
+上面介绍了反射主体提案的内容，没有涉及的函数参数反射的部分，也就是说你没法获取到诸如函数参数名这样的信息。但是这个信息在某些场景比如在 pybind11 将 C++ 函数绑定到 Python 中还是非常有用的。P3096R12 允许引入了如下的元函数从而对允许反射函数参数
 
 ```cpp
 namespace std::meta {
@@ -518,7 +518,7 @@ Point p = {1, 2};
 auto data = json::serialize(p);
 ```
 
-通过静态反射，`json::serialize` 可以遍历 `Point` 的字段自动生成序列化逻辑，从而一行代码就能完成序列化。我们不再需要自己去编写重复的、繁琐的的序列化样板代码。通用性是好的，但是有时候我们也想要一些定制的能力。
+通过静态反射，`json::serialize` 可以遍历 `Point` 的字段自动生成序列化逻辑，从而一行代码就能完成序列化。我们不再需要自己去编写重复的、繁琐的序列化样板代码。通用性是好的，但是有时候我们也想要一些定制的能力。
 
 仍然是上面 json 序列化的例子，假设我们从服务器接收的 json 字段名是 `"first-name"`，但 C++ 的标识符不能包含 `-`，所以我们可能将成员命名为 `first_name`。如果能在序列化时特殊处理它，将 `first_name` 成员重命名为 `"first-name"` 就好了。
 
@@ -582,7 +582,7 @@ void print_all(std::tuple<int, char> xs) {
 }
 ```
 
-精确的的语法定义如下：
+精确的语法定义如下：
 
 ```cpp
 template for (init-statement(opt) for-range-declaration : expansion-initializer)
@@ -637,7 +637,7 @@ template for (auto elem : t) { ... }
 
 template for **还支持** `continue` 和 `break` 语句，可以跳过剩余部分未实例化的代码
 
-### define static array
+### define_static_array
 
 好的，你现在已经学会 template for 了，于是想要兴致冲冲的编写一个能打印任何结构体的函数，用于调试
 
@@ -659,7 +659,7 @@ void print_struct(auto&& value) {
 
 发现报错了，说 template for 的初始化表达式不是常量表达式，这是为什么呢？这个事情就说来话长了。你会发现 `nonstatic_data_members_of` 的返回值竟然是一个 `vector`。我们前面说过 C++ 的反射是在编译期完成的，编译期还有 `vector` 用吗？还真有，C++20 允许了编译期的动态内存分配，于是你可以在 `constexpr/consteval` 函数中使用 `vector` 来处理中间状态了。但限制是编译期分配的内存必须在同一段编译期求值上下文中释放，如果在**一次编译期求值**中，有未释放的内存，则会导致编译错误。这个也可以理解，毕竟编译期分配的内存保留到运行期没任何含义了对吧。而每个 top level 的 constexpr 变量，模板参数等，包括 template for 的初始化表达式都视为**一次单独的常量求值**。
 
-所以上面的错误就很好理解了，template for 的初始化表达式被视为一次单独的常量求值，但是返回 `vector` 导致还有未释放的编译期内存，于是报错了。那怎么解决呢？P3491R3(define*static*{string,object,array}) 引入了一组函数作为这个问题的临时解决方案：
+所以上面的错误就很好理解了，template for 的初始化表达式被视为一次单独的常量求值，但是返回 `vector` 导致还有未释放的编译期内存，于是报错了。那怎么解决呢？P3491R3(define_static\_{string,object,array}) 引入了一组函数作为这个问题的临时解决方案：
 
 ```cpp
 namespace std {
@@ -783,7 +783,7 @@ auto to_string(const T& value) -> std::string {
 }
 ```
 
-我们这个简单的 `to_string` 函数支持两种 annotation，一种是 `skip` 跳过输出某个字段，一种是 `rename` 用于对这个字段进行重命名。`get_annotation` 用于判断给定的 entity 是否只有一个给定类型的 annotation，如果有就返回那个 annotation 返回空或者报错。在 `to_string` 函数中的处理逻辑也很直接，如果 `value` 是基本类型或者 `string`，简单的调用 `format` 返回结果。否则递归的转换它的字段，先检查字段有没有 `skip` 这个 annotation，有就跳过。如果没有的话，就检查它有没有 `rename`，如果有就使用 `rename` 的名字否则使用字段名。
+我们这个简单的 `to_string` 函数支持两种 annotation，一种是 `skip` 跳过输出某个字段，一种是 `rename` 用于对这个字段进行重命名。`get_annotation` 用于判断给定的 entity 是否只有一个给定类型的 annotation，如果有就返回那个 annotation，否则返回空或者报错。在 `to_string` 函数中的处理逻辑也很直接，如果 `value` 是基本类型或者 `string`，简单的调用 `format` 返回结果。否则递归的转换它的字段，先检查字段有没有 `skip` 这个 annotation，有就跳过。如果没有的话，就检查它有没有 `rename`，如果有就使用 `rename` 的名字否则使用字段名。
 
 尝试使用
 

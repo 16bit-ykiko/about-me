@@ -159,13 +159,13 @@ AST（Abstract Syntax Tree，抽象语法树）是编译器在编译过程中生
     `-IntegerLiteral 0x7e0b3974e870 <col:19> 'int' 3
 ```
 
-可以发现，还是非常清晰的，能和源代码中的语法结构一一对应起来。由于 C++ 的语法非常复杂，自然对应的节点类型也是非常多的。可以在 Clang 源码目录下的 `clang/AST/DeclNodes.td` 和 `clang/AST/StmtNodes.td` 找到所有节点类型的继承图。注意是源码目录，而不是安装目录，`.td` 后缀的文件是 [LLVM taben gen](https://llvm.org/docs/TableGen) 语言，是一种特殊格式的配置文件，用于进行代码生成之类的工作。由于 LLVM 是关闭异常和 RTTI 的，但是诸如 `dynamic_cast` 这样的类型转换在对 AST 节点进行操作的时候又是非常常见的，所以 LLVM 就通过代码生成自己实现了一套类似的机制。相关的内容可以参考 [LLVM Programmer's Manual](https://llvm.org/docs/ProgrammersManual.html#the-isa-cast-and-dyn-cast-templates)。
+可以发现，还是非常清晰的，能和源代码中的语法结构一一对应起来。由于 C++ 的语法非常复杂，自然对应的节点类型也是非常多的。可以在 Clang 源码目录下的 `clang/AST/DeclNodes.td` 和 `clang/AST/StmtNodes.td` 找到所有节点类型的继承图。注意是源码目录，而不是安装目录，`.td` 后缀的文件是 [LLVM TableGen](https://llvm.org/docs/TableGen) 语言，是一种特殊格式的配置文件，用于进行代码生成之类的工作。由于 LLVM 是关闭异常和 RTTI 的，但是诸如 `dynamic_cast` 这样的类型转换在对 AST 节点进行操作的时候又是非常常见的，所以 LLVM 就通过代码生成自己实现了一套类似的机制。相关的内容可以参考 [LLVM Programmer's Manual](https://llvm.org/docs/ProgrammersManual.html#the-isa-cast-and-dyn-cast-templates)。
 
 下面对于 AST 中一些比较重要的节点和 API 进行介绍（暂时只有很少一些，之后会根据反馈进行补充）
 
 ### Cast
 
-首先最基础也是最重要的一个操作就是节点类型的 downcast 了，如前文所述相关的操作在 LLVM 中共用一套逻辑。用的最做的 API 就是 `llvm::dyn_cast` 了，例如我们想判断一个声明是不是函数声明
+首先最基础也是最重要的一个操作就是节点类型的 downcast 了，如前文所述相关的操作在 LLVM 中共用一套逻辑。用得最多的 API 就是 `llvm::dyn_cast` 了，例如我们想判断一个声明是不是函数声明
 
 ```cpp
 void foo(clang::Decl* decl) {
@@ -179,7 +179,7 @@ void foo(clang::Decl* decl) {
 
 ### DeclContext
 
-在 C++ 中，有一些我们可以在一些内部定义其他的声明的声明，例如
+在 C++ 中，有一些声明可以在其内部定义其他声明，例如
 
 ```cpp
 namespace foo {
@@ -189,7 +189,7 @@ int x = 1;
 }
 ```
 
-这是 `foo` 就作为 `x` 的声明上下文，为了描述这种关系，在 Clang 中所有能作为声明上下文的 `Decl` 都会继承 `DeclContext`。典型案例就是上面说的 `NamespaceDecl` 了。可以通过 `DeclContext::decls()` 这个成员获取上下文中所有的声明。
+这里 `foo` 就作为 `x` 的声明上下文，为了描述这种关系，在 Clang 中所有能作为声明上下文的 `Decl` 都会继承 `DeclContext`。典型案例就是上面说的 `NamespaceDecl` 了。可以通过 `DeclContext::decls()` 这个成员获取上下文中所有的声明。
 
 ### Template
 
@@ -281,7 +281,7 @@ public:
 
 Clang 会在 AST 中详细的记录节点的位置信息。表示位置信息的核心类是 `clang::SourceLocation`。为了在减少内存占用的同时能储存尽量多的信息，它本身只相当于一个 ID，大小只有 int 非常轻量。实际的位置信息则被储存在 `clang::SourceManager` 中。在需要详尽的信息的时候，需要通过 `SourceManager` 来进行解码。
 
-通过 `ASTContext::getSourceManager` 可以获取到对应的 `SourceManager`。然后就我们可以通过如下代码 dump 出节点的位置信息
+通过 `ASTContext::getSourceManager` 可以获取到对应的 `SourceManager`。然后我们就可以通过如下代码 dump 出节点的位置信息
 
 ```cpp
 void dump(clang::SourceManager& SM, clang::FunctionDecl* FD) {
@@ -368,12 +368,12 @@ void dump(clang::SourceManager& SM, clang::SourceLocation location) {
 
 对于 clice 来说，很多的语言服务器请求都是通过遍历 AST 来完成的。例如 [SemanticTokens](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/)，它的效果是为源码中的 token 提供代码 kind 和 modifier 修饰，使得编辑器可以进一步根据主题进行高亮。
 
-那么如何实现它呢？其实就是遍历 AST，然后根据节点类型，返回 LSP 标准中定义的 kind，比如 variable 和 function。最后在根据 token 的位置进行排序就行了。原理十分简单，剩下的内容就是处理由于 C++ 语法的复杂性所来带的很多 corner case 了。
+那么如何实现它呢？其实就是遍历 AST，然后根据节点类型，返回 LSP 标准中定义的 kind，比如 variable 和 function。最后再根据 token 的位置进行排序就行了。原理十分简单，剩下的内容就是处理由于 C++ 语法的复杂性所带来的很多 corner case 了。
 
 到这里文章就结束了，感谢阅读。这里还有一些来自于 Clang 官方的参考文档：
 
 - [LibTooling](https://clang.llvm.org/docs/LibTooling.html)
-- [AST Macther](https://clang.llvm.org/docs/LibASTMatchers.html)
+- [AST Matcher](https://clang.llvm.org/docs/LibASTMatchers.html)
 - [Transformer](https://clang.llvm.org/docs/ClangTransformerTutorial.html)
 - [Introduction to the Clang AST](https://clang.llvm.org/docs/IntroductionToTheClangAST.html)
 - [Clang CFE Internals Manual](https://clang.llvm.org/docs/InternalsManual.html)

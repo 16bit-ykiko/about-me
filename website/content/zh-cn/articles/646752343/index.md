@@ -56,7 +56,7 @@ static_assert(a == 0 && b == 1 && c == 2);
 
 如果你只对代码感兴趣，我已经将相关的代码放在 [Compiler Explorer](https://godbolt.org/z/T543Tvc3q) 上。三大编译器 C++20 均编译通过，你可以直接看到编译器的输出结果。为了防止链接失效，也放到 [GitHub](https://github.com/16bit-ykiko/blog/blob/main/code/compile-time-counter.cpp) 上。如果你想要了解它的原理，欢迎继续往下阅读。C++ 标准非常复杂，作者也没法保证文章内容完全正确，如果有任何错误，欢迎评论区讨论交流。
 
-> 根据 [CWG 2118](https://cplusplus.github.io/CWG/issues/2118.html)，相关的代被认为是非良构的 (ill formed)。但是后来引入的 C++26 静态反射，提案本身就提供了类似的计数器示例，似乎又肯定了这种做法。总的来说，我认为这是 C++ 区分声明顺序导致的固有缺陷，假设像许多现代编程语言那样做 lazy parse，不区分声明顺序，进行两遍扫描，或许这种编译期可变状态才能真正消除。如果你打算在代码中尝试它，务必十分谨慎，STMP 较容易造成 ODR 违背。
+> 根据 [CWG 2118](https://cplusplus.github.io/CWG/issues/2118.html)，相关的代码被认为是非良构的 (ill formed)。但是后来引入的 C++26 静态反射，提案本身就提供了类似的计数器示例，似乎又肯定了这种做法。总的来说，我认为这是 C++ 区分声明顺序导致的固有缺陷，假设像许多现代编程语言那样做 lazy parse，不区分声明顺序，进行两遍扫描，或许这种编译期可变状态才能真正消除。如果你打算在代码中尝试它，务必十分谨慎，STMP 较容易造成 ODR 违背。
 
 ## observable state
 
@@ -159,7 +159,7 @@ static_assert(is_complete_v<X>);
 
 ## modifiable state
 
-再可以观测到状态变化之后，下面我们要考虑能否通过代码来主动进行状态更改。很可惜，对于绝大多数 declaration 来说，你唯一能改变它们的状态的办法就是通过修改源代码来添加 definition，没有其他的手段实现这个效果。
+在可以观测到状态变化之后，下面我们要考虑能否通过代码来主动进行状态更改。很可惜，对于绝大多数 declaration 来说，你唯一能改变它们的状态的办法就是通过修改源代码来添加 definition，没有其他的手段实现这个效果。
 
 唯一的例外是友元函数。但在考虑友元函数如何发挥作用之前，先让我们考虑一下如何观测到一个函数有没有被定义。对于绝大多数的函数是无法观测的，考虑到函数可能定义在其他编译单元，调用一个函数并不要求其定义可见。
 
@@ -285,11 +285,11 @@ int main() {
 
 首先要明确一个观点：类的访问权限说明符 `private`, `public`, `protected` 仅仅只作用于编译期的检查。如果能通过某种手段绕过这个编译期检查，那完全就可以合法的访问类的任意成员。
 
-那么存在这样的方法吗？有的：**模板显示实例化的时候会忽略类作用域的访问权限：**
+那么存在这样的方法吗？有的：**模板显式实例化的时候会忽略类作用域的访问权限：**
 
 > The C++11/14 standards state the following in note 14.7.2/12 [temp.explicit]: The usual access checking rules do not apply to names used to specify explicit instantiations. [ Note: In particular, the template arguments and names used in the function declarator (including parameter types, return types and exception speciﬁcations) may be private types or objects which would normally not be accessible and the template may be a member template or member function which would not normally be accessible. — end note ]
 
-也就是说在模板**显示实例化 (explicit instantiate)** 的时候，我们可以直接访问类的私有成员。
+也就是说在模板**显式实例化 (explicit instantiate)** 的时候，我们可以直接访问类的私有成员。
 
 ```cpp
 #include <iostream>

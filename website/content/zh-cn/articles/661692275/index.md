@@ -57,7 +57,7 @@ int main() {
 }
 ```
 
-随着 C++14/17 的到来，`constexpr` 函数中的的限制被进一步放开，现在能在 constexpr 函数中使用局部变量和循环了，就像下面这样
+随着 C++14/17 的到来，`constexpr` 函数中的限制被进一步放开，现在能在 constexpr 函数中使用局部变量和循环了，就像下面这样
 
 ```cpp
 constexpr std::size_t factorial(std::size_t N) {
@@ -138,7 +138,7 @@ static_assert(std::is_same_v<Second, double>);
 
 再也不用递归匹配了，我们可以把类型像值一样计算。只要理解了这种映射关系，代码写起来非常简单。用于类型计算的模板元可以退出历史舞台了！
 
-其实 `^` 其实不仅能够映射类型，主要有下面这些功能:
+`^` 其实不仅能够映射类型，主要有下面这些功能:
 
 - `^::` —— 代表全局命名空间
 - `^namespace-name`—— 命名空间名称
@@ -217,7 +217,7 @@ constexpr auto r = substitute(^std::vector, std::vector{^int});
 using T = [:r:]; // Ok, T is std::vector<int>
 ```
 
-获取 `struct`,`class`，,`union`,`enum` 的成员信息
+获取 `struct`、`class`、`union`、`enum` 的成员信息
 
 ```cpp
 namespace std::meta{
@@ -246,7 +246,7 @@ namespace std::meta{
 
 ## Better compile facilities
 
-反射的主题部分大致已经介绍完了，现在来聊聊其他的。虽然这部分是其他提案的内容，但是他们可以使代码写起来更见轻松，让代码有更强的表达能力。
+反射的主题部分大致已经介绍完了，现在来聊聊其他的。虽然这部分是其他提案的内容，但是它们可以使代码写起来更加轻松，让代码有更强的表达能力。
 
 ### template for
 
@@ -331,7 +331,7 @@ int main() {
 }
 ```
 
-- C++20 允许了 `constexpr` 中进行 `new`，但是编译期 `new` 的内存必需要在编译期 `delete`。
+- C++20 允许了 `constexpr` 中进行 `new`，但是编译期 `new` 的内存必须在编译期 `delete`。
 
 ```cpp
 constexpr auto size(auto... Is) {
@@ -340,7 +340,7 @@ constexpr auto size(auto... Is) {
 }
 ```
 
-那就不能在编译期 `new` 里之后，不 `delete`？实际数据放在数据段？这就是这个提案要解决的问题，它希望我们能使用
+那就不能在编译期 `new` 之后，不 `delete`？实际数据放在数据段？这就是这个提案要解决的问题，它希望我们能使用
 
 ```cpp
 constexpr std::vector<int> v = {1, 2, 3, 4, 5}; // 全局的

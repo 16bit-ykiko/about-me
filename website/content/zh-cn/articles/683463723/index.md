@@ -90,7 +90,7 @@ void foo() {
 }
 ```
 
-可以发现这种情况下，编译器不得不给 `x` 分配内存。实际上的判断规则更复杂一些，感兴趣的可以自行参考 [lambda capture](https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture)。最终这个提案被接受，进入了 [C++17](<https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture:~:text=This%20function%20is%20constexpr%20if%20the%20function%20call%20operator%20(or%20specialization%2C%20for%20generic%20lambdas)%20%20is%20constexpr.>)。
+可以发现这种情况下，编译器不得不给 `x` 分配内存。实际上的判断规则更复杂一些，感兴趣的可以自行参考 [lambda capture](https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture)。最终这个提案被接受，进入了 [C++17](<https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture:~:text=This%20function%20is%20constexpr%20if%20the%20function%20call%20operator%20(or%20specialization%2C%20for%20generic%20lambdas)%20%20 is%20constexpr.>)。
 
 ## 2017-2019：编译期和运行期……不同?
 
@@ -245,7 +245,7 @@ if constexpr (jsv["feature-x-enabled"]) {
 
 针对第二个问题，处理起来并不简单。C++ 有很多未定义行为都是由于错误的内存处理导致的，相比之下，不能直接操作内存的脚本语言则安全的多。但是为了复用代码，C++ 编译器中的常量求值器不得不直接操作内存，不过由于所有信息都是编译期已知的，理论上可以保证常量求值中不会出现内存错误 (out of range, double free, memory leak, ...)，如果出现应该中止编译并报告错误。
 
-常量求值器需要跟踪许多对象的的元信息，并找出这些错误
+常量求值器需要跟踪许多对象的元信息，并找出这些错误
 
 - 记录 `union` 哪个 field 是 active 的，访问 unactive 的成员导致未定义行为，这由 [P1330](https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1330r0.pdf) 阐明
 - 正确记录对象的 [lifetime](https://en.cppreference.com/w/cpp/language/lifetime)，访问未初始化的内存和已经析构的对象都是不允许的
@@ -305,14 +305,14 @@ constexpr int bar(int x){ return x; }
 foo(bar(1)); // evaluate at compile time ?
 ```
 
-事实上 `g` 无论是在编译期还是运行期执行，理论上都可以。为了保证它在编译期执行，我们需要多写一些代码
+事实上 `bar` 无论是在编译期还是运行期执行，理论上都可以。为了保证它在编译期执行，我们需要多写一些代码
 
 ```cpp
 constexpr auto x = bar(1);
 foo(x);
 ```
 
-这样就保证了 `g` 在编译期执行，同样，这种没意义的局部变量实在是多余。提案 [P1073](https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1073r0.html) 希望增加一个标记 `constexpr!` 来确保一个函数在编译期执行，如果不满足则导致编译错误。最终该标记被更名为 [consteval](https://en.cppreference.com/w/cpp/language/consteval) 并进入了 C++20。
+这样就保证了 `bar(1)` 在编译期执行，同样，这种没意义的局部变量实在是多余。提案 [P1073](https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1073r0.html) 希望增加一个标记 `constexpr!` 来确保一个函数在编译期执行，如果不满足则导致编译错误。最终该标记被更名为 [consteval](https://en.cppreference.com/w/cpp/language/consteval) 并进入了 C++20。
 
 ```cpp
 extern int foo(int x);
@@ -402,11 +402,11 @@ int main(){
 
 解决办法自然是想办法禁止 `pi` 调用 `reset`，提案提出了 `propconst` 关键字，它可以把外层的 `constexpr` 传递给内层，这样 `pi` 也是 `const` 的了，也就不能调用 `reset` 了，就不会出现代码逻辑问题了。
 
-可惜的的是暂时还未被标准接受，在那之后还有一些新的的提案希望能够支持这个特性比如 [P2670R1](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2670r1.html)，相关的讨论还在继续。
+可惜的是暂时还未被标准接受，在那之后还有一些新的提案希望能够支持这个特性比如 [P2670R1](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2670r1.html)，相关的讨论还在继续。
 
 ## 2021：constexpr 类
 
-C++ 标准库中的很多类型，比如 `vector`, `string`, `unique_ptr` 中的所有方法都被标记为 constexpr，并且真正可以在编译期执行。很自然的，我们希望能直接标记整个类为 constexpr，这样可以省去哪些重复的说明符编写。
+C++ 标准库中的很多类型，比如 `vector`, `string`, `unique_ptr` 中的所有方法都被标记为 constexpr，并且真正可以在编译期执行。很自然的，我们希望能直接标记整个类为 constexpr，这样可以省去那些重复的说明符编写。
 
 提案 [P2350](https://open-std.org/JTC1/SC22/WG21/docs/papers/2021/p2350r1.pdf) 希望支持这个特性，constexpr 标记的 `class` 中的所有方法都被隐式标记为 constexpr
 

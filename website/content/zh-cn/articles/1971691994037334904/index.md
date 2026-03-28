@@ -33,7 +33,7 @@ with open("foo.cubin", "wb") as f:
 
 所以现在我们有了算子对应的 cubin 文件，剩下的问题就是：
 
-1. 如何在 C++ 代码加载 cubin 格式的算子
+1. 如何在 C++ 代码中加载 cubin 格式的算子
 2. 如何把 cubin 文件嵌入到 C++ 代码中一起编译成 library
 3. 生成 h 头文件供下游用户调用
 

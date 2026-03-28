@@ -20,11 +20,11 @@ zhihu_url: https://zhuanlan.zhihu.com/p/694365783
 
 ![](https://picx.zhimg.com/v2-f8b679e187c025f49cac898d60a66653_1440w.jpg)
 
-让我们从上往下以此介绍
+让我们从上往下依次介绍
 
 ![](https://pic1.zhimg.com/v2-702bddfa45a016fdad36c70cc95d88fa_1440w.jpg)
 
-这个三个按钮的功能依次是：
+这三个按钮的功能依次是：
 
 - `Compile All`：编译所有的编译器实例
 - `Add New`：添加一个新的编译器实例
@@ -41,7 +41,7 @@ zhihu_url: https://zhuanlan.zhihu.com/p/694365783
 
 ![](https://pic1.zhimg.com/v2-4563375d43c5084354585cec8dc1c692_1440w.jpg)
 
-这个三个按钮的功能依次是：
+这三个按钮的功能依次是：
 
 - `Run`：编译这个编译器实例
 - `Clone`：克隆这个编译器实例

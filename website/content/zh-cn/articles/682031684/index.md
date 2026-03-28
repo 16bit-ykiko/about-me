@@ -182,7 +182,7 @@ note: value 2147483660 is outside the range of representable values of type 'int
 
 **标准的改变是通过 proposals（提案）进行的**
 
-> 在哪里可以找到提案？它们是由什么组成的？<br><br>所有的有关 C++ 标准的提案都可以在 [open-std.org](https://open-std.org/JTC1/SC22/WG21/) 上找到。它们中的大多数都有详细的描述并且易于阅读。通常由如下部分组成： <br><br>- 当前遇到的问题 <br>- 标准中相关措辞的的链接 <br>- 上述问题的解决方案 <br>- 建议对标准措辞进行的修改 <br>- 相关提案的链接（提案可能有多个版本或者需要和其他提案进行对比） <br>- 在高级提案中，往往还会附带上实验性实现的链接<br><br>可以通过这些提案来了解 C++ 的每个部分是如何演变的。并非存档中的所有提案最终都被接受，但是它们都对 C++ 的发展有着重要的影响。<br><br>通过提交新提案，任何人都可以参与到 C++ 的演变过程中来。
+> 在哪里可以找到提案？它们是由什么组成的？<br><br>所有的有关 C++ 标准的提案都可以在 [open-std.org](https://open-std.org/JTC1/SC22/WG21/) 上找到。它们中的大多数都有详细的描述并且易于阅读。通常由如下部分组成： <br><br>- 当前遇到的问题 <br>- 标准中相关措辞的链接 <br>- 上述问题的解决方案 <br>- 建议对标准措辞进行的修改 <br>- 相关提案的链接（提案可能有多个版本或者需要和其他提案进行对比） <br>- 在高级提案中，往往还会附带上实验性实现的链接<br><br>可以通过这些提案来了解 C++ 的每个部分是如何演变的。并非存档中的所有提案最终都被接受，但是它们都对 C++ 的发展有着重要的影响。<br><br>通过提交新提案，任何人都可以参与到 C++ 的演变过程中来。
 
 `2003` 年的提案 [N1521 Generalized Constant Expressions](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2003/n1521.pdf) 指出一个问题。如果一个表达式中的某个部分含有函数调用，那么整个表达式就不能是常量表达式，即使这个函数最终能够被常量折叠。这迫使人们在处理复杂常量表达式的时候使用宏，甚至一定程度上导致了宏的滥用
 
@@ -474,7 +474,7 @@ int k = f(4);
 
 constexpr int k2 = ++k;
 // 错误，不是一个常量表达式，不能修改 k
-// 因为其生存期没有在，这个表达式内开始
+// 因为其生存期没有在这个表达式内开始
 
 struct X{
     constexpr X() : n(5){
@@ -512,7 +512,7 @@ constexpr int g(){
 
 目前，类的 constexpr 函数会自动标记为 const
 
-在提案 [constexpr member functions and implicit const](https://open-std.org/JTC1/SC22/WG21/docs/papers/2013/n3598.html) 中指出：如果一个成员函数是 constexpr 的，它不一定一定要是 const 的。随着 constexpr 计算中的可变性变得越来越重要，这一点变得更加突出。但即使在此之前，它也妨碍了在 constexpr 和非 constexpr 代码中使用相同的函数：
+在提案 [constexpr member functions and implicit const](https://open-std.org/JTC1/SC22/WG21/docs/papers/2013/n3598.html) 中指出：如果一个成员函数是 constexpr 的，它不一定要是 const 的。随着 constexpr 计算中的可变性变得越来越重要，这一点变得更加突出。但即使在此之前，它也妨碍了在 constexpr 和非 constexpr 代码中使用相同的函数：
 
 ```cpp
 struct B{

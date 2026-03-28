@@ -89,7 +89,7 @@ int main(){
 }
 ```
 
-这段代码其实没法通过编译，编译器会报错 `use of deleted function Settings::Settings()`。为什么 `Settings` 的构造函数被删除了呢？这其实是因为 `std::string` 的构造函数是 not trivial 的，当 `union` 中含有 not trivial 的类型的成员的时候，编译器无法正确的生成构造函数和析构函数（不知道你要初始化或者析构哪个成员）。详情原因请见的可以参考 cppreference 上对 [union](https://en.cppreference.com/w/cpp/language/union) 的介绍。
+这段代码其实没法通过编译，编译器会报错 `use of deleted function Settings::Settings()`。为什么 `Settings` 的构造函数被删除了呢？这其实是因为 `std::string` 的构造函数是 not trivial 的，当 `union` 中含有 not trivial 的类型的成员的时候，编译器无法正确的生成构造函数和析构函数（不知道你要初始化或者析构哪个成员）。详细原因可以参考 cppreference 上对 [union](https://en.cppreference.com/w/cpp/language/union) 的介绍。
 
 怎么解决呢？那就是我们自己来定义 `union` 的构造函数和析构函数。比如我们可以给它定义一个空的构造函数和析构函数，也就是什么都不做
 
@@ -129,7 +129,7 @@ int main(){
 
 > 注意，这里不能**直接赋值 (assign)**。因为赋值操作其实是在调用成员函数 `operator=`，而只有已经初始化过后的对象才能调用成员函数。
 
-从上面的代码不难看出，如果要在 C++ 里面直接使用 union 来表示 sum type，非常麻烦。不仅要及时更新 `type`，还要正确调用构造函数和析构函数，还要留意赋值的时机问题赋值。如果其中的某一步忘记了，就会导致 undefined behavior，这非常让人头疼。不过还好，C++17 给我们提供了 `std::variant` 来解决这个问题。
+从上面的代码不难看出，如果要在 C++ 里面直接使用 union 来表示 sum type，非常麻烦。不仅要及时更新 `type`，还要正确调用构造函数和析构函数，还要留意赋值的时机问题。如果其中的某一步忘记了，就会导致 undefined behavior，这非常让人头疼。不过还好，C++17 给我们提供了 `std::variant` 来解决这个问题。
 
 ## std::variant
 
@@ -148,7 +148,7 @@ int main() {
 }
 ```
 
-上面的代码完全是 well defined，通过模板元编程，`variant` 会在合适和时机处理对象的构造和析构。
+上面的代码完全是 well defined，通过模板元编程，`variant` 会在合适的时机处理对象的构造和析构。
 
 它有一个 `index` 成员函数可以获取当前类型在你写的类型列表里面的索引。
 
@@ -159,7 +159,7 @@ s = 1; // s.index() => 0
 s = true; // s.index() => 1
 ```
 
-使用用 `std::get` 可以从 `variant` 里面取出对应的值
+使用 `std::get` 可以从 `variant` 里面取出对应的值
 
 ```cpp
 Settings s;
@@ -218,7 +218,7 @@ settings = 1;
 std::visit(callback, s); // => 1
 ```
 
-是不是很神奇呢？只需要传入一个 `callback`，就能直接访问到 `variant` 里面的值了，不需要手动进行任何分发。软件工程领域有一条铁律：复杂度不会消失，只会转移，这里也不例外。其实 `visit` 内部帮你把 `callback` 根据 `variant` 里面的每个类型实例化了一份函数，预先打好了函数表，然后再运行时根据 `index` 直接调用函数表里面的函数就行了。
+是不是很神奇呢？只需要传入一个 `callback`，就能直接访问到 `variant` 里面的值了，不需要手动进行任何分发。软件工程领域有一条铁律：复杂度不会消失，只会转移，这里也不例外。其实 `visit` 内部帮你把 `callback` 根据 `variant` 里面的每个类型实例化了一份函数，预先打好了函数表，然后在运行时根据 `index` 直接调用函数表里面的函数就行了。
 
 但更多时候，我们其实是想根据不同类型做不同的事情。这在其他语言中可以方便的通过模式匹配做到
 

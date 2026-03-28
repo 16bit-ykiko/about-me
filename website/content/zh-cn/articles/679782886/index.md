@@ -105,7 +105,7 @@ _注：也可以考虑直接使用 C++17 加入的 uninitialized_move_n 和 dest
 
 ## 大材小用
 
-这样总感觉怪怪的，我们主要的目的是把就旧内存上的对象全部移动到新内存上，但是用的居然是 [trivially copyable](https://en.cppreference.com/w/cpp/named_req/TriviallyCopyable) 这个 trait，似乎约束过强了。完全创建一个新对象和把原来的对象放置到新的位置，感觉差别还挺大的。考虑下面这个例子。似乎直接对 `std::string` 这样的类型进行 `memcpy` 也是可以的。由于内存都是我们手动管理，析构函数也是我们手动调用，并不会出现多次调用析构函数的情况
+这样总感觉怪怪的，我们主要的目的是把旧内存上的对象全部移动到新内存上，但是用的居然是 [trivially copyable](https://en.cppreference.com/w/cpp/named_req/TriviallyCopyable) 这个 trait，似乎约束过强了。完全创建一个新对象和把原来的对象放置到新的位置，感觉差别还挺大的。考虑下面这个例子。似乎直接对 `std::string` 这样的类型进行 `memcpy` 也是可以的。由于内存都是我们手动管理，析构函数也是我们手动调用，并不会出现多次调用析构函数的情况
 
 ```cpp
 std::byte buffer[sizeof(std::string)];
@@ -148,14 +148,14 @@ str2.~basic_string();
 
 ### 保守派
 
-保守派的解决方案是添加 relocatable 和 trivally-relocatable 的概念，以及用来判断的相关 trait。
+保守派的解决方案是添加 relocatable 和 trivially-relocatable 的概念，以及用来判断的相关 trait。
 
 如果一个类型是 move-constructible 且 destructible 的，那么它就是 relocatable 的
 
-如果一个类型满足下列条件之一，那么它就是 trivally-relocatable 的
+如果一个类型满足下列条件之一，那么它就是 trivially-relocatable 的
 
 - 是一个 trivially-copyable 的类型
-- 是一个 trivally-relocatable 类型的数组
+- 是一个 trivially-relocatable 类型的数组
 - 是一个用具有值为 true 的 `trivially_relocatable` 属性声明的类类型
 - 是一个类类型，满足以下条件：
 - - 没有用户提供的移动构造函数或移动赋值运算符
@@ -163,9 +163,9 @@ str2.~basic_string();
 - 没有用户提供的析构函数
 - 没有虚拟成员函数
 - 没有虚基类
-- 每个成员都是引用或者 trivally-relocatable 类型，并且所有基类都是 trivally-relocatable 类型
+- 每个成员都是引用或者 trivially-relocatable 类型，并且所有基类都是 trivially-relocatable 类型
 
-可以通过新的 attribute ——`trivially_relocatable` 来显式标记一个类型为 trivally-relocatable，它可以用常量表达式作为参数，来支持泛型类型
+可以通过新的 attribute ——`trivially_relocatable` 来显式标记一个类型为 trivially-relocatable，它可以用常量表达式作为参数，来支持泛型类型
 
 ```cpp
 template<typename T>
@@ -193,7 +193,7 @@ auto uninitialized_relocate_n(InputIterator first, Size n, NoThrowForwardIterato
 
 更为激进的就是今天的主角了，它主张引入 relocate constructor，并且引入了新的关键字 `reloc`
 
-`reloc` 是一个一员运算符，可以用于函数非静态局部变量，`reloc` 用于执行如下操作
+`reloc` 是一个一元运算符，可以用于函数非静态局部变量，`reloc` 用于执行如下操作
 
 - 如果变量是引用类型，则进行完美转发
 - 如果不是则把源对象变成纯右值并返回
@@ -237,7 +237,7 @@ X x = f();
 
 有一种逻辑完全自洽的美感。提案中其他的细节，就比较琐碎了，这里就省略了。感兴趣的读者可以自己阅读。
 
-## 为什么过多这么久还没进入标准
+## 为什么过了这么久还没进入标准
 
 关于为什么过了这么多年这个问题仍然没有解决，其实这是一段相当长的历史，是 C++ 的对象模型存在缺陷导致的。直到 C++20 的 [隐式生存期提案](https://en.cppreference.com/w/cpp/language/lifetime) 被接受之前，在最开始的扩容函数实现中，连把 trivially-copyable 的类型优化为 memcpy 都是 undefined behavior。
 
@@ -269,7 +269,7 @@ assert!(v.is_empty());
 
 ### Mojo
 
-这个语言前些日子也在知乎上也宣传过一波，但是目前还处于完全早期的状态，不过一开始人家就考虑提供四种构造函数
+这个语言前些日子在知乎上也宣传过一波，但是目前还处于完全早期的状态，不过一开始人家就考虑提供四种构造函数
 
 - `__init__()`
 - `__copy__()`
