@@ -1,7 +1,7 @@
 ---
 title: Python 与 C++ 的完美结合：pybind11 中的对象设计
 date: "2024-06-07 15:28:11"
-updated: "2026-03-29 02:25:19"
+updated: "2026-03-29 02:43:24"
 zhihu_article_id: "702197261"
 zhihu_url: https://zhuanlan.zhihu.com/p/702197261
 zhihu_column_id: c_1656510843973046272
@@ -12,15 +12,15 @@ zhihu_column_title: 魅力C++
 
 > 可能有的读者不太清楚 pybind11 是什么，简单来说 pybind11 是一个中间件，让你可以方便进行 Python 与 C++ 代码之间的交互。比如在 C++ 中内嵌 Python 解释器，或者把 C++ 代码编译成动态库以供 Python 调用。具体的内容还请见官方文档。
 
-最近基本把框架的大体的运作逻辑理清了。现在回过头来看，pybind11 不愧是 C++ 和 Python 绑定的事实标准，有很多巧妙的设计。它这套交互逻辑也完全可以套用到 C++ 和其它有 GC 的语言的交互上，比如 JS 和 C#（虽然现在并没有 jsbind11 和 csharpbind11 之类的东西）。最近可能我会写一系列相关的文章，去掉一些繁琐的细节，介绍其中一些共用的思想。
+最近基本把框架的大体的运作逻辑理清了。现在回过头来看，pybind11 不愧是 C++ 和 Python 绑定的事实标准，有很多巧妙的设计。它这套交互逻辑也完全可以套用到 C++ 和其他有 GC 的语言的交互上，比如 JS 和 C#（虽然现在并没有 jsbind11 和 csharpbind11 之类的东西）。最近可能我会写一系列相关的文章，去掉一些繁琐的细节，介绍其中一些共用的思想。
 
 这篇文章主要是讨论 pybind11 对象设计一些有意思的点。
 
 ## PyObject
 
-我们都知道 Python 中，一切皆对象，全都是`object`。但是 pybind11 实际上是需要和 CPython 这种 Python 的具体实现打交道的。那一切皆对象在 CPython 中的体现是什么呢？答案是`PyObject*`。接下来让我们“看见” Python，理解实际的 Python 代码是如何运作在 CPython 中的。
+我们都知道 Python 中，一切皆对象，全都是 `object`。但是 pybind11 实际上是需要和 CPython 这种 Python 的具体实现打交道的。那一切皆对象在 CPython 中的体现是什么呢？答案是 `PyObject*`。接下来让我们「看见」 Python，理解实际的 Python 代码是如何运作在 CPython 中的。
 
-创建一个对象实际上就是创建一个`PyObject*`
+创建一个对象实际上就是创建一个 `PyObject*`
 
 ```python
 x = [1, 2, 3]
@@ -35,7 +35,7 @@ PyList_SetItem(x, 1, PyLong_FromLong(2));
 PyList_SetItem(x, 2, PyLong_FromLong(3));
 ```
 
-这样的话，`is`的作用就很好理解了，就是用来判断两个指针的值是否相同。而所谓的默认浅拷贝的原因也就是因为默认的赋值只是指针的赋值，不涉及它指向的元素。
+这样的话，`is` 的作用就很好理解了，就是用来判断两个指针的值是否相同。而所谓的默认浅拷贝的原因也就是因为默认的赋值只是指针的赋值，不涉及它指向的元素。
 
 CPython 也提供了一系列的 API 用来操作 `PyObject*` 指向的对象，例如
 
@@ -60,7 +60,7 @@ int PyObject_DelItem(PyObject *o, PyObject *key);
 
 ## handle
 
-由于 pybind11 要支持在 C++ 中操作 Python 对象，首要任务就是对上述这些 C 风格的 API 进行封装。具体是由`handle`这个类型来完成的。`handle`是对`PyObject*`的简单包装，并且封装了一些成员函数，例如
+由于 pybind11 要支持在 C++ 中操作 Python 对象，首要任务就是对上述这些 C 风格的 API 进行封装。具体是由 `handle` 这个类型来完成的。`handle` 是对 `PyObject*` 的简单包装，并且封装了一些成员函数，例如
 
 大概像下面这样
 
@@ -87,7 +87,7 @@ public:
 
 ## get/set
 
-根据 C++ 之父 Bjarne Stroustrup 在《The Design and Evolution of C++》中的说法，引入引用（左值）类型的部分原因是为了使得用户能够对返回值进行赋值，让`[]`这样的运算符的重载变的更加自然。例如：
+根据 C++ 之父 Bjarne Stroustrup 在《The Design and Evolution of C++》中的说法，引入引用（左值）类型的部分原因是为了使得用户能够对返回值进行赋值，让 `[]` 这样的运算符的重载变的更加自然。例如：
 
 ```cpp
 std::vector<int> v = {1, 2, 3};
@@ -103,9 +103,9 @@ int x = *v[0]; // get
 *v[0] = 4;     // set
 ```
 
-相比之下，使用引用是不是美观的多呢？这个问题在其它编程语言中也存在，但不是所有语言都采用这种解决办法。例如，Rust 选择自动解引用，编译器在合适的时机自动添加`*`来解引用，这样也就不需要多写上面那个`*`了。但是，这两种方法对 Python 来说都不行，因为 Python 中根本没有解引用这个说法，也不区分什么左值和右值。那怎么办呢？答案是区分`getter`和`setter`。
+相比之下，使用引用是不是美观的多呢？这个问题在其他编程语言中也存在，但不是所有语言都采用这种解决办法。例如，Rust 选择自动解引用，编译器在合适的时机自动添加 `*` 来解引用，这样也就不需要多写上面那个 `*` 了。但是，这两种方法对 Python 来说都不行，因为 Python 中根本没有解引用这个说法，也不区分什么左值和右值。那怎么办呢？答案是区分 `getter` 和 `setter`。
 
-例如，如果要重载`[]`：
+例如，如果要重载 `[]`：
 
 ```python
 class List:
@@ -121,9 +121,9 @@ x = a[0] # __getitem__
 a[0] = 1 # __setitem__
 ```
 
-Python 会检查语法结构，如果`[]` 出现在`=`的左边，就会调用`__setitem__`，否则就会调用`__getitem__`。实际上有挺多语言采用类似的设计的，例如 C# 的`this[]`运算符重载。
+Python 会检查语法结构，如果 `[]` 出现在 `=` 的左边，就会调用 `__setitem__`，否则就会调用 `__getitem__`。实际上有挺多语言采用类似的设计的，例如 C# 的 `this[]` 运算符重载。
 
-甚至连`.`运算符都可以重载，只需要重写`__getattr__`和`__setattr__`：
+甚至连 `.` 运算符都可以重载，只需要重写 `__getattr__` 和 `__setattr__`：
 
 ```python
 class Point:
@@ -139,7 +139,7 @@ x = p.x # __getattr__
 p.x = 1 # __setattr__
 ```
 
-pybind11 希望 handle 也能实现这样的效果，即在合适的时机调用`__getitem__`和`__setitem__`。例如：
+pybind11 希望 handle 也能实现这样的效果，即在合适的时机调用 `__getitem__` 和 `__setitem__`。例如：
 
 ```cpp
 py::handle obj = py::list(1, 2, 3);
@@ -159,7 +159,7 @@ x = 1
 
 ## accessor
 
-接下来就让我们重点讨论如何实现这样的效果。首先考虑`operator[]`的返回值，由于可能要调用`__setitem__`，所以这里我们返回一个代理对象。里面会把`key`存下来以备后续调用
+接下来就让我们重点讨论如何实现这样的效果。首先考虑 `operator[]` 的返回值，由于可能要调用 `__setitem__`，所以这里我们返回一个代理对象。里面会把 `key` 存下来以备后续调用
 
 ```cpp
 class accessor {
@@ -173,7 +173,7 @@ public:
 };
 ```
 
-下面一个问题就是如何区分`obj[0] = 4`和`x = int_(1)`，使得前面一种情况调用`__setitem__`，后面一种情况就是简单的对`x`赋值。注意到上面两种情况的关键性区别，左值和右值
+下面一个问题就是如何区分 `obj[0] = 4` 和 `x = int_(1)`，使得前面一种情况调用 `__setitem__`，后面一种情况就是简单的对 `x` 赋值。注意到上面两种情况的关键性区别，左值和右值
 
 ```cpp
 obj[0] = 4; // assign to rvalue
@@ -181,7 +181,7 @@ auto x = obj[0];
 x = 1; // assign to lvalue
 ```
 
-如何让`operator=`根据操作数的值类别 (value category) 调用不同的函数呢？这就要用到一个比较少见的小技巧了，我们都知道可以在成员函数上加上`const`限定符，从而允许这个成员函数在 const 对象上调用。
+如何让 `operator=` 根据操作数的值类别 (value category) 调用不同的函数呢？这就要用到一个比较少见的小技巧了，我们都知道可以在成员函数上加上 `const` 限定符，从而允许这个成员函数在 const 对象上调用。
 
 ```cpp
 struct A {
@@ -196,7 +196,7 @@ int main() {
 }
 ```
 
-除此之外，其实还可以加引用限定符`&`和`&&`，效果就是要求`expr.f()`的这个`expr`是左值还是右值。这样我们就可以根据左值和右值调用不同的函数了。
+除此之外，其实还可以加引用限定符 `&` 和 `&&`，效果就是要求 `expr.f()` 的这个 `expr` 是左值还是右值。这样我们就可以根据左值和右值调用不同的函数了。
 
 ```cpp
 struct A {
@@ -240,7 +240,7 @@ public:
 
 ## lazy evaluation
 
-更进一步，我们希望这个代理对象仿佛就像一个`handle`一样，可以使用`handle`的所有方法。这很简单，直接继承`handle`就行了。
+更进一步，我们希望这个代理对象仿佛就像一个 `handle` 一样，可以使用 `handle` 的所有方法。这很简单，直接继承 `handle` 就行了。
 
 ```cpp
 class accessor : public handle {
@@ -263,9 +263,9 @@ public:
 };
 ```
 
-到这似乎就结束了，但是注意到我们的`__getitem__`是在构造函数中调用的，也就是说即使后面没用到获取到的值，也会调用。感觉有进一步优化的空间，能不能通过一些手段把这个求值 lazy 化呢？只在需要调用`handle`里面这些函数的时候才去调用`__getitem__`呢？
+到这似乎就结束了，但是注意到我们的 `__getitem__` 是在构造函数中调用的，也就是说即使后面没用到获取到的值，也会调用。感觉有进一步优化的空间，能不能通过一些手段把这个求值 lazy 化呢？只在需要调用 `handle` 里面这些函数的时候才去调用 `__getitem__` 呢？
 
-目前这样直接继承`handle`肯定是不行的，不可能在每次成员函数调用之前插入一次判断，然后决定要不要调用`__getitem__`。可以让`handle`和`accessor`都继承一个基类，这个基类里面有一个有一个接口，用来实际获取要操作的指针
+目前这样直接继承 `handle` 肯定是不行的，不可能在每次成员函数调用之前插入一次判断，然后决定要不要调用 `__getitem__`。可以让 `handle` 和 `accessor` 都继承一个基类，这个基类里面有一个有一个接口，用来实际获取要操作的指针
 
 ```cpp
 class object_api{
@@ -280,7 +280,7 @@ public:
 };
 ```
 
-然后`handle`和`accessor`都继承这个基类，这时候`accessor`就可以在这里对`__getitem__`进行 lazy evaluation 了。
+然后 `handle` 和 `accessor` 都继承这个基类，这时候 `accessor` 就可以在这里对 `__getitem__` 进行 lazy evaluation 了。
 
 ```cpp
 class handle : public object_api {
@@ -332,7 +332,7 @@ class accessor : public object_api<accessor> {
 };
 ```
 
-这样我们就在不额外引入其它运行时开销的情况下把`__getitem__`的调用 lazy 化了。
+这样我们就在不额外引入其他运行时开销的情况下把 `__getitem__` 的调用 lazy 化了。
 
 ## Conclusion
 

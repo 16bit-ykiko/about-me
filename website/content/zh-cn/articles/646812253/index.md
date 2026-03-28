@@ -4,7 +4,7 @@ series:
 series_order: 2
 title: C++ 禁忌黑魔法：STMP （下）
 date: "2023-07-30 09:29:27"
-updated: "2026-03-29 02:24:11"
+updated: "2026-03-29 02:42:54"
 zhihu_article_id: "646812253"
 zhihu_url: https://zhuanlan.zhihu.com/p/646812253
 ---
@@ -15,8 +15,8 @@ zhihu_url: https://zhuanlan.zhihu.com/p/646812253
 
 在 C++ 中，对类型做计算的需求却一直存在，例如
 
-- `std::variant`允许模板参数重复，但是这样必须要用`in_place_index`构造了，很麻烦。我们可以在使用 `variant`前对类型列表去重，来解决这个问题
-- 需要对`variant`类型列表进行排序，排序后相同的类型，例如`std::variant<int, double>`和`std::variant<double, int>`可以共用一份代码，减少二进制膨胀
+- `std::variant` 允许模板参数重复，但是这样必须要用 `in_place_index` 构造了，很麻烦。我们可以在使用 `variant` 前对类型列表去重，来解决这个问题
+- 需要对 `variant` 类型列表进行排序，排序后相同的类型，例如 `std::variant<int, double>` 和 `std::variant<double, int>` 可以共用一份代码，减少二进制膨胀
 - 根据给定索引获取一个类型列表中的类型
 - 变序对函数参数进行映射，常用于跨语言自动生成绑定
 
@@ -83,7 +83,7 @@ struct setter {
 };
 ```
 
-然后我们只需在实例化`value_of`的同时实例化一个`setter`即可完成注册
+然后我们只需在实例化 `value_of` 的同时实例化一个 `setter` 即可完成注册
 
 ```cpp
 template <typename T>
@@ -94,7 +94,7 @@ consteval meta_value value_of() {
 }
 ```
 
-最后直接通过`reader`读取注册的结果即可实现`type_of`
+最后直接通过 `reader` 读取注册的结果即可实现 `type_of`
 
 ```cpp
 template <meta_value value>
@@ -103,7 +103,7 @@ using type_of = typename decltype(to_type(reader<value>{}))::type;
 
 ### sort types!
 
-话不多说，我们赶紧来试一下用`std::sort`一下对`type_list`进行排序
+话不多说，我们赶紧来试一下用 `std::sort` 一下对 `type_list` 进行排序
 
 ```cpp
 #include <array>
@@ -135,7 +135,7 @@ struct sort_list<type_list<Ts...>> {
 };
 ```
 
-`type_list`是一个简单的类型容器，`array_to_list`用于将`std::array`中的类型映射回`type_list`，`sort_list`就是排序的具体实现，过程就是先把类型都映射到一个`std::array`中，然后用`std::ranges::sort`对这个数组排序，最后再将排序后的`std::array`映射回`type_list`。
+`type_list` 是一个简单的类型容器，`array_to_list` 用于将 `std::array` 中的类型映射回 `type_list`，`sort_list` 就是排序的具体实现，过程就是先把类型都映射到一个 `std::array` 中，然后用 `std::ranges::sort` 对这个数组排序，最后再将排序后的 `std::array` 映射回 `type_list`。
 
 实验一下
 
@@ -146,15 +146,15 @@ using expected = type_list<char, char, char, int, int, double, double>;
 static_assert(std::is_same_v<sorted, expected>);
 ```
 
-三大编译器 C++20 均编译通过！代码放在 [Compiler Explorer](https://godbolt.org/z/4qW7MhfWP) 上了，为了防止链接失效。在 [Github](https://github.com/16bit-ykiko/about-me/blob/main/code/type-list-sort.cpp) 上也放了一份。
+三大编译器 C++20 均编译通过！代码放在 [Compiler Explorer](https://godbolt.org/z/4qW7MhfWP) 上了，为了防止链接失效。在 [GitHub](https://github.com/16bit-ykiko/about-me/blob/main/code/type-list-sort.cpp) 上也放了一份。
 
-> 非常值得一提的是，这种类型和值的双向映射在 Reflection for C++26 中已经成为语言内置的功能。我们不再需要去利用 friend injection 这种奇淫巧技，直接使用`^^`和`[: :]`运算符即可完成映射，详见 [Reflection for C++26!!!](https://www.ykiko.me/zh-cn/articles/1919923607997518115)。
+> 非常值得一提的是，这种类型和值的双向映射在 Reflection for C++26 中已经成为语言内置的功能。我们不再需要去利用 friend injection 这种奇淫巧技，直接使用 `^^` 和 `[: :]` 运算符即可完成映射，详见 [Reflection for C++26!!!](https://www.ykiko.me/zh-cn/articles/1919923607997518115)。
 
 ## the true any
 
-`std::any`常常用于类型擦除，可以把完全不同的类型擦除，并放在同一个容器里面。但是擦除容易，还原难，尤其是有些时候想把`any`里面存的对象打印出来看看，还得一个个类型去`cast`。有没有一种可能，能编写出一个真正的`any`类型呢？不需要我们去手动`cast`，直接就可以调用它里面的类型对应的成员函数呢？
+`std::any` 常常用于类型擦除，可以把完全不同的类型擦除，并放在同一个容器里面。但是擦除容易，还原难，尤其是有些时候想把 `any` 里面存的对象打印出来看看，还得一个个类型去 `cast`。有没有一种可能，能编写出一个真正的 `any` 类型呢？不需要我们去手动 `cast`，直接就可以调用它里面的类型对应的成员函数呢？
 
-对于单个编译单元来说，这是完全可能的，因为单个编译单元内的构造为`any`的类型集合是编译时确定的，只需要记录下所有实例化的类型，然后使用模板元编程自动的对每个类型进行尝试即可。
+对于单个编译单元来说，这是完全可能的，因为单个编译单元内的构造为 `any` 的类型集合是编译时确定的，只需要记录下所有实例化的类型，然后使用模板元编程自动的对每个类型进行尝试即可。
 
 ### type register
 
@@ -205,11 +205,11 @@ consteval int count() {
 }
 ```
 
-仍然使用`setter`来注册类型。`lookup`用于查找某个类型在类型集合中的索引，原理就是遍历这个集合，然后一个个`is_same_v`比较，找到了就返回对应的索引。如果到最后都没有找到，就注册一个新的类型。`count`用于计算类型集合的大小。
+仍然使用 `setter` 来注册类型。`lookup` 用于查找某个类型在类型集合中的索引，原理就是遍历这个集合，然后一个个 `is_same_v` 比较，找到了就返回对应的索引。如果到最后都没有找到，就注册一个新的类型。`count` 用于计算类型集合的大小。
 
 ### any type
 
-接下来我们定义一个简单的`any`类型，并定义一个`make_any`函数，用于构造`any`对象
+接下来我们定义一个简单的 `any` 类型，并定义一个 `make_any` 函数，用于构造 `any` 对象
 
 ```cpp
 struct any {
@@ -245,7 +245,7 @@ auto make_any(T&& value) {
 
 ### visit it!
 
-重头戏来了，我们可以实现一个类似`std::visit`的函数，用于访问`any`对象。它接受一个回调函数，然后遍历`any`对象的类型集合，如果找到了对应的类型，把`any`转换成对应的类型，然后调用回调函数。
+重头戏来了，我们可以实现一个类似 `std::visit` 的函数，用于访问 `any` 对象。它接受一个回调函数，然后遍历 `any` 对象的类型集合，如果找到了对应的类型，把 `any` 转换成对应的类型，然后调用回调函数。
 
 ```cpp
 template <typename Callback, auto seed = [] {}>
@@ -295,10 +295,10 @@ int main() {
 }
 ```
 
-三大编译器都按照我们的预期输出了结果！代码同样放在 [Compiler Explorer](https://godbolt.org/z/aP3zs7479) 和 [Github](https://github.com/16bit-ykiko/about-me/blob/main/code/the-true-any.cpp) 上了。
+三大编译器都按照我们的预期输出了结果！代码同样放在 [Compiler Explorer](https://godbolt.org/z/aP3zs7479) 和 [GitHub](https://github.com/16bit-ykiko/about-me/blob/main/code/the-true-any.cpp) 上了。
 
 ## conclusion
 
-这两篇关于 STMP 的文章，算是了却了我一直以来的心愿。在这之前，我一直在思考，如何像上面的代码这样，实现一个真的`any`类型，无需使用者提前注册。我尝试了很多方法，最后都未能如愿。但是 STMP 的出现，让我看到了希望。再意识到它所能到达的高度之后，我立马通宵写完了文章和案例。
+这两篇关于 STMP 的文章，算是了却了我一直以来的心愿。在这之前，我一直在思考，如何像上面的代码这样，实现一个真的 `any` 类型，无需使用者提前注册。我尝试了很多方法，最后都未能如愿。但是 STMP 的出现，让我看到了希望。再意识到它所能到达的高度之后，我立马通宵写完了文章和案例。
 
 当然了，不推荐在实际的项目中使用这种技术。由于这种代码十分依赖于模板实例化的位置，非常容易造成 ODR 违背，并且多次重复实例化会大大增长编译时间。对于这种需要有状态的代码需求，我们往往可以将其改成无状态的代码，但是，纯手写工作量可能十分巨大，更推荐使用代码生成器进行额外的代码生成来完成这项需求。比如我们可以用 libclang 收集所有编译单元中 any 的实例化信息，然后打一个对应的表就行了。

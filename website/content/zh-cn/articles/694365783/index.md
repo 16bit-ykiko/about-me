@@ -1,7 +1,7 @@
 ---
 title: 超好用的 C++ 在线编译器（VSCode 版）
 date: "2024-04-24 21:35:41"
-updated: "2026-03-29 02:25:11"
+updated: "2026-03-29 02:43:21"
 zhihu_article_id: "694365783"
 zhihu_url: https://zhuanlan.zhihu.com/p/694365783
 ---
@@ -10,19 +10,19 @@ zhihu_url: https://zhuanlan.zhihu.com/p/694365783
 
 现在你可以在 VSCode 插件市场搜索到这个插件
 
-![](https://picx.zhimg.com/v2-ebff5a9177bf7dbab863e321db8f05f3_r.jpg)
+![](https://picx.zhimg.com/v2-ebff5a9177bf7dbab863e321db8f05f3_1440w.jpg)
 
 ### 效果展示
 
-![](https://pic2.zhimg.com/v2-4d92bdc32a6479e20a8b54b776b4618f_r.jpg)
+![](https://pic2.zhimg.com/v2-4d92bdc32a6479e20a8b54b776b4618f_1440w.jpg)
 
 ### 单文件支持
 
-![](https://picx.zhimg.com/v2-f8b679e187c025f49cac898d60a66653_r.jpg)
+![](https://picx.zhimg.com/v2-f8b679e187c025f49cac898d60a66653_1440w.jpg)
 
 让我们从上往下以此介绍
 
-![](https://pic1.zhimg.com/v2-702bddfa45a016fdad36c70cc95d88fa_r.jpg)
+![](https://pic1.zhimg.com/v2-702bddfa45a016fdad36c70cc95d88fa_1440w.jpg)
 
 这个三个按钮的功能依次是：
 
@@ -30,16 +30,16 @@ zhihu_url: https://zhuanlan.zhihu.com/p/694365783
 - `Add New`：添加一个新的编译器实例
 - `Share Link`：根据当前的编译器实例生成一个链接，并复制到剪贴板
 
-![](https://pic1.zhimg.com/v2-abca330d863e476211dc21f969616da0_b.jpg)
+![](https://pic1.zhimg.com/v2-abca330d863e476211dc21f969616da0_1440w.jpg)
 
 这四个按钮的功能依次是：
 
 - `Add CMake`：添加一个 CMake 编译器实例（后面会细说）
-- `Clear All`：关闭所有用于展示的`webview`面板
+- `Clear All`：关闭所有用于展示的 `webview` 面板
 - `Load Link`：根据输入的链接加载编译器实例的信息
 - `Remove All`：删除所有的编译器实例
 
-![](https://pic1.zhimg.com/v2-4563375d43c5084354585cec8dc1c692_r.jpg)
+![](https://pic1.zhimg.com/v2-4563375d43c5084354585cec8dc1c692_1440w.jpg)
 
 这个三个按钮的功能依次是：
 
@@ -50,8 +50,8 @@ zhihu_url: https://zhuanlan.zhihu.com/p/694365783
 下面这些用于设置编译器实例的参数：
 
 - `Compiler`：点击右侧的按钮可以选择编译器版本
-- `Input`：选择源代码文件，默认是`active`即当前活跃的编辑器
-- `Output`：输出编译结果的文件，默认使用`webview`
+- `Input`：选择源代码文件，默认是 `active` 即当前活跃的编辑器
+- `Output`：输出编译结果的文件，默认使用 `webview`
 - `Options`：编译选项，点击右侧按钮可以打开输入框
 - `Execute Arguments`：传递给可执行文件的参数
 - `Stdin`：用于标准输入的缓冲区
@@ -59,9 +59,9 @@ zhihu_url: https://zhuanlan.zhihu.com/p/694365783
 
 ### 多文件支持
 
-使用`Add CMake`按钮可以添加一个 CMake 编译器实例，这个实例可以用于编译多个文件。
+使用 `Add CMake` 按钮可以添加一个 CMake 编译器实例，这个实例可以用于编译多个文件。
 
-![](https://picx.zhimg.com/v2-e22f7b14430ce8bfb84ad9be28f2e55f_r.jpg)
+![](https://picx.zhimg.com/v2-e22f7b14430ce8bfb84ad9be28f2e55f_1440w.jpg)
 
 <br>
 
@@ -74,7 +74,7 @@ zhihu_url: https://zhuanlan.zhihu.com/p/694365783
 
 ### 一些用户设置
 
-`compiler-explorer.default.options`：使用`+`号创建编译器时的默认参数
+`compiler-explorer.default.options`：使用 `+` 号创建编译器时的默认参数
 
 ```json
 "compiler-explorer.default.options": {
@@ -131,8 +131,8 @@ zhihu_url: https://zhuanlan.zhihu.com/p/694365783
 
 该插件还处于早期阶段，如果你在使用过程中遇到了问题，或者有任何建议，欢迎在 [GitHub](https://github.com/16bit-ykiko/vscode-compiler-explorer) 上留言讨论。或者添加 QQ 群：`662499937`。
 
-https://qm.qq.com/q/DiO6rvnbHi (二维码自动识别)
+[https://qm.qq.com/q/DiO6](https://qm.qq.com/q/DiO6) rvnbHi (二维码自动识别)
 
 另外 Output 窗口可能会提供一些有用的信息，可以注意检索
 
-![](https://picx.zhimg.com/v2-6164a9cf19c1c1e4fc1d44809c726441_r.jpg)
+![](https://picx.zhimg.com/v2-6164a9cf19c1c1e4fc1d44809c726441_1440w.jpg)
