@@ -1,7 +1,7 @@
 ---
 title: std::variant 很难用！
 date: "2023-07-25 15:19:25"
-updated: "2026-03-29 04:07:19"
+updated: "2026-03-29 15:09:17"
 zhihu_article_id: "645810896"
 zhihu_url: https://zhuanlan.zhihu.com/p/645810896
 zhihu_column_id: c_1656510843973046272
@@ -82,7 +82,7 @@ struct Settings {
     };
 };
 
-int main(){
+int main() {
     Settings settings;
     settings.type = Settings::Type::String;
     settings.s = std::string("hello");
@@ -100,6 +100,7 @@ union Value {
     std::string s;
 
     Value() {}
+
     ~Value() {}
 };
 
@@ -112,7 +113,7 @@ struct Settings {
 使用的时候则要求我们通过 [placement new](https://en.cppreference.com/w/cpp/language/new#Placement_new) 显式调用构造函数来初始化某个成员，同样的，我们也要手动调用析构函数来销毁某个成员。
 
 ```cpp
-int main(){
+int main() {
     Settings settings;
 
     settings.type = Settings::Type::string;
@@ -154,9 +155,9 @@ int main() {
 
 ```cpp
 Settings s;
-s = std::string("hello"); // s.index() => 2
-s = 1; // s.index() => 0
-s = true; // s.index() => 1
+s = std::string("hello");  // s.index() => 2
+s = 1;                     // s.index() => 0
+s = true;                  // s.index() => 1
 ```
 
 使用 `std::get` 可以从 `variant` 里面取出对应的值
@@ -164,13 +165,13 @@ s = true; // s.index() => 1
 ```cpp
 Settings s;
 s = std::string("hello");
-std::cout << std::get<std::string>(s); // => hello
+std::cout << std::get<std::string>(s);  // => hello
 ```
 
 有些人可能会疑惑，我都提前知道里面存的是 `string` 了，为什么还要用 `std::variant` 呢？注意到 `get` 还有一个模板参数是整数的重载，它能解决这个问题吗？
 
 ```cpp
-std::cout << std::get<2>(s); // => hello
+std::cout << std::get<2>(s);  // => hello
 ```
 
 哦，我懂了。那既然能直接用 `index` 来获取，那直接下面这样写不就好了？
@@ -182,11 +183,11 @@ std::cout << std::get<s.index()>(s);
 很遗憾，想法是好的，但是这样做是不行的。模板参数必须是编译期常量，而 `variant` 作为一种类型擦除的手段，其 `index` 肯定是运行时的值。怎么办呢？动态转静态，只能一个个分发。例如
 
 ```cpp
-if (s.index() == 0){
+if(s.index() == 0) {
     std::cout << std::get<0>(s) << std::endl;
-} else if (s.index() == 1){
+} else if(s.index() == 1) {
     std::cout << std::get<1>(s) << std::endl;
-} else if (s.index() == 2){
+} else if(s.index() == 2) {
     std::cout << std::get<2>(s) << std::endl;
 }
 ```
@@ -194,11 +195,11 @@ if (s.index() == 0){
 用数字的可读性是比较糟糕的，我们可以用 `std::holds_alternative` 来根据类型做判断
 
 ```cpp
-if (std::holds_alternative<std::string>(s)){
+if(std::holds_alternative<std::string>(s)) {
     std::cout << std::get<std::string>(s) << std::endl;
-} else if (std::holds_alternative<int>(s)){
+} else if(std::holds_alternative<int>(s)) {
     std::cout << std::get<int>(s) << std::endl;
-} else if (std::holds_alternative<bool>(s)){
+} else if(std::holds_alternative<bool>(s)) {
     std::cout << std::get<bool>(s) << std::endl;
 }
 ```
@@ -212,10 +213,10 @@ if (std::holds_alternative<std::string>(s)){
 ```cpp
 Settings s;
 s = std::string("hello");
-auto callback = [](auto&& value){ std::cout << value << std::endl; };
-std::visit(callback, s); // => hello
+auto callback = [](auto&& value) { std::cout << value << std::endl; };
+std::visit(callback, s);  // => hello
 settings = 1;
-std::visit(callback, s); // => 1
+std::visit(callback, s);  // => 1
 ```
 
 是不是很神奇呢？只需要传入一个 `callback`，就能直接访问到 `variant` 里面的值了，不需要手动进行任何分发。软件工程领域有一条铁律：复杂度不会消失，只会转移，这里也不例外。其实 `visit` 内部帮你把 `callback` 根据 `variant` 里面的每个类型实例化了一份函数，预先打好了函数表，然后在运行时根据 `index` 直接调用函数表里面的函数就行了。
@@ -258,10 +259,12 @@ fn main(){
 **function overload:**
 
 ```cpp
-template<typename ...Ts>
-struct Overload : Ts... { using Ts::operator()...; };
+template <typename... Ts>
+struct Overload : Ts... {
+    using Ts::operator()...;
+};
 
-template<typename ...Ts>
+template <typename... Ts>
 Overload(Ts...) -> Overload<Ts...>;
 
 int main() {

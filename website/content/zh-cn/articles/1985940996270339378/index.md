@@ -1,7 +1,7 @@
 ---
 title: 打造优雅的 C++ 跨平台开发与构建 Workflow
 date: "2025-12-21 06:51:31"
-updated: "2026-03-29 04:07:16"
+updated: "2026-03-29 15:09:09"
 zhihu_article_id: "1985940996270339378"
 zhihu_url: https://zhuanlan.zhihu.com/p/1985940996270339378
 ---
@@ -28,7 +28,7 @@ clice 也是一个从零开始的 C++ 项目，当然不可避免地，我们把
 // main.cpp
 #include <print>
 
-int main () {
+int main() {
     std::println("Hello world!");
     return 0;
 }

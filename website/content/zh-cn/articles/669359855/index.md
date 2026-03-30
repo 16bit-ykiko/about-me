@@ -4,7 +4,7 @@ series:
 series_order: 4
 title: 各种姿势进行代码生成
 date: "2023-11-29 09:14:16"
-updated: "2026-03-29 04:07:31"
+updated: "2026-03-29 15:09:43"
 zhihu_article_id: "669359855"
 zhihu_url: https://zhuanlan.zhihu.com/p/669359855
 zhihu_column_id: c_1707545619290316800
@@ -56,7 +56,7 @@ C 语言的 `macro` 就是一种最经典，也最简单的编译期代码生成
 #define REPEAT1(x) REPEAT2(x) REPEAT2(x) REPEAT2(x) REPEAT2(x) REPEAT2(x)
 #define REPEAT2(x) x x x x
 
-int main(){
+int main() {
     const char* str = REPEAT("Hello world ");
 }
 ```
@@ -68,27 +68,29 @@ int main(){
 在一些编程语言中**泛型 (Generic) **也被看作是一种代码生成的技术，根据不同的类型生成实际不同的代码。当然这是最基础的了，一些编程语言还支持更强大的特性，比如在 `C++` 中还可以通过模板元编程进行一些高级的代码生成。典型的案例是在编译期打一个函数指针表（跳转表）
 
 ```cpp
-template<std::size_t N, typename T, typename F>
-void helper(T t, F f) { f(std::get<N>(t)); }
+template <std::size_t N, typename T, typename F>
+void helper(T t, F f) {
+    f(std::get<N>(t));
+}
 
-template<typename Tuple, typename Func>
-constexpr void access(std::size_t index, Tuple&& tuple, Func&& f){
+template <typename Tuple, typename Func>
+constexpr void access(std::size_t index, Tuple&& tuple, Func&& f) {
     constexpr auto length = std::tuple_size<std::decay_t<decltype(tuple)>>::value;
     using FuncType = void (*)(decltype(tuple), decltype(f));
-    constexpr auto fn_table = []<std::size_t... I>(std::index_sequence<I...>){
-        std::array<FuncType, length> table = { helper<I, decltype(tuple), decltype(f)>... };
+    constexpr auto fn_table = []<std::size_t... I>(std::index_sequence<I...>) {
+        std::array<FuncType, length> table = {helper<I, decltype(tuple), decltype(f)>...};
         return table;
     }(std::make_index_sequence<length>{});
     return fn_table[index](std::forward<Tuple>(tuple), std::forward<Func>(f));
 }
 
-int main(){
-    std::tuple a = { 1, 'a', "123" };
+int main() {
+    std::tuple a = {1, 'a', "123"};
     auto f = [](auto&& v) { std::cout << v << std::endl; };
     std::size_t index = 0;
-    access(index, a, f); // => 1
+    access(index, a, f);  // => 1
     index = 2;
-    access(index, a, f); // => 123
+    access(index, a, f);  // => 123
 }
 ```
 
@@ -195,8 +197,7 @@ mmap(NULL, size, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_PRIVATE | MAP_ANONYMOUS
 #define Alloc(size) mmap(NULL, size, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0)
 #endif
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
     std::ofstream("source.c") << argv[1];
     system("gcc -c source.c && objcopy -O binary -j .text source.o source.bin");
 

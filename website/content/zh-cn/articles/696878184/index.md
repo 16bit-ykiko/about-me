@@ -1,7 +1,7 @@
 ---
 title: C++ 中的单例模式真的“单例”吗？
 date: "2024-05-10 02:08:28"
-updated: "2026-03-29 04:07:51"
+updated: "2026-03-29 15:10:32"
 zhihu_article_id: "696878184"
 zhihu_url: https://zhuanlan.zhihu.com/p/696878184
 zhihu_column_id: c_1767778500918935552
@@ -20,7 +20,7 @@ zhihu_column_title: ABI 二三事
 class Singleton {
 public:
     Singleton(const Singleton&) = delete;
-    Singleton& operator=(const Singleton&) = delete;
+    Singleton& operator= (const Singleton&) = delete;
 
     static Singleton& instance() {
         static Singleton instance;
@@ -66,7 +66,7 @@ inline int& x() {
     return x;
 }
 
-template<typename T = void>
+template <typename T = void>
 int& y() {
     static int y = 1;
     return y;
@@ -143,7 +143,7 @@ addreress of x in src: 0x404020
 inline int x = 1;
 
 [[gnu::visibility("default")]]
-void foo () {
+void foo() {
     printf("addreress of x in src: %p\n", &x);
 }
 
@@ -198,14 +198,13 @@ addreress of x in src: 00007FFEF434C000
 
 ```cpp
 #if _PLATFORM_SUPPORTS_UNIQUE_TYPEINFO
-    bool operator==(const type_info& __rhs) const {
-      return __mangled_name == __rhs.__mangled_name;
-    }
+bool operator== (const type_info& __rhs) const {
+    return __mangled_name == __rhs.__mangled_name;
+}
 #else
-    bool operator==(const type_info& __rhs) const {
-      return __mangled_name == __rhs.__mangled_name ||
-             strcmp(__mangled_name, __rhs.__mangled_name) == 0;
-    }
+bool operator== (const type_info& __rhs) const {
+    return __mangled_name == __rhs.__mangled_name || strcmp(__mangled_name, __rhs.__mangled_name) == 0;
+}
 #endif
 ```
 

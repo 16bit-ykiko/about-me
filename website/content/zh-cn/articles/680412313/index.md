@@ -1,7 +1,7 @@
 ---
 title: C++ 中如何优雅进行 enum 到 string 的转换 ？
 date: "2024-01-29 17:03:28"
-updated: "2026-03-29 04:07:41"
+updated: "2026-03-29 15:10:06"
 zhihu_article_id: "680412313"
 zhihu_url: https://zhuanlan.zhihu.com/p/680412313
 ---
@@ -11,11 +11,7 @@ zhihu_url: https://zhuanlan.zhihu.com/p/680412313
 定义一个 `enum`
 
 ```cpp
-enum Color {
-    RED,
-    GREEN,
-    BLUE
-};
+enum Color { RED, GREEN, BLUE };
 ```
 
 尝试打印
@@ -53,7 +49,7 @@ std::string enum_to_string(Color color) {
 
 ```cpp
 template <typename T>
-void print_fn(){
+void print_fn() {
 #if __GNUC__ || __clang__
     std::cout << __PRETTY_FUNCTION__ << std::endl;
 #elif _MSC_VER
@@ -70,7 +66,7 @@ print_fn<int>();
 
 ```cpp
 template <auto T>
-void print_fn(){
+void print_fn() {
 #if __GNUC__ || __clang__
     std::cout << __PRETTY_FUNCTION__ << std::endl;
 #elif _MSC_VER
@@ -78,11 +74,7 @@ void print_fn(){
 #endif
 }
 
-enum Color {
-    RED,
-    GREEN,
-    BLUE
-};
+enum Color { RED, GREEN, BLUE };
 
 print_fn<RED>();
 // gcc and clang => void print_fn() [with auto T = RED]
@@ -92,38 +84,34 @@ print_fn<RED>();
 可以发现，在特定的位置出现了枚举名。通过简单的字符串裁剪，便能得到我们想要的内容了
 
 ```cpp
-template<auto value>
-constexpr auto enum_name(){
+template <auto value>
+constexpr auto enum_name() {
     std::string_view name;
 #if __GNUC__ || __clang__
     name = __PRETTY_FUNCTION__;
     std::size_t start = name.find('=') + 2;
     std::size_t end = name.size() - 1;
-    name = std::string_view{ name.data() + start, end - start };
+    name = std::string_view{name.data() + start, end - start};
     start = name.rfind("::");
 #elif _MSC_VER
     name = __FUNCSIG__;
     std::size_t start = name.find('<') + 1;
     std::size_t end = name.rfind(">(");
-    name = std::string_view{ name.data() + start, end - start };
+    name = std::string_view{name.data() + start, end - start};
     start = name.rfind("::");
 #endif
-    return start == std::string_view::npos ? name : std::string_view{
-            name.data() + start + 2, name.size() - start - 2
-    };
+    return start == std::string_view::npos
+               ? name
+               : std::string_view{name.data() + start + 2, name.size() - start - 2};
 }
 ```
 
 进行测试
 
 ```cpp
-enum Color {
-    RED,
-    GREEN,
-    BLUE
-};
+enum Color { RED, GREEN, BLUE };
 
-int main(){
+int main() {
     std::cout << enum_name<RED>() << std::endl;
     // output => RED
 }
@@ -140,10 +128,10 @@ std::cout << enum_name<color>() << std::endl;
 可以发现，如果这个整数没有对应的枚举项，那么最后就不会输出对应的枚举名，而是带有括号的强制转换表达式。这样只需要判断下得到的字符串中有没有 `)` 就知道对应的枚举项是否存在了。递归判断就可以找出最大的枚举值了（这样查找适用范围有限，如分散枚举值，可能相对困难一点）
 
 ```cpp
-template<typename T, std::size_t N = 0>
-constexpr auto enum_max(){
+template <typename T, std::size_t N = 0>
+constexpr auto enum_max() {
     constexpr auto value = static_cast<T>(N);
-    if constexpr (enum_name<value>().find(")") == std::string_view::npos)
+    if constexpr(enum_name<value>().find(")") == std::string_view::npos)
         return enum_max<T, N + 1>();
     else
         return N;
@@ -153,13 +141,12 @@ constexpr auto enum_max(){
 然后通过 `make_index_sequence` 生成一个对应的长度数组就行了
 
 ```cpp
-template<typename T> requires std::is_enum_v<T>
-constexpr auto enum_name(T value){
+template <typename T>
+    requires std::is_enum_v<T>
+constexpr auto enum_name(T value) {
     constexpr auto num = enum_max<T>();
-    constexpr auto names = []<std::size_t... Is>(std::index_sequence<Is...>){
-        return std::array<std::string_view, num>{
-            enum_name<static_cast<T>(Is)>()...
-        };
+    constexpr auto names = []<std::size_t... Is>(std::index_sequence<Is...>) {
+        return std::array<std::string_view, num>{enum_name<static_cast<T>(Is)>()...};
     }(std::make_index_sequence<num>{});
     return names[static_cast<std::size_t>(value)];
 }
@@ -168,13 +155,9 @@ constexpr auto enum_name(T value){
 测试一下
 
 ```cpp
-enum Color {
-    RED,
-    GREEN,
-    BLUE
-};
+enum Color { RED, GREEN, BLUE };
 
-int main(){
+int main() {
     Color color = RED;
     std::cout << enum_name(color) << std::endl;
     // output => RED
@@ -221,11 +204,7 @@ traverse(tu.cursor)
 
 ```cpp
 // main.cpp
-enum Color {
-    RED,
-    GREEN,
-    BLUE
-};
+enum Color { RED, GREEN, BLUE };
 ```
 
 这是最后生成的代码，可以直接生成 `.cpp` 文件，放在固定目录下面，然后构建之前运行一下这个脚本就行了
@@ -233,9 +212,9 @@ enum Color {
 ```cpp
 std::string_view enum_to_string(Color color) {
     switch(color) {
-case 0: return "RED";
-case 1: return "BLUE";
-case 2: return "GREEN";
+        case 0: return "RED";
+        case 1: return "BLUE";
+        case 2: return "GREEN";
     }
 }
 ```
@@ -264,13 +243,15 @@ COLOR_ENUM(BLUE)
 ```cpp
 // Color.h
 enum Color {
+
 #define COLOR_ENUM(x) x,
 #include "Color.def"
 };
 
-std::string_view color_to_string(Color value){
-    switch(value){
-#define COLOR_ENUM(x) case x: return #x;
+std::string_view color_to_string(Color value) {
+    switch(value) {
+#define COLOR_ENUM(x)                                                                                        \
+    case x: return #x;
 #include "Color.def"
     }
 }

@@ -1,7 +1,7 @@
 ---
 title: 雾里看花：真正意义上的理解 C++ 模板
 date: "2023-09-12 23:46:11"
-updated: "2026-03-29 04:07:25"
+updated: "2026-03-29 15:09:29"
 zhihu_article_id: "655902377"
 zhihu_url: https://zhuanlan.zhihu.com/p/655902377
 zhihu_column_id: c_1656510843973046272
@@ -30,9 +30,9 @@ zhihu_column_title: 魅力C++
 ```cpp
 #define add(T) _ADD_IMPL_##T
 
-#define ADD_IMPL(T)        \
-    T add(T)(T a, T b) {   \
-        return a + b;      \
+#define ADD_IMPL(T)                                                                                          \
+    T add(T)(T a, T b) {                                                                                     \
+        return a + b;                                                                                        \
     }
 
 ADD_IMPL(int);
@@ -147,7 +147,7 @@ int main() {
 
 在我的 GCC 编译器上，足足产生了 239 行报错信息。不过好消息是 GCC 把关键部分标记出来了，如下所示：
 
-```cpp
+```bash
 no match for 'operator<<' (operand types are 'std::ostream' {aka 'std::basic_ostream<char>'} and 'A')
     9 |     std::cout << A{} << std::endl;
       |     ~~~~~~~~~ ^~ ~~~
@@ -158,7 +158,7 @@ no match for 'operator<<' (operand types are 'std::ostream' {aka 'std::basic_ost
 
 那大概还是能读懂的，意思就是没有找到匹配的重载函数，也就是说我们需要为 `A` 重载 `operator<<`。但我们好奇的是，剩下的两百行报错在干嘛呢？其实关键就在于**重载决议 (Overload Resolution)**。让我们来看其中一段信息
 
-```cpp
+```bash
 note:   template argument deduction/substitution failed:
 note:   cannot convert 'A()' (type 'A') to type 'const char*'
     9 |     std::cout << A{} << std::endl;
@@ -217,7 +217,7 @@ int main() {
 
 短短几行，在我的 GCC 上产生了 700 行的编译错误。稍微改动一下，把注释掉的那行代码加上。相比之下这种情况的代码报错只有短短几行：
 
-```cpp
+```bash
 In substitution of 'template<class T>  requires requires(T x) {std::cout << x;} void print2(T) [with T = A]':
 required from here
 required by the constraints of 'template<class T>  requires requires(T x) {std::cout << x;} void print2(T)'

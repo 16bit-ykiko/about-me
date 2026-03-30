@@ -4,7 +4,7 @@ series:
 series_order: 5
 title: 使用 Clang 工具自由的支配 C++ 代码吧
 date: "2023-11-29 09:14:27"
-updated: "2026-03-29 04:07:34"
+updated: "2026-03-29 15:09:47"
 zhihu_article_id: "669360731"
 zhihu_url: https://zhuanlan.zhihu.com/p/669360731
 zhihu_column_id: c_1707545619290316800
@@ -278,7 +278,7 @@ namespace local {
         int age;
         std::string name;
     };
-}
+}  // namespace local
 ```
 
 解析代码如下
@@ -359,7 +359,7 @@ def raw_comment(self) -> str:
  * @param param1
  * @return int
  */
-int func(int param1){
+int func(int param1) {
     return param1 + 10000000;
 }
 ```
@@ -388,11 +388,7 @@ def traverse_comment(node: CX.Cursor):
 获取枚举名以及对应的枚举常量值，还有它的底层类型
 
 ```cpp
-enum class Color{
-    RED = 0,
-    GREEN,
-    BLUE
-};
+enum class Color { RED = 0, GREEN, BLUE };
 ```
 
 解析代码如下
@@ -419,7 +415,7 @@ def traverse_enum(node: CX.Cursor):
 C++11 加入了新的 attribute 语法：`[[ ... ]]`，可以用来给函数或者变量添加额外的信息。例如 `[[nodiscard]]` 和 `[[deprecated]]`。但是我们有时候会自己定义一些标记来给预处理工具使用，比如标记一个类型需要不需要生成元信息，我们也希望这些标记也能被 libclang 识别出来。但是遗憾的是如果直接写不被标准支持的属性会被 libclang 忽略，也就是最终的 AST 中是没有它的
 
 ```cpp
-struct [[Reflect]] Person{}; // ignored
+struct [[Reflect]] Person {};  // ignored
 ```
 
 一个可行的解决办法是利用 `get_tokens` 获取声明中的所有 `token`，然后自己裁剪出来。比如这里获取到的结果就是 `struct`,`[`,`[`,`Reflect`,`]`,`]`,`Person`,`{`,`}`，我们可以从中获取出我们想要的信息。
@@ -439,7 +435,7 @@ struct [[Reflect]] A {};
 Clang 在实际解析语法树之前，会把所有的预处理指令都替换成实际的代码。所以最后的语法树信息中就没有它们了。但是有些时候我们的确想要获取到这些信息，比如我们想要获取到 `#define` 的信息，这里需要把 `parse` 的 `options` 参数设为 `TranslationUnit.PARSE_DETAILED_PROCESSING_RECORD`。如果想要获取宏的内容就用 `get_tokens` 就行了。
 
 ```cpp
-#define CONCAT(a, b) a#b
+#define CONCAT(a, b) a #b
 auto x = CONCAT(1, 2);
 ```
 
@@ -469,7 +465,7 @@ def traverse_macro(node: CX.Cursor):
 有时候我们希望对源代码进行一些简单的修改，在某个位置插入一段代码或者删除一段代码。这时候我们可以使用 `Rewriter` 这个类。示例如下：
 
 ```cpp
-void func(){
+void func() {
     int a = 1;
     int b = 2;
     int c = 3;

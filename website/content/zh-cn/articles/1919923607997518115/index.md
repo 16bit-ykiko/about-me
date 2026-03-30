@@ -1,7 +1,7 @@
 ---
 title: Reflection for C++26!!!
 date: "2025-06-22 01:33:11"
-updated: "2026-03-29 04:07:11"
+updated: "2026-03-29 15:08:58"
 zhihu_article_id: "1919923607997518115"
 zhihu_url: https://zhuanlan.zhihu.com/p/1919923607997518115
 zhihu_column_id: c_1707545619290316800
@@ -78,7 +78,7 @@ namespace std::meta {
 
     consteval bool has_parent(info r);
     consteval info parent_of(info r);
-}
+}  // namespace std::meta
 ```
 
 在**序列化 (serialization)** 和**反序列化 (deserialization)** 中的一个常见诉求就是获取到某个 struct 的 members，然后递归进行序列化。在静态反射之前，我们只能通过各种 hack 的方式来做到这一点，而且并不完美。例如 [reflect-C++](https://github.com/getml/reflect-cpp) 支持 C++20 下获取**聚合类 (aggregate class)** 的数据成员 和 [magic-enum](https://github.com/Neargye/magic_enum) 支持枚举值在 `[-127, 128]` 范围内的枚举成员。实现方式非常的 hack 而且对编译器不友好，实例化大量模板导致编译速度降低，而且限制也很多。
@@ -121,7 +121,7 @@ namespace std::meta {
     consteval u8string_view u8display_string_of(info r);
 
     consteval source_location source_location_of(info r);
-}
+}  // namespace std::meta
 ```
 
 这个功能也是 C++ 程序员心心念念已久的功能了，获取变量名，函数名，字段名。
@@ -148,14 +148,14 @@ namespace std::meta {
             return CHAR_BIT * bytes + bits;
         }
 
-        auto operator<=>(const member_offset&) const = default;
+        auto operator<=> (const member_offset&) const = default;
     };
 
     consteval member_offset offset_of(info r);
     consteval size_t size_of(info r);
     consteval size_t alignment_of(info r);
     consteval size_t bit_size_of(info r);
-}
+}  // namespace std::meta
 ```
 
 `offset_of` 返回给定字段 offset 信息，由两部分构成：字节数 `bytes` 和位数 `bits`，用 `total_bits` 就可以获取具体的偏移了。这样设计的主要是考虑到字段可能是位域，偏移量不一定就是字节数。`size_of` 和 `alignment_of` 顾名思义就是获取 size 和 alignment。而 `bit_size_of` 则是获取位域的大小。
@@ -180,7 +180,7 @@ constexpr auto rint1 = ^^int1;
 namespace std::meta {
     consteval auto type_of(info r) -> info;
     consteval auto dealias(info r) -> info;
-}
+}  // namespace std::meta
 ```
 
 可以使用 `type_of` 来获取结构体字段等 typed entity 的类型，使用 `dealias` 获取一个别名的底层 entity，例如类型别名和命名空间别名原本的 entity，这个过程是**递归**的，会解开所有的别名。
@@ -211,7 +211,7 @@ namespace std::meta {
 
     consteval info remove_cvref(info type);
     consteval info decay(info type);
-}
+}  // namespace std::meta
 ```
 
 所以现在可以方便的把以前的 `type_traits` 版本的处理，等价的换成反射的版本了。代码会好理解很多，在文章的最后我会给出几个这样的案例。
@@ -230,7 +230,7 @@ namespace std::meta {
 
     template <reflection_range R = initializer_list<info>>
     consteval info substitute(info templ, R&& arguments);
-}
+}  // namespace std::meta
 ```
 
 假设 `r` 是一个**模板特化 (template specialization)**，`template_of` 返回它的模板，`template_arguments_of` 返回它的模板参数。`substitute` 则是根据给定的模板和参数，返回替换结果的模板特化的反射（不触发实例化）。通过这组函数，我们不再需要通过偏特化的方式来萃取模板特化的模板参数，轻而易举就可以拿到参数列表了。
@@ -249,18 +249,18 @@ consteval bool is_specialization_of(info templ, info type) {
 
 ```cpp
 namespace std::meta {
-    template<typename T>
+    template <typename T>
     consteval auto reflect_constant(const T& expr) -> info;
 
-    template<typename T>
+    template <typename T>
     consteval auto reflect_object(T& expr) -> info;
 
-    template<typename T>
+    template <typename T>
     consteval auto reflect_function(T& expr) -> info;
 
-    template<typename T>
+    template <typename T>
     consteval auto extract(info) -> T;
-}
+}  // namespace std::meta
 ```
 
 这些元函数产生一个所提供表达式的**求值结果**的反射。这类反射最常见的用例之一是作为 `std::meta::substitute` 的参数，用来构建一个**模板特化 (specialization)**。
@@ -283,7 +283,8 @@ static_assert(rarray5 == ^^std::array<int, 5>);
 `reflect_object(expr)` 产生一个由 expr 所指代的对象的反射。这经常被用来获取一个子对象的反射，然后该反射可以被用作一个引用类型的非类型模板参数。
 
 ```cpp
-template <int &> void fn();
+template <int&>
+void fn();
 
 int p[2];
 constexpr auto r = substitute(^^fn, {std::meta::reflect_object(p[1])});
@@ -292,7 +293,7 @@ constexpr auto r = substitute(^^fn, {std::meta::reflect_object(p[1])});
 `reflect_function(expr)` 产生一个由 expr 所指代的函数的反射。当只有一个函数的引用可用时，它对于反射该函数的属性非常有用。
 
 ```cpp
-consteval bool is_global_with_external_linkage(void(*fn)()) {
+consteval bool is_global_with_external_linkage(void (*fn)()) {
     std::meta::info rfn = std::meta::reflect_function(*fn);
     return (has_external_linkage(rfn) && parent_of(rfn) == ^^::);
 }
@@ -311,11 +312,13 @@ consteval bool is_global_with_external_linkage(void(*fn)()) {
 namespace std::meta {
     struct data_member_options {
         struct name_type {
-            template <typename T> requires constructible_from<u8string, T>
-            consteval name_type(T &&);
+            template <typename T>
+                requires constructible_from<u8string, T>
+            consteval name_type(T&&);
 
-            template <typename T> requires constructible_from<string, T>
-            consteval name_type(T &&);
+            template <typename T>
+                requires constructible_from<string, T>
+            consteval name_type(T&&);
         };
 
         optional<name_type> name;
@@ -324,11 +327,10 @@ namespace std::meta {
         bool no_unique_address = false;
     };
 
-    consteval auto data_member_spec(info type,
-                                  data_member_options options) -> info;
+    consteval auto data_member_spec(info type, data_member_options options) -> info;
     template <reflection_range R = initializer_list<info>>
     consteval auto define_aggregate(info type_class, R&&) -> info;
-}
+}  // namespace std::meta
 ```
 
 可以用 `define_aggregate` 给一个不完整的类型生成成员定义，这对于实现 `tuple` 或者 `variant` 这样的可变成员数量的类型很有用，例如
@@ -336,11 +338,12 @@ namespace std::meta {
 ```cpp
 union U;
 consteval {
-    define_aggregate(^^U, {
-        data_member_spec(^^int),
-        data_member_spec(^^char),
-        data_member_spec(^^double),
-    });
+    define_aggregate(^^U,
+                     {
+                         data_member_spec(^^int),
+                         data_member_spec(^^char),
+                         data_member_spec(^^double),
+                     });
 }
 ```
 
@@ -443,7 +446,7 @@ namespace std::meta {
     consteval vector<info> parameters_of(info r);
     consteval info variable_of(info r);
     consteval info return_type_of(info r);
-}
+}  // namespace std::meta
 ```
 
 如果 `r` 是**函数**或者**函数类型**的反射，那么 `return_type_of` 返回它的返回值类型的反射，`parameters_of` 返回它的函数参数的反射。例如
@@ -494,7 +497,7 @@ namespace std::meta {
     consteval bool is_explicit_object_parameter(info r);
     consteval bool has_ellipsis_parameter(info r);
     consteval bool has_default_argument(info r);
-}
+}  // namespace std::meta
 ```
 
 剩下这几个函数则是对函数参数的某些性质进行查询了，见名知义：
@@ -529,12 +532,10 @@ auto data = json::serialize(p);
 例如：
 
 ```cpp
-struct [[="A simple point struct"]] Point {
-    [[=serde::rename("point_x")]]
-    int x;
+struct[[= "A simple point struct"]] Point {
+    [[= serde::rename("point_x")]] int x;
 
-    [[=serde::rename("point_y")]]
-    int y;
+    [[= serde::rename("point_y")]] int y;
 };
 ```
 
@@ -545,7 +546,7 @@ namespace std::meta {
     consteval bool is_annotation(info);
     consteval vector<info> annotations_of(info item);
     consteval vector<info> annotations_of_with_type(info item, info type);
-}
+}  // namespace std::meta
 ```
 
 `is_annotation` 判断一个反射是不是注解的反射。`annotations_of` 获取给定 entity 上的所有注解的反射，`annotations_of_with_type` 则是获取给定 entity 上所有类型为 `type` 的注解的反射。获取到注解后再使用前面提到的 `extract` 解开值然后使用就行了。
@@ -558,7 +559,7 @@ struct Info {
     int b;
 };
 
-[[=Info(1, 2)]] int x = 1;
+[[= Info(1, 2)]] int x = 1;
 constexpr auto rs = annotations_of(^^x)[0];
 constexpr auto info = std::meta::extract<Info>(rs);
 static_assert(info.a == 1 && info.b == 2);
@@ -576,7 +577,7 @@ static_assert(info.a == 1 && info.b == 2);
 
 ```cpp
 void print_all(std::tuple<int, char> xs) {
-    template for (auto elem : xs) {
+    template for(auto elem: xs) {
         std::println("{}", elem);
     }
 }
@@ -598,16 +599,22 @@ template for 支持三种不同类型的序列，优先级从高到低：
 - **表达式列表 (Expression List)**：`{ expression-list }`，遍历列表中的每一个元素
 
 ```cpp
-template for (auto elem : {1, "hello", true}) { ... }
+template for(auto elem: {1, "hello", true}) {
+    ...
+}
 ```
 
 包展开也是支持的，还能轻松的往参数包中添加内容
 
 ```cpp
-void foo(auto&& ...args) {
-    template for (auto elem : {args...}) { ... }
+void foo(auto&&... args) {
+    template for(auto elem: {args...}) {
+        ...
+    }
 
-    template for (auto elem : {0, args..., 1}) { ... }
+    template for(auto elem: {0, args..., 1}) {
+        ...
+    }
 }
 ```
 
@@ -620,7 +627,9 @@ void foo() {
     constexpr static std::array arr = {1, 2, 3};
     constexpr static std::span<const int> view = arr;
 
-    template for (constexpr auto elem : view) { ... }
+    template for(constexpr auto elem: view) {
+        ...
+    }
 }
 ```
 
@@ -630,7 +639,9 @@ void foo() {
 
 ```cpp
 std::tuple t(1, "hello", true);
-template for (auto elem : t) { ... }
+template for(auto elem: t) {
+    ...
+}
 ```
 
 > 循环变量声明上有可选的 constexpr，如果标记则要求循环中的每个元素都是 constexpr 的
@@ -645,10 +656,10 @@ template for **还支持** `continue` 和 `break` 语句，可以跳过剩余部
 void print_struct(auto&& value) {
     constexpr auto info = meta::remove_cvref(^^decltype(value));
     constexpr auto no_check = meta::access_context::unchecked();
-    template for (constexpr auto e : meta::nonstatic_data_members_of(info, no_check)) {
+    template for(constexpr auto e: meta::nonstatic_data_members_of(info, no_check)) {
         constexpr auto type = type_of(e);
         auto&& member = value.[:e:];
-        if constexpr (is_class_type(type)) {
+        if constexpr(is_class_type(type)) {
             print_struct(member);
         } else {
             std::println("{} {}", identifier_of(e), member);
@@ -671,7 +682,7 @@ namespace std {
 
     template <class T>
     consteval const remove_cvref_t<T>* define_static_object(T&& r);
-}
+}  // namespace std
 ```
 
 它们可以将编译期分配的内存**提升**到**静态储存期**，也就是说和全局变量的储存期相同，并返回该静态储存期的指针或者引用，从而解决这个问题，所以上面的代码只需要额外在获取 `members` 的时候使用 `std::define_static_array` 把 `vector` 转成 `span` 就行了
@@ -680,12 +691,11 @@ namespace std {
 void print_struct(auto&& value) {
     constexpr auto info = meta::remove_cvref(^^decltype(value));
     constexpr auto no_check = meta::access_context::unchecked();
-    constexpr auto members =
-        std::define_static_array(meta::nonstatic_data_members_of(info, no_check));
-    template for (constexpr auto e : members) {
+    constexpr auto members = std::define_static_array(meta::nonstatic_data_members_of(info, no_check));
+    template for(constexpr auto e: members) {
         constexpr auto type = type_of(e);
         auto&& member = value.[:e:];
-        if constexpr (is_class_type(type)) {
+        if constexpr(is_class_type(type)) {
             print_struct(member);
         } else {
             std::println("{} {}", identifier_of(e), member);
@@ -710,27 +720,26 @@ namespace meta = std::meta;
 
 namespace print_utility {
 
-struct skip_t {};
+    struct skip_t {};
 
-constexpr inline static skip_t skip;
+    constexpr inline static skip_t skip;
 
-struct rename_t {
-    const char* name;
-};
+    struct rename_t {
+        const char* name;
+    };
 
-consteval rename_t rename(std::string_view name) {
-    return rename_t(std::define_static_string(name));
-}
+    consteval rename_t rename(std::string_view name) {
+        return rename_t(std::define_static_string(name));
+    }
 
 }  // namespace print_utility
 
 /// annotations_of => annotations_of_with_type
-consteval std::optional<std::meta::info> get_annotation(std::meta::info entity,
-                                                        std::meta::info type) {
+consteval std::optional<std::meta::info> get_annotation(std::meta::info entity, std::meta::info type) {
     auto annotations = meta::annotations_of_with_type(entity, type);
-    if (annotations.empty()) {
+    if(annotations.empty()) {
         return {};
-    } else if (annotations.size() == 1) {
+    } else if(annotations.size() == 1) {
         return annotations.front();
     } else {
         throw "too many annotations!";
@@ -738,16 +747,15 @@ consteval std::optional<std::meta::info> get_annotation(std::meta::info entity,
 }
 
 consteval auto fields_of(std::meta::info type) {
-    return std::define_static_array(
-        meta::nonstatic_data_members_of(type, meta::access_context::unchecked()));
+    return std::define_static_array(meta::nonstatic_data_members_of(type, meta::access_context::unchecked()));
 }
 
 template <typename T>
 auto to_string(const T& value) -> std::string {
     constexpr auto type = meta::remove_cvref(^^T);
-    if constexpr (!meta::is_class_type(type)) {
+    if constexpr(!meta::is_class_type(type)) {
         return std::format("{}", value);
-    } else if constexpr (meta::is_same_type(type, ^^std::string)) {
+    } else if constexpr(meta::is_same_type(type, ^^std::string)) {
         return value;
     } else {
         std::string result;
@@ -757,19 +765,19 @@ auto to_string(const T& value) -> std::string {
 
         bool first = true;
 
-        template for (constexpr auto member : fields_of(type)) {
-            if constexpr (get_annotation(member, ^^print_utility::skip_t)){
+        template for(constexpr auto member: fields_of(type)) {
+            if constexpr(get_annotation(member, ^^print_utility::skip_t)) {
                 continue;
             }
 
-            if (!first) {
+            if(!first) {
                 result += ", ";
             }
             first = false;
 
             std::string_view field_name = meta::identifier_of(member);
             constexpr auto rename = get_annotation(member, ^^print_utility::rename_t);
-            if constexpr (rename) {
+            if constexpr(rename) {
                 constexpr auto annotation = *rename;
                 field_name = meta::extract<print_utility::rename_t>(annotation).name;
             }
@@ -792,15 +800,13 @@ struct User {
     int id;
     std::string username;
 
-    [[= print_utility::skip]]
-    std::string password_hash;
+    [[= print_utility::skip]] std::string password_hash;
 };
 
 struct Order {
     int order_id;
 
-    [[= print_utility::rename("buyer")]]
-    User user_info;
+    [[= print_utility::rename("buyer")]] User user_info;
 };
 
 int main() {
@@ -814,7 +820,7 @@ int main() {
 
 输出
 
-```cpp
+```bash
 User { id: 101, username: Alice }
 Order { order_id: 20240621, buyer: User { id: 101, username: Alice } }
 ```

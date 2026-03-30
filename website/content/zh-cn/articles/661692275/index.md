@@ -4,7 +4,7 @@ series:
 series_order: 6
 title: C++26 静态反射提案解析
 date: "2023-10-17 02:38:26"
-updated: "2026-03-29 04:07:28"
+updated: "2026-03-29 15:09:36"
 zhihu_article_id: "661692275"
 zhihu_url: https://zhuanlan.zhihu.com/p/661692275
 zhihu_column_id: c_1656510843973046272
@@ -30,12 +30,12 @@ zhihu_column_title: 魅力C++
 在 C++03/98 的时候，我们只能通过模板递归实例化来实现，而且无法将代码复用到运行期
 
 ```cpp
-template<int N>
+template <int N>
 struct factorial {
     enum { value = N * factorial<N - 1>::value };
 };
 
-template<>
+template <>
 struct factorial<0> {
     enum { value = 1 };
 };
@@ -49,9 +49,9 @@ constexpr int factorial(int n) {
 }
 
 int main() {
-    constexpr std::size_t a = factorial(5); // 编译期计算
+    constexpr std::size_t a = factorial(5);  // 编译期计算
     std::size_t& n = *new std::size_t(6);
-    std::size_t b = factorial(n); // 运行期计算
+    std::size_t b = factorial(n);  // 运行期计算
     std::cout << a << std::endl;
     std::cout << b << std::endl;
 }
@@ -62,7 +62,7 @@ int main() {
 ```cpp
 constexpr std::size_t factorial(std::size_t N) {
     std::size_t result = 1;
-    for (std::size_t i = 1; i <= N; ++i) {
+    for(std::size_t i = 1; i <= N; ++i) {
         result *= i;
     }
     return result;
@@ -72,15 +72,15 @@ constexpr std::size_t factorial(std::size_t N) {
 C++20 之后，我们还可以在编译期使用 `new/delete`，我们可以在编译期代码里面使用 `vector`。很多运行期的代码可以直接在编译期复用，而不需要任何更改，只需要在函数前面加上一个 constexpr 标记，再也不用为了进行编译期计算而使用晦涩难懂的模板元编程了。但是，上面的示例仅仅适用于 value，在 C++ 里面除了 value 还有 type 和 higher kind type
 
 ```cpp
-template<typename ...Ts>
+template <typename... Ts>
 struct type_list;
 
-template<typename T, typename U, typename ...Ts>
+template <typename T, typename U, typename... Ts>
 struct find_first_of {
     constexpr static auto value = find_first_of<T, Ts...>::value + 1;
 };
 
-template<typename T, typename ...Ts>
+template <typename T, typename... Ts>
 struct find_first_of<T, T, Ts...> {
     constexpr static std::size_t value = 0;
 };
@@ -91,13 +91,13 @@ static_assert(find_first_of<int, double, char, int, char>::value == 2);
 由于 type 和 higher kind type 只能是 template arguments，所以还是只能通过**模板递归匹配**处理它们。要是我们能像 value 一样操作它们就好了，这样的话 constexpr 函数也能处理它们了。但是 C++ 又不是像 Zig 那样的语言，type is value。怎么办呢？没关系，我们把 type 映射到 value 不就行了？实现 type as value 的效果。在静态反射加入之前，我们可以通过一些 trick 来实现这个效果。可以在编译期把类型映射到类型名，于是只要对类型名进行计算就好了。关于如何进行这种映射，可以参考 [C++ 中如何优雅进行 enum 到 string 的转换](https://www.ykiko.me/zh-cn/articles/680412313)。
 
 ```cpp
-template<typename ...Ts>
-struct type_list{};
+template <typename... Ts>
+struct type_list {};
 
-template<typename T, typename ...Ts>
+template <typename T, typename... Ts>
 constexpr std::size_t find(type_list<Ts...>) {
     // type_name 用于获取编译期类型名
-    std::array arr{ type_name<Ts>()... };
+    std::array arr{type_name<Ts>()...};
     for(auto i = 0; i < arr.size(); i++) {
         if(arr[i] == type_name<T>()) {
             return i;
@@ -117,18 +117,18 @@ constexpr std::meta::info value = ^int;
 使用 `[: ... :]` 将它映射回去，注意这是 symbol 级别的映射
 
 ```cpp
-using Int = typename[:value:]; // 在此语境下，typename 可以省略
-typename[:value:] a = 3; // 相当于 int a = 3;
+using Int = typename[:value:];  // 在此语境下，typename 可以省略
+typename[:value:] a = 3;        // 相当于 int a = 3;
 ```
 
 现在我们就能写出下面这样的代码了。
 
 ```cpp
-template<typename ...Ts>
+template <typename... Ts>
 struct type_list {
     constexpr static std::array types = {^Ts...};
 
-    template<std::size_t N>
+    template <std::size_t N>
     using at = typename[:types[N]:];
 };
 
@@ -162,15 +162,16 @@ static_assert(std::is_same_v<Second, double>);
 
 ```cpp
 int x = 0;
+
 void g() {
-    [:^x:] = 42;     // Okay.  Same as: x = 42;
+    [:^x:] = 42;  // Okay.  Same as: x = 42;
 }
 ```
 
 如果还原的东西和原本储存的不一样，则会编译错误
 
 ```cpp
-typename[: ^:: :] x = 0;  // Error
+typename[:^:::] x = 0;  // Error
 ```
 
 ### metainfo
@@ -183,14 +184,14 @@ typename[: ^:: :] x = 0;  // Error
 namespace std::meta {
     consteval auto name_of(info r) -> string_view;
     consteval auto display_name_of(info r) -> string_view;
-}
+}  // namespace std::meta
 ```
 
 比如可以
 
 ```cpp
-display_name_of(^std::vector<int>) //  => std::vector<int>
-name_of(^std::vector<int>) // => std::vector<int, std::allocator<int>>
+display_name_of(^std::vector<int>);  //  => std::vector<int>
+name_of(^std::vector<int>);          // => std::vector<int, std::allocator<int>>
 ```
 
 判断一个模板是不是另一个高阶模板的特化 和 萃取高阶模板里面的参数
@@ -199,7 +200,7 @@ name_of(^std::vector<int>) // => std::vector<int, std::allocator<int>>
 namespace std::meta {
     consteval auto template_of(info r) -> info;
     consteval auto template_arguments_of(info r) -> vector<info>;
-}
+}  // namespace std::meta
 
 std::vector<int> v = {1, 2, 3};
 static_assert(template_of(type_of(^v)) == ^std::vector);
@@ -210,36 +211,36 @@ static_assert(template_arguments_of(type_of(^v))[0] == ^int);
 
 ```cpp
 namespace std::meta {
-    consteval auto substitute(info templ, span<info const> args) -> info;
+    consteval auto substitute(info templ, span<const info> args) -> info;
 }
 
 constexpr auto r = substitute(^std::vector, std::vector{^int});
-using T = [:r:]; // Ok, T is std::vector<int>
+using T = [:r:];  // Ok, T is std::vector<int>
 ```
 
 获取 `struct`、`class`、`union`、`enum` 的成员信息
 
 ```cpp
-namespace std::meta{
-    template<typename ...Fs>
-    consteval auto members_of(info class_type, Fs ...filters) -> vector<info>;
+namespace std::meta {
+    template <typename... Fs>
+    consteval auto members_of(info class_type, Fs... filters) -> vector<info>;
 
-    template<typename ...Fs>
-    consteval auto nonstatic_data_members_of(info class_type, Fs ...filters) -> vector<info> {
+    template <typename... Fs>
+    consteval auto nonstatic_data_members_of(info class_type, Fs... filters) -> vector<info> {
         return members_of(class_type, is_nonstatic_data_member, filters...);
     }
 
-    template<typename ...Fs>
-    consteval auto bases_of(info class_type, Fs ...filters) -> vector<info> {
+    template <typename... Fs>
+    consteval auto bases_of(info class_type, Fs... filters) -> vector<info> {
         return members_of(class_type, is_base, filters...);
     }
 
-    template<typename ...Fs>
-    consteval auto enumerators_of(info class_type, Fs ...filters) -> vector<info>;
+    template <typename... Fs>
+    consteval auto enumerators_of(info class_type, Fs... filters) -> vector<info>;
 
-    template<typename ...Fs>
-    consteval auto subobjects_of(info class_type, Fs ...filters) -> vector<info>;
-}
+    template <typename... Fs>
+    consteval auto subobjects_of(info class_type, Fs... filters) -> vector<info>;
+}  // namespace std::meta
 ```
 
 待会用这个我们就可以实现遍历结构体，枚举等功能。进一步就可以实现序列化，反序列化等高级功能。后文会有一些示例。除此之外，还有一些其他的功能的编译期函数，上面只展示了一部分内容，更多的 API 可以参考提案中的内容。由于提供了直接获取高级模板里面参数的函数，再也不用用模板去进行类型萃取了！用于类型萃取的模板元也可以退出历史舞台了。
@@ -255,7 +256,7 @@ namespace std::meta{
 ```cpp
 constexpr auto dynamic_tuple_get(std::size_t N, auto& tuple) {
     constexpr auto size = std::tuple_size_v<std::decay_t<decltype(tuple)>>;
-    [&]<std::size_t ...Is>(std::index_sequence<Is...>) {
+    [&]<std::size_t... Is>(std::index_sequence<Is...>) {
         auto f = [&]<std::size_t Index> {
             if(Index == N) {
                 std::cout << std::get<Index>(tuple) << std::endl;
@@ -268,9 +269,9 @@ constexpr auto dynamic_tuple_get(std::size_t N, auto& tuple) {
 int main() {
     std::tuple tuple = {1, "Hello", 3.14, 42};
     auto n1 = 0;
-    dynamic_tuple_get(n1, tuple); // 1
+    dynamic_tuple_get(n1, tuple);  // 1
     auto n2 = 3;
-    dynamic_tuple_get(n2, tuple); // 42
+    dynamic_tuple_get(n2, tuple);  // 42
 }
 ```
 
@@ -297,7 +298,7 @@ constexpr auto dynamic_tuple_get(std::size_t N, auto& tuple) {
 ```cpp
 constexpr void dynamic_tuple_get(std::size_t N, auto& tuple) {
     constexpr auto size = std::tuple_size_v<std::decay_t<decltype(tuple)>>;
-    template for(constexpr auto num : std::views::iota(0, size)) {
+    template for(constexpr auto num: std::views::iota(0, size)) {
         if(num == N) {
             std::cout << std::get<num>(tuple) << std::endl;
             return;
@@ -315,19 +316,19 @@ constexpr void dynamic_tuple_get(std::size_t N, auto& tuple) {
 - C++ 可以通过控制模板实例化 static 成员在数据段预留位置，可以看作编译期内存分配
 
 ```cpp
-template<auto... items>
+template <auto... items>
 struct make_array {
     using type = std::common_type_t<decltype(items)...>;
-    static inline type value[sizeof ...(items)] = {items...};
+    inline static type value[sizeof...(items)] = {items...};
 };
 
-template<auto... items>
+template <auto... items>
 constexpr auto make_array_v = make_array<items...>::value;
 
 int main() {
     constexpr auto arr = make_array_v<1, 2, 3, 4, 5>;
     std::cout << arr[0] << std::endl;
-    std::cout << arr[1] << std::endl; //成功在数据段预留位置，存放的是 1 2 3 4 5
+    std::cout << arr[1] << std::endl;  // 成功在数据段预留位置，存放的是 1 2 3 4 5
 }
 ```
 
@@ -343,7 +344,7 @@ constexpr auto size(auto... Is) {
 那就不能在编译期 `new` 之后，不 `delete`？实际数据放在数据段？这就是这个提案要解决的问题，它希望我们能使用
 
 ```cpp
-constexpr std::vector<int> v = {1, 2, 3, 4, 5}; // 全局的
+constexpr std::vector<int> v = {1, 2, 3, 4, 5};  // 全局的
 ```
 
 主要难点是，在数据段分配的内存不像在堆上的内存一样有所有权，不需要 `delete`。只要解决了这个问题，就能使用编译期的 `std::map`，`std::vector` 并且保留到运行期。这个作者的做法是进行标记。具体的细节这里就不说了。如果这个加入了，利用模板元打常量表也可以退出了。
@@ -355,15 +356,15 @@ constexpr std::vector<int> v = {1, 2, 3, 4, 5}; // 全局的
 ### print any type
 
 ```cpp
-template<typename T>
+template <typename T>
 constexpr auto print(const T& t) {
-    template for(constexpr auto member : nonstatic_data_members_of(type_of(^t))) {
-        if constexpr (is_class(type_of(member)))  {
+    template for(constexpr auto member: nonstatic_data_members_of(type_of(^t))) {
+        if constexpr(is_class(type_of(member))) {
             // 如果是 class 就递归遍历成员
             println("{}= ", name_of(member));
             print(t.[:member:]);
         } else {
-            //非类类型可以直接打印
+            // 非类类型可以直接打印
             std::println("{}= {}", name_of(member), t.[:member:]);
         }
     }
@@ -373,10 +374,11 @@ constexpr auto print(const T& t) {
 ### enum to string
 
 ```cpp
-template <typename E> requires std::is_enum_v<E>
+template <typename E>
+    requires std::is_enum_v<E>
 constexpr std::string enum_to_string(E value) {
-    template for (constexpr auto e : std::meta::members_of(^E)) {
-        if (value == [:e:]) {
+    template for(constexpr auto e: std::meta::members_of(^E)) {
+        if(value == [:e:]) {
             return std::string(std::meta::name_of(e));
         }
     }

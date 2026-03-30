@@ -1,7 +1,7 @@
 ---
 title: Python 与 C++ 的完美结合：pybind11 中的对象设计
 date: "2024-06-07 15:28:11"
-updated: "2026-03-29 04:07:53"
+updated: "2026-03-29 15:10:36"
 zhihu_article_id: "702197261"
 zhihu_url: https://zhuanlan.zhihu.com/p/702197261
 zhihu_column_id: c_1656510843973046272
@@ -40,20 +40,20 @@ PyList_SetItem(x, 2, PyLong_FromLong(3));
 CPython 也提供了一系列的 API 用来操作 `PyObject*` 指向的对象，例如
 
 ```cpp
-PyObject* PyObject_CallObject(PyObject *callable_object, PyObject *args);
-PyObject* PyObject_CallFunction(PyObject *callable_object, const char *format, ...);
-PyObject* PyObject_CallMethod(PyObject *o, const char *method, const char *format, ...);
-PyObject* PyObject_CallFunctionObjArgs(PyObject *callable, ...);
-PyObject* PyObject_CallMethodObjArgs(PyObject *o, PyObject *name, ...);
-PyObject* PyObject_GetAttrString(PyObject *o, const char *attr_name);
-PyObject* PyObject_SetAttrString(PyObject *o, const char *attr_name, PyObject *v);
-int PyObject_HasAttrString(PyObject *o, const char *attr_name);
-PyObject* PyObject_GetAttr(PyObject *o, PyObject *attr_name);
-int PyObject_SetAttr(PyObject *o, PyObject *attr_name, PyObject *v);
-int PyObject_HasAttr(PyObject *o, PyObject *attr_name);
-PyObject* PyObject_GetItem(PyObject *o, PyObject *key);
-int PyObject_SetItem(PyObject *o, PyObject *key, PyObject *v);
-int PyObject_DelItem(PyObject *o, PyObject *key);
+PyObject* PyObject_CallObject(PyObject* callable_object, PyObject* args);
+PyObject* PyObject_CallFunction(PyObject* callable_object, const char* format, ...);
+PyObject* PyObject_CallMethod(PyObject* o, const char* method, const char* format, ...);
+PyObject* PyObject_CallFunctionObjArgs(PyObject* callable, ...);
+PyObject* PyObject_CallMethodObjArgs(PyObject* o, PyObject* name, ...);
+PyObject* PyObject_GetAttrString(PyObject* o, const char* attr_name);
+PyObject* PyObject_SetAttrString(PyObject* o, const char* attr_name, PyObject* v);
+int PyObject_HasAttrString(PyObject* o, const char* attr_name);
+PyObject* PyObject_GetAttr(PyObject* o, PyObject* attr_name);
+int PyObject_SetAttr(PyObject* o, PyObject* attr_name, PyObject* v);
+int PyObject_HasAttr(PyObject* o, PyObject* attr_name);
+PyObject* PyObject_GetItem(PyObject* o, PyObject* key);
+int PyObject_SetItem(PyObject* o, PyObject* key, PyObject* v);
+int PyObject_DelItem(PyObject* o, PyObject* key);
 ```
 
 这些函数在 Python 中基本都有直接对应，看名字就知道是干什么用的了。
@@ -68,14 +68,15 @@ int PyObject_DelItem(PyObject *o, PyObject *key);
 class handle {
 protected:
     PyObject* m_ptr;
+
 public:
     handle(PyObject* ptr) : m_ptr(ptr) {}
 
-    friend bool operator==(const handle& lhs, const handle& rhs) {
+    friend bool operator== (const handle& lhs, const handle& rhs) {
         return PyObject_RichCompareBool(lhs.m_ptr, rhs.m_ptr, Py_EQ);
     }
 
-    friend bool operator!=(const handle& lhs, const handle& rhs) {
+    friend bool operator!= (const handle& lhs, const handle& rhs) {
         return PyObject_RichCompareBool(lhs.m_ptr, rhs.m_ptr, Py_NE);
     }
 
@@ -91,16 +92,16 @@ public:
 
 ```cpp
 std::vector<int> v = {1, 2, 3};
-int x = v[0]; // get
-v[0] = 4;     // set
+int x = v[0];  // get
+v[0] = 4;      // set
 ```
 
 如果没有引用，就只能返回指针，那么上面的代码就得写成这样
 
 ```cpp
 std::vector<int> v = {1, 2, 3};
-int x = *v[0]; // get
-*v[0] = 4;     // set
+int x = *v[0];  // get
+*v[0] = 4;      // set
 ```
 
 相比之下，使用引用是不是美观的多呢？这个问题在其他编程语言中也存在，但不是所有语言都采用这种解决办法。例如，Rust 选择自动解引用，编译器在合适的时机自动添加 `*` 来解引用，这样也就不需要多写上面那个 `*` 了。但是，这两种方法对 Python 来说都不行，因为 Python 中根本没有解引用这个说法，也不区分什么左值和右值。那怎么办呢？答案是区分 `getter` 和 `setter`。
@@ -143,8 +144,8 @@ pybind11 希望 handle 也能实现这样的效果，即在合适的时机调用
 
 ```cpp
 py::handle obj = py::list(1, 2, 3);
-obj[0] = 4; // __setitem__
-auto x = obj[0]; // __getitem__
+obj[0] = 4;       // __setitem__
+auto x = obj[0];  // __getitem__
 x = py::int_(1);
 ```
 
@@ -166,6 +167,7 @@ class accessor {
     handle m_obj;
     ssize_t m_key;
     handle m_value;
+
 public:
     accessor(handle obj, ssize_t key) : m_obj(obj), m_key(key) {
         m_value = PyObject_GetItem(obj.ptr(), key);
@@ -176,9 +178,9 @@ public:
 下面一个问题就是如何区分 `obj[0] = 4` 和 `x = int_(1)`，使得前面一种情况调用 `__setitem__`，后面一种情况就是简单的对 `x` 赋值。注意到上面两种情况的关键性区别，左值和右值
 
 ```cpp
-obj[0] = 4; // assign to rvalue
+obj[0] = 4;  // assign to rvalue
 auto x = obj[0];
-x = 1; // assign to lvalue
+x = 1;  // assign to lvalue
 ```
 
 如何让 `operator=` 根据操作数的值类别 (value category) 调用不同的函数呢？这就要用到一个比较少见的小技巧了，我们都知道可以在成员函数上加上 `const` 限定符，从而允许这个成员函数在 const 对象上调用。
@@ -186,13 +188,14 @@ x = 1; // assign to lvalue
 ```cpp
 struct A {
     void foo() {}
+
     void bar() const {}
 };
 
 int main() {
     const A a;
-    a.foo(); // error
-    a.bar(); // ok
+    a.foo();  // error
+    a.bar();  // ok
 }
 ```
 
@@ -201,16 +204,17 @@ int main() {
 ```cpp
 struct A {
     void foo() & {}
+
     void bar() && {}
 };
 
 int main() {
     A a;
-    a.foo(); // ok
-    a.bar(); // error
+    a.foo();  // ok
+    a.bar();  // error
 
-    A().bar(); // ok
-    A().foo(); // error
+    A().bar();  // ok
+    A().foo();  // error
 }
 ```
 
@@ -221,18 +225,19 @@ class accessor {
     handle m_obj;
     ssize_t m_key;
     handle m_value;
+
 public:
     accessor(handle obj, ssize_t key) : m_obj(obj), m_key(key) {
         m_value = PyObject_GetItem(obj.ptr(), key);
     }
 
     // assign to rvalue
-    void operator=(handle value) && {
+    void operator= (handle value) && {
         PyObject_SetItem(m_obj.ptr(), m_key, value.ptr());
     }
 
     // assign to lvalue
-    void operator=(handle value) & {
+    void operator= (handle value) & {
         m_value = value;
     }
 };
@@ -246,18 +251,19 @@ public:
 class accessor : public handle {
     handle m_obj;
     ssize_t m_key;
+
 public:
     accessor(handle obj, ssize_t key) : m_obj(obj), m_key(key) {
         m_ptr = PyObject_GetItem(obj.ptr(), key);
     }
 
     // assign to rvalue
-    void operator=(handle value) && {
+    void operator= (handle value) && {
         PyObject_SetItem(m_ptr, m_key, value.ptr());
     }
 
     // assign to lvalue
-    void operator=(handle value) & {
+    void operator= (handle value) & {
         m_ptr = value;
     }
 };
@@ -268,11 +274,11 @@ public:
 目前这样直接继承 `handle` 肯定是不行的，不可能在每次成员函数调用之前插入一次判断，然后决定要不要调用 `__getitem__`。可以让 `handle` 和 `accessor` 都继承一个基类，这个基类里面有一个接口，用来实际获取要操作的指针
 
 ```cpp
-class object_api{
+class object_api {
 public:
     virtual PyObject* get() = 0;
 
-    bool operator==(const handle& rhs) {
+    bool operator== (const handle& rhs) {
         return PyObject_RichCompareBool(get(), rhs.ptr(), Py_EQ);
     }
 
@@ -291,7 +297,7 @@ class handle : public object_api {
 
 class accessor : public handle {
     PyObject* get() override {
-        if (!m_ptr) {
+        if(!m_ptr) {
             m_ptr = PyObject_GetItem(m_obj.ptr(), m_key);
         }
         return m_ptr;
@@ -309,7 +315,7 @@ public:
         return static_cast<Derived*>(this)->get();
     }
 
-    bool operator==(const handle& rhs) {
+    bool operator== (const handle& rhs) {
         return PyObject_RichCompareBool(get(), rhs.ptr(), Py_EQ);
     }
 
@@ -324,7 +330,7 @@ class handle : public object_api<handle> {
 
 class accessor : public object_api<accessor> {
     PyObject* get() {
-        if (!m_ptr) {
+        if(!m_ptr) {
             m_ptr = PyObject_GetItem(m_obj.ptr(), m_key);
         }
         return m_ptr;

@@ -1,7 +1,7 @@
 ---
 title: 彻底理解 C++ ABI
 date: "2024-04-17 02:19:38"
-updated: "2026-03-29 04:07:48"
+updated: "2026-03-29 15:10:24"
 zhihu_article_id: "692886292"
 zhihu_url: https://zhuanlan.zhihu.com/p/692886292
 zhihu_column_id: c_1656510843973046272
@@ -40,12 +40,12 @@ Application Binary Interface，也就是我们常说的 ABI，是个让人感觉
 假设我把下面这个文件编译成动态库
 
 ```cpp
-struct X{
+struct X {
     int a;
     int b;
 };
 
-int foo(X x){
+int foo(X x) {
     return x.a + x.b;
 }
 ```
@@ -53,7 +53,7 @@ int foo(X x){
 结果后续版本升级导致结构体内容发生变动了，用户代码里面看到的结构体定义变成了
 
 ```cpp
-struct X{
+struct X {
     int a;
     int b;
     int c;
@@ -63,7 +63,7 @@ struct X{
 然后仍然去尝试链接旧版本代码编译出的动态库，并调用里面的函数
 
 ```cpp
-int main(){
+int main() {
     int n = foo({1, 2, 3});
     printf("%d\n", n);
 }
@@ -123,8 +123,8 @@ extern void f(X);
 extern void g(const X&);
 
 int main() {
-    f({1, 2}); // pass by value
-    g({1, 2}); // pass by reference
+    f({1, 2});  // pass by value
+    g({1, 2});  // pass by reference
 }
 ```
 
@@ -249,7 +249,7 @@ struct X {
     void f(int);
 };
 
-using Fn = void(*)(X*, int);
+using Fn = void (*)(X*, int);
 Fn p = [](A* self, int x) { self->f(x); };
 ```
 
@@ -258,16 +258,16 @@ Fn p = [](A* self, int x) { self->f(x); };
 ```cpp
 struct X {
     // 这里的 this 只是个标记作用，为了和旧语法区分开来
-    void f(this X self, int x); // pass by value
-    void g(this X& self, int x); // pass by reference
+    void f(this X self, int x);   // pass by value
+    void g(this X& self, int x);  // pass by reference
 };
 ```
 
 被显式 `this` 标记的函数也可以直接获取函数地址了，就和普通的函数一样
 
 ```cpp
-auto f = &X::f; // type of f is void(*)(X, int)
-auto g = &X::g; // type of g is void(*)(X*, int)
+auto f = &X::f;  // type of f is void(*)(X, int)
+auto g = &X::g;  // type of g is void(*)(X*, int)
 ```
 
 所以新代码可以都采用这种写法，只有好处，没有坏处。
@@ -279,7 +279,7 @@ auto g = &X::g; // type of g is void(*)(X*, int)
 ```cpp
 template <class T>
 struct hash {
-    std::size_t operator()(T const& t) const;
+    std::size_t operator() (const T& t) const;
 };
 ```
 
@@ -288,7 +288,7 @@ struct hash {
 ```cpp
 template <class T>
 struct hash {
-    static std::size_t operator()(T const& t);
+    static std::size_t operator() (const T& t);
 };
 ```
 
@@ -396,7 +396,7 @@ C 运行时除了提供 C 标准库的实现外，还负责程序的初始化和
 在第一小节讨论调用约定的时候，就提到过变更结构体定义导致的 ABI 不兼容问题。那如果既想要保证 ABI 兼容，又想要为以后的扩展留下空间怎么办呢？答案就是在运行时处理了
 
 ```cpp
-struct X{
+struct X {
     size_t x;
     size_t y;
     void* reserved;
@@ -408,9 +408,9 @@ struct X{
 ```cpp
 void f(X* x) {
     Reserved* r = static_cast<Reserved*>(x->reserved);
-    if (r->version == ...) {
+    if(r->version == ...) {
         // do something
-    } else if (r->version == ...) {
+    } else if(r->version == ...) {
         // do something else
     }
 }

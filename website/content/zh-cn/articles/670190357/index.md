@@ -4,7 +4,7 @@ series:
 series_order: 2
 title: 为什么说 C/C++ 编译器不保留元信息？
 date: "2023-12-03 23:37:51"
-updated: "2026-03-29 04:07:35"
+updated: "2026-03-29 15:09:51"
 zhihu_article_id: "670190357"
 zhihu_url: https://zhuanlan.zhihu.com/p/670190357
 zhihu_column_id: c_1707545619290316800
@@ -32,31 +32,26 @@ print(f"name: {person.name}, age: {person.age}") # => name: xiaoming, age: 12
 如果想要在 `C++` 中实现应该怎么办呢？`C++` 可没有内置 `setattr` 这种函数。代码示例如下。（暂时就先考虑可以直接 `memcpy` 的类型了，也就是 `trivially copyable` 的类型）
 
 ```cpp
-struct Person
-{
+struct Person {
     int age;
     std::string_view name;
 };
 
 // 名字 -> 字段偏移量，字段大小
-std::map<std::string_view, std::pair<std::size_t, std::size_t>> fieldInfo =
-{
-    {"age",  {offsetof(Person, age),  sizeof(int)}},
+std::map<std::string_view, std::pair<std::size_t, std::size_t>> fieldInfo = {
+    {"age", {offsetof(Person, age), sizeof(int)}},
     {"name", {offsetof(Person, name), sizeof(std::string_view)}},
 };
 
-void setattr(Person* point, std::string_view name, void* data)
-{
-    if (!fieldInfo.contains(name))
-    {
+void setattr(Person* point, std::string_view name, void* data) {
+    if(!fieldInfo.contains(name)) {
         throw std::runtime_error("Field not found");
     }
     auto& [offset, size] = fieldInfo[name];
     std::memcpy(reinterpret_cast<char*>(point) + offset, data, size);
 }
 
-int main()
-{
+int main() {
     Person person = {.age = 1, .name = "xiaoming"};
     int age = 10;
     std::string_view name = "xiaohong";
@@ -84,21 +79,20 @@ int value;
 ```c
 struct A;
 
-A x; // error: storage size of 'x' isn't known
-A* y; // ok the size of pointer is always known
+A x;   // error: storage size of 'x' isn't known
+A* y;  // ok the size of pointer is always known
 
-struct Node
-{
+struct Node {
     int val;
     Node next;
-}; // error Node is not a complete type
+};  // error Node is not a complete type
+
 // 其实意思就是定义 Node 类型的时候它的大小还是未知的
 
-struct Node
-{
+struct Node {
     int val;
     Node* next;
-}; // ok
+};  // ok
 ```
 
 相信你想到了这和 `malloc` 似乎有点像，的确如此。区别在于，`malloc` 是在运行时的堆上分配内存。而直接的变量声明一般是在数据区或者栈上分配内存。编译器可能在内部会维护一个符号表，将变量名与它的地址映射起来，在你后续对这个变量进行操作的时候，实际上是对这块内存区域进行操作。
@@ -107,7 +101,7 @@ struct Node
 
 `C` 语言内置的运算符一般直接和 `CPU` 指令直接对应，至于 `CPU` 是如何实现这些运算的，可以学习下数电相关知识。以 `x86_64` 为例，可能的对应如下
 
-```c
+```bash
 | Operator | Meaning | Operator | Meaning |
 |----------|---------|----------|---------|
 | +        | add     | *        | mul     |
@@ -126,20 +120,18 @@ struct Node
 赋值则可能是通过 `mov` 指令来完成的，比如
 
 ```c
-a = 3; // mov [addressof(a)] 3
+a = 3;  // mov [addressof(a)] 3
 ```
 
 ### 结构体
 
 ```c
-struct Point
-{
+struct Point {
     int x;
     int y;
-}
+};
 
-int main()
-{
+int main() {
     Point point;
     point.x = 1;
     point.y = 2;
@@ -151,11 +143,10 @@ int main()
 下面来关注一下结构体成员访问，事实上 `C` 语言有一个宏可以获取结构体成员相对于结构体起始地址的偏移量，叫做 `offsetof`（就算我们获取不到，编译器里面也是会计算字段偏移量的，所以偏移量信息对编译器总是已知的）。例如在这里 `offsetof(Point, x)` 就是 `0`，`offsetof(Point, y)` 就是 `4`。所以上面的代码可以理解为
 
 ```c
-int main()
-{
-    char point[sizeof(Point)]; // 8 = sizeof(Point)
-    *(int*)(point + offsetof(Point, x)) = 1; // point.x = 1
-    *(int*)(point + offsetof(Point, y)) = 2; // point.y = 2
+int main() {
+    char point[sizeof(Point)];                // 8 = sizeof(Point)
+    *(int*)(point + offsetof(Point, x)) = 1;  // point.x = 1
+    *(int*)(point + offsetof(Point, y)) = 2;  // point.y = 2
 }
 ```
 
@@ -185,7 +176,7 @@ clang -Xclang -ast-dump -fsyntax-only <your.cpp>
 
 输出如下，我筛选出了重要的信息，无关的已经被删除了
 
-```cpp
+```bash
 |-CXXRecordDecl 0x2103cd9c318 <col:1, col:8> col:8 implicit struct Point
 |-FieldDecl 0x2103cd9c3c0 <line:4:5, col:9> col:9 referenced x 'int'
 |-FieldDecl 0x2103e8661f0 <line:5:5, col:9> col:9 referenced y 'int'
@@ -215,21 +206,18 @@ clang -Xclang -ast-dump -fsyntax-only <your.cpp>
 其实一切原因都是 `constexpr` 引起的。把信息像下面这样存储起来
 
 ```cpp
-struct FieldInfo
-{
+struct FieldInfo {
     std::string_view name;
     std::size_t offset;
     std::size_t size;
-}；
+};
 
-struct Point
-{
+struct Point {
     int x;
     int y;
-}；
+};
 
-constexpr std::array<FieldInfo, 2> fieldInfos =
-{{
+constexpr std::array<FieldInfo, 2> fieldInfos = {{
     {"x", offsetof(Point, x), sizeof(int)},
     {"y", offsetof(Point, y), sizeof(int)},
 }};
@@ -240,14 +228,10 @@ constexpr std::array<FieldInfo, 2> fieldInfos =
 更有甚者，还可以存到模板参数里面去，这样的话连类型也能存了
 
 ```cpp
-template<fixed_string name, std::size_t offset, typename Type>
-struct Field{};
+template <fixed_string name, std::size_t offset, typename Type>
+struct Field {};
 
-using FieldInfos = std::tuple
-<
-    Field<"x", offsetof(Point, x), int>,
-    Field<"y", offsetof(Point, y), int>
->;
+using FieldInfos = std::tuple<Field<"x", offsetof(Point, x), int>, Field<"y", offsetof(Point, y), int>>;
 ```
 
 这样无疑给了我们更大的操作空间，那么有了这些信息之后，下一步该做些什么？事实上我们可以选择基于这部分信息进行代码生成，相关的内容可以浏览系列文章中的其他小节。

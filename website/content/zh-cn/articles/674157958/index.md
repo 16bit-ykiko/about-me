@@ -1,7 +1,7 @@
 ---
 title: 跨越 7 年的接力赛：获取 C++ 结构体字段数量
 date: "2023-12-26 04:45:30"
-updated: "2026-03-29 04:07:39"
+updated: "2026-03-29 15:09:59"
 zhihu_article_id: "674157958"
 zhihu_url: https://zhuanlan.zhihu.com/p/674157958
 zhihu_column_id: c_1656510843973046272
@@ -23,7 +23,7 @@ auto [x, y] = p;
 // x = 1, y = 2
 ```
 
-利用它我们能实现一些有趣的功能，包括 \_有限的 \_对结构体的反射功能，比如实现一个 `for_each` 函数
+利用它我们能实现一些有趣的功能，包括 *有限的 *对结构体的反射功能，比如实现一个 `for_each` 函数
 
 ```cpp
 void for_each(auto&& object, auto&& func) {
@@ -69,7 +69,7 @@ struct Vec3 {
 template <typename T>
 constexpr bool two = requires { []() { auto [x, y] = T{1, 2, 3}; }; };
 
-static_assert(two<Vec3>); // !hard error
+static_assert(two<Vec3>);  // !hard error
 ```
 
 我们可以通过手动分发的方式来解决这个问题
@@ -102,7 +102,7 @@ struct Any {
     constexpr Any(int) {};
 
     template <typename T>
-    constexpr operator T () const;
+    constexpr operator T() const;
 };
 
 static_assert(std::is_convertible_v<Any, int>);          // true
@@ -210,8 +210,8 @@ static_assert(member_count<C>() == 1);  // error
 第一个问题相对比较好理解，主要就是因为 `T()` 类型产生的转换产生的都是纯右值，左值引用没法绑定到纯右值，如果是右值引用就可以了
 
 ```cpp
-static_assert(!std::is_constructible_v<int&, Any>); // false
-static_assert(std::is_constructible_v<int&&, Any>); // true
+static_assert(!std::is_constructible_v<int&, Any>);  // false
+static_assert(std::is_constructible_v<int&&, Any>);  // true
 ```
 
 怎么办呢？其实有一种很巧妙的写法，可以解决这个问题
@@ -221,10 +221,10 @@ struct Any {
     constexpr Any(int) {}
 
     template <typename T>
-    constexpr operator T& () const;
+    constexpr operator T&() const;
 
     template <typename T>
-    constexpr operator T&& () const;
+    constexpr operator T&&() const;
 };
 ```
 
@@ -317,8 +317,7 @@ _注意：下面这部分可能有点难以理解_
 考虑下面这个例子
 
 ```cpp
-struct D
-{
+struct D {
     int x;
     int y[2];
     int z[2];
@@ -328,20 +327,20 @@ struct D
 举例子，来看一下它初始化的情况：
 
 ```cpp
-D{ 1, 2, 3, 4, 5 } // ok
+D{1, 2, 3, 4, 5};  // ok
 
 // 第 0 个位置
-D{ {1}, 2, 3, 4, 5 } // ok, 0 号位置最多放置 1 个元素
-D{ {1, 2}, 3, 4, 5 } // error
+D{{1}, 2, 3, 4, 5};  // ok, 0 号位置最多放置 1 个元素
+D{{1, 2}, 3, 4, 5};  // error
 
 // 第 1 个位置
-D{ 1, {2}, 3, 4, 5 } // error
-D{ 1, {2, 3}, 4, 5 } // ok, 1 号位置最多放置 2 个元素
-D{ 1, {2, 3, 4}, 5 } // error
+D{1, {2}, 3, 4, 5};  // error
+D{1, {2, 3}, 4, 5};  // ok, 1 号位置最多放置 2 个元素
+D{1, {2, 3, 4}, 5};  // error
 
 // 第 3 个位置
-D{ 1, 2, 3, {4}, 5}  // error
-D{ 1, 2, 3, {4, 5} } // ok, 3 号位置最多放置 2 个元素
+D{1, 2, 3, {4}, 5};  // error
+D{1, 2, 3, {4, 5}};  // ok, 3 号位置最多放置 2 个元素
 ```
 
 没错，我们可以利用嵌套初始化，来解决这个问题！我们先用原本的方法求出最大的可能的结构体字段数量（包含数组展开的，这里就是 `5` 个），然后再在每个位置尝试把原本的序列塞到这个嵌套初始化里面去，通过不停尝试就能找到这个位置所能放置的元素的最大数量，如果最大数量超过 `1` 的话，说明这个位置是个数组。这个最大数量就是数组的元素数量，我们在最后的结果中，把多余数量减掉就行了。
@@ -477,7 +476,7 @@ static_assert(true_member_count<E>() == 4);
 
 拿这里的 `E` 类型最后生成的数组举一下例子吧，可以都 `print` 出来看看
 
-```cpp
+```bash
 index: 0 num: 1  // 0 号位置对应 x， 数量是 1 合理
 index: 1 num: 4  // 1 号位置对应 y， 数量是 4 合理
 index: 5 num: 2  // 5 号位置对应 z， 数量是 2 合理
@@ -562,15 +561,15 @@ struct Any {
 
     template <typename T>
         requires std::is_copy_constructible_v<T>
-    operator T& ();
+    operator T&();
 
     template <typename T>
         requires std::is_move_constructible_v<T>
-    operator T&& ();
+    operator T&&();
 
     template <typename T>
         requires (!std::is_copy_constructible_v<T> && !std::is_move_constructible_v<T>)
-    operator T ();
+    operator T();
 };
 ```
 
@@ -681,7 +680,7 @@ static_assert(true_member_count<G>() == 2);  // ok
 struct Any {
     template <typename T>
     // requires std::is_copy_constructible_v<T>
-    operator T& () const;
+    operator T&() const;
 };
 
 struct A {
@@ -699,7 +698,7 @@ GCC13 也有一个严重的 [缺陷](https://gcc.gnu.org/bugzilla/show_bug.cgi?i
 struct Number {
     int x;
 
-    operator int& () {
+    operator int&() {
         return x;
     }
 };
@@ -725,7 +724,7 @@ int main() {
 后来又和评论区的各位讨论了一番，上面的处理仍然有些欠缺考虑。一个典型的例子是，当成员变量的构造函数是模板函数的时候就会出错，例如 `std::any`，原因是不知道调用**类型转换函数**和**模板构造函数**中的哪一个（重载决议失败）
 
 ```cpp
-std::any any = Any(0); // conversion from 'Any' to 'std::any' is ambiguous
+std::any any = Any(0);  // conversion from 'Any' to 'std::any' is ambiguous
 // candidate: 'Any::operator T&() [with T = std::any]'
 // candidate: 'std::any::any(_Tp&&)
 ```
@@ -738,18 +737,18 @@ struct Any {
 
     template <typename T>
         requires (std::is_copy_constructible_v<T>)
-    operator T& ();
+    operator T&();
 
     template <typename T>
         requires (std::is_move_constructible_v<T> && !std::is_copy_constructible_v<T>)
-    operator T&& ();
+    operator T&&();
 
     struct Empty {};
 
     template <typename T>
         requires (!std::is_copy_constructible_v<T> && !std::is_move_constructible_v<T> &&
                   !std::is_constructible_v<T, Empty>)
-    operator T ();
+    operator T();
 };
 ```
 

@@ -1,7 +1,7 @@
 ---
 title: 深入探索 clang（上）
 date: "2025-02-05 05:00:55"
-updated: "2026-03-29 04:07:18"
+updated: "2026-03-29 15:09:13"
 zhihu_article_id: "21319978959"
 zhihu_url: https://zhuanlan.zhihu.com/p/21319978959
 zhihu_column_id: c_1852831599382646784
@@ -91,9 +91,8 @@ public:
 
 class ToolingAction : public clang::ASTFrontendAction {
 public:
-    std::unique_ptr<clang::ASTConsumer>
-        CreateASTConsumer(clang::CompilerInstance& instance,
-                          llvm::StringRef file) override {
+    std::unique_ptr<clang::ASTConsumer> CreateASTConsumer(clang::CompilerInstance& instance,
+                                                          llvm::StringRef file) override {
         return std::make_unique<ToolingASTConsumer>();
     }
 };
@@ -105,10 +104,7 @@ int main() {
     }
 )";
 
-    bool success =
-        clang::tooling::runToolOnCode(std::make_unique<ToolingAction>(),
-                                      content,
-                                      "main.cpp");
+    bool success = clang::tooling::runToolOnCode(std::make_unique<ToolingAction>(), content, "main.cpp");
     return !success;
 }
 ```
@@ -184,7 +180,7 @@ void foo(clang::Decl* decl) {
 ```cpp
 namespace foo {
 
-int x = 1;
+    int x = 1;
 
 }
 ```
@@ -251,25 +247,21 @@ Clang 为我们提供了 `PPCallback` 这个类，允许我们重写里面的相
 
 class ToolingPPCallbacks : public clang::PPCallbacks {
 public:
-    void MacroDefined(const clang::Token& MacroNameTok,
-                      const clang::MacroDirective* MD) override {
-        llvm::outs() << "MacroDefined: "
-                     << MacroNameTok.getIdentifierInfo()->getName() << "\n";
+    void MacroDefined(const clang::Token& MacroNameTok, const clang::MacroDirective* MD) override {
+        llvm::outs() << "MacroDefined: " << MacroNameTok.getIdentifierInfo()->getName() << "\n";
     }
 };
 
 class ToolingAction : public clang::ASTFrontendAction {
 public:
-    std::unique_ptr<clang::ASTConsumer>
-        CreateASTConsumer(clang::CompilerInstance& instance,
-                          llvm::StringRef file) override {
+    std::unique_ptr<clang::ASTConsumer> CreateASTConsumer(clang::CompilerInstance& instance,
+                                                          llvm::StringRef file) override {
         return std::make_unique<ToolingASTConsumer>();
     }
 
     bool BeginSourceFileAction(clang::CompilerInstance& instance) override {
         llvm::outs() << "BeginSourceFileAction\n";
-        instance.getPreprocessor().addPPCallbacks(
-            std::make_unique<ToolingPPCallbacks>());
+        instance.getPreprocessor().addPPCallbacks(std::make_unique<ToolingPPCallbacks>());
         return true;
     }
 };
@@ -339,12 +331,10 @@ void dump(clang::SourceManager& SM, clang::SourceLocation location) {
     /// The second argument determines whether the location is modified by
     /// `#line` directives.
     auto loc = SM.getPresumedLoc(location, true);
-    llvm::outs() << loc.getFilename() << ":" << loc.getLine() << ":"
-                 << loc.getColumn() << "\n";
+    llvm::outs() << loc.getFilename() << ":" << loc.getLine() << ":" << loc.getColumn() << "\n";
 
     loc = SM.getPresumedLoc(location, false);
-    llvm::outs() << loc.getFilename() << ":" << loc.getLine() << ":"
-                 << loc.getColumn() << "\n";
+    llvm::outs() << loc.getFilename() << ":" << loc.getLine() << ":" << loc.getColumn() << "\n";
 }
 ```
 

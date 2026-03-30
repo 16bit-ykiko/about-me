@@ -4,7 +4,7 @@ series:
 series_order: 3
 title: 在 C++ 中实现 Object!
 date: "2023-12-03 23:40:52"
-updated: "2026-03-29 04:07:37"
+updated: "2026-03-29 15:09:55"
 zhihu_article_id: "670191053"
 zhihu_url: https://zhuanlan.zhihu.com/p/670191053
 zhihu_column_id: c_1707545619290316800
@@ -72,7 +72,9 @@ public:
     template <typename T>
     T& cast();  // unbox Any to value
 
-    Type* GetType() const { return type; }  // get type info
+    Type* GetType() const {
+        return type;
+    }  // get type info
 
     Any invoke(std::string_view name, std::span<Any> args);  // call method
 
@@ -111,7 +113,9 @@ struct Person {
     std::string_view name;
     std::size_t age;
 
-    void say(std::string_view msg) { std::cout << name << " say: " << msg << std::endl; }
+    void say(std::string_view msg) {
+        std::cout << name << " say: " << msg << std::endl;
+    }
 };
 ```
 
@@ -201,12 +205,8 @@ Type* type_of<Person>() {
     static Type type;
     type.name = "Person";
     type.destroy = [](void* obj) { delete static_cast<Person*>(obj); };
-    type.copy = [](const void* obj) {
-        return (void*)(new Person(*static_cast<const Person*>(obj)));
-    };
-    type.move = [](void* obj) {
-        return (void*)(new Person(std::move(*static_cast<Person*>(obj))));
-    };
+    type.copy = [](const void* obj) { return (void*)(new Person(*static_cast<const Person*>(obj))); };
+    type.move = [](void* obj) { return (void*)(new Person(std::move(*static_cast<Person*>(obj)))); };
     type.fields.insert({"name", {type_of<std::string_view>(), offsetof(Person, name)}});
     type.fields.insert({"age", {type_of<std::size_t>(), offsetof(Person, age)}});
     type.methods.insert({"say", type_ensure<&Person::say>()});

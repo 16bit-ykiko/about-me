@@ -1,7 +1,7 @@
 ---
 title: C++ 成员指针完全解析
 date: "2023-10-04 14:50:12"
-updated: "2026-03-29 04:07:26"
+updated: "2026-03-29 15:09:32"
 zhihu_article_id: "659510753"
 zhihu_url: https://zhuanlan.zhihu.com/p/659510753
 ---
@@ -36,13 +36,13 @@ struct C {
     int m;
 
     void foo() {
-        int C::*x1 = &C::m;  // pointer to member m of C
-        int* x2 = &(C::m);   // pointer to member this->m
+        int C::* x1 = &C::m;  // pointer to member m of C
+        int* x2 = &(C::m);    // pointer to member this->m
     }
 };
 
 int main() {
-    int C::*p = &C::m;
+    int C::* p = &C::m;
     // type of a member pointer is: T U::*
     // T is the type of the member, U is the class type
     // here, T is int, U is C
@@ -68,9 +68,9 @@ struct Derived1 : Base {};  // non-virtual inheritance
 struct Derived2 : virtual Base {};  // virtual inheritance
 
 int main() {
-    int Base::*bp = &Base::m;
-    int Derived1::*dp = bp;   // ok, implicit cast
-    int Derived2::*dp2 = bp;  // error
+    int Base::* bp = &Base::m;
+    int Derived1::* dp = bp;   // ok, implicit cast
+    int Derived2::* dp2 = bp;  // error
 
     Derived1 d;
     d.m = 1;
@@ -86,14 +86,17 @@ struct Point {
     int y;
 };
 
-auto& access(Point& point, auto pm) { return point.*pm; }
+auto& access(Point& point, auto pm) {
+    return point.*pm;
+}
 
 int main() {
     Point point;
     access(point, &Point::x) = 10;
     access(point, &Point::y) = 20;
     std::cout << point.x << ' ' << point.y << '\n';  // 10 20
-}}
+}
+}
 ```
 
 ### pointer to member function
@@ -102,7 +105,9 @@ int main() {
 
 ```cpp
 struct C {
-    void foo(int x) { std::cout << x << std::endl; }
+    void foo(int x) {
+        std::cout << x << std::endl;
+    }
 };
 
 int main() {
@@ -147,18 +152,23 @@ int main() {
 
 ```cpp
 struct C {
-    void f(int x) { std::cout << x << std::endl;}
-    void g(int x) { std::cout << x + 1 << std::endl;}
+    void f(int x) {
+        std::cout << x << std::endl;
+    }
+
+    void g(int x) {
+        std::cout << x + 1 << std::endl;
+    }
 };
 
-auto access(C& c, auto pm, auto... args){
+auto access(C& c, auto pm, auto... args) {
     return (c.*pm)(args...);
 }
 
-int main(){
+int main() {
     C c;
-    access(c, &C::f, 1); // 1
-    access(c, &C::g, 1); // 2
+    access(c, &C::f, 1);  // 1
+    access(c, &C::g, 1);  // 2
 }
 ```
 
@@ -178,14 +188,17 @@ int main(){
 ```cpp
 struct C {
     int m;
-    void foo(int x) { std::cout << x << std::endl;}
+
+    void foo(int x) {
+        std::cout << x << std::endl;
+    }
 };
 
-int main(){
+int main() {
     int C::* p = &C::m;
-    void (C::* p2)(int) = &C::foo;
-    std::cout << p << std::endl;  // 1
-    std::cout << p2 << std::endl; // 1
+    void (C::*p2)(int) = &C::foo;
+    std::cout << p << std::endl;   // 1
+    std::cout << p2 << std::endl;  // 1
 }
 ```
 
@@ -198,7 +211,7 @@ int main(){
 一般来说可以用下述结构体表示，数据成员指针。表示相对于对象首地址的偏移量。如果是 `nullptr` 则里面存的是 `-1`。此时成员指针大小就是 `sizeof(ptrdiff_t)`。
 
 ```cpp
-struct data_member_pointer{
+struct data_member_pointer {
     ptrdiff_t offset;
 };
 ```
@@ -230,10 +243,10 @@ int main() {
     auto b = &B::b;
     log(b);  // offset is 0
 
-    int C::*c = a;
+    int C::* c = a;
     log(c);  // offset is 0
     // implicit cast
-    int C::*c2 = b;
+    int C::* c2 = b;
     log(c2);  // offset is 4
 }
 ```
@@ -294,9 +307,13 @@ struct A {
 
     A(int a) : a(a) {}
 
-    virtual void foo(int b) { std::cout << "A::foo " << a << b << std::endl; }
+    virtual void foo(int b) {
+        std::cout << "A::foo " << a << b << std::endl;
+    }
 
-    void bar(int b) { std::cout << "A::bar " << a << b << std::endl; }
+    void bar(int b) {
+        std::cout << "A::bar " << a << b << std::endl;
+    }
 };
 
 int main() {
@@ -322,9 +339,9 @@ struct Derived1 : Base {};  // non-virtual inheritance
 struct Derived2 : virtual Base {};  // virtual inheritance
 
 int main() {
-    int Base::*bp = &Base::m;
-    int Derived1::*dp = bp;   // ok, implicit cast
-    int Derived2::*dp2 = bp;  // ok in MSVC， error in GCC
+    int Base::* bp = &Base::m;
+    int Derived1::* dp = bp;   // ok, implicit cast
+    int Derived2::* dp2 = bp;  // ok in MSVC， error in GCC
 }
 ```
 
@@ -371,7 +388,7 @@ void log(T mp) {
 }
 
 int main() {
-    int Derived::*dp = &Base::m;
+    int Derived::* dp = &Base::m;
     log(dp);  // offset is 0, voffset is 4
     dp = &Base3::n;
     log(dp);  // offset is 4, voffset is 0
@@ -385,7 +402,7 @@ int main() {
 - 非虚继承，非多继承
 
 ```cpp
-struct member_function_ptr{
+struct member_function_ptr {
     void* address;
 };
 ```
@@ -393,7 +410,7 @@ struct member_function_ptr{
 - 非虚继承，多继承
 
 ```cpp
-struct member_function_ptr{
+struct member_function_ptr {
     void* address;
     int offset;
 };
@@ -402,7 +419,7 @@ struct member_function_ptr{
 - 虚继承，多继承
 
 ```cpp
-struct member_function_ptr{
+struct member_function_ptr {
     void* address;
     int offset;
     int vindex;
@@ -412,11 +429,11 @@ struct member_function_ptr{
 - 未知继承
 
 ```cpp
-struct member_function_ptr{
-    void*   address;
-    int     offset;
-    int     vadjust; // use to find vptr
-    int     vindex;
+struct member_function_ptr {
+    void* address;
+    int offset;
+    int vadjust;  // use to find vptr
+    int vindex;
 };
 ```
 
@@ -432,7 +449,9 @@ struct member_function_ptr{
 struct A {
     int a;
 
-    void bar(int b) { std::cout << "A::bar " << a << b << std::endl; }
+    void bar(int b) {
+        std::cout << "A::bar " << a << b << std::endl;
+    }
 };
 
 int main() {

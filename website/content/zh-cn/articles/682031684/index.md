@@ -4,7 +4,7 @@ series:
 series_order: 1
 title: The History of constexpr in C++! (Part One)
 date: "2024-02-10 23:15:47"
-updated: "2026-03-29 04:07:43"
+updated: "2026-03-29 15:10:11"
 zhihu_article_id: "682031684"
 zhihu_url: https://zhuanlan.zhihu.com/p/682031684
 zhihu_column_id: c_1656510843973046272
@@ -40,7 +40,7 @@ constexpr 的发展历史可以追溯到早期版本的 C++。通过研究标准
 在 C++ 中，有些地方需要整数常量（比如内建数组类型的长度），这些值必须在编译期就确定。C++ 标准允许通过简单的表达式来构造常量，例如
 
 ```cpp
-enum EPlants{
+enum EPlants {
     APRICOT = 1 << 0,
     LIME = 1 << 1,
     PAPAYA = 1 << 2,
@@ -51,11 +51,11 @@ enum EPlants{
 };
 
 template <int V>
-int foo(int v = 0){
-    switch(v){
+int foo(int v = 0) {
+    switch(v) {
         case 1 + 4 + 7:
         case 1 << (5 | sizeof(int)):
-        case (12 & 15) + PEPPER: return v;
+        case(12 & 15) + PEPPER: return v;
     }
 }
 
@@ -63,7 +63,7 @@ int f1 = foo<1 + 2 + 3>();
 int f2 = foo<((1 < 2) ? 10 * 11 : VEGETABLE)>();
 ```
 
-这些表达式在 `[expr.const]` 小节中被定义，并且被叫做\_常量表达式（constant expression）\_。它们只能包含：
+这些表达式在 `[expr.const]` 小节中被定义，并且被叫做*常量表达式（constant expression）*。它们只能包含：
 
 - 字面量：`1`,`'A'`,`true`,`...`
 - 枚举值
@@ -83,7 +83,9 @@ int f2 = foo<((1 < 2) ? 10 * 11 : VEGETABLE)>();
 让我们看一个包含两种静态初始化的例子
 
 ```cpp
-int foo() { return 13; }
+int foo() {
+    return 13;
+}
 
 const int v1 = 1 + 2 + 3 + 4;              // const initialization
 const int v2 = 15 * v1 + 8;                // const initialization
@@ -168,7 +170,7 @@ lambda-expr
 
 常量表达式与运行时代码有一个重要的区别：它们必须不引发 undefined behavior（未定义行为）。如果常量计算器遇到未定义行为，编译将失败。
 
-```cpp
+```bash
 error: constexpr variable 'foo' must be initialized by a constant expression
     2 | constexpr int foo = 13 + 2147483647;
       |               ^     ~~~~~~~~~~~~~~~
@@ -186,7 +188,7 @@ note: value 2147483660 is outside the range of representable values of type 'int
 
 `2003` 年的提案 [N1521 Generalized Constant Expressions](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2003/n1521.pdf) 指出一个问题。如果一个表达式中的某个部分含有函数调用，那么整个表达式就不能是常量表达式，即使这个函数最终能够被常量折叠。这迫使人们在处理复杂常量表达式的时候使用宏，甚至一定程度上导致了宏的滥用
 
-```cpp
+```bash
 inline int square(int x) { return x * x; }
 #define SQUARE(x) ((x) * (x))
 
@@ -207,10 +209,21 @@ INT_MAX
 如果这样的函数被调用，并且参数是常量表达式，那么函数调用表达式也是常量表达式
 
 ```cpp
-int square(int x) { return x * x; }         // constant-valued
-long long_max(int x) { return 2147483647; } // constant-valued
-int abs(int x) { return x < 0 ? -x : x; }   // constant-valued
-int next(int x) { return ++x; }             // non constant-valued
+int square(int x) {
+    return x * x;
+}  // constant-valued
+
+long long_max(int x) {
+    return 2147483647;
+}  // constant-valued
+
+int abs(int x) {
+    return x < 0 ? -x : x;
+}  // constant-valued
+
+int next(int x) {
+    return ++x;
+}  // non constant-valued
 ```
 
 这样的话，不需要修改任何代码，最开始的例子中的 `v3` 和 `v4` 也可以被用作常量表达式了，因为 `foo` 被认为是常值函数。
@@ -218,13 +231,17 @@ int next(int x) { return ++x; }             // non constant-valued
 该提案认为，可以考虑进一步支持下面这种情况
 
 ```cpp
-struct cayley{
+struct cayley {
     const int value;
+
     cayley(int a, int b) : value(square(a) + square(b)) {}
-    operator int() const { return value; }
+
+    operator int() const {
+        return value;
+    }
 };
 
-std::bitset<cayley(98, -23)> s; // same as bitset<10133>
+std::bitset<cayley(98, -23)> s;  // same as bitset<10133>
 ```
 
 因为成员 `value` 是 `totally constant` 的，在构造函数中通过两次调用常值函数进行初始化。换句话说，根据该提案的一般逻辑，此代码可以大致转换为以下形式（将变量和函数移到结构体之外）：
@@ -233,10 +250,12 @@ std::bitset<cayley(98, -23)> s; // same as bitset<10133>
 // 模拟 cayley::cayley(98, -23)的构造函数调用和 operator int()
 const int cayley_98_m23_value = square(98) + square(-23);
 
-int cayley_98_m23_operator_int() { return cayley_98_m23_value; }
+int cayley_98_m23_operator_int() {
+    return cayley_98_m23_value;
+}
 
 // 创建 bitset
-std::bitset<cayley_98_m23_operator_int()> s; // same as bitset<10133>
+std::bitset<cayley_98_m23_operator_int()> s;  // same as bitset<10133>
 ```
 
 但是和变量一样，程序员无法确定一个函数是否为常值函数，只有编译器知道。
@@ -248,13 +267,13 @@ std::bitset<cayley_98_m23_operator_int()> s; // same as bitset<10133>
 幸运的是，三年后，这个提案的后续修订版 [N2235](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2235.pdf) 认识到了过多的隐式特性是不好的，程序员应该有办法确保一个变量可以被用作常量，如果不满足相应的条件应该导致编译错误。
 
 ```cpp
-struct S{
-    static const int size;
+struct S {
+    const static int size;
 };
 
-const int limit = 2 * S::size;                 // dynamic initialization
-const int S::size = 256;                       // const initialization
-const int z = std::numeric_limits<int>::max(); // dynamic initialization
+const int limit = 2 * S::size;                  // dynamic initialization
+const int S::size = 256;                        // const initialization
+const int z = std::numeric_limits<int>::max();  // dynamic initialization
 ```
 
 根据程序员的设想，`limit` 应该被常量初始化，但事实并非如此，因为 `S::size` 被定义在 `limit` 之后，定义的太晚了。可以通过 C++20 加入的 [constinit](https://en.cppreference.com/w/cpp/language/constinit) 来验证这一点，`constinit` 保证一个变量进行常量初始化，如果不能进行常量初始化，则会编译错误。
@@ -267,39 +286,44 @@ const int z = std::numeric_limits<int>::max(); // dynamic initialization
 
 ```cpp
 struct complex {
-    constexpr complex(double r, double i) : re(r), im(i) { }
+    constexpr complex(double r, double i) : re(r), im(i) {}
 
-    constexpr double real() { return re; }
-    constexpr double imag() { return im; }
+    constexpr double real() {
+        return re;
+    }
+
+    constexpr double imag() {
+        return im;
+    }
 
 private:
     double re;
     double im;
 };
 
-constexpr complex I(0, 1); // OK
+constexpr complex I(0, 1);  // OK
 ```
 
 在提案中，像 `I` 这样的对象被称为用户自定义字面量。"字面量" 是 C++ 中的基本实体。就像 "简单" 字面量（数字、字符等）立即被嵌入到汇编指令中，字符串字面量存储在类似 `.rodata` 的段中那样，用户定义的字面量也在其中占有一席之地。
 
 现在 constexpr 变量不仅可以是数字和枚举，还可以是 [literal type](https://en.cppreference.com/w/cpp/named_req/LiteralType)，在此提案中引入了（尚不支持引用类型）。literal type 是可以传递给 constexpr 函数的类型，这些类型足够简单，以至于编译器可以在常量计算中支持它们。
 
-constexpr 关键字最后成为了一个 _specifier（说明符_），类似于 \_override \_这样仅用作标记。在讨论后，决定不创建新的 [储存期类型](https://en.cppreference.com/w/cpp/language/storage_duration) 和新的类型限定符，并且也决定不允许将其用于函数参数，以免使得函数的 [overload resolution](https://en.cppreference.com/w/cpp/language/overload_resolution) 规则变得过于复杂。
+constexpr 关键字最后成为了一个 _specifier（说明符_），类似于 *override *这样仅用作标记。在讨论后，决定不创建新的 [储存期类型](https://en.cppreference.com/w/cpp/language/storage_duration) 和新的类型限定符，并且也决定不允许将其用于函数参数，以免使得函数的 [overload resolution](https://en.cppreference.com/w/cpp/language/overload_resolution) 规则变得过于复杂。
 
 ## 2007：试着让标准库更加 constexpr？
 
 在这一年，提案 [N2349 Constant Expressions in the Standard Library](https://open-std.org/JTC1/SC22/WG21/docs/papers/2007/n2349.pdf) 被提出，其中标记了一些函数和常量为 constexpr，还有一些容器的函数，例如：
 
 ```cpp
-template<size_t N>
-class bitset{
+template <size_t N>
+class bitset {
     // ...
     constexpr bitset();
     constexpr bitset(unsigned long);
     // ...
     constexpr size_t size();
     // ...
-    constexpr bool operator[](size_t) const;
+    constexpr bool operator[] (size_t) const;
 };
 ```
 
@@ -310,7 +334,7 @@ class bitset{
 ## 2008 年：停停……机问题？我才不管！
 
 ```cpp
-constexpr unsigned int factorial(unsigned int n){
+constexpr unsigned int factorial(unsigned int n) {
     return n == 0 ? 1 : n * factorial(n - 1);
 }
 ```
@@ -322,7 +346,10 @@ constexpr unsigned int factorial(unsigned int n){
 一般来说，编译器会设置一个默认递归层数。如果递归层数超过这个默认的层数，则会编译错误
 
 ```cpp
-constexpr int foo(){ return f() + 1; }
+constexpr int foo() {
+    return f() + 1;
+}
+
 constexpr int x = foo();
 ```
 
@@ -342,10 +369,10 @@ error: 'constexpr' evaluation depth exceeds maximum of 512
 
 ```cpp
 template <class T>
-constexpr const T& max(const T& a, const T& b); // error
+constexpr const T& max(const T& a, const T& b);  // error
 
-constexpr pair();               // ok
-pair(const T1& x, const T2& y); // error
+constexpr pair();                // ok
+pair(const T1& x, const T2& y);  // error
 ```
 
 提案 [N3039 Constexpr functions with const reference parameters](https://open-std.org/JTC1/SC22/WG21/docs/papers/2010/n3039.pdf) 希望允许函数参数和返回值出现常量引用。
@@ -354,22 +381,30 @@ pair(const T1& x, const T2& y); // error
 
 ```cpp
 template <typename T>
-constexpr T self(const T& a) { return *(&a); }
+constexpr T self(const T& a) {
+    return *(&a);
+}
 
 template <typename T>
-constexpr const T* self_ptr(const T& a) { return &a; }
+constexpr const T* self_ptr(const T& a) {
+    return &a;
+}
 
 template <typename T>
-constexpr const T& self_ref(const T& a) { return *(&a); }
+constexpr const T& self_ref(const T& a) {
+    return *(&a);
+}
 
 template <typename T>
-constexpr const T& near_ref(const T& a) { return *(&a + 1); }
+constexpr const T& near_ref(const T& a) {
+    return *(&a + 1);
+}
 
-constexpr auto test1 = self(123); // OK
-constexpr auto test2 = self_ptr(123); // 失败，指向临时对象的指针不是常量表达式
+constexpr auto test1 = self(123);      // OK
+constexpr auto test2 = self_ptr(123);  // 失败，指向临时对象的指针不是常量表达式
 
-constexpr auto test3 = self_ref(123); // OK
-constexpr auto tets4 = near_ref(123); // 失败，指针越界访问
+constexpr auto test3 = self_ref(123);  // OK
+constexpr auto tets4 = near_ref(123);  // 失败，指针越界访问
 ```
 
 ## 2011：为什么不能有声明？
@@ -377,9 +412,9 @@ constexpr auto tets4 = near_ref(123); // 失败，指针越界访问
 前文提到过，constexpr 函数只能由单个 return 语句构成。这就意味着，里面甚至不允许任何不影响求值的声明。但是至少有三种声明有助于编写此类函数：静态断言，类型别名和常量表达式初始化的局部变量
 
 ```cpp
-constexpr int f(int x){
+constexpr int f(int x) {
     constexpr int magic = 42;
-    return x + magic; // should be ok
+    return x + magic;  // should be ok
 }
 ```
 
@@ -390,17 +425,17 @@ constexpr int f(int x){
 有许多简单的函数，希望能够在编译时计算，例如计算 `a` 的 `n` 次方：
 
 ```cpp
-int pow(int a, int n){
-    if (n < 0)
+int pow(int a, int n) {
+    if(n < 0)
         throw std::range_error("negative exponent for integer power");
 
-    if (n == 0)
+    if(n == 0)
         return 1;
 
     int sqrt = pow(a, n / 2);
     int result = sqrt * sqrt;
 
-    if (n % 2)
+    if(n % 2)
         return result * a;
 
     return result;
@@ -414,12 +449,10 @@ constexpr int pow_helper(int a, int n, int sqrt) {
     return sqrt * sqrt * ((n % 2) ? a : 1);
 }
 
-constexpr int pow(int a, int n){
-    return (n < 0)
-               ? throw std::range_error("negative exponent for integer power")
-               : (n == 0)
-                     ? 1
-                     : pow_helper(a, n, pow(a, n / 2));
+constexpr int pow(int a, int n) {
+    return (n < 0)    ? throw std::range_error("negative exponent for integer power")
+           : (n == 0) ? 1
+                      : pow_helper(a, n, pow(a, n / 2));
 }
 ```
 
@@ -432,15 +465,15 @@ constexpr int pow(int a, int n){
 - 允许静态变量的地址或引用作为常量表达式
 
 ```cpp
-constexpr mutex& get_mutex(bool which){
+constexpr mutex& get_mutex(bool which) {
     static mutex m1, m2;
-    if (which)
+    if(which)
         return m1;
     else
         return m2;
 }
 
-constexpr mutex& m = get_mutex(true); // OK
+constexpr mutex& m = get_mutex(true);  // OK
 ```
 
 但是，不允许 `for/while` 循环，`goto`，`switch`，`try`，这些可能产生复杂控制流，甚至产生无穷循环的语句。
@@ -461,9 +494,9 @@ constexpr mutex& m = get_mutex(true); // OK
 为了支持这个选项，我们不得不在 constexpr 函数中引入变量的可变性，即支持修改变量的值。根据该提案，现在可以更改在常量求值过程中创建的对象，直到求值过程或对象的 [lifetime](https://en.cppreference.com/w/cpp/language/lifetime) 结束。这些求值过程将在类似虚拟机的沙箱中进行，不会影响外部的代码。因此理论上，输出相同的 constexpr 参数将会输出相同的结果。
 
 ```cpp
-constexpr int f(int a){
+constexpr int f(int a) {
     int n = a;
-    ++n; // ++n 不是一个常量表达式
+    ++n;  // ++n 不是一个常量表达式
     return n * a;
 }
 
@@ -473,18 +506,20 @@ int k = f(4);
 // 在表达式求值期间开始
 
 constexpr int k2 = ++k;
+
 // 错误，不是一个常量表达式，不能修改 k
 // 因为其生存期没有在这个表达式内开始
 
-struct X{
-    constexpr X() : n(5){
-        n *= 2; // 不是一个常量表达式
+struct X {
+    constexpr X() : n(5) {
+        n *= 2;  // 不是一个常量表达式
     }
+
     int n;
 };
 
-constexpr int g(){
-    X x; // x 的初始化是一个常量表达式
+constexpr int g() {
+    X x;  // x 的初始化是一个常量表达式
     return x.n;
 }
 
@@ -497,9 +532,11 @@ constexpr int k3 = g();
 另外，我想指出现在这样的代码也能编译通过：
 
 ```cpp
-constexpr void add(X& x) { x.n++; }
+constexpr void add(X& x) {
+    x.n++;
+}
 
-constexpr int g(){
+constexpr int g() {
     X x;
     add(x);
     return x.n;
@@ -515,11 +552,18 @@ constexpr int g(){
 在提案 [constexpr member functions and implicit const](https://open-std.org/JTC1/SC22/WG21/docs/papers/2013/n3598.html) 中指出：如果一个成员函数是 constexpr 的，它不一定要是 const 的。随着 constexpr 计算中的可变性变得越来越重要，这一点变得更加突出。但即使在此之前，它也妨碍了在 constexpr 和非 constexpr 代码中使用相同的函数：
 
 ```cpp
-struct B{
+struct B {
     A a;
+
     constexpr B() : a() {}
-    constexpr const A& getA() const /*implicit*/ { return a; }
-    A& getA() { return a; } // 代码重复
+
+    constexpr const A& getA() const /*implicit*/ {
+        return a;
+    }
+
+    A& getA() {
+        return a;
+    }  // 代码重复
 };
 ```
 

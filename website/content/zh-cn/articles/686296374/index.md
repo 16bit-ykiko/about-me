@@ -1,7 +1,7 @@
 ---
 title: C++ 究竟代码膨胀在哪里？
 date: "2024-03-11 09:33:37"
-updated: "2026-03-29 04:07:46"
+updated: "2026-03-29 15:10:19"
 zhihu_article_id: "686296374"
 zhihu_url: https://zhuanlan.zhihu.com/p/686296374
 zhihu_column_id: c_1656510843973046272
@@ -37,7 +37,7 @@ inline int add(int a, int b) {
     return a + b;
 }
 
-int g2(int a, int b){
+int g2(int a, int b) {
     return add(a, b);
 }
 
@@ -149,7 +149,9 @@ int main() {
 ```cpp
 // src1.cpp
 template <typename T>
-int add(T a, T b) { return a + b; }
+int add(T a, T b) {
+    return a + b;
+}
 
 float g1() {
     return add(1, 2) + add(3.0, 4.0);
@@ -157,7 +159,9 @@ float g1() {
 
 // src2.cpp
 template <typename T>
-int add(T a, T b) { return a + b; }
+int add(T a, T b) {
+    return a + b;
+}
 
 float g2() {
     return add(1, 2) + add(3.0, 4.0);
@@ -196,14 +200,15 @@ int main() {
 
 ```cpp
 template <typename T>
-void f(T a, T b) { return a + b; }
+void f(T a, T b) {
+    return a + b;
+}
 
-template void f<int>(int, int); // 显式实例化 f<int> 定义
+template void f<int>(int, int);  // 显式实例化 f<int> 定义
 
-void g()
-{
-    f(1, 2); // 调用之前显式实例化的 f<int>
-    f(1.0, 2.0); // 隐式实例化 f<double>
+void g() {
+    f(1, 2);      // 调用之前显式实例化的 f<int>
+    f(1.0, 2.0);  // 隐式实例化 f<double>
 }
 ```
 
@@ -215,16 +220,18 @@ void g()
 template <typename T>
 void f(T a, T b);
 
-template void f<int>(int, int); // 显式实例化 f<int> 仅声明
+template void f<int>(int, int);  // 显式实例化 f<int> 仅声明
 ```
 
 另一种是直接使用 `extern` 关键字实例化一个定义
 
 ```cpp
 template <typename T>
-void f(T a, T b){ return a + b; }
+void f(T a, T b) {
+    return a + b;
+}
 
-extern template void f<int>(int, int); // 显式实例化 f<int> 声明
+extern template void f<int>(int, int);  // 显式实例化 f<int> 声明
 // 注意不加 extern 就会显式实例化一个定义了
 ```
 
@@ -244,10 +251,11 @@ static_assert(!std::is_same_v<unsigned char, signed char>);
 
 ```cpp
 template <typename T>
-void f(T a, T b){ return a + b; }
+void f(T a, T b) {
+    return a + b;
+}
 
-void g()
-{
+void g() {
     f<char>('a', 'a');
     f<unsigned char>('a', 'a');
     f<signed char>('a', 'a');
@@ -287,7 +295,7 @@ void call_f(std::index_sequence<Is...>) {
     ((X<Is>{Is}).f(), ...);
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     call_f(std::make_index_sequence<100>{});
     return 0;
 }
@@ -347,14 +355,14 @@ struct vector {
 ```cpp
 template <typename T>
 void vector<T>::grow(std::size_t n) {
-    T* new_date = static_cast<T*>(::operator new(n * sizeof(T)));
-    if constexpr (std::is_move_constructible_v<T>) {
+    T* new_date = static_cast<T*>(::operator new (n * sizeof(T)));
+    if constexpr(std::is_move_constructible_v<T>) {
         std::uninitialized_move(m_Begin, m_End, new_date);
     } else {
         std::uninitialized_copy(m_Begin, m_End, new_date);
     }
     std::destroy(m_Begin, m_End);
-    ::operator delete(m_Begin);
+    ::operator delete (m_Begin);
 }
 ```
 
@@ -368,9 +376,9 @@ void vector<T>::grow(std::size_t n) {
 
 ```cpp
 void trivially_grow(char*& begin, char*& end, char*& capacity, std::size_t n, std::size_t size) {
-    char* new_data = static_cast<char*>(::operator new(n * size));
+    char* new_data = static_cast<char*>(::operator new (n * size));
     std::memcpy(new_data, begin, (end - begin) * size);
-    ::operator delete(begin);
+    ::operator delete (begin);
     begin = new_data;
     end = new_data + (end - begin);
     capacity = new_data + n;
@@ -382,9 +390,12 @@ void trivially_grow(char*& begin, char*& end, char*& capacity, std::size_t n, st
 ```cpp
 template <typename T>
 void vector<T>::grow(std::size_t n) {
-    if constexpr (is_trivially_relocatable_v<T>) {
-        trivially_grow(reinterpret_cast<char*&>(m_Begin), reinterpret_cast<char*&>(m_End),
-                reinterpret_cast<char*&>(m_Capacity), n, sizeof(T));
+    if constexpr(is_trivially_relocatable_v<T>) {
+        trivially_grow(reinterpret_cast<char*&>(m_Begin),
+                       reinterpret_cast<char*&>(m_End),
+                       reinterpret_cast<char*&>(m_Capacity),
+                       n,
+                       sizeof(T));
     } else {
         // 原来的实现
     }
@@ -408,10 +419,10 @@ void vector<T>::grow(std::size_t n) {
 ```cpp
 #include <vector>
 
-void foo(); // 外部链接函数，可能抛出异常
+void foo();  // 外部链接函数，可能抛出异常
 
 void bar() {
-    std::vector<int> v(12); // 拥有 non-trivial 的析构函数
+    std::vector<int> v(12);  // 拥有 non-trivial 的析构函数
     foo();
 }
 ```

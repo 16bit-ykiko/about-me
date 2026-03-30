@@ -4,7 +4,7 @@ series:
 series_order: 1
 title: C++ 禁忌黑魔法：STMP （上）
 date: "2023-07-29 18:20:50"
-updated: "2026-03-29 04:07:21"
+updated: "2026-03-29 15:09:21"
 zhihu_article_id: "646752343"
 zhihu_url: https://zhuanlan.zhihu.com/p/646752343
 ---
@@ -129,9 +129,9 @@ void test() {
 }
 
 int main() {
-    test(); // class <lambda_1>
-    test(); // class <lambda_2>
-    test(); // class <lambda_3>
+    test();  // class <lambda_1>
+    test();  // class <lambda_2>
+    test();  // class <lambda_3>
     return 0;
 }
 ```
@@ -173,7 +173,9 @@ auto foo(auto);
 
 static_assert(!is_complete_v<>);
 
-auto foo(auto value) { return sizeof(value); }
+auto foo(auto value) {
+    return sizeof(value);
+}
 
 static_assert(is_complete_v<>);
 ```
@@ -188,7 +190,9 @@ struct X {
 };
 
 struct Y {
-    friend auto foo(X) { return 42; }
+    friend auto foo(X) {
+        return 42;
+    }
 };
 
 int x = foo(X{});
@@ -201,14 +205,16 @@ auto foo(auto);
 
 template <typename T>
 struct X {
-    friend auto foo(auto value) { return sizeof(value); }
+    friend auto foo(auto value) {
+        return sizeof(value);
+    }
 };
 
-static_assert(!is_complete_v<>); // #1
+static_assert(!is_complete_v<>);  // #1
 
-X<void> x; // #2
+X<void> x;  // #2
 
-static_assert(is_complete_v<>); // #3
+static_assert(is_complete_v<>);  // #3
 ```
 
 注意到 #1 处模板 `X` 没有任何的实例化，故此时 `foo` 函数还未有定义，于是 `is_complete_v` 返回 `false`。而在 #2 处，我们实例化了一个 `X<void>`，进而导致 `X` 内的 `foo` 函数被实例化，给 `foo` 添加了一个定义，于是 #3 处的 `is_complete_v` 返回 `true`。当然了，函数定义最多只能有一个，如果你再尝试实例化一个 `X<int>`，这时候编译器就会报 `foo` 被重定义的错误了。
@@ -298,22 +304,26 @@ class Bank {
     double money = 999'999'999'999;
 
 public:
-    void check() const { std::cout << money << std::endl; }
+    void check() const {
+        std::cout << money << std::endl;
+    }
 };
 
 template <auto mp>
 struct Thief {
-    friend double& steal(Bank& bank) { return bank.*mp; }
+    friend double& steal(Bank& bank) {
+        return bank.*mp;
+    }
 };
 
-double& steal(Bank& bank); // #1
+double& steal(Bank& bank);  // #1
 
-template struct Thief<&Bank::money>; // #2
+template struct Thief<&Bank::money>;  // #2
 
 int main() {
     Bank bank;
-    steal(bank) = 100; // #3
-    bank.check(); // 100
+    steal(bank) = 100;  // #3
+    bank.check();       // 100
     return 0;
 }
 ```

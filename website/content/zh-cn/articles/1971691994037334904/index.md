@@ -1,7 +1,7 @@
 ---
 title: 为 CuTe DSL 支持 AOT
 date: "2025-11-11 21:38:08"
-updated: "2026-03-29 04:07:14"
+updated: "2026-03-29 15:09:06"
 zhihu_article_id: "1971691994037334904"
 zhihu_url: https://zhuanlan.zhihu.com/p/1971691994037334904
 ---
@@ -42,8 +42,8 @@ with open("foo.cubin", "wb") as f:
 对于问题 1，我们可以调用 [CUDA Driver API](https://docs.nvidia.com/cuda/cuda-driver-api/index.html) 来实现。
 
 ```cpp
-CUresult CUDAAPI cuModuleLoadData(CUmodule *module, const void *image);
-CUresult CUDAAPI cuModuleGetFunction(CUfunction *hfunc, CUmodule hmod, const char *name);
+CUresult CUDAAPI cuModuleLoadData(CUmodule* module, const void* image);
+CUresult CUDAAPI cuModuleGetFunction(CUfunction* hfunc, CUmodule hmod, const char* name);
 ```
 
 通过 `cuModuleLoadData` 加载 cubin 文件，`cuModuleGetFunction` 获取其中的 kernel 函数
@@ -58,8 +58,8 @@ CUresult CUDAAPI cuLaunchKernel(CUfunction f,
                                 unsigned int blockDimZ,
                                 unsigned int sharedMemBytes,
                                 CUstream hStream,
-                                void **kernelParams,
-                                void **extra);
+                                void** kernelParams,
+                                void** extra);
 ```
 
 再通过 `cuLaunchKernel` 启动这个 kernel 即可，值得注意的点是 kernel 参数都通过 `void**` 也就是 `void*` 数组传递，也就是我们需要知道 kernel 的函数签名，才能启动 kernel。
@@ -95,8 +95,7 @@ extern "C" {
 }
 
 int main() {
-    std::cout << std::string_view(_binary_test_txt_start,
-                                  _binary_test_txt_end - _binary_test_txt_start)
+    std::cout << std::string_view(_binary_test_txt_start, _binary_test_txt_end - _binary_test_txt_start)
               << std::endl;
     return 0;
 }
@@ -133,7 +132,7 @@ print(kernel.__ptx__)
 
 根据官网的文档，如果直接用 `torch.Tensor` 来实例化函数编译，那么会把它默认当做 dynamic layout。检查生成的 ptx 可以发现，kernel 的签名是
 
-```c
+```bash
 .visible .entry kernel_cutlass_test_kernel_tensorptrf32_gmem_o_1_0(
         .param .align 8 .b8 kernel_cutlass_test_kernel_tensorptrf32_gmem_o_1_0_param_0[40]
 )
@@ -191,19 +190,16 @@ cc.link()
 ```cpp
 namespace cutedsl_aot {
 
-struct LaunchParams {
-    dim3 gridDim;
-    dim3 blockDim;
-    unsigned int sharedMemBytes = 0;
-    cudaStream_t hStream = nullptr;
-};
+    struct LaunchParams {
+        dim3 gridDim;
+        dim3 blockDim;
+        unsigned int sharedMemBytes = 0;
+        cudaStream_t hStream = nullptr;
+    };
 
-void naive_elementwise_add(const LaunchParams& params,
-                           nv_bfloat16* a,
-                           nv_bfloat16* b,
-                           nv_bfloat16* o);
+    void naive_elementwise_add(const LaunchParams& params, nv_bfloat16* a, nv_bfloat16* b, nv_bfloat16* o);
 
-void naive_elementwise_add(const LaunchParams& params, float* a, float* b, float* o);
+    void naive_elementwise_add(const LaunchParams& params, float* a, float* b, float* o);
 }  // namespace cutedsl_aot
 ```
 

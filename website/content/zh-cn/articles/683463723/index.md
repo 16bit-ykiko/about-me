@@ -4,7 +4,7 @@ series:
 series_order: 2
 title: The History of constexpr in C++! (Part Two)
 date: "2024-02-22 22:15:32"
-updated: "2026-03-29 04:07:44"
+updated: "2026-03-29 15:10:15"
 zhihu_article_id: "683463723"
 zhihu_url: https://zhuanlan.zhihu.com/p/683463723
 zhihu_column_id: c_1656510843973046272
@@ -22,10 +22,12 @@ zhihu_column_title: 魅力C++
 直觉上我们能写出下面这样的代码
 
 ```cpp
-template<typename T, bool value = std::is_trivially_destructible_v<T>>
-void destroy_at(T* p) { p->~T(); }
+template <typename T, bool value = std::is_trivially_destructible_v<T>>
+void destroy_at(T* p) {
+    p->~T();
+}
 
-template<typename T>
+template <typename T>
 void destroy_at<T, true>(T* p) {}
 ```
 
@@ -34,10 +36,12 @@ void destroy_at<T, true>(T* p) {}
 旧时代的做法是利用 SFINAE 来解决这个问题
 
 ```cpp
-template<typename T, std::enable_if_t<(!std::is_trivially_destructible_v<T>)>* = nullptr>
-void destroy_at(T* p) { p->~T(); }
+template <typename T, std::enable_if_t<(!std::is_trivially_destructible_v<T>)>* = nullptr>
+void destroy_at(T* p) {
+    p->~T();
+}
 
-template<typename T, std::enable_if_t<std::is_trivially_destructible_v<T>>* = nullptr>
+template <typename T, std::enable_if_t<std::is_trivially_destructible_v<T>>* = nullptr>
 void destroy_at(T* p) {}
 ```
 
@@ -46,9 +50,9 @@ void destroy_at(T* p) {}
 提案 [N4461](https://open-std.org/JTC1/SC22/WG21/docs/papers/2015/n4461.html) 希望引入 `static_if`（借鉴自 D 语言）可以用来编译期控制代码生成，只会把实际用到的分支编译进最终的二进制代码。这样就可以写出下面这样的代码，其中 `static_if` 的条件必须是常量表达式
 
 ```cpp
-template<typename T>
-void destroy_at(T* p){
-    static_if(!std::is_trivially_destructible_v<T>){
+template <typename T>
+void destroy_at(T* p) {
+    static_if(!std::is_trivially_destructible_v<T>) {
         p->~T();
     }
 }
@@ -57,9 +61,13 @@ void destroy_at(T* p){
 可以发现逻辑非常清晰，但是委员会一般对于加新的关键字比较谨慎。后来 `static_if` 被重命名为 `constexpr_if`，再后来变成了我们今天熟悉的这种形式并且进入 [C++17](https://en.cppreference.com/w/cpp/language/if#Constexpr_if)
 
 ```cpp
-if constexpr (...){...}
-else if constexpr (...){...}
-else {...}
+if constexpr(...) {
+    ...
+} else if constexpr(...) {
+    ...
+} else {
+    ...
+}
 ```
 
 巧妙地避免了加新的关键字，C++ 委员会还真是喜欢关键字复用呢。
@@ -151,14 +159,20 @@ if consteval /* !consteval */ {
 C++ 模板一个最被人诟病的问题就是报错信息非常糟糕，而且难以调试。内层模板实例化失败之后，会把整个实例化栈打印出来，能轻松产生成百上千行报错。但是事情在 constexpr 函数这里其实也并没有变好，如果 constexpr 函数常量求值失败，也会把整个函数调用堆栈打印出来
 
 ```cpp
-constexpr int foo(){ return 13 + 2147483647; }
-constexpr int bar() { return oo(); }
+constexpr int foo() {
+    return 13 + 2147483647;
+}
+
+constexpr int bar() {
+    return oo();
+}
+
 constexpr auto x = bar();
 ```
 
 报错
 
-```cpp
+```bash
 in 'constexpr' expansion of 'bar()'
 in 'constexpr' expansion of 'foo()'
 error: overflow in constant expression [-fpermissive]
@@ -174,8 +188,8 @@ error: overflow in constant expression [-fpermissive]
 在当时，直接允许在 constexpr 函数中使用 `new`/`delete` 似乎过于让人惊讶了，所以提案 [P0597](https://open-std.org/JTC1/SC22/WG21/docs/papers/2017/p0597r0.html) 想了一个折中的办法，先提供一个 magic container 叫做 `std::constexpr_vector`，它由编译器实现，并且支持在 constexpr 函数中使用和修改。
 
 ```cpp
-constexpr constexpr_vector<int> x;  // ok
-constexpr constexpr_vector<int> y{ 1, 2, 3 };  // ok
+constexpr constexpr_vector<int> x;           // ok
+constexpr constexpr_vector<int> y{1, 2, 3};  // ok
 
 constexpr auto series(int n) {
     std::constexpr_vector<int> r{};
@@ -194,11 +208,15 @@ constexpr auto series(int n) {
 
 ```cpp
 struct Base {
-    virtual int foo() const { return 1; }
+    virtual int foo() const {
+        return 1;
+    }
 };
 
 struct Derived : Base {
-    int foo() const override { return 2; }
+    int foo() const override {
+        return 2;
+    }
 };
 
 constexpr auto foo() {
@@ -216,7 +234,7 @@ constexpr auto foo() {
 在 [constexpr everything](https://www.youtube.com/watch?v=HMB9oXFobJc) 的这个演示视频中，展示了一个能在编译期处理 `JSON` 对象的例子
 
 ```cpp
-constexpr auto jsv= R"({
+constexpr auto jsv = R"({
     "feature-x-enabled": true,
     "value-of-y": 1729,
     "z-options": {"a": null,
@@ -224,7 +242,7 @@ constexpr auto jsv= R"({
          "c": [6, 28, 496]}
  })"_json;
 
-if constexpr (jsv["feature-x-enabled"]) {
+if constexpr(jsv["feature-x-enabled"]) {
     // feature x
 } else {
     // feature y
@@ -253,7 +271,7 @@ if constexpr (jsv["feature-x-enabled"]) {
 当时还不允许在常量求值中把 `void*` 转换成 `T*`，所以理所当然的
 
 ```cpp
-void* operator new(std::size_t);
+void* operator new (std::size_t);
 ```
 
 不支持在常量求值中使用，取而代之的是
@@ -280,7 +298,7 @@ alloc.deallocate(pb, 1);
 提案 [P1002](https://open-std.org/JTC1/SC22/WG21/docs/papers/2018/p1002r1.pdf) 希望在 constexpr 函数中支持 `try-catch` 块。但是不能 `throw`，这样是为了能把更多的标准库容器的成员函数标记为 `constexpr`。
 
 ```cpp
-constexpr int foo(){
+constexpr int foo() {
     throw 1;
     return 1;
 }
@@ -300,9 +318,11 @@ constexpr auto x = foo();  // error
 ```cpp
 extern int foo(int x);
 
-constexpr int bar(int x){ return x; }
+constexpr int bar(int x) {
+    return x;
+}
 
-foo(bar(1)); // evaluate at compile time ?
+foo(bar(1));  // evaluate at compile time ?
 ```
 
 事实上 `bar` 无论是在编译期还是运行期执行，理论上都可以。为了保证它在编译期执行，我们需要多写一些代码
@@ -317,9 +337,11 @@ foo(x);
 ```cpp
 extern int foo(int x);
 
-consteval int bar(int x){ return x; }
+consteval int bar(int x) {
+    return x;
+}
 
-foo(bar(1)); // ensure evaluation at compile time
+foo(bar(1));  // ensure evaluation at compile time
 ```
 
 `consteval` 函数不能在常量求值上下文外获取指针或引用，编译器后端既不需要，也不应该知道这些函数的存在。事实上该提案也为未来打算加入标准的 static reflection 做了铺垫，它将会添加非常多的只能在编译期执行的函数。
@@ -348,13 +370,15 @@ constexpr std::vector<int> v{1, 2, 3};  // error
 所以如果一个 constexpr 函数返回一个 `std::vector`，只能额外包装一层把这个 `std::vector` 转成 `std::array` 然后作为全局变量
 
 ```cpp
-constexpr auto f() { return std::vector<int>{1, 2, 3}; }
+constexpr auto f() {
+    return std::vector<int>{1, 2, 3};
+}
 
-constexpr auto arr = [](){
+constexpr auto arr = []() {
     constexpr auto len = f().size();
     std::array<int, len> result{};
     auto temp = f();
-    for(std::size_t i = 0; i < len; ++i){
+    for(std::size_t i = 0; i < len; ++i) {
         result[i] = temp[i];
     }
     return result;
@@ -373,11 +397,7 @@ constexpr std::vector vec = {1, 2, 3};
 
 ```cpp
 constexpr int data[3] = {1, 2, 3};
-constexpr std::vector vec{
-    .begin = data,
-    .end = data + 3,
-    .capacity = data + 3
-};
+constexpr std::vector vec{.begin = data, .end = data + 3, .capacity = data + 3};
 ```
 
 其实就是把本来应该指向动态分配的内存的指针改为指向静态内存。原理并不复杂，真正的难点是如何保证程序的正确性。**显然上述的 vec 即使在程序结束的时候也不应该调用析构函数，否则会导致段错误**。这个问题要解决很简单，我们可以约定，**任何 constexpr 标记的变量都不会调用析构函数**。
@@ -385,14 +405,12 @@ constexpr std::vector vec{
 但是考虑如下情况：
 
 ```cpp
-constexpr unique_ptr<unique_ptr<int>> ppi {
-    new unique_ptr<int> { new int { 42 } }
-};
+constexpr unique_ptr<unique_ptr<int>> ppi{new unique_ptr<int>{new int{42}}};
 
-int main(){
-    ppi.reset(new int { 43 }); // error, ppi is const
+int main() {
+    ppi.reset(new int{43});  // error, ppi is const
     auto& pi = *ppi;
-    pi.reset(new int { 43 }); // ok
+    pi.reset(new int{43});  // ok
 }
 ```
 
@@ -448,11 +466,11 @@ double* p1 = static_cast<float*>(static_cast<void*>(p));
 最终该提案被接受，并且加入 C++26，现在可以进行 `T*` -> `void*` -> `T*` 的转换了
 
 ```cpp
-constexpr void f(){
+constexpr void f() {
     int x = 42;
     void* p = &x;
-    int* p1 = static_cast<int*>(p); // ok
-    float* p2 = static_cast<float*>(p); // error
+    int* p1 = static_cast<int*>(p);      // ok
+    float* p2 = static_cast<float*>(p);  // error
 }
 ```
 
@@ -461,7 +479,7 @@ constexpr void f(){
 前面我们提到，为了支持 `vector` 在常量求值中使用，加入了 `construct_at` 用于在常量求值中调用构造函数。它具有如下形式
 
 ```cpp
-template<typename T, typename... Args>
+template <typename T, typename... Args>
 constexpr T* construct_at(T* p, Args&&... args);
 ```
 
@@ -470,28 +488,29 @@ constexpr T* construct_at(T* p, Args&&... args);
 - value initialization
 
 ```cpp
-new (p) T(args...) // placement new version
-construct_at(p, args...) // construct_at version
+new (p) T(args...);        // placement new version
+construct_at(p, args...);  // construct_at version
 ```
 
 - default initialization
 
 ```cpp
-new (p) T // placement new version
-std::default_construct_at(p) // P2283R1
+new (p) T;                     // placement new version
+std::default_construct_at(p);  // P2283R1
 ```
 
 - list initialization
 
 ```cpp
-new (p) T{args...} // placement new version
+new (p) T{args...};  // placement new version
+
 // construct_at version doesn't exist
 ```
 
 - designated initialization
 
 ```cpp
-new (p) T{.x = 1, .y = 2} // placement new version
+new (p) T{.x = 1, .y = 2};  // placement new version
 // construct_at version cannot exist
 ```
 
@@ -504,9 +523,9 @@ new (p) T{.x = 1, .y = 2} // placement new version
 未来的 constexpr 中仍然有很多可能性，比如像 `memcpy` 这样的函数或许也能在常量求值中使用？又或者目前的 `small_vector` 的**某些实现不能在不改动任何代码的前提**下变成 constexpr 的，因为它们使用 `char` 数组为栈上的对象提供储存（为了避免默认构造）
 
 ```cpp
-constexpr void foo(){
+constexpr void foo() {
     std::byte buf[100];
-    std::construct_at(reinterpret_cast<int*>(buf), 42); // no matter what
+    std::construct_at(reinterpret_cast<int*>(buf), 42);  // no matter what
 }
 ```
 
