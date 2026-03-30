@@ -93,7 +93,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
     <meta property="article:published_time" content="2023-07-29T18:20:50+00:00">
-    <meta property="article:modified_time" content="2026-03-29T04:07:21+00:00">
+    <meta property="article:modified_time" content="2026-03-29T15:09:21+00:00">
       <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/646752343/featured.png">
       <meta property="og:see_also" content="https://www.ykiko.me/zh-cn/articles/646812253/">
 
@@ -137,7 +137,7 @@
   "wordCount" : "3506",
   "inLanguage": "zh-cn",
   "image": "https://www.ykiko.me/zh-cn/articles/646752343/featured.png","datePublished": "2023-07-29T18:20:50Z",
-  "dateModified": "2026-03-29T04:07:21Z",
+  "dateModified": "2026-03-29T15:09:21Z",
   "author":{
     "@type": "Person",
     "name": "ykiko"
@@ -323,9 +323,9 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">test</span><span class="p">();</span> <span class="c1">// class &lt;lambda_1&gt;
-</span></span></span><span class="line"><span class="cl">    <span class="n">test</span><span class="p">();</span> <span class="c1">// class &lt;lambda_2&gt;
-</span></span></span><span class="line"><span class="cl">    <span class="n">test</span><span class="p">();</span> <span class="c1">// class &lt;lambda_3&gt;
+</span></span><span class="line"><span class="cl">    <span class="n">test</span><span class="p">();</span>  <span class="c1">// class &lt;lambda_1&gt;
+</span></span></span><span class="line"><span class="cl">    <span class="n">test</span><span class="p">();</span>  <span class="c1">// class &lt;lambda_2&gt;
+</span></span></span><span class="line"><span class="cl">    <span class="n">test</span><span class="p">();</span>  <span class="c1">// class &lt;lambda_3&gt;
 </span></span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>这个特性很好的满足了我们的需求，它可以每次自动填入一个不同的种子。于是最终的 <code>is_complete_v</code> 实现如下</p>
@@ -351,7 +351,9 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_complete_v</span><span class="o">&lt;&gt;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="k">auto</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="k">auto</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;&gt;</span><span class="p">);</span>
 </span></span></code></pre></div><p>接下来让我们谈谈如何通过友元函数来改变全局的状态。</p>
@@ -361,7 +363,9 @@
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Y</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">42</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">42</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">foo</span><span class="p">(</span><span class="n">X</span><span class="p">{});</span>
@@ -370,14 +374,16 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="k">auto</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="k">auto</span> <span class="nf">foo</span><span class="p">(</span><span class="k">auto</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_complete_v</span><span class="o">&lt;&gt;</span><span class="p">);</span> <span class="c1">// #1
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">is_complete_v</span><span class="o">&lt;&gt;</span><span class="p">);</span>  <span class="c1">// #1
 </span></span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">X</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span> <span class="n">x</span><span class="p">;</span> <span class="c1">// #2
+</span></span><span class="line"><span class="cl"><span class="n">X</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span> <span class="n">x</span><span class="p">;</span>  <span class="c1">// #2
 </span></span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;&gt;</span><span class="p">);</span> <span class="c1">// #3
+</span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">is_complete_v</span><span class="o">&lt;&gt;</span><span class="p">);</span>  <span class="c1">// #3
 </span></span></span></code></pre></div><p>注意到 #1 处模板 <code>X</code> 没有任何的实例化，故此时 <code>foo</code> 函数还未有定义，于是 <code>is_complete_v</code> 返回 <code>false</code>。而在 #2 处，我们实例化了一个 <code>X&lt;void&gt;</code>，进而导致 <code>X</code> 内的 <code>foo</code> 函数被实例化，给 <code>foo</code> 添加了一个定义，于是 #3 处的 <code>is_complete_v</code> 返回 <code>true</code>。当然了，函数定义最多只能有一个，如果你再尝试实例化一个 <code>X&lt;int&gt;</code>，这时候编译器就会报 <code>foo</code> 被重定义的错误了。</p>
 <h2 id="constant-switch">constant switch<a hidden class="anchor" aria-hidden="true" href="#constant-switch">#</a></h2>
 <p>结合上面提到的技巧，我们可以轻松实例化一个编译时的开关了</p>
@@ -449,22 +455,26 @@
 </span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">money</span> <span class="o">=</span> <span class="mi">999&#39;999&#39;999&#39;999</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">check</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">money</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">check</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">money</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">auto</span> <span class="n">mp</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Thief</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="kt">double</span><span class="o">&amp;</span> <span class="n">steal</span><span class="p">(</span><span class="n">Bank</span><span class="o">&amp;</span> <span class="n">bank</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">bank</span><span class="p">.</span><span class="o">*</span><span class="n">mp</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">friend</span> <span class="kt">double</span><span class="o">&amp;</span> <span class="n">steal</span><span class="p">(</span><span class="n">Bank</span><span class="o">&amp;</span> <span class="n">bank</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">bank</span><span class="p">.</span><span class="o">*</span><span class="n">mp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">double</span><span class="o">&amp;</span> <span class="n">steal</span><span class="p">(</span><span class="n">Bank</span><span class="o">&amp;</span> <span class="n">bank</span><span class="p">);</span> <span class="c1">// #1
+</span></span><span class="line"><span class="cl"><span class="kt">double</span><span class="o">&amp;</span> <span class="n">steal</span><span class="p">(</span><span class="n">Bank</span><span class="o">&amp;</span> <span class="n">bank</span><span class="p">);</span>  <span class="c1">// #1
 </span></span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="k">struct</span> <span class="nc">Thief</span><span class="o">&lt;&amp;</span><span class="n">Bank</span><span class="o">::</span><span class="n">money</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">// #2
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="k">struct</span> <span class="nc">Thief</span><span class="o">&lt;&amp;</span><span class="n">Bank</span><span class="o">::</span><span class="n">money</span><span class="o">&gt;</span><span class="p">;</span>  <span class="c1">// #2
 </span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Bank</span> <span class="n">bank</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">steal</span><span class="p">(</span><span class="n">bank</span><span class="p">)</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="c1">// #3
-</span></span></span><span class="line"><span class="cl">    <span class="n">bank</span><span class="p">.</span><span class="n">check</span><span class="p">();</span> <span class="c1">// 100
+</span></span><span class="line"><span class="cl">    <span class="n">steal</span><span class="p">(</span><span class="n">bank</span><span class="p">)</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>  <span class="c1">// #3
+</span></span></span><span class="line"><span class="cl">    <span class="n">bank</span><span class="p">.</span><span class="n">check</span><span class="p">();</span>       <span class="c1">// 100
 </span></span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>其中 #2 处的语法就是模板显式实例化了，我们可以直接访问到 <code>Bank</code> 的私有成员 <code>money</code>。通过 <code>&amp;Bank::money</code> 从而取得该成员对应的成员指针。与此同时，通过模板显式实例化，给 #1 处的 <code>steal</code> 函数添加了一个定义，从而可以直接在 #3 处调用该函数并获取到 <code>money</code> 的引用。最后成功输出 100。</p>
