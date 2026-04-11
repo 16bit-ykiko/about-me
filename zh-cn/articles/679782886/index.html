@@ -11,7 +11,7 @@
 copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个对象，像 vector 这种拥有资源的类型，拷贝的时候会把它拥有的资源也拷贝一份">
 <meta name="author" content="ykiko">
 <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/679782886/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.497bbe86f976d8babb698f161028591a57fd8bb07879b6c8583470451e59b8bf.css" integrity="sha256-SXu&#43;hvl22Lq7aY8WEChZGlf9i7B4ebbIWDRwRR5ZuL8=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a0d134e99ec0f147494918517cbfdb8e2cad6e4e69ab0522b2692afac7dc5211.css" integrity="sha256-oNE06Z7A8UdJSRhRfL/bjiytbk5pqwUismkq&#43;sfcUhE=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.ykiko.me/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.ykiko.me/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.ykiko.me/favicon-32x32.png">
@@ -259,7 +259,7 @@ copy constructor 早在 C&#43;&#43;98 的时候就加入了，用来拷贝一个
     </details>
 </div>
 
-  <div class="post-content"><p>众所周知，现在 C++ 里面有两种特殊的构造函数，即 copy constructor 和 move constructor</p>
+  <div class="post-content md-content"><p>众所周知，现在 C++ 里面有两种特殊的构造函数，即 copy constructor 和 move constructor</p>
 <p>copy constructor 早在 C++98 的时候就加入了，用来拷贝一个对象，像 <code>vector</code> 这种拥有资源的类型，拷贝的时候会把它拥有的资源也拷贝一份</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v1</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">v1</span><span class="p">;</span>  <span class="c1">// copy

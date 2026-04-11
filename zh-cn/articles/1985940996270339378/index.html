@@ -10,7 +10,7 @@
 <meta name="description" content="C&#43;&#43; 的构建问题一直是热门话题，尤其在各种语言论战中，常常被当作反面教材。有趣的是，大多数 C&#43;&#43; 程序员往往是参与到现有系统的维护中，面对的是高度固化、无法改动的构建流程，真正需要从零搭建项目的人反倒是少数。">
 <meta name="author" content="ykiko">
 <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/1985940996270339378/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.497bbe86f976d8babb698f161028591a57fd8bb07879b6c8583470451e59b8bf.css" integrity="sha256-SXu&#43;hvl22Lq7aY8WEChZGlf9i7B4ebbIWDRwRR5ZuL8=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a0d134e99ec0f147494918517cbfdb8e2cad6e4e69ab0522b2692afac7dc5211.css" integrity="sha256-oNE06Z7A8UdJSRhRfL/bjiytbk5pqwUismkq&#43;sfcUhE=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.ykiko.me/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.ykiko.me/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.ykiko.me/favicon-32x32.png">
@@ -259,7 +259,7 @@
     </details>
 </div>
 
-  <div class="post-content"><p>C++ 的构建问题一直是热门话题，尤其在各种语言论战中，常常被当作反面教材。有趣的是，大多数 C++ 程序员往往是参与到现有系统的维护中，面对的是高度固化、无法改动的构建流程，真正需要从零搭建项目的人反倒是少数。</p>
+  <div class="post-content md-content"><p>C++ 的构建问题一直是热门话题，尤其在各种语言论战中，常常被当作反面教材。有趣的是，大多数 C++ 程序员往往是参与到现有系统的维护中，面对的是高度固化、无法改动的构建流程，真正需要从零搭建项目的人反倒是少数。</p>
 <p>这就导致了一个尴尬的局面：当你真的需要从零搭建，想要寻找参考案例时，会发现根本没有所谓的最佳实践 (Best Practice)，只能搜到各种不成体系的 workaround，非常令人沮丧。</p>
 <p>clice 也是一个从零开始的 C++ 项目，当然不可避免地，我们把前人踩过的坑几乎都踩了一遍。最近，我们总算摸索出了一套自认为比较优雅的 workflow。所以，我们想借此机会把这套方案分享一下，顺便科普一些 C++ 构建背后的原理和知识，希望对你有所帮助！</p>
 <h2 id="where-does-complexity-come-from">Where does complexity come from?<a hidden class="anchor" aria-hidden="true" href="#where-does-complexity-come-from">#</a></h2>

@@ -11,7 +11,7 @@
 理清了现代 C&#43;&#43; 中模板的地位。其中用 constexpr function 替代模板进行编译期计算可以说是现代 C&#43;&#43; 最重要的改进之一了。 constexpr 本身其实并不难以理解，非常直观。但是由于几乎每个 C&#43;&#43; 版本都在改进它，所以不同的 C&#43;&#43; 版本可以使用的内容差别很大，有时候可能给人一种 inconsistency 的感觉。">
 <meta name="author" content="ykiko">
 <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/682031684/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.497bbe86f976d8babb698f161028591a57fd8bb07879b6c8583470451e59b8bf.css" integrity="sha256-SXu&#43;hvl22Lq7aY8WEChZGlf9i7B4ebbIWDRwRR5ZuL8=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a0d134e99ec0f147494918517cbfdb8e2cad6e4e69ab0522b2692afac7dc5211.css" integrity="sha256-oNE06Z7A8UdJSRhRfL/bjiytbk5pqwUismkq&#43;sfcUhE=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.ykiko.me/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.ykiko.me/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.ykiko.me/favicon-32x32.png">
@@ -261,7 +261,7 @@
     </details>
 </div>
 
-  <div class="post-content"><p>几个月前，我写了一篇介绍 C++ 模板的文章：<a href="https://www.ykiko.me/zh-cn/articles/655902377">雾里看花：真正意义上的理解 C++ 模板</a>。</p>
+  <div class="post-content md-content"><p>几个月前，我写了一篇介绍 C++ 模板的文章：<a href="https://www.ykiko.me/zh-cn/articles/655902377">雾里看花：真正意义上的理解 C++ 模板</a>。</p>
 <p>理清了现代 C++ 中模板的地位。其中用 constexpr function 替代模板进行编译期计算可以说是现代 C++ 最重要的改进之一了。 constexpr 本身其实并不难以理解，非常直观。但是由于几乎每个 C++ 版本都在改进它，所以不同的 C++ 版本可以使用的内容差别很大，有时候可能给人一种 <code>inconsistency</code> 的感觉。</p>
 <p>刚好最近我偶然间读到了这篇文章：<a href="https://pvs-studio.com/en/blog/posts/cpp/0909/">Design and evolution of constexpr in C++</a>，全面介绍了 C++ 中 constexpr 的发展史，写的非常好。于是便想将其翻译到中文社区。</p>
 <p>但是有趣的是，这篇文章其实也是翻译的。文章的原作者是一位俄罗斯人，文章最初也是发表在俄罗斯的论坛上。这是作者的邮箱：<code>izaronplatz@gmail.com</code>，我已经和他联系过了，他回复到：</p>

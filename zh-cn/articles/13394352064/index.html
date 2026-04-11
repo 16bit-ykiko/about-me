@@ -10,7 +10,7 @@
 <meta name="description" content="距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 clice —— 一个全新的 C&#43;&#43; 语言服务器 (language server)。">
 <meta name="author" content="ykiko">
 <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/13394352064/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.497bbe86f976d8babb698f161028591a57fd8bb07879b6c8583470451e59b8bf.css" integrity="sha256-SXu&#43;hvl22Lq7aY8WEChZGlf9i7B4ebbIWDRwRR5ZuL8=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a0d134e99ec0f147494918517cbfdb8e2cad6e4e69ab0522b2692afac7dc5211.css" integrity="sha256-oNE06Z7A8UdJSRhRfL/bjiytbk5pqwUismkq&#43;sfcUhE=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.ykiko.me/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.ykiko.me/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.ykiko.me/favicon-32x32.png">
@@ -259,7 +259,7 @@
     </details>
 </div>
 
-  <div class="post-content"><p>距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 <a href="https://github.com/clice-project/clice">clice</a> —— 一个全新的 C++ 语言服务器 (language server)。</p>
+  <div class="post-content md-content"><p>距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 <a href="https://github.com/clice-project/clice">clice</a> —— 一个全新的 C++ 语言服务器 (language server)。</p>
 <p>可能有的读者对语言服务器这个概念有些陌生。不过你肯定使用过 IDE，比如 Visual Studio 或者 CLion，体验过这些 IDE 提供的代码补全、跳转、重构等功能。在传统的 IDE 中，上述特性是由 IDE 的插件或者内置功能实现的，这种方式导致每种语言需要为每个编辑器单独开发支持，维护成本很高。而当初微软在发布 Visual Studio Code 时，希望能解决这个问题，于是提出了 <a href="https://microsoft.github.io/language-server-protocol/">LSP(Language Server Protocol)</a> 这个概念。LSP 提出了标准的客户端-服务器模型。语言功能由一个独立的语言服务器提供，VSCode 只需要实现一个通用的客户端，与语言服务器通信即可。这种方法解耦了编辑器和语言支持，使得 VSCode 能轻松支持多种语言。例如，你想要查看一个 <code>method</code> 的 <code>implementation</code>，那么你的编辑器就会向语言服务器发送一个 <code>go to implementation</code> 的请求，请求的具体内容呢，可能就是文件的路径和当前光标在源文件中的位置。语言服务器会对这个请求进行处理，同样返回给你一个文件位置一个坐标，编辑器从而根据这个结果打开对应的文件进行跳转。</p>
 <p>clice 就是这样一个语言服务器，用于处理 C/C++ 相关代码的请求。这个名字来源于我的头像 alice，把首字母替换为代表 C/C++ 的 c 就得到了 clice。</p>
 <p>经过了几个月的设计和开发，项目已经颇具雏形，但是预计离投入使用还需要几个月的时间来进行完善。这篇文章的主要内容是对 clice 的设计和实现进行介绍，也是我个人对于当前开发的一个阶段性总结。虽然是语言服务器相关的内容，但其实涉及到大量 C/C++ 编译相关知识的科普，感兴趣的读者可以继续往下阅读。</p>

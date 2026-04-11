@@ -10,7 +10,7 @@
 <meta name="description" content="众所周知，传统的 C&#43;&#43; 的常量表达式求值既不依赖也不改变程序全局的状态。对于任意相同的输入，它的输出结果总是相同的，被认为是纯函数式 (purely functional) 的。模板元编程 (Template Meta Programming) 作为常量求值的一个子集，也应该遵守这个规则。">
 <meta name="author" content="ykiko">
 <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/646752343/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.497bbe86f976d8babb698f161028591a57fd8bb07879b6c8583470451e59b8bf.css" integrity="sha256-SXu&#43;hvl22Lq7aY8WEChZGlf9i7B4ebbIWDRwRR5ZuL8=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a0d134e99ec0f147494918517cbfdb8e2cad6e4e69ab0522b2692afac7dc5211.css" integrity="sha256-oNE06Z7A8UdJSRhRfL/bjiytbk5pqwUismkq&#43;sfcUhE=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.ykiko.me/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.ykiko.me/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.ykiko.me/favicon-32x32.png">
@@ -244,7 +244,7 @@
     </details>
 </div>
 
-  <div class="post-content"><p>众所周知，传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的状态。对于任意相同的输入，它的输出结果总是相同的，被认为是<strong>纯函数式 (purely functional)</strong> 的。<strong>模板元编程 (Template Meta Programming)</strong> 作为常量求值的一个子集，也应该遵守这个规则。</p>
+  <div class="post-content md-content"><p>众所周知，传统的 C++ 的常量表达式求值既不依赖也不改变程序全局的状态。对于任意相同的输入，它的输出结果总是相同的，被认为是<strong>纯函数式 (purely functional)</strong> 的。<strong>模板元编程 (Template Meta Programming)</strong> 作为常量求值的一个子集，也应该遵守这个规则。</p>
 <p><img loading="lazy" src="https://pica.zhimg.com/v2-310046d2ded45ca99cb74d992a94a51e_1440w.jpg"></p>
 <p>但事实真的如此吗？在不违背 C++ 标准的情况下，下面的代码可能通过编译吗？</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">a</span> <span class="o">=</span> <span class="n">value</span><span class="p">();</span>

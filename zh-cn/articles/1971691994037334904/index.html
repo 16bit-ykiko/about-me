@@ -11,7 +11,7 @@
 CUTLASS C&#43;&#43; 是一个用来编写高性能 CUDA 算子的库，以复杂难学著称。为了降低学习成本，NVIDIA 推出了基于 Python 的 CuTe DSL。使用 Python 而不是 C&#43;&#43; 模板来进行元编程具有很多好处，首先就是用户不必和 C&#43;&#43; 那些晦涩难懂的模板报错作斗争了，这对于 C&#43;&#43; 初学者来说是非常头疼的一件事情，现在他们可以专注于代码逻辑。另外，nvcc 编译很慢，而其中大部分时间是花在编译器前端，也就是解析 C&#43;&#43; 代码上。尤其是对于 CUTLASS 这样 template heavy 的库，主要的时间都花在处理模板实例化上了，使用 CuTe DSL 可以绕过这个问题。相比于使用 CUTLASS 的 C&#43;&#43; 代码，它编译的速度能提升几十甚至上百倍。除此之外，现在算子和单测都可以一起在 Python 里写了，也方便了很多。">
 <meta name="author" content="ykiko">
 <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/1971691994037334904/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.497bbe86f976d8babb698f161028591a57fd8bb07879b6c8583470451e59b8bf.css" integrity="sha256-SXu&#43;hvl22Lq7aY8WEChZGlf9i7B4ebbIWDRwRR5ZuL8=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a0d134e99ec0f147494918517cbfdb8e2cad6e4e69ab0522b2692afac7dc5211.css" integrity="sha256-oNE06Z7A8UdJSRhRfL/bjiytbk5pqwUismkq&#43;sfcUhE=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.ykiko.me/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.ykiko.me/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.ykiko.me/favicon-32x32.png">
@@ -246,7 +246,7 @@ CUTLASS C&#43;&#43; 是一个用来编写高性能 CUDA 算子的库，以复杂
     </details>
 </div>
 
-  <div class="post-content"><h2 id="why-do-we-need-aot-for-cute-dsl">Why do we need AOT for CuTe DSL?<a hidden class="anchor" aria-hidden="true" href="#why-do-we-need-aot-for-cute-dsl">#</a></h2>
+  <div class="post-content md-content"><h2 id="why-do-we-need-aot-for-cute-dsl">Why do we need AOT for CuTe DSL?<a hidden class="anchor" aria-hidden="true" href="#why-do-we-need-aot-for-cute-dsl">#</a></h2>
 <p>CUTLASS C++ 是一个用来编写高性能 CUDA 算子的库，以复杂难学著称。为了降低学习成本，NVIDIA 推出了基于 Python 的 <a href="https://docs.nvidia.com/cutlass/latest/media/docs/pythonDSL/overview.html">CuTe DSL</a>。使用 Python 而不是 C++ 模板来进行元编程具有很多好处，首先就是用户不必和 C++ 那些晦涩难懂的模板报错作斗争了，这对于 C++ 初学者来说是非常头疼的一件事情，现在他们可以专注于代码逻辑。另外，nvcc 编译很慢，而其中大部分时间是花在编译器前端，也就是解析 C++ 代码上。尤其是对于 CUTLASS 这样 template heavy 的库，主要的时间都花在处理模板实例化上了，使用 CuTe DSL 可以绕过这个问题。相比于使用 CUTLASS 的 C++ 代码，它编译的速度能提升几十甚至上百倍。除此之外，现在算子和单测都可以一起在 Python 里写了，也方便了很多。</p>
 <p>使用 Python 来编写原型是很好的，但是在部署推理服务时，我们希望依赖尽可能简单，像 Python 那样要装一大堆随时可能因为版本问题导致崩溃的依赖就不好了。如果能把使用 CuTe DSL 编写的算子编译成 library 供 C++ 代码调用就好了。这正是我们想要为 CuTe DSL 支持 AOT 的目的。</p>
 <h2 id="export-binary">Export Binary<a hidden class="anchor" aria-hidden="true" href="#export-binary">#</a></h2>
