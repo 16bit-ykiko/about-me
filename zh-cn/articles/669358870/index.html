@@ -11,7 +11,7 @@
 反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其他的惯用词一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C&#43;&#43;, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 std::Any 模块 的介绍。里面提到了">
 <meta name="author" content="ykiko">
 <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/669358870/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.a0d134e99ec0f147494918517cbfdb8e2cad6e4e69ab0522b2692afac7dc5211.css" integrity="sha256-oNE06Z7A8UdJSRhRfL/bjiytbk5pqwUismkq&#43;sfcUhE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.09d8c3f429d72973baed468aa85a9c0b0822f3fc2ff2a79f033bbdd89ca2ab0d.css" integrity="sha256-CdjD9CnXKXO67UaKqFqcCwgi8/wv8qefAzu92Jyiqw0=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.ykiko.me/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.ykiko.me/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.ykiko.me/favicon-32x32.png">
@@ -50,12 +50,6 @@
 
             .toc {
                 background: var(--entry);
-            }
-        }
-
-        @media (prefers-color-scheme: light) {
-            .list::-webkit-scrollbar-thumb {
-                border-color: var(--code-bg);
             }
         }
 
@@ -164,17 +158,17 @@
 </head>
 <body id="top">
     <header class="header">
-    <nav class="nav">
+    <nav class="header-nav">
         <div class="logo">
             <a href="https://www.ykiko.me/zh-cn/" accesskey="h" title="ykiko&#39;s blog (Alt + H)">ykiko&#39;s blog</a>
             <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <circle cx="12" cy="12" r="5"></circle>
@@ -187,8 +181,8 @@
                         <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
-                </button>
-                    <ul class="lang-switch"><li>|</li>
+                </button><span>|</span>
+                    <ul class="lang-menu">
                         <li>
                             <a href="https://www.ykiko.me/en/" title="EN"
                                 aria-label="English">English</a>
@@ -196,7 +190,7 @@
                     </ul>
             </div>
         </div>
-        <ul id="menu">
+        <ul id="menu" class="menu">
             <li>
                 <a href="https://www.ykiko.me/zh-cn/articles/" title="文章">
                     <span>文章</span>
@@ -226,32 +220,30 @@
 </ul>
 
 </div>
-  </header><figure class="entry-cover"><img loading="eager" src="https://www.ykiko.me/zh-cn/articles/669358870/featured.png" alt="写给 C&#43;&#43; 程序员的反射教程"></figure><div class="toc">
-    <details >
-        <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
-        </summary>
+  </header><figure class="entry-cover"><img loading="eager" src="https://www.ykiko.me/zh-cn/articles/669358870/featured.png" alt="写给 C&#43;&#43; 程序员的反射教程"></figure><details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
 
-        <div class="inner"><ul>
-                <li>
-                    <a href="#what-is-reflection" aria-label="What is Reflection?">What is Reflection?</a></li>
-                <li>
-                    <a href="#how-to-understand-reflection" aria-label="How to Understand Reflection?">How to Understand Reflection?</a><ul>
-                        
-                <li>
-                    <a href="#generate-metadata" aria-label="Generate Metadata">Generate Metadata</a></li>
-                <li>
-                    <a href="#query-metadata" aria-label="Query Metadata">Query Metadata</a></li>
-                <li>
-                    <a href="#operate-metadata" aria-label="Operate Metadata">Operate Metadata</a></li></ul>
-                </li>
-                <li>
-                    <a href="#conclusion" aria-label="Conclusion">Conclusion</a>
-                </li>
-            </ul>
-        </div>
-    </details>
-</div>
+    <div class="inner"><ul>
+            <li>
+                <a href="#what-is-reflection" aria-label="What is Reflection?">What is Reflection?</a></li>
+            <li>
+                <a href="#how-to-understand-reflection" aria-label="How to Understand Reflection?">How to Understand Reflection?</a><ul>
+                    
+            <li>
+                <a href="#generate-metadata" aria-label="Generate Metadata">Generate Metadata</a></li>
+            <li>
+                <a href="#query-metadata" aria-label="Query Metadata">Query Metadata</a></li>
+            <li>
+                <a href="#operate-metadata" aria-label="Operate Metadata">Operate Metadata</a></li></ul>
+            </li>
+            <li>
+                <a href="#conclusion" aria-label="Conclusion">Conclusion</a>
+            </li>
+        </ul>
+    </div>
+</details>
 
   <div class="post-content md-content"><h2 id="what-is-reflection">What is Reflection?<a hidden class="anchor" aria-hidden="true" href="#what-is-reflection">#</a></h2>
 <p>反射 (Reflection) 这个词相信大家都不陌生了，也许你没用过但是你一定听过。然而，就像 CS 领域很多其他的<strong>惯用词</strong>一样，对于反射，并没有一个清晰而准确的定义。于是就会出现这种情况：对于 C#, Java, Python 这些拥有反射的语言，谈论到反射可以很自然的联想到对应语言中相关的设施，API 和代码示例，非常的具体。而对于 C, C++, Rust 这些没有反射的语言，当谈论起反射的时候，大家都不确定对方指的是什么，非常的不具体。比如有人告诉我说 Rust 有反射，他给出的例子是 Rust 的官方的文档中对 <a href="https://doc.rust-lang.org/stable/std/any/index.html">std::Any 模块</a> 的介绍。里面提到了</p>
@@ -306,12 +298,10 @@
 <nav class="paginav">
   <a class="prev" href="https://www.ykiko.me/zh-cn/articles/669359855/">
     <span class="title">« </span>
-    <br>
     <span>各种姿势进行代码生成</span>
   </a>
   <a class="next" href="https://www.ykiko.me/zh-cn/articles/661692275/">
     <span class="title"> »</span>
-    <br>
     <span>C&#43;&#43;26 静态反射提案解析</span>
   </a>
 </nav>
@@ -367,9 +357,11 @@
 </article>
     </main>
     
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
     </svg>
 </a>
 
@@ -408,14 +400,13 @@
 
 </script>
 <script>
-    var mybutton = document.getElementById("top-link");
+    var toplink = document.getElementById("top-link");
     window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
         } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
+            toplink.classList.add("hidden");
         }
     };
 

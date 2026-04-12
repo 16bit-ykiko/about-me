@@ -13,7 +13,7 @@ This article was translated by AI using Gemini 2.5 Pro from the original Chinese
 Due to a series of coincidences, I participated in last week&rsquo;s WG21 meeting (the C&#43;&#43; Standards Committee meeting). Although I often browse new proposals for the C&#43;&#43; standard, I never expected to one day actually attend a WG21 meeting and get real-time updates on the latest progress of the C&#43;&#43; standard. Of course, this was my first time attending, and I was very excited. I&rsquo;m writing this to record my feelings and the progress of the meeting.">
 <meta name="author" content="ykiko">
 <link rel="canonical" href="https://www.ykiko.me/en/articles/706509748/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.a0d134e99ec0f147494918517cbfdb8e2cad6e4e69ab0522b2692afac7dc5211.css" integrity="sha256-oNE06Z7A8UdJSRhRfL/bjiytbk5pqwUismkq&#43;sfcUhE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.09d8c3f429d72973baed468aa85a9c0b0822f3fc2ff2a79f033bbdd89ca2ab0d.css" integrity="sha256-CdjD9CnXKXO67UaKqFqcCwgi8/wv8qefAzu92Jyiqw0=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.ykiko.me/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.ykiko.me/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.ykiko.me/favicon-32x32.png">
@@ -52,12 +52,6 @@ Due to a series of coincidences, I participated in last week&rsquo;s WG21 meetin
 
             .toc {
                 background: var(--entry);
-            }
-        }
-
-        @media (prefers-color-scheme: light) {
-            .list::-webkit-scrollbar-thumb {
-                border-color: var(--code-bg);
             }
         }
 
@@ -163,17 +157,17 @@ Due to a series of coincidences, I participated in last week’s WG21 meeting (t
 </head>
 <body id="top">
     <header class="header">
-    <nav class="nav">
+    <nav class="header-nav">
         <div class="logo">
             <a href="https://www.ykiko.me/en/" accesskey="h" title="ykiko&#39;s blog (Alt + H)">ykiko&#39;s blog</a>
             <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <circle cx="12" cy="12" r="5"></circle>
@@ -186,8 +180,8 @@ Due to a series of coincidences, I participated in last week’s WG21 meeting (t
                         <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
-                </button>
-                    <ul class="lang-switch"><li>|</li>
+                </button><span>|</span>
+                    <ul class="lang-menu">
                         <li>
                             <a href="https://www.ykiko.me/zh-cn/" title="中"
                                 aria-label="简体中文">简体中文</a>
@@ -195,7 +189,7 @@ Due to a series of coincidences, I participated in last week’s WG21 meeting (t
                     </ul>
             </div>
         </div>
-        <ul id="menu">
+        <ul id="menu" class="menu">
             <li>
                 <a href="https://www.ykiko.me/en/articles/" title="Articles">
                     <span>Articles</span>
@@ -225,30 +219,28 @@ Due to a series of coincidences, I participated in last week’s WG21 meeting (t
 </ul>
 
 </div>
-  </header><figure class="entry-cover"><img loading="eager" src="https://www.ykiko.me/en/articles/706509748/featured.png" alt="St. Louis WG21 Meeting Review"></figure><div class="toc">
-    <details >
-        <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
-        </summary>
+  </header><figure class="entry-cover"><img loading="eager" src="https://www.ykiko.me/en/articles/706509748/featured.png" alt="St. Louis WG21 Meeting Review"></figure><details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
 
-        <div class="inner"><ul>
-                <li>
-                    <a href="#how-it-started" aria-label="How It Started">How It Started</a></li>
-                <li>
-                    <a href="#how-the-c-standard-evolves" aria-label="How the C&#43;&#43; Standard Evolves">How the C++ Standard Evolves</a></li>
-                <li>
-                    <a href="#meeting-progress" aria-label="Meeting Progress">Meeting Progress</a></li>
-                <li>
-                    <a href="#approved-proposals" aria-label="Approved Proposals">Approved Proposals</a></li>
-                <li>
-                    <a href="#proposals-with-significant-progress" aria-label="Proposals with Significant Progress">Proposals with Significant Progress</a></li>
-                <li>
-                    <a href="#some-impressions" aria-label="Some Impressions">Some Impressions</a>
-                </li>
-            </ul>
-        </div>
-    </details>
-</div>
+    <div class="inner"><ul>
+            <li>
+                <a href="#how-it-started" aria-label="How It Started">How It Started</a></li>
+            <li>
+                <a href="#how-the-c-standard-evolves" aria-label="How the C&#43;&#43; Standard Evolves">How the C++ Standard Evolves</a></li>
+            <li>
+                <a href="#meeting-progress" aria-label="Meeting Progress">Meeting Progress</a></li>
+            <li>
+                <a href="#approved-proposals" aria-label="Approved Proposals">Approved Proposals</a></li>
+            <li>
+                <a href="#proposals-with-significant-progress" aria-label="Proposals with Significant Progress">Proposals with Significant Progress</a></li>
+            <li>
+                <a href="#some-impressions" aria-label="Some Impressions">Some Impressions</a>
+            </li>
+        </ul>
+    </div>
+</details>
 
   <div class="post-content md-content"><blockquote>
 <p>This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.</p>
@@ -330,12 +322,10 @@ Due to a series of coincidences, I participated in last week’s WG21 meeting (t
 <nav class="paginav">
   <a class="prev" href="https://www.ykiko.me/en/articles/13394352064/">
     <span class="title">« Prev</span>
-    <br>
     <span>Design and Implementation of a New C&#43;&#43; Language Server</span>
   </a>
   <a class="next" href="https://www.ykiko.me/en/articles/702197261/">
     <span class="title">Next »</span>
-    <br>
     <span>The Perfect Combination of Python and C&#43;&#43;: Object Design in pybind11</span>
   </a>
 </nav>
@@ -391,9 +381,11 @@ Due to a series of coincidences, I participated in last week’s WG21 meeting (t
 </article>
     </main>
     
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
     </svg>
 </a>
 
@@ -432,14 +424,13 @@ Due to a series of coincidences, I participated in last week’s WG21 meeting (t
 
 </script>
 <script>
-    var mybutton = document.getElementById("top-link");
+    var toplink = document.getElementById("top-link");
     window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
         } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
+            toplink.classList.add("hidden");
         }
     };
 

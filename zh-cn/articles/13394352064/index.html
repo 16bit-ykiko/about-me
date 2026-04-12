@@ -10,7 +10,7 @@
 <meta name="description" content="距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 clice —— 一个全新的 C&#43;&#43; 语言服务器 (language server)。">
 <meta name="author" content="ykiko">
 <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/13394352064/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.a0d134e99ec0f147494918517cbfdb8e2cad6e4e69ab0522b2692afac7dc5211.css" integrity="sha256-oNE06Z7A8UdJSRhRfL/bjiytbk5pqwUismkq&#43;sfcUhE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.09d8c3f429d72973baed468aa85a9c0b0822f3fc2ff2a79f033bbdd89ca2ab0d.css" integrity="sha256-CdjD9CnXKXO67UaKqFqcCwgi8/wv8qefAzu92Jyiqw0=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.ykiko.me/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.ykiko.me/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.ykiko.me/favicon-32x32.png">
@@ -49,12 +49,6 @@
 
             .toc {
                 background: var(--entry);
-            }
-        }
-
-        @media (prefers-color-scheme: light) {
-            .list::-webkit-scrollbar-thumb {
-                border-color: var(--code-bg);
             }
         }
 
@@ -158,17 +152,17 @@
 </head>
 <body id="top">
     <header class="header">
-    <nav class="nav">
+    <nav class="header-nav">
         <div class="logo">
             <a href="https://www.ykiko.me/zh-cn/" accesskey="h" title="ykiko&#39;s blog (Alt + H)">ykiko&#39;s blog</a>
             <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <circle cx="12" cy="12" r="5"></circle>
@@ -181,8 +175,8 @@
                         <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
-                </button>
-                    <ul class="lang-switch"><li>|</li>
+                </button><span>|</span>
+                    <ul class="lang-menu">
                         <li>
                             <a href="https://www.ykiko.me/en/" title="EN"
                                 aria-label="English">English</a>
@@ -190,7 +184,7 @@
                     </ul>
             </div>
         </div>
-        <ul id="menu">
+        <ul id="menu" class="menu">
             <li>
                 <a href="https://www.ykiko.me/zh-cn/articles/" title="文章">
                     <span>文章</span>
@@ -220,44 +214,42 @@
 </ul>
 
 </div>
-  </header><figure class="entry-cover"><img loading="eager" src="https://www.ykiko.me/zh-cn/articles/13394352064/featured.png" alt="一个新 C&#43;&#43; language server 的设计与实现"></figure><div class="toc">
-    <details >
-        <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
-        </summary>
+  </header><figure class="entry-cover"><img loading="eager" src="https://www.ykiko.me/zh-cn/articles/13394352064/featured.png" alt="一个新 C&#43;&#43; language server 的设计与实现"></figure><details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
 
-        <div class="inner"><ul>
-                <li>
-                    <a href="#why-a-new-language-server" aria-label="Why a new language server?">Why a new language server?</a></li>
-                <li>
-                    <a href="#important-improvement" aria-label="Important improvement">Important improvement</a><ul>
-                        
-                <li>
-                    <a href="#better-template-support" aria-label="Better template support">Better template support</a></li>
-                <li>
-                    <a href="#header-context" aria-label="Header context">Header context</a></li>
-                <li>
-                    <a href="#fully-c20-module-support" aria-label="Fully C&#43;&#43;20 module support">Fully C++20 module support</a></li>
-                <li>
-                    <a href="#better-index-format" aria-label="Better index format">Better index format</a></li></ul>
-                </li>
-                <li>
-                    <a href="#design" aria-label="Design">Design</a><ul>
-                        
-                <li>
-                    <a href="#server" aria-label="Server">Server</a></li>
-                <li>
-                    <a href="#how-it-works" aria-label="How it works?">How it works?</a></li>
-                <li>
-                    <a href="#incremental-compilation" aria-label="Incremental compilation">Incremental compilation</a></li></ul>
-                </li>
-                <li>
-                    <a href="#conclusion" aria-label="Conclusion">Conclusion</a>
-                </li>
-            </ul>
-        </div>
-    </details>
-</div>
+    <div class="inner"><ul>
+            <li>
+                <a href="#why-a-new-language-server" aria-label="Why a new language server?">Why a new language server?</a></li>
+            <li>
+                <a href="#important-improvement" aria-label="Important improvement">Important improvement</a><ul>
+                    
+            <li>
+                <a href="#better-template-support" aria-label="Better template support">Better template support</a></li>
+            <li>
+                <a href="#header-context" aria-label="Header context">Header context</a></li>
+            <li>
+                <a href="#fully-c20-module-support" aria-label="Fully C&#43;&#43;20 module support">Fully C++20 module support</a></li>
+            <li>
+                <a href="#better-index-format" aria-label="Better index format">Better index format</a></li></ul>
+            </li>
+            <li>
+                <a href="#design" aria-label="Design">Design</a><ul>
+                    
+            <li>
+                <a href="#server" aria-label="Server">Server</a></li>
+            <li>
+                <a href="#how-it-works" aria-label="How it works?">How it works?</a></li>
+            <li>
+                <a href="#incremental-compilation" aria-label="Incremental compilation">Incremental compilation</a></li></ul>
+            </li>
+            <li>
+                <a href="#conclusion" aria-label="Conclusion">Conclusion</a>
+            </li>
+        </ul>
+    </div>
+</details>
 
   <div class="post-content md-content"><p>距离上一次发布博客已经过去几个月了，之所以这么久没有更新呢，是因为我这段时间一直忙于 <a href="https://github.com/clice-project/clice">clice</a> —— 一个全新的 C++ 语言服务器 (language server)。</p>
 <p>可能有的读者对语言服务器这个概念有些陌生。不过你肯定使用过 IDE，比如 Visual Studio 或者 CLion，体验过这些 IDE 提供的代码补全、跳转、重构等功能。在传统的 IDE 中，上述特性是由 IDE 的插件或者内置功能实现的，这种方式导致每种语言需要为每个编辑器单独开发支持，维护成本很高。而当初微软在发布 Visual Studio Code 时，希望能解决这个问题，于是提出了 <a href="https://microsoft.github.io/language-server-protocol/">LSP(Language Server Protocol)</a> 这个概念。LSP 提出了标准的客户端-服务器模型。语言功能由一个独立的语言服务器提供，VSCode 只需要实现一个通用的客户端，与语言服务器通信即可。这种方法解耦了编辑器和语言支持，使得 VSCode 能轻松支持多种语言。例如，你想要查看一个 <code>method</code> 的 <code>implementation</code>，那么你的编辑器就会向语言服务器发送一个 <code>go to implementation</code> 的请求，请求的具体内容呢，可能就是文件的路径和当前光标在源文件中的位置。语言服务器会对这个请求进行处理，同样返回给你一个文件位置一个坐标，编辑器从而根据这个结果打开对应的文件进行跳转。</p>
@@ -394,12 +386,10 @@
 <nav class="paginav">
   <a class="prev" href="https://www.ykiko.me/zh-cn/articles/21319978959/">
     <span class="title">« </span>
-    <br>
     <span>深入探索 clang（上）</span>
   </a>
   <a class="next" href="https://www.ykiko.me/zh-cn/articles/706509748/">
     <span class="title"> »</span>
-    <br>
     <span>St. Louis WG21 会议回顾</span>
   </a>
 </nav>
@@ -455,9 +445,11 @@
 </article>
     </main>
     
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
     </svg>
 </a>
 
@@ -496,14 +488,13 @@
 
 </script>
 <script>
-    var mybutton = document.getElementById("top-link");
+    var toplink = document.getElementById("top-link");
     window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
         } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
+            toplink.classList.add("hidden");
         }
     };
 

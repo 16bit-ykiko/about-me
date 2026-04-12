@@ -10,7 +10,7 @@
 <meta name="description" content="相信读者经常能听见有人说 C&#43;&#43; 代码二进制膨胀严重，但是一般很少会有人指出具体的原因。在网络上一番搜索过后，发现深入讨论这个问题的文章并不多。上面那句话更像是八股文的一部分，被口口相传，但是没什么人能说出个所以然。今天小编 ykiko 就带大家一起来探秘 C&#43;&#43; 代码膨胀那些事 (^ω^)">
 <meta name="author" content="ykiko">
 <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/686296374/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.a0d134e99ec0f147494918517cbfdb8e2cad6e4e69ab0522b2692afac7dc5211.css" integrity="sha256-oNE06Z7A8UdJSRhRfL/bjiytbk5pqwUismkq&#43;sfcUhE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.09d8c3f429d72973baed468aa85a9c0b0822f3fc2ff2a79f033bbdd89ca2ab0d.css" integrity="sha256-CdjD9CnXKXO67UaKqFqcCwgi8/wv8qefAzu92Jyiqw0=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.ykiko.me/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.ykiko.me/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.ykiko.me/favicon-32x32.png">
@@ -49,12 +49,6 @@
 
             .toc {
                 background: var(--entry);
-            }
-        }
-
-        @media (prefers-color-scheme: light) {
-            .list::-webkit-scrollbar-thumb {
-                border-color: var(--code-bg);
             }
         }
 
@@ -158,17 +152,17 @@
 </head>
 <body id="top">
     <header class="header">
-    <nav class="nav">
+    <nav class="header-nav">
         <div class="logo">
             <a href="https://www.ykiko.me/zh-cn/" accesskey="h" title="ykiko&#39;s blog (Alt + H)">ykiko&#39;s blog</a>
             <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <circle cx="12" cy="12" r="5"></circle>
@@ -181,8 +175,8 @@
                         <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
-                </button>
-                    <ul class="lang-switch"><li>|</li>
+                </button><span>|</span>
+                    <ul class="lang-menu">
                         <li>
                             <a href="https://www.ykiko.me/en/" title="EN"
                                 aria-label="English">English</a>
@@ -190,7 +184,7 @@
                     </ul>
             </div>
         </div>
-        <ul id="menu">
+        <ul id="menu" class="menu">
             <li>
                 <a href="https://www.ykiko.me/zh-cn/articles/" title="文章">
                     <span>文章</span>
@@ -220,49 +214,47 @@
 </ul>
 
 </div>
-  </header><figure class="entry-cover"><img loading="eager" src="https://www.ykiko.me/zh-cn/articles/686296374/featured.png" alt="C&#43;&#43; 究竟代码膨胀在哪里？"></figure><div class="toc">
-    <details >
-        <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
-        </summary>
+  </header><figure class="entry-cover"><img loading="eager" src="https://www.ykiko.me/zh-cn/articles/686296374/featured.png" alt="C&#43;&#43; 究竟代码膨胀在哪里？"></figure><details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
 
-        <div class="inner"><ul>
-                <li>
-                    <a href="#%e7%94%a8-inline-%e6%a0%87%e8%ae%b0%e5%87%bd%e6%95%b0%e4%bc%9a%e5%af%bc%e8%87%b4%e8%86%a8%e8%83%80%e5%90%97" aria-label="用 inline 标记函数会导致膨胀吗？">用 inline 标记函数会导致膨胀吗？</a><ul>
-                        
-                <li>
-                    <a href="#%e5%a4%9a%e4%bb%bd%e5%ae%9e%e4%be%8b%e7%9a%84%e6%83%85%e5%86%b5" aria-label="多份实例的情况">多份实例的情况</a></li>
-                <li>
-                    <a href="#%e5%ae%8c%e5%85%a8%e5%86%85%e8%81%94%e7%9a%84%e6%83%85%e5%86%b5" aria-label="完全内联的情况">完全内联的情况</a></li>
-                <li>
-                    <a href="#%e5%85%b6%e4%bb%96%e6%83%85%e5%86%b5" aria-label="其他情况">其他情况</a></li></ul>
-                </li>
-                <li>
-                    <a href="#%e6%a8%a1%e6%9d%bf%e5%af%bc%e8%87%b4%e4%bb%a3%e7%a0%81%e8%86%a8%e8%83%80%e7%9a%84%e7%9c%9f%e6%ad%a3%e5%8e%9f%e5%9b%a0" aria-label="模板导致代码膨胀的真正原因？">模板导致代码膨胀的真正原因？</a><ul>
-                        
-                <li>
-                    <a href="#%e9%9a%90%e5%bc%8f%e5%ae%9e%e4%be%8b%e5%8c%96%e5%a6%82%e5%90%8c-inline-%e6%a0%87%e8%ae%b0" aria-label="隐式实例化如同 inline 标记">隐式实例化如同 inline 标记</a></li>
-                <li>
-                    <a href="#%e6%98%be%e5%bc%8f%e5%ae%9e%e4%be%8b%e5%8c%96%e5%92%8c-extern-%e6%a8%a1%e6%9d%bf" aria-label="显式实例化和 extern 模板">显式实例化和 extern 模板</a></li>
-                <li>
-                    <a href="#%e7%9c%9f%e6%ad%a3%e7%9a%84%e6%a8%a1%e6%9d%bf%e8%86%a8%e8%83%80%e5%bc%80%e9%94%80" aria-label="真正的模板膨胀开销">真正的模板膨胀开销</a></li>
-                <li>
-                    <a href="#%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96%e6%a8%a1%e6%9d%bf%e8%86%a8%e8%83%80%e9%97%ae%e9%a2%98" aria-label="手动优化模板膨胀问题">手动优化模板膨胀问题</a></li></ul>
-                </li>
-                <li>
-                    <a href="#%e5%bc%82%e5%b8%b8%e5%af%bc%e8%87%b4%e7%9a%84%e4%bb%a3%e7%a0%81%e8%86%a8%e8%83%80" aria-label="异常导致的代码膨胀！">异常导致的代码膨胀！</a><ul>
-                        
-                <li>
-                    <a href="#noexcept" aria-label="noexcept">noexcept</a></li>
-                <li>
-                    <a href="#fno-exceptions" aria-label="fno-exceptions">fno-exceptions</a>
-                </li>
-            </ul>
+    <div class="inner"><ul>
+            <li>
+                <a href="#%e7%94%a8-inline-%e6%a0%87%e8%ae%b0%e5%87%bd%e6%95%b0%e4%bc%9a%e5%af%bc%e8%87%b4%e8%86%a8%e8%83%80%e5%90%97" aria-label="用 inline 标记函数会导致膨胀吗？">用 inline 标记函数会导致膨胀吗？</a><ul>
+                    
+            <li>
+                <a href="#%e5%a4%9a%e4%bb%bd%e5%ae%9e%e4%be%8b%e7%9a%84%e6%83%85%e5%86%b5" aria-label="多份实例的情况">多份实例的情况</a></li>
+            <li>
+                <a href="#%e5%ae%8c%e5%85%a8%e5%86%85%e8%81%94%e7%9a%84%e6%83%85%e5%86%b5" aria-label="完全内联的情况">完全内联的情况</a></li>
+            <li>
+                <a href="#%e5%85%b6%e4%bb%96%e6%83%85%e5%86%b5" aria-label="其他情况">其他情况</a></li></ul>
             </li>
-            </ul>
-        </div>
-    </details>
-</div>
+            <li>
+                <a href="#%e6%a8%a1%e6%9d%bf%e5%af%bc%e8%87%b4%e4%bb%a3%e7%a0%81%e8%86%a8%e8%83%80%e7%9a%84%e7%9c%9f%e6%ad%a3%e5%8e%9f%e5%9b%a0" aria-label="模板导致代码膨胀的真正原因？">模板导致代码膨胀的真正原因？</a><ul>
+                    
+            <li>
+                <a href="#%e9%9a%90%e5%bc%8f%e5%ae%9e%e4%be%8b%e5%8c%96%e5%a6%82%e5%90%8c-inline-%e6%a0%87%e8%ae%b0" aria-label="隐式实例化如同 inline 标记">隐式实例化如同 inline 标记</a></li>
+            <li>
+                <a href="#%e6%98%be%e5%bc%8f%e5%ae%9e%e4%be%8b%e5%8c%96%e5%92%8c-extern-%e6%a8%a1%e6%9d%bf" aria-label="显式实例化和 extern 模板">显式实例化和 extern 模板</a></li>
+            <li>
+                <a href="#%e7%9c%9f%e6%ad%a3%e7%9a%84%e6%a8%a1%e6%9d%bf%e8%86%a8%e8%83%80%e5%bc%80%e9%94%80" aria-label="真正的模板膨胀开销">真正的模板膨胀开销</a></li>
+            <li>
+                <a href="#%e6%89%8b%e5%8a%a8%e4%bc%98%e5%8c%96%e6%a8%a1%e6%9d%bf%e8%86%a8%e8%83%80%e9%97%ae%e9%a2%98" aria-label="手动优化模板膨胀问题">手动优化模板膨胀问题</a></li></ul>
+            </li>
+            <li>
+                <a href="#%e5%bc%82%e5%b8%b8%e5%af%bc%e8%87%b4%e7%9a%84%e4%bb%a3%e7%a0%81%e8%86%a8%e8%83%80" aria-label="异常导致的代码膨胀！">异常导致的代码膨胀！</a><ul>
+                    
+            <li>
+                <a href="#noexcept" aria-label="noexcept">noexcept</a></li>
+            <li>
+                <a href="#fno-exceptions" aria-label="fno-exceptions">fno-exceptions</a>
+            </li>
+        </ul>
+        </li>
+        </ul>
+    </div>
+</details>
 
   <div class="post-content md-content"><p>相信读者经常能听见有人说 C++ 代码二进制膨胀严重，但是一般很少会有人指出具体的原因。在网络上一番搜索过后，发现深入讨论这个问题的文章并不多。上面那句话更像是八股文的一部分，被口口相传，但是没什么人能说出个所以然。今天小编 ykiko 就带大家一起来探秘 C++ 代码膨胀那些事 (^ω^)</p>
 <p>首先要讨论的是，什么叫做代码膨胀？如果一个函数被大量内联，那相比于不被内联，最终生成的可执行文件是更大了对吧。那这样算膨胀吗？我认为不算，这是我们预期范围内的，可接受的，正常行为。那反过来，不在我们预期范围内的，理论上能消除，但迫于现有的实现却没有消除的代码膨胀，我把它叫做&quot;真正的代码膨胀&quot;。后文所讨论的膨胀都是这个意思。</p>
@@ -612,12 +604,10 @@
 <nav class="paginav">
   <a class="prev" href="https://www.ykiko.me/zh-cn/articles/692886292/">
     <span class="title">« </span>
-    <br>
     <span>彻底理解 C&#43;&#43; ABI</span>
   </a>
   <a class="next" href="https://www.ykiko.me/zh-cn/articles/683463723/">
     <span class="title"> »</span>
-    <br>
     <span>The History of constexpr in C&#43;&#43;! (Part Two)</span>
   </a>
 </nav>
@@ -673,9 +663,11 @@
 </article>
     </main>
     
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
     </svg>
 </a>
 
@@ -714,14 +706,13 @@
 
 </script>
 <script>
-    var mybutton = document.getElementById("top-link");
+    var toplink = document.getElementById("top-link");
     window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
         } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
+            toplink.classList.add("hidden");
         }
     };
 

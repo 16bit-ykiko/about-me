@@ -14,7 +14,7 @@ Introduction
 Let&rsquo;s take a recent requirement as an introduction. We all know that Markdown can use lang to fill in code blocks and supports code highlighting. However, I wanted to support my own custom code highlighting rules and encountered the following problems:">
 <meta name="author" content="ykiko">
 <link rel="canonical" href="https://www.ykiko.me/en/articles/669359855/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.a0d134e99ec0f147494918517cbfdb8e2cad6e4e69ab0522b2692afac7dc5211.css" integrity="sha256-oNE06Z7A8UdJSRhRfL/bjiytbk5pqwUismkq&#43;sfcUhE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.09d8c3f429d72973baed468aa85a9c0b0822f3fc2ff2a79f033bbdd89ca2ab0d.css" integrity="sha256-CdjD9CnXKXO67UaKqFqcCwgi8/wv8qefAzu92Jyiqw0=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.ykiko.me/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.ykiko.me/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.ykiko.me/favicon-32x32.png">
@@ -53,12 +53,6 @@ Let&rsquo;s take a recent requirement as an introduction. We all know that Markd
 
             .toc {
                 background: var(--entry);
-            }
-        }
-
-        @media (prefers-color-scheme: light) {
-            .list::-webkit-scrollbar-thumb {
-                border-color: var(--code-bg);
             }
         }
 
@@ -169,17 +163,17 @@ Introduction Let’s take a recent requirement as an introduction. We all know t
 </head>
 <body id="top">
     <header class="header">
-    <nav class="nav">
+    <nav class="header-nav">
         <div class="logo">
             <a href="https://www.ykiko.me/en/" accesskey="h" title="ykiko&#39;s blog (Alt + H)">ykiko&#39;s blog</a>
             <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <circle cx="12" cy="12" r="5"></circle>
@@ -192,8 +186,8 @@ Introduction Let’s take a recent requirement as an introduction. We all know t
                         <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
-                </button>
-                    <ul class="lang-switch"><li>|</li>
+                </button><span>|</span>
+                    <ul class="lang-menu">
                         <li>
                             <a href="https://www.ykiko.me/zh-cn/" title="中"
                                 aria-label="简体中文">简体中文</a>
@@ -201,7 +195,7 @@ Introduction Let’s take a recent requirement as an introduction. We all know t
                     </ul>
             </div>
         </div>
-        <ul id="menu">
+        <ul id="menu" class="menu">
             <li>
                 <a href="https://www.ykiko.me/en/articles/" title="Articles">
                     <span>Articles</span>
@@ -231,42 +225,40 @@ Introduction Let’s take a recent requirement as an introduction. We all know t
 </ul>
 
 </div>
-  </header><figure class="entry-cover"><img loading="eager" src="https://www.ykiko.me/en/articles/669359855/featured.png" alt="Various approaches to code generation"></figure><div class="toc">
-    <details >
-        <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
-        </summary>
+  </header><figure class="entry-cover"><img loading="eager" src="https://www.ykiko.me/en/articles/669359855/featured.png" alt="Various approaches to code generation"></figure><details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
 
-        <div class="inner"><ul>
-                <li>
-                    <a href="#introduction" aria-label="Introduction">Introduction</a></li>
-                <li>
-                    <a href="#what-is-code-generation" aria-label="What is Code Generation?">What is Code Generation?</a></li>
-                <li>
-                    <a href="#compile-time-code-generation" aria-label="Compile-time Code Generation">Compile-time Code Generation</a><ul>
-                        
-                <li>
-                    <a href="#macros" aria-label="Macros">Macros</a></li>
-                <li>
-                    <a href="#genericstemplates" aria-label="Generics/Templates">Generics/Templates</a></li>
-                <li>
-                    <a href="#code-generators" aria-label="Code Generators">Code Generators</a></li></ul>
-                </li>
-                <li>
-                    <a href="#runtime-code-generation" aria-label="Runtime Code Generation">Runtime Code Generation</a><ul>
-                        
-                <li>
-                    <a href="#exec" aria-label="exec">exec</a></li>
-                <li>
-                    <a href="#dynamic-compilation" aria-label="Dynamic Compilation">Dynamic Compilation</a></li></ul>
-                </li>
-                <li>
-                    <a href="#conclusion" aria-label="Conclusion">Conclusion</a>
-                </li>
-            </ul>
-        </div>
-    </details>
-</div>
+    <div class="inner"><ul>
+            <li>
+                <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+            <li>
+                <a href="#what-is-code-generation" aria-label="What is Code Generation?">What is Code Generation?</a></li>
+            <li>
+                <a href="#compile-time-code-generation" aria-label="Compile-time Code Generation">Compile-time Code Generation</a><ul>
+                    
+            <li>
+                <a href="#macros" aria-label="Macros">Macros</a></li>
+            <li>
+                <a href="#genericstemplates" aria-label="Generics/Templates">Generics/Templates</a></li>
+            <li>
+                <a href="#code-generators" aria-label="Code Generators">Code Generators</a></li></ul>
+            </li>
+            <li>
+                <a href="#runtime-code-generation" aria-label="Runtime Code Generation">Runtime Code Generation</a><ul>
+                    
+            <li>
+                <a href="#exec" aria-label="exec">exec</a></li>
+            <li>
+                <a href="#dynamic-compilation" aria-label="Dynamic Compilation">Dynamic Compilation</a></li></ul>
+            </li>
+            <li>
+                <a href="#conclusion" aria-label="Conclusion">Conclusion</a>
+            </li>
+        </ul>
+    </div>
+</details>
 
   <div class="post-content md-content"><blockquote>
 <p>This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.</p>
@@ -439,12 +431,10 @@ Introduction Let’s take a recent requirement as an introduction. We all know t
 <nav class="paginav">
   <a class="prev" href="https://www.ykiko.me/en/articles/669360731/">
     <span class="title">« Prev</span>
-    <br>
     <span>Master your C&#43;&#43; code with Clang tools.</span>
   </a>
   <a class="next" href="https://www.ykiko.me/en/articles/669358870/">
     <span class="title">Next »</span>
-    <br>
     <span>A Reflection Tutorial for C&#43;&#43; Programmers</span>
   </a>
 </nav>
@@ -500,9 +490,11 @@ Introduction Let’s take a recent requirement as an introduction. We all know t
 </article>
     </main>
     
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
     </svg>
 </a>
 
@@ -541,14 +533,13 @@ Introduction Let’s take a recent requirement as an introduction. We all know t
 
 </script>
 <script>
-    var mybutton = document.getElementById("top-link");
+    var toplink = document.getElementById("top-link");
     window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
         } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
+            toplink.classList.add("hidden");
         }
     };
 
