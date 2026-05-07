@@ -6,8 +6,15 @@
     <description>Recent content in 文章 on ykiko&#39;s blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 29 Mar 2026 15:10:41 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 06 May 2026 13:51:13 +0000</lastBuildDate>
     <atom:link href="https://www.ykiko.me/zh-cn/articles/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>agent 时代的 clice</title>
+      <link>https://www.ykiko.me/zh-cn/articles/2034883949630059124/</link>
+      <pubDate>Tue, 05 May 2026 06:56:47 +0000</pubDate>
+      <guid>https://www.ykiko.me/zh-cn/articles/2034883949630059124/</guid>
+      <description>&lt;p&gt;距离上次更新 clice 进展又过了快半年时间了，趁着五一假期难得有大量空闲时间，写一点东西记录下新的进展和一些个人的碎碎念吧。话题说得比较杂，但是互相之间或许有些关联。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>打造优雅的 C&#43;&#43; 跨平台开发与构建 Workflow</title>
       <link>https://www.ykiko.me/zh-cn/articles/1985940996270339378/</link>

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>agent 时代的 clice | ykiko&#39;s blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="距离上次更新 clice 进展又过了快半年时间了，趁着五一假期难得有大量空闲时间，写一点东西记录下新的进展和一些个人的碎碎念吧。话题说得比较杂，但是互相之间或许有些关联。">
+<meta name="author" content="ykiko">
+<link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/2034883949630059124/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8c364fd0d21dab24a650f6f5c518a0356a993b125bb501e3e93e65618ed4a7b0.css" integrity="sha256-jDZP0NIdqySmUPb1xRigNWqZOxJbtQHj6T5lYY7Up7A=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.ykiko.me/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.ykiko.me/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.ykiko.me/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.ykiko.me/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.ykiko.me/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh-cn" href="https://www.ykiko.me/zh-cn/articles/2034883949630059124/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-PEDMYR1V0K"></script>
+      <script>
+        var doNotTrack = false;
+        if ( true ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-PEDMYR1V0K');
+        }
+      </script><meta property="og:url" content="https://www.ykiko.me/zh-cn/articles/2034883949630059124/">
+  <meta property="og:site_name" content="ykiko&#39;s blog">
+  <meta property="og:title" content="agent 时代的 clice">
+  <meta property="og:description" content="距离上次更新 clice 进展又过了快半年时间了，趁着五一假期难得有大量空闲时间，写一点东西记录下新的进展和一些个人的碎碎念吧。话题说得比较杂，但是互相之间或许有些关联。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2026-05-05T06:56:47+00:00">
+    <meta property="article:modified_time" content="2026-05-06T13:51:13+00:00">
+      <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/2034883949630059124/featured.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.ykiko.me/zh-cn/articles/2034883949630059124/featured.png">
+  <meta name="twitter:title" content="agent 时代的 clice">
+  <meta name="twitter:description" content="距离上次更新 clice 进展又过了快半年时间了，趁着五一假期难得有大量空闲时间，写一点东西记录下新的进展和一些个人的碎碎念吧。话题说得比较杂，但是互相之间或许有些关联。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "文章",
+      "item": "https://www.ykiko.me/zh-cn/articles/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "agent 时代的 clice",
+      "item": "https://www.ykiko.me/zh-cn/articles/2034883949630059124/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "agent 时代的 clice",
+  "name": "agent 时代的 clice",
+  "description": "距离上次更新 clice 进展又过了快半年时间了，趁着五一假期难得有大量空闲时间，写一点东西记录下新的进展和一些个人的碎碎念吧。话题说得比较杂，但是互相之间或许有些关联。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "距离上次更新 clice 进展又过了快半年时间了，趁着五一假期难得有大量空闲时间，写一点东西记录下新的进展和一些个人的碎碎念吧。话题说得比较杂，但是互相之间或许有些关联。\nstructured concurrency 1~3 月我都在进行清理和重构工作，clice 本体的开发几乎没什么进展。主要清理和重构什么呢？在 一个新 C++ language server 的设计与实现 提到，我们使用 C++20 协程对 libuv 进行「简单包装」来编写 server 逻辑。「简单包装」是真的很简单，几乎就是把 libuv 的回调函数都使用 C++20 的协程包装了一下，也就是换了种写法。最初的 server 逻辑全是使用这个简单包装编写的，然后我就发现这和使用 libuv 原始 API 编写好像没太多区别，我经常花费很多时间调试异步逻辑 BUG。因为这个简单包装对协程的生命周期管理很松散，基本上就是简单的 RAII 负责析构协程的栈帧，如果这个 task 的生命周期是动态的不能被 RAII 直接表达，那么就 detach 它，由捕获 task 的调用方手动管理。听起来好像没什么问题，类比到指针的话，就是大多数时候使用 unique_ptr 管理 task 生命周期，一些动态场景则使用手动 release 和 delete。\n的确如此，对于简单的场景这样写其实还好。但是对于复杂的需求来说，使用这套逻辑写出的代码就和面条一样不可维护了，而 clice 遇到的就是异步编程中最难的问题取消，我把取消视为 clice 异步代码最核心的需求，为什么呢？想象如下极端场景，用户 copy 了一个十万行的代码，随后发现误操作了，又全部删除了，手打了短短几行代码。对于语言服务器来说，我们只需要处理最新的文本内容，前面的这个十万行的修改是完全不需要的，可以丢弃。对于 C++ 编译器前端来说，解析十万行代码是需要几十秒乃至数分钟的。如果我们不支持取消掉旧任务，即使使用了线程池，那么这样的任务也会在后台空转 CPU。clangd 有时候会假死，不响应，就是因为这些旧编译任务未被及时取消，从而占满了编译的线程池，这时候你只能手动重启，手动杀死这些没意义的后台任务。\n实际上，对于一些语法简单、代码量不大的语言的语言服务器来说，直接 drop 掉之前的任务的结果就好了，不需要什么特殊的处理。它们并不需要这样的优化，因为 parse 非常快，空转一会也无妨，但是 C++ 的语法语义太复杂了，编译器前端解析就需要花费大量的时间\n这还是较为简单的场景，单个任务的取消，没任何依赖关系。C++ 的 parse 是以单个 TU 为基本单元的，符合这个场景。可是 C++20 模块为编译引入了依赖关系，一个模块的编译依赖是有向无环图，那么此时取消旧任务的表现又该如何呢？比如我 import A 那么就编译 A 的依赖（假设 A 还依赖很多的其他模块）。但是 A 还没编译完呢，用户改成 import B 那又该如何处理？光是这种级联的任务的取消就非常麻烦了，更不用提其中复杂繁琐的手动生命周期管理了。\n上面说的是 server 层面内部的异步任务管理，实际上 LSP 协议中也专门定义了一个 $/cancelRequest 请求用于取消旧的请求，但是由于异步任务取消的复杂性，大部分语言服务器都不支持它\n我花了很久时间就是在思考和解决这个问题。具体的思考过程又值得专门写一篇文章来展开讨论了。异步取消问题或许也是各个编程语言中的经典难题了，不同语言采用的方法差别很大，限于篇幅，在这里只说一下最终的解决方案吧。我重新设计了一套取消为一等公民的结构化并发异步框架，所有的异步任务被串成一整个异步图。图上的任意节点被取消，会连锁取消整个异步图。对于 C++20 模块来说，异步图就是编译依赖图。请看下方图片：\n然后取消是一等公民是什么意思呢？就是说 task 有三个模板参数 ，T 就是正常的返回值，E 代表错误返回值通道，C 代表任务被取消了。由于我们项目不使用异常，所以错误仍然是显式传播的，类似 std::expected，但是取消是隐式传播的，这也就是结构化并发的核心思想，区分错误和取消。task 的生命周期也根据图有严格的父子关系，这样生命周期问题和取消问题就一并解决了。上述异步图就是结构化并发的副产物，任何时间任何位置，我们都可以导出异步图用于调试，直观地查看异步问题，这或许就是结构化并发的魅力吧！\nkotatsu 为了方便维护和更新，我把 clice 中的一些 infra 设施抽出来成了单独的一个库 kotatsu。上面提到的结构化并发框架就是这个库的 async 模块。这个单独的库相比于 clice 本体来说测试更加充分，CI 矩阵的覆盖也更加全面。不同操作系统不同编译器不同编译选项的组合都有测试，只有 infra 层确保没出问题上层逻辑编写得才更加可靠。除了 async 模块以外，后面陆续又迁移了一些其他的模块，比如 codec 自动序列化/反序列化，测试框架，IPC Server 等。现在 clice 本体的代码量已经非常精简了，几乎全都是「业务逻辑」，所有 infra 层都迁移到了 kotatsu，经过了重新设计和全面的测试覆盖。\nkotatsu 目前变得非常全面，包含异步框架，IO，IPC，HTTP，静态反射，序列化，命令行解析，单测框架。满足了编写语言服务器的全部需求，不过实际上似乎覆盖了常用软件开发的所有基础设施。实际上它也被 clice-io 中的其他项目作为共享基础库，比如 catter 也依赖这些通用的基础设施，这也是一个有趣的项目，主要由 @fogsong233 和 @Seele-Official 开发，和 clice 本身是互补的，后面有机会也会写一些文章介绍下。\n这样来看，我们似乎花费了大量的时间在造轮子，情况也确实如此。不过客观来说，这些轮子都是不得不搓，因为 C++ 社区中并没有好用的等价物。这是件很遗憾的事情，相比之下 Rust 社区就 cover 了所有这些常见的需求，因此这里有大量新兴的语言服务器都是 Rust 写的。我们常说 C++ 的优势是生态比 Rust 好，历史悠久。但是在我看来，似乎并非如此，或者说需要更具体的讨论。有很多大型项目都是 C++ 编写的，比如 Chromium, LLVM, Torch, QT, UE 这些项目历史悠久，生态丰富，并且大多数都有公司在背后以十年为周期地进行长期投入，Rust 作为新兴语言想在这方面超越 C++ 确实不太可能。但是问题在于这些生态真的是有效生态吗？这些大型项目都是高度 self contained，并且模块化做得并不好，作为开发者我并不能很好地使用其中的组件，比如 C++ 社区连个好用的 glob 都没有。所以我们也根据开发需求搓了一些轮子，并且我觉得模块化做得还是很好的，等未来 API 稳定下来也会考虑发布 release 版本供其他开发者使用。\n注意，这里其实也不是完全从新造轮子。实际上 kotatsu 还是依赖大量 C++ 生态中的现有库的，比如 simdjson, toml++, flatbuffer, cpptrace 和 libuv 等等。整个库的核心就两点，新的异步框架和静态反射，所以是基于两个核心的抽象对现有库的 API 进行了一些封装，达到方便使用的目的。\nclice 得益于全新的异步框架，我可以尝试一些更大胆的设计，多进程架构！这个想法很久之前我就有了，但是当时的异步设施太简陋了，于是就搁置了。新框架解决了历史债务，带来了全新的可能性，真的是好处多多。\n为什么要使用多进程架构呢？clangd 有两个被人长期诟病的问题：崩溃和内存泄漏。而 clangd 99% 的内存泄漏和崩溃都来自 Clang，clangd 使用 Clang frontend 来解析 C++ 代码，获取 AST，提供语言服务。你可能会好奇，为什么 Clang 会经常崩溃啊？这是不是不太合理？那么多的代码，我自己使用 Clang 也没怎么遇到崩溃呀。是的，对于合法的 C++ 代码来说，Clang 很少崩溃（除非你使用了大量模板代码或者一些不稳定的新特性）。但问题是，语言服务器经常要处理不完整的代码，比如经常 compile_commands.json 没配置好，Clang 找不到头文件，会产生大量的编译错误，但是 parse 仍然会进行。像 Clang 这样的编译器在遇到 error 的时候，会尽可能地进行 error recovery 从而继续编译，在一次编译过程中尽可能地多给用户反馈一些 error。但是这个 error recovery 是启发式的，全靠猜，而且 Clang 自身的测试用例大部分都是完整的代码，语言服务器在编辑时产生的不完整代码测试用例实在太少。这些因素综合起来，Clang 在语言服务器场景偶尔崩溃或者走进死循环、内存泄漏也就不足为奇了。\n然后 clangd 是多线程架构，如果出现这种情况自然是无能为力的了，只有重启。实际上这也是 C++ 自身的技术债。Rust-analyzer 同样采用多线程架构，同样是启发式的错误恢复，parser 也会遇到 corner case 而 panic，但它的进程不会因此崩溃。原因在于 Rust-analyzer 在请求分发层使用了 std::panic::catch_unwind 包裹每个请求的处理函数，当 parser 或其他内部组件 panic 时，panic 会被捕获，返回一个错误。而进程继续正常服务后续请求。Rust 的 panic 可以被 catch_unwind 安全捕获，类似于 C++ 的异常机制。但一方面 Clang 不使用异常，另一方面 C++ 中数组越界等问题直接是未定义行为，通常表现为段错误 (SIGSEGV)，没有任何可靠的机制可以在进程内恢复。所以想彻底解决这个问题，只能使用多进程的方式，所有的编译任务都交给子进程去执行。\n然后的话，Unix 系统上启动子进程很快，但是在 Windows 上启动子进程很慢，对于小文件可能比编译本身还慢。为了缓解这个问题，我们使用进程池，一个进程会执行多个编译任务，毕竟崩溃是小概率事件，类似 Chromium 中对多进程的处理。根据任务的不同，我们还区分无状态 worker 和有状态 worker 用来处理不同类型的编译任务。这样一来，多进程带来的开销只剩下 IPC 通信了，但是由于我们通信的数据量很小，这部分开销也可以忽略了，大概就几 ms。相比之下，典型的编译任务都需要几十 ms，才是主要的瓶颈。相比于多进程本身带来的稳定性提升，这点开销并不算什么。\n在编写了全新的多进程架构后，我还实现了如下功能\n一个快速包含图扫描器，速度可达 20000 文件/s。相比于传统的头文件依赖关系扫描，它去除了预处理，这样可能会多扫描出一些结果。好处是可以避免头文件重复扫描，缓存扫描结果，加速 100 倍。对于语言服务器来说，不那么精确的包含图已经够了，可以提供很多有益的信息，比如根据包含关系推断头文件的编译命令。在这个场景，速度比准确性更加重要 C++20 named module 支持，具体来说就是模块依赖关系扫描，递归的模块构建，环形依赖检测，全局的模块名补全，模块高亮和跳转之类的功能 编译上下文支持，允许文件切换不同的编译上下文。对于源文件来说，如果有多个编译命令可以选择其中一个作为当前的活跃上下文。对于头文件来说，除了可以选择不同的编译命令作为上下文，还可以选择源文件作为上下文，clice 会自动地通过一些方式在头文件前面隐式补全头文件在源文件中缺失的部分。这样的话也就支持了非自包含头文件 (non self contained) 最开始的一些设想现在都实现了，非常令人欣喜的进展。但是我并不太想发布新版本，为什么呢？因为目前这些代码都属于 it works on my machine 的阶段，在我的本地能良好地工作。但是我明确知道这里有一些细节还没处理好，在其他人的环境里可能不 work。假设我发布了新版本，可能会有很多人来尝试然后发现不能在他们的机器上工作。一方面给他们的印象不好，另一方面可能会提一些 issue，我还需要花费精力去回复和处理。对我来说，这些问题属于 known issue，这样属于白白浪费大家的精力，我现在也没有太多的精力去回复这些 issue，我不认为是好的做法。在接下来的一段时间内我会去不断地完善这些 corner case，然后请一些朋友逐步地帮忙测试，等到时机成熟，我所知道的 obvious 的问题都解决后，我会考虑发布 1.0 版本，那时再提交的 issue 相对来说更多就是有效 issue 了。\n我不确定这样的策略是否合理，之前和朋友谈到这个问题，他和我说的策略是先尽量做出一个 MVP，然后让用户教你如何改进。现在看来，我似乎完全没有采用这个策略，很难说谁对谁错，或许各有对错吧。如果你对 clice 有强烈的兴趣，我建议你 clone main 分支自己本地编译一个，尝试。正如之前在 打造优雅的 C++ 跨平台开发与构建 Workflow 中提到的一样，我们现在使用 pixi 管理开发环境，可复现性非常好，理论上可以做到一键编译。并且前段时间我顺便做了交叉编译支持，现在支持 Windows, Linux, macOS 三个操作系统，x64 和 arm64 两个平台一共六种组合。\nagent 过去半年时间，一个不得不谈的话题那就是 agent 编程。半年前，似乎大家仍普遍认为程序员难以被 AI 取代，但是随着 Claude Code 的火爆，似乎一切都变了。一时之间，大家充满了焦虑。\n最开始大概是一月份的时候吧，我在群友的推荐下开始尝试 codex + gpt-5.3-codex，当时的感觉还是不错，可以用于编写测试什么的，但是我仍然需要花费大量精力去进行多轮打磨到我想要的效果，似乎一般。年后复工了，公司提供 cursor 用于工作，于是我开始尝试在工作中使用 opus 4.6 辅助编程，当时顿时感觉惊为天人，让我非常震撼。染上了 opus 了，然后下班了，我就在想怎么自己买一点 opus 写 clice 用。一开始使用中转站自己买 tokens 用，但是中转站实在太贵了，大量使用承担不起。还是 Claude 的官方订阅最划算，在我牺牲了两个号之后，第三个号终于成功存活了很长一段时间。我买了 20x 套餐，后来又买了一个 5x 套餐的账号补充用量，终于实现了 opus 自由。\n前文提到的大部分工作都是我制定计划，然后交给 opus 完成的，现在我几乎不手写任何代码了。这或许会引发一些人的担忧，因为现在对 AI 的过度炒作，会让大家产生 AI 写的代码都是 garbage 的感觉，尤其是前一阵子的 OpenClaw 更是把这种刻板印象发挥到了极致。一时之间网络上分为了两派，一派认为 AI 生成的代码质量很差，应该坚持人工介入甚至古法编程，另一派则认为代码质量不重要，先把产品写出来像 OpenClaw 这样赚到钱才是硬道理。这样的争论似乎并不稀奇，实际上在 agent 出现之前，是先「敏捷」开发出一个 MVP 上线后面再重构清理技术债，还是早期就做好充分的设计提高代码质量慢一些也没关系，就有过大量的争论。这样的争论也会延续到方方面面，比如编程语言的使用，是否要过早优化，使用 Java 还是 C++ 之类的。也许只是旧瓶装新酒，讨论的载体变成了 agent 而已。那问题的答案也很简单了，it depends。\n这里说一下我的观点吧：\n首先要客观认识到 agent 的能力，打破 AI 只能生成垃圾代码的刻板印象。以目前的顶尖模型 opus4.6 为例，如果你可以较为准确地表达你的意图，那么它可以帮你很好地生成代码。一些基本的编码准则，比如代码的条理性，错误处理，代码风格都是没问题的，甚至超过大多数程序员。但是在一些需要复杂上下文的情况下，比如，架构设计，代码复用，跨越代码上下文的问题理解等等。一切需要 agent 跨越多处不同的上下文，融会贯通才能想到解法的地方，目前存在较大的改善空间。这个并不难理解，目前的模型上下文有限，读取代码的方式往往采用猜测 + grep 的启发式读取方式，漏掉一些代码中存在的关联的上下文是很正常的事情。更别提你大脑中一些隐含的上下文了，Context is all you need。所以每天有层出不穷的大量围绕 agent 上下文的工作出现，当然其中大部分的工作都没啥用，这个问题仍然存在大量的探索空间。目前最有效的也最简单的办法还是 human in the loop，你人工去给它补充上下文，尤其是在一些历史悠久的项目当中。\n接下来，我们必须要承认编程并不总是有趣的，也充满了 trivial 和 boring。我是大学才开始学编程，并且非科班完全自学，早期学习的动力完全来自于写代码的乐趣。那时候我写个 json parse 都会有非常高的意愿，学会了个递归下降 parse 都会非常开心。但现在你让我再去写，我可能会缺乏这种意愿和耐心。一方面，它需要花费我很多的时间，另一方面社区中已经有很多的成熟的实现了，你再去手写一份新的实现没太大意义。\n我会把这个定义为，我花一段时间可以完成的任务，但是我精力有限没有这个必要性。那我在实现 clice 的时候其实就有很多这样的需求：比如 URI 解析，Glob 匹配，Markdown 渲染构建这样的任务，这些代码对我来说是 trivial 且 boring 的，在其他的语言中早就有各种各样成熟的实现了，只是在 C++ 由于生态的各种问题不方便直接拿来用。我想使用 agent 完成这种任务是没有任何争议的，agent 也可以非常出色地完成这种任务，它的 context 非常小，任务明确，几乎不会出现任何问题 另外一类 boring 的工作是 debug，由于 clice 大量使用现代 C++ 的特性，那么新特性编译器实现有 BUG 是很正常的。问题是，怎么区分一个 BUG 是你的代码问题还是编译器 BUG 呢？那自然要付出大量的精力去进行各种调试和猜测，这个也并不高级，实际上就是找最小复现，打断点加日志等一点点试。我已经使用 opus 帮我调查了至少 4 个编译器 BUG 了，涵盖了 MSVC, Clang, GCC，可以想象，如果我自己去调查和调试这些问题又得浪费我的很多时间 最后一类其实就是所谓的 CRUD 逻辑了，什么是 CRUD？其实就是一些样板代码，比如 clice 中的配置文件加载等等。不过严格来说 clice 的大部分逻辑都是 CRUD，因为前面已经说了，我彻底地把 infra 层的逻辑拆分到 kotatsu 中去了。那么 clice 层只剩下了「业务逻辑」，只是这个业务逻辑是在语言服务器的背景下而已，逻辑本身并不复杂，只是小众领域 agent 缺乏上下文。只要我补充上下文，那么它就可以做得很好 好的，看到这里，如果你本来十分抗拒 agent 编程，那么现在应该会好很多。必须要承认，很多事情在有一定经验后重复在做的收益是很低的，而且会越来越低。对于一个你已经十分熟悉的领域，使用 agent 进行开发，无疑是可以很大地提高你的生产力的。当然，这也意味着你放弃了部分的确定性，你不再对每一行代码都熟悉。但是这个情况是普遍的，就算不使用 agent，和人类合作也会出现完全相同的情况。对于其他人负责的模块，你难道做到每一行代码都熟悉吗？显然不能，但是你可能会说人类写的代码我比较信任。这其实又回到最开始说的 agent 能力问题上了，是否信任不应该取决于刻板印象，人类写的代码并不一定就更完善。\n那么如何提高 agent 编写代码的可信度呢？最简单的办法就是编写测试，可是 agent 在编写测试的时候也会偷懒，怎么办呢？没有完美的解决办法，主要有\n尽量使用更强的模型，这个是最重要的，目前的顶级模型是 GPT5.5 和 Opus4.6 引入 agent team，多个 agent 负责不同的工作，有专门的 review agent 和验收 agent，进行多轮的审查 引入更多确定性的静态检查工具，提供明确的指标编写特定的 rule 反馈给 agent 人工 review 生成的代码，提供修改建议 引入更全面的测试覆盖，比如真实用户场景的冒烟测试，fuzz 测试等，这个不由 agent 编写 类似的策略还有很多，其实就是用确定性的 rule 对抗不确定性，尽量给它提供有效的反馈，核心思想并不复杂。然后的话，我个人认为这些是非常实用的，现在 agent 领域每天几乎都有新东西，让人产生了强烈的知识焦虑，但是究其根本还是这些内容。我并不会每天花很多时间研究这些「新东西」，我更愿意使用这些简单的技巧来提高我的编程效率。实际上很多鼓吹各种 agent 编程的人，自己都没有写过大量的代码，缺乏实际的软件工程经验，这就比较尴尬了。\n可以发现，虽然大部分的具体的编程任务交给了 agent 去完成，clice 的整体设计和架构我仍然在严格把关 review。经常听到的观点是，agent 时代 taste 很重要，那究竟什么是 taste？对我来说，这种 taste 就是什么时候该造轮子？什么时候该使用现有的代码？软件的架构是什么样的？这些都值得认真去思考。agent 可以代替你完成编码任务，但是不应该代替你思考，与其说 taste 更重要，不如说保持思考的习惯更重要。agent 提高了我试错的能力，kotatsu 的 codec 模块的设计，我前后推倒了至少五次了，每次都有新的想法新的收获，可行性交给 agent 验证，这是过去的我无论如何也无法想象的。\n最后展示一下我自己 vibe coding 的一些小工具吧，我现在日常使用的 vibe coding 工具都是自己 vibe 的了，一个简单的多任务 agent 编排器，方便使用 agent team 进行交叉 review。可以在 VSCode 里面直接打开网页使用，另外我也买了个云服务器，支持转发到手机端进行访问。使用起来还是很方便的\nagent native 在全面拥抱 agent 编程后，有一个很关键的问题，语言服务器还有意义吗？可以预见的将来是，会有越来越多的人不再手写代码，那么 clice 的意义何在呢？在两年前我开始编写 clice 的时候，我想我完全不可能预测到我今天会思考这个问题，或者说不会如此快地思考这个问题。花了数千小时投入的心血，被新时代降维打击，所有的努力付诸东流，这种感觉绝对不好受。\n好消息是，这里存在转机。前面提到过 AI 目前读取代码的方式就是通过猜测几个关键词 + grep 来获取关联的上下文，这是一种很简单的贪心策略。它足够通用，适用于任何语言，但未必是最高效的。对于 C++ 来说，由于函数重载和模板，同一个关键词纯 grep 可以搜索到大量完全不相关的上下文，这对 AI 来说无疑是噪音。那么语言服务器就可以为 agent 提供准确的信息，可以提供精确的符号查找。但注意到一件事情，Claude Code 早就支持通过 MCP 使用 clangd 了，但是几乎没人使用，这是为什么呢？那肯定是不好用呀，所以没人用，好用早用了。\n为什么不好用呢？说到底 Claude Code 的 clangd MCP 插件，只是在现有的语言服务器上包装了一层。而 LSP 协议原本是为人类在编辑器中工作设计的，人类的典型工作特点是人类编辑慢、响应慢、依赖视觉。所以我们有代码补全，基于鼠标的各种跳转服务，完整的诊断显示等等。主要就是缓慢输出，小心验证，输出慢但是尽量准确。而 agent 的特点是输出快、编辑频繁、批量操作 (Batch)，和 LSP 协议的设计目标有根本性的不同。agent 的典型工作场景是开多个不同的 worktree 进行工作，而 clangd 并没有在这个场景进行优化，导致需要重复索引，内存使用爆炸。\n如果为 agent 设计全新的协议，做针对性的优化，情况会不会发生改变呢？\n从性能角度来说，针对 batch 操作做性能优化。支持一次性批量符号查找，支持批量更改，减少频繁重建符号索引次数。支持跨 worktree/workspace 的缓存优化 从交互角度来说：变成完全异步的可交互流程，语言服务器提供丰富的接口，由 agent 主动拉取想要的信息。比如 C++ 编译错误经常上万行，agent 可以主动选择性查看它感兴趣的信息，我们默认折叠大部分细节只显示摘要。给 agent 充足的决策自由，我们提供项目的全局信息，比如调用图关系，包含关系等等。更进一步提供一些代码分析和重构工具，让 agent 可以更高效地进行重构和删除工作 当然了，这些只是我基于个人使用 agent 经验的一些观察，我经常查看 opus 的思考过程，得到的一些经验性结论。具体是否有效，效果有多少呢？还需要进一步的验证。最近的话我已经为 clice 支持了 daemon 模式，在后台运行。然后 agent 可以单独启动 clice 查询进程从命令行连接 daemon 进程获取项目的信息，比如获取文件编译命令，查找符号，获取调用图之类的。这也算是在 agent native 的道路上探索的第一步吧，至少原生支持命令行访问项目信息了。接下来我会让 agent 使用 clice 用于开发 clice 自身，进一步验证效果和可行性。\n注意，clice 的核心是一套实时的编译系统，LSP 只是这套系统的一个消费者。实际上由于 agent 对请求返回的格式和 LSP 不太一样，我在这套系统上为 agent 专门添加了一套 agentic 的新协议\nconclusion 大概就这些内容。最后列一下 clice 的长期目标，算是给自己画个饼：\n稳定可靠的 C++ 语言服务器：这也是最初的核心目标——通过架构层面的创新解决现有 C++ 语言服务器的诸多不足，并在各种小特性上做出改进，让日常使用更加符合人体工程学。实际上目前架构设计已经基本就绪，剩下的主要是打磨和完善 现代 C++ 的标志性项目：我们希望 clice 在各个方面都能成为现代 C++ 的最佳实践。目前来看做得还不错：全新设计的基础设施库 kotatsu，使用静态反射自动生成序列化代码，使用 pixi 进行跨平台包管理和交叉编译。后续还会完全迁移到 C++20 Modules——毕竟我们自己要支持 module Agent-native 的语言服务器适配 agent 的工作场景，为 AI 提供语义级别的精确信息，而不是让它继续靠猜词 + grep 目前进展还不错，但是仍然需要不断地继续努力。\n顺便说一点过去半年的个人情况。去年开始实习做 AI Infra 相关的工作。这个方向我之前并没有接触过，现在还在持续学习中。AI Infra 涉及的知识面非常广，也需要大量时间投入，只能利用周末和平时的闲暇时间推进 clice 的开发。时间不足确实是个问题，精力总是有限的，使用 agent 辅助开发倒是很大程度上缓解了这个问题。\n现在大概还有两个月就毕业了，争取在毕业前把 clice 做到可以正式 release 的第一版。毕业之后肯定需要在工作上投入更多精力，留给 clice 的时间可能会更少。毕竟这不是全职项目，也没有任何人资助，完全是出于兴趣用业余时间在做，只能尽人事听天命，同时也要注意让自己不要 burn out。\n感谢对这个项目的关注。感兴趣的话欢迎加入我们的 QQ 交流群：https://qm.qq.com/q/tSD3D81fpu，感谢阅读！\n",
+  "wordCount" : "9386",
+  "inLanguage": "zh-cn",
+  "image": "https://www.ykiko.me/zh-cn/articles/2034883949630059124/featured.png","datePublished": "2026-05-05T06:56:47Z",
+  "dateModified": "2026-05-06T13:51:13Z",
+  "author":{
+    "@type": "Person",
+    "name": "ykiko"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.ykiko.me/zh-cn/articles/2034883949630059124/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ykiko's blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.ykiko.me/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="https://www.ykiko.me/zh-cn/" accesskey="h" title="ykiko&#39;s blog (Alt + H)">ykiko&#39;s blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button><span class="nav-sep">|</span>
+                    <ul class="lang-menu">
+                        <li>
+                            <a href="https://www.ykiko.me/en/" title="EN"
+                                aria-label="English">English</a>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="https://www.ykiko.me/zh-cn/articles/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.ykiko.me/zh-cn/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      agent 时代的 clice
+    </h1>
+    <div class="post-meta"><span title='2026-05-05 06:56:47 +0000 UTC'>2026-05-05</span>&nbsp;·&nbsp;<span>更新于 2026-05-06</span>&nbsp;·&nbsp;<span>19 min</span>&nbsp;·&nbsp;<span>9386 words</span>&nbsp;·&nbsp;<span>ykiko</span>
+
+</div>
+  </header><figure class="entry-cover"><img loading="eager" src="https://www.ykiko.me/zh-cn/articles/2034883949630059124/featured.png" alt="agent 时代的 clice"></figure><details class="toc" >
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">Table of Contents</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#structured-concurrency" aria-label="structured concurrency">structured concurrency</a></li>
+            <li>
+                <a href="#kotatsu" aria-label="kotatsu">kotatsu</a></li>
+            <li>
+                <a href="#clice" aria-label="clice">clice</a></li>
+            <li>
+                <a href="#agent" aria-label="agent">agent</a></li>
+            <li>
+                <a href="#agent-native" aria-label="agent native">agent native</a></li>
+            <li>
+                <a href="#conclusion" aria-label="conclusion">conclusion</a>
+            </li>
+        </ul>
+    </div>
+</details>
+
+  <div class="post-content md-content"><p>距离上次更新 clice 进展又过了快半年时间了，趁着五一假期难得有大量空闲时间，写一点东西记录下新的进展和一些个人的碎碎念吧。话题说得比较杂，但是互相之间或许有些关联。</p>
+<h2 id="structured-concurrency">structured concurrency<a hidden class="anchor" aria-hidden="true" href="#structured-concurrency">#</a></h2>
+<p>1~3 月我都在进行清理和重构工作，clice 本体的开发几乎没什么进展。主要清理和重构什么呢？在 <a href="https://www.ykiko.me/zh-cn/articles/13394352064">一个新 C++ language server 的设计与实现</a> 提到，我们使用 C++20 协程对 libuv 进行「简单包装」来编写 server 逻辑。「简单包装」是真的很简单，几乎就是把 libuv 的回调函数都使用 C++20 的协程包装了一下，也就是换了种写法。最初的 server 逻辑全是使用这个简单包装编写的，然后我就发现这和使用 libuv 原始 API 编写好像没太多区别，我经常花费很多时间调试异步逻辑 BUG。因为这个简单包装对协程的生命周期管理很松散，基本上就是简单的 RAII 负责析构协程的栈帧，如果这个 <code>task</code> 的生命周期是动态的不能被 RAII 直接表达，那么就 <code>detach</code> 它，由捕获 <code>task</code> 的调用方手动管理。听起来好像没什么问题，类比到指针的话，就是大多数时候使用 <code>unique_ptr</code> 管理 <code>task</code> 生命周期，一些动态场景则使用手动 <code>release</code> 和 <code>delete</code>。</p>
+<p>的确如此，对于简单的场景这样写其实还好。但是对于复杂的需求来说，使用这套逻辑写出的代码就和面条一样不可维护了，而 clice 遇到的就是异步编程中最难的问题<strong>取消</strong>，我把取消视为 clice 异步代码最核心的需求，为什么呢？想象如下极端场景，用户 copy 了一个十万行的代码，随后发现误操作了，又全部删除了，手打了短短几行代码。对于语言服务器来说，我们只需要处理最新的文本内容，前面的这个十万行的修改是完全不需要的，可以丢弃。对于 C++ 编译器前端来说，解析十万行代码是需要几十秒乃至数分钟的。如果我们不支持取消掉旧任务，即使使用了线程池，那么这样的任务也会在后台空转 CPU。clangd 有时候会假死，不响应，就是因为这些旧编译任务未被及时取消，从而占满了编译的线程池，这时候你只能手动重启，手动杀死这些没意义的后台任务。</p>
+<blockquote>
+<p>实际上，对于一些语法简单、代码量不大的语言的语言服务器来说，直接 drop 掉之前的任务的结果就好了，不需要什么特殊的处理。它们并不需要这样的优化，因为 parse 非常快，空转一会也无妨，但是 C++ 的语法语义太复杂了，编译器前端解析就需要花费大量的时间</p>
+</blockquote>
+<p>这还是较为简单的场景，单个任务的取消，没任何依赖关系。C++ 的 parse 是以单个 TU 为基本单元的，符合这个场景。可是 C++20 模块为编译引入了依赖关系，一个模块的编译依赖是有向无环图，那么此时取消旧任务的表现又该如何呢？比如我 <code>import A</code> 那么就编译 A 的依赖（假设 A 还依赖很多的其他模块）。但是 A 还没编译完呢，用户改成 <code>import B</code> 那又该如何处理？光是这种级联的任务的取消就非常麻烦了，更不用提其中复杂繁琐的手动生命周期管理了。</p>
+<blockquote>
+<p>上面说的是 server 层面内部的异步任务管理，实际上 LSP 协议中也专门定义了一个 <code>$/cancelRequest</code> 请求用于取消旧的请求，但是由于异步任务取消的复杂性，大部分语言服务器都不支持它</p>
+</blockquote>
+<p>我花了很久时间就是在思考和解决这个问题。具体的思考过程又值得专门写一篇文章来展开讨论了。异步取消问题或许也是各个编程语言中的经典难题了，不同语言采用的方法差别很大，限于篇幅，在这里只说一下最终的解决方案吧。我重新设计了一套<strong>取消为一等公民</strong>的<strong>结构化并发</strong>异步框架，所有的异步任务被串成一整个异步图。图上的任意节点被取消，会连锁取消整个异步图。对于 C++20 模块来说，异步图就是编译依赖图。请看下方图片：</p>
+<p><img loading="lazy" src="https://pic2.zhimg.com/v2-eb931cd6cc29db8843dbcd193474d539_r.jpg"></p>
+<p>然后取消是一等公民是什么意思呢？就是说 <code>task</code> 有三个模板参数 <code>&lt;T, E, C&gt;</code>，<code>T</code> 就是正常的返回值，<code>E</code> 代表错误返回值通道，<code>C</code> 代表任务被取消了。由于我们项目不使用异常，所以错误仍然是显式传播的，类似 <code>std::expected</code>，但是取消是隐式传播的，这也就是结构化并发的核心思想，区分错误和取消。<code>task</code> 的生命周期也根据图有严格的父子关系，这样生命周期问题和取消问题就一并解决了。上述异步图就是结构化并发的副产物，任何时间任何位置，我们都可以导出异步图用于调试，直观地查看异步问题，这或许就是结构化并发的魅力吧！</p>
+<h2 id="kotatsu">kotatsu<a hidden class="anchor" aria-hidden="true" href="#kotatsu">#</a></h2>
+<p>为了方便维护和更新，我把 clice 中的一些 infra 设施抽出来成了单独的一个库 <a href="https://github.com/clice-io/kotatsu">kotatsu</a>。上面提到的结构化并发框架就是这个库的 <code>async</code> 模块。这个单独的库相比于 clice 本体来说测试更加充分，CI 矩阵的覆盖也更加全面。不同操作系统不同编译器不同编译选项的组合都有测试，只有 infra 层确保没出问题上层逻辑编写得才更加可靠。除了 <code>async</code> 模块以外，后面陆续又迁移了一些其他的模块，比如 codec 自动序列化/反序列化，测试框架，IPC Server 等。现在 clice 本体的代码量已经非常精简了，几乎全都是「业务逻辑」，所有 infra 层都迁移到了 kotatsu，经过了重新设计和全面的测试覆盖。</p>
+<p>kotatsu 目前变得非常全面，包含异步框架，IO，IPC，HTTP，静态反射，序列化，命令行解析，单测框架。满足了编写语言服务器的全部需求，不过实际上似乎覆盖了常用软件开发的所有基础设施。实际上它也被 clice-io 中的其他项目作为共享基础库，比如 <a href="https://github.com/clice-io/catter">catter</a> 也依赖这些通用的基础设施，这也是一个有趣的项目，主要由 @fogsong233 和 @Seele-Official 开发，和 clice 本身是互补的，后面有机会也会写一些文章介绍下。</p>
+<p>这样来看，我们似乎花费了大量的时间在造轮子，情况也确实如此。不过客观来说，这些轮子都是不得不搓，因为 C++ 社区中并没有好用的等价物。这是件很遗憾的事情，相比之下 Rust 社区就 cover 了所有这些常见的需求，因此这里有大量新兴的语言服务器都是 Rust 写的。我们常说 C++ 的优势是生态比 Rust 好，历史悠久。但是在我看来，似乎并非如此，或者说需要更具体的讨论。有很多大型项目都是 C++ 编写的，比如 Chromium, LLVM, Torch, QT, UE 这些项目历史悠久，生态丰富，并且大多数都有公司在背后以十年为周期地进行长期投入，Rust 作为新兴语言想在这方面超越 C++ 确实不太可能。但是问题在于这些生态真的是<strong>有效生态吗</strong>？这些大型项目都是高度 self contained，并且模块化做得并不好，作为开发者我并不能很好地使用其中的组件，比如 C++ 社区连个好用的 <code>glob</code> 都没有。所以我们也根据开发需求搓了一些轮子，并且我觉得模块化做得还是很好的，等未来 API 稳定下来也会考虑发布 release 版本供其他开发者使用。</p>
+<blockquote>
+<p>注意，这里其实也不是完全从新造轮子。实际上 kotatsu 还是依赖大量 C++ 生态中的现有库的，比如 simdjson, toml++, flatbuffer, cpptrace 和 libuv 等等。整个库的核心就两点，新的异步框架和静态反射，所以是基于两个核心的抽象对现有库的 API 进行了一些封装，达到方便使用的目的。</p>
+</blockquote>
+<h2 id="clice">clice<a hidden class="anchor" aria-hidden="true" href="#clice">#</a></h2>
+<p>得益于全新的异步框架，我可以尝试一些更大胆的设计，<strong>多进程架构</strong>！这个想法很久之前我就有了，但是当时的异步设施太简陋了，于是就搁置了。新框架解决了历史债务，带来了全新的可能性，真的是好处多多。</p>
+<p>为什么要使用多进程架构呢？clangd 有两个被人长期诟病的问题：崩溃和内存泄漏。而 clangd 99% 的内存泄漏和崩溃都来自 Clang，clangd 使用 Clang frontend 来解析 C++ 代码，获取 AST，提供语言服务。你可能会好奇，为什么 Clang 会经常崩溃啊？这是不是不太合理？那么多的代码，我自己使用 Clang 也没怎么遇到崩溃呀。是的，对于合法的 C++ 代码来说，Clang 很少崩溃（除非你使用了大量模板代码或者一些不稳定的新特性）。但问题是，语言服务器经常要处理不完整的代码，比如经常 <code>compile_commands.json</code> 没配置好，Clang 找不到头文件，会产生大量的编译错误，但是 parse 仍然会进行。像 Clang 这样的编译器在遇到 error 的时候，会尽可能地进行 error recovery 从而继续编译，在一次编译过程中尽可能地多给用户反馈一些 error。但是这个 error recovery 是启发式的，全靠猜，而且 Clang 自身的测试用例大部分都是完整的代码，语言服务器在编辑时产生的不完整代码测试用例实在太少。这些因素综合起来，Clang 在语言服务器场景偶尔崩溃或者走进死循环、内存泄漏也就不足为奇了。</p>
+<p>然后 clangd 是多线程架构，如果出现这种情况自然是无能为力的了，只有重启。实际上这也是 C++ 自身的技术债。Rust-analyzer 同样采用多线程架构，同样是启发式的错误恢复，parser 也会遇到 corner case 而 panic，但它的进程不会因此崩溃。原因在于 Rust-analyzer 在请求分发层使用了 <code>std::panic::catch_unwind</code> 包裹每个请求的处理函数，当 parser 或其他内部组件 panic 时，panic 会被捕获，返回一个错误。而进程继续正常服务后续请求。Rust 的 <code>panic</code> 可以被 <code>catch_unwind</code> 安全捕获，类似于 C++ 的异常机制。但一方面 Clang 不使用异常，另一方面 C++ 中数组越界等问题直接是未定义行为，通常表现为段错误 (SIGSEGV)，没有任何可靠的机制可以在进程内恢复。所以想彻底解决这个问题，只能使用多进程的方式，所有的编译任务都交给子进程去执行。</p>
+<p>然后的话，Unix 系统上启动子进程很快，但是在 Windows 上启动子进程很慢，对于小文件可能比编译本身还慢。为了缓解这个问题，我们使用进程池，一个进程会执行多个编译任务，毕竟崩溃是小概率事件，类似 Chromium 中对多进程的处理。根据任务的不同，我们还区分无状态 worker 和有状态 worker 用来处理不同类型的编译任务。这样一来，多进程带来的开销只剩下 IPC 通信了，但是由于我们通信的数据量很小，这部分开销也可以忽略了，大概就几 ms。相比之下，典型的编译任务都需要几十 ms，才是主要的瓶颈。相比于多进程本身带来的稳定性提升，这点开销并不算什么。</p>
+<p>在编写了全新的多进程架构后，我还实现了如下功能</p>
+<ul>
+<li>一个快速包含图扫描器，速度可达 20000 文件/s。相比于传统的头文件依赖关系扫描，它去除了预处理，这样可能会多扫描出一些结果。好处是可以避免头文件重复扫描，缓存扫描结果，加速 100 倍。对于语言服务器来说，不那么精确的包含图已经够了，可以提供很多有益的信息，比如根据包含关系推断头文件的编译命令。在这个场景，速度比准确性更加重要</li>
+<li>C++20 named module 支持，具体来说就是模块依赖关系扫描，递归的模块构建，环形依赖检测，全局的模块名补全，模块高亮和跳转之类的功能</li>
+<li>编译上下文支持，允许文件切换不同的编译上下文。对于源文件来说，如果有多个编译命令可以选择其中一个作为当前的活跃上下文。对于头文件来说，除了可以选择不同的编译命令作为上下文，还可以选择源文件作为上下文，clice 会自动地通过一些方式在头文件前面隐式补全头文件在源文件中缺失的部分。这样的话也就支持了非自包含头文件 (non self contained)</li>
+</ul>
+<p>最开始的一些设想现在都实现了，非常令人欣喜的进展。但是我并不太想发布新版本，为什么呢？因为目前这些代码都属于 it works on my machine 的阶段，在我的本地能良好地工作。但是我明确知道这里有一些细节还没处理好，在其他人的环境里可能不 work。假设我发布了新版本，可能会有很多人来尝试然后发现不能在他们的机器上工作。一方面给他们的印象不好，另一方面可能会提一些 issue，我还需要花费精力去回复和处理。对我来说，这些问题属于 known issue，这样属于白白浪费大家的精力，我现在也没有太多的精力去回复这些 issue，我不认为是好的做法。在接下来的一段时间内我会去不断地完善这些 corner case，然后请一些朋友逐步地帮忙测试，等到时机成熟，我所知道的 obvious 的问题都解决后，我会考虑发布 1.0 版本，那时再提交的 issue 相对来说更多就是有效 issue 了。</p>
+<p>我不确定这样的策略是否合理，之前和朋友谈到这个问题，他和我说的策略是先尽量做出一个 MVP，然后让用户教你如何改进。现在看来，我似乎完全没有采用这个策略，很难说谁对谁错，或许各有对错吧。如果你对 clice 有强烈的兴趣，我建议你 clone main 分支自己本地编译一个，尝试。正如之前在 <a href="https://www.ykiko.me/zh-cn/articles/1985940996270339378">打造优雅的 C++ 跨平台开发与构建 Workflow</a> 中提到的一样，我们现在使用 pixi 管理开发环境，可复现性非常好，理论上可以做到一键编译。并且前段时间我顺便做了交叉编译支持，现在支持 Windows, Linux, macOS 三个操作系统，x64 和 arm64 两个平台一共六种组合。</p>
+<h2 id="agent">agent<a hidden class="anchor" aria-hidden="true" href="#agent">#</a></h2>
+<p>过去半年时间，一个不得不谈的话题那就是 agent 编程。半年前，似乎大家仍普遍认为程序员难以被 AI 取代，但是随着 Claude Code 的火爆，似乎一切都变了。一时之间，大家充满了焦虑。</p>
+<p>最开始大概是一月份的时候吧，我在群友的推荐下开始尝试 codex + gpt-5.3-codex，当时的感觉还是不错，可以用于编写测试什么的，但是我仍然需要花费大量精力去进行多轮打磨到我想要的效果，似乎一般。年后复工了，公司提供 cursor 用于工作，于是我开始尝试在工作中使用 opus 4.6 辅助编程，当时顿时感觉惊为天人，让我非常震撼。染上了 opus 了，然后下班了，我就在想怎么自己买一点 opus 写 clice 用。一开始使用中转站自己买 tokens 用，但是中转站实在太贵了，大量使用承担不起。还是 Claude 的官方订阅最划算，在我牺牲了两个号之后，第三个号终于成功存活了很长一段时间。我买了 20x 套餐，后来又买了一个 5x 套餐的账号补充用量，终于实现了 opus 自由。</p>
+<p>前文提到的大部分工作都是我制定计划，然后交给 opus 完成的，现在我几乎不手写任何代码了。这或许会引发一些人的担忧，因为现在对 AI 的过度炒作，会让大家产生 AI 写的代码都是 garbage 的感觉，尤其是前一阵子的 OpenClaw 更是把这种刻板印象发挥到了极致。一时之间网络上分为了两派，一派认为 AI 生成的代码质量很差，应该坚持人工介入甚至古法编程，另一派则认为代码质量不重要，先把产品写出来像 OpenClaw 这样赚到钱才是硬道理。这样的争论似乎并不稀奇，实际上在 agent 出现之前，是先「敏捷」开发出一个 MVP 上线后面再重构清理技术债，还是早期就做好充分的设计提高代码质量慢一些也没关系，就有过大量的争论。这样的争论也会延续到方方面面，比如编程语言的使用，是否要过早优化，使用 Java 还是 C++ 之类的。也许只是旧瓶装新酒，讨论的载体变成了 agent 而已。那问题的答案也很简单了，it depends。</p>
+<p>这里说一下我的观点吧：</p>
+<p>首先要客观认识到 agent 的能力，打破 AI 只能生成垃圾代码的<strong>刻板印象</strong>。以目前的顶尖模型 opus4.6 为例，如果你可以较为准确地表达你的意图，那么它可以帮你很好地生成代码。一些基本的编码准则，比如代码的条理性，错误处理，代码风格都是没问题的，甚至超过大多数程序员。但是在一些需要复杂上下文的情况下，比如，架构设计，代码复用，跨越代码上下文的问题理解等等。一切需要 agent 跨越多处不同的上下文，融会贯通才能想到解法的地方，目前存在较大的改善空间。这个并不难理解，目前的模型上下文有限，读取代码的方式往往采用<strong>猜测 + grep 的启发式</strong>读取方式，漏掉一些代码中存在的关联的上下文是很正常的事情。更别提你大脑中一些隐含的上下文了，Context is all you need。所以每天有层出不穷的大量围绕 agent 上下文的工作出现，当然其中大部分的工作都没啥用，这个问题仍然存在大量的探索空间。目前最有效的也最简单的办法还是 human in the loop，你人工去给它补充上下文，尤其是在一些历史悠久的项目当中。</p>
+<p>接下来，我们必须要承认编程并不总是有趣的，也充满了 trivial 和 boring。我是大学才开始学编程，并且非科班完全自学，早期学习的动力完全来自于写代码的乐趣。那时候我写个 json parse 都会有非常高的意愿，学会了个递归下降 parse 都会非常开心。但现在你让我再去写，我可能会缺乏这种意愿和耐心。一方面，它需要花费我很多的时间，另一方面社区中已经有很多的成熟的实现了，你再去手写一份新的实现没太大意义。</p>
+<ul>
+<li>我会把这个定义为，我花一段时间可以完成的任务，但是我精力有限没有这个必要性。那我在实现 clice 的时候其实就有很多这样的需求：比如 URI 解析，Glob 匹配，Markdown 渲染构建这样的任务，这些代码对我来说是 trivial 且 boring 的，在其他的语言中早就有各种各样成熟的实现了，只是在 C++ 由于生态的各种问题不方便直接拿来用。我想使用 agent 完成这种任务是没有任何争议的，agent 也可以非常出色地完成这种任务，它的 context 非常小，任务明确，几乎不会出现任何问题</li>
+<li>另外一类 boring 的工作是 debug，由于 clice 大量使用现代 C++ 的特性，那么新特性编译器实现有 BUG 是很正常的。问题是，怎么区分一个 BUG 是你的代码问题还是编译器 BUG 呢？那自然要付出大量的精力去进行各种调试和猜测，这个也并不高级，实际上就是找最小复现，打断点加日志等一点点试。我已经使用 opus 帮我调查了至少 4 个编译器 BUG 了，涵盖了 MSVC, Clang, GCC，可以想象，如果我自己去调查和调试这些问题又得浪费我的很多时间</li>
+<li>最后一类其实就是所谓的 CRUD 逻辑了，什么是 CRUD？其实就是一些样板代码，比如 clice 中的配置文件加载等等。不过严格来说 clice 的大部分逻辑都是 CRUD，因为前面已经说了，我彻底地把 infra 层的逻辑拆分到 kotatsu 中去了。那么 clice 层只剩下了「业务逻辑」，只是这个业务逻辑是在语言服务器的背景下而已，逻辑本身并不复杂，只是小众领域 agent 缺乏上下文。只要我补充上下文，那么它就可以做得很好</li>
+</ul>
+<p>好的，看到这里，如果你本来十分抗拒 agent 编程，那么现在应该会好很多。必须要承认，很多事情在有一定经验后重复在做的收益是很低的，而且会越来越低。对于一个你已经十分熟悉的领域，使用 agent 进行开发，无疑是可以很大地提高你的生产力的。当然，这也意味着你放弃了部分的确定性，你不再对每一行代码都熟悉。但是这个情况是普遍的，就算不使用 agent，和人类合作也会出现完全相同的情况。对于其他人负责的模块，你难道做到每一行代码都熟悉吗？显然不能，但是你可能会说人类写的代码我比较信任。这其实又回到最开始说的 agent 能力问题上了，是否信任不应该取决于刻板印象，人类写的代码并不一定就更完善。</p>
+<p>那么如何提高 agent 编写代码的可信度呢？最简单的办法就是编写测试，可是 agent 在编写测试的时候也会偷懒，怎么办呢？没有完美的解决办法，主要有</p>
+<ul>
+<li>尽量使用更强的模型，这个是最重要的，目前的顶级模型是 GPT5.5 和 Opus4.6</li>
+<li>引入 agent team，多个 agent 负责不同的工作，有专门的 review agent 和验收 agent，进行多轮的审查</li>
+<li>引入更多确定性的静态检查工具，提供明确的指标编写特定的 rule 反馈给 agent</li>
+<li>人工 review 生成的代码，提供修改建议</li>
+<li>引入更全面的测试覆盖，比如真实用户场景的冒烟测试，fuzz 测试等，这个不由 agent 编写</li>
+</ul>
+<p>类似的策略还有很多，其实就是用确定性的 rule 对抗不确定性，尽量给它提供有效的反馈，核心思想并不复杂。然后的话，我个人认为这些是非常实用的，现在 agent 领域每天几乎都有新东西，让人产生了强烈的知识焦虑，但是究其根本还是这些内容。我并不会每天花很多时间研究这些「新东西」，我更愿意使用这些简单的技巧来提高我的编程效率。实际上很多鼓吹各种 agent 编程的人，自己都没有写过大量的代码，缺乏实际的软件工程经验，这就比较尴尬了。</p>
+<p>可以发现，虽然大部分的具体的编程任务交给了 agent 去完成，clice 的整体设计和架构我仍然在严格把关 review。经常听到的观点是，agent 时代 taste 很重要，那究竟什么是 taste？对我来说，这种 taste 就是什么时候该造轮子？什么时候该使用现有的代码？软件的架构是什么样的？这些都值得认真去思考。agent 可以代替你完成编码任务，但是不应该代替你思考，与其说 taste 更重要，不如说保持思考的习惯更重要。agent 提高了我试错的能力，kotatsu 的 codec 模块的设计，我前后推倒了至少五次了，每次都有新的想法新的收获，可行性交给 agent 验证，这是过去的我无论如何也无法想象的。</p>
+<p>最后展示一下我自己 vibe coding 的一些小工具吧，我现在日常使用的 vibe coding 工具都是自己 vibe 的了，一个简单的多任务 agent 编排器，方便使用 agent team 进行交叉 review。可以在 VSCode 里面直接打开网页使用，另外我也买了个云服务器，支持转发到手机端进行访问。使用起来还是很方便的</p>
+<p><img loading="lazy" src="https://pica.zhimg.com/v2-5e561e1c2fd06e414d356f9a6e98861e_r.jpg"></p>
+<p><img loading="lazy" src="https://pic1.zhimg.com/v2-c902a048174811a526ad5b7879b816b4_r.jpg"></p>
+<h2 id="agent-native">agent native<a hidden class="anchor" aria-hidden="true" href="#agent-native">#</a></h2>
+<p>在全面拥抱 agent 编程后，有一个很关键的问题，语言服务器还有意义吗？可以预见的将来是，会有越来越多的人不再手写代码，那么 clice 的意义何在呢？在两年前我开始编写 clice 的时候，我想我完全不可能预测到我今天会思考这个问题，或者说不会如此快地思考这个问题。花了数千小时投入的心血，被新时代降维打击，所有的努力付诸东流，这种感觉绝对不好受。</p>
+<p>好消息是，这里存在转机。前面提到过 AI 目前读取代码的方式就是通过猜测几个关键词 + grep 来获取关联的上下文，这是一种很简单的贪心策略。它足够通用，适用于任何语言，但未必是最高效的。对于 C++ 来说，由于函数重载和模板，同一个关键词纯 grep 可以搜索到大量完全不相关的上下文，这对 AI 来说无疑是噪音。那么语言服务器就可以为 agent 提供准确的信息，可以提供精确的符号查找。但注意到一件事情，Claude Code 早就支持通过 MCP 使用 clangd 了，但是几乎没人使用，这是为什么呢？那肯定是不好用呀，所以没人用，好用早用了。</p>
+<p>为什么不好用呢？说到底 Claude Code 的 clangd MCP 插件，只是在现有的语言服务器上包装了一层。而 LSP 协议原本是为人类在编辑器中工作设计的，人类的典型工作特点是人类编辑慢、响应慢、依赖视觉。所以我们有代码补全，基于鼠标的各种跳转服务，完整的诊断显示等等。主要就是缓慢输出，小心验证，输出慢但是尽量准确。而 agent 的特点是输出快、编辑频繁、批量操作 (Batch)，和 LSP 协议的设计目标有根本性的不同。agent 的典型工作场景是开多个不同的 worktree 进行工作，而 clangd 并没有在这个场景进行优化，导致需要重复索引，内存使用爆炸。</p>
+<p>如果为 agent 设计全新的协议，做针对性的优化，情况会不会发生改变呢？</p>
+<ul>
+<li>从性能角度来说，针对 batch 操作做性能优化。支持一次性批量符号查找，支持批量更改，减少频繁重建符号索引次数。支持跨 worktree/workspace 的缓存优化</li>
+<li>从交互角度来说：变成完全异步的可交互流程，语言服务器提供丰富的接口，由 agent 主动拉取想要的信息。比如 C++ 编译错误经常上万行，agent 可以主动选择性查看它感兴趣的信息，我们默认折叠大部分细节只显示摘要。给 agent 充足的决策自由，我们提供项目的全局信息，比如调用图关系，包含关系等等。更进一步提供一些代码分析和重构工具，让 agent 可以更高效地进行重构和删除工作</li>
+</ul>
+<p>当然了，这些只是我基于个人使用 agent 经验的一些观察，我经常查看 opus 的思考过程，得到的一些经验性结论。具体是否有效，效果有多少呢？还需要进一步的验证。最近的话我已经为 clice 支持了 daemon 模式，在后台运行。然后 agent 可以单独启动 clice 查询进程从命令行连接 daemon 进程获取项目的信息，比如获取文件编译命令，查找符号，获取调用图之类的。这也算是在 agent native 的道路上探索的第一步吧，至少原生支持命令行访问项目信息了。接下来我会让 agent 使用 clice 用于开发 clice 自身，进一步验证效果和可行性。</p>
+<blockquote>
+<p>注意，clice 的核心是一套实时的编译系统，LSP 只是这套系统的一个消费者。实际上由于 agent 对请求返回的格式和 LSP 不太一样，我在这套系统上为 agent 专门添加了一套 agentic 的新协议</p>
+</blockquote>
+<h2 id="conclusion">conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h2>
+<p>大概就这些内容。最后列一下 clice 的长期目标，算是给自己画个饼：</p>
+<ul>
+<li>稳定可靠的 C++ 语言服务器：这也是最初的核心目标——通过架构层面的创新解决现有 C++ 语言服务器的诸多不足，并在各种小特性上做出改进，让日常使用更加符合人体工程学。实际上目前架构设计已经基本就绪，剩下的主要是打磨和完善</li>
+<li>现代 C++ 的标志性项目：我们希望 clice 在各个方面都能成为现代 C++ 的最佳实践。目前来看做得还不错：全新设计的基础设施库 kotatsu，使用静态反射自动生成序列化代码，使用 pixi 进行跨平台包管理和交叉编译。后续还会完全迁移到 C++20 Modules——毕竟我们自己要支持 module</li>
+<li>Agent-native 的语言服务器适配 agent 的工作场景，为 AI 提供语义级别的精确信息，而不是让它继续靠猜词 + grep</li>
+</ul>
+<p>目前进展还不错，但是仍然需要不断地继续努力。</p>
+<p>顺便说一点过去半年的个人情况。去年开始实习做 AI Infra 相关的工作。这个方向我之前并没有接触过，现在还在持续学习中。AI Infra 涉及的知识面非常广，也需要大量时间投入，只能利用周末和平时的闲暇时间推进 clice 的开发。时间不足确实是个问题，精力总是有限的，使用 agent 辅助开发倒是很大程度上缓解了这个问题。</p>
+<p>现在大概还有两个月就毕业了，争取在毕业前把 clice 做到可以正式 release 的第一版。毕业之后肯定需要在工作上投入更多精力，留给 clice 的时间可能会更少。毕竟这不是全职项目，也没有任何人资助，完全是出于兴趣用业余时间在做，只能尽人事听天命，同时也要注意让自己不要 burn out。</p>
+<p>感谢对这个项目的关注。感兴趣的话欢迎加入我们的 QQ 交流群：<a href="https://qm.qq.com/q/tSD3D81fpu">https://qm.qq.com/q/tSD3D81fpu</a>，感谢阅读！</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://www.ykiko.me/zh-cn/articles/1985940996270339378/">
+    <span class="title"> »</span>
+    <span>打造优雅的 C&#43;&#43; 跨平台开发与构建 Workflow</span>
+  </a>
+</nav>
+
+  </footer>
+<div class="giscus"></div>
+<script>
+  function getGiscusTheme() {
+    const rootTheme = document.documentElement.dataset.theme;
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const isDark = rootTheme === "dark" || (rootTheme === "auto" && prefersDark);
+    return isDark ? "noborder_gray" : "noborder_light";
+  }
+
+  function setGiscusTheme(theme) {
+    const iframe = document.querySelector("iframe.giscus-frame");
+    if (!iframe) return;
+    iframe.contentWindow.postMessage(
+      { giscus: { setConfig: { theme: theme } } },
+      "https://giscus.app"
+    );
+  }
+
+  window.addEventListener("load", function() {
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.crossOrigin = "anonymous";
+    script.async = true;
+    script.setAttribute("data-repo", "16bit-ykiko/about-me");
+    script.setAttribute("data-repo-id", "R_kgDOLNvUfQ");
+    script.setAttribute("data-category", "Announcements");
+    script.setAttribute("data-category-id", "DIC_kwDOLNvUfc4Ckzfl");
+    script.setAttribute("data-mapping", "title");
+    script.setAttribute("data-strict", "0");
+    script.setAttribute("data-reactions-enabled", "1");
+    script.setAttribute("data-emit-metadata", "0");
+    script.setAttribute("data-input-position", "top");
+    script.setAttribute("data-theme", getGiscusTheme());
+    script.setAttribute("data-lang", "zh-CN");
+    document.querySelector(".giscus").appendChild(script);
+
+    const themeToggle = document.getElementById("theme-toggle");
+    if (themeToggle) {
+      themeToggle.addEventListener("click", function() {
+        window.setTimeout(function() {
+          setGiscusTheme(getGiscusTheme());
+        }, 0);
+      });
+    }
+  });
+</script>
+
+</article>
+    </main>
+    
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
