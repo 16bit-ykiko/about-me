@@ -4,21 +4,14 @@ on: workflow_dispatch
 
 jobs:
   test:
-    strategy:
-      matrix:
-        include:
-          - os: macos-15
-            arch: native
-          - os: macos-15
-            arch: x64-cross
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-15
     steps:
-      - name: Install conda clang 22
+      - name: Setup pixi
         uses: prefix-dev/setup-pixi@v0.8.1
         with:
           run-install: false
 
-      - name: Setup pixi env
+      - name: Create env
         run: |
           cat > pixi.toml << 'TOML'
           [workspace]
@@ -32,7 +25,7 @@ jobs:
           TOML
           pixi install
 
-      - name: Write test file
+      - name: Write test
         run: |
           cat > test.cpp << 'CPP'
           #include <string>
@@ -44,35 +37,31 @@ jobs:
           }
           CPP
 
-      - name: Conda clang WITHOUT annotation
+      - name: Check undefined symbols (the real test)
         run: |
-          echo "=== Conda clang, no annotation ==="
-          pixi run clang++ -std=c++23 -c test.cpp -o test1.o
-          nm test1.o | grep -i hash_memory && echo "REFERENCES __hash_memory" || echo "NO reference"
+          echo "=== WITHOUT annotation ==="
+          pixi run clang++ -std=c++23 -c test.cpp -o no_anno.o
+          echo "Undefined hash_memory refs:"
+          nm -u no_anno.o | grep -i hash_memory || echo "(none)"
+          echo "Defined hash_memory:"
+          nm no_anno.o | grep -i "T.*hash_memory" || echo "(none)"
 
-      - name: Conda clang WITH vendor annotation
-        run: |
-          echo "=== Conda clang, with annotation ==="
-          pixi run clang++ -std=c++23 -D_LIBCPP_HAS_VENDOR_AVAILABILITY_ANNOTATIONS=1 -c test.cpp -o test2.o
-          nm test2.o | grep -i hash_memory && echo "REFERENCES __hash_memory" || echo "NO reference"
+          echo ""
+          echo "=== WITH annotation ==="
+          pixi run clang++ -std=c++23 -D_LIBCPP_HAS_VENDOR_AVAILABILITY_ANNOTATIONS=1 -c test.cpp -o anno.o
+          echo "Undefined hash_memory refs:"
+          nm -u anno.o | grep -i hash_memory || echo "(none)"
+          echo "Defined hash_memory:"
+          nm anno.o | grep -i "T.*hash_memory" || echo "(none)"
 
-      - name: Conda clang x64 cross WITHOUT annotation
-        if: matrix.arch == 'x64-cross'
-        run: |
-          echo "=== Conda clang x64 cross, no annotation ==="
-          pixi run clang++ -std=c++23 -target x86_64-apple-darwin -c test.cpp -o test3.o
-          nm test3.o | grep -i hash_memory && echo "REFERENCES __hash_memory" || echo "NO reference"
+          echo ""
+          echo "=== x64 cross WITHOUT annotation ==="
+          pixi run clang++ -std=c++23 -target x86_64-apple-darwin -c test.cpp -o x64_no.o
+          echo "Undefined hash_memory refs:"
+          nm -u x64_no.o | grep -i hash_memory || echo "(none)"
 
-      - name: Conda clang x64 cross WITH annotation
-        if: matrix.arch == 'x64-cross'
-        run: |
-          echo "=== Conda clang x64 cross, with annotation ==="
-          pixi run clang++ -std=c++23 -target x86_64-apple-darwin -D_LIBCPP_HAS_VENDOR_AVAILABILITY_ANNOTATIONS=1 -c test.cpp -o test4.o
-          nm test4.o | grep -i hash_memory && echo "REFERENCES __hash_memory" || echo "NO reference"
-
-      - name: Check macros
-        run: |
-          echo "=== Default macros ==="
-          pixi run clang++ -dM -E -x c++ /dev/null 2>/dev/null | grep -i "MAC_OS_X_VERSION\|ENVIRONMENT\|LIBCPP_INTRODUCED\|AVAILABILITY_HAS_HASH" || true
-          echo "=== With annotation ==="
-          pixi run clang++ -D_LIBCPP_HAS_VENDOR_AVAILABILITY_ANNOTATIONS=1 -dM -E -x c++ /dev/null 2>/dev/null | grep -i "MAC_OS_X_VERSION\|ENVIRONMENT\|LIBCPP_INTRODUCED\|AVAILABILITY_HAS_HASH" || true
+          echo ""
+          echo "=== x64 cross WITH annotation ==="
+          pixi run clang++ -std=c++23 -target x86_64-apple-darwin -D_LIBCPP_HAS_VENDOR_AVAILABILITY_ANNOTATIONS=1 -c test.cpp -o x64_anno.o
+          echo "Undefined hash_memory refs:"
+          nm -u x64_anno.o | grep -i hash_memory || echo "(none)"
