@@ -72,3 +72,23 @@ jobs:
             "-L$SDK/usr/lib" test.cpp -o cand_a_x64
           otool -L cand_a_x64
           otool -L cand_a_x64 | grep -q '/usr/lib/libc++.1.dylib' || { echo "A-x64 failed"; exit 1; }
+
+      - name: C no-default-config native
+        run: |
+          pixi run clang++ -std=c++23 -fuse-ld=lld --no-default-config test.cpp -o cand_c
+          otool -L cand_c
+          otool -l cand_c | grep -A2 LC_RPATH || echo "(no rpath)"
+          otool -L cand_c | grep -q '/usr/lib/libc++.1.dylib' || { echo "C failed: not system libc++"; exit 1; }
+          if otool -l cand_c | grep -q '.pixi/envs'; then echo "C failed: env rpath present"; exit 1; fi
+          ./cand_c
+          # headers must still be conda libc++ 22 (driver-relative search):
+          pixi run clang++ -std=c++23 --no-default-config -c test.cpp -o cand_c.o
+          nm cand_c.o | grep __hash_memory
+          nm -u cand_c.o | grep __hash_memory && exit 1 || echo "inline fallback, no extern ref"
+
+      - name: C no-default-config x64 cross
+        run: |
+          pixi run clang++ -std=c++23 -fuse-ld=lld -target x86_64-apple-darwin \
+            --no-default-config test.cpp -o cand_c_x64
+          otool -L cand_c_x64
+          otool -L cand_c_x64 | grep -q '/usr/lib/libc++.1.dylib' || { echo "C-x64 failed"; exit 1; }
