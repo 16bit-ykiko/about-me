@@ -1,0 +1,74 @@
+name: test libcxx link
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    runs-on: macos-15
+    steps:
+      - name: Setup pixi
+        uses: prefix-dev/setup-pixi@v0.8.1
+        with:
+          run-install: false
+
+      - name: Create env
+        run: |
+          cat > pixi.toml << 'TOML'
+          [workspace]
+          name = "test"
+          channels = ["conda-forge"]
+          platforms = ["osx-arm64"]
+          [dependencies]
+          clang = "==22.1.8"
+          clangxx = "==22.1.8"
+          lld = "==22.1.8"
+          libcxx = "==22.1.8"
+          libcxx-devel = "==22.1.8"
+          TOML
+          pixi install
+
+      - name: Write test
+        run: |
+          cat > test.cpp << 'CPP'
+          #include <string>
+          #include <unordered_map>
+          int main() {
+              std::unordered_map<std::string, int> m;
+              m["hello"] = 1;
+              return m.size();
+          }
+          CPP
+
+      - name: Baseline native link (control, expect @rpath)
+        run: |
+          pixi run clang++ -std=c++23 -fuse-ld=lld test.cpp -o base
+          otool -L base
+          otool -l base | grep -A2 LC_RPATH || echo "(no rpath)"
+          otool -L base | grep -q '@rpath/libc++' || { echo "control failed: expected @rpath"; exit 1; }
+
+      - name: A sdk libdir prepended
+        run: |
+          SDK=$(xcrun --show-sdk-path)
+          pixi run clang++ -std=c++23 -fuse-ld=lld "-L$SDK/usr/lib" test.cpp -o cand_a
+          otool -L cand_a
+          otool -l cand_a | grep -A2 LC_RPATH || echo "(no rpath)"
+          otool -L cand_a | grep -q '/usr/lib/libc++.1.dylib' || { echo "A failed"; exit 1; }
+          ./cand_a; echo "exit=$?"
+
+      - name: B nostdlib++ plus explicit sdk tbd
+        run: |
+          SDK=$(xcrun --show-sdk-path)
+          pixi run clang++ -std=c++23 -fuse-ld=lld -nostdlib++ \
+            test.cpp "$SDK/usr/lib/libc++.tbd" -o cand_b
+          otool -L cand_b
+          otool -l cand_b | grep -A2 LC_RPATH || echo "(no rpath)"
+          otool -L cand_b | grep -q '/usr/lib/libc++.1.dylib' || { echo "B failed"; exit 1; }
+          ./cand_b; echo "exit=$?"
+
+      - name: A on x64 cross stays clean
+        run: |
+          SDK=$(xcrun --show-sdk-path)
+          pixi run clang++ -std=c++23 -fuse-ld=lld -target x86_64-apple-darwin \
+            "-L$SDK/usr/lib" test.cpp -o cand_a_x64
+          otool -L cand_a_x64
+          otool -L cand_a_x64 | grep -q '/usr/lib/libc++.1.dylib' || { echo "A-x64 failed"; exit 1; }
