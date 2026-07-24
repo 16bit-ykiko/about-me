@@ -1,0 +1,29 @@
+name: test toolchain eval
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    runs-on: macos-15
+    steps:
+      - name: Probe variable state during toolchain evaluation
+        run: |
+          mkdir probe && cd probe
+          cat > tc.cmake << 'EOF'
+          message(STATUS "TCEVAL: SYSTEM_NAME=[${CMAKE_SYSTEM_NAME}] APPLE=[${APPLE}] HOST_APPLE=[${CMAKE_HOST_APPLE}] OSX_ARCH=[${CMAKE_OSX_ARCHITECTURES}]")
+          if(APPLE)
+            message(STATUS "TCEVAL: if(APPLE) branch TAKEN")
+          else()
+            message(STATUS "TCEVAL: if(APPLE) branch SKIPPED")
+          endif()
+          string(APPEND CMAKE_CXX_FLAGS_INIT " -DFROM_TOOLCHAIN_APPLE_GUARD")
+          EOF
+          cat > CMakeLists.txt << 'EOF'
+          cmake_minimum_required(VERSION 3.30)
+          project(p LANGUAGES CXX)
+          message(STATUS "POSTPROJ: APPLE=[${APPLE}] CXX_FLAGS=[${CMAKE_CXX_FLAGS}]")
+          EOF
+          echo "=== native configure ==="
+          cmake -DCMAKE_TOOLCHAIN_FILE=tc.cmake -B build-native . 2>&1 | grep -E "TCEVAL|POSTPROJ"
+          echo "=== x64 cross configure (OSX_ARCHITECTURES) ==="
+          cmake -DCMAKE_TOOLCHAIN_FILE=tc.cmake -DCMAKE_OSX_ARCHITECTURES=x86_64 -B build-x64 . 2>&1 | grep -E "TCEVAL|POSTPROJ"
