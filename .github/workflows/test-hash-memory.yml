@@ -22,8 +22,11 @@ jobs:
           clang = "==22.1.8"
           clangxx = "==22.1.8"
           lld = "==22.1.8"
+          libcxx = "==22.1.8"
+          libcxx-devel = "==22.1.8"
           TOML
           pixi install
+          pixi run clang++ --version
 
       - name: Write test
         run: |
@@ -37,31 +40,54 @@ jobs:
           }
           CPP
 
-      - name: Check undefined symbols (the real test)
+      - name: A repro compile with DISABLE_AVAILABILITY
         run: |
-          echo "=== WITHOUT annotation ==="
-          pixi run clang++ -std=c++23 -c test.cpp -o no_anno.o
-          echo "Undefined hash_memory refs:"
-          nm -u no_anno.o | grep -i hash_memory || echo "(none)"
-          echo "Defined hash_memory:"
-          nm no_anno.o | grep -i "T.*hash_memory" || echo "(none)"
+          # kotatsu's config: must emit an extern ref to the dylib-only symbol
+          pixi run clang++ -std=c++23 -D_LIBCPP_DISABLE_AVAILABILITY -c test.cpp -o repro.o
+          echo "undefined refs:"
+          nm -u repro.o | grep __hash_memory
 
-          echo ""
-          echo "=== WITH annotation ==="
-          pixi run clang++ -std=c++23 -D_LIBCPP_HAS_VENDOR_AVAILABILITY_ANNOTATIONS=1 -c test.cpp -o anno.o
-          echo "Undefined hash_memory refs:"
-          nm -u anno.o | grep -i hash_memory || echo "(none)"
-          echo "Defined hash_memory:"
-          nm anno.o | grep -i "T.*hash_memory" || echo "(none)"
+      - name: B fix compile with default config
+        run: |
+          pixi run clang++ -std=c++23 -c test.cpp -o fix.o
+          if nm -u fix.o | grep __hash_memory; then
+            echo "FAIL: default config still emits extern __hash_memory ref"
+            exit 1
+          fi
+          echo "inline fallback definition:"
+          nm fix.o | grep __hash_memory
 
-          echo ""
-          echo "=== x64 cross WITHOUT annotation ==="
-          pixi run clang++ -std=c++23 -target x86_64-apple-darwin -c test.cpp -o x64_no.o
-          echo "Undefined hash_memory refs:"
-          nm -u x64_no.o | grep -i hash_memory || echo "(none)"
+      - name: C repro x64 cross link must fail
+        run: |
+          # mirrors clice cross-test/macos-x64: no conda x64 dylib, lld falls
+          # back to the SDK libc++.tbd which lacks __hash_memory
+          if pixi run clang++ -std=c++23 -fuse-ld=lld -target x86_64-apple-darwin \
+               -D_LIBCPP_DISABLE_AVAILABILITY test.cpp -o repro_x64 2> link_err.txt; then
+            echo "UNEXPECTED: x64 link succeeded with DISABLE_AVAILABILITY"
+            exit 1
+          fi
+          echo "link failed as expected:"
+          grep __hash_memory link_err.txt
 
-          echo ""
-          echo "=== x64 cross WITH annotation ==="
-          pixi run clang++ -std=c++23 -target x86_64-apple-darwin -D_LIBCPP_HAS_VENDOR_AVAILABILITY_ANNOTATIONS=1 -c test.cpp -o x64_anno.o
-          echo "Undefined hash_memory refs:"
-          nm -u x64_anno.o | grep -i hash_memory || echo "(none)"
+      - name: D fix x64 cross link must succeed
+        run: |
+          pixi run clang++ -std=c++23 -fuse-ld=lld -target x86_64-apple-darwin \
+            test.cpp -o fix_x64
+          echo "x64 link OK"
+          nm -u fix_x64 | grep __hash_memory && exit 1 || echo "no runtime dep on __hash_memory"
+
+      - name: E native link with DISABLE_AVAILABILITY (informational)
+        run: |
+          # native arm64 links against conda's libc++ which exports the symbol,
+          # so the link passes but the binary needs conda's dylib at runtime —
+          # this is why clice native CI was green while editor-test failed
+          if pixi run clang++ -std=c++23 -fuse-ld=lld -D_LIBCPP_DISABLE_AVAILABILITY \
+               test.cpp -o repro_native 2> native_err.txt; then
+            echo "linked libraries:"
+            otool -L repro_native
+            echo "runtime undefined refs:"
+            nm -u repro_native | grep __hash_memory || echo "(none)"
+          else
+            echo "native link failed:"
+            cat native_err.txt
+          fi
