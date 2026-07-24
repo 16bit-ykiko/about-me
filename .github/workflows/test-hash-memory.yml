@@ -1,0 +1,56 @@
+name: test hash_memory
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        include:
+          - os: macos-15
+            arch: native
+          - os: macos-15
+            arch: x64-cross
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Write test file
+        run: |
+          cat > test.cpp << 'CPP'
+          #include <string>
+          #include <unordered_map>
+          int main() {
+              std::unordered_map<std::string, int> m;
+              m["hello"] = 1;
+              return m.size();
+          }
+          CPP
+
+      - name: Test WITHOUT annotation (expect __hash_memory in dylib)
+        run: |
+          echo "=== No annotation ==="
+          clang++ -std=c++23 -c test.cpp -o test_no_anno.o
+          nm test_no_anno.o | grep -i hash_memory && echo "REFERENCES __hash_memory" || echo "NO __hash_memory reference"
+
+      - name: Test WITH vendor annotation
+        run: |
+          echo "=== With _LIBCPP_HAS_VENDOR_AVAILABILITY_ANNOTATIONS=1 ==="
+          clang++ -std=c++23 -D_LIBCPP_HAS_VENDOR_AVAILABILITY_ANNOTATIONS=1 -c test.cpp -o test_anno.o
+          nm test_anno.o | grep -i hash_memory && echo "REFERENCES __hash_memory" || echo "NO __hash_memory reference"
+
+      - name: Test x64 cross (if applicable)
+        if: matrix.arch == 'x64-cross'
+        run: |
+          echo "=== x64 cross WITHOUT annotation ==="
+          clang++ -std=c++23 -arch x86_64 -c test.cpp -o test_x64_no.o
+          nm test_x64_no.o | grep -i hash_memory && echo "REFERENCES __hash_memory" || echo "NO __hash_memory reference"
+
+          echo "=== x64 cross WITH annotation ==="
+          clang++ -std=c++23 -arch x86_64 -D_LIBCPP_HAS_VENDOR_AVAILABILITY_ANNOTATIONS=1 -c test.cpp -o test_x64_anno.o
+          nm test_x64_anno.o | grep -i hash_memory && echo "REFERENCES __hash_memory" || echo "NO __hash_memory reference"
+
+      - name: Check deployment target
+        run: |
+          echo "=== Deployment target check ==="
+          clang++ -dM -E -x c++ /dev/null 2>/dev/null | grep -i "MAC_OS_X_VERSION\|ENVIRONMENT"
+          echo "---"
+          clang++ -arch x86_64 -dM -E -x c++ /dev/null 2>/dev/null | grep -i "MAC_OS_X_VERSION\|ENVIRONMENT" || true
