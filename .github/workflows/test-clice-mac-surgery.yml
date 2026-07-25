@@ -1,0 +1,38 @@
+name: test clice mac surgery
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    runs-on: macos-15
+    steps:
+      - name: Checkout clice branch
+        uses: actions/checkout@v7
+        with:
+          repository: clice-io/clice
+          ref: refactor/cxx20-modules
+          persist-credentials: false
+
+      - name: Checkout patched kotatsu
+        uses: actions/checkout@v7
+        with:
+          repository: clice-io/kotatsu
+          ref: fmt-vformat-surgery
+          path: kotatsu-surgery
+          persist-credentials: false
+
+      - uses: ./.github/actions/setup-pixi
+        with:
+          environments: default
+          activate-environment: default
+
+      - name: Configure with patched kotatsu
+        run: |
+          pixi run cmake -B build/RelWithDebInfo -G Ninja \
+            -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+            -DCLICE_ENABLE_TEST=ON \
+            -DCLICE_CI_ENVIRONMENT=ON \
+            -DFETCHCONTENT_SOURCE_DIR_KOTATSU="$PWD/kotatsu-surgery"
+
+      - name: Build
+        run: pixi run cmake --build build/RelWithDebInfo --target unit_tests clice 2>&1 | tail -30
