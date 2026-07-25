@@ -26,4 +26,4 @@ jobs:
             -DCLICE_CI_ENVIRONMENT=ON
 
       - name: Build
-        run: set -o pipefail; pixi run cmake --build build/RelWithDebInfo --target unit_tests clice 2>&1 | tail -40
+        run: pixi run cmake --build build/RelWithDebInfo --target unit_tests clice
