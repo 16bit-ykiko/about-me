@@ -1,4 +1,4 @@
-name: test clice mac surgery
+name: test clice mac libcxx patch
 
 on: workflow_dispatch
 
@@ -13,14 +13,6 @@ jobs:
           ref: refactor/cxx20-modules
           persist-credentials: false
 
-      - name: Checkout patched kotatsu
-        uses: actions/checkout@v7
-        with:
-          repository: clice-io/kotatsu
-          ref: fmt-vformat-surgery
-          path: kotatsu-surgery
-          persist-credentials: false
-
       - uses: ./.github/actions/setup-pixi
         with:
           environments: default
@@ -31,8 +23,7 @@ jobs:
           pixi run cmake -B build/RelWithDebInfo -G Ninja \
             -DCMAKE_BUILD_TYPE=RelWithDebInfo \
             -DCLICE_ENABLE_TEST=ON \
-            -DCLICE_CI_ENVIRONMENT=ON \
-            -DFETCHCONTENT_SOURCE_DIR_KOTATSU="$PWD/kotatsu-surgery"
+            -DCLICE_CI_ENVIRONMENT=ON
 
       - name: Build
         run: set -o pipefail; pixi run cmake --build build/RelWithDebInfo --target unit_tests clice 2>&1 | tail -40
