@@ -1,0 +1,82 @@
+name: test format poison
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    runs-on: macos-15
+    steps:
+      - name: Setup pixi
+        uses: prefix-dev/setup-pixi@v0.8.1
+        with:
+          run-install: false
+
+      - name: Create env
+        run: |
+          cat > pixi.toml << 'TOML'
+          [workspace]
+          name = "test"
+          channels = ["conda-forge"]
+          platforms = ["osx-arm64"]
+          [dependencies]
+          clang = "==22.1.8"
+          clangxx = "==22.1.8"
+          lld = "==22.1.8"
+          libcxx = "==22.1.8"
+          libcxx-devel = "==22.1.8"
+          TOML
+          pixi install
+          pixi run clang++ --version
+
+      - name: Write repro
+        run: |
+          cat > tmpl.h << 'CPP'
+          #pragma once
+          #include <format>
+          #include <string>
+          #include <string_view>
+          template <class T>
+          std::string usage(const T& v) {
+              return std::format("{} {}", std::string("x"), std::string_view(v));
+          }
+          CPP
+          cat > wrap.cppm << 'CPP'
+          module;
+          #include "tmpl.h"
+          export module wrap;
+          export using ::usage;
+          export namespace std { using ::std::string; using ::std::vformat; using ::std::make_format_args; using ::std::format_string; }
+          CPP
+          cat > main.cpp << 'CPP'
+          import wrap;
+          int main() { return usage(std::string("y")).size() > 0 ? 0 : 1; }
+          CPP
+          cat > main_textual.cpp << 'CPP'
+          #include "tmpl.h"
+          int main() { return usage(std::string("y")).size() > 0 ? 0 : 1; }
+          CPP
+
+      - name: Run variants
+        run: |
+          CXX="pixi run clang++"
+          FLAGS="-std=c++23 -stdlib=libc++"
+          run_variant() {
+            name=$1; shift
+            if "$@" > /tmp/$name.log 2>&1; then echo "VERDICT $name: PASS"; else echo "VERDICT $name: FAIL"; tail -5 /tmp/$name.log; fi
+          }
+          v() { pixi run clang++ -std=c++23 -stdlib=libc++ "$@"; }
+          run_variant v0_textual v -c main_textual.cpp -o /tmp/t0.o
+          v --precompile -fno-modules-reduced-bmi wrap.cppm -o wrap_full.pcm
+          run_variant v1_module_fullbmi v -fno-modules-reduced-bmi -fmodule-file=wrap=wrap_full.pcm -c main.cpp -o /tmp/t1.o
+          v --precompile -fno-modules-reduced-bmi -D_LIBCPP_HAS_NO_WIDE_CHARACTERS wrap.cppm -o wrap_nw.pcm || echo "VERDICT v2_prep: FAIL"
+          run_variant v2_no_wchar v -fno-modules-reduced-bmi -D_LIBCPP_HAS_NO_WIDE_CHARACTERS -fmodule-file=wrap=wrap_nw.pcm -c main.cpp -o /tmp/t2.o
+          v --precompile -fmodules-reduced-bmi wrap.cppm -o wrap_red.pcm
+          run_variant v3_reduced_bmi v -fmodules-reduced-bmi -fmodule-file=wrap=wrap_red.pcm -c main.cpp -o /tmp/t3.o
+          cat > main4.cpp << 'CPP'
+          import wrap;
+          template <class... A>
+          std::string myfmt(std::format_string<A...> f, A&&... a) { return std::vformat(f.get(), std::make_format_args(a...)); }
+          int main() { return myfmt("{}", std::string("y")).size() > 0 ? 0 : 1; }
+          CPP
+          run_variant v4_vformat_path v -fno-modules-reduced-bmi -fmodule-file=wrap=wrap_full.pcm -c main4.cpp -o /tmp/t4.o || true
+          echo done

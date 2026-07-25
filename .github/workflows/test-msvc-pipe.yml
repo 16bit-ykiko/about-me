@@ -1,0 +1,96 @@
+name: test msvc pipe
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    runs-on: windows-2025
+    steps:
+      - name: MSVC env
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Setup pixi
+        uses: prefix-dev/setup-pixi@v0.8.1
+        with:
+          run-install: false
+
+      - name: Create env
+        shell: bash
+        run: |
+          cat > pixi.toml << 'TOML'
+          [workspace]
+          name = "test"
+          channels = ["conda-forge"]
+          platforms = ["win-64"]
+          [dependencies]
+          clang = "==22.1.8"
+          clangxx = "==22.1.8"
+          lld = "==22.1.8"
+          TOML
+          pixi install
+          pixi run clang++ --version
+
+      - name: Write repro
+        shell: bash
+        run: |
+          cat > wrap.cppm << 'CPP'
+          module;
+          #include <ranges>
+          #include <vector>
+          export module wrap;
+          export namespace std { using ::std::vector; }
+          export namespace std::ranges::views { using ::std::ranges::views::drop; }
+          CPP
+          cat > wrap2.cppm << 'CPP'
+          module;
+          #include <ranges>
+          #include <vector>
+          export module wrap;
+          export namespace std { using ::std::vector; }
+          export namespace std::ranges { using ::std::ranges::range_adaptor_closure; }
+          export namespace std::ranges::views { using ::std::ranges::views::drop; }
+          CPP
+          cat > main_pipe.cpp << 'CPP'
+          import wrap;
+          int main() {
+              std::vector<int> v{1, 2, 3};
+              auto t = v | std::ranges::views::drop(1);
+              int s = 0; for (int x : t) s += x;
+              return s == 5 ? 0 : 1;
+          }
+          CPP
+          cat > main_fn.cpp << 'CPP'
+          import wrap;
+          int main() {
+              std::vector<int> v{1, 2, 3};
+              auto t = std::ranges::views::drop(v, 1);
+              int s = 0; for (int x : t) s += x;
+              return s == 5 ? 0 : 1;
+          }
+          CPP
+          cat > main_textual.cpp << 'CPP'
+          #include <ranges>
+          #include <vector>
+          int main() {
+              std::vector<int> v{1, 2, 3};
+              auto t = v | std::ranges::views::drop(1);
+              int s = 0; for (int x : t) s += x;
+              return s == 5 ? 0 : 1;
+          }
+          CPP
+
+      - name: Run variants
+        shell: bash
+        run: |
+          v() { pixi run clang++ -std=c++23 -fno-modules-reduced-bmi "$@"; }
+          run_variant() {
+            name=$1; shift
+            if "$@" > /tmp/$name.log 2>&1; then echo "VERDICT $name: PASS"; else echo "VERDICT $name: FAIL"; tail -8 /tmp/$name.log; fi
+          }
+          run_variant v0_textual v -c main_textual.cpp -o t0.o
+          v --precompile wrap.cppm -o wrap.pcm
+          run_variant v1_pipe_module v -fmodule-file=wrap=wrap.pcm -c main_pipe.cpp -o t1.o
+          run_variant v2_fn_form v -fmodule-file=wrap=wrap.pcm -c main_fn.cpp -o t2.o
+          v --precompile wrap2.cppm -o wrap2.pcm
+          run_variant v3_export_closure v -fmodule-file=wrap=wrap2.pcm -c main_pipe.cpp -o t3.o
+          echo done
