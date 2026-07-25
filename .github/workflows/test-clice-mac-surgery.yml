@@ -35,4 +35,4 @@ jobs:
             -DFETCHCONTENT_SOURCE_DIR_KOTATSU="$PWD/kotatsu-surgery"
 
       - name: Build
-        run: pixi run cmake --build build/RelWithDebInfo --target unit_tests clice 2>&1 | tail -30
+        run: set -o pipefail; pixi run cmake --build build/RelWithDebInfo --target unit_tests clice 2>&1 | tail -40
