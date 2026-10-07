@@ -175,6 +175,19 @@
 
 <article class="post-entry">
   <header class="entry-header">
+    <h2 class="entry-hint-parent">从 import std 开始：现代 C&#43;&#43; 工具链最佳实践
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p> TL;DR：我们做了一个开箱即用、可以交叉编译的 Clang 工具链 xclang。一个 86～94 MB 的下载包带齐了 Linux、Windows 和 macOS 各自 x64 和 arm64 一共 6 个平台的 sysroot 和运行时，全平台统一使用 Clang &#43; libc&#43;&#43;，C&#43;&#43; 运行时静态链接进程序。import std 在 CMake 和 Bazel 里都能直接用，只要有 CMake 和 Ninja，几行 FetchContent 就能试。Apple 和微软的 SDK 由用户用 xclang sdk fetch 从官方下载，之后在任何平台上都能编译 macOS 和 MSVC 目标。Clang 和 lld 在所有平台上都做了 PGO &#43; ThinLTO，编译 C&#43;&#43; 的速度在 Linux 和 macOS 上和 LLVM 官方发布版持平，在 Windows 上更快
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-10-07 02:40:30 +0000 UTC'>2026-10-07</span>&nbsp;·&nbsp;<span>更新于 2026-10-07</span>&nbsp;·&nbsp;<span>22 min</span>&nbsp;·&nbsp;<span>10806 words</span>&nbsp;·&nbsp;<span>ykiko</span></footer>
+  <a class="entry-link" aria-label="post link to 从 import std 开始：现代 C&#43;&#43; 工具链最佳实践" href="https://www.ykiko.me/zh-cn/articles/2090994886531100694/"></a>
+</article>
+
+<article class="post-entry">
+  <header class="entry-header">
     <h2 class="entry-hint-parent">语言服务器之外
     </h2>
   </header>

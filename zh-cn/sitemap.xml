@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.ykiko.me/zh-cn/</loc>
-    <lastmod>2026-08-12T10:42:55+00:00</lastmod>
+    <lastmod>2026-10-07T03:18:10+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -17,8 +17,13 @@
                 href="https://www.ykiko.me/zh-cn/"
                 />
   </url><url>
+    <loc>https://www.ykiko.me/zh-cn/articles/2090994886531100694/</loc>
+    <lastmod>2026-10-07T03:18:10+00:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://www.ykiko.me/zh-cn/articles/</loc>
-    <lastmod>2026-08-12T10:42:55+00:00</lastmod>
+    <lastmod>2026-10-07T03:18:10+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link

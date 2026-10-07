@@ -6,8 +6,16 @@
     <description>Recent content on ykiko&#39;s blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 12 Aug 2026 10:42:55 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 07 Oct 2026 03:18:10 +0000</lastBuildDate>
     <atom:link href="https://www.ykiko.me/zh-cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>从 import std 开始：现代 C&#43;&#43; 工具链最佳实践</title>
+      <link>https://www.ykiko.me/zh-cn/articles/2090994886531100694/</link>
+      <pubDate>Wed, 07 Oct 2026 02:40:30 +0000</pubDate>
+      <guid>https://www.ykiko.me/zh-cn/articles/2090994886531100694/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;TL;DR：我们做了一个开箱即用、可以交叉编译的 Clang 工具链 &lt;a href=&#34;https://github.com/clice-io/xclang&#34;&gt;xclang&lt;/a&gt;。一个 86～94 MB 的下载包带齐了 Linux、Windows 和 macOS 各自 x64 和 arm64 一共 6 个平台的 sysroot 和运行时，全平台统一使用 Clang + libc++，C++ 运行时静态链接进程序。&lt;code&gt;import std&lt;/code&gt; 在 CMake 和 Bazel 里都能直接用，只要有 CMake 和 Ninja，几行 FetchContent 就能试。Apple 和微软的 SDK 由用户用 &lt;code&gt;xclang sdk fetch&lt;/code&gt; 从官方下载，之后在任何平台上都能编译 macOS 和 MSVC 目标。Clang 和 lld 在所有平台上都做了 PGO + ThinLTO，编译 C++ 的速度在 Linux 和 macOS 上和 LLVM 官方发布版持平，在 Windows 上更快&lt;/p&gt;</description>
+    </item>
     <item>
       <title>语言服务器之外</title>
       <link>https://www.ykiko.me/zh-cn/articles/2069934520514749368/</link>
